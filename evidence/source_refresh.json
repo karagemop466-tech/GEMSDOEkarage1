@@ -1,0 +1,69 @@
+{
+  "retrieved_utc": "2026-10-27T21:07:03.059920+00:00",
+  "classification": "repository claims, not independently verified organizer results",
+  "sites": [
+    {
+      "site": "GEMSDOE24",
+      "commit": "a73f9ffba29260cc7708e8e0557c84c5bea7d47b",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE24/blob/a73f9ffba29260cc7708e8e0557c84c5bea7d47b/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE24.md"
+    },
+    {
+      "site": "GEMSDOE25",
+      "commit": "b13ccabae15d4951854d47cb35e17322e7537b64",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE25/blob/b13ccabae15d4951854d47cb35e17322e7537b64/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE25.md"
+    },
+    {
+      "site": "GEMSDOE27",
+      "commit": "4f34228a9f39e99da592aa34fd835c96d1b693f5",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE27/blob/4f34228a9f39e99da592aa34fd835c96d1b693f5/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE27.md"
+    },
+    {
+      "site": "GEMSDOE28",
+      "commit": "4955e29c7b66503ba2178b25d356d713dc1bc534",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE28/blob/4955e29c7b66503ba2178b25d356d713dc1bc534/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE28.md"
+    },
+    {
+      "site": "GEMSDOE30",
+      "commit": "d21ddd9502f3c3911e8d77b8f1e6abfaadffc876",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE30/blob/d21ddd9502f3c3911e8d77b8f1e6abfaadffc876/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE30.md"
+    },
+    {
+      "site": "GEMSDOE31",
+      "commit": "88ec212955353f7590e94b8ef2a9763ffa035d45",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE31/blob/88ec212955353f7590e94b8ef2a9763ffa035d45/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE31.md"
+    },
+    {
+      "site": "GEMSDOE32",
+      "commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE32/blob/73485f27cf230af770167397c2b72cb9ce3b3f25/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE32.md"
+    },
+    {
+      "site": "GEMSDOE33",
+      "commit": "844f514819041c7be9efd345a24cf5cd70263f00",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE33/blob/844f514819041c7be9efd345a24cf5cd70263f00/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE33.md"
+    },
+    {
+      "site": "GEMSDOE36",
+      "commit": "7edcc9b58e6ad0f88c6e6f5ee9218761a391769d",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE36/blob/7edcc9b58e6ad0f88c6e6f5ee9218761a391769d/README.md",
+      "status": "retrieved",
+      "local": "evidence/sources/GEMSDOE36.md"
+    }
+  ]
+}
