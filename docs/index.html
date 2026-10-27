@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEMSDOEkarage1 — DOE GEMS Prize Challenge pipeline</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">GEMSDOEkarage1</a>
+  <nav>
+    <a href="executive-summary.html">Executive summary &amp; how to submit</a>
+    <a href="https://github.com/karagemop466-tech/GEMSDOEkarage1">Source code</a>
+    <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition</a>
+  </nav>
+</header>
+<main>
+  <span class="badge warn">No competitive candidate yet — see why below</span>
+  <h1>A transparent pipeline for the DOE GEMS Prize Challenge</h1>
+  <p class="lede">
+    This repo implements the official metric, grid, submission writer and
+    validator for
+    <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData
+    competition&nbsp;#306</a> — finding geologic faults missing from the
+    USGS/INGENIOUS catalogue to accelerate hidden geothermal discovery in
+    the GeoDAWN survey area of NW Nevada — and is honest, in public, about
+    exactly what is and is not yet verified.
+  </p>
+
+  <div class="card">
+    <h3>Download the one safe, ready-to-upload file in this repo</h3>
+    <p>
+      A format-perfect, all-zero baseline GeoTIFF on the competition's grid.
+      It fixes the previously-reported upload error
+      <code>"Predicted values must be in range [0, 1]"</code> by
+      construction — every pixel is finite and in <code>[0, 1]</code>,
+      guaranteed by an automated validator, no human check required. It is
+      <strong>not</strong> a competitive entry (it predicts no faults at
+      all; true score = 0) — it exists to prove the pipeline works end to
+      end.
+    </p>
+    <a class="cta" href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/arena/48c50a19-gemsdoekarage1/outputs/baseline/gems-karage1-format-baseline-zero-v1.tif">⬇ Download the format-baseline GeoTIFF</a>
+    <a class="cta secondary" href="executive-summary.html#how-to-submit">How to actually submit it (step by step) →</a>
+  </div>
+
+  <h2>Why there isn't a higher-scoring file to download yet</h2>
+  <p>
+    Short version: generating one honestly requires the real competition
+    data (<code>training_features.tif</code>, <code>labels.tif</code>), and
+    this environment has no DrivenData account configured and cannot reach
+    <code>drivendata.org</code>'s authenticated data tab, Dropbox, or
+    USGS/OpenEI's binary file hosts from its sandboxed network. We verified
+    this live rather than assuming it — see
+    <a href="../docs/LIMITATIONS.md">LIMITATIONS.md</a> for the exact
+    commands and results. Fabricating a "better-looking" raster without
+    real underlying data would be a hallucinated result, which we were
+    explicitly told never to produce. See the
+    <a href="executive-summary.html">executive summary</a> for the full,
+    sourced reasoning and the prioritized plan to close this gap.
+  </p>
+
+  <h2>What's in this repo</h2>
+  <table>
+    <tr><th>Path</th><th>What it is</th></tr>
+    <tr><td><code>src/gems/metric.py</code></td><td>The official distance-weighted Tversky index, implemented from the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">published formula</a> and unit-tested against its own worked example.</td></tr>
+    <tr><td><code>src/gems/grid.py</code></td><td>The competition's output grid (EPSG:32611, 100 m, 3730×3292) — official CRS/resolution rule + cross-replicated exact shape/transform (see <a href="../docs/LIMITATIONS.md">limitations</a>).</td></tr>
+    <tr><td><code>src/gems/validator.py</code></td><td>Automated format gate: CRS, shape, transform, dtype, finiteness, and the <code>[0,1]</code> range check that previously failed.</td></tr>
+    <tr><td><code>src/gems/submission_writer.py</code></td><td>Writes a GeoTIFF that cannot contain an out-of-range pixel.</td></tr>
+    <tr><td><code>research/hypotheses.md</code></td><td>Five new, ranked, sourced geological hypotheses not yet tried by any reviewed sibling site.</td></tr>
+    <tr><td><code>research/sibling_site_audit.md</code></td><td>Line-by-line, cited audit of nine "GEMSDOE" sibling research sites and the real public leaderboard.</td></tr>
+    <tr><td><code>docs/SOURCES.md</code></td><td>Every citation used anywhere in this repo, each independently fetched and verified live.</td></tr>
+  </table>
+
+  <h2>Core values driving this project</h2>
+  <div class="card">
+    <h3>Maximize P(Win)</h3>
+    <p class="small">Every decision weighs tradeoffs and risk against what actually raises the probability of a top-of-leaderboard result — not what merely produces the most output.</p>
+    <h3>Own the Outcome</h3>
+    <p class="small">We report blockers and irregularities explicitly rather than hiding them, and we don't wait for permission to fix a shared tool or flag a bad assumption.</p>
+  </div>
+</main>
+<footer class="site">
+  Not affiliated with DrivenData, the U.S. Department of Energy, or the USGS.
+  All claims are sourced in <a href="../docs/SOURCES.md">docs/SOURCES.md</a>.
+</footer>
+</body>
+</html>

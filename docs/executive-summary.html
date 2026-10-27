@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive summary &amp; how to submit — GEMSDOEkarage1</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">GEMSDOEkarage1</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="https://github.com/karagemop466-tech/GEMSDOEkarage1">Source code</a>
+  </nav>
+</header>
+<main>
+  <h1>Executive summary</h1>
+  <p class="lede">One page, answering: what should I download, what will it
+  score, is it unique, and exactly how do I submit it.</p>
+
+  <h2 id="download-table">What to download, estimated score, uniqueness</h2>
+  <table>
+    <tr><th>File</th><th>Estimated score</th><th>Unique vs. all reviewed GEMSDOE sibling sites?</th><th>Safe to submit?</th></tr>
+    <tr>
+      <td><code>outputs/baseline/gems-karage1-format-baseline-zero-v1.tif</code> (<a href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/arena/48c50a19-gemsdoekarage1/outputs/baseline/gems-karage1-format-baseline-zero-v1.tif">download</a>)</td>
+      <td><span class="badge good">ANALYTIC = 0.0000</span><br><span class="small">Exact, not estimated: for an all-zero prediction, TPw=0 and FNw=|ground truth|, so DTI = 0 for any non-empty ground truth, by the official formula itself.</span></td>
+      <td><span class="badge good">YES</span> — trivially: it is byte-distinct from, and shares zero "positive dot" pixels with, every sibling-site raster we reviewed (it has none).</td>
+      <td><span class="badge warn">Format-safe, not competitive.</span> Fine to upload once, as a pipeline sanity check and to confirm your account/CRS/shape alignment; do not expect it to move you up the leaderboard.</td>
+    </tr>
+    <tr>
+      <td>Any GEMSDOE24/25/27/28/30/31/32/33/36 file (see table below)</td>
+      <td>0.2449–0.2778, but labeled <strong>OWNER-REPORTED/USER-REPORTED by the sites themselves</strong>, with <strong>no organizer receipt</strong></td>
+      <td><span class="badge bad">NO</span> for essentially every file — each site's own duplicate-detection gate found &gt;70–100% 3‑px overlap with at least one other site's raster.</td>
+      <td><span class="badge bad">NO — every site's own current verdict is "DO NOT SUBMIT."</span></td>
+    </tr>
+  </table>
+  <p class="small">Full reasoning, citations, and the complete nine-site breakdown: <a href="../research/sibling_site_audit.md">research/sibling_site_audit.md</a>.</p>
+
+  <h2>Why we will not hand you a "beats 0.2778" file today</h2>
+  <p>
+    We can explain, with high confidence and full citations, <strong>why</strong>
+    GEMSDOE32's 0.2778 claim happened (see the analysis in
+    <a href="../research/sibling_site_audit.md">research/sibling_site_audit.md</a>):
+    the distance-weighted Tversky metric rewards a small number of
+    high-confidence points placed within 300&nbsp;m of known fault geometry
+    far more cheaply than it penalizes being wrong elsewhere, so a
+    sparse "pack dots near catalogue-adjacent structure" strategy can reach
+    ~0.25–0.28 on a self-reported, non-organizer holdout — while the sites'
+    own <em>off-catalogue</em> diagnostics for the same files collapse to
+    ~0.04–0.09, implying that strategy mostly rediscovers the existing
+    catalogue rather than finding genuinely new faults. The real,
+    organizer-confirmed public leaderboard (fetched live, no login needed:
+    <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a>)
+    tops out at <strong>0.4544</strong>, 40–65% higher, almost certainly from
+    dense, trained probability models (like the
+    <a href="https://github.com/drivendataorg/gems-prize-reference-solution">official
+    reference U-Net</a>) that generalize past the catalogue.
+  </p>
+  <p>
+    Generating a genuinely better file requires the real
+    <code>training_features.tif</code>/<code>labels.tif</code>, which this
+    environment cannot download (no DrivenData login configured here, and
+    the sandbox's network allowlist does not include
+    <code>drivendata.org</code>, Dropbox, or USGS/OpenEI's binary hosts —
+    verified live, see <a href="../docs/LIMITATIONS.md">LIMITATIONS.md</a>).
+    We built the entire pipeline (metric, grid, writer, validator, tests)
+    so that the moment that one credentialed download happens, a real
+    candidate can be engineered, holdout-tested, and submitted the same day.
+    Five specific, ranked, sourced ideas to try first are in
+    <a href="../research/hypotheses.md">research/hypotheses.md</a>.
+  </p>
+
+  <h2 id="how-to-submit">How to make a submission to the contest</h2>
+  <ol class="steps">
+    <li><strong>Enroll.</strong> Create a free DrivenData account and click
+      "Compete!" on the
+      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">competition
+      page</a>.</li>
+    <li><strong>Download the real data.</strong> From the
+      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/">data
+      tab</a> (requires login), save <code>training_features.tif</code>,
+      <code>labels.tif</code>, <code>sample_submission.tif</code>, and
+      <code>1m_DEM_links.csv</code> into this repo's <code>data/</code>
+      folder.</li>
+    <li><strong>Check the grid.</strong> Run
+      <code>python scripts/prepare_data.py</code>. It compares the real
+      files against this repo's cached grid constant
+      (<code>src/gems/grid.py</code>) and tells you immediately if they
+      don't match — fix the constant from the real file, never the other
+      way around.</li>
+    <li><strong>Build a candidate.</strong> Engineer features and train/fit
+      a model (start from the
+      <a href="https://github.com/drivendataorg/gems-prize-reference-solution">reference
+      U-Net solution</a> or implement a hypothesis from
+      <a href="../research/hypotheses.md">research/hypotheses.md</a>).</li>
+    <li><strong>Score it honestly, offline, first.</strong> Use
+      <code>src/gems/metric.distance_weighted_tversky_index</code> against a
+      spatially-blocked, whole-fault-segment holdout (never a random pixel
+      split — that leaks). Run the leakage canary on every new feature
+      alone (reject anything scoring &gt;0.90 AUC by itself, it's probably
+      leaking).</li>
+    <li><strong>Write the file.</strong> Use
+      <code>src/gems/submission_writer.write_submission</code>, which
+      guarantees a single-band float32 GeoTIFF, correct CRS/shape/transform,
+      and every pixel clipped and sanitized into <code>[0, 1]</code> —
+      this is what prevents the <code>"Predicted values must be in range
+      [0, 1]"</code> error.</li>
+    <li><strong>Validate before you click submit.</strong> Run
+      <code>python scripts/validate_submission.py path/to/your_candidate.tif</code>.
+      Do not upload anything that doesn't print <code>all_checks_passed:
+      true</code>.</li>
+    <li><strong>Upload it.</strong> On the competition's "Submit" page,
+      choose your <code>.tif</code> (or a <code>.zip</code> containing
+      exactly one GeoTIFF). Give it a <strong>unique submission name</strong>
+      (e.g. <code>h-a-coulomb-tendency-v1</code>) and, in the optional
+      <strong>Note</strong> field, a short (&le;140 character) description a
+      teammate could use to tell it apart later (e.g. <code>"H-A Coulomb
+      slip/dilation-tendency filter on gravity+magnetics ridges,
+      alpha=0.2/beta=0.8 holdout DTI 0.xx"</code>).</li>
+    <li><strong>Pick your one final submission carefully.</strong> Per the
+      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#competition-structure">official
+      competition structure</a>, you choose a single submission for scoring
+      across both the Initial and Final Prize Rounds before the deadline,
+      without knowing your private-test performance — don't spend your pick
+      on an unvalidated idea.</li>
+  </ol>
+
+  <h2>Nine-site sibling audit (GEMSDOE24, 25, 27, 28, 30, 31, 32, 33, 36)</h2>
+  <p class="small">Condensed from <a href="../research/sibling_site_audit.md">research/sibling_site_audit.md</a>, which has full citations and quotes for every cell.</p>
+  <table>
+    <tr><th>Site</th><th>Reported value</th><th>Unique vs. other 8?</th><th>Submit?</th></tr>
+    <tr><td>GEMSDOE24</td><td>0.2477 OWNER-REPORTED/UNVERIFIED</td><td>No (99.8–100% overlap)</td><td><span class="badge bad">NO</span></td></tr>
+    <tr><td>GEMSDOE25</td><td>0.2600 OWNER-REPORTED/UNVERIFIED</td><td>No (100% overlap)</td><td><span class="badge bad">NO</span></td></tr>
+    <tr><td>GEMSDOE27</td><td>0.2449 OWNER-REPORTED/UNVERIFIED</td><td>Scope-limited pass only</td><td><span class="badge bad">NO</span></td></tr>
+    <tr><td>GEMSDOE28</td><td>0.2710 USER-REPORTED/UNVERIFIED</td><td>No (100% overlap)</td><td><span class="badge bad">NO</span></td></tr>
+    <tr><td>GEMSDOE30</td><td>0.2600 OWNER-REPORTED/UNVERIFIED</td><td>No (99.99% overlap)</td><td><span class="badge bad">NO</span></td></tr>
+    <tr><td>GEMSDOE31</td><td>0.2708 USER-REPORTED/UNVERIFIED</td><td>No (99.3–99.9% overlap)</td><td><span class="badge bad">NO</span></td></tr>
+    <tr><td>GEMSDOE32</td><td>0.2778 OWNER-REPORT — site itself says "no submission-page receipt"</td><td>N/A — already submitted historically, site says don't resubmit</td><td><span class="badge bad">NO</span></td></tr>
+    <tr><td>GEMSDOE33</td><td>0.2632 OWNER-REPORTED/UNVERIFIED</td><td>Yes vs. its local 21-raster registry</td><td><span class="badge bad">NO</span> — its own newest holdout is negative</td></tr>
+    <tr><td>GEMSDOE36</td><td>0.2750 OWNER-REPORTED/UNVERIFIED (older run); 0.1942 is its best internal, non-organizer HOLDOUT-DTI</td><td>Passes one 70% rule, fails a separate 5‑px lattice check at 99.35%</td><td><span class="badge bad">NO</span></td></tr>
+  </table>
+
+  <h2>Irregularities flagged</h2>
+  <ul>
+    <li>The brief states two different "current leaderboard high score"
+      values (0.4413, then later 0.3195). The <strong>live, fetched, real</strong>
+      leaderboard top score is <strong>0.4544</strong> — neither figure in
+      the brief matches it.</li>
+    <li>Every one of the nine sibling sites explicitly labels its own
+      headline number as unverified/no-receipt, yet those numbers were
+      supplied to us framed as results to beat — we are treating them as
+      exactly what their own authors say they are: unverified claims.</li>
+    <li>This repository had a one-line README and no other files before
+      this session — it is not a continuation of the sibling sites'
+      codebases.</li>
+  </ul>
+  <p class="small">Full detail: <a href="../docs/LIMITATIONS.md">docs/LIMITATIONS.md</a>, <a href="../docs/SOURCES.md">docs/SOURCES.md</a>.</p>
+
+  <h2>Next steps (priority order)</h2>
+  <ol class="steps">
+    <li>A human with a DrivenData account downloads the four real data
+      files into <code>data/</code> (the one step this environment
+      genuinely cannot do itself).</li>
+    <li>Run <code>scripts/prepare_data.py</code> to confirm/correct the
+      grid constant against the real <code>sample_submission.tif</code>.</li>
+    <li>Implement hypothesis H-A (Coulomb slip/dilation-tendency filter,
+      <a href="../research/hypotheses.md">research/hypotheses.md</a>) —
+      highest ranked expected improvement for its implementation cost, and
+      its one external dataset is already confirmed free and obtainable.</li>
+    <li>Holdout-validate H-A with a spatially-blocked, whole-segment,
+      buffered split before it is allowed to spend a real submission slot.</li>
+    <li>Only then promote to an actual DrivenData upload, named and noted
+      per the "How to submit" steps above.</li>
+  </ol>
+</main>
+<footer class="site">
+  Not affiliated with DrivenData, the U.S. Department of Energy, or the USGS.
+  All claims are sourced in <a href="../docs/SOURCES.md">docs/SOURCES.md</a>.
+</footer>
+</body>
+</html>

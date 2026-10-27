@@ -1,0 +1,30 @@
+{
+  "unique_name": "gems-karage1-format-baseline-zero-v1",
+  "note": "Format-only zero baseline (predicts no fault); validates the upload pipeline. True DTI=0. Not a scientific candidate.",
+  "hypothesis": "N/A -- this is a format/plumbing baseline, not a geological hypothesis.",
+  "mechanism": "Writes an all-zero array at the cross-replicated reference grid (src/gems/grid.py), clipped and dtype-enforced to guarantee [0,1] float32.",
+  "named_non_fault_process": "N/A",
+  "holdout_dti": {
+    "label": "ANALYTIC (not an evaluator run)",
+    "value": 0.0,
+    "derivation": "TPw=0, FPw=0, FNw=|G| for any nonempty ground truth G => DTI = 0/(0 + alpha*0 + beta*|G| + eps) = 0 exactly."
+  },
+  "correlation_overlap_vs_registry": {
+    "note": "Not applicable -- an all-zero raster is byte-identical to the organizer's own described 'total fault absence' sample submission by construction, not a competing research artifact."
+  },
+  "raster_sha256": "20c0cdccc5f3dc19ecf72d065df867796a8b1fd9d1fdc23e67dd1184061bf80e",
+  "validator_output": {
+    "opens_as_geotiff": true,
+    "single_band": true,
+    "dtype_float32": true,
+    "shape_matches_reference": true,
+    "crs_matches_reference_epsg32611": true,
+    "transform_matches_reference": true,
+    "no_inf_anywhere": true,
+    "no_sentinel_nodata_leak": true,
+    "finite_values_in_0_1": true,
+    "all_pixels_finite": true,
+    "all_checks_passed": true
+  },
+  "verdict": "negative"
+}
