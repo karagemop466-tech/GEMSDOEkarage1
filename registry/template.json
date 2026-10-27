@@ -1,0 +1,6 @@
+{
+  "repository": "buffedlizard55-lab/GEMSDOE32",
+  "commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+  "method_lane": null,
+  "note": "Reuse upstream tools at this commit; do not privately fork evaluator or writer."
+}
