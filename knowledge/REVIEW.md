@@ -39,3 +39,6 @@ The organizer's public reference README was fetched from GitHub. It explicitly s
 
 ## Scope and limitations
 This repository cannot modify nine other repositories' websites as part of this tracked branch. It provides one dashboard with an executive section for each site. The historical comparison is not a current exhaustive registry. No new TIFF is generated: creating noise, copying B2 or relabeling an old download would fail the owner's stated requirements. The long prompt is normalized in OWNER_BRIEF, not claimed to be reproduced verbatim. Full scientific execution remains incomplete for explicit, machine-visible blockers.
+
+## Concurrent main integration
+After the three audit passes, main gained a synthetic prototype from another session. It was preserved under `archive/prototype/` rather than replacing this audit or authorizing its TIFFs. Its evaluator has a stub scoring CLI and a bootstrap that loses repeated-block multiplicity; it must not be used as the designated template. The shared template itself was not modified or privately forked. No real holdout evidence was introduced by this merge.

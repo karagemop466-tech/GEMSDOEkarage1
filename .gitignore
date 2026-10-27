@@ -3,3 +3,11 @@ __pycache__/
 .pytest_cache/
 /data/
 .venv/
+*.pyc
+.env/
+venv/
+work/
+submissions/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db

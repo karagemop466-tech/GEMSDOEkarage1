@@ -28,3 +28,6 @@ For future generated artifacts, run:
 This strict read-only check rejects NaN, infinity, out-of-range values, mismatched grids and invalid footprints. It does **not** generate predictions or authorize submission. Reuse the designated template's evaluator and writer; do not substitute this format check for holdout, leakage or full-registry evidence.
 
 GitHub Pages publishes the root site; CI tests it. The scheduled workflow refreshes public evidence into a downloadable Actions artifact without auto-promoting or submitting anything. The live site remains the last merged snapshot; changing Pages settings was denied by the GitHub integration (403), so automatic refreshed-site deployment is not claimed. Source snapshots contain unverified historical assertions and are clearly separate from our independent measurements.
+
+## Concurrent integration
+While this audit ran, another session merged a synthetic prototype onto main. It is preserved in [archive/prototype](archive/prototype/README.md), explicitly **DO NOT SUBMIT**. Those placeholder-data TIFFs are not this audit’s deliverable; regridding them does not provide real geological evidence. Their local evaluator is not the designated shared template. The active site remains this audit dashboard.
