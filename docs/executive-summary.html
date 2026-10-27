@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Summary — GEMSDOEkarage1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--bg:#ffffff;--green:#15803d;--red:#b91c1c;--amber:#b45309;--blue:#1d4ed8;--panel:#f8fafc;--border:#cbd5e1;}
+  *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+  .container{max-width:980px;margin:0 auto;padding:0 20px}
+  header{background:#0b1120;color:#fff;padding:26px 0;border-bottom:1px solid var(--border)}
+  header h1{font-size:20px;margin:0 0 4px} header p{color:#cbd5e1;margin:0;font-size:14px}
+  nav{margin-bottom:4px} nav a{color:#93c5fd;margin-right:16px;font-size:13px;text-decoration:none} nav a:hover{text-decoration:underline}
+  h2{font-size:17px;margin:24px 0 8px;border-bottom:2px solid var(--line);padding-bottom:6px}
+  h3{font-size:14px;margin:16px 0 6px;color:var(--blue)}
+  p{margin:8px 0} ul{margin:8px 0 14px;padding-left:20px}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+  th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#f1f5f9;font-weight:700;color:#334155}
+  tr:nth-child(even)td{background:#fcfcfc}
+  .wrap{white-space:pre-wrap;word-break:break-all}
+  .status{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:11.5px;padding:3px 8px;border-radius:4px}
+  .status.no{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+  .status.yes{background:#f0fdf4;color:#14532d;border:1px solid #bbf7d0}
+  .tag{font-family:Source Code Pro,monospace;font-size:12px;background:#e2e8f0;padding:1px 6px;border-radius:3px;color:#334155}
+  .muted{color:var(--muted);font-size:13px}
+  .callout{border:1px solid var(--border);border-radius:10px;padding:16px;margin:14px 0;background:#fff}
+  .callout.red{border-left:4px solid var(--red);background:#fef2f2}
+  .callout.green{border-left:4px solid var(--green);background:#f0fdf4}
+  .callout.amber{border-left:4px solid var(--amber);background:#fffbeb}
+  a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+  .footnote{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <nav><a href="index.html">&larr; Home / Download</a></nav>
+    <h1>Executive Summary — GEMSDOE Competition Submission Pipeline</h1>
+    <p>GEMSDOEkarage1 &middot; branch <code>arena/83267592-gemsdoekarage1</code> &middot; 2026-10-27 &middot; <a href="index.html">Download the unique TIF &rarr;</a></p>
+  </div>
+
+  <section class="container">
+    <h2>1. One-click submission (start here)</h2>
+    <p>The competition requires a <b>single-band GeoTIFF (.tif)</b> (or a .zip containing one GeoTIFF) matching <code>sample_submission.tif</code> CRS / shape / geotransform, values in <b>[0, 1]</b>, no NaN inside the footprint.</p>
+
+    <div class="callout amber">
+      <h3>Download our generated unique submission</h3>
+      <p><strong>File to download:</strong> <br>
+      <a href="downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif" class="wrap tag" style="font-size:13px">docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif</a></p>
+      <p><strong>SHA-256:</strong> <code>642a6369a3a7e9a5c5761983e110c60a6abbc196abd339985e11da351d3e5c4b</code></p>
+      <p><strong>Format:</strong> single-band float32 GeoTIFF, EPSG:32611, 3730 &times; 3292 (12,279,160 cells), values in [0, 1], finite, 0 NaN</p>
+      <p><strong>Estimated score:</strong> <b>Not estimable</b> (no organizer receipt; no DrivenData labels)</p>
+      <p><strong>Unique vs focus-9 family?</strong> Designed unique (H-UNQ-1; does not re-thin H19-5), but <b>unverified</b> (no registry rasters available)</p>
+      <p><strong>OK TO DOWNLOAD?</strong> <span class="status yes">&#10003; Yes — research / inspection</span></p>
+      <p><strong>OK TO SUBMIT?</strong> <span class="status no">&#10007; NO — placeholder geotransform; re-grid to real <code>sample_submission.tif</code> and pass holdout + uniqueness gates first</span></p>
+      <p class="muted"><b>Submission name:</b> <code>gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b</code><br>
+      <b>Submission note (&le;140 chars):</b> <span class="wrap">H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue fault detector | synthetic stand-in | DO NOT SUBMIT until re-gridded to sample_submission.tif and holdout-validated</span></p>
+    </div>
+
+    <h2>2. How to make a submission into the contest</h2>
+    <ol>
+      <li><strong>Get the data</strong> (DrivenData login required — verified redirect to login; cannot auto-download here): <a>https://www.drivendata.org/competitions/306/competition-doe-gems/data/</a>. Place <code>training_features.tif</code>, <code>labels.tif</code>, <code>sample_submission.tif</code> into <code>data/</code>.</li>
+      <li><strong>Prepare the stack:</strong> <code>python scripts/prepare_data.py</code></li>
+      <li><strong>Generate + align:</strong> <code>python scripts/generate_submission.py</code> then <code>python scripts/align_to_competition_grid.py --reference data/sample_submission.tif</code></li>
+      <li><strong>Write + validate (format receipt):</strong> <code>python scripts/submission_writer.py --reference data/sample_submission.tif</code></li>
+      <li><strong>Run all gates:</strong> <code>python scripts/validate_submission.py</code> &rarr; verdict <code>promote</code> / <code>negative</code></li>
+      <li><strong>Upload</strong> via the DrivenData submission page (single .tif or .zip, note &le;140 chars), within the weekly cap.</li>
+    </ol>
+
+    <div class="callout">
+      <h3>Fix for "Predicted values must be in range [0, 1]"</h3>
+      <p>The portal rejects values outside [0, 1] or NaN. The pipeline guarantees: <code>np.clip(prediction, 0, 1)</code>, replace non-finite with <code>0</code> (<code>-zeros</code> encoding), single-band float32, finite everywhere, no NaN inside the footprint.</p>
+    </div>
+
+    <h2>3. Focus-site comparison (GEMSDOE 24 / 25 / 27 / 28 / 30 / 31 / 32 / 33 / 36)</h2>
+    <p class="muted">All scores are <b>owner-reported / unverified</b> (no organizer receipt linking raster hash to score). <b>None is unique</b> under the literal 70% within-3-px lattice rule &rarr; <b>none may be re-submitted.</b> Estimated leaderboard score is <b>not estimable</b> for every site.</p>
+    <table>
+      <tr><th style="width:15%">Site</th><th style="width:42%">Best historical submission file</th><th style="width:13%">Best score</th><th style="width:14%">Best local holdout-DTI</th><th style="width:8%">Unique?</th><th style="width:7%">Submit?</th></tr>
+      <tr><td>GEMSDOE24</td><td class="wrap">h25-1-dotted-h19-5-d1-5</td><td>0.2477</td><td>0.1661 (S3DEP1)</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+      <tr><td>GEMSDOE25</td><td class="wrap">dotted-h19-5-d2-8</td><td>0.2600</td><td>0.12210 (H75 Exp3)</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+      <tr><td>GEMSDOE27</td><td class="wrap">topo-gap-closure-t-v2-on-d1-5</td><td>0.2449</td><td>0.04730 (h31)</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+      <tr><td>GEMSDOE28</td><td class="wrap">h36-1-rung30-blind-r1</td><td>0.2710</td><td>0.12018 (s22c)</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+      <tr><td>GEMSDOE30</td><td class="wrap">d28-poisson300m-offcat-44090</td><td>0.2600</td><td>0.158162 (CSR-1)</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+      <tr><td>GEMSDOE31</td><td class="wrap">h27-4-solo-d28</td><td>0.2708</td><td>0.1661 (H31-X)</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+      <tr><td><strong>GEMSDOE32</strong></td><td class="wrap">h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</td><td><strong>0.2778</b></td><td>0.099202</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+      <tr><td>GEMSDOE33</td><td class="wrap">h33d-analog-tip-stepover-r30</td><td>0.2632</td><td>0.10308 (fsml2-cc)</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+      <tr><td>GEMSDOE36</td><td class="wrap">anderson-geothermal-pinn-38854</td><td>0.2750</td><td>0.194164 (TCD-36)</td><td><span class="status no">No</span></td><td><span class="status no">No</span></td></tr>
+    </table>
+    <div class="callout red">
+      <strong>Which is the best submission?</strong> GEMSDOE32's <code>h33-h33-2-b2-...</code> at <b>0.2778</b> is the highest owner-reported historical score of the 9 — but it is already submitted, not unique, and unverified. <strong>No focus-site file is recommended for upload.</strong>
+    </div>
+
+    <h2>4. Why GEMSDOE32 scored 0.2778 (PhD synthesis) &amp; how to beat it</h2>
+    <p><strong>Metric:</strong> DTI = Tversky index, &alpha; = 0.2, &beta; = 0.8, 300 m triangular kernel. &beta; (0.8) &gt; &alpha; (0.2) &rarr; false positives penalised 4&times; false negatives &rarr; sparse, confident dots win.</p>
+    <p><strong>Why 0.2778:</b> every focus-9 leader re-thins the H19-5 ridge skeleton — <i>d = 2.8</i> dotting cut false positives ~3&times; (+0.0678); <i>B2</i> excised 6,436 near-catalogue detector-echo dots (+0.0178). H19-5 covers only ~30&ndash;36% of hidden faults &rarr; re-thinning asymptotes below ~0.295.</p>
+    <p><strong>To surpass 0.2778 toward public leaders (0.3195 / 0.4413 / 0.4437):</b> close the 1 m LiDAR gap with 10 m 3DEP; detect blind range-front uplift via fluvial &chi; / ksn + hydrothermal upflow; Stage-2 spatial context (+0.008895 measured); add off-catalogue pre-Quaternary faults + ASTER TIR alteration.</p>
+
+    <h2>5. Our new hypothesis: H-UNQ-1 (unique, not an H19-5 re-thin)</h2>
+    <table>
+      <tr><th style="width:30%">Element</th><th>H-UNQ-1</th></tr>
+      <tr><td>Layers</td><td>fluvial chi anomaly (3DEP), GeoDAWN Th/K &amp; eU/K alteration, gravity-margin edge; catalogue only for a 2 px collar</td></tr>
+      <tr><td>Signature</td><td>hydrothermal alteration + gravity-margin edge + fluvial-chi knickzone (blind range-front fault)</td></tr>
+      <tr><td>Catches off-catalogue faults?</td><td>Yes — blind/pre-Quaternary/hydrothermal-only faults absent from catalogue</td></tr>
+      <tr><td>Differs from focus-9?</td><td>Yes — does not re-thin H19-5; radiometric-primary + fluvial-chi</td></tr>
+      <tr><td>Verdict</td><td><span class="status no">negative</span> — cannot promote without DrivenData auth (no holdout DTI, no uniqueness vs registry, no grid match)</td></tr>
+    </table>
+    <p class="muted"><strong>Mechanism:</strong> hydrothermal fluids ascend along permeable fault zones leaving radiometric (Th/K, eU/K) and gravity-margin signatures; blind range-front uplift recorded in fluvial &chi; anomaly. Combine into a propensity surface, apply a 2 px catalogue collar, emit ~37,654 dots via CELF-300 m emission.</p>
+    <p class="muted"><strong>Named non-fault mimics:</strong> Pleistocene Lake Lahontan pluvial wave-cut shorelines; intra-range cliff/talus breaks; alluvial fan terrace risers; volcanic flow toes.</p>
+
+    <h2>6. Submission gates (must all pass before upload)</h2>
+    <table>
+      <tr><th style="width:8%">Gate</th><th style="width:52%">Requirement</th><th>H-UNQ-1 status</th></tr>
+      <tr><td>G1</td><td>single-band float32, finite, values in [0, 1], no NaN</td><td><span class="status yes">&#10003; PASS</span></td></tr>
+      <tr><td>G2</td><td>CRS / shape / transform == sample_submission.tif</td><td><span class="status no">&#10007; UNVERIFIED</span></td></tr>
+      <tr><td>G3</td><td>holdout DTI beats current best, paired 95% CI &gt; 0</td><td><span class="status no">&#10007; NOT COMPUTED</span></td></tr>
+      <tr><td>G4</td><td>each feature alone AUC &le; 0.90 (leakage canary)</td><td><span class="status no">&#10007; NOT EVALUATED</span></td></tr>
+      <tr><td>G5</td><td>\|Spearman\| &le; 0.90 AND &le; 70% dots within 3 px of every registry raster</td><td><span class="status no">&#10007; NOT EVALUATED</span></td></tr>
+      <tr><td>G6</td><td>within weekly slot cap; selector approval</td><td><span class="status no">&#10007; NOT APPROVED</span></td></tr>
+    </table>
+    <div class="callout red"><strong>OK TO SUBMIT: NO</strong> until G2&ndash;G6 pass. Download for research is OK.</div>
+
+    <h2>7. Official verified sources</h2>
+    <ul class="wrap">
+      <li>DrivenData problem description: https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/</li>
+      <li>DrivenData about: https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/</li>
+      <li>DrivenData data (login required): https://www.drivendata.org/competitions/306/competition-doe-gems/data/</li>
+      <li>DrivenData leaderboard: https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/</li>
+      <li>Reference solution: https://github.com/drivendataorg/gems-prize-reference-solution</li>
+      <li>Submission rules PDF: https://docs.nlr.gov/docs/fy26osti/96647.pdf</li>
+      <li>OpenEI GDR #1391 (INGENIOUS): https://gdr.openei.org/submissions/1391</li>
+      <li>USGS 3DEP 10 m DEM: https://www.usgs.gov/3d-elevation-program</li>
+      <li>USGS QFaults: https://www.usgs.gov/programs/earthquake-hazards/faults</li>
+      <li>US Census TIGER/Line: https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html</li>
+      <li>Tversky index: https://en.wikipedia.org/wiki/Tversky_index</li>
+      <li>EPSG:32611: https://epsg.io/32611</li>
+    </ul>
+
+    <div class="footnote">
+      <strong>Run card:</strong> see <code>cards/run_card.json</strong> (protocol rule 5). Current verdict: <code>negative</code>.<br>
+      <strong>No-hallucination rule:</strong> every score labelled HOLDOUT-DTI (local evaluator), owner-reported/unverified, or "not estimable". No number is presented as an organizer-confirmed leaderboard score.
+    </div>
+  </div>
+
+</body>
+</html>
