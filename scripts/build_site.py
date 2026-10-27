@@ -1,0 +1,44 @@
+"""Build static GitHub Pages summaries from committed evidence; never invent a score."""
+import html
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+DOCS = ROOT / 'docs'
+
+def esc(text):
+    return html.escape(str(text), quote=True)
+
+def shell(title, body):
+    return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><link rel="stylesheet" href="style.css"><header><a href="index.html">GEMS / KARAGE 1</a><nav><a href="executive-summary.html">Executive summary</a><a href="research.html">Research & sources</a><a href="submission-guide.html">Submission guide</a></nav></header><main>'+body+'</main><footer>Evidence-first research · No portal uploads · Maximize P(Win) / Own the Outcome</footer></html>'
+
+def write(name,title,body):
+    (DOCS/name).write_text(shell(title,body))
+
+def main():
+    DOCS.mkdir(exist_ok=True)
+    original=json.loads((ROOT/'evidence/upstream_nine_site_audit.json').read_text())
+    audit=json.loads((ROOT/'evidence/historical_byte_audit.json').read_text())
+    refresh=json.loads((ROOT/'evidence/source_refresh.json').read_text())
+    links={r['site']:r for r in refresh['sites']}
+    rows=[]
+    for r in original['sites']:
+        name=r['site']
+        actual=next(a for a in audit['files'] if a['site']==name)
+        twins=[a['site'] for a in audit['files'] if a['site']!=name and a['sha256']==actual['sha256']]
+        source=f"https://github.com/buffedlizard55-lab/{name}/blob/{r['github_ref']}/{r['file']}"
+        report=esc(r['published_score_OWNER_REPORT'])
+        rows.append(f'<tr><th><a href="{name}.html">{name}</a></th><td><a href="{source}"><code>{esc(Path(r["file"]).name)}</code></a><br>Historical bytes for review only</td><td>Not estimable</td><td>{report}<br><small>USER-REPORTED; no organizer receipt</small></td><td>No — literal overlap gate fails</td><td><strong>NO</strong></td></tr>')
+        body=f'<p class="eyebrow">NINE-SITE REVIEW / {name}</p><h1>{name} executive summary</h1><section class="alert"><h2>DO NOT SUBMIT</h2><p>No new approved submission exists in this repository. Historical best does not mean unique or presently authorized.</p></section><h2>Historical benchmark</h2><p><a href="{source}"><code>{esc(Path(r["file"]).name)}</code></a></p><p>USER-REPORTED historical result: <strong>{report}</strong>. Not ORGANIZER-CONFIRMED. Estimated score for a new candidate: <strong>unavailable</strong>.</p><h2>Automated byte audit</h2><ul><li>SHA-256 matches pinned upstream manifest: yes</li><li>Template CRS / shape / transform match: {actual["geometry_matches"]}</li><li>Finite [0,1] inside footprint: {actual["finite_range_pass"]}</li><li>All cells finite, including outside footprint: {actual["all_cells_finite"]}</li><li>Exact file-byte twins among nine: {esc(", ".join(twins) or "none; this does not prove spatial uniqueness")}</li><li>Directed 3-pixel overlap against registry lattice: {audit["lattice"]["historical_directed_overlaps"][name]:.4%} — FAIL</li></ul><p><code>{actual["sha256"]}</code></p><h2>Source freshness</h2><p><a href="{esc(links[name]["source"])}">Latest pinned repository README</a>, retrieved {esc(refresh["retrieved_utc"])}. Repository statements are not organizer receipts.</p><p><a href="../evidence/historical_byte_audit.json">Independent measured audit</a> · <a href="executive-summary.html">All sites</a></p>'
+        write(name+'.html',name+' executive summary',body)
+    table='<div class="table-scroll"><table><thead><tr><th>Site</th><th>Historical file / review link</th><th>Estimated score</th><th>Historical report</th><th>Unique under protocol?</th><th>Submit?</th></tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'
+    body='<p class="eyebrow">RESEARCH OPERATIONS / 27 OCT 2026</p><h1>Evidence before<br>a leaderboard slot.</h1><section class="alert"><h2>NO APPROVED TIFF · DO NOT SUBMIT</h2><p>Download-ready competition file: <strong>none</strong>. No new TIFF was generated in this review, no holdout experiment ran, and no slot was used. An inherited synthetic H-UNQ-1 TIFF from a concurrent session is also NOT approved: its transform is a placeholder and its science gates are untested. Missing method lane and shared feature cache block scientific validation.</p></section><div class="cards"><section><span>01 / Decision</span><h2>No defensible score forecast</h2><p>Historic scores lack organizer receipts. Holdout and leaderboard results must not be equated.</p></section><section><span>02 / Audit finding</span><h2>99.87% lattice coverage</h2><p>A registry lattice covers almost the entire footprint within 3 pixels. All nine historical best files fail the literal uniqueness gate.</p></section><section><span>03 / Next action</span><h2>Resolve lane, restore cache</h2><p>Then test a preregistered method against the same-evaluator holdout best. No renamed historical submission.</p></section></div><h2>Nine-site executive decision table</h2><p>Each site links to a dedicated summary. Files below are historical evidence, <strong>not recommended uploads</strong>. Estimates are unavailable; reported values are not verified scores.</p>'+table+'<h2>Why the reported 0.2778 led this family</h2><p>The upstream explanation is thinning redundant predictions and pruning near known faults. This could improve distance-weighted precision/coverage, but hidden truth and receipt provenance are unavailable. It is a plausible mechanism, not a causal proof or a forecast.</p><p><a class="button" href="research.html">Read scientific review & ranked hypotheses</a> <a href="submission-guide.html">How a future approved submission works →</a></p><h2>Evidence & limitations</h2><ul><li><a href="../evidence/historical_byte_audit.json">Independently repeated historical-byte and spatial-overlap audit</a></li><li><a href="../evidence/source_refresh.json">Nine pinned current README snapshots</a></li><li><a href="../evidence/run_card.json">This review’s negative JSON run card</a></li><li>Only this repository was changed. Other owners’ sites were reviewed, not modified.</li><li>No live leaderboard, authenticated cap, official geology downloads, or organizer receipt was verified.</li></ul>'
+    write('index.html','GEMS — executive decision',body)
+    write('executive-summary.html','GEMS — nine-site executive summary',body)
+    # Preserve readable research as plain text without a third-party runtime dependency.
+    research=(DOCS/'research.md').read_text()
+    write('research.html','Scientific review & sources','<h1>Scientific review & research slate</h1><p><a href="research.md">Download Markdown with source URLs</a></p><pre class="research">'+esc(research)+'</pre>')
+    write('submission-guide.html','Competition submission guide','<h1>How to submit — only after every gate passes</h1><section class="alert"><h2>Nothing is approved for upload today.</h2><p>There is no authorized download button. This guide is for a future selected artifact, not permission to upload a historical TIFF.</p></section><ol><li>Read the executive decision. Scientific promotion requires complete holdout, canary, uniqueness, provenance, and saved-byte checks. A separate selector must confirm an available weekly slot using the authenticated submission screen.</li><li>Download only the exact approved single-band GeoTIFF (or ZIP containing only that TIFF), with its unique name, SHA-256 and note. Do not rename an old raster to imply uniqueness.</li><li>The automated saved-byte validator must confirm float32, finite values everywhere in [0,1], and exact template CRS, shape and transform. Do not substitute -9999, infinities or NaNs for valid prediction values.</li><li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">the official competition</a>, review its current rules and submission cap, then choose New submission.</li><li>Choose File to submit, select the authorized TIFF or ZIP, and paste the recorded note (at most 140 characters). This repository does not automate portal uploads.</li><li>Save the organizer’s submission-page receipt and the artifact SHA-256. Only then label the result ORGANIZER-CONFIRMED. A HOLDOUT-DTI measurement is not a leaderboard score.</li></ol><h2>Range error prevention</h2><p>“Predicted values must be in range [0, 1]” requires checking saved TIFF values, not merely an in-memory array. A finite zero-outside artifact is the project’s defensive export policy; the authenticated official format and template remain authoritative. A passing format check alone never proves high performance or uniqueness.</p>')
+
+if __name__=='__main__':
+    main()
