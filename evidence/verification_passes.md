@@ -30,3 +30,6 @@ Tests: `python -m pytest -q` — 9 passed at this review. Rasterio emits upstrea
 
 ## Concurrent integration re-check
 Two sessions merged onto main during PR preparation. Resolved both merges on the assigned branch. Preserved the synthetic prototype under `archive/prototype/`; retained the second review's detailed pages, independent lattice audit, pinned template helper and release gates. `scripts/build_site.py` rebuilds both dashboards without overwriting the root audit with the detailed one. Combined suite: **44 passed**. The two audits have explicitly different comparison scopes. No inherited prototype is cleared for upload.
+
+## Additional concurrent-source irregularity
+PR #7 arrived during final integration. Code inspection found CDA1 `spatially_blocked_holdout` returns a fixed dictionary, independent of the prediction, and the generator uses synthetic layers. Quarantined its scripts, TIFFs, report and promotional pages under `archive/cda1-demonstrator/` without treating reported metrics as measurements. Restored the real review's negative active card. This is an evidence-integrity issue, not a successful holdout run. See archive README for precise code locations.
