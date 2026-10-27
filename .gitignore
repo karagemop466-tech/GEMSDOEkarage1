@@ -1,0 +1,9 @@
+# Large data / caches never enter Git (restore with scripts/restore_data.py)
+.cache/
+data/
+*.npy
+__pycache__/
+*.pyc
+.pytest_cache/
+*.partial
+*.assembling
