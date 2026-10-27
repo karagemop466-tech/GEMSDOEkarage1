@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Auditable nine-site GEMS review, source-reported H33 forensic findings, novel-hypothesis screen, and submission readiness.">
+  <title>Executive Summary · GEMS Research Desk</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="GEMS Research Desk home">
+      <span class="brand-mark" aria-hidden="true">G</span>
+      <span>GEMS <span class="brand-light">Research Desk</span></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a class="nav-link" href="index.html">Overview</a>
+      <a class="nav-link active" href="executive-summary.html" aria-current="page">Executive summary</a>
+      <a class="nav-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/main/README.md" rel="noreferrer">Project charter</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <p class="eyebrow">Decision brief · Research reviewed through 2026-10-27 UTC</p>
+      <h1>Executive summary</h1>
+      <p class="hero-lede">A source-aware review of the nine named sites, H33’s reported result, the newest public project audit, and what can—and cannot—be tested safely from this checkout.</p>
+      <div class="alert" role="alert">
+        <strong>NO TIFF IS APPROVED FOR DOWNLOAD OR SUBMISSION FROM THIS REPOSITORY.</strong>
+        This checkout has no competition rasters, shared evaluator, registry rasters, or generated candidate. The newest cross-site report is owner-maintained evidence from another project repository; it is not an organizer receipt and has not been recomputed here.
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="status-heading">
+      <h2 id="status-heading">Current decision and best available evidence</h2>
+      <p>The public <a class="table-link" href="https://github.com/buffedlizard55-lab/GEMSDOE32" rel="noreferrer">GEMSDOE32 repository</a> was inspected via GitHub. Its <a class="table-link" href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/research/h48-fbgr-results-and-nine-site-executive-summary-20261027.md" rel="noreferrer">2026-10-27 refreshed report</a> says no artifact was authorized for portal upload. It reports that the historical nine-site highs form one nested H19-5 thinning/pruning family and fail the requested 3-pixel overlap novelty gate. The report’s underlying site rasters and comparisons were not independently recomputed in this checkout, so the finding is clearly attributed to that source report—not presented as our own audit.</p>
+      <p>The same report describes a separate H48-1-FBGR experiment on another branch. The source card reports it as a versioned holdout result, not a leaderboard score: <strong>HOLDOUT-DTI</strong>, evaluator <code>GEMSDOE32-HIDE-RECOVER-v3.0</code>, <strong>22,232 withheld positives</strong>, with 95% CI: <strong>0.115341 [0.100168, 0.130524]</strong>. The same report gives the incumbent comparison as <strong>HOLDOUT-DTI</strong>, same evaluator and positive count, 95% CI: <strong>0.099202 [0.085951, 0.112668]</strong>. The source run card also records a prevalence-calibrated <strong>HOLDOUT-DTI</strong> under <code>GEMSDOE32-SGMC-CAL-v3.0</code> with 62,703 off-catalogue positives and 95% CI: H48-1-FBGR <strong>0.056798 [0.050345, 0.063015]</strong> versus incumbent <strong>0.064121 [0.056730, 0.071649]</strong>. These figures are quoted from the source run card, not reproduced here.</p>
+      <p>Although that H48 source run reports a leakage-canary and GeoTIFF-format pass, its final release verdict is <strong>negative / DO NOT SUBMIT</strong>: the off-catalogue calibration holdout trails the incumbent, and the literal unexempted registry gate flags calibration-grid and continuous-surface entries. Its source session used its own three-experiment budget. It is prior work from another branch, not an experiment in this checkout; its TIFF is deliberately not linked as a submission download.</p>
+      <p class="callout"><strong>Score provenance:</strong> the source repository labels historical live values as OWNER-REPORT and says no submission receipt binds raster bytes to a DrivenData score. No historical value is repeated here as ORGANIZER-CONFIRMED. A dated leaderboard snapshot in a project repository is not a current live refresh; no current leaderboard high is asserted.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="live-feed-heading">
+      <h2 id="live-feed-heading">Current source-repository feed</h2>
+      <p>This table refreshes directly from the public GitHub API when the page loads and when you press refresh. It reads the latest nine-site table in the GEMSDOE32 report; it does not scrape or infer leaderboard scores. The upstream repository is owner-maintained, not an organizer source. If the API or browser connection is unavailable, use the linked report directly.</p>
+      <p id="live-feed-status" class="callout" role="status" aria-live="polite">Waiting to check the public source report…</p>
+      <p><button class="button button-primary" id="refresh-live-feed" type="button">Refresh source feed</button> <a class="table-link" id="live-source-report" href="https://github.com/buffedlizard55-lab/GEMSDOE32" rel="noreferrer">Open upstream README / latest report link</a></p>
+      <div class="table-wrap" tabindex="0" aria-label="Scrollable live source-repository status feed">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Site</th>
+              <th scope="col">Newest artifact named by source report</th>
+              <th scope="col">Source-reported novelty</th>
+              <th scope="col">Source-reported decision</th>
+            </tr>
+          </thead>
+          <tbody id="live-feed-rows">
+            <tr><td colspan="4">Waiting for the GitHub API. No score or download link is shown in this feed.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small-note">The live feed displays artifact identifiers and source-reported decisions only. It deliberately omits unreceipted live-score values and never links a prior GeoTIFF for submission.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="site-table-heading">
+      <h2 id="site-table-heading">Nine-site status</h2>
+      <p>The identifiers below preserve the older entries named in the request; they are not a claim that each is still the site's latest file. The 2026-10-27 GEMSDOE32 report lists newer site artifacts and, in some cases, different historical-best identifiers. Treat that report as an owner-maintained cross-site snapshot, not an independently verified score feed. Per the evidence rules, no unreceipted live score or score projection is printed.</p>
+      <div class="table-wrap" tabindex="0" aria-label="Scrollable nine-site status table">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Site</th>
+              <th scope="col">Entry named in supplied history</th>
+              <th scope="col">Download / score status</th>
+              <th scope="col">Novelty status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE24/" rel="noreferrer">GEMSDOE24</a></td>
+              <td><span class="entry-id">h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan</span></td>
+              <td>No approved file from this checkout. Historical value is not reproduced; no organizer receipt was inspected.</td>
+              <td>NO per the 2026-10-27 GEMSDOE32 cross-site report; not independently recomputed here.</td>
+            </tr>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE25/" rel="noreferrer">GEMSDOE25</a></td>
+              <td><span class="entry-id">dotted-h19-5-d2-8-20261002-e56ea318af89-nan</span></td>
+              <td>No approved file from this checkout. Historical value is not reproduced; no organizer receipt was inspected.</td>
+              <td>NO per the source report; it also reports a 100% dot-set duplicate with GEMSDOE30.</td>
+            </tr>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE27/" rel="noreferrer">GEMSDOE27</a></td>
+              <td><span class="entry-id">topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan</span></td>
+              <td>No approved file from this checkout. Historical value is not reproduced; no organizer receipt was inspected.</td>
+              <td>NO per the source report's historical-family audit; not independently recomputed here.</td>
+            </tr>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE28/" rel="noreferrer">GEMSDOE28</a></td>
+              <td><span class="entry-id">h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan</span></td>
+              <td>No approved file from this checkout. Historical value is not reproduced; no organizer receipt was inspected.</td>
+              <td>NO per the source report; it identifies a high-overlap relationship with the GEMSDOE31 B1 lineage.</td>
+            </tr>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE30/" rel="noreferrer">GEMSDOE30</a></td>
+              <td><span class="entry-id">d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca</span></td>
+              <td>No approved file from this checkout. Historical value is not reproduced; no organizer receipt was inspected.</td>
+              <td>NO per the source report; reported as a 100% dot-set duplicate with GEMSDOE25.</td>
+            </tr>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE31/docs/" rel="noreferrer">GEMSDOE31</a></td>
+              <td><span class="entry-id">h27-4-solo-d28-20261004-8acb75e1-nan</span></td>
+              <td>No approved file from this checkout. Historical value is not reproduced; no organizer receipt was inspected.</td>
+              <td>NO per the source report; it reports 100% overlap with the GEMSDOE28 B1 lineage.</td>
+            </tr>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html" rel="noreferrer">GEMSDOE32</a></td>
+              <td><span class="entry-id">h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</span></td>
+              <td>Existing scored research artifact; already used, no receipt reviewed here, and not a fresh download/submission option.</td>
+              <td>NO per the source report's historical-family audit. Do not copy or resubmit it.</td>
+            </tr>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE33/" rel="noreferrer">GEMSDOE33</a></td>
+              <td><span class="entry-id">h33d-analog-tip-stepover-r30-20261004-cb490425926e</span></td>
+              <td>No approved file from this checkout. Historical value is not reproduced; no organizer receipt was inspected.</td>
+              <td>NO per the source report's historical-family audit; not independently recomputed here.</td>
+            </tr>
+            <tr>
+              <td><a class="table-link" href="https://buffedlizard55-lab.github.io/GEMSDOE36/docs/" rel="noreferrer">GEMSDOE36</a></td>
+              <td><span class="entry-id">anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros</span></td>
+              <td>No approved file from this checkout. Historical value is not reproduced; no organizer receipt was inspected.</td>
+              <td>NO per the source report; it describes the historical raster as containing the H33 champion dots plus additional dots.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="callout"><strong>How to read “NO”:</strong> the latest inspected source report states that all nine historical focus-site highs belong to one nested H19-5 thinning/pruning family and that minimum pairwise three-pixel dot overlap exceeds the 70% protocol limit. This page attributes that result to the report; it does not claim a fresh raster comparison. A prior TIFF may exist on a site page, but no prior file is endorsed for submission.</p>
+    </section>
+
+    <section class="content-section" id="h33-analysis" aria-labelledby="h33-heading">
+      <h2 id="h33-heading">H33 forensic interpretation: plausible mechanism, unproven cause</h2>
+      <div class="h33-box">
+        <blockquote>The strongest source-supported explanation is an emission/spacing effect in a nested H19-5 family—not a demonstrated new geological discovery mechanism.</blockquote>
+        <p>The source repository's H33 forensic note treats the reported result as OWNER-REPORT and says no submission-page receipt binds it to the raster bytes. Its reconstruction places H33-2-B2 at the end of a thinning/pruning ladder: a dense lineament field was spatially thinned, then predictions near already mapped faults were removed by a buffer rule. The report's proposed explanation is that closely spaced dots reuse credit under the requested 300 m triangular-kernel protocol while still adding prediction mass; pruning can reduce redundant or low-credit dots, improving precision per emitted dot. This is a plausible effect of the metric and the artifact geometry, not evidence that the retained dots are true uncatalogued faults.</p>
+        <p>The available H33 forensic note explicitly says the historical value is not a HOLDOUT-DTI result and does not provide a versioned evaluator, withheld-positive count, or confidence interval for that result. That means the public evidence does not establish controlled hidden-segment recovery for H33. This is an evidence gap, not a claim that the original holdout implementation leaked.</p>
+        <p>Several earlier inversion, hidden-truth, recall, and score-ceiling estimates have been withdrawn by the source analysis. No causal attribution, current leaderboard comparison, or new live-score estimate is justified here. The correct next step is reproducible, fold-local holdout evaluation—not copying H33 or rebranding a nested family as novel.</p>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="hypotheses-heading">
+      <h2 id="hypotheses-heading">Hypothesis screen: research gaps, not certified novelty</h2>
+      <p>The first draft's generic edge, basement-step, strain-transition, and terrain-gap hypotheses were removed from the “untried” list: the source project records overlapping H33/H36/H48 work, and the nine-site histories include related methods. The four concepts below are documented as unexecuted or data-blocked in the inspected GEMSDOE32 H48 pre-registration. They are <strong>not certified novel across every sibling repository</strong>; no implementation or lane selection is authorized. Upside and cost are qualitative rankings, not score projections.</p>
+      <div class="hypothesis-grid">
+        <article class="hypothesis-card">
+          <div class="hypothesis-meta"><span class="hypothesis-rank">1 · Highest scientific upside</span><span class="cost">Very high / data blocked</span></div>
+          <h3>Deep magnetotelluric root beneath a shallow clay cap</h3>
+          <p><strong>Layers:</strong> competition band 17 (<code>cond_surf</code>) and band 15 (<code>depth_to_base_surf</code>), plus multi-depth 3-D MT resistivity slices from the GBCGE/DOE INGENIOUS data effort or an official USGS ScienceBase MT release.</p>
+          <p><strong>Physical signature:</strong> a shallow conductive smectite/clay cap over a steep, deeper resistivity boundary/root, with playa-like closed basins masked. This targets fluid pathways whose surface trace is buried or absent.</p>
+          <p><strong>Named non-fault mimic:</strong> saline playa brines or a conductive stratigraphic horizon. <strong>Difference:</strong> the inspected GEMSDOE32 notes describe only a shallow single-slice conductivity treatment; the proposed test couples shallow alteration to a deep 3-D structure.</p>
+          <p><strong>Availability:</strong> the cited free official source family is identified in the source preregistration, but the actual volume was not retrieved or verified and the project report says those endpoints are outside this sandbox's egress allowlist. <strong>Not viable in this run.</strong></p>
+        </article>
+        <article class="hypothesis-card">
+          <div class="hypothesis-meta"><span class="hypothesis-rank">2 · High scientific upside</span><span class="cost">High / data blocked</span></div>
+          <h3>Relocated seismic planes projected up-dip, corroborated by InSAR</h3>
+          <p><strong>Layers/data:</strong> the free <a class="table-link" href="https://earthquake.usgs.gov/fdsnws/event/1/" rel="noreferrer">USGS ANSS ComCat FDSN event service</a> or a relocated regional catalog (including the <a class="table-link" href="https://doi.org/10.1785/0220200371" rel="noreferrer">Monte Cristo study</a>), plus <a class="table-link" href="https://search.asf.alaska.edu/" rel="noreferrer">NASA Alaska Satellite Facility Sentinel-1 products</a> and ARIA products.</p>
+          <p><strong>Physical signature:</strong> fit spatially coherent 3-D hypocenter planes, project the planes up-dip, and require independent linear displacement/phase-gradient support. Active blind strands may be missing from a static mapped-fault compilation.</p>
+          <p><strong>Named non-fault mimic:</strong> quarry blasts, non-planar earthquake swarms, or non-tectonic subsidence. <strong>Difference:</strong> this is a relocated-plane plus surface-deformation test, not a broad smoothed seismicity band or an epicentral heat map.</p>
+          <p><strong>Availability:</strong> the specific free sources named are the USGS FDSN endpoint, the cited Monte Cristo catalog (DOI <code>10.1785/0220200371</code>), and NASA ASF/ARIA. The inspected project report says these external endpoints are blocked in this sandbox; files were not independently fetched. <strong>Not viable in this run.</strong></p>
+        </article>
+        <article class="hypothesis-card">
+          <div class="hypothesis-meta"><span class="hypothesis-rank">3 · Best local-data research gap</span><span class="cost">Moderate / no new data</span></div>
+          <h3>Anisotropic minimum-action bridges between scarp terminations</h3>
+          <p><strong>Layers:</strong> 1 m LiDAR scarp strength/strike/coherence, detrended elevation and slope, and gravity-gradient support already described in the project records.</p>
+          <p><strong>Physical signature:</strong> solve an anisotropic Eikonal/geodesic path between exposed scarp tips, assigning low traversal cost to aligned, coherent scarp and subsurface-gradient evidence and high cost across unsupported fan or shoreline surfaces. It targets mapped traces fragmented by alluvial burial.</p>
+          <p><strong>Named non-fault mimic:</strong> Lake Lahontan shoreline benches, ephemeral channels, and roads. <strong>Difference:</strong> the inspected pre-registration distinguishes continuous minimum-action paths from local radial tip cones; related gap-closing/topology work elsewhere means cross-site novelty remains uncertain.</p>
+          <p><strong>Availability and rank:</strong> no new external dataset is required, but the shared feature stack, evaluator, and raster are absent here. Potential is moderate and test cost moderate; no DTI gain is estimated.</p>
+        </article>
+        <article class="hypothesis-card">
+          <div class="hypothesis-meta"><span class="hypothesis-rank">4 · Lower priority / overlap risk</span><span class="cost">Low–moderate / local</span></div>
+          <h3>Euler contact-depth clusters conditioned on basement depth</h3>
+          <p><strong>Layers:</strong> RTP magnetic field, magnetic/gravity vertical derivatives, gravity anomaly/gradient, and depth-to-basement (the cited feature bands 2, 9, 11, 13, 15, and 18).</p>
+          <p><strong>Physical signature:</strong> solve Euler homogeneity windows for contact-like source locations, retain compact solutions whose inferred depth agrees with the basement model, then test whether the clusters trace blind basement/alluvium faults.</p>
+          <p><strong>Named non-fault mimic:</strong> pluton margins, dikes, or volcanic contacts. <strong>Difference and prior art:</strong> the depth-conditioned filter was deferred in the inspected H48 pre-registration, but Euler-depth methods already appear in other portfolio records (including the cited GEMSDOE40 history). It is therefore <strong>not certified untried</strong> and is lower priority.</p>
+          <p><strong>Availability:</strong> uses existing competition layers; no external data is needed. This checkout still lacks the inputs and shared tools required to test it.</p>
+        </article>
+      </div>
+      <p class="callout"><strong>Selection decision:</strong> no single method lane is selected. The available request refers to a permitted “single method paragraph,” but that paragraph is not identified in the current project instructions. The two higher-upside concepts are data-blocked; the local-data concepts have cross-site prior-art risk. Do not implement or spend an experiment until the lane is resolved and the shared template inputs/tools are restored.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="submission-heading">
+      <h2 id="submission-heading">Download / submission note</h2>
+      <p><strong>Today: do not download or submit a raster.</strong> This checkout has no candidate filename, SHA-256, or passing validator; the local run card is <code>negative</code>. Do not reuse a prior site TIFF.</p>
+      <ol>
+        <li>For a future run, proceed only if its exact run card says <code>promote</code> and the separate weekly-slot selector approves it.</li>
+        <li>Download only the exact filename recorded in that run card; verify the downloaded SHA-256 matches before upload.</li>
+        <li>Use the actual competition sample/portal instructions and the run card's concise note. Preserve the submission-page receipt, ID, filename, and hash; without that receipt, do not call the score organizer-confirmed.</li>
+      </ol>
+      <p class="small-note">This is a safe workflow outline, not a portal-specific walkthrough; the logged-in submission UI and current rules were not independently inspected.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="validation-heading">
+      <h2 id="validation-heading">Non-negotiable validation and release gates</h2>
+      <ul class="gate-list">
+        <li><strong>Holdout:</strong> withhold complete fault segments plus a buffer; derive catalogue features only from fold-visible faults; pixel-exactly mask visible faults.</li>
+        <li><strong>Leakage:</strong> evaluate every feature alone; a two-sided AUC above 0.90 is leakage until proven otherwise.</li>
+        <li><strong>Score evidence:</strong> actual results must be labeled HOLDOUT-DTI with evaluator version, withheld-positive count, and 95% CI, or ORGANIZER-CONFIRMED copied from a submission receipt. Never report a score projection.</li>
+        <li><strong>Uniqueness:</strong> compare full surfaces and final dots against every registry raster; stop and log a duplicate if rank-correlation exceeds 0.90 or over 70% of dots lie within 3 pixels of a registry raster.</li>
+        <li><strong>Raster validation:</strong> use the shared submission writer and real sample GeoTIFF; require no NaN/Inf in the footprint, values in [0,1], and matching CRS, shape, and transform. Inspect irregularities automatically, not by human judgment.</li>
+        <li><strong>Budget and selector:</strong> at most three experiments or two hours; a separate selector controls any weekly submission slot. No slot is used by this project.</li>
+      </ul>
+      <p>The local <code>run-card.json</code> is a negative/blocked card for this checkout. No experiment, candidate TIFF, raster hash, registry comparison, or validator run exists here.</p>
+    </section>
+
+    <section class="content-section" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">Source links and provenance</h2>
+      <ul>
+        <li><a class="table-link" href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/research/why-02778-analysis-20261025.md" rel="noreferrer">H33 forensic note</a> — owner-maintained analysis; it explicitly withdraws older hidden-truth/recall/ceiling estimates and reports no score receipt.</li>
+        <li><a class="table-link" href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/research/h33-hypotheses.md" rel="noreferrer">H33 hypothesis audit</a> — records previously implemented/measured H33 candidates and the data-blocked branch.</li>
+        <li><a class="table-link" href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/research/h48-fbgr-results-and-nine-site-executive-summary-20261027.md" rel="noreferrer">2026-10-27 refreshed nine-site and H48 report</a> and <a class="table-link" href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/data/latest-run-card.json" rel="noreferrer">source run card</a> — owner-maintained research evidence, not organizer receipts; not rerun in this checkout.</li>
+        <li><a class="table-link" href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/research/h48-fbgr-preregistration-20261027.md" rel="noreferrer">H48 pre-registration</a> — basis for the unexecuted/data-blocked research-gap screen; not a lane selection for this branch.</li>
+        <li><a class="table-link" href="https://github.com/drivendataorg/gems-prize-reference-solution" rel="noreferrer">Official DrivenData reference-solution repository</a> and <a class="table-link" href="https://raw.githubusercontent.com/drivendataorg/gems-prize-reference-solution/main/unet-mc-cv-reference-solution.ipynb" rel="noreferrer">reference notebook</a> — inspected for the general baseline; not evidence about H33.</li>
+        <li><a class="table-link" href="https://www.drivendata.org/competitions/306/competition-doe-gems/" rel="noreferrer">Competition overview</a>, <a class="table-link" href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/" rel="noreferrer">problem description</a>, <a class="table-link" href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" rel="noreferrer">data page</a>, and <a class="table-link" href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/" rel="noreferrer">leaderboard</a> — supplied in the request; the live leaderboard was not refreshed in this review.</li>
+        <li><a class="table-link" href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and" rel="noreferrer">USGS GeoDAWN survey page</a> and <a class="table-link" href="https://gdr.openei.org/submissions/1391" rel="noreferrer">DOE Geothermal Data Repository submission 1391</a> — cited project sources; not fetched directly in this sandbox.</li>
+        <li><a class="table-link" href="https://earthquake.usgs.gov/fdsnws/event/1/" rel="noreferrer">USGS ANSS ComCat FDSN endpoint</a>, <a class="table-link" href="https://search.asf.alaska.edu/" rel="noreferrer">NASA ASF search</a>, and <a class="table-link" href="https://doi.org/10.1785/0220200371" rel="noreferrer">Monte Cristo catalog paper</a> — named for the blocked seismic/InSAR hypothesis; not fetched in this sandbox.</li>
+        <li><a class="table-link" href="https://www.drivendata.org/competitions/306/competition-doe-gems/" rel="noreferrer">Competition material</a> remains the authority for submission rules. The project Pages site does not update or authenticate those data; its source-status feed fetches only owner-maintained GitHub records and never polls the leaderboard.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span><a href="index.html">GEMS Research Desk</a></span>
+    <span>Decision: no approved TIF · No score projection</span>
+  </footer>
+  <script type="module" src="site-feed.js"></script>
+</body>
+</html>

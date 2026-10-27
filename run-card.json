@@ -1,0 +1,49 @@
+{
+  "hypothesis": "No experiment selected: the required single-method lane is unidentified. The initial cross-scale magnetic-gravity edge idea is withdrawn after source review found substantial prior-method overlap.",
+  "mechanism": "No new mechanism was selected or tested. This checkout has no candidate raster, feature stack, shared evaluator, or authorized method lane.",
+  "named_non_fault_mimic": "For the withdrawn edge-concordance idea: lithologic contacts, dikes or intrusions, survey seams, and cultural magnetic noise.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positive_count": null,
+    "ci_95": null,
+    "status": "NOT RUN: no local inputs/shared evaluator and no identified method lane; no score projection made."
+  },
+  "organizer_confirmed": {
+    "label": "ORGANIZER-CONFIRMED",
+    "value": null,
+    "submission_page_receipt": null,
+    "status": "No organizer receipt supplied or independently inspected."
+  },
+  "correlation_overlap_vs_registry": {
+    "status": "NOT COMPUTED: no candidate raster or registry rasters in this checkout.",
+    "rank_correlation_threshold": 0.9,
+    "dot_overlap_threshold_within_3px": 0.7,
+    "rank_correlation": null,
+    "dot_overlap_within_3px": null
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "status": "NOT RUN: no candidate raster or sample_submission.tif is present.",
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "single_band": null,
+    "crs_matches": null,
+    "shape_matches": null,
+    "transform_matches": null,
+    "crs_shape_transform_match": null
+  },
+  "submission": {
+    "filename": null,
+    "file": null,
+    "note": "No candidate generated; do not download or submit. No holdout, registry, or format validation.",
+    "note_chars": 94
+  },
+  "prior_art_reference": {
+    "status": "Separate owner-maintained source run; not this session's experiment and not a submission recommendation.",
+    "url": "https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/data/latest-run-card.json"
+  },
+  "verdict": "negative",
+  "negative_reason": "Blocked/no-evidence result, not a finding that the geology hypothesis failed. No experiment was run and no file is approved."
+}

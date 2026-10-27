@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Auditable research and submission status for the GEMS fault-detection challenge.">
+  <title>GEMS Research Desk</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="GEMS Research Desk home">
+      <span class="brand-mark" aria-hidden="true">G</span>
+      <span>GEMS <span class="brand-light">Research Desk</span></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a class="nav-link active" href="index.html" aria-current="page">Overview</a>
+      <a class="nav-link" href="executive-summary.html">Executive summary</a>
+      <a class="nav-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/main/README.md" rel="noreferrer">Project charter</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">GEMS Prize Challenge · Research status</p>
+        <h1>Discover faults.<br><span>Earn the right to submit.</span></h1>
+        <p class="hero-lede">A careful, auditable workspace for testing fault-prospectivity hypotheses. No leaderboard projection is treated as a score, and no raster is downloadable until it passes the blind holdout, novelty, and format gates.</p>
+        <p class="small-note">This landing page is static; the executive summary pulls the latest public GEMSDOE32 source report from GitHub on page load. The source is owner-maintained, not an organizer feed, and no live leaderboard polling is used.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="executive-summary.html">Read the executive summary <span aria-hidden="true">→</span></a>
+          <button class="button button-disabled" type="button" disabled aria-describedby="download-status">Submission TIF not available</button>
+        </div>
+      </div>
+      <aside class="status-panel" aria-label="Submission status">
+        <div class="status-icon" aria-hidden="true">!</div>
+        <p class="status-label">Submission decision</p>
+        <h2>DO NOT SUBMIT</h2>
+        <p id="download-status">No candidate GeoTIFF exists in this checkout. The newest source-repository experiment is from another branch and is explicitly marked DO NOT SUBMIT; no prior raster is offered here.</p>
+        <span class="status-chip">Not approved for download</span>
+      </aside>
+    </section>
+
+    <section class="section" aria-labelledby="gates-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Readiness gates</p>
+          <h2 id="gates-heading">What is actually ready?</h2>
+        </div>
+        <p class="section-note">A missing artifact is a stop signal—not permission to manufacture a plausible-looking file.</p>
+      </div>
+      <div class="gate-grid">
+        <article class="gate-card gate-blocked">
+          <span class="gate-state">Blocked</span>
+          <h3>Competition data</h3>
+          <p>No training features, labels, sample submission, or registry rasters are present in the repository.</p>
+        </article>
+        <article class="gate-card gate-blocked">
+          <span class="gate-state">Blocked</span>
+          <h3>Shared evaluation tools</h3>
+          <p>The cached feature stack, segment holdout evaluator, and shared submission writer named in the protocol are absent.</p>
+        </article>
+        <article class="gate-card gate-blocked">
+          <span class="gate-state">Blocked</span>
+          <h3>Holdout and uniqueness</h3>
+          <p>No blinded DTI result, confidence interval, leakage-canary output, correlation check, or dot-overlap check exists.</p>
+        </article>
+        <article class="gate-card gate-blocked">
+          <span class="gate-state">Blocked</span>
+          <h3>Competition-format TIF</h3>
+          <p>CRS, footprint, shape, transform, finite values, and the required probability range cannot be verified without the sample raster and candidate.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="decision-band" aria-labelledby="why-heading">
+      <div>
+        <p class="eyebrow">Why H33 is not a causal explanation</p>
+        <h2 id="why-heading">A reported leaderboard result is evidence to investigate—not a method description.</h2>
+      </div>
+      <p>A public GEMSDOE32 forensic note classifies the historical H33 value as OWNER-REPORT, not ORGANIZER-CONFIRMED, and reports no receipt linking score to raster bytes. Its plausible explanation is sparse thinning/pruning in a nested H19-5 family, which can reduce redundant overlap under the requested 300 m kernel. That is not proof of geological generalization; the source note explicitly says the reported H33 value is not a HOLDOUT-DTI result.</p>
+      <a class="text-link" href="executive-summary.html#h33-analysis">See the audit and next tests <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="section sources-section" aria-labelledby="sources-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Starting references</p>
+          <h2 id="sources-heading">Primary sources for the next pass</h2>
+        </div>
+        <p class="section-note">The executive summary auto-refreshes source-maintained status from GitHub. The reference repository was inspected; no official leaderboard result is inferred.</p>
+      </div>
+      <div class="source-links">
+        <a href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/research/h48-fbgr-results-and-nine-site-executive-summary-20261027.md" rel="noreferrer">GEMSDOE32 refreshed nine-site report <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/research/why-02778-analysis-20261025.md" rel="noreferrer">H33 forensic note <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/drivendataorg/gems-prize-reference-solution" rel="noreferrer">DrivenData reference solution <span aria-hidden="true">↗</span></a>
+        <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" rel="noreferrer">Competition rules <span aria-hidden="true">↗</span></a>
+        <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/" rel="noreferrer">Competition data page <span aria-hidden="true">↗</span></a>
+        <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and" rel="noreferrer">USGS GeoDAWN data <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>GEMS Research Desk</span>
+    <span>Evidence first · No unvalidated submission artifacts</span>
+  </footer>
+</body>
+</html>
