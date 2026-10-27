@@ -36,8 +36,8 @@
   "submission": {
     "file": "submissions/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
     "name": "gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b",
-    "note": "H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue fault detector | synthetic stand-in | DO NOT SUBMIT until re-gridded to sample_submission.tif and holdout-validated",
-    "note_chars": 140,
+    "note": "H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue detector | synthetic stand-in | DO NOT SUBMIT",
+    "note_chars": 119,
     "ok_to_download": true,
     "ok_to_submit": false,
     "reason": "Format-valid synthetic stand-in. Cannot re-grid to real sample_submission.tif, cannot compute holdout DTI, cannot verify uniqueness vs registry (no DrivenData auth)."

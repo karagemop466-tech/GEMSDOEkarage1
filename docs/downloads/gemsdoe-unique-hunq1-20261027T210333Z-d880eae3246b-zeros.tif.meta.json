@@ -22,7 +22,7 @@
   "min": 0.0,
   "max": 1.0,
   "nan_count": 0,
-  "note": "H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue fault detector | synthetic stand-in | DO NOT SUBMIT until re-gridded to sample_submission.tif and holdout-validated",
+  "note": "H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue detector | synthetic stand-in | DO NOT SUBMIT",
   "ok_to_submit": false,
   "reason": "No DrivenData auth -> cannot re-grid to real sample_submission.tif, cannot compute holdout DTI, cannot verify uniqueness vs registry. Format-valid only ([0,1], finite, EPSG:32611, 3730x3292)."
 }

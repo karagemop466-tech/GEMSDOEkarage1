@@ -29,7 +29,7 @@ The competition requires a **single-band GeoTIFF (.tif)** (or a .zip containing 
 **Submission name:** `gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b`
 
 **Submission note (≤140 chars):**
-`H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue fault detector | synthetic stand-in | DO NOT SUBMIT until re-gridded to sample_submission.tif and holdout-validated`
+`H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue detector | synthetic stand-in | DO NOT SUBMIT`
 
 ### How to make a submission into the contest
 
