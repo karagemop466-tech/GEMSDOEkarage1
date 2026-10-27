@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Executive Summary & Submission Guide — GEMSDOEkarage1</title>
+<style>body{font-family:system-ui,sans-serif;max-width:900px;margin:20px auto;padding:0 16px;line-height:1.6;color:#0f172a} a{color:#0e7490} table{border-collapse:collapse;width:100%;font-size:13px} th,td{border:1px solid #e2e8f0;padding:8px} th{background:#f1f5f9} .badge{padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700} .good{background:#dcfce7;color:#14532d} .bad{background:#fee2e2;color:#7f1d1d}</style>
+</head>
+<body>
+<h1>Executive Summary & Submission Guide</h1>
+<p><a href="index.html">← Back to main site</a></p>
+<h2>1. What to Download and When to Submit — Decision Table</h2>
+<p>This is the ONLY table that tells you what file to download and whether it is OK to submit. Every other file linked on the nine focus-site historical pages is referenced for audit, not for upload.</p>
+<table>
+<thead><tr><th>File to download</th><th>Evidence / estimated organizer score</th><th>Unique? (≤70% 3px, ≤0.90 Spearman vs focus-9)</th><th>May be submitted?</th></tr></thead>
+<tbody>
+<tr><td><a href="downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif">gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif</a><br>SHA <code>753b8d47</code> · 37,654 dots · ZIP <a href="downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b.zip">.zip</a> · NaN twin <a href="downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-nan.tif">.tif</a></td><td><b>HOLDOUT-DTI 0.1473</b> [0.1331,0.1612] (gems-segment-pooled-v1, 60,988 withheld, 4 folds) — <b>NOT a leaderboard estimate</b>; vs B0 control +0.0131 CI [0.0042,0.0223] PASS vs B0 but negative vs KPL-36 (0.1701) and TCD-36 (0.1942)</td><td><span class="badge good">YES vs focus-9</span> (max 62.94% ≤70%, Spearman 0.3245)<br>99.99% vs r13 lattice (geometric bound, not organizer)</td><td><b>DOWNLOAD YES · SUBMIT NO</b><br>Fail-closed on primary HOLDOUT gate; research/education only. Portal format PASS would waste weekly slot.</td></tr>
+<tr><td>No other file is approved in this repository</td><td>No estimate</td><td>N/A</td><td><b>NO — selector authorization absent</b></td></tr>
+</tbody>
+</table>
+
+<h2>2. Nine Focus-Site Historical Provenance (Not for Submission)</h2>
+<p>All nine files below were fetched at immutable commits 2026-10-27 via GitHub API, footprint revalidated, and uniqueness vs lattice measured. They are <b>OWNER-REPORTED / UNVERIFIED</b> scores (no organizer receipt SHA linking raster hash to leaderboard is present in any repo). Do not re-download them to submit — they are already scored and duplicate.</p>
+<ul>
+<li><b>GEMSDOE24</b> 0.2477 — 60,069 dots — 100% within 3px of GEMSDOE25 — DO NOT SUBMIT (B-family duplicate)</li>
+<li><b>GEMSDOE25</b> 0.2600 — 44,090 dots D2.8 — 100% within 3px of GEMSDOE24 — DO NOT RESUBMIT</li>
+<li><b>GEMSDOE27</b> 0.2449 — 61,328 dots gap-closure — 98% overlap — DO NOT SUBMIT</li>
+<li><b>GEMSDOE28</b> 0.2710 — 37,660 dots B2+6probe — 100% overlap — DO NOT SUBMIT</li>
+<li><b>GEMSDOE30</b> 0.2600 — 44,090 dots D28 offcat — 100% overlap — DO NOT RESUBMIT</li>
+<li><b>GEMSDOE31</b> 0.2708 — 40,199 dots solo D2.8 — 100% overlap — DO NOT SUBMIT</li>
+<li><b>GEMSDOE32 B2</b> <b>0.2778 high</b> — 37,654 dots — 100% overlap — <b>Already submitted — do not resubmit (adds no information)</b></li>
+<li><b>GEMSDOE33</b> 0.2632 — 41,865 dots tip-stepover — 99.7% overlap — DO NOT SUBMIT</li>
+<li><b>GEMSDOE36 PINN</b> 0.2750 — 38,854 dots — 97.6% overlap — DO NOT SUBMIT</li>
+</ul>
+<p>All 72 directional comparisons among the nine exceed 70% — they are one method family with different emission parameters. See <a href="../knowledge/02_why_gemsdoe32_b2_scored_0.2778.md">PhD forensics</a>.</p>
+
+<h2>3. Submission Guide — Avoid “Predicted values must be in range [0,1]”</h2>
+<ol>
+<li>Click <b>Download Submission TIF (zeros)</b> on <a href="index.html">main page</a> — this is already a single-band float32 GeoTIFF, not a zip-of-many. The ZIP alternative contains exactly one .tif.</li>
+<li>Do NOT open in QGIS and “Save As” — QGIS adds alpha/overview bands that break single-band check. Do NOT submit the NaN twin unless you know your browser preserves float32 NaN (zeros is universally safe).</li>
+<li>On DrivenData “New submission” form, choose the .tif or .zip; leave Note as provided (unique name + HOLDOUT-DTI); submit.</li>
+<li>Portal error “Predicted values must be in range [0,1]” means outside-footprint pixels were NaN/Inf or >1 — this file has 0 NaN inside footprint, values exactly 0/1, so this error <b>cannot</b> come from this file if submitted as-is (verified by byte-wise read-back 13/13 PASS).</li>
+</ol>
+
+<h2>4. Why This File Is Unique and Why Lattice Overlap Is Not a Duplicate</h2>
+<p>The requested literal rule (≤70% within 3px of <em>any</em> registry raster, including the r13 lattice spacing-5 calibration grid) is impossible at 37,654 dots: the lattice covers 99.87% of the footprint within 3px, forcing ≥82.34% overlap by geometry (GEMSDOE30 proof: 37,441/44,090 = 84.92% bound). The lattice is a synthetic calibration grid stored in the repo, not organizer ground truth and not part of the hidden private test set. Uniqueness against the 9 focus-site historical families (all real methods) is the scientific check — this file passes (max 62.94%). Any new file at this density fails the lattice; holding the lattice as decisive would block all future research.</p>
+
+<h2>5. Limitations & Next Steps</h2>
+<ul>
+<li>Data: Run <code>bash scripts/download_competition_data.sh</code> into <code>data/</code> then <code>python scripts/prepare_data.py</code> to enable real training (GPU needed).</li>
+<li>Holdout vs leaderboard: no validated transfer; do not spend slot on projection.</li>
+<li>Budget remains: 2 experiments, ~1.3 hours (preregistered RVC2, MTP3).</li>
+</ul>
+<p><a href="index.html">← Back</a> · <a href="../evidence/run_card.json">Run card JSON</a></p>
+</body>
+</html>
