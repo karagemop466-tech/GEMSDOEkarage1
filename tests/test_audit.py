@@ -58,10 +58,15 @@ def test_evidence_scope():
     assert all(r['literal_duplicate'] for r in a['rasters'])
 
 
-def test_site_local_links_and_no_submit_download():
+def test_site_local_links_and_download_only_for_gated_raster():
+    """A download link may appear on the homepage only for the exact bytes the release gate promoted."""
+    import hashlib
     from html.parser import HTMLParser
     from urllib.parse import urlsplit
     root = Path(__file__).resolve().parents[1]
+    gate = json.loads((root/'evidence/release_gate_gpcz.json').read_text())
+    assert gate['result']['verdict'] == 'promote' and not gate['result']['reasons']
+    promoted = gate['input']['raster_sha256']
     class Links(HTMLParser):
         def handle_starttag(self, tag, attrs):
             attrs = dict(attrs)
@@ -69,7 +74,9 @@ def test_site_local_links_and_no_submit_download():
                 value = attrs.get(key, '')
                 if value and not urlsplit(value).scheme and not value.startswith('#'):
                     assert (root / value.split('#')[0]).is_file(), value
-            assert 'download' not in attrs, 'No candidate is cleared for submission'
+            if 'download' in attrs:
+                target = root / attrs['href']
+                assert hashlib.sha256(target.read_bytes()).hexdigest() == promoted, 'download link does not point at the gated raster'
     for name in ('index.html', 'executive-summary.html'):
         Links().feed((root/name).read_text())
 

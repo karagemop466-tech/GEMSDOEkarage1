@@ -14,3 +14,10 @@ and both archive READMEs before using any inherited claim. The current homepage
 is maintained by `scripts/render_site.py`; `scripts/build_site.py` maintains the
 parallel review's legacy and per-site pages without overwriting it. Both prior
 and current run cards are negative.
+
+Lane GPC-Z (2026-10-27) produced a gated candidate: read `evidence/run_card_gpcz.json`,
+`evidence/release_gate_gpcz.json` and `docs/gpcz/index.html`. Lane pages are built by
+`scripts/build_gpcz_site.py` into `docs/gpcz/`; the homepage decision panel in `index.html`,
+`docs/executive-summary.html` and the alert in `scripts/build_detail_pages.py` must be
+updated together whenever the gate result changes. The lane's shared tools live in
+`src/gemsk/`; the pinned GEMSDOE32 template evaluator was run unmodified for comparison.

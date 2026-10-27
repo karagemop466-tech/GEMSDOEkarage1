@@ -1,6 +1,58 @@
 # GEMSDOEkarage1 · Evidence before submission
 
-> **Current decision: NO submission-ready GeoTIFF. DO NOT SUBMIT.**
+> **Current decision (2026-10-27, lane GPC-Z): one unique GeoTIFF has passed every automated gate — OK to download; spending a weekly slot is the selector's call.**
+> File: `docs/downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif`
+> (sha256 `75ac577a…6dbd`, 36,000 dots, float32, EPSG:32611, no NaN anywhere). HOLDOUT-DTI 0.1273 [0.1169, 0.1374]
+> (`gemsk-hide-recover-v1`, 60,988 withheld px) — **not a leaderboard estimate**. Counter-signal: the 0.2778 champion scores
+> higher on the shared template's SGMC off-catalogue calibration (0.0641 vs 0.0545, IR-K1-SGMC-01).
+> Site: https://karagemop466-tech.github.io/GEMSDOEkarage1/ · lane pages: [docs/gpcz/](docs/gpcz/index.html) ·
+> [how to submit](docs/gpcz/how-to-submit.html) · run cards: [evidence/run_card_gpcz.json](evidence/run_card_gpcz.json),
+> [docs/data/run-card.json](docs/data/run-card.json) · release gate: [evidence/release_gate_gpcz.json](evidence/release_gate_gpcz.json).
+> The earlier fail-closed review below (no candidate, DO NOT SUBMIT) is preserved as history; its own run card `evidence/run_card.json` stays negative.
+
+## Lane GPC-Z — what was done this session (3 experiments, ≈2 h)
+
+Hypothesis: unmapped faults are low scarps in the damage zone of mapped ones, facing the basin like their parents. Emit label-free
+topographic *step edges* (det_elev, 1 m LiDAR step), gated by concordance between the scarp's downhill direction and the basin-deepening
+direction from isostatic gravity + depth-to-basement, weighted by a near-catalogue prior g(d) measured by hide-and-recover
+(67% of withheld strands lie within 1.5 km of a visible one), pruned ≥3 px from the catalogue, 36,000 binary dots at 2.8 px spacing.
+
+| Gate | Result | Evidence |
+|---|---|---|
+| Format validator (ours + review's `validate_geotiff.py`) | pass, 11/11; whole array finite, values {0,1} | `docs/downloads/*-receipt.json`, `evidence/validate_geotiff_gpcz.json` |
+| Uniqueness vs 15 registry rasters | max 31.7% of dots within 3 px; |ρ| ≤ 0.017 (lattice probe 99.9%, reported, IR-K1-LATTICE-01) | `evidence/run_card_gpcz.json` |
+| Leakage canary | all single features AUC 0.35–0.57; prior alone 0.78 (< 0.90) | `evidence/leakage_canary_aucs.json` |
+| HOLDOUT-DTI, same evaluator, vs the H19-5 field that produced 0.2778 | 0.1298 vs 0.1049 at 37,654 (interleaved); paired gain over physics-only +0.060 [+0.050, +0.069] | `evidence/exp2_gpcz_holdout.json` |
+| Shared template evaluator (GEMSDOE32 pin, unmodified) on the final rasters | hide-recover v3: 0.0123 vs champion 0.0045; **SGMC off-catalogue: 0.0545 vs champion 0.0641** | `evidence/template_evaluate_holdout_*.json` |
+| Review's `release_gate.py` | `promote` (ok_to_submit is never set by design; selector separate) | `evidence/release_gate_gpcz.json` |
+| Negative results | contour-obliquity gate falsified (AUC 0.42); sqrt-prior hedge 89% identical → dropped; blocked 20 km holdout inverts the distance prior | `evidence/`, `docs/gpcz/research.html` |
+
+Code: `src/gemsk/` (grid, metric verified against brute force, holdout blocked+interleaved, features, NMS emission, prior, submission
+writer+validator, uniqueness, pipeline); `scripts/run_experiment{1,2,3}_*.py`; `scripts/build_gpcz_site.py` → `docs/gpcz/`;
+13 lane tests in `tests/test_{metric,emission,holdout_prior,submission_writer}.py` (78 pass overall). Reproduce:
+
+```bash
+pip install -r requirements.txt && python3 scripts/restore_data.py --group all
+PYTHONPATH=src python3 -c "from gemsk import grid; grid.prepare_bands()"
+PYTHONPATH=src python3 scripts/run_experiment1_screen.py 37654 && PYTHONPATH=src python3 scripts/run_experiment2_gpcz.py
+PYTHONPATH=src python3 scripts/run_experiment3_build.py && python3 scripts/build_gpcz_site.py && python3 -m pytest -q
+```
+
+Standing brief (clause-by-clause reconstruction; paste the verbatim prompt over it): [`docs/standing-prompt.md`](docs/standing-prompt.md).
+Knowledge base: [`knowledge/geothermal-fault-knowledge.md`](knowledge/geothermal-fault-knowledge.md); sources table: [`docs/sources.md`](docs/sources.md).
+
+### Remaining work / limitations for the next session
+1. Selector (human, weekly cap): decide whether to spend a slot on the file above; record the organizer score as ORGANIZER-CONFIRMED in `registry/score_ledger.csv`, then re-run `build_gpcz_site.py`.
+2. IR-K1-SGMC-01: the champion beats GPC-Z on the SGMC off-catalogue instrument. Next experiment budget should test whether a 44,090-dot GPC-Z emission or a looser prior (g(d) floor) closes that gap without losing the hide-recover advantage — both are one call to `gemsk.pipeline.build`.
+3. H3 (radiometric across-edge juxtaposition) is runnable with data on hand; H4/H5 need `earthquake.usgs.gov` (ComCat, Monte Cristo rupture) mirrored to github.
+4. Shoreline mimic (IR-K1-OBLIQ-01): obtain Reheis (1999) pluvial-lake shoreline polygons (USGS MF-2323) and down-weight contour-parallel steps at Lahontan highstand elevations.
+5. Data provenance: pins are mirror-consistent, not organizer-authenticated; nothing outside github.com/pypi.org is reachable from the sandbox.
+
+---
+
+## Earlier parallel review (preserved verbatim)
+
+> **Decision of that review: NO submission-ready GeoTIFF. DO NOT SUBMIT.** (superseded for lane GPC-Z by the section above)
 > The initial checkout contained only this README. This session audited pinned
 > historical files and built a fail-closed decision site; it did not run a
 > geological experiment, generate a new candidate TIFF, spend a submission slot,

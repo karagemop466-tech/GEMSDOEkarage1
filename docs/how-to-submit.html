@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to submit · GEMSDOEkarage1</title><style>
+:root{--ink:#17202a;--mut:#5b6977;--line:#e3e8ee;--ok:#1b7f3b;--okbg:#e6f6ea;--warn:#8a5a00;--warnbg:#fff4d6;--bad:#9b1c1c;--badbg:#fde8e8;--acc:#0b57d0}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:#fff}
+header{border-bottom:1px solid var(--line);background:#f7f9fb}header .in{max-width:1100px;margin:auto;padding:14px 20px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+header a{color:var(--ink);text-decoration:none;font-weight:600}header a.on{color:var(--acc)}main{max-width:1100px;margin:auto;padding:24px 20px 60px}
+h1{font-size:30px;margin:.2em 0}h2{margin-top:2em;border-bottom:1px solid var(--line);padding-bottom:.2em}h3{margin-top:1.6em}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:700;font-size:14px}.ok{background:var(--okbg);color:var(--ok)}.warn{background:var(--warnbg);color:var(--warn)}.bad{background:var(--badbg);color:var(--bad)}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0;background:#fff}.card.hero{border:2px solid var(--ok);background:#f4fbf6}
+.btn{display:inline-block;background:var(--acc);color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700;margin:6px 8px 6px 0}.btn.sec{background:#fff;color:var(--acc);border:2px solid var(--acc)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}th{background:#f3f6f9}td.n{text-align:right;font-variant-numeric:tabular-nums}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px}pre{background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto}.mut{color:var(--mut)}small{color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.kpi{border:1px solid var(--line);border-radius:10px;padding:12px}.kpi b{display:block;font-size:22px}
+</style></head><body>
+<header><div class="in"><a href="index.html" style="font-size:18px">GEMSDOEkarage1</a><a href="index.html" class="">Executive summary</a><a href="how-to-submit.html" class="on">How to submit</a><a href="nine-sites.html" class="">Nine focus sites</a><a href="research.html" class="">Research & hypotheses</a><a href="knowledge.html" class="">Geothermal-fault knowledge</a><a href="sources.html" class="">Sources & data</a><a href="standing-prompt.html" class="">Standing brief</a></div></header><main>
+<h1>How to make a submission (exactly)</h1>
+<div class="card hero"><p><span class="badge ok">Current file: OK to submit</span></p>
+<ol>
+<li><a class="btn" href="downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif" download>Download gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif</a></li>
+<li>Open the competition's submission page: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/</a> (log in; eligibility and the 3-per-week cap are in the <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official rules PDF</a>).</li>
+<li>Click <b>New submission</b> → <b>File to submit</b> → choose the downloaded <code>.tif</code> (or the <code>.zip</code>; both are accepted: "a single-band GeoTIFF (.tif) file, or a .zip file containing a single GeoTIFF").</li>
+<li>Paste into <b>Note (optional)</b>: <code>GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed</code></li>
+<li>Submit. When the page shows the score, record it in <code>registry/score_ledger.csv</code> with the file's SHA-256 (<code>75ac577a9131f683…</code>) as <b>ORGANIZER-CONFIRMED</b>. Until then no number for this file is a score.</li>
+</ol></div>
+<h2>What the form checks, and how this file satisfies it</h2>
+<table><tr><th>Requirement (submission page / problem description)</th><th>This file</th></tr>
+<tr><td>single-band GeoTIFF</td><td>1 band, float32</td></tr>
+<tr><td>CRS, shape and geotransform must match the submission format</td><td>EPSG:32611 · 3730 × 3292 · (100, 0, 243350, 0, −100, 4508550) — compared programmatically to <code>sample_submission.tif</code> (<code>src/gemsk/submission.py:validate</code>)</td></tr>
+<tr><td>"Predicted values must be in range [0, 1]" (the error the owner hit once)</td><td>only the values 0.0 and 1.0 occur; no NaN, no ±inf, no nodata sentinel anywhere in the 12,278,160 pixels</td></tr>
+<tr><td>Unique name + short note</td><td>name <code>gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif</code>, note 139 characters</td></tr></table>
+<h2>Regenerate from source (fully automated, no manual steps)</h2>
+<pre>pip install -r requirements.txt
+python3 scripts/restore_data.py            # github.com mirrors, SHA-256 verified
+PYTHONPATH=src python3 -c "from gemsk import grid; grid.prepare_bands()"
+PYTHONPATH=src python3 scripts/run_experiment1_screen.py 37654
+PYTHONPATH=src python3 scripts/run_experiment2_gpcz.py
+PYTHONPATH=src python3 scripts/run_experiment3_build.py   # writes docs/downloads/*.tif + run card
+PYTHONPATH=src python3 -m pytest -q
+python3 scripts/build_site.py</pre>
+
+<p class="mut" style="margin-top:48px">Built 2026-10-27 21:39 UTC from <code>evidence/*.json</code> by <code>scripts/build_site.py</code>. Repository: <a href="https://github.com/karagemop466-tech/GEMSDOEkarage1">karagemop466-tech/GEMSDOEkarage1</a>.</p>
+</main></body></html>

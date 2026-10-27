@@ -31,7 +31,7 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="eyebrow-line"></span> RESEARCH, WITH A REASON TO BELIEVE</p>
-        <h1 id="hero-title">Clarity before the <em>next submission.</em></h1>
+        <h1 id="hero-title">One cleared file. <em>Evidence attached.</em></h1>
         <p class="hero-description">A decision-first workspace for identifying unmapped faults in the GeoDAWN region. Know what the evidence says—and what it doesn’t.</p>
         <div class="hero-actions"><a class="text-link" href="docs/executive-summary.html">Read the executive summary <span aria-hidden="true">↗</span></a><a class="subtle-link" href="#site-comparison">Compare the nine sites <span aria-hidden="true">↓</span></a></div>
       </div>
@@ -49,15 +49,15 @@
 
     <section class="decision-panel" aria-labelledby="decision-title">
       <div class="decision-main">
-        <div class="status-line"><span class="status-dot"></span> CURRENT RELEASE DECISION <span class="status-tag">NOT READY</span></div>
-        <h2 id="decision-title">No file is approved for submission.</h2>
-        <p>The requested unique GeoTIFF has not been generated. The assigned method lane is missing, and the literal registry rule blocks the historical dot budget. This review has used no slot.</p>
-        <div class="decision-actions"><button class="button button-disabled" type="button" disabled aria-describedby="download-help"><span aria-hidden="true">↓</span> Download submission .tif</button><a class="button button-light" href="docs/executive-summary.html#submission-guide">See submission guide <span aria-hidden="true">↗</span></a></div>
-        <p class="download-help" id="download-help">Download stays locked until the evidence and independent selector gates pass. Parallel-session synthetic drafts are quarantined; their reported holdout numbers are not measured. <a href="docs/data/archive-review.json">Read the archive audit ↗</a></p>
+        <div class="status-line"><span class="status-dot"></span> CURRENT RELEASE DECISION <span class="status-tag">CLEARED · SELECTOR PENDING</span></div>
+        <h2 id="decision-title">One unique GeoTIFF has passed every automated gate (lane GPC-Z).</h2>
+        <p><code>gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif</code> — 36,000 binary dots, float32, EPSG:32611, no NaN anywhere, template-identical grid. Format validator 11/11 (independent re-run by the review's <code>validate_geotiff.py</code>: pass); unique versus 15 registry rasters (max 31.7% within 3 px, |ρ| ≤ 0.017); leakage canary clear (max AUC 0.78); HOLDOUT-DTI 0.1273 [0.1169, 0.1374] (gemsk-hide-recover-v1, 60,988 withheld px) — <strong>not a leaderboard estimate</strong>. Counter-signal: the 0.2778 champion scores higher on the shared template's SGMC off-catalogue calibration (0.0641 vs 0.0545). OK to download; spending a weekly slot is the selector's call.</p>
+        <div class="decision-actions"><a class="button" href="docs/downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif" download><span aria-hidden="true">↓</span> Download submission .tif (138 KB)</a><a class="button button-light" href="docs/gpcz/index.html">GPC-Z executive summary <span aria-hidden="true">↗</span></a><a class="button button-light" href="docs/gpcz/how-to-submit.html">How to submit <span aria-hidden="true">↗</span></a></div>
+        <p class="download-help" id="download-help">SHA-256 <code>75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd</code>. Submission name = filename without extension; note: <code>GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed</code>. Earlier parallel drafts (H-UNQ-1, CDA1) remain quarantined and are not this file. <a href="docs/gpcz/index.html">Read the lane page and run card ↗</a></p>
       </div>
       <div class="decision-side">
-        <div><span>VERDICT</span><strong><i class="small-red-dot"></i> Negative</strong></div>
-        <div><span>ESTIMATED LEADERBOARD SCORE</span><strong>Unavailable</strong></div>
+        <div><span>VERDICT</span><strong>Promote to selector</strong></div>
+        <div><span>ESTIMATED LEADERBOARD SCORE</span><strong>Unavailable (holdout only)</strong></div>
         <div><span>SUBMISSION SLOT</span><strong>Not selected</strong></div>
         <a href="docs/data/run-card.json">View machine-readable run card <span aria-hidden="true">↗</span></a>
       </div>

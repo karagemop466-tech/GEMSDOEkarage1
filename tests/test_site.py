@@ -27,7 +27,7 @@ def test_site_links_and_negative_banner():
             url=urlsplit(link)
             if not url.scheme and url.path:
                 assert (path.parent/unquote(url.path)).exists(), (path,link)
-    assert 'NO APPROVED TIFF' in (ROOT/'docs/index.html').read_text()
+    assert 'ONE CLEARED TIFF' in (ROOT/'docs/index.html').read_text()
     assert 'Not estimable' in (ROOT/'docs/executive-summary.html').read_text()
 
 
