@@ -10,6 +10,9 @@ def shell(title, body):
 
 
 def main():
+    # Preserve the concurrently merged detailed site and its independent audit.
+    from build_detail_pages import main as build_details
+    build_details()
     data = json.loads((ROOT/'docs/data/sources.json').read_text())
     audit = json.loads((ROOT/'docs/data/raster_audit.json').read_text())
     bysite = {r['site']: r for r in audit['rasters']}

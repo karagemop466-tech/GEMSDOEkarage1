@@ -11,3 +11,6 @@ submissions/
 .ipynb_checkpoints/
 .DS_Store
 Thumbs.db
+
+.work/
+.cache/

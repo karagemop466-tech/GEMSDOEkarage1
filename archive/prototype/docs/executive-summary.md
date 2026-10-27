@@ -1,3 +1,5 @@
+> **SUPERSEDED HISTORICAL PROTOTYPE — DO NOT SUBMIT.** This page belongs to the concurrent H-UNQ-1 synthetic stand-in session. See [the current executive decision](executive-summary.html) and `../evidence/run_card.json`. The synthetic TIFF has no scientific validation or correct template transform. Historical metric prose below is not authoritative.
+
 # Executive Summary — GEMSDOE competition submission pipeline
 
 **Repo:** `GEMSDOEkarage1`  |  **Branch:** `arena/83267592-gemsdoekarage1`  |  **Date:** 2026-10-27

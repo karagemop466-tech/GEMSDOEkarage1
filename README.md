@@ -31,3 +31,5 @@ GitHub Pages publishes the root site; CI tests it. The scheduled workflow refres
 
 ## Concurrent integration
 While this audit ran, another session merged a synthetic prototype onto main. It is preserved in [archive/prototype](archive/prototype/README.md), explicitly **DO NOT SUBMIT**. Those placeholder-data TIFFs are not this audit’s deliverable; regridding them does not provide real geological evidence. Their local evaluator is not the designated shared template. The active site remains this audit dashboard.
+
+A second concurrent review (PR #3) is retained: [detailed site summaries](docs/index.html), its independent lattice audit, `registry/template.json`, shared-tool restoration helpers and release-gate tests. Root dashboard uses the pairwise nine-mask audit; the detailed dashboard additionally reports its lattice comparison. These are distinct registry scopes, not contradictory measurements. The method lane is still missing.

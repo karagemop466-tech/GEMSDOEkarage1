@@ -27,3 +27,6 @@
 - Official reference README independently retrieved/pinned; other official hosts not reachable under network policy, so no live verification claims.
 
 Tests: `python -m pytest -q` — 9 passed at this review. Rasterio emits upstream Affine deprecation warnings, not validation failures. Complete scientific goal is not satisfied: no new unique validated TIFF or defensible leaderboard estimate is available. These are documented blockers, not silently waived requirements.
+
+## Concurrent integration re-check
+Two sessions merged onto main during PR preparation. Resolved both merges on the assigned branch. Preserved the synthetic prototype under `archive/prototype/`; retained the second review's detailed pages, independent lattice audit, pinned template helper and release gates. `scripts/build_site.py` rebuilds both dashboards without overwriting the root audit with the detailed one. Combined suite: **44 passed**. The two audits have explicitly different comparison scopes. No inherited prototype is cleared for upload.
