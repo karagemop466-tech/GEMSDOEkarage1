@@ -1,0 +1,9 @@
+{
+  "id": "GEMSDOE25_H79_research_only",
+  "repo": "buffedlizard55-lab/GEMSDOE25",
+  "ref": "19b219f629440b9975b093f459c74e21a42476ca",
+  "path": "docs/downloads/gems25-h79-cthm-crustal-sgmc-b2-37654-20261027-e7ad8a4bf3ed-zeros.tif",
+  "bytes": 826248,
+  "sha256": "df13471fe77d6eb6dcf24ac4f2d453a36bd0c78e9c51caa34ac032104897a5ef",
+  "source_run_card": "https://github.com/buffedlizard55-lab/GEMSDOE25/blob/19b219f629440b9975b093f459c74e21a42476ca/registry/run_card_h79_cthm_2026-10-27.json"
+}

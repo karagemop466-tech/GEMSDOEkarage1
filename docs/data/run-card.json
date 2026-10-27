@@ -1,0 +1,42 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc": "2026-10-27T21:20:41.678962+00:00",
+  "hypothesis": "Unassigned; the ranked signed multiscale magnetic-gravity asymmetry hypothesis is a proposal only, not an active lane.",
+  "mechanism": "Untested polarity and scale persistence of magnetic and gravity margin gradients, with topographic context and fold-local catalogue handling.",
+  "named_non_fault_mimic": "Lithologic contacts or volcanic flow margins can produce similar gradients without fault displacement.",
+  "holdout_dti": {
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "registry_coverage": "One lattice witness and nine historical rasters audited; not the full registry.",
+    "lattice_coverage_fraction": 0.9987132726822701,
+    "champion_sized_minimum_overlap_fraction": 0.8234184947150369
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run; no candidate raster exists"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "blockers": [
+    "The prompt refers to a single assigned method lane but supplies no lane paragraph.",
+    "The pinned calibration lattice makes the literal overlap gate impossible at the historical 37,654-dot budget.",
+    "The complete current shared registry, a cached feature stack, and a frozen comparable holdout best are not present in this checkout.",
+    "No candidate surface, leakage-canary results, held-out experiment, independent confirmation, or selector decision exists.",
+    "The mirrored template is not organizer-authenticated and outside-footprint encoding versus the reported portal range error remains unresolved."
+  ],
+  "verdict": "negative"
+}
