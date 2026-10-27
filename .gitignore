@@ -3,6 +3,8 @@
 .cache/
 __pycache__/
 .pytest_cache/
+.ruff_cache/
+.mypy_cache/
 *.py[cod]
 /data/
 data/raw/
@@ -12,10 +14,15 @@ data/work/
 venv/
 work/
 .work/
+dist/
+build/
+*.egg-info/
 submissions/
 .ipynb_checkpoints/
 .DS_Store
 Thumbs.db
+*.memmap
 *.npy
+*.npz
 *.partial
 *.assembling

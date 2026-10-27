@@ -64,9 +64,11 @@ def test_site_local_links_and_download_only_for_gated_raster():
     from html.parser import HTMLParser
     from urllib.parse import urlsplit
     root = Path(__file__).resolve().parents[1]
-    gate = json.loads((root/'evidence/release_gate_gpcz.json').read_text())
-    assert gate['result']['verdict'] == 'promote' and not gate['result']['reasons']
-    promoted = gate['input']['raster_sha256']
+    promoted_hashes = set()
+    for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
+        gate = json.loads((root/'evidence'/gate_name).read_text())
+        assert gate['result']['verdict'] == 'promote' and not gate['result']['reasons']
+        promoted_hashes.add(gate['input']['raster_sha256'])
     class Links(HTMLParser):
         def handle_starttag(self, tag, attrs):
             attrs = dict(attrs)
@@ -76,7 +78,7 @@ def test_site_local_links_and_download_only_for_gated_raster():
                     assert (root / value.split('#')[0]).is_file(), value
             if 'download' in attrs:
                 target = root / attrs['href']
-                assert hashlib.sha256(target.read_bytes()).hexdigest() == promoted, 'download link does not point at the gated raster'
+                assert hashlib.sha256(target.read_bytes()).hexdigest() in promoted_hashes, 'download link does not point at a gated raster'
     for name in ('index.html', 'executive-summary.html'):
         Links().feed((root/name).read_text())
 

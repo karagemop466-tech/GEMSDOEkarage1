@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gemskarage1"
+version = "1.0.0"
+description = "DOE GEMS Prize Challenge — H-K1-1 Hydrothermal Magnetite-Destruction Analytic-Signal Trough & Sinter/F2mDAB Upflow-Breach Dual-Envelope Submodular Network"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "rasterio>=1.3",
+    "scikit-learn>=1.3",
+    "scikit-image>=0.21",
+    "shapely>=2.0",
+    "lightgbm>=4.0",
+    "matplotlib>=3.7",
+    "Pillow>=10.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "vendor/template57"]
+pythonpath = ["vendor", "src"]
