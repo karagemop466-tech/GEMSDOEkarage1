@@ -1,0 +1,65 @@
+{
+  "card_id": "run-card-hunq1-20261027",
+  "created_utc": "2026-10-27T21:00:00Z",
+  "schema": "GEMSDOE parallel-run protocol run card v1",
+  "verdict": "negative",
+  "hypothesis": {
+    "id": "H-UNQ-1",
+    "statement": "Radiometric-hydrothermal + fluvial-channel-steepness (chi) + gravity-margin off-catalogue fault detector finds blind/pre-Quaternary faults absent from the USGS/INGENIOUS catalogue.",
+    "layers": ["10 m 3DEP-derived fluvial chi / channel-steepness anomaly", "GeoDAWN radiometric Th/K and eU/K alteration ratio", "isostatic-gravity margin edge", "USGS/INGENIOUS catalogue (2 px collar only, to suppress detector-echo false positives)"],
+    "physical_signature": "Linear hydrothermal alteration (Th/K, eU/K) co-located with a gravity-margin edge and a fluvial-chi knickzone/uplift anomaly — blind range-front fault signature",
+    "why_off_catalogue": "Catalogue maps only mapped/Quaternary surface faults; blind, low-relief, pre-Quaternary and hydrothermal-only faults are absent. Label-free except the 2 px collar.",
+    "differs_from_repo": "Does NOT re-thin the H19-5 ridge skeleton (every focus-9 leader does). Radiometric-primary + fluvial-chi; related to GEMSDOE33 THKCOND but substitutes fluvial-chi + gravity margin for Th/K x conductivity."
+  },
+  "mechanism": "Hydrothermal fluids ascend along permeable fault zones leaving radiometric (Th/K, eU/K) and gravity-margin signatures; blind range-front uplift is recorded in fluvial chi anomaly. Combine layers into a propensity surface, apply a 2 px catalogue collar, emit ~37,654 dots via CELF-300 m constrained emission.",
+  "named_non_fault_mimic": "Pleistocene Lake Lahontan pluvial wave-cut shorelines; intra-range bedrock cliff/talus breaks >18 deg; alluvial fan terrace risers; volcanic flow toes; differential compaction over buried paleovalleys.",
+  "holdout_dti": {
+    "evaluator": "dti_binary (Tversky alpha=0.2, beta=0.8, 300 m triangular kernel)",
+    "holdout": "hide whole fault segments + buffer, derive catalogue features only from visible faults, mask visible faults pixel-exactly",
+    "withheld_positives": null,
+    "dti": null,
+    "ci_95": null,
+    "note": "No DrivenData auth -> labels.tif unavailable -> holdout DTI cannot be computed. self-test PASS on synthetic faults (perfect=1.0, none=0.0, far=0.0)."
+  },
+  "correlation_overlap_vs_registry": {
+    "note": "No registry rasters available (no DrivenData auth) -> uniqueness vs registry cannot be computed here. Synthetic stand-in is deliberately NOT derived from H19-5, so it is expected to differ from the focus-9 family, but this is UNVERIFIED."
+  },
+  "raster_sha256": "642a6369a3a7e9a5c5761983e110c60a6abbc196abd339985e11da351d3e5c4b",
+  "validator_output": {
+    "G1_format_range_0_1": "PASS (float32, shape 3730x3292=12279160 cells, min 0.0 max 1.0, 0 NaN, finite)",
+    "G2_grid_match": "UNVERIFIED (no sample_submission.tif reference -> must re-grid via align_to_competition_grid.py)",
+    "G3_holdout_dti": "NOT COMPUTED (no labels.tif)",
+    "G4_leakage_canary": "NOT EVALUATED (no feature rasters/labels)",
+    "G5_uniqueness": "NOT EVALUATED (no registry rasters)",
+    "ok_to_submit": false
+  },
+  "submission": {
+    "file": "submissions/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+    "name": "gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b",
+    "note": "H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue fault detector | synthetic stand-in | DO NOT SUBMIT until re-gridded to sample_submission.tif and holdout-validated",
+    "note_chars": 140,
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "reason": "Format-valid synthetic stand-in. Cannot re-grid to real sample_submission.tif, cannot compute holdout DTI, cannot verify uniqueness vs registry (no DrivenData auth)."
+  },
+  "budget": {
+    "experiments_used": 1,
+    "experiment_limit": 3,
+    "hours_limit": 2,
+    "note": "One experiment (H-UNQ-1 generation). Holdout validation and uniqueness require DrivenData auth."
+  },
+  "limitations": [
+    "No DrivenData auth -> cannot download training_features.tif, labels.tif, sample_submission.tif (verified redirect to login); Dropbox mirrors also unreachable.",
+    "Cannot compute real holdout DTI or organizer-score estimate.",
+    "Cannot verify uniqueness vs registry (70% within-3-px rule, |Spearman| <= 0.90).",
+    "Generated TIF uses a placeholder geotransform origin; MUST be re-gridded to the real sample_submission.tif before upload.",
+    "All focus-site scores (0.2449-0.2778) are owner-reported / unverified, no organizer receipt."
+  ],
+  "next_steps": [
+    "Obtain DrivenData auth, place data in data/, run scripts/prepare_data.py",
+    "Re-grid H-UNQ-1 to sample_submission.tif via scripts/align_to_competition_grid.py",
+    "Compute holdout DTI via scripts/evaluate_holdout.py; require paired 95% CI > 0 vs current best",
+    "Run leakage canary (each feature AUC <= 0.90) and uniqueness vs registry",
+    "Only then: submission_writer.py audit receipt + weekly-slot selector approval + upload via DrivenData"
+  ]
+}

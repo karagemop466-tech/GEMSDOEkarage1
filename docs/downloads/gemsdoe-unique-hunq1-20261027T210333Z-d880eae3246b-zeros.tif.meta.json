@@ -1,0 +1,28 @@
+{
+  "hypothesis": "H-UNQ-1 radiometric-hydrothermal + fluvial-chi + gravity-margin off-catalogue fault detector",
+  "created_utc": "2026-10-27T21:04:39.364399+00:00",
+  "output": "submissions/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+  "raster_sha256": "642a6369a3a7e9a5c5761983e110c60a6abbc196abd339985e11da351d3e5c4b",
+  "shape": [
+    3730,
+    3292
+  ],
+  "cells": 12279160,
+  "dtype": "float32",
+  "crs": "EPSG:32611",
+  "transform": [
+    100.0,
+    0.0,
+    500000.0,
+    0.0,
+    -100.0,
+    4500000.0
+  ],
+  "pixel_size_m": 100.0,
+  "min": 0.0,
+  "max": 1.0,
+  "nan_count": 0,
+  "note": "H-UNQ-1 radiometric-hydrothermal+fluvial-chi+gravity-margin off-catalogue fault detector | synthetic stand-in | DO NOT SUBMIT until re-gridded to sample_submission.tif and holdout-validated",
+  "ok_to_submit": false,
+  "reason": "No DrivenData auth -> cannot re-grid to real sample_submission.tif, cannot compute holdout DTI, cannot verify uniqueness vs registry. Format-valid only ([0,1], finite, EPSG:32611, 3730x3292)."
+}
