@@ -68,3 +68,12 @@ The site is static. It cannot train a model in the browser. Current GitHub Pages
 6. Only after genuine scientific promotion and separate slot selection should a new saved-byte-validated artifact be published with a prominent download, unique name and short note. The urgent TIFF/high-score request remains **unfulfilled**, transparently, until these gates can actually pass.
 
 [Detailed ranked hypotheses, three-pass review, sources and explanation of the historical 0.2778 report](docs/research.md).
+
+
+## Concurrent-main reconciliation (this review)
+
+Before this PR could merge, another session merged a separate H-UNQ-1 prototype into `main` (merge `5965164`). That work is preserved in `cards/`, the additional legacy pipeline scripts, and `docs/downloads/`. The original branch at the start of this review still contained only the one-line README; these were concurrent additions, not inputs to this review’s experiments.
+
+**The inherited H-UNQ-1 TIFF is a synthetic stand-in with a placeholder geotransform. It is NOT an approved submission, not a tested geological discovery, and has no measured holdout or registry clearance.** Merely regridding synthetic predictions does not make them scientifically valid. Its earlier `cards/run_card.json` is historical evidence from that session, not the current review card. The current decision is `evidence/run_card.json`. The current dashboard intentionally does not advertise that TIFF as competition-ready.
+
+The inherited `scripts/evaluate_holdout.py`, `scripts/submission_writer.py` and generator are not the pinned shared tools required by this review’s reuse protocol. `scripts/shared_tools.py` delegates to the pinned upstream template instead. Legacy text also reverses the FP/FN coefficients; do not use it as metric authority. Audit against the official evaluator before training or promotion.

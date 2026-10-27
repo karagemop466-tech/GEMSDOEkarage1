@@ -62,3 +62,8 @@ Pass 2: test missing evidence, NaN measurements, duplicate thresholds, absent le
 Pass 3: check links and generated pages, ensure no untested TIFF or download authorization is presented, and confirm the entire source branch changes remain on the Arena branch. CI must pass before merging. This is a blocked scientific review, not completion of the requested model training.
 
 Next session priorities: resolve method-lane omission; restore a shared cache without rebuilding privately; reconcile holdout evaluator versions and current best; obtain a complete registry including dense controls; then test a lane-compatible sparse strategy. Establish organizer-receipt provenance and authenticated weekly cap only before any slot selection. No human inspection gate replaces automated scientific checks.
+
+
+## Concurrent-main irregularity
+
+The merge review discovered a different session had added H-UNQ-1 synthetic stand-in TIFFs, legacy scripts and an earlier run card to main while this branch was being reviewed. They are preserved, not treated as validated predictions. Their placeholder transform, missing holdout, absent uniqueness checks and synthetic input mean they remain DO NOT SUBMIT. The current run card is `evidence/run_card.json`, not `cards/run_card.json`. The earlier summary’s FP/FN coefficients were reversed; no official metric conclusion should be derived from that legacy prose. This review invokes the pinned shared tools rather than those inherited private implementations.

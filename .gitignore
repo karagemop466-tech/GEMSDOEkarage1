@@ -4,3 +4,18 @@ __pycache__/
 .pytest_cache/
 .venv/
 data/
+# GEMSDOEkarage1 — DOE GEMS Prize fault-discovery project
+
+# Competition data is large and requires DrivenData login — keep OUT of git
+# Scratch / working directories (not committed)
+work/
+submissions/
+# Python
+*.pyc
+.env/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+# The competition-ready submission TIF IS the deliverable and IS tracked
+# under docs/downloads/ so GitHub Pages can serve it for download.
