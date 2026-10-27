@@ -1,0 +1,31 @@
+name: Refresh public evidence archive
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 9 * * *'
+permissions:
+  contents: read
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Refresh pinned public evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/collect_sources.py && python scripts/audit_rasters.py
+      - run: python scripts/build_site.py && python -m pytest -q
+      - uses: actions/upload-artifact@v4
+        with:
+          name: refreshed-evidence-and-dashboard
+          path: |
+            docs/data/
+            evidence/
+            index.html
+            executive-summary.html
+            style.css
+          retention-days: 30
