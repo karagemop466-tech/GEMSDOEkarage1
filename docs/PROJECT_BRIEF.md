@@ -133,7 +133,15 @@ this sandbox cannot reach `drivendata.org`'s authenticated data tab,
 `dropbox.com`, or `gdr.openei.org`/`sciencebase.gov`'s binary downloads —
 only `github.com`-family hosts and `pypi.org`-family hosts are reachable
 from `bash`, and the `fetch_page` tool can read web page *text* from a wider
-set of hosts but cannot retrieve raw binary file contents. We have not
-opened the real `training_features.tif`, `labels.tif`, or
-`sample_submission.tif`, and we say so explicitly everywhere a number
-depends on them.
+set of hosts but cannot retrieve raw binary file contents.
+
+**Update:** the real `training_features.tif`, `labels.tif`, and
+`sample_submission.tif` WERE opened this session, via a hash-pinned
+third-party GitHub mirror discovered inside a sibling repo's own data
+manifest (`github.com`-family hosts, still inside the allowlist — see
+`docs/LIMITATIONS.md` §0 and `data/README.md`). This is NOT a DrivenData
+login and NOT organizer-authenticated; every number computed from it is
+still labeled `HOLDOUT-DTI(...)`, never `ORGANIZER-CONFIRMED`. Re-run
+`bash scripts/restore_real_data.sh` each session that needs it (the ~450 MB
+of raw data is gitignored and deleted from the workspace between sessions
+to stay under the patchset size cap).

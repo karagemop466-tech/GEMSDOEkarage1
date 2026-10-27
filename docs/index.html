@@ -40,24 +40,30 @@
       all; true score = 0) — it exists to prove the pipeline works end to
       end.
     </p>
-    <a class="cta" href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/arena/48c50a19-gemsdoekarage1/outputs/baseline/gems-karage1-format-baseline-zero-v1.tif">⬇ Download the format-baseline GeoTIFF</a>
+    <a class="cta" href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/arena/48c50a19-gemsdoekarage1/outputs/real_data_candidate/gems-karage1-realdata-allfeat-logreg-sparsified-v1.tif">⬇ Download the real-data candidate (HOLDOUT-DTI 0.0303)</a>
+    <a class="cta secondary" href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/arena/48c50a19-gemsdoekarage1/outputs/baseline/gems-karage1-format-baseline-zero-v1.tif">⬇ Or the format-baseline GeoTIFF (always safe, DTI=0)</a>
     <a class="cta secondary" href="executive-summary.html#how-to-submit">How to actually submit it (step by step) →</a>
   </div>
 
-  <h2>Why there isn't a higher-scoring file to download yet</h2>
+  <h2>Why the best file we have still scores low (an update, not the original blocker)</h2>
   <p>
-    Short version: generating one honestly requires the real competition
-    data (<code>training_features.tif</code>, <code>labels.tif</code>), and
-    this environment has no DrivenData account configured and cannot reach
-    <code>drivendata.org</code>'s authenticated data tab, Dropbox, or
-    USGS/OpenEI's binary file hosts from its sandboxed network. We verified
-    this live rather than assuming it — see
-    <a href="../docs/LIMITATIONS.md">LIMITATIONS.md</a> for the exact
-    commands and results. Fabricating a "better-looking" raster without
-    real underlying data would be a hallucinated result, which we were
-    explicitly told never to produce. See the
-    <a href="executive-summary.html">executive summary</a> for the full,
-    sourced reasoning and the prioritized plan to close this gap.
+    Real competition data (<code>training_features.tif</code>,
+    <code>labels.tif</code>) turned out to be reachable after all, via a
+    hash-pinned third-party GitHub mirror discovered inside a sibling
+    research repo — not a DrivenData login (see
+    <a href="../docs/LIMITATIONS.md">LIMITATIONS.md §0</a> and
+    <a href="../data/README.md">data/README.md</a>). Two real,
+    holdout-validated, leakage-checked experiments on that data — a
+    2-feature geological hypothesis and a 19-feature linear model with a
+    metric-aware sparsity threshold — reach
+    <code>HOLDOUT-DTI = 0.0137</code> and <code>0.0303</code> respectively,
+    both honestly reported, both far below the real public leaderboard top
+    (0.4544) and sibling-site claims (0.19–0.28). We will not fabricate a
+    better-looking number: the candidate above is exactly what a real,
+    reproducible, non-duplicate model trained on real data currently
+    achieves. See the <a href="executive-summary.html">executive summary</a>
+    for the full numbers and the prioritized plan (stronger model /
+    richer features) to close this gap.
   </p>
 
   <h2>What's in this repo</h2>

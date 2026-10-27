@@ -1,0 +1,64 @@
+{
+  "unique_name": "gems-karage1-realdata-allfeat-logreg-sparsified-v1",
+  "note": "19-band logreg+thresh t=0.66, real data; HOLDOUT-DTI=0.0303 [0.0231,0.0388]. Honest/weak, not a leaderboard claim.",
+  "hypothesis": "H-ALLFEAT-UPPERBOUND (Experiment 2 of the 3-experiment cap) + metric-aware sparsity calibration",
+  "mechanism": "Simple linear (logistic regression) combination of all 19 real geophysical/geodetic bands in training_features.tif, then hard-thresholded at the metric-optimal p>=0.660 (swept in outputs/experiment2_h_allfeatures/threshold_sweep.json against the official DTI, which structurally penalizes dense predictions via FPw). Diagnostic upper bound for this feature set + a linear model, not a single geological hypothesis.",
+  "named_non_fault_process": "Lithologic/terrain correlations and survey-line artifacts can drive a 19-feature linear fit without reflecting true brittle fault structure; not disambiguated by this experiment.",
+  "holdout_dti": {
+    "point_estimate": 0.03034031154354795,
+    "ci_95": [
+      0.02312061871875039,
+      0.038752449591781084
+    ],
+    "label": "HOLDOUT-DTI(gems.metric v1, threshold t=0.660, 13227 withheld fault px across 640 segments, spatial block bootstrap n=150)",
+    "report_path": "outputs/experiment2_h_allfeatures/threshold_sweep.json",
+    "unthresholded_comparison_point_estimate": 0.014648404896576803
+  },
+  "correlation_overlap_vs_registry": {
+    "registry_file": "scored_h19_5.tif (owner-reported DTI 0.1922, GEMSDOE24/32 mirror)",
+    "spearman_rho": 0.024347058314704087,
+    "fraction_within_3px": 0.28681866073154155,
+    "is_duplicate": false
+  },
+  "raster_sha256": "b302182232c8231dd897418a7a339100a03f9e90a93a92ac65b9795c58aec585",
+  "validator_output": {
+    "path": "/home/user/GEMSDOEkarage1/outputs/real_data_candidate/gems-karage1-realdata-allfeat-logreg-sparsified-v1.tif",
+    "sha256": "b302182232c8231dd897418a7a339100a03f9e90a93a92ac65b9795c58aec585",
+    "size_bytes": 1582310,
+    "checks": {
+      "opens_as_geotiff": true,
+      "single_band": true,
+      "dtype_float32": true,
+      "shape_matches_reference": true,
+      "crs_matches_reference_epsg32611": true,
+      "transform_matches_reference": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_nodata_leak": true,
+      "finite_values_in_0_1": true,
+      "all_pixels_finite": true,
+      "all_checks_passed": true
+    },
+    "all_checks_passed": true,
+    "n_bands": 1,
+    "dtype": "float32",
+    "shape": [
+      3730,
+      3292
+    ],
+    "crs": "EPSG:32611",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "min_value": 0.0,
+    "max_value": 0.9189124703407288,
+    "n_nan": 0,
+    "n_inf": 0,
+    "n_finite": 12279160
+  },
+  "verdict": "negative"
+}

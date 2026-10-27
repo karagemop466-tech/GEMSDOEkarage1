@@ -1,0 +1,59 @@
+{
+  "experiment_id": 1,
+  "hypothesis": "H-GEOD-STRAIN",
+  "mechanism": "Active geodetic dilatation-rate / shear-strain-rate anomalies (bands geod_dilaterate, geod_shearrate) colocate with active normal/oblique-slip faulting independent of prior fault mapping.",
+  "non_fault_mimic_confound": "Aquifer-compaction subsidence, volcanic inflation/deflation, and geodetic processing noise can produce strain-rate anomalies with no real brittle fault discontinuity; not resolved by this lane.",
+  "data_provenance": {
+    "training_features_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "labels_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "sample_submission_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "mirror_note": "restored via GitHub API from buffedlizard55-lab/GEMSDOE and buffedlizard55-lab/GEMSDOE24 pinned refs, per their own registry/data_manifest.json; integrity-pinned, NOT organizer-authenticated -- see docs/LIMITATIONS.md"
+  },
+  "lane_features": [
+    "geod_shearrate",
+    "geod_dilaterate"
+  ],
+  "n_segments_total": 3199,
+  "n_segments_train": 2559,
+  "n_segments_holdout": 640,
+  "n_fault_px_total": 60988,
+  "n_fault_px_train": 47761,
+  "n_fault_px_holdout": 13227,
+  "leakage_canary_auc": {
+    "geod_shearrate": 0.5602217493807217,
+    "geod_dilaterate": 0.5196705757942919
+  },
+  "leakage_canary_verdict": "ok (no single feature exceeds 0.90 AUC)",
+  "joint_lane_train_auc": 0.5630756414108777,
+  "holdout_dti_point_estimate": 0.013694932678747634,
+  "holdout_dti_95ci": [
+    0.012203398027097238,
+    0.015030248290883154
+  ],
+  "holdout_dti_bootstrap_n": 200,
+  "holdout_dti_tp_w": 6584.411514158552,
+  "holdout_dti_fp_w": 2344466.654446239,
+  "holdout_dti_fn_w": 6642.588485841448,
+  "holdout_dti_n_withheld_fault_px": 13227,
+  "metric_label": "HOLDOUT-DTI(gems.metric v1, 13227 withheld fault px across 640 segments, 95% CI [0.0122, 0.0150], spatial block bootstrap n=200)",
+  "wall_clock_seconds": 201.49584078788757,
+  "model_coefficients": {
+    "features": [
+      "geod_shearrate",
+      "geod_dilaterate"
+    ],
+    "coef": [
+      0.22697040052965853,
+      0.07475606881906156
+    ],
+    "intercept": -0.023429188895109483,
+    "standardization_mean": [
+      10.971663198917842,
+      6.387638254107957
+    ],
+    "standardization_std": [
+      10.002391644903811,
+      6.47325733328174
+    ]
+  }
+}

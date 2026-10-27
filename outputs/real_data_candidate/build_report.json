@@ -1,0 +1,62 @@
+{
+  "output_path": "outputs/real_data_candidate/gems-karage1-realdata-allfeat-logreg-sparsified-v1.tif",
+  "sha256": "b302182232c8231dd897418a7a339100a03f9e90a93a92ac65b9795c58aec585",
+  "n_train_positive_px": 60894,
+  "n_train_negative_px_sampled": 400000,
+  "model_coefficients": {
+    "features": [
+      "mag_anom",
+      "rtp",
+      "tmi_hg",
+      "geod_2ndinv",
+      "iso_grav_anom_slope",
+      "tc",
+      "geod_shearrate",
+      "geod_dilaterate",
+      "tmi_vg",
+      "deq_n100a15",
+      "iso_grav_anom_vg",
+      "det_elev",
+      "iso_grav_anom",
+      "tmi",
+      "depth_to_base_surf",
+      "ieq_n100a15",
+      "cond_surf",
+      "iso_grav_anom_hg",
+      "det_elev_slope"
+    ],
+    "coef": [
+      0.08018814027309418,
+      0.12140151113271713,
+      -0.0031492295674979687,
+      -0.20955336093902588,
+      0.16314652562141418,
+      -0.2536608576774597,
+      0.4083249568939209,
+      0.11938747018575668,
+      0.013250470161437988,
+      -0.0733109563589096,
+      0.07860541343688965,
+      -0.22221523523330688,
+      -0.2295823097229004,
+      -0.16999191045761108,
+      -0.19817623496055603,
+      0.04406435042619705,
+      0.012781061232089996,
+      -0.013698998838663101,
+      0.1402774304151535
+    ],
+    "intercept": -0.08164903521537781
+  },
+  "submission_meta": {
+    "unique_name": "gems-karage1-realdata-allfeat-logreg-sparsified-v1",
+    "note": "19-band logreg+thresh t=0.66, real data; HOLDOUT-DTI=0.0303 [0.0231,0.0388]. Honest/weak, not a leaderboard claim."
+  },
+  "uniqueness_vs_registry": {
+    "registry_file": "scored_h19_5.tif (owner-reported DTI 0.1922, GEMSDOE24/32 mirror)",
+    "spearman_rho": 0.024347058314704087,
+    "fraction_within_3px": 0.28681866073154155,
+    "is_duplicate": false
+  },
+  "verdict": "negative"
+}

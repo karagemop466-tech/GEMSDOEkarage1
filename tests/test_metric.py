@@ -12,7 +12,12 @@ produces.
 import numpy as np
 import pytest
 
-from gems.metric import distance_weighted_tversky_index, EPS
+from gems.metric import (
+    distance_weighted_tversky_index,
+    dti_from_precomputed_M,
+    windowed_max_prediction,
+    EPS,
+)
 
 
 def test_official_worked_example_algebra():
@@ -96,3 +101,25 @@ def test_out_of_range_prediction_raises():
 
 def test_eps_is_tiny_and_only_affects_degenerate_cases():
     assert EPS < 1e-6
+
+
+def test_precomputed_M_matches_direct():
+    """
+    scripts/run_holdout_experiment.py's bootstrap reuses a precomputed M
+    across many ground-truth resamples for speed (avoiding a ~29-offset
+    windowed-max recompute per resample). This test pins that fast path to
+    agree exactly with the slower, independently-written direct formula
+    across several random ground-truth masks against one fixed prediction.
+    """
+    rng = np.random.default_rng(0)
+    p = rng.random((60, 60)).astype(np.float64)
+    valid = np.ones((60, 60), dtype=bool)
+    M = windowed_max_prediction(p)
+    for _ in range(5):
+        gt = rng.random((60, 60)) < 0.02
+        direct = distance_weighted_tversky_index(p, gt, valid_mask=valid)
+        fast = dti_from_precomputed_M(M, p, gt, valid)
+        assert fast.dti == pytest.approx(direct.dti, rel=1e-9, abs=1e-12)
+        assert fast.tp_w == pytest.approx(direct.tp_w, rel=1e-9, abs=1e-9)
+        assert fast.fp_w == pytest.approx(direct.fp_w, rel=1e-9, abs=1e-9)
+        assert fast.fn_w == pytest.approx(direct.fn_w, rel=1e-9, abs=1e-9)

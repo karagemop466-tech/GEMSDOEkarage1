@@ -33,18 +33,47 @@ read it, though the data tab itself does require a free account):
 - five new, ranked, sourced geological hypotheses not yet tried by any of
   those sites (`research/hypotheses.md`).
 
-## The one honest, ready-to-download file in this repo today
+## Data access update: real competition data IS reachable from this sandbox
 
-[`outputs/baseline/gems-karage1-format-baseline-zero-v1.tif`](outputs/baseline/gems-karage1-format-baseline-zero-v1.tif)
-— a format-perfect, all-zero ("predicts no fault anywhere") GeoTIFF on the
-cross-replicated competition grid. It exists to prove the upload pipeline
-works and to give you a known-good template; **it is not a competitive
-entry** (true DTI = 0 by construction). See
-[`docs/executive-summary.html`](docs/executive-summary.html) or
-[`research/sibling_site_audit.md`](research/sibling_site_audit.md) for the
-full explanation of why no *competitive* candidate can be honestly generated
-in this environment yet, and exactly what is needed to produce one (one
-manual, credential-only step: download the real competition data).
+Despite `drivendata.org` itself being outside the network allowlist, the
+real `training_features.tif` / `labels.tif` / `sample_submission.tif` were
+restored via a hash-pinned third-party GitHub mirror discovered inside a
+sibling research repo (`buffedlizard55-lab/GEMSDOE32`'s own
+`registry/data_manifest.json`). Run `bash scripts/restore_real_data.sh`
+(~20s, sha256-verified) then `python scripts/prepare_data.py` to get it.
+**This is still not an organizer-authenticated download** — see
+[`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) §0 and
+[`data/README.md`](data/README.md) before trusting any number derived from
+it as more than `HOLDOUT-DTI(...)`.
+
+With that data, two real holdout experiments were run (whole-fault-segment
+hide-and-recover, leakage canary, spatial block bootstrap CI):
+
+| Experiment | HOLDOUT-DTI (95% CI) |
+|---|---|
+| 1 — geodetic strain (2 features) | 0.0137 [0.0122, 0.0150] |
+| 2 — all 19 bands, linear model | 0.0146 [0.0127, 0.0162] |
+| 2 + metric-aware sparsity threshold | **0.0303** [0.0231, 0.0388] |
+
+This is a genuine, if modest, real-data result — far below the public
+leaderboard's real top score (0.4544) and sibling sites' claimed numbers
+(0.19–0.28), reported honestly as a negative/exploratory finding, not
+discarded. Full writeup, including why: `docs/LIMITATIONS.md` §0.
+
+## The honest, ready-to-download files in this repo today
+
+1. [`outputs/baseline/gems-karage1-format-baseline-zero-v1.tif`](outputs/baseline/gems-karage1-format-baseline-zero-v1.tif)
+   — a format-perfect, all-zero GeoTIFF; proves the upload pipeline works
+   (true DTI = 0 by construction, not competitive).
+2. [`outputs/real_data_candidate/gems-karage1-realdata-allfeat-logreg-sparsified-v1.tif`](outputs/real_data_candidate/gems-karage1-realdata-allfeat-logreg-sparsified-v1.tif)
+   — trained on the real restored data, format-validated, confirmed
+   non-duplicate against a real registry raster, with a real
+   `HOLDOUT-DTI = 0.0303 [0.0231, 0.0388]` (see its
+   [`run_card.json`](outputs/real_data_candidate/run_card.json)). Verdict:
+   **`negative`** — explicitly NOT promoted to a real weekly submission
+   slot, because it is far below the comparable best known score; shipped
+   only as the one genuinely data-grounded, non-fabricated candidate this
+   session produced.
 
 ## Quickstart
 
@@ -70,41 +99,64 @@ python scripts/demo_synthetic_pipeline.py
 python scripts/check_uniqueness.py candidate.tif other1.tif other2.tif
 ```
 
-To work with **real** competition data (required for any genuinely
-competitive candidate):
+To work with **real** competition data:
 
 ```bash
-bash scripts/download_competition_data.sh   # prints the manual steps; a
-                                             # DrivenData login cannot be
-                                             # automated or is not configured here
-python scripts/prepare_data.py              # asserts the real files match
-                                             # src/gems/grid.py, or tells you
-                                             # exactly how to fix the constant
+bash scripts/restore_real_data.sh           # ~20s, sha256-verified GitHub-
+                                             # mirror restore -- see data/README.md
+python scripts/prepare_data.py              # confirms the real files match
+                                             # src/gems/grid.py
+
+# Re-run the two real holdout experiments (needs data/ restored, ~2-5 min each):
+python scripts/run_holdout_experiment.py
+python scripts/run_holdout_experiment_2_allfeatures.py
+python scripts/calibrate_sparsity_threshold.py
+python scripts/build_real_data_candidate.py
 ```
+
+(`scripts/download_competition_data.sh` is kept as a fallback manual-login
+path for a future session on a host where even GitHub's mirror has been
+taken down or changed; prefer `restore_real_data.sh` first.)
 
 ## Repository layout
 
 ```
 src/gems/            Core library: grid.py, metric.py, validator.py, submission_writer.py, uniqueness.py
-scripts/             CLI entry points (download, prepare, generate, validate, uniqueness check, synthetic demo)
+scripts/             CLI entry points: restore_real_data.sh, prepare_data.py, generate/validate/
+                     check_uniqueness, synthetic demo, run_holdout_experiment*.py,
+                     calibrate_sparsity_threshold.py, build_real_data_candidate.py
 tests/               Unit tests (metric correctness, validator gates, grid sanity) — no data needed
 research/            hypotheses.md (new ideas) + sibling_site_audit.md (9-site audit)
 docs/                PROJECT_BRIEF.md, LIMITATIONS.md, SOURCES.md, and the GitHub Pages site
-outputs/baseline/    The generated, validated, safe-to-upload format baseline + its run card
+data/                NOT committed (gitignored); restore via scripts/restore_real_data.sh; see data/README.md
+outputs/baseline/              Safe-to-upload all-zero format baseline + run card
+outputs/experiment_h_geod_strain/    Experiment 1 report (real data, 2-feature hypothesis)
+outputs/experiment2_h_allfeatures/   Experiment 2 report + sparsity threshold sweep (real data, 19 bands)
+outputs/real_data_candidate/   Final honest real-data candidate TIF + run card
 ```
 
-## Current status and what's blocking a competitive submission
+## Current status
 
-**Blocked on one thing:** this sandbox has no DrivenData account configured
-and cannot reach `drivendata.org`'s authenticated data tab, `dropbox.com`,
-or `sciencebase.gov`/`gdr.openei.org`'s binary file downloads (verified
-live, see `docs/LIMITATIONS.md`). Everything *except* touching real pixel
-data is done: metric, grid, validator, writer, tests, research plan, and
-docs are all implemented and verified. The moment `data/training_features.tif`,
-`data/labels.tif`, and `data/sample_submission.tif` exist (one person,
-one login, one download), `scripts/prepare_data.py` closes the loop and the
-five hypotheses in `research/hypotheses.md` are ready to implement and
-holdout-test in priority order.
+**Real competition data is reachable** (see "Data access update" above) and
+two real holdout experiments are done, with a shipped, honestly-labeled,
+non-duplicate candidate at `HOLDOUT-DTI ≈ 0.03` — well below the real
+leaderboard (0.4544) and sibling-claimed scores, reported as a negative
+result, not promoted to a submission slot. Metric, grid, validator, writer,
+tests, uniqueness checker, and docs are all implemented and verified.
 
-See `docs/executive-summary.html` → "Next steps" for the full, prioritized
-list.
+**Next steps** (see `docs/executive-summary.html` → "Next steps" and
+`docs/LIMITATIONS.md` §0 for the full reasoning):
+1. Try a materially stronger model on the same real features (gradient
+   boosting / random forest first — cheap, no new experiment-cap spend
+   beyond what's already used; a CNN is the next tier).
+2. Engineer richer features from the 19 real bands (neighborhood
+   statistics, multi-scale edges) before reaching for new external data.
+3. If still short, bring in one of the 5 hypotheses in
+   `research/hypotheses.md` that uses verified-obtainable USGS data not
+   already in `training_features.tif`.
+4. Only promote a candidate to a real weekly slot after it beats the
+   current best comparable HOLDOUT-DTI (0.0303) with a non-overlapping CI,
+   per the parallel-run protocol — this session used 2 of the 3 allowed
+   experiments plus one post-hoc calibration pass, and intentionally
+   stopped there rather than spending the full cap on a result already
+   diagnosed as feature/model-limited.

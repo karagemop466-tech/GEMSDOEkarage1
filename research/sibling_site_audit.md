@@ -103,16 +103,23 @@ has a structurally higher ceiling on this metric than any sparse "pick your
 best N points" strategy, no matter how well-optimized the packing.
 
 **Can we generate and validate a higher-scoring file right now, in this
-environment?** **No — and we are not going to pretend otherwise.** Doing so
-honestly requires the real `training_features.tif`/`labels.tif` (to engineer
-and holdout-validate new features like H-A–H-E in `research/hypotheses.md`)
-or the real `sample_submission.tif`, none of which this sandbox can reach
-(`docs/LIMITATIONS.md` §1–2). Any raster we produced today that "looked"
-more sophisticated than an all-zero baseline, without being derived from
-real data, would be fabricated content dressed up as a scientific result —
-exactly what we have been explicitly told not to do. The honest, verifiable
-deliverable from this session is the format-compliant zero baseline in
-`outputs/baseline/` (fixes the reported `[0,1]` upload error and is
-trivially, uselessly "unique" since it predicts nothing) plus the concrete,
-costed, sourced research plan in `research/hypotheses.md` that is actually
-capable of exceeding 0.2778 once real data is available.
+environment? Update (later in the same session): partially, and the answer
+changed from "no" to "yes, but it's still not competitive."** The real
+`training_features.tif`/`labels.tif`/`sample_submission.tif` turned out to
+be reachable after all, via a hash-pinned third-party GitHub mirror (NOT a
+DrivenData login — see `docs/LIMITATIONS.md` §0 and `data/README.md`). We
+used them to run two genuine, leakage-checked, spatially-held-out
+experiments (`outputs/experiment_h_geod_strain/`,
+`outputs/experiment2_h_allfeatures/`) and shipped one real candidate
+(`outputs/real_data_candidate/`, `HOLDOUT-DTI = 0.0303 [0.0231, 0.0388]`,
+confirmed non-duplicate against a real registry raster). That number is
+**far below** both 0.2778 and the real leaderboard's 0.4544 — a simple
+linear model on these exact real bands does not come close, even after
+correcting for the metric's documented sparsity-reward structure. We are
+not fabricating a better-looking number to close that gap: the shipped file
+is exactly what this honest pipeline currently produces, labeled
+`"negative"` in its run card, not promoted to a submission slot. The
+concrete, costed, sourced research plan in `research/hypotheses.md`, plus a
+materially stronger model (gradient boosting / CNN) on the now-available
+real features, is the credible path to closing it — not more external data
+acquisition, since even all 19 real bands together barely beat 2 of them.

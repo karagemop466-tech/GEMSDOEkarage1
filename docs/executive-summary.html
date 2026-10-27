@@ -29,6 +29,12 @@
       <td><span class="badge warn">Format-safe, not competitive.</span> Fine to upload once, as a pipeline sanity check and to confirm your account/CRS/shape alignment; do not expect it to move you up the leaderboard.</td>
     </tr>
     <tr>
+      <td><code>outputs/real_data_candidate/gems-karage1-realdata-allfeat-logreg-sparsified-v1.tif</code> (<a href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/arena/48c50a19-gemsdoekarage1/outputs/real_data_candidate/gems-karage1-realdata-allfeat-logreg-sparsified-v1.tif">download</a>)</td>
+      <td><span class="badge warn">HOLDOUT-DTI(gems.metric v1, 13227 withheld fault px, 95% CI, n=150) = 0.0303 [0.0231, 0.0388]</span><br><span class="small">Trained on the real restored data (19 bands, logistic regression, metric-aware sparsity threshold t=0.660). Genuine and holdout-validated, but far below the real leaderboard top (0.4544) and sibling-claimed numbers.</span></td>
+      <td><span class="badge good">YES</span> — checked against a real registry raster (<code>scored_h19_5.tif</code>, owner-reported 0.1922): Spearman ρ=0.024, 28.7% of dots within 3px (well under the 0.90/0.70 duplicate thresholds).</td>
+      <td><span class="badge warn">Format-safe and real, but NOT promoted.</span> Run card verdict is explicitly <code>"negative"</code> — do not spend a real weekly slot on it; see <a href="../outputs/real_data_candidate/run_card.json">run_card.json</a> and "Next steps" below for what would need to improve first.</td>
+    </tr>
+    <tr>
       <td>Any GEMSDOE24/25/27/28/30/31/32/33/36 file (see table below)</td>
       <td>0.2449–0.2778, but labeled <strong>OWNER-REPORTED/USER-REPORTED by the sites themselves</strong>, with <strong>no organizer receipt</strong></td>
       <td><span class="badge bad">NO</span> for essentially every file — each site's own duplicate-detection gate found &gt;70–100% 3‑px overlap with at least one other site's raster.</td>
@@ -37,7 +43,7 @@
   </table>
   <p class="small">Full reasoning, citations, and the complete nine-site breakdown: <a href="../research/sibling_site_audit.md">research/sibling_site_audit.md</a>.</p>
 
-  <h2>Why we will not hand you a "beats 0.2778" file today</h2>
+  <h2>Why we will not hand you a "beats 0.2778" file today (update: we now have real data, and still can't)</h2>
   <p>
     We can explain, with high confidence and full citations, <strong>why</strong>
     GEMSDOE32's 0.2778 claim happened (see the analysis in
@@ -58,16 +64,26 @@
     reference U-Net</a>) that generalize past the catalogue.
   </p>
   <p>
-    Generating a genuinely better file requires the real
-    <code>training_features.tif</code>/<code>labels.tif</code>, which this
-    environment cannot download (no DrivenData login configured here, and
-    the sandbox's network allowlist does not include
-    <code>drivendata.org</code>, Dropbox, or USGS/OpenEI's binary hosts —
-    verified live, see <a href="../docs/LIMITATIONS.md">LIMITATIONS.md</a>).
-    We built the entire pipeline (metric, grid, writer, validator, tests)
-    so that the moment that one credentialed download happens, a real
-    candidate can be engineered, holdout-tested, and submitted the same day.
-    Five specific, ranked, sourced ideas to try first are in
+    <strong>Update, later in this session:</strong> the real
+    <code>training_features.tif</code>/<code>labels.tif</code> turned out to
+    be reachable after all, via a hash-pinned third-party GitHub mirror (see
+    <a href="../docs/LIMITATIONS.md">LIMITATIONS.md §0</a> and
+    <a href="../data/README.md">data/README.md</a> — not a DrivenData login).
+    Two real holdout experiments were run on it: a 2-feature geological
+    hypothesis (geodetic strain rate) scored
+    <code>HOLDOUT-DTI = 0.0137</code>, and all 19 real bands in a simple
+    linear model, after calibrating the metric-optimal sparsity threshold,
+    scored <code>HOLDOUT-DTI = 0.0303</code> — both far below 0.2778 and
+    0.4544. This is an honest negative result, not a dead end: it tells us a
+    simple linear model on this exact feature set is leaving real
+    leaderboard-competitive signal on the table, and that a stronger model
+    (gradient boosting, a CNN) or richer feature engineering is the
+    recommended next step, not more external data acquisition. Full numbers
+    and reports:
+    <a href="../outputs/experiment_h_geod_strain/experiment_report.json">experiment 1</a>,
+    <a href="../outputs/experiment2_h_allfeatures/experiment_report.json">experiment 2</a>,
+    <a href="../outputs/experiment2_h_allfeatures/threshold_sweep.json">threshold sweep</a>.
+    Five specific, ranked, sourced ideas to try next are in
     <a href="../research/hypotheses.md">research/hypotheses.md</a>.
   </p>
 
@@ -159,17 +175,27 @@
 
   <h2>Next steps (priority order)</h2>
   <ol class="steps">
-    <li>A human with a DrivenData account downloads the four real data
-      files into <code>data/</code> (the one step this environment
-      genuinely cannot do itself).</li>
-    <li>Run <code>scripts/prepare_data.py</code> to confirm/correct the
-      grid constant against the real <code>sample_submission.tif</code>.</li>
-    <li>Implement hypothesis H-A (Coulomb slip/dilation-tendency filter,
-      <a href="../research/hypotheses.md">research/hypotheses.md</a>) —
-      highest ranked expected improvement for its implementation cost, and
-      its one external dataset is already confirmed free and obtainable.</li>
-    <li>Holdout-validate H-A with a spatially-blocked, whole-segment,
-      buffered split before it is allowed to spend a real submission slot.</li>
+    <li>Run <code>bash scripts/restore_real_data.sh</code> (real data is
+      now reachable via a hash-pinned GitHub mirror — see
+      <a href="../docs/LIMITATIONS.md">LIMITATIONS.md §0</a>) then
+      <code>python scripts/prepare_data.py</code> to confirm the grid.</li>
+    <li>Try a materially stronger model on the same 19 real bands —
+      gradient boosting or random forest first (cheap, no new network
+      access or experiment-cap spend needed), a CNN as the next tier —
+      since the linear-model ceiling on this feature set is now
+      measured at <code>HOLDOUT-DTI ≈ 0.03</code>.</li>
+    <li>Engineer richer features from the 19 real bands (neighborhood
+      statistics, multi-scale edges, curvature) before reaching for new
+      external data.</li>
+    <li>If still short, implement hypothesis H-A or H-E
+      (<a href="../research/hypotheses.md">research/hypotheses.md</a>) with
+      verified-obtainable USGS data not already in
+      <code>training_features.tif</code>.</li>
+    <li>Holdout-validate any new candidate the same way as
+      <code>scripts/run_holdout_experiment.py</code> (whole-segment
+      hide-and-recover, leakage canary, spatial block bootstrap) before it
+      is allowed to spend a real submission slot — only promote if it beats
+      <code>HOLDOUT-DTI = 0.0303</code> with a non-overlapping CI.</li>
     <li>Only then promote to an actual DrivenData upload, named and noted
       per the "How to submit" steps above.</li>
   </ol>

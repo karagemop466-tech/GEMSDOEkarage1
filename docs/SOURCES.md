@@ -42,6 +42,20 @@ multi-megabyte binary downloads from this sandbox — see `docs/LIMITATIONS.md`
 | 19 | Geodetic Shear and Dilation Models (Nevada Geodetic Laboratory) | <https://gdr.openei.org/files/1391/geodetics_INGENIOUS_regional_data.zip> (linked from #9) | CC BY 4.0 | 51.99 MB |
 | 20 | INGENIOUS project site | <https://gbcge.org/current-projects/ingenious/> | — | background only |
 
+## Real competition data: GitHub mirror (verified live, 2026-10-27, later in this session)
+
+| # | Source | What we verified | Class |
+|---|---|---|---|
+| 21 | `buffedlizard55-lab/GEMSDOE32` @ default branch, files `registry/data_manifest.json` + `scripts/fetch_data.py` | Documents exactly which sibling repo/ref/path holds each real competition file, fetched via `gh api .../contents/...` | Third-party, but led us to verifiable hashes |
+| 22 | `buffedlizard55-lab/GEMSDOE24` @ `07345ea0604953d7efb858d9cfbc21e20c7aca0b`, paths `data/bridge/labels.tif`, `data/bridge/sample_submission.tif` | Fetched via GitHub contents API; sha256 **matched exactly** GEMSDOE32's pinned manifest (`7ba308cc...`, `2176d08e...`) | Third-party mirror, hash-verified by us independently |
+| 23 | `buffedlizard55-lab/GEMSDOE` @ `c0c06ac82178f26b94fce3397036ef8f12a2f3a0`, path `data/bridge/gems-geodawn-numerical-features.tif.part-000..004` | Fetched all 5 parts, concatenated to 418,912,844 bytes; sha256 **matched exactly** (`4371c82e...`) | Third-party mirror, hash-verified by us independently |
+| 24 | `buffedlizard55-lab/GEMSDOE24` @ same ref, path `inputs/gems19-h19-5-...-nan.tif` | One real prior-submission raster (owner-reported DTI 0.1922), fetched and hash-verified (`ec1f9b56...`), used only for a real registry duplicate-overlap check | Third-party, OWNER-REPORTED score, not organizer-confirmed |
+
+Reproduction: `bash scripts/restore_real_data.sh` (see `data/README.md`).
+This is an **integrity-pinned third-party mirror**, not a DrivenData login —
+see `docs/LIMITATIONS.md` §0 for the full honesty disclosure before treating
+any derived number as more than `HOLDOUT-DTI(...)`.
+
 ## Task-brief-supplied, third-party-hosted mirrors (NOT independently verified by us)
 
 The project brief also supplied Dropbox links claimed to mirror the official

@@ -28,7 +28,6 @@ REQUIRED_FILES = [
     "training_features.tif",
     "labels.tif",
     "sample_submission.tif",
-    "1m_DEM_links.csv",
 ]
 
 

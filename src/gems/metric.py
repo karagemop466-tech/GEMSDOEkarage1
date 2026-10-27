@@ -76,6 +76,78 @@ def _shift(arr: np.ndarray, dy: int, dx: int, fill: float) -> np.ndarray:
     return out
 
 
+def windowed_max_prediction(
+    p: np.ndarray,
+    *,
+    pixel_size_m: float = 100.0,
+    kernel_range_m: float = 300.0,
+) -> np.ndarray:
+    """
+    M(y) = max_{x: d(x,y)<=R} p(x) * k(d(x,y)) for every grid cell y.
+
+    This depends ONLY on the (already-clipped, already footprint-zeroed)
+    prediction surface `p`, never on the ground truth. Callers that need
+    TPw/FNw for many different ground-truth masks against the SAME
+    prediction (e.g. a segment-resampling bootstrap) should compute this
+    once and reuse it, rather than calling
+    `distance_weighted_tversky_index` (which recomputes M every time) in a
+    tight loop.
+    """
+    radius_px = kernel_range_m / pixel_size_m
+    offsets = _offsets_within_radius_px(radius_px)
+    M = np.zeros_like(p)
+    for dy, dx in offsets:
+        d_m = ((dy * pixel_size_m) ** 2 + (dx * pixel_size_m) ** 2) ** 0.5
+        k = max(1.0 - d_m / kernel_range_m, 0.0)
+        if k <= 0.0:
+            continue
+        shifted = _shift(p, dy, dx, fill=0.0) * k
+        np.maximum(M, shifted, out=M)
+    return M
+
+
+def dti_from_precomputed_M(
+    M: np.ndarray,
+    p: np.ndarray,
+    ground_truth: np.ndarray,
+    valid_mask: np.ndarray,
+    *,
+    alpha: float = 0.2,
+    beta: float = 0.8,
+    pixel_size_m: float = 100.0,
+    kernel_range_m: float = 300.0,
+) -> DTIResult:
+    """
+    Same formula as `distance_weighted_tversky_index`, but reusing an
+    `M = windowed_max_prediction(p, ...)` computed once outside the caller's
+    loop. `p` must be the exact array `M` was derived from (already
+    footprint-zeroed and clipped to [0, 1]). Used by the holdout-segment
+    bootstrap in scripts/run_holdout_experiment.py; cross-checked against
+    the slower, independent `distance_weighted_tversky_index` at the point
+    estimate in tests/test_metric.py::test_precomputed_M_matches_direct.
+    """
+    gt = np.asarray(ground_truth) != 0
+    valid_mask = np.asarray(valid_mask, dtype=bool)
+
+    if gt.any():
+        dist_to_gt = distance_transform_edt(~gt, sampling=(pixel_size_m, pixel_size_m))
+    else:
+        dist_to_gt = np.full(gt.shape, np.inf)
+    N = np.clip(1.0 - dist_to_gt / kernel_range_m, 0.0, None)
+
+    p_valid = np.where(valid_mask, p, 0.0)
+    fp_w = float(np.sum(p_valid * (1.0 - N)))
+    tp_w = float(np.sum(M[gt]))
+    n_gt = int(gt.sum())
+    fn_w = float(n_gt - tp_w)
+    dti = tp_w / (tp_w + alpha * fp_w + beta * fn_w + EPS)
+    return DTIResult(
+        dti=dti, tp_w=tp_w, fp_w=fp_w, fn_w=fn_w,
+        n_ground_truth_positive=n_gt,
+        n_predicted_positive=int(np.sum(p_valid > 0)),
+    )
+
+
 def distance_weighted_tversky_index(
     pred: np.ndarray,
     ground_truth: np.ndarray,
