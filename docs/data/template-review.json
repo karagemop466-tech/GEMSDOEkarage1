@@ -1,0 +1,16 @@
+{
+  "schema": "karage1-template-contract-review-v1",
+  "scope": "One function in a pinned peer template; this is not an agreed shared-template selection or a scientific experiment.",
+  "repo": "buffedlizard55-lab/GEMSDOE24",
+  "commit": "fc2bc6f350bf5c6ce8da5d7a2ab03578ea1259d1",
+  "path": "src/gems/submission.py",
+  "sha256": "380ef4c785680d0c9063f53f9fa6227e8a564314d40df02fa46f02fe37d29711",
+  "source": "https://github.com/buffedlizard55-lab/GEMSDOE24/blob/fc2bc6f350bf5c6ce8da5d7a2ab03578ea1259d1/src/gems/submission.py#L254-L269",
+  "check": "make_note with a long summary",
+  "observed_length": 200,
+  "owner_protocol_maximum": 140,
+  "contract_status": "FAIL",
+  "shared_template_modified": false,
+  "reason": "Canonical template is disputed and this session is restricted to its own branch. No private fork or submission writer was created.",
+  "recommended_fix": "Fix and test the limit once in the agreed upstream template before using that helper; do not independently fork the writer."
+}

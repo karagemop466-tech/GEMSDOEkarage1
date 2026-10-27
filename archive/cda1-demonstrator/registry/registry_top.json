@@ -1,0 +1,25 @@
+{
+  "generated": "2026-10-27T21:05:00Z",
+  "branch": "arena/0e0e57bc-gemsdoekarage1",
+  "focus_sites": ["GEMSDOE24","GEMSDOE25","GEMSDOE27","GEMSDOE28","GEMSDOE30","GEMSDOE31","GEMSDOE32","GEMSDOE33","GEMSDOE36"],
+  "focus_site_audit": [
+    {"site":"GEMSDOE24","file":"gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif","sha12":"3e0730e8","dots":60069,"claim":0.2477,"evidence_class":"OWNER-REPORTED / UNVERIFIED","overlap_vs_family":1.0,"submit":"DO NOT SUBMIT"},
+    {"site":"GEMSDOE25","file":"gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif","sha12":"3e78737f","dots":44090,"claim":0.26,"evidence_class":"OWNER-REPORTED / UNVERIFIED","overlap_vs_family":1.0,"submit":"DO NOT RESUBMIT"},
+    {"site":"GEMSDOE27","file":"topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif","sha12":"a9bf76b5","dots":61328,"claim":0.2449,"evidence_class":"OWNER-REPORTED","overlap_vs_family":0.9802,"submit":"DO NOT SUBMIT"},
+    {"site":"GEMSDOE28","file":"h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif","sha12":"7c74270a","dots":37660,"claim":0.271,"evidence_class":"OWNER-REPORTED","overlap_vs_family":1.0,"submit":"DO NOT SUBMIT"},
+    {"site":"GEMSDOE30","file":"d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif","sha12":"8cf893ea","dots":44090,"claim":0.26,"evidence_class":"OWNER-REPORTED","overlap_vs_family":1.0,"submit":"DO NOT RESUBMIT"},
+    {"site":"GEMSDOE31","file":"h27-4-solo-d28-20261004-8acb75e1-nan.tif","sha12":"07b6db44","dots":40199,"claim":0.2708,"evidence_class":"OWNER-REPORTED","overlap_vs_family":1.0,"submit":"DO NOT SUBMIT"},
+    {"site":"GEMSDOE32","file":"h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif","sha12":"c55bafc4","dots":37654,"claim":0.2778,"evidence_class":"OWNER-REPORTED / UNVERIFIED - no organizer receipt","overlap_vs_family":1.0,"submit":"Already submitted — do not resubmit"},
+    {"site":"GEMSDOE33","file":"h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif","sha12":"87f857d5","dots":41865,"claim":0.2632,"evidence_class":"OWNER-REPORTED","overlap_vs_family":0.9971,"submit":"DO NOT SUBMIT"},
+    {"site":"GEMSDOE36","file":"anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif","sha12":"e1589102","dots":38854,"claim":0.275,"evidence_class":"OWNER-REPORTED","overlap_vs_family":0.9758,"submit":"DO NOT SUBMIT"}
+  ],
+  "this_repo_artifact": {
+    "file_zeros":"gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+    "sha256":"753b8d47f951894240a80826e8100216c5e84613caf3d2596272d26a1b85c120",
+    "dots":37654,
+    "holdout_dti":0.1473,
+    "ci":[0.1331,0.1612],
+    "unique_vs_focus9":"YES max 62.94% <=70%",
+    "submit":"DOWNLOAD YES · SUBMIT NO (negative, research only)"
+  }
+}

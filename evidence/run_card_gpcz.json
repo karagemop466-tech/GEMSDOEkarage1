@@ -318,5 +318,47 @@
  "submission_note": "GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed",
  "organizer_confirmed_score": null,
  "verdict": "promote-to-selector",
- "verdict_reason": "beats every label-free arm on both holdout schemes with paired CI excluding zero; unique vs the nine focus-site registry; validator passed. Promotion to a weekly slot remains the selector's decision."
+ "verdict_reason": "beats every label-free arm on both holdout schemes with paired CI excluding zero; unique vs the nine focus-site registry; validator passed. Promotion to a weekly slot remains the selector's decision. Caveat added after merge with the parallel review: template SGMC calibration favours the champion (see template_shared_evaluator).",
+ "template_shared_evaluator": {
+  "template": "buffedlizard55-lab/GEMSDOE32@73485f27cf230af770167397c2b72cb9ce3b3f25 scripts/evaluate_holdout.py (registry/template.json pin; run unmodified, no fork)",
+  "note": "Applied to the FINAL rasters (already pruned >2 px from the full catalogue), so hide-and-recover values are depressed by construction for both files; SGMC is the only off-catalogue instrument available locally.",
+  "gpcz_final_36000": {
+   "hide_recover_v3": {
+    "evaluator": "GEMSDOE32-HIDE-RECOVER-v3.0",
+    "pooled_dti": 0.012329022183113656,
+    "ci95": [
+     0.011175088267714267,
+     0.013528164525901882
+    ],
+    "withheld_positives": 22232
+   },
+   "sgmc_cal_v3": {
+    "evaluator": "GEMSDOE32-SGMC-CAL-v3.0",
+    "raw_pooled_dti": 0.08067070228193897,
+    "prevalence_calibrated_dti": 0.05445683261991319,
+    "positives": 62703
+   }
+  },
+  "champion_02778_control": {
+   "hide_recover_v3": {
+    "evaluator": "GEMSDOE32-HIDE-RECOVER-v3.0",
+    "pooled_dti": 0.00451537871535044,
+    "ci95": [
+     0.0038164175817344387,
+     0.005261598301920283
+    ],
+    "withheld_positives": 22232
+   },
+   "sgmc_cal_v3": {
+    "evaluator": "GEMSDOE32-SGMC-CAL-v3.0",
+    "raw_pooled_dti": 0.09606004283619354,
+    "prevalence_calibrated_dti": 0.0641209376417646,
+    "positives": 62703
+   }
+  },
+  "reading": "GPC-Z recovers 2.7x more withheld catalogue strands than the champion (0.0123 vs 0.0045) but scores 15% LOWER on off-catalogue USGS SGMC bedrock faults (0.0545 vs 0.0641 calibrated). Mixed evidence; flagged IR-K1-SGMC-01 for the selector."
+ },
+ "irregularities": [
+  "IR-K1-SGMC-01: champion beats GPC-Z on the template SGMC off-catalogue calibration (0.0641 vs 0.0545); SGMC bedrock faults may not represent the hidden expert-mapped set (sibling SGMC-targeted designs scored 0.03-0.05 live), but the selector must weigh this."
+ ]
 }
