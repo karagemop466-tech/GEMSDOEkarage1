@@ -1,0 +1,206 @@
+{
+  "schema": "karage1-quarantined-archive-audit-v1",
+  "generated_at_utc": "2026-10-27T21:29:57Z",
+  "scope": "Inherited synthetic artifacts; format and lattice checks only, not holdout scoring or a full-registry clearance.",
+  "assets": {
+    "CDA1_zero": {
+      "sha256": "753b8d47f951894240a80826e8100216c5e84613caf3d2596272d26a1b85c120",
+      "origin": "Synthetic demonstrator from a parallel session; not a competition prediction.",
+      "format_diagnostic": {
+        "schema": "karage1-format-diagnostics-v1",
+        "candidate": "archive/cda1-demonstrator/docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+        "candidate_sha256": "753b8d47f951894240a80826e8100216c5e84613caf3d2596272d26a1b85c120",
+        "template": "template.tif",
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "template_hash_matched_requested_pin": true,
+        "template_official_authenticity": "not established by this tool",
+        "grid": {
+          "driver": "GTiff",
+          "shape": [
+            3730,
+            3292
+          ],
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "nodata_is_nan": false
+        },
+        "footprint_pixels": 5167373,
+        "checks": {
+          "single_band": true,
+          "driver_is_geotiff": true,
+          "float32": true,
+          "crs_shape_transform_match_mirror": true,
+          "no_nonfinite_inside": true,
+          "nonfinite_inside_count": 0,
+          "inside_values_in_0_1": true,
+          "out_of_range_inside_count": 0,
+          "outside_all_nan": false,
+          "outside_nan_count": 0,
+          "whole_array_strict_finite_0_1": true,
+          "minimum_finite": 0.0,
+          "maximum_finite": 1.0,
+          "nodata_tag_is_nan": false,
+          "portal_acceptance": "not tested",
+          "mirror_grid_and_inside_values_pass": true,
+          "masked_inside_count": 0,
+          "outside_null_or_nan_count": 0,
+          "outside_all_null_or_nan": false,
+          "outside_unmasked_positive_count": 0
+        },
+        "diagnostics": {
+          "grid_and_inside_pass": true,
+          "nan_outside_variant_pass": false,
+          "null_or_nan_outside_variant_pass": false,
+          "strict_whole_array_variant_pass": true,
+          "note": "These are separate local checks, not guarantees of organizer acceptance."
+        },
+        "uniqueness_holdout_and_selector_checked": false,
+        "submission_authorized": false
+      },
+      "vs_lattice": {
+        "candidate_dots": 37654,
+        "within_3px_count": 37570,
+        "within_3px_fraction": 0.9977691613108833,
+        "strictly_exceeds_70_percent": true,
+        "binary_support_spearman": -0.00037856239546099526
+      },
+      "purported_holdout_status": "Invalid: archived spatially_blocked_holdout returns hard-coded numbers independent of input; no measured HOLDOUT-DTI.",
+      "archived_lattice_fraction_claim": 0.9999
+    },
+    "HUNQ1_dots": {
+      "sha256": "8fc2f9e1f17f57bf09432433446550a8d02aa2c8ddad35e6db4dd5cf925dd23c",
+      "origin": "Synthetic demonstrator from a parallel session; not a competition prediction.",
+      "format_diagnostic": {
+        "schema": "karage1-format-diagnostics-v1",
+        "candidate": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-dots.tif",
+        "candidate_sha256": "8fc2f9e1f17f57bf09432433446550a8d02aa2c8ddad35e6db4dd5cf925dd23c",
+        "template": "template.tif",
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "template_hash_matched_requested_pin": true,
+        "template_official_authenticity": "not established by this tool",
+        "grid": {
+          "driver": "GTiff",
+          "shape": [
+            3730,
+            3292
+          ],
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            500000.0,
+            0.0,
+            -100.0,
+            4500000.0
+          ],
+          "dtype": "float32",
+          "nodata_is_nan": false
+        },
+        "footprint_pixels": 5167373,
+        "checks": {
+          "single_band": true,
+          "driver_is_geotiff": true,
+          "float32": true,
+          "crs_shape_transform_match_mirror": false,
+          "no_nonfinite_inside": true,
+          "nonfinite_inside_count": 0,
+          "inside_values_in_0_1": true,
+          "out_of_range_inside_count": 0,
+          "outside_all_nan": false,
+          "outside_nan_count": 0,
+          "whole_array_strict_finite_0_1": true,
+          "minimum_finite": 0.0,
+          "maximum_finite": 1.0,
+          "nodata_tag_is_nan": false,
+          "portal_acceptance": "not tested",
+          "mirror_grid_and_inside_values_pass": false,
+          "masked_inside_count": 0,
+          "outside_null_or_nan_count": 0,
+          "outside_all_null_or_nan": false,
+          "outside_unmasked_positive_count": 24228
+        },
+        "diagnostics": {
+          "grid_and_inside_pass": false,
+          "nan_outside_variant_pass": false,
+          "null_or_nan_outside_variant_pass": false,
+          "strict_whole_array_variant_pass": false,
+          "note": "These are separate local checks, not guarantees of organizer acceptance."
+        },
+        "uniqueness_holdout_and_selector_checked": false,
+        "submission_authorized": false
+      }
+    },
+    "HUNQ1_zero": {
+      "sha256": "642a6369a3a7e9a5c5761983e110c60a6abbc196abd339985e11da351d3e5c4b",
+      "origin": "Synthetic demonstrator from a parallel session; not a competition prediction.",
+      "format_diagnostic": {
+        "schema": "karage1-format-diagnostics-v1",
+        "candidate": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+        "candidate_sha256": "642a6369a3a7e9a5c5761983e110c60a6abbc196abd339985e11da351d3e5c4b",
+        "template": "template.tif",
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "template_hash_matched_requested_pin": true,
+        "template_official_authenticity": "not established by this tool",
+        "grid": {
+          "driver": "GTiff",
+          "shape": [
+            3730,
+            3292
+          ],
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            500000.0,
+            0.0,
+            -100.0,
+            4500000.0
+          ],
+          "dtype": "float32",
+          "nodata_is_nan": false
+        },
+        "footprint_pixels": 5167373,
+        "checks": {
+          "single_band": true,
+          "driver_is_geotiff": true,
+          "float32": true,
+          "crs_shape_transform_match_mirror": false,
+          "no_nonfinite_inside": true,
+          "nonfinite_inside_count": 0,
+          "inside_values_in_0_1": true,
+          "out_of_range_inside_count": 0,
+          "outside_all_nan": false,
+          "outside_nan_count": 0,
+          "whole_array_strict_finite_0_1": true,
+          "minimum_finite": 0.0,
+          "maximum_finite": 1.0,
+          "nodata_tag_is_nan": false,
+          "portal_acceptance": "not tested",
+          "mirror_grid_and_inside_values_pass": false,
+          "masked_inside_count": 0,
+          "outside_null_or_nan_count": 0,
+          "outside_all_null_or_nan": false,
+          "outside_unmasked_positive_count": 5446985
+        },
+        "diagnostics": {
+          "grid_and_inside_pass": false,
+          "nan_outside_variant_pass": false,
+          "null_or_nan_outside_variant_pass": false,
+          "strict_whole_array_variant_pass": false,
+          "note": "These are separate local checks, not guarantees of organizer acceptance."
+        },
+        "uniqueness_holdout_and_selector_checked": false,
+        "submission_authorized": false
+      }
+    }
+  },
+  "submission_authorized": false
+}

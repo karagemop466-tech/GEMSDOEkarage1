@@ -9,3 +9,5 @@ Code and historical claims are retained unchanged for traceability, not endorsed
 - The active dashboard and negative card live at repository root and `docs/data/run_card.json`.
 
 Archived relative paths were preserved as a unit. Old instructions that assume scripts at the repository root are historical only. Do not execute this prototype as the production pipeline.
+
+An independent re-open of both archived TIFFs confirms that their transform is `[100, 0, 500000, 0, -100, 4500000]`, not the mirrored sample's `[100, 0, 243350, 0, -100, 4508550]`. See [saved diagnostic](../../docs/data/archive-review.json).

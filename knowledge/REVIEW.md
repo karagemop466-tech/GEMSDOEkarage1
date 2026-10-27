@@ -1,3 +1,5 @@
+> **Update:** This prior review remains for provenance. See the newer [research review](research-review.md), [current run card](../docs/data/run-card.json), and [archive diagnostics](../docs/data/archive-review.json).
+
 # Scientific and engineering review
 
 ## What was actually verified
