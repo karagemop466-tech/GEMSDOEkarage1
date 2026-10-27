@@ -410,8 +410,8 @@ def run_stage_eval_and_package() -> int:
         "submission_note": SUBMISSION_NOTE,
         "verdict": verdict,
     }
-    (EVIDENCE_DIR / "run_card.json").write_text(json.dumps(run_card, indent=2) + "\n")
-    print(f"[done] Run card written to evidence/run_card.json | VERDICT = {verdict.upper()} | elapsed={time.time()-t0:.1f}s")
+    (EVIDENCE_DIR / "run_card_hmas_sinter.json").write_text(json.dumps(run_card, indent=2) + "\n")
+    print(f"[done] Run card written to evidence/run_card_hmas_sinter.json | VERDICT = {verdict.upper()} | elapsed={time.time()-t0:.1f}s")
     gc.collect()
     return 0
 

@@ -1,0 +1,11 @@
+[
+  {"site": "GEMSDOE24", "display_name": "h25-1 · dotted d1.5", "reported_score": 0.2477, "score_class": "USER-REPORTED / UNVERIFIED"},
+  {"site": "GEMSDOE25", "display_name": "dotted h19-5 · d2.8", "reported_score": 0.2600, "score_class": "USER-REPORTED / UNVERIFIED"},
+  {"site": "GEMSDOE27", "display_name": "topo-gap closure · d1.5", "reported_score": 0.2449, "score_class": "USER-REPORTED / UNVERIFIED"},
+  {"site": "GEMSDOE28", "display_name": "h36-1 · rung30 blind", "reported_score": 0.2710, "score_class": "USER-REPORTED / UNVERIFIED"},
+  {"site": "GEMSDOE30", "display_name": "d28 · Poisson off-catalogue", "reported_score": 0.2600, "score_class": "USER-REPORTED / UNVERIFIED"},
+  {"site": "GEMSDOE31", "display_name": "h27-4 · solo d2.8", "reported_score": 0.2708, "score_class": "USER-REPORTED / UNVERIFIED"},
+  {"site": "GEMSDOE32", "display_name": "h33-2 · b2", "reported_score": 0.2778, "score_class": "USER-REPORTED / UNVERIFIED"},
+  {"site": "GEMSDOE33", "display_name": "h33d · analog tip stepover", "reported_score": 0.2632, "score_class": "USER-REPORTED / UNVERIFIED"},
+  {"site": "GEMSDOE36", "display_name": "anderson · geothermal PINN", "reported_score": 0.2750, "score_class": "USER-REPORTED / UNVERIFIED"}
+]

@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Geothermal-fault knowledge · GEMSDOEkarage1</title><style>
+:root{--ink:#17202a;--mut:#5b6977;--line:#e3e8ee;--ok:#1b7f3b;--okbg:#e6f6ea;--warn:#8a5a00;--warnbg:#fff4d6;--bad:#9b1c1c;--badbg:#fde8e8;--acc:#0b57d0}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:#fff}
+header{border-bottom:1px solid var(--line);background:#f7f9fb}header .in{max-width:1100px;margin:auto;padding:14px 20px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+header a{color:var(--ink);text-decoration:none;font-weight:600}header a.on{color:var(--acc)}main{max-width:1100px;margin:auto;padding:24px 20px 60px}
+h1{font-size:30px;margin:.2em 0}h2{margin-top:2em;border-bottom:1px solid var(--line);padding-bottom:.2em}h3{margin-top:1.6em}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:700;font-size:14px}.ok{background:var(--okbg);color:var(--ok)}.warn{background:var(--warnbg);color:var(--warn)}.bad{background:var(--badbg);color:var(--bad)}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:16px 0;background:#fff}.card.hero{border:2px solid var(--ok);background:#f4fbf6}
+.btn{display:inline-block;background:var(--acc);color:#fff;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700;margin:6px 8px 6px 0}.btn.sec{background:#fff;color:var(--acc);border:2px solid var(--acc)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0}th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}th{background:#f3f6f9}td.n{text-align:right;font-variant-numeric:tabular-nums}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px}pre{background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto}.mut{color:var(--mut)}small{color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.kpi{border:1px solid var(--line);border-radius:10px;padding:12px}.kpi b{display:block;font-size:22px}
+</style></head><body>
+<header><div class="in"><a href="../../index.html" style="font-size:18px">GEMSDOEkarage1</a><a href="index.html">GPC-Z lane</a><a href="index.html" class="">Executive summary</a><a href="how-to-submit.html" class="">How to submit</a><a href="nine-sites.html" class="">Nine focus sites</a><a href="research.html" class="">Research & hypotheses</a><a href="knowledge.html" class="on">Geothermal-fault knowledge</a><a href="sources.html" class="">Sources & data</a><a href="standing-prompt.html" class="">Standing brief</a></div></header><main><h1>Knowledge base — competition facts and geothermal-fault geology</h1>
+<p>Each statement carries a provenance tag. <b>MEASURED</b> = computed in this repository from the pinned rasters (file named). <b>OFFICIAL</b> = organizer text (link; fetched by a sibling repo whose text was read here — re-check manually, drivendata.org/nlr.gov are unreachable from this sandbox). <b>SIBLING</b> = measured in a sibling GEMSDOE repository (link). <b>TEXTBOOK</b> = standard structural-geology/geothermal literature, cited for orientation, not used as a number.</p>
+<h2>1. Competition facts</h2>
+<table>
+<tr><th>Fact</th><th>Value</th><th>Provenance</th></tr>
+<tr><td>Metric</td><td>distance-weighted Tversky index, α = 0.2 (FP weight), β = 0.8 (FN weight), triangular kernel of 300 m (3 px) radius</td><td>OFFICIAL — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/">https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/</a></td></tr>
+<tr><td>Consequence</td><td>a predicted pixel helps only if its realised kernel credit exceeds 0.2 × DTI; dense soft maps lose to sparse binary dots</td><td>MEASURED — <code>src/gemsk/metric.py</code>, <code>tests/test_metric.py</code></td></tr>
+<tr><td>Grid</td><td>3730 rows × 3292 cols, 100 m, EPSG:32611, transform (100, 0, 243350, 0, −100, 4508550); footprint 5,167,373 valid px</td><td>MEASURED — <code>sample_submission.tif</code>, <code>training_features.tif</code></td></tr>
+<tr><td>Training labels</td><td><code>existing_faults.tif</code> ≡ <code>labels.tif</code>: 60,988 fault pixels (INGENIOUS GDR 1391 Quaternary fault traces, rasterised)</td><td>MEASURED + OFFICIAL (rules PDF <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">https://docs.nlr.gov/docs/fy26osti/96647.pdf</a>)</td></tr>
+<tr><td>Hidden labels</td><td>expert-mapped new faults (NLR/USGS) + USGS Qfaults; known faults are <b>not</b> masked from scoring</td><td>OFFICIAL — rules PDF; <a href="https://community.drivendata.org/t/known-faults-masking-in-the-metric/11516">https://community.drivendata.org/t/known-faults-masking-in-the-metric/11516</a></td></tr>
+<tr><td>Implied hidden set size</td><td>≈7,900 px (back-solved from the 0.2778 family&#x27;s score ladder)</td><td>SIBLING — GEMSDOE32 docs (OWNER-REPORT scores)</td></tr>
+<tr><td>Features</td><td>19 float32 GeoDAWN/DEM bands: mag_anom, rtp, tmi_hg, geod_2ndinv, iso_grav_anom_slope, tc, geod_shearrate, geod_dilaterate, tmi_vg, deq_n100a15, iso_grav_anom_vg, det_elev, iso_grav_anom, tmi, depth_to_base_surf, ieq_n100a15, cond_surf, iso_grav_anom_hg, det_elev_slope; nodata −3.4028234663852886e+38</td><td>MEASURED — band descriptions in the GeoTIFF</td></tr>
+<tr><td>Submission format</td><td>one float32 band, same CRS/shape/transform; values in [0, 1]; null allowed outside bounds; .tif or .zip</td><td>OFFICIAL — problem description / submission page</td></tr>
+<tr><td>Cadence and prizes</td><td>3 submissions/week; Phase 1 $50k (withheld subset), Phase 2 $250k (expert-updated labels); finalists submit reproducible code; generative-AI use must be disclosed; U.S. eligibility</td><td>OFFICIAL — rules PDF</td></tr>
+<tr><td>Leaderboard context</td><td>0.4437 / 0.3916 / 0.3904 top three on 2026-10-26</td><td>SIBLING snapshot (GEMSDOE32) — recheck <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/</a></td></tr>
+</table>
+<h2>2. What the data say about where unmapped faults are (MEASURED here)</h2>
+<table>
+<tr><th>Statement</th><th>Number</th><th>File</th></tr>
+<tr><td>Withheld catalogue strands cluster next to visible ones</td><td>67% of withheld truth within 15 px (1.5 km) of a visible strand, an area that is 26% of the footprint</td><td><code>evidence/exp1b_truth_vs_distance_to_visible_interleaved.json</code></td></tr>
+<tr><td>Density lift by distance (interleaved)</td><td>0–3 px 3.7×, 3–4 px 4.1×, 4–6 px 3.7×, 6–8 px 3.0×, 8–10 px 2.4×, 10–15 px 1.7×, 15–20 px 1.1×, 20–30 px 0.7×, 30–40 px 0.4×, &gt;40 px ≤0.23×</td><td>same</td></tr>
+<tr><td>Blocked-holdout artifact</td><td>with 20 km withheld blocks the prior inverts (distance to *visible* faults is large everywhere inside the block), so blocked holdouts under-rate near-field hypotheses and over-rate far-field ones</td><td><code>evidence/exp1b_truth_vs_distance_to_visible.json</code> vs interleaved</td></tr>
+<tr><td>Single-feature AUCs on withheld truth</td><td>all 0.35–0.57 (no feature alone carries label information; no leakage)</td><td><code>evidence/leakage_canary_aucs.json</code></td></tr>
+<tr><td>Faults are *not* contour-oblique</td><td>contour-obliquity gate AUC 0.41–0.44 (worse than chance): normal-fault scarps in the Basin and Range run range-parallel, i.e. contour-parallel, like shorelines</td><td><code>evidence/exp2_gpcz_holdout.json</code> (pre-registration note)</td></tr>
+</table>
+<h2>3. Geology used by the GPC-Z lane</h2>
+<table>
+<tr><th>Concept</th><th>Statement</th><th>Provenance</th></tr>
+<tr><td>Basin-and-Range normal faults</td><td>Range-front normal faults dip basin-ward; the hanging wall (basin) is down-dropped, so the scarp&#x27;s free face <b>faces the basin</b>. Fault damage zones and synthetic/antithetic splays occur within a few hundred metres to a few kilometres of the master trace.</td><td>TEXTBOOK (e.g., Stewart 1980 &quot;Geology of Nevada&quot;; Faulds &amp; Varga 1998 on accommodation zones)</td></tr>
+<tr><td>Gravity polarity</td><td>Basin fill is less dense than bedrock; the isostatic residual gravity gradient and the depth-to-basement surface point toward the basin depocentre. A topographic step whose downhill direction agrees with the gravity/basement deepening direction is <b>polarity-concordant</b> with a normal fault; a step facing the other way is more likely a terrace riser, shoreline berm, road cut or levee.</td><td>TEXTBOOK (Blakely 1995 &quot;Potential Theory in Gravity and Magnetic Applications&quot;; Jachens &amp; Moring 1990 basin-depth maps of Nevada)</td></tr>
+<tr><td>Why faults are off-catalogue</td><td>INGENIOUS compiled existing maps (mostly 1:250k–1:100k); short (&lt; 2–3 km), low (&lt; 5 m) and partly buried strands next to mapped master faults are the typical omissions found when 1 m LiDAR becomes available. Power-law fault-length scaling implies a deficit of short faults in regional compilations.</td><td>TEXTBOOK (Scholz 2019 &quot;The Mechanics of Earthquakes and Faulting&quot;, fault-population scaling); SIBLING (19GEMSDOE power-law budget note)</td></tr>
+<tr><td>Geothermal relevance</td><td>Great Basin geothermal systems concentrate at fault terminations, step-overs, accommodation zones and intersections where permeability is maintained; mapping missed strands near known ones is precisely the expert task described in the rules.</td><td>TEXTBOOK (Faulds et al. 2011, GRC Transactions; Faulds &amp; Hinz 2015 play-fairway)</td></tr>
+<tr><td>Named mimics (non-fault processes producing the same signal)</td><td>Lake Lahontan and other pluvial shoreline berms (contour-parallel steps, often basin-facing!), alluvial-fan terrace risers, piedmont roads/canals/railroad grades, playa margins. The polarity gate removes the away-facing half; the near-catalogue prior reduces exposure to isolated shorelines; <b>basin-facing shorelines near faults remain an unmitigated risk</b> (IR-K1-OBLIQ-01).</td><td>TEXTBOOK (Reheis 1999 pluvial lake maps); MEASURED (H2 falsified)</td></tr>
+</table>
+<h2>4. Local-instrument limits (why no live estimate is given)</h2>
+<table>
+<tr><th>Statement</th><th>Provenance</th></tr>
+<tr><td>Catalogue-truth holdouts rank live scores weakly across detector families (best local instrument Spearman ≈ 0.51; n = 12)</td><td>SIBLING — GEMSDOE32 covariate audit</td></tr>
+<tr><td>Within one family holdout and live agree well (ρ ≈ +0.84), so holdouts are good for *within-recipe* choices (budget, gating)</td><td>SIBLING — GEMSDOE32</td></tr>
+<tr><td>Files already pruned ≤2 px from the full catalogue score ≈0 on any catalogue holdout by construction</td><td>MEASURED — <code>evidence/exp1_field_screen.json</code></td></tr>
+<tr><td>Far-from-catalogue / blind-basin designs scored 0.0000–0.0009 live</td><td>SIBLING — owner&#x27;s ledger (OWNER-REPORT)</td></tr>
+</table>
+<p class="mut" style="margin-top:48px">Built 2026-10-27 21:43 UTC from <code>evidence/*.json</code> by <code>scripts/build_site.py</code>. Repository: <a href="https://github.com/karagemop466-tech/GEMSDOEkarage1">karagemop466-tech/GEMSDOEkarage1</a>.</p>
+</main></body></html>

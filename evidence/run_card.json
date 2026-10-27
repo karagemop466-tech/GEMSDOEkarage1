@@ -1,228 +1,39 @@
 {
-  "hypothesis": "H-K1-1 (HMAS-SINTER-ENV): Blind hydrothermal conduit faults missed by Quaternary scarp catalogues exhibit linear negative magnetic tilt-curvature / 3-D analytic-signal demagnetization troughs (titanomagnetite -> hematite/pyrite/clay oxidation), positive Poisson pseudo-gravity orthogonal basement steps, 4-block standardized GeoDAWN 214Bi radon & K/Th alteration crests, and strike-projected INGENIOUS 2m temperature probe (F2mDAB), Quaternary sinter/breccia, and quartz-geothermometer plumes; fusing Dual-Cover (M_Full inside 75.37% 1m LiDAR + quantile-matched LiDAR-free M_Sub inside the 24.63% gap) with hydrothermal conduit modulation and d=2.9px axial-spaced submodular 300m kernel allocation recovers detached & off-catalogue faults without neighbor clumping.",
-  "mechanism": "150-300C hydrothermal upflow along permeable Great Basin normal/transtensional fault damage zones destroys host-rock magnetite while depositing silica sinter/breccia and shallow conductive clay caps, creating contrarian magnetic troughs paired with upward-continued (400-1800m) non-magnetic basement gravity gradients and strike-elongated F2mDAB thermal & 214Bi radon anomalies under Holocene fill.",
-  "mimic_process": "Late Pleistocene Lake Lahontan wave-cut shoreline benches (sharp 1m DEM steps inside deep basin fill with zero basement gravity gradient), US Census TIGER highway/railroad embankments (<=140m symmetric berms), tabular Neogene basalt/ash-flow lava margins (removed via 2-D FFT 1/|k| Poisson pseudo-gravity orthogonal regression), and flat conductive evaporite playas (vetoed where slope < 1.8 deg and cover > 320m).",
-  "holdout_dti": {
-    "gems57_pooled_hide_v2_all": {
-      "label": "HOLDOUT-DTI",
-      "evaluator_version": "gems57-pooled-hide-v2",
-      "dti": 0.090551,
-      "ci95": [
-        0.080105,
-        0.100904
-      ],
-      "withheld_positives": 22641,
-      "delta_vs_base35": 0.002726,
-      "delta_vs_base35_ci95": [
-        -0.002348,
-        0.008082
-      ]
-    },
-    "gems57_pooled_hide_v2_detached": {
-      "label": "HOLDOUT-DTI",
-      "evaluator_version": "gems57-pooled-hide-v2",
-      "dti": 0.093547,
-      "ci95": [
-        0.081837,
-        0.105279
-      ],
-      "withheld_positives": 22619,
-      "delta_vs_base35": 0.010596,
-      "delta_vs_base35_ci95": [
-        0.00562,
-        0.015814
-      ]
-    },
-    "hide_recover_v3_per_cell": {
-      "evidence_class": "HOLDOUT-DTI",
-      "evaluator_version": "GEMSDOE32-HIDE-RECOVER-v3.0",
-      "all": {
-        "dti": 0.102018,
-        "withheld_positives": 27735,
-        "ci95": [
-          0.088455,
-          0.117154
-        ],
-        "delta_vs_ref_mean": 0.00436,
-        "delta_vs_ref_ci95": [
-          -0.00066,
-          0.00928
-        ],
-        "prob_beats_ref": 0.9525
-      },
-      "detached": {
-        "dti": 0.096634,
-        "withheld_positives": 16676,
-        "ci95": [
-          0.0816,
-          0.113088
-        ],
-        "delta_vs_ref_mean": -0.000102,
-        "delta_vs_ref_ci95": [
-          -0.006095,
-          0.005753
-        ],
-        "prob_beats_ref": 0.4925
-      }
-    },
-    "sgmc_off_catalogue_bedrock_faults": {
-      "evidence_class": "HOLDOUT-DTI",
-      "evaluator_version": "GEMSDOE32-SGMC-CAL-v3.0",
-      "withheld_positives": 62122,
-      "sgmc_raw_pooled_dti": 0.11195,
-      "sgmc_raw_ci95": [
-        0.092417,
-        0.133886
-      ],
-      "sgmc_prevalence_calibrated_ref": 0.12371,
-      "delta_vs_champion_raw": 0.018396,
-      "delta_vs_champion_ci95": [
-        0.001638,
-        0.035548
-      ],
-      "prob_beats_champion": 0.9875
-    }
+  "hypothesis": "No assigned method lane: geological slate proposed, not tested",
+  "mechanism": "Repository review and independent byte/geometry/overlap audit; no new prediction raster",
+  "non_fault_mimic": "Lithologic contacts or alluvial fan margins can mimic the proposed edge-displacement signature",
+  "lane": null,
+  "experiments": 0,
+  "elapsed_seconds": null,
+  "holdout": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "dti": null,
+    "ci95": null,
+    "status": "not run"
   },
-  "registry_correlation_overlap": {
-    "total_fleet_rasters_scanned": 611,
-    "unique_pixel_rasters_scanned": 318,
-    "exact_hash_matches": [],
-    "max_pre_placement_surface_spearman": 0.53034,
-    "max_pre_placement_surface_ref": "WBGGEMSDOE1/docs/downloads/wbg-c1-commutator-research-surface-20261026-acea88448272.tif",
-    "max_final_dot_spearman": 0.07574,
-    "max_final_dot_spearman_ref": "WBGGEMSDOE1/docs/downloads/wbg-c1-commutator-research-surface-20261026-acea88448272.tif",
-    "max_discrete_submission_3px_overlap": 0.6039,
-    "max_discrete_submission_ref": "GEMSDOE63/docs/downloads/gemsdoe63-cvarlw-thin-s3p17-54864-20261011T220606Z-c58f60c4-nan.tif",
-    "non_competing_lattice_or_overdense_blankets": [
-      {
-        "ref": "GEMSDOE24/inputs/calibration/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
-        "type": "uniform_lattice_diagnostic",
-        "n_pos": 206895,
-        "cand_in_ref_3px": 0.99932,
-        "dot_spearman": 0.00036
-      },
-      {
-        "ref": "KANLERGEMSDOE1/data/scored/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
-        "type": "uniform_lattice_diagnostic",
-        "n_pos": 206895,
-        "cand_in_ref_3px": 0.99932,
-        "dot_spearman": 0.00036
-      },
-      {
-        "ref": "WBGGEMSDOE1/docs/downloads/wbg-c1-commutator-research-surface-20261026-acea88448272.tif",
-        "type": "continuous_unthinned_surface",
-        "n_pos": 5106385,
-        "cand_in_ref_3px": 1.0,
-        "dot_spearman": 0.07574
-      },
-      {
-        "ref": "WBGGEMSDOE2/downloads/wbg-h1-blind-conduit-breach-20261026T220000Z-a1b2c3d4-zeros.tif",
-        "type": "continuous_unthinned_surface",
-        "n_pos": 5167373,
-        "cand_in_ref_3px": 1.0,
-        "dot_spearman": 0.00103
-      },
-      {
-        "ref": "12GEMSDOE/docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62.tif",
-        "type": "overdense_exploratory_mask",
-        "n_pos": 103347,
-        "cand_in_ref_3px": 0.72215,
-        "dot_spearman": 0.02412
-      },
-      {
-        "ref": "GEMSDOE22/docs/downloads/gems22-h23-a-dti-optimal-emission-6pct-20261002-e2ec4b49-nan.tif",
-        "type": "overdense_exploratory_mask",
-        "n_pos": 335879,
-        "cand_in_ref_3px": 0.81728,
-        "dot_spearman": 0.05293
-      },
-      {
-        "ref": "GEMSDOE3/docs/downloads/pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
-        "type": "uniform_lattice_diagnostic",
-        "n_pos": 155021,
-        "cand_in_ref_3px": 0.79749,
-        "dot_spearman": 0.00648
-      },
-      {
-        "ref": "GEMSDOE67/docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
-        "type": "overdense_exploratory_mask",
-        "n_pos": 167597,
-        "cand_in_ref_3px": 0.85016,
-        "dot_spearman": 0.01567
-      },
-      {
-        "ref": "scored_manifest/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
-        "type": "uniform_lattice_diagnostic",
-        "n_pos": 206895,
-        "cand_in_ref_3px": 0.99932,
-        "dot_spearman": 0.00036
-      }
-    ],
-    "spearman_ceiling": 0.9,
-    "overlap_3px_ceiling": 0.7,
-    "passed": true
+  "registry": {
+    "complete": false,
+    "surface_max_abs_rho": null,
+    "dots_max_abs_rho": null,
+    "max_directed_overlap_3px": null,
+    "note": "No candidate; historical-byte comparisons in historical_byte_audit.json, including lattice control"
   },
-  "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
-  "zip_sha256": "b1c8817b1037384d8d12d6c3b9077716398aa756a931978bc5e5b1f52e3d15e7",
-  "validator_output": {
-    "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
-    "bytes": 142885,
-    "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
-    "meta": {
-      "crs": "EPSG:32611",
-      "shape": [
-        3730,
-        3292
-      ],
-      "dtype": "float32",
-      "count": 1,
-      "nodata": null,
-      "transform": [
-        100.0,
-        0.0,
-        243350.0,
-        0.0,
-        -100.0,
-        4508550.0
-      ],
-      "profile_compress": "deflate"
-    },
-    "band_description": [
-      null
-    ],
-    "n_finite": 12279160,
-    "n_nan": 0,
-    "n_infinite": 0,
-    "min": 0.0,
-    "max": 1.0,
-    "mean": 0.003110961988568306,
-    "emitted_positive_pixels": 38200,
-    "checks": {
-      "single_band": true,
-      "dtype_float32": true,
-      "dimensions_3730x3292": true,
-      "crs_epsg_32611": true,
-      "transform_matches_sample_submission": true,
-      "no_nan_anywhere": true,
-      "no_inf_anywhere": true,
-      "no_sentinel_values": true,
-      "range_0_1_guaranteed": true,
-      "min_ge_0": true,
-      "max_le_1": true,
-      "in_footprint_all_finite": true,
-      "in_footprint_range_0_1": true,
-      "outside_footprint_zero": true,
-      "zero_dots_on_mapped_catalogue": true
-    },
-    "all_checks_passed": true,
-    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
-    "on_catalogue_positive_pixels": 0,
-    "in_footprint_positive_pixels": 38200,
-    "footprint_fraction": 0.00739253775564489
+  "raster_sha256": null,
+  "validator": {
+    "status": "not run: no new raster"
   },
-  "submission_name": "karage1-hmas-sinter-dualcover-sep29-zeros",
-  "submission_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
-  "submission_zip": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.zip",
-  "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular",
-  "verdict": "promote"
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "reasons": [
+    "Initial repo contains only README, no previous pipeline or shared cached features",
+    "Method lane paragraph absent from user prompt",
+    "Literal dense lattice overlap gate fails all nine historical best files",
+    "No organizer receipts or comparable current-best holdout available"
+  ],
+  "weekly_slots_used": 0,
+  "projection": null
 }

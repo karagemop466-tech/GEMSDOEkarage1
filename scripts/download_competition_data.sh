@@ -8,4 +8,4 @@ if [[ ! -x "${PY_BIN}" ]]; then
   PY_BIN="python3"
 fi
 
-exec "${PY_BIN}" "${REPO_ROOT}/scripts/restore_data.py" "$@"
+exec "${PY_BIN}" "${REPO_ROOT}/scripts/restore_karage1_data.py" "$@"

@@ -73,7 +73,7 @@ class GitBlobFetcher:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--data-dir", type=Path, default=None, help="Destination directory (default: /tmp/gems_data or ./data)")
-    ap.add_argument("--manifest", type=Path, default=REGISTRY_DIR / "data_manifest.json")
+    ap.add_argument("--manifest", type=Path, default=REGISTRY_DIR / "karage1_data_manifest.json")
     ap.add_argument("--verify-only", action="store_true")
     args = ap.parse_args()
 

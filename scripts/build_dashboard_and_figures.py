@@ -237,7 +237,7 @@ def main() -> int:
     slope_deg = mm[18].astype(np.float32, copy=True)
     del mm
 
-    rc = json.loads((EVIDENCE_DIR / "run_card.json").read_text())
+    rc = json.loads((EVIDENCE_DIR / "run_card_hmas_sinter.json").read_text())
     led = json.loads((EVIDENCE_DIR / "experiments_summary.json").read_text())
     uniq = json.loads((EVIDENCE_DIR / "fleet_uniqueness_593.json").read_text())
     canary = json.loads((EVIDENCE_DIR / "leakage_canary_58ch.json").read_text())

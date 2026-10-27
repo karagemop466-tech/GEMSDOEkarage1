@@ -7,9 +7,9 @@
 - **Competition:** [DrivenData / U.S. DOE GEMS Prize (`competition-doe-gems`, $300,000 Pool)](https://www.drivendata.org/competitions/306/competition-doe-gems/)
 - **Official Rules:** [DOE / NLR Rules PDF (`96647.pdf`, Sept 2026)](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
 - **Live Public Leaderboard (verified `2026-10-27`):** [`drivendata.org/.../leaderboard/`](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) — `#1 xiaofanhu = 0.4544`, `#2 cfld__ = 0.3916`, `#3 Batik Shirt Brothers = 0.3911`, `#4 BrandenKMurray = 0.3724`, `#5 No Fault of Our Own = 0.3566` (Phase 1 Top-5 prize cutoff); prior 9-site registry high (`GEMSDOE32`): `0.2778` (`OWNER-REPORT`)
-- **GitHub Pages Dashboard:** [`docs/index.html`](docs/index.html) | **Step-by-Step Submission Guide:** [`docs/executive-summary.html`](docs/executive-summary.html)
+- **GitHub Pages Dashboard:** [`docs/hmas-sinter/index.html`](docs/hmas-sinter/index.html) | **Step-by-Step Submission Guide:** [`docs/hmas-sinter/executive-summary.html`](docs/hmas-sinter/executive-summary.html)
 - **Pre-Registered Hypotheses Ledger:** [`docs/research/hypotheses-preregistration-2026-10-27.md`](docs/research/hypotheses-preregistration-2026-10-27.md)
-- **Parallel-Run Protocol Run Card:** [`evidence/run_card.json`](evidence/run_card.json)
+- **Parallel-Run Protocol Run Card:** [`evidence/run_card_hmas_sinter.json`](evidence/run_card_hmas_sinter.json)
 
 ---
 
@@ -142,7 +142,7 @@ pytest -v
 
 ## 9. Parallel-Run Protocol JSON Run Card
 
-See [`evidence/run_card.json`](evidence/run_card.json) for the full machine-readable card.
+See [`evidence/run_card_hmas_sinter.json`](evidence/run_card_hmas_sinter.json) for the full machine-readable card.
 
 ---
 

@@ -68,7 +68,7 @@ def test_leakage_canary_all_58_channels_pass() -> None:
 
 
 def test_geotiff_and_zip_contract_zero_human_inspection() -> None:
-    rc = json.loads((EVIDENCE_DIR / "run_card.json").read_text())
+    rc = json.loads((EVIDENCE_DIR / "run_card_hmas_sinter.json").read_text())
     tif_path = DOWNLOADS_DIR / rc["submission_file"]
     zip_path = DOWNLOADS_DIR / rc["submission_zip"]
     rec_path = tif_path.with_suffix(".json")
@@ -142,7 +142,7 @@ def test_full_fleet_uniqueness_gate() -> None:
 
 
 def test_run_card_and_protocol_budget() -> None:
-    rc = json.loads((EVIDENCE_DIR / "run_card.json").read_text())
+    rc = json.loads((EVIDENCE_DIR / "run_card_hmas_sinter.json").read_text())
     required_keys = {
         "hypothesis",
         "mechanism",
@@ -165,8 +165,9 @@ def test_run_card_and_protocol_budget() -> None:
 
 
 def test_pages_ui_and_readme_integrity() -> None:
-    idx = (DOCS_DIR / "index.html").read_text()
-    exe = (DOCS_DIR / "executive-summary.html").read_text()
+    lane_dir = DOCS_DIR / "hmas-sinter"
+    idx = (lane_dir / "index.html").read_text()
+    exe = (lane_dir / "executive-summary.html").read_text()
     readme = (REPO_ROOT / "README.md").read_text()
 
     assert "OK TO SUBMIT" in idx or "DO NOT SUBMIT" in idx
@@ -177,10 +178,10 @@ def test_pages_ui_and_readme_integrity() -> None:
         assert site in idx
         assert site in readme
 
-    # Verify all relative href/src assets referenced in docs/index.html and docs/executive-summary.html exist
+    # Verify all relative href/src assets referenced in docs/hmas-sinter/{index,executive-summary}.html exist
     for html_doc in (idx, exe):
         for ref in re.findall(r'(?:href|src)="([^"#]+)"', html_doc):
             if ref.startswith(("http://", "https://", "mailto:", "javascript:")):
                 continue
-            target = DOCS_DIR / ref
+            target = (lane_dir / ref).resolve()
             assert target.exists(), f"Broken relative link in HTML: {ref} -> {target}"

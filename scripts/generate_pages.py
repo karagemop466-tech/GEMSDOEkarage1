@@ -15,9 +15,17 @@ def _esc(x: object) -> str:
     return html.escape(str(x))
 
 
+def _rel(url: str | None) -> str:
+    if not url:
+        return ""
+    if url.startswith(("downloads/", "assets/", "data/")):
+        return "../" + url
+    return url
+
+
 def main() -> int:
     dash = json.loads((DOCS / "data" / "dashboard_data.json").read_text())
-    rc = json.loads((EVIDENCE / "run_card.json").read_text())
+    rc = json.loads((EVIDENCE / "run_card_hmas_sinter.json").read_text())
     led = json.loads((EVIDENCE / "experiments_summary.json").read_text())
     uniq = json.loads((EVIDENCE / "fleet_uniqueness_593.json").read_text())
     canary = json.loads((EVIDENCE / "leakage_canary_58ch.json").read_text())
@@ -50,7 +58,7 @@ def main() -> int:
             u_cls = "pill-amber"
 
         zip_link = (
-            f' &middot; <a href="{_esc(r["zip_download_url"])}" download>.zip</a>'
+            f' &middot; <a href="{_esc(_rel(r["zip_download_url"]))}" download>.zip</a>'
             if r.get("zip_download_url")
             else ""
         )
@@ -66,7 +74,7 @@ def main() -> int:
                 <a class="small-link" href="{_esc(r['pages_url'])}" target="_blank" rel="noopener">Pages UI &nearr;</a>
               </td>
               <td>
-                <a href="{_esc(r['download_url'])}" download><code>{_esc(r['display_file'])}</code></a>{zip_link}<br>
+                <a href="{_esc(_rel(r['download_url']))}" download><code>{_esc(r['display_file'])}</code></a>{zip_link}<br>
                 <span class="muted">SHA-256: <code>{_esc(r['sha256'][:16])}...</code></span>
               </td>
               <td>{_esc(r['owner_score_label'])}</td>
@@ -109,7 +117,7 @@ def main() -> int:
               </div>
               <p>{_esc(r['exec_summary'])}</p>
               <div class="site-card-foot">
-                <span>Primary Raster: <a href="{_esc(r['download_url'])}" download><code>{_esc(r['display_file'])}</code></a></span>
+                <span>Primary Raster: <a href="{_esc(_rel(r['download_url']))}" download><code>{_esc(r['display_file'])}</code></a></span>
                 <span>Dots: <strong>{r['dots']:,}</strong> | Clump&ge;3: <strong>{r['clump3_frac']*100:.2f}%</strong> | Overlap w/ GEMSDOE32: <strong>{r['overlap_3px_with_gemsdoe32']*100:.2f}%</strong></span>
               </div>
             </article>"""
@@ -693,10 +701,19 @@ def main() -> int:
 </html>
 """
 
-    (DOCS / "index.html").write_text(index_html)
-    (DOCS / "executive-summary.html").write_text(exec_html)
-    (DOCS / ".nojekyll").write_text("")
-    print("[pages] Wrote docs/index.html, docs/executive-summary.html, and docs/.nojekyll")
+    out_dir = DOCS / "hmas-sinter"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for prefix in ("downloads/", "assets/"):
+        index_html = index_html.replace(f'href="{prefix}', f'href="../{prefix}').replace(f'src="{prefix}', f'src="../{prefix}')
+        exec_html = exec_html.replace(f'href="{prefix}', f'href="../{prefix}').replace(f'src="{prefix}', f'src="../{prefix}')
+    index_html = index_html.replace(
+        '<a href="#download">Download .TIF</a>',
+        '<a href="../index.html">All-Lanes Overview</a>\n      <a href="#download">Download .TIF</a>',
+    )
+    (out_dir / "index.html").write_text(index_html)
+    (out_dir / "executive-summary.html").write_text(exec_html)
+    (out_dir / ".nojekyll").write_text("")
+    print("[pages] Wrote docs/hmas-sinter/index.html, docs/hmas-sinter/executive-summary.html, and docs/hmas-sinter/.nojekyll")
     return 0
 
 

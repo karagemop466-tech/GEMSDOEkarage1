@@ -1,120 +1,128 @@
 #!/usr/bin/env python3
-"""Autonomous SHA-256-verified restoration of all competition, external GeoDAWN/INGENIOUS, and benchmark files."""
+"""Restore every file in registry/data_manifest.json into .cache/gems_data and verify SHA-256.
+
+All transfers go over github.com (the only route available from the sandbox). Each file is
+hash-checked against the manifest pin. Entries flagged ``sha256_prefix_only`` were pinned from a
+sibling repository's receipt that only recorded a 12-character prefix; after a successful prefix
+match the full digest is written back into the manifest so the pin becomes exact.
+
+Usage: python3 scripts/restore_data.py [--group core|external|registry|all] [--target-dir DIR]
+"""
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT / "src") not in sys.path:
-    sys.path.insert(0, str(ROOT / "src"))
-
-from gemskarage1.paths import REGISTRY_DIR, data_dir
+MANIFEST = ROOT / "registry" / "data_manifest.json"
+DEFAULT_TARGET = ROOT / ".cache" / "gems_data"
 
 
-def sha256_file(path: Path) -> str:
+def sha256_file(p: Path) -> str:
     h = hashlib.sha256()
-    with path.open("rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
+    with p.open("rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
 
 
-class GitBlobFetcher:
-    def __init__(self, cache_dir: Path) -> None:
-        self.cache_dir = cache_dir
-        self.cache_dir.mkdir(parents=True, exist_ok=True)
-        self._prepared: set[tuple[str, str]] = set()
-
-    def _repo_dir(self, repo: str) -> Path:
-        return self.cache_dir / repo.replace("/", "__")
-
-    def ensure_commit(self, repo: str, ref: str) -> Path:
-        git_dir = self._repo_dir(repo)
-        url = f"https://github.com/{repo}.git"
-        if not (git_dir / "HEAD").exists():
-            subprocess.run(
-                ["git", "clone", "--quiet", "--bare", "--filter=blob:none", "--no-tags", "--depth=1", url, str(git_dir)],
-                check=True,
-                timeout=300,
-            )
-        if (repo, ref) not in self._prepared:
-            has_ref = (
+def fetch(repo: str, ref: str, path: str, dest: Path, attempts: int = 4) -> None:
+    """Fetch one blob with ``gh api`` (raw media type). Retries on transient failures."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(dest.suffix + ".partial")
+    last_err: Exception | None = None
+    for i in range(attempts):
+        try:
+            with tmp.open("wb") as out:
                 subprocess.run(
-                    ["git", "--git-dir", str(git_dir), "cat-file", "-e", f"{ref}^{{commit}}"],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                ).returncode
-                == 0
-            )
-            if not has_ref:
-                subprocess.run(
-                    ["git", "--git-dir", str(git_dir), "fetch", "--quiet", "--depth=1", "origin", ref],
-                    check=True,
-                    timeout=300,
+                    ["gh", "api", f"repos/{repo}/contents/{path}?ref={ref}", "-H", "Accept: application/vnd.github.raw"],
+                    stdout=out, stderr=subprocess.PIPE, check=True,
                 )
-            self._prepared.add((repo, ref))
-        return git_dir
-
-    def write_blob(self, repo: str, ref: str, path: str, out_fh) -> None:
-        git_dir = self.ensure_commit(repo, ref)
-        subprocess.run(
-            ["git", "--git-dir", str(git_dir), "show", f"{ref}:{path}"],
-            stdout=out_fh,
-            check=True,
-            timeout=600,
-        )
-
-
-def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-dir", type=Path, default=None, help="Destination directory (default: /tmp/gems_data or ./data)")
-    ap.add_argument("--manifest", type=Path, default=REGISTRY_DIR / "data_manifest.json")
-    ap.add_argument("--verify-only", action="store_true")
-    args = ap.parse_args()
-
-    dest_root = args.data_dir or data_dir()
-    dest_root.mkdir(parents=True, exist_ok=True)
-    manifest = json.loads(args.manifest.read_text())
-    fetcher = GitBlobFetcher(Path("/tmp/gems_git_cache"))
-
-    ok = 0
-    for entry in manifest["files"]:
-        rel = entry["dest"]
-        expected = entry["sha256"]
-        target = dest_root / rel
-        if target.is_file() and sha256_file(target) == expected:
-            ok += 1
-            continue
-        if args.verify_only:
-            print(f"[MISSING/MISMATCH] {rel}", file=sys.stderr)
-            return 1
-        target.parent.mkdir(parents=True, exist_ok=True)
-        src = entry["source"]
-        tmp = target.with_suffix(target.suffix + ".part")
-        with tmp.open("wb") as fh:
-            if src["kind"] == "git_blob":
-                fetcher.write_blob(src["repo"], src["ref"], src["path"], fh)
-            elif src["kind"] == "git_split_blob":
-                for part in src["parts"]:
-                    fetcher.write_blob(src["repo"], src["ref"], part, fh)
-            else:
-                raise ValueError(f"Unsupported source kind: {src['kind']}")
-        got = sha256_file(tmp)
-        if got != expected:
+            tmp.replace(dest)
+            return
+        except subprocess.CalledProcessError as exc:  # pragma: no cover - network path
+            last_err = exc
             tmp.unlink(missing_ok=True)
-            raise RuntimeError(f"SHA-256 mismatch for {rel}: expected {expected}, got {got}")
-        tmp.replace(target)
-        ok += 1
-        print(f"[restored] {rel} ({got[:12]}...)")
+            time.sleep(2 * (i + 1))
+    raise RuntimeError(f"fetch failed for {repo}@{ref[:8]}:{path}: {last_err}")
 
-    print(f"[restore_data] Verified {ok}/{len(manifest['files'])} SHA-256-pinned files in {dest_root}")
-    return 0
+
+def restore_entry(entry: dict, root: Path) -> dict:
+    dest = root / entry["dest"]
+    pin = entry["sha256"]
+    prefix_only = bool(entry.get("sha256_prefix_only"))
+
+    def matches(digest: str) -> bool:
+        return digest.startswith(pin) if prefix_only else digest == pin
+
+    if dest.exists():
+        got = sha256_file(dest)
+        if matches(got):
+            return {**_rec(entry, dest, got), "status": "present"}
+        dest.unlink()
+    if "parts" in entry:
+        tmp = dest.with_suffix(".assembling")
+        tmp.parent.mkdir(parents=True, exist_ok=True)
+        with tmp.open("wb") as out:
+            for part in entry["parts"]:
+                p = root / "raw_parts" / Path(part).name
+                fetch(entry["repo"], entry["ref"], part, p)
+                with p.open("rb") as src:
+                    shutil.copyfileobj(src, out, 1 << 20)
+                p.unlink()
+        got = sha256_file(tmp)
+        if not matches(got):
+            tmp.unlink(missing_ok=True)
+            raise SystemExit(f"HASH MISMATCH for {entry['id']}: {got} != {pin}")
+        tmp.replace(dest)
+    else:
+        fetch(entry["repo"], entry["ref"], entry["path"], dest)
+        got = sha256_file(dest)
+        if not matches(got):
+            dest.unlink(missing_ok=True)
+            raise SystemExit(f"HASH MISMATCH for {entry['id']}: {got} != {pin}")
+    return {**_rec(entry, dest, got), "status": "restored"}
+
+
+def _rec(entry: dict, dest: Path, digest: str) -> dict:
+    return {"id": entry["id"], "dest": entry["dest"], "group": entry["group"], "bytes": dest.stat().st_size, "sha256": digest}
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--group", default="all", choices=["core", "external", "registry", "all"])
+    ap.add_argument("--target-dir", default=str(DEFAULT_TARGET))
+    args = ap.parse_args()
+    root = Path(args.target_dir)
+    root.mkdir(parents=True, exist_ok=True)
+    manifest = json.loads(MANIFEST.read_text())
+    receipts = []
+    changed = False
+    for entry in manifest["files"]:
+        if args.group != "all" and entry["group"] != args.group:
+            continue
+        rec = restore_entry(entry, root)
+        receipts.append(rec)
+        if entry.get("sha256_prefix_only") and rec["sha256"] != entry["sha256"]:
+            entry["sha256"] = rec["sha256"]
+            entry.pop("sha256_prefix_only", None)
+            changed = True
+        print(f"[{rec['status']:8s}] {rec['dest']}  {rec['bytes']:>12,d} B  {rec['sha256'][:16]}", flush=True)
+    if changed:
+        MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
+        print("manifest updated with full SHA-256 digests")
+    out = ROOT / "data"
+    out.mkdir(exist_ok=True)
+    receipt = {"generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "storage_root": str(root), "verified_files_count": len(receipts), "files": receipts}
+    (out / "restore_receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
+    print(f"OK: {len(receipts)} files verified; receipt at data/restore_receipt.json")
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
