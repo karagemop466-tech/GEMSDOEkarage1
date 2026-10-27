@@ -1,0 +1,15 @@
+{
+  "hypothesis": "No assigned method paragraph; research slate only",
+  "mechanism": null,
+  "non_fault_process_that_could_mimic_it": "For prospective texture-displacement hypothesis: lithologic contacts and erosional terraces",
+  "holdout": {"label": "HOLDOUT-DTI", "value": null, "evaluator_version": null, "withheld_positives": null, "ci95": null, "status": "not run"},
+  "registry": {"surface_correlation": null, "final_dot_overlap": null, "status": "No new candidate. Nine historical masks audited; all fail against a peer. Full registry not restored."},
+  "raster_sha256": null,
+  "validator": {"status": "not run on a new submission", "no_nan_inside_footprint": null, "values_in_range": null, "crs_shape_transform_match": null},
+  "submission_name": null,
+  "note": "No new TIFF: missing assigned lane/template; no holdout or full-registry clearance. Do not submit historical copies.",
+  "verdict": "negative",
+  "experiments_run": 0,
+  "slots_used": 0,
+  "submission_ready": false
+}

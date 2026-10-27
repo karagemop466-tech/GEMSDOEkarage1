@@ -1,0 +1,7 @@
+{
+  "measurement_type": "binary-mask set comparison, not a performance score",
+  "b2_subset_of_gems25": true,
+  "gems25_dots_removed_for_b2": 6436,
+  "b2_subset_of_gems36": true,
+  "gems36_additional_dots": 1200
+}

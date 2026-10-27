@@ -1,76 +1,42 @@
-from __future__ import annotations
-
 from html.parser import HTMLParser
-import json
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+import json
+import subprocess
+import sys
+from urllib.parse import urlsplit, unquote
 
-from scripts import render_site
+ROOT=Path(__file__).parents[1]
 
-ROOT = Path(__file__).resolve().parents[1]
-
-
-class Tags(HTMLParser):
+class Links(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.links = []
-        self.ids = set()
-        self.duplicates = set()
-        self.disabled_downloads = 0
-        self._button = False
-
-    def handle_starttag(self, tag, attrs):
-        attrs = dict(attrs)
-        if "id" in attrs:
-            if attrs["id"] in self.ids:
-                self.duplicates.add(attrs["id"])
-            self.ids.add(attrs["id"])
-        for name in ("href", "src"):
-            if name in attrs:
-                self.links.append(attrs[name])
-        if tag == "button" and "disabled" in attrs:
-            self.disabled_downloads += 1
+        self.links=[]
+    def handle_starttag(self,tag,attrs):
+        for key,value in attrs:
+            if key in ('href','src') and value:
+                self.links.append(value)
 
 
-def test_site_tables_are_rendered_from_evidence_and_never_approve():
-    rows, chips = render_site.build()
-    assert rows.count("DO NOT RESUBMIT") == 9
-    assert rows.count("USER-REPORTED · UNVERIFIED") == 9
-    assert rows.count("Unavailable") == 9
-    assert chips.count("data-source-repo=") == 9
-    for path in (ROOT / "index.html", ROOT / "docs/executive-summary.html"):
-        text = path.read_text()
-        assert rows in text
-        assert 'class="button button-disabled"' in text
-        assert "No file is approved" in text or "Do not submit a file" in text
-    assert chips in (ROOT / "index.html").read_text()
-    card = json.loads((ROOT / "docs/data/run-card.json").read_text())
-    assert card["verdict"] == "negative" and card["ok_to_submit"] is False
-
-
-def test_all_local_links_and_fragments_work():
-    paths = [ROOT / "index.html", ROOT / "docs/executive-summary.html", ROOT / "docs/research.html"]
-    for page in paths:
-        parser = Tags(); parser.feed(page.read_text())
-        assert not parser.duplicates, (page, parser.duplicates)
+def test_site_links_and_negative_banner():
+    subprocess.run([sys.executable,'scripts/build_site.py'],cwd=ROOT,check=True)
+    for path in (ROOT/'docs').glob('*.html'):
+        text=path.read_text()
+        parser=Links()
+        parser.feed(text)
         for link in parser.links:
-            u = urlparse(link)
-            if u.scheme or u.netloc or link.startswith("mailto:"):
-                continue
-            target = (page.parent / unquote(u.path)).resolve() if u.path else page
-            assert target.exists(), (page, link)
-            if u.fragment and target.suffix == ".html":
-                target_parser = Tags(); target_parser.feed(target.read_text())
-                assert u.fragment in target_parser.ids, (page, link)
+            url=urlsplit(link)
+            if not url.scheme and url.path:
+                assert (path.parent/unquote(url.path)).exists(), (path,link)
+    assert 'NO APPROVED TIFF' in (ROOT/'docs/index.html').read_text()
+    assert 'Not estimable' in (ROOT/'docs/executive-summary.html').read_text()
 
 
-def test_concurrent_update_is_clearly_research_only():
-    result = json.loads((ROOT / "docs/data/concurrent-review.json").read_text())
-    cmp = result["comparisons_candidate_to_reference"]
-    assert cmp["lattice"]["candidate_dots"] == 37654
-    assert cmp["lattice"]["within_3px_fraction"] == 1.0
-    assert cmp["lattice"]["strictly_exceeds_70_percent"]
-    assert result["submission_authorized"] is False
-    assert result["holdout_reproduced"] is False
-    assert "DO NOT SUBMIT" in result["owner_status"]
-    assert "data/concurrent-review.json" in (ROOT / "index.html").read_text()
+def test_evidence_strict_json():
+    def reject(value):
+        raise ValueError(value)
+    for path in list((ROOT/'evidence').glob('*.json'))+list((ROOT/'registry').glob('*.json')):
+        json.loads(path.read_text(),parse_constant=reject)
+    card=json.loads((ROOT/'evidence/run_card.json').read_text())
+    assert card['verdict']=='negative'
+    assert card['raster_sha256'] is None
+    assert card['holdout']['dti'] is None

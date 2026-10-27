@@ -1,0 +1,39 @@
+{
+  "hypothesis": "No assigned method lane: geological slate proposed, not tested",
+  "mechanism": "Repository review and independent byte/geometry/overlap audit; no new prediction raster",
+  "non_fault_mimic": "Lithologic contacts or alluvial fan margins can mimic the proposed edge-displacement signature",
+  "lane": null,
+  "experiments": 0,
+  "elapsed_seconds": null,
+  "holdout": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "dti": null,
+    "ci95": null,
+    "status": "not run"
+  },
+  "registry": {
+    "complete": false,
+    "surface_max_abs_rho": null,
+    "dots_max_abs_rho": null,
+    "max_directed_overlap_3px": null,
+    "note": "No candidate; historical-byte comparisons in historical_byte_audit.json, including lattice control"
+  },
+  "raster_sha256": null,
+  "validator": {
+    "status": "not run: no new raster"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "reasons": [
+    "Initial repo contains only README, no previous pipeline or shared cached features",
+    "Method lane paragraph absent from user prompt",
+    "Literal dense lattice overlap gate fails all nine historical best files",
+    "No organizer receipts or comparable current-best holdout available"
+  ],
+  "weekly_slots_used": 0,
+  "projection": null
+}

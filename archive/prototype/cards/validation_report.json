@@ -1,0 +1,55 @@
+{
+  "created_utc": "2026-10-27T21:09:43.388796+00:00",
+  "tif": "submissions/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+  "verdict": "negative",
+  "all_gates_pass": false,
+  "gates": [
+    {
+      "name": "G1_format_range_0_1",
+      "pass": true,
+      "min": 0.0,
+      "max": 1.0,
+      "nan_count": 0,
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "detail": "finite=True in_range=[0,1]=True single_band=True"
+    },
+    {
+      "name": "G2_grid_match",
+      "pass": false,
+      "detail": "no sample_submission.tif reference -> grid match UNVERIFIED"
+    },
+    {
+      "name": "G3_holdout_dti",
+      "pass": false,
+      "detail": "no holdout result -> cannot validate score (DO NOT SUBMIT)"
+    },
+    {
+      "name": "G4_leakage_canary",
+      "pass": false,
+      "detail": "no feature AUCs provided -> canary unevaluated"
+    },
+    {
+      "name": "G5_uniqueness",
+      "pass": true,
+      "max_abs_rho": 0.0,
+      "rho_limit": 0.9,
+      "max_overlap": 0.0,
+      "overlap_limit": 0.7,
+      "n_pred_dots": 326805,
+      "worst_raster": null,
+      "per_raster": [],
+      "detail": "max|rho|=0.0000 (lim 0.9) max 3-px overlap=0.000 (lim 0.7)"
+    }
+  ],
+  "summary": {
+    "G1_format": true,
+    "G2_grid_match": false,
+    "G3_holdout_dti": false,
+    "G4_leakage_canary": false,
+    "G5_uniqueness": true
+  }
+}

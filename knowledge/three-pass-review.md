@@ -40,6 +40,7 @@
   modified or privately forked; the helper must be fixed once in the agreed
   upstream template before use. We cannot update that other repository from
   this branch.
+- Integrated parallel main-branch reviews and quarantined synthetic archives. The inherited CDA1 holdout function returns fixed values; its reported HOLDOUT-DTI is not a measurement. Independently found 99.7769% lattice overlap, not its archived 99.99% claim. Both H-UNQ-1 TIFF transforms differ from the mirrored grid. Retained previous detailed pages, data, release gates and workflows without treating archived figures as real.
 - Final automated tests and browser checks are reported in the session/PR.
   They test software and reference geometry only—not scientific merit,
   organizer acceptance or a current weekly allowance.

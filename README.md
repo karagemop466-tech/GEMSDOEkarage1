@@ -157,3 +157,27 @@ novelty gates before any selector considers a slot. Do not optimize predictions
 around lattice holes just to produce a green badge. The site checks GitHub
 source revisions in the visitor's browser, but does not scrape DrivenData's
 leaderboard because of its [terms](https://www.drivendata.org/termsofuse/).
+
+## Parallel integration and archived demonstrators
+
+Other sessions merged onto main while this review was in progress. Their
+independent detailed pages, source evidence, release gate, and GitHub Actions
+workflows are retained alongside this dashboard. The main dashboard links to
+[the detailed nine-site review](docs/index.html); [legacy overview](legacy-overview.html)
+and [prior negative card](docs/data/run_card.json) remain available. This
+review’s active, stricter explanatory card is [run-card.json](docs/data/run-card.json).
+
+Two inherited artifact sets are **synthetic demonstrators, DO NOT SUBMIT**:
+[H-UNQ-1](archive/prototype/README.md) has a placeholder transform that does
+not match the mirrored sample, and [CDA1](archive/cda1-demonstrator/README.md)
+uses synthetic layers and a holdout function that returns fixed numbers. CDA1's
+claimed holdout/CI is **not a measurement**. Its actual lattice overlap is
+37,570/37,654 = 99.7769%, not its archived 99.99% claim.
+[Independent archive diagnostics](docs/data/archive-review.json) are reproducible
+with `python scripts/audit_archives.py` after fetching the reference cache.
+The original archive content remains in Git history; warnings have been added.
+
+`python scripts/build_site.py` rebuilds the retained detailed/legacy views;
+`python scripts/render_site.py` rebuilds this homepage and current executive
+table. The GitHub Actions tests exercise the combined project. The scheduled
+evidence refresh uploads an Actions artifact, not an automatic Pages update.
