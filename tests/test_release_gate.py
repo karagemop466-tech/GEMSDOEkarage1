@@ -283,7 +283,28 @@ def test_cli_never_overwrites_evidence_input(tmp_path, monkeypatch, alias, paylo
     elif alias == 'relative':
         monkeypatch.chdir(tmp_path)
         out = Path('card.json')
-    assert gate.main([str(source), '--out', str(out)]) == 2
+    assert gate.main([str(source), '--out', str(out)]) == 1
     assert source.read_bytes() == before
     assert out.read_bytes() == before
     assert not list(tmp_path.glob('*.tmp'))
+def test_cli_rejects_duplicate_json_keys_at_any_depth(tmp_path, capsys):
+    card = tmp_path / 'card.json'
+    card.write_text('{"holdout":{"dti":0.1,"dti":0.2}}')
+    assert gate.main([str(card)]) == 1
+    assert 'duplicate JSON key: dti' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('alias', ['same', 'symlink', 'hardlink'])
+def test_cli_refuses_to_overwrite_input_card(tmp_path, capsys, alias):
+    card = tmp_path / 'card.json'
+    original = '{"lane":"original"}'
+    card.write_text(original)
+    output = card if alias == 'same' else tmp_path / 'alias.json'
+    if alias == 'symlink':
+        output.symlink_to(card)
+    elif alias == 'hardlink':
+        import os
+        os.link(card, output)
+    assert gate.main([str(card), '--out', str(output)]) == 1
+    assert card.read_text() == original
+    assert 'must not overwrite' in capsys.readouterr().err

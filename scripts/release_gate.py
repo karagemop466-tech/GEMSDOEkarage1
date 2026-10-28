@@ -203,6 +203,15 @@ def assess(card):
             "selector_required": True, "reasons": reasons}
 
 
+def _unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("card", type=Path, help="Path to JSON run-card / release-gate input")
@@ -218,11 +227,13 @@ def main(argv: list[str] | None = None) -> int:
                 raise ValueError("report output must not overwrite the input run card")
         except (OSError, ValueError) as exc:
             print(f"RELEASE GATE BLOCKED: {exc}", file=sys.stderr)
-            return 2
+            return 1
+
     try:
         def _reject_constant(value: str):
             raise ValueError(f"non-standard JSON constant: {value}")
-        payload = json.loads(args.card.read_text(), parse_constant=_reject_constant)
+        payload = json.loads(args.card.read_text(), parse_constant=_reject_constant,
+                             object_pairs_hook=_unique_object)
         if isinstance(payload, dict) and isinstance(payload.get("input"), dict) and "holdout" not in payload:
             payload = payload["input"]
         result = assess(payload)

@@ -1,0 +1,17 @@
+{
+  "session": "arena/400355af-gemsdoekarage1",
+  "hypothesis": null,
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "explanation": "No assigned method lane or authoritative shared template was identified; no geological experiment or raster was generated.",
+  "holdout_dti": null,
+  "registry_correlation_overlap": null,
+  "raster_sha256": null,
+  "validator_output": null,
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "review": "knowledge/session-review-arena-400355af.md"
+}
