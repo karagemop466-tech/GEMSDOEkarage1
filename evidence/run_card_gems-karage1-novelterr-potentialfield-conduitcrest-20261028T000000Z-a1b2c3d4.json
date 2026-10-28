@@ -1,0 +1,112 @@
+{
+  "schema": "karage1-run-card-v3",
+  "generated_utc": "20261028T165124Z",
+  "session": "arena/6c48ab7e-gemsdoekarage1",
+  "lane_id": "novel-territory-potential-field-conduit-crest",
+  "hypothesis": "Unmapped geothermal-indicative faults cluster on 'novel territory' far from all nine prior GEMSDOE site submissions (H19-5 / lattice family).  A catalogue-independent signature (gravity slope x gravity gradient x radiometric TC x DEM relief) placed there recovers withheld catalogue faults on novel territory while staying outside every registry raster's 3 px halo, so it is unique by construction.",
+  "mechanism": "Basin-and-Range normal/transtensional fault damage zones localise gravity-gradient and radiometric alteration crests on piedmonts.  Existing submissions densely cover the catalogue/lattice corridor; the complementary fault set lies outside their 3 px halos. Placing dots only there guarantees literal uniqueness (<70% forward overlap vs any registry raster) while the hide-and-recover holdout measures recovery of withheld catalogue segments on that same novel territory.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline berms, TIGER road/rail embankments, and flat conductive playas can mimic linear gravity/radiometric crests; mitigated by the 100 m DEM relief factor and by requiring novel-territory placement (shorelines/roads are already dense in prior submissions and thus excluded by the halo gate).",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "evaluator_implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    },
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled_dti_all_modes": 0.017415,
+    "withheld_positive_pixels_total": 45260,
+    "emitted_pixels": 17415,
+    "on_visible_catalogue_pixels": 0,
+    "per_mode": {
+      "all": {
+        "dti": 0.01885,
+        "withheld_positive_pixels": 22641,
+        "emitted_pixels": 17415
+      },
+      "detached": {
+        "dti": 0.015978,
+        "withheld_positive_pixels": 22619,
+        "emitted_pixels": 17415
+      }
+    },
+    "note": "Catalogue-truth hide-and-recover holdout; NOT a leaderboard estimate or projection."
+  },
+  "registry_correlation_overlap": {
+    "registry_rasters_checked": 9,
+    "registry_rasters_expected": 9,
+    "complete_accessible_scan": false,
+    "worst_spearman_full_footprint": -0.004982171431785802,
+    "worst_forward_overlap": 0.0,
+    "worst_forward_overlap_submission": "GEMSDOE24",
+    "worst_jaccard": 0.0,
+    "duplicate_count": 0,
+    "unique_by_literal_rule": true,
+    "unique": true,
+    "rho_limit": 0.9,
+    "overlap_limit": 0.7,
+    "novel_territory_pixels": 4156311,
+    "dots_on_novel_territory": 17415,
+    "scope": "Nine pinned focus-site rasters (owner mirrors); not a complete organizer registry."
+  },
+  "leakage_canary": {
+    "note": "Signature uses only the 19-band training stack (geophysics/DEM), never the catalogue; single-feature canary should be run per-channel before any slot is spent."
+  },
+  "raster": {
+    "tif": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+    "zip": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.zip",
+    "receipt": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.json",
+    "sha256": "65c9432b2cb417824b846a63ab64bf9d1035e4a9e8102f3ed2175ad48a464687",
+    "bytes": 96864,
+    "dots": 17415,
+    "dtype": "float32",
+    "nodata": null,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "validator_output": {
+    "format_report_ok": true,
+    "format_problems": [],
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "all_finite_whole_array": true,
+    "positive_mass_outside_footprint": 0,
+    "single_band": true,
+    "dtype_float32": true,
+    "shape_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_matches_sample_submission": true,
+    "zero_dots_on_mapped_catalogue": true,
+    "all_checks_passed": true,
+    "source": "gates.format_report + gems57.submission_writer on-disk re-read"
+  },
+  "submission_name": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+  "submission_note": "Novel-territory gravity+radiometric+topo crest; dots outside all 9 GEMSDOE site halos; unique vs registry",
+  "submission_note_chars": 105,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 1,
+  "verdict": "promote-to-selector",
+  "verdict_reason": "Unique vs the nine focus-site registry, format-valid, all-finite [0,1]. Holdout DTI reported honestly; live organizer score unknown (no submission made). Promotion to a weekly slot is the separate selector's decision.",
+  "blockers": [
+    "No organizer-authenticated score (no live submission made; DrivenData is login-walled).",
+    "Complete organizer registry not accessible; uniqueness is vs nine pinned focus-site rasters only."
+  ]
+}
