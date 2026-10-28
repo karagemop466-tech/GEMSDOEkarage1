@@ -1,0 +1,108 @@
+{
+  "experiment": 1,
+  "lane": "H-K1-BBSTEP",
+  "evaluator_version": "gemsk-hide-recover-v1",
+  "withheld_positives": 60988,
+  "rows": [
+    {
+      "feature": "iso_grav_anom_hg",
+      "mean_auc": 0.5297038295672105,
+      "fold_aucs": [
+        0.5355678624126716,
+        0.5656672767914992,
+        0.522127088820769,
+        0.49545309024390244
+      ],
+      "constant": false,
+      "finite_in_footprint": true,
+      "reads_labels": false,
+      "alarm": false
+    },
+    {
+      "feature": "grav_ridge",
+      "mean_auc": 0.5018312833607633,
+      "fold_aucs": [
+        0.4998878976451458,
+        0.5050305350200854,
+        0.5045457937859522,
+        0.4978609069918699
+      ],
+      "constant": false,
+      "finite_in_footprint": true,
+      "reads_labels": false,
+      "alarm": false
+    },
+    {
+      "feature": "dtb_ridge",
+      "mean_auc": 0.49927863858476285,
+      "fold_aucs": [
+        0.4982829706697182,
+        0.5015139903783854,
+        0.4985562132909477,
+        0.49876138000000003
+      ],
+      "constant": false,
+      "finite_in_footprint": true,
+      "reads_labels": false,
+      "alarm": false
+    },
+    {
+      "feature": "align",
+      "mean_auc": 0.5170800388402864,
+      "fold_aucs": [
+        0.5267698480787762,
+        0.5323772069781003,
+        0.4928233736376022,
+        0.5163497266666667
+      ],
+      "constant": false,
+      "finite_in_footprint": true,
+      "reads_labels": false,
+      "alarm": false
+    },
+    {
+      "feature": "low_slope",
+      "mean_auc": 0.44181865317168506,
+      "fold_aucs": [
+        0.4059002622861961,
+        0.45308280938188417,
+        0.47886173516500147,
+        0.42942980585365853
+      ],
+      "constant": false,
+      "finite_in_footprint": true,
+      "reads_labels": false,
+      "alarm": false
+    },
+    {
+      "feature": "mag_ridge",
+      "mean_auc": 0.50279426690967,
+      "fold_aucs": [
+        0.5031802958624428,
+        0.5077908100622002,
+        0.5007748584620043,
+        0.49943110325203266
+      ],
+      "constant": false,
+      "finite_in_footprint": true,
+      "reads_labels": false,
+      "alarm": false
+    },
+    {
+      "feature": "bbstep_surface_gate50",
+      "mean_auc": 0.4401056214146561,
+      "fold_aucs": [
+        0.41356872048903887,
+        0.4646121165932357,
+        0.4666994715031789,
+        0.4155421770731708
+      ],
+      "constant": false,
+      "finite_in_footprint": true,
+      "reads_labels": false,
+      "alarm": false
+    }
+  ],
+  "any_alarm": false,
+  "note": "Features are constructed without labels. AUC>0.90 still blocks promotion."
+}
