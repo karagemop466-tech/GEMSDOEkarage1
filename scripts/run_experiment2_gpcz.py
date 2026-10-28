@@ -29,6 +29,8 @@ REG = grid.DATA / "registry"
 
 
 def main() -> None:
+    from gemskarage1.guard import stop_inherited_driver
+    stop_inherited_driver()
     t0 = time.time()
     foot = grid.footprint()
     cat = grid.catalogue()

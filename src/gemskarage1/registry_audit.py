@@ -1,311 +1,219 @@
-"""Full-Fleet 593-Raster Duplication & Registry Uniqueness Gate (`Protocol Rule 1`).
+"""Fail-closed adapter for the shared GEMSDOE registry comparison.
 
-Audits BOTH:
-1. Pre-placement continuous belief surface (`|Spearman| <= 0.90` against EVERY raster in the fleet), AND
-2. Final binary dot submission (`|Spearman| <= 0.90` against EVERY raster in the fleet, `SHA-256` byte &
-   pixel uniqueness, and `3-px dot overlap <= 70.0%` against all discrete competing fault submissions,
-   with transparent classification of uniform lattice diagnostics `r13-lattice-s5` and continuous un-thinned
-   research surfaces).
+The previous local scanner classified lattice and dense rasters as exempt from
+proximity checking, sampled rank correlation, and silently skipped unreadable
+inputs. None of those exemptions is in the parallel-run protocol. This adapter
+delegates to ``gems57.uniqueness`` and requires an explicit, hash-pinned
+inventory. A list of locally discovered files is diagnostic only; it cannot
+certify a complete registry. A saved pre-placement surface result must be
+provided to the final-dot gate.
 """
 from __future__ import annotations
 
 import hashlib
 import json
+import math
 from pathlib import Path
+import re
 
 import numpy as np
 import rasterio
-from scipy.ndimage import distance_transform_edt
-from scipy.stats import spearmanr
+from gems57 import uniqueness
 
-FOCUS_9_SITES: tuple[str, ...] = (
-    "GEMSDOE24",
-    "GEMSDOE25",
-    "GEMSDOE27",
-    "GEMSDOE28",
-    "GEMSDOE30",
-    "GEMSDOE31",
-    "GEMSDOE32",
-    "GEMSDOE33",
-    "GEMSDOE36",
-)
+FOCUS_9_SITES = tuple(f"GEMSDOE{n}" for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
 
 
-def _classify_raster(vals_fp: np.ndarray, rel_key: str) -> str:
-    kl = rel_key.lower()
-    if "lattice" in kl or "grid-s5" in kl or "pindrop" in kl:
-        return "uniform_lattice_diagnostic"
-    pos = vals_fp[vals_fp > 0.0]
-    n_pos = int(pos.size)
-    if n_pos == 0:
-        return "empty"
-    frac_unit = float((pos >= 0.999).mean())
-    if n_pos > 200_000 and frac_unit < 0.50:
-        return "continuous_unthinned_surface"
-    if n_pos > 100_000:
-        return "overdense_exploratory_mask"
-    return "discrete_fault_submission"
+def _digest_array(values: np.ndarray) -> str:
+    return hashlib.sha256(np.ascontiguousarray(values, dtype='<f4').tobytes()).hexdigest()
 
 
-def discover_fleet_tifs(clones_dir: Path, extra_scored_dir: Path, ddir: Path) -> list[tuple[str, str, Path]]:
-    """Return `(site, rel_path, full_path)` for all unique `.tif` rasters across the entire GEMSDOE fleet."""
-    skip_names = {
-        "training_features.tif",
-        "labels.tif",
-        "existing_faults.tif",
-        "sample_submission.tif",
-        "example_submission.tif",
-        "geodawn_extensions_u8.tif",
-        "geodawn_rad_u8.tif",
-        "lidar_scarp_features_u8.tif",
-        "derived_sgmc_faults_100m_u8.tif",
-        "acquisition_block_id_100m.tif",
-        "tiger_road_distance_m.tif",
-    }
-    found: list[tuple[str, str, Path]] = []
-    seen_real: set[str] = set()
-
-    if clones_dir.is_dir():
-        for repo_dir in sorted(clones_dir.iterdir()):
-            if not repo_dir.is_dir():
-                continue
-            site = repo_dir.name
-            for p in sorted(repo_dir.rglob("*.tif")):
-                if ".git" in p.parts or p.name in skip_names or p.stat().st_size < 10_000:
-                    continue
-                rk = f"{site}/{p.relative_to(repo_dir)}"
-                if rk not in seen_real:
-                    seen_real.add(rk)
-                    found.append((site, str(p.relative_to(repo_dir)), p))
-
-    if extra_scored_dir.is_dir():
-        for repo_dir in sorted(extra_scored_dir.iterdir()):
-            if not repo_dir.is_dir():
-                continue
-            site = repo_dir.name
-            for p in sorted(repo_dir.rglob("*.tif")):
-                if p.name in skip_names or p.stat().st_size < 10_000:
-                    continue
-                rk = f"{site}/{p.relative_to(repo_dir)}"
-                if rk not in seen_real:
-                    seen_real.add(rk)
-                    found.append((site, str(p.relative_to(repo_dir)), p))
-
-    scored_dir = ddir / "scored"
-    if scored_dir.is_dir():
-        for p in sorted(scored_dir.glob("*.tif")):
-            rk = f"scored_manifest/{p.name}"
-            if rk not in seen_real:
-                seen_real.add(rk)
-                found.append(("scored_manifest", p.name, p))
-
-    return found
+def _inventory(index: dict | list | Path | None) -> tuple[dict | list, str, bool]:
+    if index is None:
+        index = []  # not evidence of completeness
+    if isinstance(index, Path):
+        index = json.loads(index.read_text())
+    if not isinstance(index, (list, dict)):
+        raise ValueError('registry inventory must be an object or a diagnostic list')
+    complete = isinstance(index, dict) and index.get('complete_accessible_scan') is True
+    if complete:
+        entries = index.get('rasters')
+        if not isinstance(entries, list) or not entries or index.get('errors'):
+            raise ValueError('complete inventory must contain pinned entries and no source errors')
+        if type(index.get('expected_raster_count')) is not int or index['expected_raster_count'] != len(entries):
+            raise ValueError('complete inventory requires the independently recorded expected raster count')
+        coverage = index.get('source_coverage')
+        if not isinstance(coverage, dict) or not isinstance(coverage.get('scope'), str) or not coverage['scope'].strip():
+            raise ValueError('complete inventory requires an explicit source-coverage statement')
+        sources = coverage.get('immutable_repos')
+        if not isinstance(sources, list) or not sources:
+            raise ValueError('complete inventory requires immutable source-repository pins')
+        if any(not isinstance(x, dict) or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', str(x.get('repo', '')))
+               or not re.fullmatch(r'[0-9a-f]{40}', str(x.get('commit', ''))) for x in sources):
+            raise ValueError('source coverage contains an unpinned repository')
+        source_repos = {x['repo'] for x in sources}
+        seen = set()
+        for item in entries:
+            if (not isinstance(item, dict) or not re.fullmatch(r'[0-9a-f]{64}', str(item.get('sha256', '')))
+                    or not isinstance(item.get('cache_file'), str) or not item['cache_file']
+                    or item.get('repo_first') not in source_repos
+                    or not isinstance(item.get('sources'), list) or not item['sources']
+                    or any(not isinstance(src, str) or not src for src in item['sources'])):
+                raise ValueError('registry entry lacks a pinned source, saved file or full SHA-256')
+            if item['sha256'] in seen:
+                raise ValueError('complete inventory contains repeated raster hashes')
+            seen.add(item['sha256'])
+    encoded = json.dumps(index, sort_keys=True, separators=(',', ':'), allow_nan=False).encode()
+    return index, hashlib.sha256(encoded).hexdigest(), bool(complete)
 
 
-def run_full_fleet_uniqueness_gate(
-    continuous_surface: np.ndarray,
-    final_dots_f32: np.ndarray,
-    final_tif_path: Path,
-    foot: np.ndarray,
-    *,
-    clones_dir: Path = Path("/tmp/research/clones"),
-    extra_scored_dir: Path = Path("/tmp/gems_extra_scored"),
-    ddir: Path = Path("/tmp/gems_data"),
-    spearman_ceiling: float = 0.90,
-    overlap_3px_ceiling: float = 0.70,
-    sample_stride: int = 13,
-) -> dict:
-    """Check pre-placement continuous surface AND final dots against all 590+ GEMSDOE fleet rasters."""
-    cand_sha = hashlib.sha256(final_tif_path.read_bytes()).hexdigest()
-    cand_pix_sha = hashlib.sha256(np.where(foot, final_dots_f32, 0.0).astype("<f4").tobytes()).hexdigest()
 
-    cand_dots = (final_dots_f32 >= 0.5) & foot
-    n_cand_dots = int(cand_dots.sum())
-    assert n_cand_dots > 0, "Candidate has zero dots!"
+def _digest_footprint(footprint: np.ndarray) -> str:
+    return hashlib.sha256(np.ascontiguousarray(footprint, dtype=np.uint8).tobytes()).hexdigest()
 
-    # Precompute EDT from candidate dots AND sample footprint indices for fast exact 3-px & Spearman scans
-    d_from_cand = distance_transform_edt(~cand_dots)
-    cand_within_3px_mask = (d_from_cand <= 3.0) & foot  # ref dots falling inside 3px of candidate
 
-    fp_flat = np.flatnonzero(foot)[::sample_stride]
-    s_ys = fp_flat // foot.shape[1]
-    s_xs = fp_flat % foot.shape[1]
-    surf_sub = continuous_surface[s_ys, s_xs].astype(np.float64)
-    dots_sub = final_dots_f32[s_ys, s_xs].astype(np.float64)
+def _digest_grid(grid: tuple) -> str:
+    shape, crs, transform = grid
+    value = {'shape': list(shape), 'crs': str(crs), 'transform': list(transform)[:6]}
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
-    fleet = discover_fleet_tifs(clones_dir, extra_scored_dir, ddir)
 
-    records = []
-    per_focus_site: dict[str, dict] = {}
-    unique_pix_hashes: set[str] = set()
+def _rank_coverage(comparison: dict, index: dict | list) -> tuple[bool, float | None]:
+    """Require a defined full-footprint correlation for EVERY pinned reference.
 
-    max_surf_spearman = 0.0
-    max_surf_ref = ""
-    max_dot_spearman = 0.0
-    max_dot_ref = ""
-    max_discrete_overlap = 0.0
-    max_discrete_ref = ""
-    exact_hash_matches = []
-    non_competing_high_cov = []
+    The shared comparator currently regards undefined rows as complete and can
+    report just the worst defined row. Reject that ambiguity at this adapter.
+    This receipt is tamper-evident against accidental input changes, not a signed
+    proof of when a human produced it.
+    """
+    records, _, _ = uniqueness.records_from_index(index)
+    rows = comparison.get('rows')
+    if not isinstance(rows, list) or len(rows) != len(records) or not rows:
+        return False, None
+    expected = {r.get('sha256') for r in records}
+    measured = {r.get('sha256') for r in rows if isinstance(r, dict)}
+    if None in expected or measured != expected or len(measured) != len(rows):
+        return False, None
+    values = [r.get('spearman_full_footprint') for r in rows]
+    if any(not isinstance(rho, (int, float)) or isinstance(rho, bool) or not math.isfinite(rho)
+           or abs(rho) > 1.0 + 1e-12 for rho in values):
+        return False, None
+    return True, max(abs(float(rho)) for rho in values)
 
-    cand_y, cand_x = np.nonzero(cand_dots)
-
-    # Cache computations by pixel-content hash so byte-identical copies across sibling repos are instantaneous
-    pix_cache: dict[str, dict] = {}
-
-    for site, rel_p, p in fleet:
-        raw_bytes = p.read_bytes()
-        f_sha = hashlib.sha256(raw_bytes).hexdigest()
-        del raw_bytes
-        if f_sha == cand_sha:
-            exact_hash_matches.append(f"{site}/{rel_p}")
-
+def _verify_registry_pixels(index: dict | list, footprint: np.ndarray, expected_grid: tuple) -> list[str]:
+    """Guard the shared comparator, which otherwise converts inside NaNs to zero."""
+    records, _, _ = uniqueness.records_from_index(index)
+    errors = []
+    for rec in records:
+        path = Path(rec['file'])
+        if not path.is_absolute():
+            path = uniqueness.ROOT / path
         try:
-            with rasterio.open(p) as ds:
-                if ds.shape != foot.shape:
-                    continue
-                arr = ds.read(1)
-        except Exception:
-            continue
+            with rasterio.open(path) as src:
+                if src.count != 1 or (src.shape, src.crs, src.transform) != expected_grid:
+                    raise ValueError('band count or grid mismatch')
+                data = src.read(1)
+                mask = src.read_masks(1) != 0
+            values = data[footprint]
+            if not mask[footprint].all() or not np.isfinite(values).all():
+                raise ValueError('missing or non-finite registry value inside footprint')
+            if np.any((values < 0) | (values > 1)):
+                raise ValueError('registry values outside [0,1] inside footprint')
+        except (OSError, ValueError, rasterio.errors.RasterioError) as exc:
+            errors.append(f'{path}: {exc}')
+    return errors
 
-        arr_clean = np.where(foot & np.isfinite(arr), arr.astype(np.float32), np.float32(0.0))
-        p_sha = hashlib.sha256(arr_clean.astype("<f4").tobytes()).hexdigest()
-        unique_pix_hashes.add(p_sha)
-        if p_sha == cand_pix_sha:
-            exact_hash_matches.append(f"{site}/{rel_p}")
 
-        if p_sha not in pix_cache:
-            vals_fp = arr_clean[foot]
-            rtype = _classify_raster(vals_fp, f"{site}/{rel_p}")
-            ref_sub = arr_clean[s_ys, s_xs].astype(np.float64)
-            if np.all(ref_sub == ref_sub[0]):
-                rho_surf = 0.0
-                rho_dots = 0.0
-            else:
-                r1 = float(spearmanr(surf_sub, ref_sub).statistic)
-                r2 = float(spearmanr(dots_sub, ref_sub).statistic)
-                rho_surf = 0.0 if np.isnan(r1) else abs(r1)
-                rho_dots = 0.0 if np.isnan(r2) else abs(r2)
+def _grid(path: Path) -> tuple:
+    with rasterio.open(path) as ds:
+        if ds.count != 1:
+            raise ValueError('template/candidate must have one band')
+        return (ds.shape, ds.crs, ds.transform)
 
-            ref_pos = (arr_clean > 0.0) & foot
-            n_ref = int(ref_pos.sum())
-            if n_ref == 0:
-                ov_cand_in_ref = 0.0
-                ov_ref_in_cand = 0.0
-                ov_sym_max = 0.0
-            else:
-                # Reverse direction (fraction of ref's positive pixels within <=3px of candidate's dots) is O(1) using d_from_cand!
-                ov_ref_in_cand = float(cand_within_3px_mask[ref_pos].mean())
-                # Forward direction (fraction of candidate's dots within <=3px of ref's positive pixels):
-                # Compute exact local 7x7 window check around `cand_y, cand_x` in < 1 ms instead of full-grid EDT!
-                hit = np.zeros(cand_y.size, dtype=bool)
-                h, w = foot.shape
-                for dy in range(-3, 4):
-                    for dx in range(-3, 4):
-                        if dy * dy + dx * dx > 9:
-                            continue
-                        ny = np.clip(cand_y + dy, 0, h - 1)
-                        nx = np.clip(cand_x + dx, 0, w - 1)
-                        hit |= ref_pos[ny, nx]
-                ov_cand_in_ref = float(hit.mean())
-                ov_sym_max = max(ov_cand_in_ref, ov_ref_in_cand)
 
-            pix_cache[p_sha] = {
-                "rtype": rtype,
-                "n_pos": n_ref,
-                "rho_surf": round(rho_surf, 5),
-                "rho_dots": round(rho_dots, 5),
-                "ov_cand_in_ref": round(ov_cand_in_ref, 5),
-                "ov_ref_in_cand": round(ov_ref_in_cand, 5),
-                "ov_sym_max": round(ov_sym_max, 5),
-            }
+def check_preplacement_surface(surface: np.ndarray, foot: np.ndarray, template_path: Path,
+                               registry_index: dict | list | Path | None) -> dict:
+    """Compare the continuous surface before any production dot placement."""
+    surface = np.asarray(surface, dtype=np.float32)
+    foot = np.asarray(foot, dtype=bool)
+    if surface.shape != foot.shape or not foot.any() or not np.isfinite(surface[foot]).all():
+        raise ValueError('surface/footprint mismatch or non-finite surface')
+    lo, hi = float(np.min(surface[foot])), float(np.max(surface[foot]))
+    if lo == hi:
+        raise ValueError('constant surface has undefined rank correlation')
+    # A monotone affine transform leaves Spearman ranks invariant; it merely
+    # meets the shared comparison API's [0,1] input contract.
+    normalized = np.zeros(surface.shape, np.float32)
+    normalized[foot] = (surface[foot] - lo) / (hi - lo)
+    index, digest, complete = _inventory(registry_index)
+    grid = _grid(template_path)
+    if grid[0] != foot.shape:
+        raise ValueError('surface/footprint grid does not match template')
+    errors = _verify_registry_pixels(index, foot, grid)
+    if errors:
+        return {'phase': 'surface_before_placement', 'passed': False, 'errors': errors,
+                'inventory_sha256': digest, 'surface_sha256': _digest_array(surface)}
+    comp = uniqueness.compare_array_to_registry(normalized, index, foot, expected_grid=grid)
+    ranks_defined, rho = _rank_coverage(comp, index)
+    passed = bool(complete and comp['complete_accessible_scan'] and ranks_defined
+                  and rho <= uniqueness.RHO_LIMIT and not comp['missing_or_invalid'])
+    return {'phase': 'surface_before_placement', 'passed': passed,
+            'inventory_sha256': digest, 'surface_sha256': _digest_array(surface),
+            'footprint_sha256': _digest_footprint(foot), 'template_grid_sha256': _digest_grid(grid),
+            'all_reference_ranks_defined': ranks_defined,
+            'surface_max_abs_rho': rho, 'registry_rasters_checked': comp['registry_rasters_checked'],
+            'complete_accessible_scan': comp['complete_accessible_scan'],
+            'comparison': comp}
 
-        cm = pix_cache[p_sha]
-        rec = {
-            "site": site,
-            "path": rel_p,
-            "file_sha256": f_sha,
-            "pixel_sha256": p_sha,
-            **cm,
-        }
-        records.append(rec)
 
-        if cm["rho_surf"] > max_surf_spearman:
-            max_surf_spearman = cm["rho_surf"]
-            max_surf_ref = f"{site}/{rel_p}"
-        if cm["rho_dots"] > max_dot_spearman:
-            max_dot_spearman = cm["rho_dots"]
-            max_dot_ref = f"{site}/{rel_p}"
+def run_full_fleet_uniqueness_gate(continuous_surface: np.ndarray, final_dots_f32: np.ndarray,
+                                   final_tif_path: Path, foot: np.ndarray, *,
+                                   registry_index: dict | list | Path | None = None,
+                                   preplacement_report: dict | None = None, **_legacy: object) -> dict:
+    """Compare exact saved final bytes against every explicitly indexed raster.
 
-        if cm["rtype"] == "discrete_fault_submission":
-            # Protocol Rule 1: ">70% of our dots within 3 px of theirs" (and check symmetric max for rigor)
-            if cm["ov_cand_in_ref"] > max_discrete_overlap:
-                max_discrete_overlap = cm["ov_cand_in_ref"]
-                max_discrete_ref = f"{site}/{rel_p}"
-        elif cm["ov_cand_in_ref"] > overlap_3px_ceiling:
-            non_competing_high_cov.append(
-                {
-                    "ref": f"{site}/{rel_p}",
-                    "type": cm["rtype"],
-                    "n_pos": cm["n_pos"],
-                    "cand_in_ref_3px": cm["ov_cand_in_ref"],
-                    "dot_spearman": cm["rho_dots"],
-                }
-            )
-
-        if site in FOCUS_9_SITES:
-            cur = per_focus_site.get(site)
-            if cur is None:
-                per_focus_site[site] = {
-                    "site": site,
-                    "n_rasters_scanned": 1,
-                    "max_surface_spearman": cm["rho_surf"],
-                    "max_dot_spearman": cm["rho_dots"],
-                    "max_discrete_3px_overlap": cm["ov_cand_in_ref"] if cm["rtype"] == "discrete_fault_submission" else 0.0,
-                    "closest_discrete_raster": rel_p if cm["rtype"] == "discrete_fault_submission" else "",
-                }
-            else:
-                cur["n_rasters_scanned"] += 1
-                cur["max_surface_spearman"] = max(cur["max_surface_spearman"], cm["rho_surf"])
-                cur["max_dot_spearman"] = max(cur["max_dot_spearman"], cm["rho_dots"])
-                if cm["rtype"] == "discrete_fault_submission" and cm["ov_cand_in_ref"] > cur["max_discrete_3px_overlap"]:
-                    cur["max_discrete_3px_overlap"] = cm["ov_cand_in_ref"]
-                    cur["closest_discrete_raster"] = rel_p
-
-    passed = (
-        len(exact_hash_matches) == 0
-        and max_surf_spearman <= spearman_ceiling
-        and max_dot_spearman <= spearman_ceiling
-        and max_discrete_overlap <= overlap_3px_ceiling
-    )
-
-    top_discrete = sorted(
-        [r for r in records if r["rtype"] == "discrete_fault_submission"],
-        key=lambda x: x["ov_cand_in_ref"],
-        reverse=True,
-    )[:25]
-
+    ``passed`` requires the separately recorded surface gate, a complete pinned
+    inventory and the literal directed overlap rule on *all* registry rasters.
+    This function never selects a weekly submission slot.
+    """
+    index, digest, complete = _inventory(registry_index)
+    foot = np.asarray(foot, dtype=bool)
+    with rasterio.open(final_tif_path) as ds:
+        if ds.count != 1:
+            raise ValueError('candidate must have one band')
+        saved = ds.read(1)
+        grid = (ds.shape, ds.crs, ds.transform)
+    if saved.shape != foot.shape or not np.array_equal(saved, np.asarray(final_dots_f32)):
+        raise ValueError('candidate array does not match saved GeoTIFF bytes')
+    if not np.isfinite(saved).all() or np.any((saved < 0) | (saved > 1)):
+        raise ValueError('saved candidate contains non-finite or out-of-range values')
+    errors = _verify_registry_pixels(index, foot, grid)
+    if errors:
+        return {'passed': False, 'errors': errors, 'inventory_sha256': digest}
+    result = uniqueness.compare_to_registry(final_tif_path, index, foot, expected_grid=grid)
+    surface_comparison = preplacement_report.get('comparison', {}) if isinstance(preplacement_report, dict) else {}
+    surface_ranks_defined, surface_rho = _rank_coverage(surface_comparison, index)
+    surface_ok = bool(isinstance(preplacement_report, dict)
+                      and preplacement_report.get('phase') == 'surface_before_placement'
+                      and preplacement_report.get('passed') is True
+                      and preplacement_report.get('surface_sha256') == _digest_array(continuous_surface)
+                      and preplacement_report.get('footprint_sha256') == _digest_footprint(foot)
+                      and preplacement_report.get('template_grid_sha256') == _digest_grid(grid)
+                      and preplacement_report.get('inventory_sha256') == digest
+                      and surface_comparison.get('complete_accessible_scan') is True
+                      and surface_ranks_defined and surface_rho <= uniqueness.RHO_LIMIT)
+    ranks_defined, final_rho = _rank_coverage(result, index)
     return {
-        "protocol_rule": "Rule-1-Pre-And-Post-Placement-Duplication-Gate",
-        "candidate_tif": final_tif_path.name,
-        "candidate_sha256": cand_sha,
-        "candidate_pixel_sha256": cand_pix_sha,
-        "candidate_dots": n_cand_dots,
-        "total_fleet_rasters_scanned": len(records),
-        "unique_pixel_rasters_scanned": len(unique_pix_hashes),
-        "thresholds": {
-            "spearman_abs_max": spearman_ceiling,
-            "discrete_3px_overlap_max": overlap_3px_ceiling,
-        },
-        "exact_hash_matches": exact_hash_matches,
-        "max_pre_placement_surface_spearman": round(max_surf_spearman, 5),
-        "max_pre_placement_surface_ref": max_surf_ref,
-        "max_final_dot_spearman": round(max_dot_spearman, 5),
-        "max_final_dot_spearman_ref": max_dot_ref,
-        "max_discrete_submission_3px_overlap": round(max_discrete_overlap, 5),
-        "max_discrete_submission_ref": max_discrete_ref,
-        "non_competing_lattice_or_continuous_rasters_gt_70pct_cov": non_competing_high_cov[:12],
-        "per_focus_9_site_summary": [per_focus_site[s] for s in FOCUS_9_SITES if s in per_focus_site],
-        "top_25_closest_discrete_submissions": top_discrete,
-        "passed": bool(passed),
+        'protocol_rule': 'literal-Rule-1-all-registry-rasters',
+        'candidate_sha256': uniqueness._sha(final_tif_path),
+        'candidate_dots': int(((saved > 0) & foot).sum()),
+        'inventory_sha256': digest,
+        'surface_preplacement_verified': surface_ok,
+        'complete_accessible_scan': bool(complete and result['complete_accessible_scan']),
+        'max_directed_overlap_3px_any_registry': result['worst_dot_overlap'],
+        'max_overlap_reference': result['worst_overlap_submission'],
+        'all_reference_ranks_defined': ranks_defined,
+        'max_final_dot_spearman': final_rho,
+        'comparison': result,
+        'passed': bool(surface_ok and complete and result['unique'] and ranks_defined
+                       and final_rho <= uniqueness.RHO_LIMIT),
     }

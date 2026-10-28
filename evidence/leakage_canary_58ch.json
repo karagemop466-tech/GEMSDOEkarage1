@@ -8,7 +8,7 @@
   "max_direction_invariant_auc": 0.59876,
   "max_feature": "band06",
   "leaking_features": [],
-  "all_passed": true,
+  "all_passed": false,
   "channels": [
     {
       "channel_index": 0,
@@ -253,7 +253,9 @@
       "feature": "footprint",
       "raw_auc": 0.5,
       "direction_invariant_auc": 0.5,
-      "leaking": false
+      "leaking": false,
+      "status": "constant_no_variation",
+      "passed_current_policy": false
     },
     {
       "channel_index": 35,
@@ -416,5 +418,10 @@
       "direction_invariant_auc": 0.52621,
       "leaking": false
     }
+  ],
+  "prior_all_passed_before_review": true,
+  "review_status": "Not rerun. Footprint is constant in the evaluated footprint and has mathematical AUC 0.5, but under the current conservative policy that channel is untestable and cannot establish a feature-quality pass.",
+  "untestable_features": [
+    "footprint"
   ]
 }

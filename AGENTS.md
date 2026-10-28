@@ -15,9 +15,11 @@ is maintained by `scripts/render_site.py`; `scripts/build_site.py` maintains the
 parallel review's legacy and per-site pages without overwriting it. Both prior
 and current run cards are negative.
 
-Lane GPC-Z (2026-10-27) produced a gated candidate: read `evidence/run_card_gpcz.json`,
-`evidence/release_gate_gpcz.json` and `docs/gpcz/index.html`. Lane pages are built by
-`scripts/build_gpcz_site.py` into `docs/gpcz/`; the homepage decision panel in `index.html`,
-`docs/executive-summary.html` and the alert in `scripts/build_detail_pages.py` must be
-updated together whenever the gate result changes. The lane's shared tools live in
-`src/gemsk/`; the pinned GEMSDOE32 template evaluator was run unmodified for comparison.
+Both inherited GPC-Z and HMAS candidates failed the literal overlap rule in the
+28 October saved-byte review; neither is gated for submission. Read
+`evidence/prior_candidate_audit.json` and `knowledge/three-pass-review-2026-10-28.md`.
+Historical lane pages and generator entrypoints now render negative notices.
+Keep the current homepage, run card and all release decisions synchronized;
+`scripts/build_site.py` invokes the deterministic table and notice generators.
+Historical detailed lane pages are preserved as explicitly superseded text under
+`knowledge/archive/2026-10-27-superseded/` and in git history.

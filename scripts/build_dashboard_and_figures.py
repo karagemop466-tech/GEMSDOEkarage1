@@ -219,6 +219,7 @@ def _overlap_3px(dots_a: np.ndarray, dots_b: np.ndarray) -> float:
 
 
 def main() -> int:
+    raise RuntimeError("Retired dashboard: its old clearance excluded a registered lattice; use scripts/build_site.py.")
     ddir = data_dir()
     cdir = cache_dir()
     assets_dir = DOCS_DIR / "assets"

@@ -67,8 +67,8 @@ def test_site_local_links_and_download_only_for_gated_raster():
     promoted_hashes = set()
     for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
-        assert gate['result']['verdict'] == 'promote' and not gate['result']['reasons']
-        promoted_hashes.add(gate['input']['raster_sha256'])
+        assert gate['result']['verdict'] == 'negative' and gate['result']['reasons']
+        assert not gate['result']['ok_to_submit']
     class Links(HTMLParser):
         def handle_starttag(self, tag, attrs):
             attrs = dict(attrs)
@@ -87,8 +87,8 @@ def test_run_card_and_source_hashes():
     import hashlib
     root = Path(__file__).resolve().parents[1]
     card = json.loads((root/'docs/data/run_card.json').read_text())
-    assert card['verdict'] == 'negative' and not card['submission_ready']
-    assert len(card['note']) <= 140
+    assert card['verdict'] == 'negative' and not card['ok_to_submit']
+    assert not card['download_available'] and len(card['submission_note']) <= 140
     for row in json.loads((root/'docs/data/sources.json').read_text())['sites']:
         raw = (root/'evidence/sources'/f"{row['site']}-README.md").read_bytes()
         assert hashlib.sha256(raw).hexdigest() == row['readme_sha256']

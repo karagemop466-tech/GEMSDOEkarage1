@@ -78,14 +78,25 @@
         "lidar_tectonic_asymm_chain": 0.56248,
         "lidar_valid_flag": 0.52621
       },
-      "all_features_tested": true
+      "all_features_tested": false
     },
     "registry": {
-      "complete": true,
+      "complete": false,
       "saved_bytes_checked": true,
       "surface_max_abs_rho": 0.53034,
       "dots_max_abs_rho": 0.07574,
-      "max_directed_overlap_3px": 0.6039
+      "max_directed_overlap_3px": 0.9993193717277487,
+      "surface_checked_before_placement": false,
+      "expected_count": 1,
+      "records": [
+        {
+          "id": "registered-r13-lattice",
+          "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+          "surface_abs_rho": null,
+          "dots_abs_rho": 2.856745533511713e-05,
+          "directed_overlap_3px": 0.9993193717277487
+        }
+      ]
     },
     "validator": {
       "single_band": true,
@@ -94,16 +105,43 @@
       "range_0_1": true,
       "crs_match": true,
       "shape_match": true,
-      "transform_match": true
+      "transform_match": true,
+      "outside_encoding_compatible": false,
+      "template_official_authenticated": false
     },
     "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
     "submission_name": "karage1-hmas-sinter-dualcover-sep29-zeros",
     "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular"
   },
   "result": {
+    "verdict": "negative",
+    "ok_to_submit": false,
+    "selector_required": true,
+    "reasons": [
+      "Missing scientific run-card field: hypothesis",
+      "Missing scientific run-card field: mechanism",
+      "Missing scientific run-card field: named_non_fault_mimic",
+      "No same-evaluator improvement over holdout best",
+      "Hide-and-recover leakage controls or metric parameters missing",
+      "Single-feature leakage canary missing, untestable or failed",
+      "Complete registry / pre-placement / saved-byte comparison missing",
+      "Registry receipt hash missing or invalid: inventory_sha256",
+      "Registry receipt hash missing or invalid: preplacement_surface_sha256",
+      "Registry receipt is not bound to the same inventory and saved raster",
+      "Registry gate failed or missing: registered-r13-lattice / surface_abs_rho",
+      "Registry gate failed or missing: registered-r13-lattice / directed_overlap_3px",
+      "Registry summary missing or understates a reference: surface_max_abs_rho",
+      "Registry summary missing or understates a reference: max_directed_overlap_3px",
+      "Saved TIFF validation missing or failed: outside_encoding_compatible",
+      "Saved TIFF validation missing or failed: template_official_authenticated",
+      "Validator receipt is not bound to the saved raster"
+    ]
+  },
+  "result_before_2026_10_28_review": {
     "verdict": "promote",
     "ok_to_submit": false,
     "selector_required": true,
     "reasons": []
-  }
+  },
+  "correction": "Reassessed against the known lattice witness; only one witness rechecked, not the complete inventory."
 }

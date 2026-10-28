@@ -44,6 +44,8 @@ assert len(SUBMISSION_NOTE) <= 140
 
 
 def run_stage_fit(force: bool = False) -> None:
+    from gemskarage1.guard import stop_inherited_driver
+    stop_inherited_driver()
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()
@@ -60,6 +62,8 @@ def run_stage_fit(force: bool = False) -> None:
 
 
 def run_stage_eval_and_package() -> int:
+    from gemskarage1.guard import stop_inherited_driver
+    stop_inherited_driver()
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()
@@ -417,6 +421,8 @@ def run_stage_eval_and_package() -> int:
 
 
 def main() -> int:
+    from gemskarage1.guard import stop_inherited_driver
+    stop_inherited_driver()
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--stage", choices=("fit", "eval", "all"), default="all")
     ap.add_argument("--force-fit", action="store_true")
