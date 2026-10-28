@@ -13,9 +13,9 @@ The previously reported lattice failure was independently replayed from pinned
 mirrors: 38,174/38,200 historical HMAS dots and 35,959/36,000 historical GPC-Z
 dots are within 3 px. The [reassessment](evidence/reassessment_arena_0fb1_20261028.json)
 is reproducible but uses a third-party footprint, not an authenticated organizer
-sample. All 31 pinned mirrors were restored into ignored `data/` in this
-runtime; those local bytes are not tracked and may not persist between sessions.
-No geological experiment, candidate raster, holdout score or submission was made.
+sample. The 31 pinned mirrors were restored into ignored `data/` in a prior
+review runtime; they are not tracked and are **absent from this checkout**. No
+geological experiment, candidate raster, holdout score or submission was made.
 The old `prepare_data.py` is intentionally blocked: it builds a quarantined
 private stack, not an assigned shared cache. Data placement alone is **not** the
 only blocker.
@@ -87,9 +87,12 @@ check for a new candidate. At that checkout point, the suite had **205 passed,
 0 failed, 0 skipped** (53 Rasterio deprecation warnings) and the site builder
 rendered 32 pages deterministically. A later merged follow-up records 219
 passing tests and strengthens preflight/gate behavior. After synchronizing this
-branch with the latest main, the complete suite passed **221 tests** (62
-Rasterio warnings). Neither test count is a holdout result or submission
-authorization.
+branch with the latest main, the complete suite passed **240 tests** (90
+Rasterio/Affine pending-deprecation warnings). The final review record
+[here](knowledge/session-review-final-2026-10-28.md) also documents that the
+assigned lane and cached inputs are absent from this checkout, and that source
+and leaderboard refreshes are not authenticated/live. Neither test count is a
+holdout result or submission authorization.
 
 ## What changed on 28 October 2026
 
