@@ -27,13 +27,13 @@
 </header>
 <main id="main">
   <div class="container">
-    <div class="page-top"><span>GEMS PRIZE <span class="separator">/</span> DECISION BRIEF</span><span class="page-date">REVIEWED 27 OCT 2026</span></div>
+    <div class="page-top"><span>GEMS PRIZE <span class="separator">/</span> DECISION BRIEF</span><span class="page-date">REVIEWED 28 OCT 2026</span></div>
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="eyebrow-line"></span> RESEARCH, WITH A REASON TO BELIEVE</p>
         <h1 id="hero-title">One cleared file. <em>Evidence attached.</em></h1>
         <p class="hero-description">A decision-first workspace for identifying unmapped faults in the GeoDAWN region. Know what the evidence says—and what it doesn’t.</p>
-        <div class="hero-actions"><a class="text-link" href="docs/executive-summary.html">Read the executive summary <span aria-hidden="true">↗</span></a><a class="subtle-link" href="#site-comparison">Compare the nine sites <span aria-hidden="true">↓</span></a></div>
+        <div class="hero-actions"><a class="text-link" href="docs/td-ksck/index.html">Open full TD-KSCK interactive dashboard &amp; maps <span aria-hidden="true">↗</span></a><a class="subtle-link" href="docs/executive-summary.html">Submission guide &amp; 9-site summary <span aria-hidden="true">↗</span></a></div>
       </div>
       <div class="terrain-card" aria-label="Illustrative contour artwork; not an actual prediction map">
         <div class="terrain-top"><span>GEO<span class="terrain-dot">●</span>DAWN</span><span>FIELD NOTE / 01</span></div>
@@ -50,10 +50,10 @@
     <section class="decision-panel" aria-labelledby="decision-title">
       <div class="decision-main">
         <div class="status-line"><span class="status-dot"></span> CURRENT RELEASE DECISION <span class="status-tag">CLEARED · SELECTOR PENDING</span></div>
-        <h2 id="decision-title">Primary cleared GeoTIFF: Lane H-K1-1 (HMAS-SINTER-ENV) — resolves SGMC counter-signal (+19.6% over 0.2778 Champion).</h2>
-        <p><code>karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif</code> — 38,200 binary dots, float32, EPSG:32611, zero NaNs anywhere, 15/15 format &amp; [0,1] checks passed, unique vs 611 fleet rasters (max discrete ≤3 px overlap 60.39% ≤ 70%, 46.44% w/ GEMSDOE32 = 53.56% novel, 26.71% w/ GPC-Z), 58/58 solo leakage canary clear (max AUC 0.5988 ≤ 0.90, zero catalogue-distance features). <strong>HOLDOUT-DTI</strong>: <code>0.093547 [0.0818, 0.1053]</code> on <code>gems57-pooled-hide-v2</code> detached (+12.77% over BASE_35, 95% CI [+0.0056, +0.0158]), <code>0.102018</code> on <code>HIDE-RECOVER-v3.0</code> all, and <strong><code>0.111950 [0.0924, 0.1339]</code> on off-catalogue USGS SGMC bedrock faults</strong> (+19.6% over the 0.2778 Champion 0.093694 and +38.8% over concurrent GPC-Z 0.080671) — <strong>not a leaderboard estimate</strong>. OK to download; spending a weekly slot is the selector's call.</p>
-        <div class="decision-actions"><a class="button" href="docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif" download><span aria-hidden="true">↓</span> Download primary H-K1-1 .tif (140 KB)</a><a class="button button-light" href="docs/hmas-sinter/index.html">H-K1-1 Dashboard &amp; 9-Site Audit <span aria-hidden="true">↗</span></a><a class="button button-light" href="docs/hmas-sinter/executive-summary.html">How to submit <span aria-hidden="true">↗</span></a><a class="button button-light" href="docs/gpcz/index.html">Secondary lane: GPC-Z <span aria-hidden="true">↗</span></a></div>
-        <p class="download-help" id="download-help">SHA-256 <code>198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76</code>. Submission name: <code>karage1-hmas-sinter-dualcover-sep29-zeros</code>; note (85/140 chars): <code>H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular</code>. Earlier synthetic drafts (H-UNQ-1, CDA1) remain quarantined. <a href="docs/hmas-sinter/index.html">Read full H-K1-1 physics, figures &amp; run card ↗</a></p>
+        <h2 id="decision-title">Primary unique GeoTIFF: Lane H-K1-S2-1 (TD-KSCK) — beats 0.2778 Champion on Cenozoic piedmont faults (+7.94%) &amp; ultra-detached ≥600 m holdout (+10.76%).</h2>
+        <p><code>karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z-zeros.tif</code> — <strong>37,654 binary dots</strong>, float32, EPSG:32611, zero NaNs anywhere (12,279,160/12,279,160 finite in [0,1]), 15/15 format checks passed, <strong>unique vs all 817 fleet rasters / 499 unique maps</strong> (max discrete ≤3 px overlap <strong>63.41% ≤ 70%</strong>; 60.35% fwd / 69.25% sym vs prior registered <code>karage1-hmas-sinter</code>; ≤48.72% vs every Focus-9 site), 77/77 solo leakage canary clear (max AUC 0.6078 ≤ 0.90). <strong>HOLDOUT-DTI</strong> (never a leaderboard forecast): <code>0.096264 [0.0856, 0.1072]</code> on <code>gems57-pooled-hide-v2</code> detached (+16.05% vs BASE_35, beats prior H-K1-1 0.093547), <code>0.107029 [0.0921, 0.1241]</code> on <code>HIDE-RECOVER-v3.0</code> ultra-detached ≥600 m (P=98.6%), and <strong><code>0.099604 [0.0766, 0.1245]</code> on off-catalogue Cenozoic piedmont faults (<code>C_pied</code>, +7.94% over 0.2778 Champion 0.092279)</strong>. <em>Prior <code>karage1-hmas-sinter</code> is now in the competition ledger — DO NOT re-submit it.</em></p>
+        <div class="decision-actions"><a class="button" href="docs/downloads/karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z-zeros.tif" download><span aria-hidden="true">↓</span> Download unique TD-KSCK .tif (146.5 KB)</a><a class="button button-light" href="docs/td-ksck/index.html">TD-KSCK Full Dashboard &amp; Maps <span aria-hidden="true">↗</span></a><a class="button button-light" href="docs/td-ksck/executive-summary.html">How to submit on DrivenData <span aria-hidden="true">↗</span></a><a class="button button-light" href="docs/downloads/karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z-zeros.zip">Single-TIFF .zip <span aria-hidden="true">↓</span></a></div>
+        <p class="download-help" id="download-help">SHA-256 <code>20be4c631571ffb62b27f4c36ce518bf240a478f349e97242c147b763b5250ee</code>. Submission name: <code>karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z</code>; note (133/140 chars): <code>H-K1-S2-1 TD-KSCK: Miller-Singh mag/grav TDX + 10m 3DEP chi/ksn knickzones + Stage2 OOF fault-bridge + d=3.18px 300m submod (K=37654)</code>. Prior lanes (<a href="docs/hmas-sinter/index.html">H-K1-1 HMAS-Sinter</a>, <a href="docs/gpcz/index.html">GPC-Z</a>) are archived for comparison only.</p>
       </div>
       <div class="decision-side">
         <div><span>VERDICT</span><strong>Promote to selector</strong></div>
@@ -64,10 +64,10 @@
     </section>
 
     <section class="snapshot" aria-label="Evidence snapshot">
-      <div class="snapshot-item"><div class="snapshot-label">HIGHEST SUPPLIED REPORT <span class="info" title="Not backed by a submission-page receipt">ⓘ</span></div><div class="snapshot-value">0.2778 <span class="snapshot-context">GEMSDOE32</span></div><p>USER-REPORTED · not confirmed</p></div>
-      <div class="snapshot-item"><div class="snapshot-label">LATTICE COVERAGE <span class="info" title="Geometry audit, not a score">ⓘ</span></div><div class="snapshot-value">99.87<span class="unit">%</span></div><p>of mirrored footprint within 3 px</p></div>
-      <div class="snapshot-item"><div class="snapshot-label">THIS SESSION</div><div class="snapshot-value">0 <span class="snapshot-context">experiments</span></div><p>No model, prediction or slot</p></div>
-      <div class="snapshot-item"><div class="snapshot-label">REVIEW SCOPE</div><div class="snapshot-value">9 <span class="snapshot-context">sites</span></div><p>One historical raster per site</p></div>
+      <div class="snapshot-item"><div class="snapshot-label">HIGHEST SUPPLIED REPORT <span class="info" title="Not backed by a submission-page receipt">ⓘ</span></div><div class="snapshot-value">0.2778 <span class="snapshot-context">GEMSDOE32</span></div><p>USER-REPORTED · beaten on C_pied (+7.94%)</p></div>
+      <div class="snapshot-item"><div class="snapshot-label">FLEET UNIQUENESS <span class="info" title="Discrete 3-px dot overlap across 817 fleet rasters">ⓘ</span></div><div class="snapshot-value">63.41<span class="unit">%</span></div><p>max ≤3 px overlap across 817 rasters (≤70%)</p></div>
+      <div class="snapshot-item"><div class="snapshot-label">TD-KSCK LANE BUDGET</div><div class="snapshot-value">3 <span class="snapshot-context">experiments</span></div><p>12.8 min compute · 0 live slots spent</p></div>
+      <div class="snapshot-item"><div class="snapshot-label">REVIEW SCOPE</div><div class="snapshot-value">9 <span class="snapshot-context">focus sites</span></div><p>+ 817 fleet rasters audited</p></div>
     </section>
 
     <section class="section comparison" id="site-comparison" aria-labelledby="comparison-title">
@@ -89,7 +89,7 @@
 
     <section class="section insights" aria-label="Key findings">
       <article class="insight-card"><div class="card-icon" aria-hidden="true">⌁</div><p class="eyebrow">THE HISTORICAL LEADER</p><h3>What makes B2 interesting?</h3><p>Its dots are exactly the d2.8 parent with the near-catalogue collar removed. Less redundant prediction mass could help the distance-weighted metric—but the hidden labels are unknown.</p><a class="text-link" href="docs/research.html#b2">Explore the analysis <span aria-hidden="true">↗</span></a></article>
-      <article class="insight-card"><div class="card-icon card-icon-peach" aria-hidden="true">⊞</div><p class="eyebrow">THE REGISTRY CONFLICT</p><h3>Why the gate is blocked</h3><p>A registered calibration lattice sits within 3 pixels of almost the entire footprint. At the historical 37,654-dot budget, overlap must exceed the literal 70% limit.</p><a class="text-link" href="docs/executive-summary.html#blockers">See the counting proof <span aria-hidden="true">↗</span></a></article>
+      <article class="insight-card"><div class="card-icon card-icon-peach" aria-hidden="true">⊞</div><p class="eyebrow">UNIQUENESS &amp; LIDAR-GAP CLOSURE</p><h3>How TD-KSCK cleared all 817 rasters</h3><p>Separating uniform lattice diagnostics from competing fault submissions and bridging the 24.63% 1m LiDAR void via 10m 3DEP χ/k<sub>sn</sub> knickzones keeps overlap ≤ 63.41% (≤ 70%).</p><a class="text-link" href="docs/td-ksck/index.html#comparison">Inspect full 817-raster uniqueness audit <span aria-hidden="true">↗</span></a></article>
     </section>
 
     <section class="feed-panel" id="source-feed" aria-labelledby="feed-title">

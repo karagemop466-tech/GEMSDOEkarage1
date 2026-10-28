@@ -47,7 +47,14 @@ def _classify_raster(vals_fp: np.ndarray, rel_key: str) -> str:
     return "discrete_fault_submission"
 
 
-def discover_fleet_tifs(clones_dir: Path, extra_scored_dir: Path, ddir: Path) -> list[tuple[str, str, Path]]:
+def discover_fleet_tifs(
+    clones_dir: Path,
+    extra_scored_dir: Path,
+    ddir: Path,
+    *,
+    prior_local_dir: Path | None = None,
+    exclude_paths: set[Path] | None = None,
+) -> list[tuple[str, str, Path]]:
     """Return `(site, rel_path, full_path)` for all unique `.tif` rasters across the entire GEMSDOE fleet."""
     skip_names = {
         "training_features.tif",
@@ -61,7 +68,13 @@ def discover_fleet_tifs(clones_dir: Path, extra_scored_dir: Path, ddir: Path) ->
         "derived_sgmc_faults_100m_u8.tif",
         "acquisition_block_id_100m.tif",
         "tiger_road_distance_m.tif",
+        "blm_closed_claim_distance_m.tif",
+        "topo_10m_derived_100m_u8.tif",
+        "dem10_chi_100m_i16.tif",
+        "dem10_chi_100m_u8.tif",
+        "dem10_chi_100m_sig_i32.tif",
     }
+    excl_resolved = {p.resolve() for p in (exclude_paths or set()) if p.exists()}
     found: list[tuple[str, str, Path]] = []
     seen_real: set[str] = set()
 
@@ -73,27 +86,51 @@ def discover_fleet_tifs(clones_dir: Path, extra_scored_dir: Path, ddir: Path) ->
             for p in sorted(repo_dir.rglob("*.tif")):
                 if ".git" in p.parts or p.name in skip_names or p.stat().st_size < 10_000:
                     continue
-                rk = f"{site}/{p.relative_to(repo_dir)}"
-                if rk not in seen_real:
-                    seen_real.add(rk)
-                    found.append((site, str(p.relative_to(repo_dir)), p))
-
-    if extra_scored_dir.is_dir():
-        for repo_dir in sorted(extra_scored_dir.iterdir()):
-            if not repo_dir.is_dir():
-                continue
-            site = repo_dir.name
-            for p in sorted(repo_dir.rglob("*.tif")):
-                if p.name in skip_names or p.stat().st_size < 10_000:
+                if p.resolve() in excl_resolved:
                     continue
                 rk = f"{site}/{p.relative_to(repo_dir)}"
                 if rk not in seen_real:
                     seen_real.add(rk)
                     found.append((site, str(p.relative_to(repo_dir)), p))
 
+    if extra_scored_dir.is_dir():
+        for item in sorted(extra_scored_dir.iterdir()):
+            if item.is_dir():
+                site = item.name
+                for p in sorted(item.rglob("*.tif")):
+                    if p.name in skip_names or p.stat().st_size < 10_000 or p.resolve() in excl_resolved:
+                        continue
+                    rk = f"{site}/{p.relative_to(item)}"
+                    if rk not in seen_real:
+                        seen_real.add(rk)
+                        found.append((site, str(p.relative_to(item)), p))
+            elif item.is_file() and item.suffix == ".tif":
+                if item.name in skip_names or item.stat().st_size < 10_000 or item.resolve() in excl_resolved:
+                    continue
+                parts = item.name.split("__", 2)
+                if len(parts) == 3:
+                    site, rel_name = parts[1], parts[2]
+                else:
+                    site, rel_name = "extra_fleet", item.name
+                rk = f"{site}/{rel_name}"
+                if rk not in seen_real:
+                    seen_real.add(rk)
+                    found.append((site, rel_name, item))
+
+    if prior_local_dir is not None and prior_local_dir.is_dir():
+        for p in sorted(prior_local_dir.glob("*.tif")):
+            if p.name in skip_names or p.stat().st_size < 10_000 or p.resolve() in excl_resolved:
+                continue
+            rk = f"GEMSDOEkarage1_prior/{p.name}"
+            if rk not in seen_real:
+                seen_real.add(rk)
+                found.append(("GEMSDOEkarage1_prior", p.name, p))
+
     scored_dir = ddir / "scored"
     if scored_dir.is_dir():
         for p in sorted(scored_dir.glob("*.tif")):
+            if p.resolve() in excl_resolved:
+                continue
             rk = f"scored_manifest/{p.name}"
             if rk not in seen_real:
                 seen_real.add(rk)
@@ -111,6 +148,7 @@ def run_full_fleet_uniqueness_gate(
     clones_dir: Path = Path("/tmp/research/clones"),
     extra_scored_dir: Path = Path("/tmp/gems_extra_scored"),
     ddir: Path = Path("/tmp/gems_data"),
+    prior_local_dir: Path | None = None,
     spearman_ceiling: float = 0.90,
     overlap_3px_ceiling: float = 0.70,
     sample_stride: int = 13,
@@ -133,7 +171,13 @@ def run_full_fleet_uniqueness_gate(
     surf_sub = continuous_surface[s_ys, s_xs].astype(np.float64)
     dots_sub = final_dots_f32[s_ys, s_xs].astype(np.float64)
 
-    fleet = discover_fleet_tifs(clones_dir, extra_scored_dir, ddir)
+    fleet = discover_fleet_tifs(
+        clones_dir,
+        extra_scored_dir,
+        ddir,
+        prior_local_dir=prior_local_dir,
+        exclude_paths={final_tif_path},
+    )
 
     records = []
     per_focus_site: dict[str, dict] = {}

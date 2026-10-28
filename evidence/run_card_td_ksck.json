@@ -1,0 +1,212 @@
+{
+  "hypothesis": "H-K1-S2-1..4 (TD-KSCK): Uncatalogued blind and fan-masked Great Basin geothermal conduit faults produce (1) true Miller-Singh (1994) / Cooper-Cowan (2006) magnetic & isostatic-gravity tilt zero-contours (TDX) and hydrothermal magnetite-destruction slots (fixing IR-KARAGE1-BAND6-01), (2) 100%-footprint USGS 3DEP 10m sub-pixel profile-curvature/aspect-coherence breaklines plus Perron-Royden (2013) transverse canyon chi/ksn knickzones bridged 1.2 km along range-front strike across the 24.63% 1m LiDAR gap, and (3) multi-scale 400-1800m Stage-2 buffered OOF fault-strand continuations with Cenozoic piedmont habitat  & physical conduit allocation (d=3.18px, B=2.2px, K=37,654).",
+  "mechanism": "Active Cenozoic normal/transtensional faulting juxtaposes dense basement blocks against basin fill (gravity TDX zero-contour with listric basinward phase offset relative to magnetic TDX), oxidizes host-rock titanomagnetite along permeable hydrothermal upflow slots, and maintains convex 10m fluvial chi/ksn knickzones in footwall drainages even where Holocene debris fans bury canyon-mouth scarps.",
+  "mimic_process": "Pleistocene Lake Lahontan Sehoo/Eetza (1330-1342m ASL), Fallon/Dendritic (1265-1282m ASL), and Lake Dixie (1090-1105m ASL) wave-cut shoreline benches (de-confounded via exact 10m orthometric elevation zmean_m x contour-parallelism x weak geophysical tilt), inactive high-altitude (>1920m ASL) exposed Mesozoic granitic pluton interior cooling joints (de-confounded via zmean_m x shallow depth_to_base x radiometric Band-6 TC), US Census TIGER highway/railroad berms, and flat conductive playas.",
+  "holdout_dti": {
+    "gems57_pooled_hide_v2_all": {
+      "label": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.093453,
+      "ci95": [
+        0.084002,
+        0.10349
+      ],
+      "withheld_positives": 22641,
+      "delta_vs_base35": 0.005628,
+      "delta_vs_base35_ci95": [
+        -0.000424,
+        0.012582
+      ],
+      "delta_vs_prior_hk1": 0.002902,
+      "delta_vs_prior_hk1_ci95": [
+        -0.002898,
+        0.009007
+      ]
+    },
+    "gems57_pooled_hide_v2_detached": {
+      "label": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.096264,
+      "ci95": [
+        0.085638,
+        0.107216
+      ],
+      "withheld_positives": 22619,
+      "delta_vs_base35": 0.013313,
+      "delta_vs_base35_ci95": [
+        0.007206,
+        0.020036
+      ],
+      "delta_vs_prior_hk1": 0.002717,
+      "delta_vs_prior_hk1_ci95": [
+        -0.002836,
+        0.00885
+      ]
+    },
+    "hide_recover_v3_per_cell": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "GEMSDOE32-HIDE-RECOVER-v3.0",
+      "all": {
+        "dti": 0.112129,
+        "withheld_positives": 27735,
+        "ci95": [
+          0.099107,
+          0.126755
+        ],
+        "delta_vs_ref_mean": 0.014459,
+        "delta_vs_ref_ci95": [
+          0.006066,
+          0.02302
+        ],
+        "prob_beats_ref": 1.0
+      },
+      "detached": {
+        "dti": 0.107029,
+        "withheld_positives": 16676,
+        "ci95": [
+          0.092144,
+          0.124052
+        ],
+        "delta_vs_ref_mean": 0.010325,
+        "delta_vs_ref_ci95": [
+          0.001849,
+          0.019829
+        ],
+        "prob_beats_ref": 0.9862
+      }
+    },
+    "sgmc_off_catalogue_bedrock_faults": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "GEMSDOE32-SGMC-CAL-v3.0",
+      "withheld_positives": 62122,
+      "sgmc_raw_pooled_dti": 0.087553,
+      "sgmc_raw_ci95": [
+        0.072575,
+        0.103652
+      ],
+      "sgmc_prevalence_calibrated_ref": 0.096864,
+      "delta_vs_champion_raw": -0.006047,
+      "delta_vs_champion_ci95": [
+        -0.018054,
+        0.005815
+      ],
+      "prob_beats_champion": 0.1588
+    },
+    "c_pied_off_catalogue_piedmont_faults": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "GEMSDOE70-C-PIED-v1.0",
+      "withheld_positives": 9948,
+      "c_pied_pooled_dti": 0.099604,
+      "c_pied_ci95": [
+        0.076553,
+        0.124492
+      ],
+      "delta_vs_champion": 0.007256,
+      "delta_vs_champion_ci95": [
+        -0.007598,
+        0.020977
+      ],
+      "prob_beats_champion": 0.8413
+    },
+    "c_pied_empirical_calibration_diagnostic": {
+      "label": "CALIBRATION-PROJECTION \u2014 NOT AN ORGANIZER-CONFIRMED SCORE",
+      "n_scored_anchors": 13,
+      "spearman_rho_vs_live_dti": 0.4862,
+      "loo_cv_rmse": 0.08025,
+      "projected_interval_1sigma": [
+        0.1645,
+        0.325
+      ]
+    }
+  },
+  "registry_correlation_overlap": {
+    "total_fleet_rasters_scanned": 817,
+    "unique_pixel_rasters_scanned": 499,
+    "exact_hash_matches": [],
+    "max_pre_placement_surface_spearman": 0.31301,
+    "max_pre_placement_surface_ref": "WBGGEMSDOE1/wbg-c1-commutator-research-surface-20261026-acea88448272.tif",
+    "max_final_dot_spearman": 0.07963,
+    "max_final_dot_spearman_ref": "GEMSDOEkarage1_prior/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+    "max_discrete_submission_3px_overlap": 0.63412,
+    "max_discrete_submission_ref": "GEMSDOE92/gemsdoe92-riedelvalve-riedel_n90k-90000-20261025-e57353de-zeros.tif",
+    "overlap_vs_prior_karage1_hmas_sinter": {
+      "site": "GEMSDOEkarage1_prior",
+      "path": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+      "file_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+      "pixel_sha256": "cf993ea9278ad094e8978a7770e351e6476f6ee4fbbe7ecde03268dcff46f4ac",
+      "rtype": "discrete_fault_submission",
+      "n_pos": 38200,
+      "rho_surf": 0.10747,
+      "rho_dots": 0.07963,
+      "ov_cand_in_ref": 0.60347,
+      "ov_ref_in_cand": 0.69249,
+      "ov_sym_max": 0.69249
+    },
+    "spearman_ceiling": 0.9,
+    "overlap_3px_ceiling": 0.7,
+    "passed": true
+  },
+  "raster_sha256": "20be4c631571ffb62b27f4c36ce518bf240a478f349e97242c147b763b5250ee",
+  "zip_sha256": "c821361e576a0b5c23072c91c7e4366d04d1ee2505fee86f3922134f0e7ee825",
+  "validator_output": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z-zeros.tif",
+    "bytes": 146504,
+    "sha256": "20be4c631571ffb62b27f4c36ce518bf240a478f349e97242c147b763b5250ee",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "submission_name": "karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z",
+  "submission_file": "karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z-zeros.tif",
+  "submission_zip": "karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z-zeros.zip",
+  "submission_note": "H-K1-S2-1 TD-KSCK: Miller-Singh mag/grav TDX + 10m 3DEP chi/ksn knickzones + Stage2 OOF fault-bridge + d=3.18px 300m submod (K=37654)",
+  "verdict": "promote"
+}

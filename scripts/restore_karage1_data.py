@@ -70,6 +70,27 @@ class GitBlobFetcher:
         )
 
 
+def _normalize_source(entry: dict) -> dict:
+    """Normalize both flat legacy manifest entries and nested `source` entries."""
+    if "source" in entry and isinstance(entry["source"], dict):
+        return entry["source"]
+    if "parts" in entry:
+        return {
+            "kind": "git_split_blob",
+            "repo": entry["repo"],
+            "ref": entry["ref"],
+            "parts": entry["parts"],
+        }
+    if "path" in entry:
+        return {
+            "kind": "git_blob",
+            "repo": entry["repo"],
+            "ref": entry["ref"],
+            "path": entry["path"],
+        }
+    raise ValueError(f"Manifest entry missing source specification: {entry.get('dest') or entry.get('id')}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--data-dir", type=Path, default=None, help="Destination directory (default: /tmp/gems_data or ./data)")
@@ -77,14 +98,14 @@ def main() -> int:
     ap.add_argument("--verify-only", action="store_true")
     args = ap.parse_args()
 
-    dest_root = args.data_dir or data_dir()
+    dest_root = args.data_dir or Path(sys.modules["os"].environ.get("GEMS_DATA_DIR", "/tmp/gems_data"))
     dest_root.mkdir(parents=True, exist_ok=True)
     manifest = json.loads(args.manifest.read_text())
     fetcher = GitBlobFetcher(Path("/tmp/gems_git_cache"))
 
     ok = 0
     for entry in manifest["files"]:
-        rel = entry["dest"]
+        rel = entry.get("dest") or entry["name"]
         expected = entry["sha256"]
         target = dest_root / rel
         if target.is_file() and sha256_file(target) == expected:
@@ -94,7 +115,7 @@ def main() -> int:
             print(f"[MISSING/MISMATCH] {rel}", file=sys.stderr)
             return 1
         target.parent.mkdir(parents=True, exist_ok=True)
-        src = entry["source"]
+        src = _normalize_source(entry)
         tmp = target.with_suffix(target.suffix + ".part")
         with tmp.open("wb") as fh:
             if src["kind"] == "git_blob":

@@ -65,7 +65,7 @@ def test_site_local_links_and_download_only_for_gated_raster():
     from urllib.parse import urlsplit
     root = Path(__file__).resolve().parents[1]
     promoted_hashes = set()
-    for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
+    for gate_name in ('release_gate_td_ksck.json', 'release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
         assert gate['result']['verdict'] == 'promote' and not gate['result']['reasons']
         promoted_hashes.add(gate['input']['raster_sha256'])
