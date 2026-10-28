@@ -127,6 +127,10 @@ def assess(card):
             ids.add(ref_id)
         if not valid_sha256(digest):
             reasons.append("Registry raster hash missing or invalid")
+        # A self-reported identity flag cannot contradict the actual digests in
+        # the card. This checks internal consistency, not the bytes themselves.
+        if valid_sha256(digest) and digest == card.get("raster_sha256"):
+            reasons.append("Candidate hash matches registry raster: " + str(ref_id))
         if ref_id == "lattice" and digest == _lattice_pin() and digest is not None:
             lattice_ok = True
         for key in ("surface_spearman", "dot_spearman"):

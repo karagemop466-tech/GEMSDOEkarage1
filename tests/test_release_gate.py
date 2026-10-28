@@ -136,6 +136,18 @@ def test_inconsistent_candidate_dot_counts_fail_closed():
     assert any('dot counts disagree' in reason for reason in result['reasons'])
 
 
+def test_matching_registry_hash_cannot_be_overridden_by_identity_flags():
+    card = copy.deepcopy(good())
+    second = dict(card['registry']['comparisons'][0])
+    second.update(id='other', sha256=card['raster_sha256'], identical_bytes=False,
+                  identical_pixels=False)
+    card['registry']['comparisons'].append(second)
+    card['registry']['expected_rasters'] = 2
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert any('Candidate hash matches registry raster' in reason for reason in result['reasons'])
+
+
 def test_historical_hedge_does_not_exempt_its_lattice_witness():
     import json
     root = Path(__file__).parents[1]
