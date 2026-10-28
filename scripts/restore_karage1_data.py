@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
-"""Autonomous SHA-256-verified restoration of all competition, external GeoDAWN/INGENIOUS, and benchmark files."""
+"""Restore hash-pinned public GitHub mirrors, not authenticated organizer data.
+
+Each successful file is written atomically after its *full* SHA-256 and byte
+count match the committed manifest. No organizer credentials are requested.
+The mirrors and derived third-party inputs still require provenance and license
+review before competition use; a matching hash proves only mirror consistency.
+"""
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "src") not in sys.path:
@@ -24,95 +32,105 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-class GitBlobFetcher:
-    def __init__(self, cache_dir: Path) -> None:
-        self.cache_dir = cache_dir
-        self.cache_dir.mkdir(parents=True, exist_ok=True)
-        self._prepared: set[tuple[str, str]] = set()
+def _safe_rel(value: str) -> bool:
+    if not isinstance(value, str) or not value or "\\" in value:
+        return False
+    path = PurePosixPath(value)
+    return not path.is_absolute() and all(part not in ("", ".", "..") for part in value.split("/"))
 
-    def _repo_dir(self, repo: str) -> Path:
-        return self.cache_dir / repo.replace("/", "__")
 
-    def ensure_commit(self, repo: str, ref: str) -> Path:
-        git_dir = self._repo_dir(repo)
-        url = f"https://github.com/{repo}.git"
-        if not (git_dir / "HEAD").exists():
-            subprocess.run(
-                ["git", "clone", "--quiet", "--bare", "--filter=blob:none", "--no-tags", "--depth=1", url, str(git_dir)],
-                check=True,
-                timeout=300,
-            )
-        if (repo, ref) not in self._prepared:
-            has_ref = (
-                subprocess.run(
-                    ["git", "--git-dir", str(git_dir), "cat-file", "-e", f"{ref}^{{commit}}"],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                ).returncode
-                == 0
-            )
-            if not has_ref:
-                subprocess.run(
-                    ["git", "--git-dir", str(git_dir), "fetch", "--quiet", "--depth=1", "origin", ref],
-                    check=True,
-                    timeout=300,
-                )
-            self._prepared.add((repo, ref))
-        return git_dir
+def normalize_entry(entry: dict) -> dict:
+    """Accept both historical manifest layouts, but only immutable safe pins."""
+    if not isinstance(entry, dict):
+        raise ValueError("manifest entry must be an object")
+    source = entry.get("source")
+    if source is None:
+        source = {k: entry[k] for k in ("repo", "ref", "path", "parts") if k in entry}
+        source["kind"] = "git_split_blob" if "parts" in source else "git_blob"
+    if not isinstance(source, dict) or source.get("kind") not in ("git_blob", "git_split_blob"):
+        raise ValueError("unsupported manifest source")
+    repo, ref = source.get("repo"), source.get("ref")
+    if not isinstance(repo, str) or not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repo):
+        raise ValueError("invalid repository")
+    if not isinstance(ref, str) or not re.fullmatch(r"[0-9a-f]{40}", ref):
+        raise ValueError("source must be pinned to a 40-character commit")
+    if source["kind"] == "git_blob":
+        paths = [source.get("path")]
+    else:
+        paths = source.get("parts")
+        if not isinstance(paths, list) or not paths:
+            raise ValueError("split source has no parts")
+    if any(not _safe_rel(p) for p in paths):
+        raise ValueError("unsafe source path")
+    dest = entry.get("dest")
+    if not _safe_rel(dest):
+        raise ValueError("unsafe destination path")
+    digest, size = entry.get("sha256"), entry.get("bytes")
+    if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+        raise ValueError("source needs a full SHA-256 pin")
+    if type(size) is not int or size <= 0:
+        raise ValueError("source needs a positive byte count")
+    return {**entry, "source": source, "paths": paths}
 
-    def write_blob(self, repo: str, ref: str, path: str, out_fh) -> None:
-        git_dir = self.ensure_commit(repo, ref)
-        subprocess.run(
-            ["git", "--git-dir", str(git_dir), "show", f"{ref}:{path}"],
-            stdout=out_fh,
-            check=True,
-            timeout=600,
-        )
+
+def fetch_blob(repo: str, ref: str, path: str, out_fh) -> None:
+    endpoint = f"repos/{repo}/contents/{quote(path, safe='/')}?ref={ref}"
+    subprocess.run(
+        ["gh", "api", endpoint, "-H", "Accept: application/vnd.github.raw"],
+        stdout=out_fh, check=True, timeout=600,
+    )
+
+
+def restore_entry(entry: dict, dest_root: Path, *, verify_only: bool = False, fetcher=fetch_blob) -> dict:
+    entry = normalize_entry(entry)
+    root = dest_root.resolve()
+    target = (root / entry["dest"]).resolve()
+    if not target.is_relative_to(root):
+        raise ValueError("destination escapes data directory")
+    def matches(path: Path) -> bool:
+        return path.is_file() and path.stat().st_size == entry["bytes"] and sha256_file(path) == entry["sha256"]
+    if matches(target):
+        return {"dest": entry["dest"], "status": "verified", "bytes": entry["bytes"], "sha256": entry["sha256"]}
+    if verify_only:
+        raise ValueError(f"missing or mismatched: {entry['dest']}")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temp = target.with_name(target.name + ".partial")
+    source = entry["source"]
+    try:
+        with temp.open("wb") as fh:
+            for path in entry["paths"]:
+                fetcher(source["repo"], source["ref"], path, fh)
+        if not matches(temp):
+            raise ValueError(f"size or SHA-256 mismatch for {entry['dest']}")
+        temp.replace(target)
+    finally:
+        temp.unlink(missing_ok=True)
+    return {"dest": entry["dest"], "status": "restored", "bytes": entry["bytes"], "sha256": entry["sha256"]}
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-dir", type=Path, default=None, help="Destination directory (default: /tmp/gems_data or ./data)")
+    ap.add_argument("--data-dir", type=Path, default=None, help="Destination (default: GEMS_DATA_DIR or ./data)")
     ap.add_argument("--manifest", type=Path, default=REGISTRY_DIR / "karage1_data_manifest.json")
+    ap.add_argument("--group", choices=("core", "external", "scored", "all"), default="all")
     ap.add_argument("--verify-only", action="store_true")
     args = ap.parse_args()
-
-    dest_root = args.data_dir or data_dir()
-    dest_root.mkdir(parents=True, exist_ok=True)
-    manifest = json.loads(args.manifest.read_text())
-    fetcher = GitBlobFetcher(Path("/tmp/gems_git_cache"))
-
-    ok = 0
-    for entry in manifest["files"]:
-        rel = entry["dest"]
-        expected = entry["sha256"]
-        target = dest_root / rel
-        if target.is_file() and sha256_file(target) == expected:
-            ok += 1
-            continue
-        if args.verify_only:
-            print(f"[MISSING/MISMATCH] {rel}", file=sys.stderr)
-            return 1
-        target.parent.mkdir(parents=True, exist_ok=True)
-        src = entry["source"]
-        tmp = target.with_suffix(target.suffix + ".part")
-        with tmp.open("wb") as fh:
-            if src["kind"] == "git_blob":
-                fetcher.write_blob(src["repo"], src["ref"], src["path"], fh)
-            elif src["kind"] == "git_split_blob":
-                for part in src["parts"]:
-                    fetcher.write_blob(src["repo"], src["ref"], part, fh)
-            else:
-                raise ValueError(f"Unsupported source kind: {src['kind']}")
-        got = sha256_file(tmp)
-        if got != expected:
-            tmp.unlink(missing_ok=True)
-            raise RuntimeError(f"SHA-256 mismatch for {rel}: expected {expected}, got {got}")
-        tmp.replace(target)
-        ok += 1
-        print(f"[restored] {rel} ({got[:12]}...)")
-
-    print(f"[restore_data] Verified {ok}/{len(manifest['files'])} SHA-256-pinned files in {dest_root}")
+    root = args.data_dir or data_dir()
+    try:
+        manifest = json.loads(args.manifest.read_text())
+        entries = [normalize_entry(e) for e in manifest["files"]]
+        if len({e["dest"] for e in entries}) != len(entries):
+            raise ValueError("duplicate destinations in manifest")
+        selected = [e for e in entries if args.group == "all" or e.get("group", "scored") == args.group]
+        if not selected:
+            raise ValueError("manifest selection is empty")
+        for entry in selected:
+            result = restore_entry(entry, root, verify_only=args.verify_only)
+            print(f"[{result['status']}] {result['dest']} ({result['bytes']:,} B, {result['sha256'][:12]}...)", flush=True)
+    except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as exc:
+        print(f"RESTORE BLOCKED: {exc}", file=sys.stderr)
+        return 1
+    print(f"Verified {len(selected)} pinned mirrors in {root}; organizer authenticity is NOT established.")
     return 0
 
 

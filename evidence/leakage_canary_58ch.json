@@ -8,7 +8,7 @@
   "max_direction_invariant_auc": 0.59876,
   "max_feature": "band06",
   "leaking_features": [],
-  "all_passed": true,
+  "all_passed": false,
   "channels": [
     {
       "channel_index": 0,
@@ -416,5 +416,7 @@
       "direction_invariant_auc": 0.52621,
       "leaking": false
     }
-  ]
+  ],
+  "original_all_passed_superseded": true,
+  "validation_status": "Not established: historical implementation substitutes zero for nonfinite values and treats constant features as AUC 0.5; reported AUCs were not reproduced."
 }

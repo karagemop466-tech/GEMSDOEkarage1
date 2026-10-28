@@ -29,6 +29,7 @@ REG = grid.DATA / "registry"
 
 
 def main() -> None:
+    raise SystemExit("BLOCKED: the historical GPC-Z lane failed the literal lattice gate; an assigned lane and shared pre-placement registry gate are required before further experiments.")
     t0 = time.time()
     foot = grid.footprint()
     cat = grid.catalogue()

@@ -1,13 +1,10 @@
-"""Submission writer + validator for the DrivenData GEMS format.
+"""Legacy GPC-Z read/write utilities; NOT a submission recommendation.
 
-Format (from the competition submission page, transcribed by the owner into the standing brief):
-single-band GeoTIFF (.tif) or a .zip containing one, matching the submission format's CRS, shape and
-geotransform; predicted values must be in [0, 1]. The organizer's page rejected a file with the
-message "Predicted values must be in range [0, 1]" once; the cause in the sibling repositories was
-non-finite / sentinel values. We therefore ship the **zeros** variant as the file to submit:
-float32, every one of the 12,278,160 pixels finite, 0 outside the footprint, dots = 1.0, no nodata
-tag. A **nan** variant (NaN outside the footprint, as the problem page describes for "null outside
-bounds") is written alongside for completeness but is not the recommended upload.
+The historical zero-outside variant fails the published null/NaN-outside
+wording and its previous portal-rejection diagnosis was unverified. Local
+format checks alone do not establish uniqueness, score or permission to upload.
+The GPC-Z shipping pipeline is disabled; use the agreed shared template after
+resolving its output policy and the literal registry gate.
 """
 from __future__ import annotations
 

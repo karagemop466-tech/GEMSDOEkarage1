@@ -25,6 +25,7 @@ FINAL_BUDGET_IF_RISING = 36000
 
 
 def main() -> None:
+    raise SystemExit("BLOCKED: the historical GPC-Z lane failed the literal lattice gate; this script cannot emit or promote a submission.")
     t0 = time.time()
     foot = grid.footprint()
     cat = grid.catalogue()

@@ -219,6 +219,8 @@ def _overlap_3px(dots_a: np.ndarray, dots_b: np.ndarray) -> float:
 
 
 def main() -> int:
+    print("BLOCKED: historical dashboard figures contain superseded uniqueness and causal claims; use scripts/render_site.py instead.", file=sys.stderr)
+    return 2
     ddir = data_dir()
     cdir = cache_dir()
     assets_dir = DOCS_DIR / "assets"

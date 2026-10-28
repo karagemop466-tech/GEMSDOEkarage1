@@ -1,11 +1,8 @@
-"""Full-Fleet 593-Raster Duplication & Registry Uniqueness Gate (`Protocol Rule 1`).
+"""Historical full-fleet audit helpers — DO NOT USE FOR CLEARANCE.
 
-Audits BOTH:
-1. Pre-placement continuous belief surface (`|Spearman| <= 0.90` against EVERY raster in the fleet), AND
-2. Final binary dot submission (`|Spearman| <= 0.90` against EVERY raster in the fleet, `SHA-256` byte &
-   pixel uniqueness, and `3-px dot overlap <= 70.0%` against all discrete competing fault submissions,
-   with transparent classification of uniform lattice diagnostics `r13-lattice-s5` and continuous un-thinned
-   research surfaces).
+The former audit excluded dense/lattice witnesses from the overlap threshold
+and silently omitted unavailable rasters. Its public entry point is disabled.
+Use the agreed shared template with a complete, verified registry instead.
 """
 from __future__ import annotations
 
@@ -115,7 +112,16 @@ def run_full_fleet_uniqueness_gate(
     overlap_3px_ceiling: float = 0.70,
     sample_stride: int = 13,
 ) -> dict:
-    """Check pre-placement continuous surface AND final dots against all 590+ GEMSDOE fleet rasters."""
+    """Historical helper, disabled because it exempted dense registry witnesses.
+
+    Use the shared template's literal ``gems57.uniqueness`` checks with an
+    explicitly complete, hash-verified inventory instead. The present checkout
+    does not contain such an inventory, so no positive certification is possible.
+    """
+    raise RuntimeError(
+        "Historical registry audit disabled: it exempted the lattice and skipped "
+        "inaccessible rasters; a complete literal shared-template audit is required."
+    )
     cand_sha = hashlib.sha256(final_tif_path.read_bytes()).hexdigest()
     cand_pix_sha = hashlib.sha256(np.where(foot, final_dots_f32, 0.0).astype("<f4").tobytes()).hexdigest()
 

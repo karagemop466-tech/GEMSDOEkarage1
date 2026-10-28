@@ -1,4 +1,4 @@
-> **Update:** This prior review remains for provenance. See the newer [research review](research-review.md), [current run card](../docs/data/run-card.json), and [archive diagnostics](../docs/data/archive-review.json).
+> **Update 28 Oct 2026:** This is a prior-session review and remains only for provenance. Thirty-one pinned data mirrors have now been restored, but official authenticity, the shared feature cache and assigned lane are still missing. Both inherited candidate TIFFs fail the literal lattice gate. See the newer [research review](research-review.md), [current run card](../docs/data/run-card.json), and [archive diagnostics](../docs/data/archive-review.json).
 
 # Scientific and engineering review
 

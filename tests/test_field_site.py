@@ -33,23 +33,24 @@ class Tags(HTMLParser):
 
 
 def test_site_tables_are_rendered_from_evidence_and_never_approve():
-    rows, chips = render_site.build()
+    rows, _ = render_site.build()
     assert rows.count("DO NOT RESUBMIT") == 9
     assert rows.count("USER-REPORTED · UNVERIFIED") == 9
     assert rows.count("Unavailable") == 9
-    assert chips.count("data-source-repo=") == 9
-    for path in (ROOT / "index.html", ROOT / "docs/executive-summary.html"):
+    for path, prefix in ((ROOT / "index.html", ""), (ROOT / "docs/executive-summary.html", "../")):
         text = path.read_text()
-        assert rows in text
-        assert 'class="button" href=' in text and 'download' in text
-        assert "CLEARED" in text and "SELECTOR PENDING" in text
-    assert chips in (ROOT / "index.html").read_text()
+        assert render_site.rows_for(prefix) in text
+        parser = Tags(); parser.feed(text)
+        assert parser.disabled_downloads >= 1
+        assert "DO NOT SUBMIT" in text and "No eligible submission file yet" in text
+        assert "99.93%" in text and "99.89%" in text
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())
-    assert card["verdict"] == "promote" and card["ok_to_submit"] is False and card["download_available"] is True
+    assert card["verdict"] == "negative" and card["ok_to_submit"] is False
+    assert card["download_available"] is False and card["slot_selected_or_spent"] is False
 
 
 def test_all_local_links_and_fragments_work():
-    paths = [ROOT / "index.html", ROOT / "docs/executive-summary.html", ROOT / "docs/research.html"]
+    paths = [ROOT / "index.html", ROOT / "executive-summary.html", *ROOT.glob("docs/**/*.html")]
     for page in paths:
         parser = Tags(); parser.feed(page.read_text())
         assert not parser.duplicates, (page, parser.duplicates)
@@ -73,7 +74,7 @@ def test_concurrent_update_is_clearly_research_only():
     assert result["submission_authorized"] is False
     assert result["holdout_reproduced"] is False
     assert "DO NOT SUBMIT" in result["owner_status"]
-    assert "data/concurrent-review.json" in (ROOT / "index.html").read_text()
+    assert result["surface_correlation_checked"] is False
 
 
 def test_archives_are_quarantined_and_invalid_claims_are_not_promoted():
@@ -99,3 +100,42 @@ def test_legacy_builder_does_not_overwrite_current_pages():
     before = [p.read_bytes() for p in current]
     subprocess.run([sys.executable, "scripts/build_site.py"], cwd=ROOT, check=True)
     assert [p.read_bytes() for p in current] == before
+
+
+def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
+    import shutil
+    import pytest
+
+    relative = [
+        'registry/historical_claims.json', 'registry/reference_assets.json',
+        'docs/data/reference-audit.json', 'docs/data/run-card.json',
+        'evidence/candidate_audit_20261028.json', 'evidence/run_card_hmas_sinter.json',
+        'evidence/run_card_gpcz.json',
+    ]
+    for rel in relative:
+        target = tmp_path / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / rel, target)
+    audit_path = tmp_path / 'evidence/candidate_audit_20261028.json'
+    audit = json.loads(audit_path.read_text())
+    for c in audit['candidates']:
+        target = tmp_path / 'docs/downloads' / c['file']
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / 'docs/downloads' / c['file'], target)
+    monkeypatch.setattr(render_site, 'ROOT', tmp_path)
+    monkeypatch.setattr(render_site, 'DOCS', tmp_path / 'docs')
+    render_site.evidence()
+
+    audit['candidates'][0]['comparisons'][0]['directed_overlap'] = 0.2
+    audit_path.write_text(json.dumps(audit))
+    with pytest.raises(ValueError, match='disagree'):
+        render_site.evidence()
+
+    audit['candidates'][0]['comparisons'][0]['directed_overlap'] = 38174 / 38200
+    audit_path.write_text(json.dumps(audit))
+    card_path = tmp_path / 'docs/data/run-card.json'
+    card = json.loads(card_path.read_text())
+    card['slot_selected_or_spent'] = True
+    card_path.write_text(json.dumps(card))
+    with pytest.raises(ValueError, match='decision incomplete'):
+        render_site.evidence()

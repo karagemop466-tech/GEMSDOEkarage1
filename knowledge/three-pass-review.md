@@ -54,3 +54,52 @@ the documented historical budget, not every imaginable sparse candidate. This
 review does not claim the original user's full repeated message was preserved
 verbatim; the README records the actionable owner brief and protocol for future
 sessions.
+
+---
+
+# Session review — 28 October 2026 UTC
+
+This section records the present session, not the earlier historical passes above.
+The review is not a geological experiment and does not authorize an upload.
+
+## Pass 1 — implement and verify
+
+- Reopened both previously committed candidate TIFFs and compared each saved
+  binary support with a SHA-pinned lattice and one historical TIFF per focus
+  site. The lattice exceeds 70% for both. Added the full results in
+  `evidence/candidate_audit_20261028.json` and a negative current run card.
+- Restored 31 hash/size-pinned GitHub mirrors into ignored `.cache/gems_data`
+  and recorded verification in `evidence/data_restore_verification_20261028.json`.
+  Mirrors are not organizer authentication; no feature stack was generated.
+- Replaced the unsafe summary-only gate with row-level fail-closed comparison,
+  pinned lattice witness, holdout provenance, canary and saved-byte checks. A
+  technical promotion never selects a weekly slot.
+
+## Pass 2 — adversarial review and repairs
+
+- Superseded historical promotion, uniqueness and canary claims in cards,
+  receipts, run summaries and the dashboard; corrected owner-reported ledger
+  labels. Quarantined historical experiment, private-stack, scanner and stale
+  page-generation entry points.
+- Made every public decision/guide page deterministic and negative. Research
+  TIFF links explicitly say DO NOT SUBMIT. Added tests for local links, disabled
+  primary downloads, stale evidence, invalid counts, leakage inputs, pin
+  mismatches and research-only ZIP/byte identity.
+- Separately disclosed official null/NaN-outside wording, unknown portal error
+  cause, missing complete registry, surface evidence and selector. No exact-file
+  organizer receipt or current allowance was asserted.
+
+## Pass 3 — request and reproducibility recheck
+
+- Ran the saved-byte audit a second time into an ignored file and compared every
+  field other than its timestamp; results matched. Re-verified all 31 cached
+  mirrors. Rebuilt the pages and verified decision synchronization idempotence.
+- The local suite passed **128 tests** before subsequent integration; these are
+  software checks, not evidence of organizer acceptance or scientific success.
+- Four ranked geological ideas, data-source provenance, conditional B2
+  interpretation, reconstructed standing requirements and separate selector
+  instructions are recorded. No assigned lane was supplied; no new experiment,
+  new candidate TIFF or competition slot was created. The central unique-TIFF
+  goal remains unmet and must not be relabeled as completed.
+- Main advanced concurrently. Its additional work must be integrated and the
+  entire suite and generated-page checks rerun before a PR can be merged.

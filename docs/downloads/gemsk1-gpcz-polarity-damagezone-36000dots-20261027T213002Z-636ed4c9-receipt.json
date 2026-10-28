@@ -1,68 +1,71 @@
 {
- "slug": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9",
- "submission_note": "GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed",
- "note_length": 139,
- "files": {
-  "zeros": {
-   "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
-   "bytes": 141275,
-   "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
-   "emitted_positive_pixels": 36000,
-   "unique_values_in_footprint": [
-    0.0,
-    1.0
-   ],
-   "on_catalogue_dots": 0,
-   "dots_within_2px_of_catalogue": 0,
-   "whole_array_finite": true,
-   "nodata_tag": null,
-   "checks": {
-    "single_band": true,
-    "dtype_float32": true,
-    "crs_matches_template": true,
-    "transform_matches_template": true,
-    "shape_matches_template": true,
-    "crs_is_epsg_32611": true,
-    "in_footprint_all_finite": true,
-    "in_footprint_range_0_1": true,
-    "outside_footprint_zero_or_nan": true,
-    "no_inf_anywhere": true,
-    "whole_array_finite_(zeros_mode)": true
-   },
-   "all_checks_passed": true
+  "slug": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9",
+  "submission_note": "GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed",
+  "note_length": 139,
+  "files": {
+    "zeros": {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+      "bytes": 141275,
+      "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+      "emitted_positive_pixels": 36000,
+      "unique_values_in_footprint": [
+        0.0,
+        1.0
+      ],
+      "on_catalogue_dots": 0,
+      "dots_within_2px_of_catalogue": 0,
+      "whole_array_finite": true,
+      "nodata_tag": null,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "crs_matches_template": true,
+        "transform_matches_template": true,
+        "shape_matches_template": true,
+        "crs_is_epsg_32611": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero_or_nan": true,
+        "no_inf_anywhere": true,
+        "whole_array_finite_(zeros_mode)": true
+      },
+      "all_checks_passed": true
+    },
+    "nan": {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-nan.tif",
+      "bytes": 212775,
+      "sha256": "c08ef4c84f1262fe6d775ee062950bfa7bb34fbca49ce912c08c4103d8e789b9",
+      "emitted_positive_pixels": 36000,
+      "unique_values_in_footprint": [
+        0.0,
+        1.0
+      ],
+      "on_catalogue_dots": 0,
+      "dots_within_2px_of_catalogue": 0,
+      "whole_array_finite": false,
+      "nodata_tag": "nan",
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "crs_matches_template": true,
+        "transform_matches_template": true,
+        "shape_matches_template": true,
+        "crs_is_epsg_32611": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero_or_nan": true,
+        "no_inf_anywhere": true,
+        "whole_array_finite_(zeros_mode)": true
+      },
+      "all_checks_passed": true
+    },
+    "zeros_zip": {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.zip",
+      "bytes": 107364,
+      "sha256": "1a345914983b731ea5868b7a1e31a015fa9d08c8d2743b547d39ea002566ffc7"
+    }
   },
-  "nan": {
-   "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-nan.tif",
-   "bytes": 212775,
-   "sha256": "c08ef4c84f1262fe6d775ee062950bfa7bb34fbca49ce912c08c4103d8e789b9",
-   "emitted_positive_pixels": 36000,
-   "unique_values_in_footprint": [
-    0.0,
-    1.0
-   ],
-   "on_catalogue_dots": 0,
-   "dots_within_2px_of_catalogue": 0,
-   "whole_array_finite": false,
-   "nodata_tag": "nan",
-   "checks": {
-    "single_band": true,
-    "dtype_float32": true,
-    "crs_matches_template": true,
-    "transform_matches_template": true,
-    "shape_matches_template": true,
-    "crs_is_epsg_32611": true,
-    "in_footprint_all_finite": true,
-    "in_footprint_range_0_1": true,
-    "outside_footprint_zero_or_nan": true,
-    "no_inf_anywhere": true,
-    "whole_array_finite_(zeros_mode)": true
-   },
-   "all_checks_passed": true
-  },
-  "zeros_zip": {
-   "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.zip",
-   "bytes": 107364,
-   "sha256": "1a345914983b731ea5868b7a1e31a015fa9d08c8d2743b547d39ea002566ffc7"
-  }
- }
+  "verdict": "negative",
+  "approved_for_weekly_slot": false,
+  "supersession_notice": "SUPERSEDED 2026-10-28: the earlier promotion exempted a registered lattice. The independent saved-byte audit applies the literal protocol; this artifact is a duplicate. Prior holdout figures are retained as unverified historical claims, not reproduced here."
 }

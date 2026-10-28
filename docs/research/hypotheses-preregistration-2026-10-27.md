@@ -1,3 +1,5 @@
+> **Historical preregistration; superseded decision (28 Oct 2026):** The later independent saved-byte audit found the candidate duplicates the registered lattice. Prior positive uniqueness, leakage and promotion claims are not current authorization; no slot was selected. See [`evidence/candidate_audit_20261028.json`](../../evidence/candidate_audit_20261028.json) and [`docs/data/run-card.json`](../data/run-card.json). Historical scores below were not reproduced in this session.
+
 # Pre-Registered Geological Hypotheses & 3-Experiment Protocol (`GEMSDOEkarage1`)
 
 - **Pre-Registration Timestamp:** `2026-10-27T00:00:00Z` (written prior to running any experiment in `GEMSDOEkarage1`)

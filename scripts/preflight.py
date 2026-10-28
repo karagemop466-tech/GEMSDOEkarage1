@@ -74,7 +74,7 @@ def run_card(audit: dict | None) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--audit", type=Path, default=ROOT / "docs/data/reference-audit.json")
-    parser.add_argument("--out", type=Path, default=ROOT / "docs/data/run-card.json")
+    parser.add_argument("--out", type=Path, default=ROOT / ".cache/preflight/run-card.json")
     args = parser.parse_args()
     try:
         audit = json.loads(args.audit.read_text())

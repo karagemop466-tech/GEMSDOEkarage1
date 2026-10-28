@@ -1,0 +1,14 @@
+/* Decision-specific additions shared by every public page. */
+.audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.audit-card{background:#fff;border:1px solid #e3ebe2;border-radius:7px;padding:25px;min-width:0}
+.audit-card h3{font-family:var(--serif);font-size:27px;font-weight:400;color:#ad5d4b;margin:0 0 12px}
+.audit-card p:not(.eyebrow){font-size:12px;line-height:1.75;color:#6f8175;margin:0 0 13px}
+.audit-card .eyebrow{margin-bottom:12px}.audit-card code{font-size:11px;color:#526961}
+.wrap{overflow-wrap:anywhere;word-break:break-word}.audit-grid+.body-copy{max-width:100%;margin-top:22px}
+tbody th[scope=row]{border-top:1px solid #edf0ed;background:transparent;padding:13px 20px;font-size:12px;letter-spacing:0;color:#355b4d;vertical-align:middle}
+tbody th[scope=row] a:hover{text-decoration:underline}.snapshot a{text-decoration:underline}.guide-notice{margin-top:18px}
+.hypothesis-card a{text-decoration:underline;color:#458269}.compact-hero{padding-bottom:36px}
+.decision-actions .button:focus-visible{outline-offset:2px}.comparison td,.comparison tbody th{line-height:1.4}
+@media(max-width:680px){.audit-grid{grid-template-columns:1fr}.audit-card{padding:22px}}
+
+.brief-pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;color:#52695e;font-size:12px;line-height:1.75}

@@ -253,7 +253,7 @@
     {
       "id": "scored_gems27_tgc_v2_d15",
       "repo": "buffedlizard55-lab/GEMSDOE27",
-      "ref": "main",
+      "ref": "4f34228a9f39e99da592aa34fd835c96d1b693f5",
       "path": "docs/downloads/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
       "dest": "scored/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
       "group": "scored",

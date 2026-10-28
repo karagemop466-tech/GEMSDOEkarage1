@@ -1,10 +1,10 @@
 # Standing brief (the user's prompt) — read at the start of every session
 
-**Provenance note (honest):** the original prompt was delivered twice in the first session and the conversation was later condensed; the verbatim text was not preserved in the workspace at that moment. What follows is the complete requirement set reconstructed from the condensed session record, **clause by clause, nothing dropped and nothing added**. Owner: please paste the verbatim prompt over the section "Requirements" below in a later session so the repository carries the original wording. Until then every clause here is treated as binding.
+**Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
 
 ## Arena Core Values (keep as focus)
 
-- **Maximize P(Win).** Every action is judged by whether it raises the probability of a higher organizer-confirmed score than the prior best (0.2778, GEMSDOE32 `h33-h33-2-b2`), and ideally than the leaderboard top (owner cited 0.3195 and later 0.4413/0.4437).
+- **Maximize P(Win).** Favor reproducible evidence that can raise the probability of a higher organizer-confirmed score. The prior GEMSDOE32 0.2778 is user-reported, without a verified receipt here; the owner cited multiple leaderboard benchmarks that may be stale.
 - **Own the Outcome.** Negative results, blocked data, and unprovable claims are reported as such; nothing is projected as a score; irregularities are flagged for review, not hidden.
 
 ## Requirements
