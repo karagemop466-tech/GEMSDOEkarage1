@@ -229,6 +229,7 @@
       "Registry rank correlation missing: GEMSDOE32",
       "Registry rank correlation missing: GEMSDOE33",
       "Registry rank correlation missing: GEMSDOE36",
+      "Saved TIFF validation missing or failed: geotiff",
       "Saved TIFF validation missing or failed: all_finite_inside",
       "Saved TIFF validation missing or failed: range_0_1_inside",
       "Saved TIFF validation missing or failed: outside_encoding_accepted",
