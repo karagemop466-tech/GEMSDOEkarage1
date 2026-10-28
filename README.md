@@ -7,6 +7,16 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Latest follow-up: automation preflight
+
+The shared-tool adapter now exits **1** when the assigned lane or required
+cached inputs are absent, including `existing_faults.tif`. A successful JSON
+report write is not a readiness pass. Even exit 0 checks input presence only,
+not provenance, scientific merit, uniqueness or upload authorization.
+[Three-pass follow-up review](knowledge/session-a0f0d036-review.md) ·
+[Session negative run card](evidence/session_a0f0d036_run_card.json).
+Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
+
 ## What changed on 28 October 2026
 
 An independent audit reopened the **already committed** TIFF bytes against nine
