@@ -1,0 +1,139 @@
+{
+  "experiment": 3,
+  "lane": "H-K1-DIPDUAL",
+  "evaluator_version": "gemsk-hide-recover-v1",
+  "scheme": "blocked",
+  "budget_per_fold": 37654,
+  "withheld_positives": 60988,
+  "sweep": [
+    {
+      "config": "split0.50_dip_apron2",
+      "frac_exposed": 0.5,
+      "dip": true,
+      "apron": 2,
+      "dti": 0.04023889679396707,
+      "tp": 3154.141904339896,
+      "fp": 146272.84363031187,
+      "fn": 57470.858095660114,
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ]
+    },
+    {
+      "config": "split0.65_dip_apron2",
+      "frac_exposed": 0.65,
+      "dip": true,
+      "apron": 2,
+      "dti": 0.04005594449368453,
+      "tp": 3139.57292389197,
+      "fp": 146258.92848168267,
+      "fn": 57485.42707610805,
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ]
+    },
+    {
+      "config": "split0.80_dip_apron2",
+      "frac_exposed": 0.8,
+      "dip": true,
+      "apron": 2,
+      "dti": 0.0413476483835779,
+      "tp": 3240.6647859253953,
+      "fp": 146139.5161450528,
+      "fn": 57384.33521407461,
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ]
+    },
+    {
+      "config": "split0.65_nodip_apron2",
+      "frac_exposed": 0.65,
+      "dip": false,
+      "apron": 2,
+      "dti": 0.03941918583603434,
+      "tp": 3090.504253968845,
+      "fp": 146414.58012599763,
+      "fn": 57534.495746031185,
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ]
+    },
+    {
+      "config": "split0.65_dip_apron3",
+      "frac_exposed": 0.65,
+      "dip": true,
+      "apron": 3,
+      "dti": 0.04058700103012247,
+      "tp": 3206.597875844312,
+      "fp": 149321.09503801118,
+      "fn": 57418.402124155706,
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ]
+    }
+  ],
+  "best_blocked": {
+    "config": "split0.80_dip_apron2",
+    "frac_exposed": 0.8,
+    "dip": true,
+    "apron": 2,
+    "dti": 0.0413476483835779,
+    "tp": 3240.6647859253953,
+    "fp": 146139.5161450528,
+    "fn": 57384.33521407461,
+    "n_dots_per_fold": [
+      37654,
+      37654,
+      37654,
+      37654
+    ]
+  },
+  "post_hoc_diagnostics": [
+    {
+      "config": "EXPOSED_only_posthoc",
+      "post_hoc": true,
+      "dti": 0.04197476080642182,
+      "tp": 3288.832808521793,
+      "fp": 145974.30596064852,
+      "fn": 57336.16719147822,
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ],
+      "sgmc_diagnostic_dti": 0.11856284552614033
+    },
+    {
+      "config": "DUAL_gpcExposed_posthoc",
+      "post_hoc": true,
+      "dti": 0.06236209952404103,
+      "tp": 4888.004107639159,
+      "fp": 144517.02674806496,
+      "fn": 55736.99589236085,
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ],
+      "sgmc_diagnostic_dti": 0.09938178744103479
+    }
+  ],
+  "post_hoc_note": "Added after EXP2 to diagnose failure; excluded from preregistered promotion gates."
+}

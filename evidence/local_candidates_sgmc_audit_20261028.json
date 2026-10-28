@@ -1,0 +1,131 @@
+{
+  "instrument": "SGMC-DIAGNOSTIC-DTI truth=SGMC&foot&dist_cat>3 n=62122; static dots; not hidden test",
+  "b2_reference": {
+    "dti": 0.09538611460482532,
+    "ci95": [
+      0.08513549646309715,
+      0.10772755294600365
+    ]
+  },
+  "candidates": [
+    {
+      "file": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+      "sha256": "65c9432b2cb417824b846a63ab64bf9d1035e4a9e8102f3ed2175ad48a464687",
+      "dots": 17415,
+      "sgmc_diagnostic_dti": 0.05446044568861848,
+      "sgmc_ci95": [
+        0.03799080189744568,
+        0.0697841638352234
+      ],
+      "worst_nine_forward_overlap": {
+        "site": "GEMSDOE24",
+        "frac": 0.0
+      },
+      "lattice_forward_overlap": 0.9934539190353144,
+      "format_all_checks_passed": true,
+      "on_catalogue_dots": 0
+    },
+    {
+      "file": "gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+      "sha256": "753b8d47f951894240a80826e8100216c5e84613caf3d2596272d26a1b85c120",
+      "dots": 37654,
+      "sgmc_diagnostic_dti": 0.043997606309647906,
+      "sgmc_ci95": [
+        0.036364267880968255,
+        0.053047102921403196
+      ],
+      "worst_nine_forward_overlap": {
+        "site": "GEMSDOE27",
+        "frac": 0.1715886758378924
+      },
+      "lattice_forward_overlap": 0.9977691613108833,
+      "format_all_checks_passed": true,
+      "on_catalogue_dots": 377
+    },
+    {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+      "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+      "dots": 36000,
+      "sgmc_diagnostic_dti": 0.07792825447861679,
+      "sgmc_ci95": [
+        0.0655811887732371,
+        0.08959405589046354
+      ],
+      "worst_nine_forward_overlap": {
+        "site": "GEMSDOE27",
+        "frac": 0.30875
+      },
+      "lattice_forward_overlap": 0.9988611111111111,
+      "format_all_checks_passed": true,
+      "on_catalogue_dots": 0
+    },
+    {
+      "file": "karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif",
+      "sha256": "72312302675d65cd1983239dd436412b5db1118a7c08f2a5807ef436b5536d6a",
+      "dots": 17766,
+      "sgmc_diagnostic_dti": 0.012787582931008658,
+      "sgmc_ci95": [
+        0.009221313241832249,
+        0.016856448427418614
+      ],
+      "worst_nine_forward_overlap": {
+        "site": "GEMSDOE27",
+        "frac": 0.12625239220983903
+      },
+      "lattice_forward_overlap": 0.985252729933581,
+      "format_all_checks_passed": true,
+      "on_catalogue_dots": 0
+    },
+    {
+      "file": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+      "sha256": "7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae",
+      "dots": 37654,
+      "sgmc_diagnostic_dti": 0.0902444419689995,
+      "sgmc_ci95": [
+        0.0773312191234711,
+        0.10259683669080374
+      ],
+      "worst_nine_forward_overlap": {
+        "site": "GEMSDOE27",
+        "frac": 0.1360280448292346
+      },
+      "lattice_forward_overlap": 0.9988845806554416,
+      "format_all_checks_passed": true,
+      "on_catalogue_dots": 0
+    },
+    {
+      "file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+      "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+      "dots": 38200,
+      "sgmc_diagnostic_dti": 0.11259531956482798,
+      "sgmc_ci95": [
+        0.09576230264744426,
+        0.12975467764973897
+      ],
+      "worst_nine_forward_overlap": {
+        "site": "GEMSDOE27",
+        "frac": 0.5083769633507853
+      },
+      "lattice_forward_overlap": 0.9993193717277487,
+      "format_all_checks_passed": true,
+      "on_catalogue_dots": 0
+    },
+    {
+      "file": "karage1-unique-alteration-dots-20261028-zeros.tif",
+      "sha256": "8bc4dae02a99da68ac0e895b7a5c4b5c72b60de11a91efb7ddef3f2b626ee1d2",
+      "dots": 1387,
+      "sgmc_diagnostic_dti": 0.0034457462130189557,
+      "sgmc_ci95": [
+        0.0013715854748352159,
+        0.0061042081494543715
+      ],
+      "worst_nine_forward_overlap": {
+        "site": "GEMSDOE27",
+        "frac": 0.14563806777217014
+      },
+      "lattice_forward_overlap": 0.9985580389329488,
+      "format_all_checks_passed": false,
+      "on_catalogue_dots": 10
+    }
+  ]
+}
