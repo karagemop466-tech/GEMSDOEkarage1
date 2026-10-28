@@ -13,8 +13,8 @@ def good():
                 holdout=dict(label='HOLDOUT-DTI', evaluator_version='test-only', withheld_positives=10,
                              dti=.2, ci95=[.1,.3], same_evaluator_as_best=True, beats_current_best=True,
                              visible_only_features=True, whole_segment_buffered=True),
-                canary=dict(feature_aucs={'a': .6}, all_features_tested=True),
-                registry=dict(complete=True, saved_bytes_checked=True, surface_max_abs_rho=.1,
+                canary=dict(feature_aucs={'a': .6}, all_features_tested=True, nonconstant_features_verified=True),
+                registry=dict(complete=True, saved_bytes_checked=True, all_registry_rasters_included=True, exact_ranks=True, surface_max_abs_rho=.1,
                               dots_max_abs_rho=.1, max_directed_overlap_3px=.2),
                 validator={k:True for k in ['single_band','float32','all_finite','range_0_1','crs_match','shape_match','transform_match']},
                 raster_sha256='a'*64, submission_name='test', submission_note='Synthetic unit-test evidence, not a scientific result.')
@@ -39,6 +39,8 @@ def test_promotion_never_selects_slot():
     ('canary.feature_aucs',{}),('canary.feature_aucs',{'bad':.901}),
     ('canary.feature_aucs',{'bad':float('nan')}),('canary.all_features_tested',False),
     ('registry.complete',False),('registry.saved_bytes_checked',False),
+    ('registry.all_registry_rasters_included',False),('registry.exact_ranks',False),
+    ('canary.nonconstant_features_verified',False),
     ('registry.surface_max_abs_rho',.901),('registry.dots_max_abs_rho',.901),
     ('registry.max_directed_overlap_3px',.701),('validator.range_0_1',False),
     ('validator.all_finite',False),('validator.transform_match',False),
@@ -65,3 +67,21 @@ def test_malformed_sections(key):
     card=good()
     card[key]="not evidence"
     assert gate.assess(card)["verdict"]=="negative"
+
+
+def test_historical_release_is_not_promoted():
+    import json
+    p = Path(__file__).parents[1] / 'evidence/release_gate_hmas_sinter.json'
+    result = gate.assess(json.loads(p.read_text())['input'])
+    assert result['verdict'] == 'negative'
+    assert result['ok_to_submit'] is False
+
+
+def test_old_registry_claim_cannot_satisfy_all_rasters():
+    import json
+    root = Path(__file__).parents[1]
+    scan = json.loads((root / 'evidence/fleet_uniqueness_593.json').read_text())
+    witnesses = scan['non_competing_lattice_or_continuous_rasters_gt_70pct_cov']
+    assert any('lattice' in w['ref'] and w['cand_in_ref_3px'] > .7 for w in witnesses)
+    old = json.loads((root / 'evidence/release_gate_hmas_sinter.json').read_text())
+    assert gate.assess(old['input'])['verdict'] == 'negative'

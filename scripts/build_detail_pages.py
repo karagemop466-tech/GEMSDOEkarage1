@@ -16,6 +16,7 @@ def write(name,title,body):
     (DOCS/name).write_text(shell(title,body))
 
 def main():
+    raise RuntimeError("Quarantined: stale promotion claims are superseded by the current review.")
     DOCS.mkdir(exist_ok=True)
     original=json.loads((ROOT/'evidence/upstream_nine_site_audit.json').read_text())
     audit=json.loads((ROOT/'evidence/historical_byte_audit.json').read_text())
@@ -41,4 +42,4 @@ def main():
     write('submission-guide.html','Competition submission guide','<h1>How to submit — only after every gate passes</h1><section class="alert"><h2>Nothing is approved for upload today.</h2><p>There is no authorized download button. This guide is for a future selected artifact, not permission to upload a historical TIFF.</p></section><ol><li>Read the executive decision. Scientific promotion requires complete holdout, canary, uniqueness, provenance, and saved-byte checks. A separate selector must confirm an available weekly slot using the authenticated submission screen.</li><li>Download only the exact approved single-band GeoTIFF (or ZIP containing only that TIFF), with its unique name, SHA-256 and note. Do not rename an old raster to imply uniqueness.</li><li>The saved-byte validator must confirm float32, finite values in [0,1] inside the footprint, and exact template CRS, shape and transform. Report strict whole-array and null/NaN-outside diagnostics separately; confirm organizer-compatible outside encoding before submission.</li><li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">the official competition</a>, review its current rules and submission cap, then choose New submission.</li><li>Choose File to submit, select the authorized TIFF or ZIP, and paste the recorded note (at most 140 characters). This repository does not automate portal uploads.</li><li>Save the organizer’s submission-page receipt and the artifact SHA-256. Only then label the result ORGANIZER-CONFIRMED. A HOLDOUT-DTI measurement is not a leaderboard score.</li></ol><h2>Range error prevention</h2><p>“Predicted values must be in range [0, 1]” requires checking saved TIFF values, not merely an in-memory array. A strict whole-array check rejects NaNs, but organizer text requests null/NaN outside bounds. Neither encoding has been portal-tested here; obtain organizer clarification and an authenticated template. A passing format check alone never proves high performance or uniqueness.</p>')
 
 if __name__=='__main__':
-    main()
+    raise SystemExit('Quarantined generator: historical promotion claims are superseded by current review.')

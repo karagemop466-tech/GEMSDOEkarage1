@@ -4,6 +4,8 @@ The repository homepage (index.html, docs/index.html) is maintained by scripts/r
 parallel review; this script only writes docs/gpcz/ and never overwrites those files."""
 from __future__ import annotations
 
+raise RuntimeError("Quarantined generator: historical promotion claims are superseded by current review.")
+
 import html
 import json
 from datetime import datetime, timezone

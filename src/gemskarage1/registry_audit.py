@@ -147,6 +147,9 @@ def run_full_fleet_uniqueness_gate(
     max_discrete_ref = ""
     exact_hash_matches = []
     non_competing_high_cov = []
+    max_any_overlap = 0.0
+    max_any_ref = ""
+    skipped = []
 
     cand_y, cand_x = np.nonzero(cand_dots)
 
@@ -163,9 +166,11 @@ def run_full_fleet_uniqueness_gate(
         try:
             with rasterio.open(p) as ds:
                 if ds.shape != foot.shape:
+                    skipped.append(f"{site}/{rel_p}: shape mismatch")
                     continue
                 arr = ds.read(1)
-        except Exception:
+        except Exception as exc:
+            skipped.append(f"{site}/{rel_p}: {type(exc).__name__}")
             continue
 
         arr_clean = np.where(foot & np.isfinite(arr), arr.astype(np.float32), np.float32(0.0))
@@ -237,6 +242,10 @@ def run_full_fleet_uniqueness_gate(
             max_dot_spearman = cm["rho_dots"]
             max_dot_ref = f"{site}/{rel_p}"
 
+        if cm["ov_cand_in_ref"] > max_any_overlap:
+            max_any_overlap = cm["ov_cand_in_ref"]
+            max_any_ref = f"{site}/{rel_p}"
+
         if cm["rtype"] == "discrete_fault_submission":
             # Protocol Rule 1: ">70% of our dots within 3 px of theirs" (and check symmetric max for rigor)
             if cm["ov_cand_in_ref"] > max_discrete_overlap:
@@ -276,7 +285,10 @@ def run_full_fleet_uniqueness_gate(
         len(exact_hash_matches) == 0
         and max_surf_spearman <= spearman_ceiling
         and max_dot_spearman <= spearman_ceiling
-        and max_discrete_overlap <= overlap_3px_ceiling
+        and max_any_overlap <= overlap_3px_ceiling
+        # Discovery does not prove registry completeness, exact grid alignment,
+        # or exact rank correlations (the default is sampled). Fail closed.
+        and False
     )
 
     top_discrete = sorted(
@@ -302,6 +314,10 @@ def run_full_fleet_uniqueness_gate(
         "max_pre_placement_surface_ref": max_surf_ref,
         "max_final_dot_spearman": round(max_dot_spearman, 5),
         "max_final_dot_spearman_ref": max_dot_ref,
+        "max_any_registry_3px_overlap": max_any_overlap,
+        "max_any_registry_ref": max_any_ref,
+        "skipped": skipped,
+        "blocked_reason": "Registry completeness, grid identity, and exact ranks are not established by this scanner.",
         "max_discrete_submission_3px_overlap": round(max_discrete_overlap, 5),
         "max_discrete_submission_ref": max_discrete_ref,
         "non_competing_lattice_or_continuous_rasters_gt_70pct_cov": non_competing_high_cov[:12],
