@@ -53,6 +53,7 @@ def test_promotion_never_selects_slot():
     ('holdout.kernel_radius_m',299),
     ('holdout.same_evaluator_as_best',False),('holdout.visible_only_features',False),
     ('holdout.baseline_dti',.2),('holdout.paired_delta_ci95',[-.01,.01]),
+    ('holdout.paired_delta_ci95',[.3,.4]), ('holdout.paired_delta_ci95',[.01,1.1]),
     ('holdout.whole_segment_buffered',False),('holdout.pixel_exact_visible_mask',False),
     ('canary.feature_aucs',{}),('canary.feature_aucs',{'bad':.901}),
     ('canary.feature_aucs',{'bad':float('nan')}),('canary.feature_aucs',{'bad':.05}),
@@ -127,6 +128,18 @@ def test_inconsistent_candidate_dot_counts_fail_closed():
     result = gate.assess(card)
     assert result['verdict'] == 'negative'
     assert any('dot counts disagree' in reason for reason in result['reasons'])
+
+
+def test_matching_registry_hash_cannot_be_overridden_by_identity_flags():
+    card = copy.deepcopy(good())
+    second = dict(card['registry']['comparisons'][0])
+    second.update(id='other', sha256=card['raster_sha256'], identical_bytes=False,
+                  identical_pixels=False)
+    card['registry']['comparisons'].append(second)
+    card['registry']['expected_rasters'] = 2
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert any('Candidate hash matches registry raster' in reason for reason in result['reasons'])
 
 
 def test_historical_hedge_does_not_exempt_its_lattice_witness():

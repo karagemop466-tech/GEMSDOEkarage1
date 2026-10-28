@@ -1,7 +1,8 @@
 # Starting point for every session
 
-Read README.md, docs/standing-prompt.md, knowledge/research-review.md and
-knowledge/review-2026-10-28.md before proposing or implementing work. The
+Read README.md, docs/standing-prompt.md, knowledge/research-review.md,
+knowledge/review-2026-10-28.md, and knowledge/session-review-arena-9ad4a8a0.md
+before proposing or implementing work. The
 parallel-run protocol is binding: do not invent a lane, bypass any registry
 witness, manufacture a score, or upload old predictions. Preserve the budget,
 separate technical gates from slot selection, and update current evidence and

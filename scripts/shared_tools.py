@@ -25,10 +25,16 @@ def bootstrap():
 
 def preflight():
     pin = json.loads((ROOT / 'registry/template.json').read_text())
-    needed = [ROOT / '.cache/gems_work/feature_stack.npy', ROOT / '.cache/gems_data/training_features.tif',
+    needed = [ROOT / '.cache/gems_work/feature_stack.npy', ROOT / '.cache/gems_data/existing_faults.tif',
+              ROOT / '.cache/gems_data/training_features.tif',
               ROOT / '.cache/gems_data/sample_submission.tif', ROOT / '.cache/gems_data/labels.tif']
-    return {'lane': pin.get('method_lane'), 'missing': [str(p.relative_to(ROOT)) for p in needed if not p.is_file()],
-            'template_commit': pin['commit']}
+    lane = pin.get('method_lane')
+    lane_valid = isinstance(lane, str) and bool(lane.strip())
+    missing = [str(p.relative_to(ROOT)) for p in needed if not p.is_file()]
+    return {'lane': lane, 'missing': missing, 'template_commit': pin['commit'],
+            'ready_for_shared_tools': lane_valid and not missing,
+            'ok_to_submit': False,
+            'scope': 'Input presence and lane only; not scientific validation or slot selection.'}
 
 
 def main():
@@ -42,8 +48,8 @@ def main():
     report = preflight()
     if opts.command == 'preflight':
         print(json.dumps(report, indent=2))
-        return
-    if not report['lane'] or report['missing']:
+        return 0 if report['ready_for_shared_tools'] else 1
+    if not report['ready_for_shared_tools']:
         raise SystemExit('BLOCKED: lane / cached inputs missing. ' + json.dumps(report))
     bootstrap()
     target = 'evaluate_holdout.py' if opts.command == 'evaluate' else 'submission_writer.py'
@@ -52,4 +58,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

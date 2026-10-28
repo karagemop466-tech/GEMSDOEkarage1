@@ -56,13 +56,17 @@ def assess(card):
             or len(ci) != 2 or not all(finite_number(x) for x in ci)
             or not 0 <= ci[0] <= score <= ci[1] <= 1):
         reasons.append("Invalid holdout measurement or CI")
+    # Conservative policy, not a theorem about confidence intervals: require
+    # the reported paired interval to contain the observed point difference.
+    # Some valid bootstrap intervals need not; they require manual policy review.
     baseline, delta = h.get("baseline_dti"), h.get("paired_delta_ci95")
     if (h.get("same_evaluator_as_best") is not True
             or h.get("baseline_evaluator_version") != h.get("evaluator_version")
             or not finite_number(baseline)
             or not 0 <= baseline <= 1 or not finite_number(score) or score <= baseline
             or not isinstance(delta, list) or len(delta) != 2
-            or not all(finite_number(x) for x in delta) or not 0 < delta[0] <= delta[1]):
+            or not all(finite_number(x) for x in delta)
+            or not 0 < delta[0] <= score - baseline <= delta[1] <= 1):
         reasons.append("No measured same-evaluator improvement with positive paired CI")
     if (h.get("visible_only_features") is not True or h.get("whole_segment_buffered") is not True
             or h.get("pixel_exact_visible_mask") is not True
@@ -118,6 +122,10 @@ def assess(card):
             ids.add(ref_id)
         if not valid_sha256(digest):
             reasons.append("Registry raster hash missing or invalid")
+        # A self-reported identity flag cannot contradict the actual digests in
+        # the card. This checks internal consistency, not the bytes themselves.
+        if valid_sha256(digest) and digest == card.get("raster_sha256"):
+            reasons.append("Candidate hash matches registry raster: " + str(ref_id))
         if ref_id == "lattice" and digest == _lattice_pin() and digest is not None:
             lattice_ok = True
         for key in ("surface_spearman", "dot_spearman"):

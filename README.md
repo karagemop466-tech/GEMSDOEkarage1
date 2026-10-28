@@ -5,26 +5,46 @@
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [This branch's independent review](evidence/session_review_2026-10-28_arena-470a3424.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+[Latest session review](knowledge/session-review-2026-10-28.md) · [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
-## Independent checkout review — 28 October 2026
+## Latest follow-up: release-gate consistency
 
-The active branch review reproduced the fail-closed software status and did not
-run an experiment or create a new submission. The command
-`python scripts/shared_tools.py preflight` reports no assigned lane and is
-missing the feature stack plus training, sample-grid, and labels rasters. Both inherited candidate files have
-already failed the literal 3-pixel overlap limit against the pinned lattice;
-that finding is not a substitute for comparing a new pre-placement surface to a
-complete registry. The [review record](evidence/session_review_2026-10-28_arena-470a3424.json)
-records scope and blockers.
+[Session review](knowledge/session-0f04bfcc-review.md) ·
+[Negative session run card](evidence/session_0f04bfcc_run_card.json). The local
+release gate now rejects a candidate SHA-256 identical to any reported registry
+raster even if the card claims the bytes differ. This is an internal consistency
+check, not independent hash or registry authentication. No experiment, new TIFF,
+score estimate or slot selection was made; **do not submit**. Full suite: 219
+passed, with 53 rasterio warnings.
 
-Verification in an isolated, ignored `.venv`: **205 tests passed, 0 failed,
-0 skipped**, with 53 Rasterio `PendingDeprecationWarning` notices. The
-fail-closed static-site builder rendered 32 pages deterministically without
-changing tracked files. These are software/site checks only — not a geological
-holdout, score, official template check, or upload authorization. The
-historical `0.2778` remains **USER-REPORTED / UNVERIFIED**; no new score is
-estimated. No weekly slot was selected or spent.
+## Earlier follow-up: automation preflight
+
+The shared-tool adapter now exits **1** when the assigned lane or required
+cached inputs are absent, including `existing_faults.tif`. A successful JSON
+report write is not a readiness pass. Even exit 0 checks input presence only,
+not provenance, scientific merit, uniqueness or upload authorization.
+[Three-pass follow-up review](knowledge/session-a0f0d036-review.md) ·
+[Session negative run card](evidence/session_a0f0d036_run_card.json).
+Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
+
+### Latest independent session review
+
+The [three-pass session review](knowledge/session-review-arena-9ad4a8a0.md) and [negative session run card](evidence/run_card_arena_9ad4a8a0.json) record a fresh restoration of the pinned mirrors, an exact reproduction of the duplicate audit, and a fix for masked in-footprint pixels in the strict local format checker. **No new TIFF, holdout estimate, or submission-slot decision was produced.** The restored mirrors are not authenticated organizer inputs; the assigned lane, shared stack and complete registry remain unresolved. The scheduled refresh creates a workflow artifact, not a live published feed.
+
+### This branch's independent checkout review
+
+The [review record](evidence/session_review_2026-10-28_arena-470a3424.json)
+reproduced the fail-closed software status; no geological experiment or
+submission was made. Its initial preflight reported no assigned lane and lacked
+the feature stack and input rasters. The inherited TIFFs already fail the
+literal 3-pixel lattice-overlap gate; this is not a pre-placement uniqueness
+check for a new candidate. At that checkout point, the suite had **205 passed,
+0 failed, 0 skipped** (53 Rasterio deprecation warnings) and the site builder
+rendered 32 pages deterministically. A later merged follow-up records 219
+passing tests and strengthens preflight/gate behavior. After synchronizing this
+branch with the latest main, the complete suite passed **221 tests** (62
+Rasterio warnings). Neither test count is a holdout result or submission
+authorization.
 
 ## What changed on 28 October 2026
 
