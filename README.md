@@ -7,7 +7,17 @@
 
 [Latest session review](knowledge/session-review-2026-10-28.md) · [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
-## Latest follow-up: automation preflight
+## Latest follow-up: release-gate consistency
+
+[Session review](knowledge/session-0f04bfcc-review.md) ·
+[Negative session run card](evidence/session_0f04bfcc_run_card.json). The local
+release gate now rejects a candidate SHA-256 identical to any reported registry
+raster even if the card claims the bytes differ. This is an internal consistency
+check, not independent hash or registry authentication. No experiment, new TIFF,
+score estimate or slot selection was made; **do not submit**. Full suite: 219
+passed, with 53 rasterio warnings.
+
+## Earlier follow-up: automation preflight
 
 The shared-tool adapter now exits **1** when the assigned lane or required
 cached inputs are absent, including `existing_faults.tif`. A successful JSON
