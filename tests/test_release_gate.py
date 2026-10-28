@@ -26,9 +26,9 @@ def good():
                               exact_ranks=True, surface_checked_before_placement=True, inventory_sha256='b'*64,
                               preplacement_inventory_sha256='b'*64, preplacement_surface_sha256='c'*64,
                               candidate_sha256='a'*64, expected_rasters=1, comparisons=[row]),
-                validator={k:True for k in ['single_band','float32','all_finite_inside','range_0_1_inside',
+                validator={**{k:True for k in ['single_band','float32','all_finite_inside','range_0_1_inside',
                                             'crs_match','shape_match','transform_match','outside_encoding_accepted',
-                                            'template_official_authenticated']},
+                                            'template_official_authenticated']}, 'candidate_sha256':'a'*64},
                 raster_sha256='a'*64, submission_name='test',
                 submission_note='Synthetic unit-test evidence, not a scientific result.')
 
@@ -70,7 +70,8 @@ def test_promotion_never_selects_slot():
     ('registry.expected_rasters',2),('registry.comparisons',[]),
     ('validator.range_0_1_inside',False),('validator.all_finite_inside',False),
     ('validator.transform_match',False),('validator.outside_encoding_accepted',False),
-    ('validator.template_official_authenticated',False),
+    ('validator.template_official_authenticated',False), ('validator.candidate_sha256', None),
+    ('validator.candidate_sha256', 'd'*64),
     ('raster_sha256','z'*64),('submission_note','   '),('submission_note','x'*141)])
 def test_fail_closed(path,value):
     card=copy.deepcopy(good())

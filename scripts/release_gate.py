@@ -149,6 +149,8 @@ def assess(card):
     digest = card.get("raster_sha256")
     if not valid_sha256(digest):
         reasons.append("Saved raster SHA-256 missing")
+    if not valid_sha256(validator.get("candidate_sha256")) or validator.get("candidate_sha256") != digest:
+        reasons.append("Saved TIFF validation is not bound to the candidate SHA-256")
     note = card.get("submission_note")
     name = card.get("submission_name")
     if not isinstance(note, str) or not note.strip() or len(note) > 140 or not isinstance(name, str) or not name.strip():
