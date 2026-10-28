@@ -1,3 +1,11 @@
+> **Parallel review snapshot.** A later reconciliation restored additional
+> hash-pinned owner-mirrored inputs, fixed the vendored shared comparator's
+> in-footprint nonfinite handling, and retained historical TIFF download links
+> explicitly labelled research-only. Its [active run card](../docs/data/run-card.json)
+> and both independent lattice audits are negative. The canonical upstream
+> template and source authentication remain unresolved. Statements below about
+> local caches, test counts or download-button policy reflect the earlier review.
+
 # Evidence, research slate and three-pass review — 28 October 2026
 
 ## Decision and scope

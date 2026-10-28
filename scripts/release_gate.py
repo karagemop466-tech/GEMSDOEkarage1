@@ -44,6 +44,9 @@ def assess(card):
     statuses = canary.get('feature_status')
     expected_features = canary.get('expected_features')
     if (not isinstance(aucs, dict) or not aucs or canary.get('all_features_tested') is not True
+            or canary.get('all_features_have_variation') is not True
+            or canary.get('nonconstant_features_verified') is not True
+            or canary.get('invalid_features') != []
             or not isinstance(statuses, dict) or set(statuses) != set(aucs)
             or any(v != 'tested' for v in statuses.values())
             or not isinstance(expected_features, list) or any(not isinstance(x, str) for x in expected_features)
@@ -52,8 +55,14 @@ def assess(card):
         reasons.append('Single-feature leakage canary missing, untestable or failed')
     reg = card.get('registry') if isinstance(card.get('registry'), dict) else {}
     if (reg.get('complete') is not True or reg.get('saved_bytes_checked') is not True
-            or reg.get('surface_checked_before_placement') is not True):
+            or reg.get('surface_checked_before_placement') is not True
+            or reg.get('all_registry_rasters_included') is not True
+            or reg.get('exact_ranks') is not True or reg.get('literal_all_rasters') is not True):
         reasons.append('Complete registry / pre-placement / saved-byte comparison missing')
+    if reg.get('excluded_registry_rasters') != []:
+        reasons.append('Registry exclusions are missing or nonempty')
+    if reg.get('duplicate_witnesses') != []:
+        reasons.append('Duplicate-witness ledger missing or nonempty')
     for key in ('inventory_sha256', 'preplacement_surface_sha256'):
         value = reg.get(key)
         if not isinstance(value, str) or len(value) != 64 or any(c not in '0123456789abcdef' for c in value):
@@ -102,7 +111,7 @@ def assess(card):
     if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest):
         reasons.append('Saved raster SHA-256 missing')
     note = card.get('submission_note')
-    if (not isinstance(note, str) or not 0 < len(note) <= 140
+    if (not isinstance(note, str) or not note.strip() or len(note) > 140
             or not isinstance(card.get('submission_name'), str) or not card['submission_name'].strip()):
         reasons.append('Submission name / short note missing')
     # Scientific promotion is NOT a weekly slot selection or upload authorization.

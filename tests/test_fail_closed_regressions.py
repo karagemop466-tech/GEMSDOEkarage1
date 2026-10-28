@@ -189,19 +189,17 @@ def test_restore_both_manifest_schemas_without_real_network(tmp_path, monkeypatc
     chunks = {'one': b'abc', 'part1': b'def', 'part2': b'ghi'}
     common = {'repo': 'fixture/test', 'ref': 'a'*40}
     manifest = {'files': [
-        {'id': 'top', 'dest': 'a.bin', 'sha256': hashlib.sha256(chunks['one']).hexdigest(),
+        {'id': 'top', 'dest': 'a.bin', 'bytes': 3, 'sha256': hashlib.sha256(chunks['one']).hexdigest(),
          **common, 'path': 'one'},
-        {'id': 'nested', 'dest': 'b.bin', 'sha256': hashlib.sha256(b'defghi').hexdigest(),
+        {'id': 'nested', 'dest': 'b.bin', 'bytes': 6, 'sha256': hashlib.sha256(b'defghi').hexdigest(),
          'source': {**common, 'kind': 'git_split_blob', 'parts': ['part1', 'part2']}},
     ]}
     path = tmp_path / 'manifest.json'
     path.write_text(json.dumps(manifest))
-    class FakeFetcher:
-        def __init__(self, _cache): pass
-        def write_blob(self, repo, ref, path, fh):
-            assert repo == common['repo'] and ref == common['ref']
-            fh.write(chunks[path])
-    monkeypatch.setattr(restore, 'GitBlobFetcher', FakeFetcher)
+    def fake_fetch(repo, ref, path, fh):
+        assert repo == common['repo'] and ref == common['ref']
+        fh.write(chunks[path])
+    monkeypatch.setattr(restore, 'fetch_blob', fake_fetch)
     monkeypatch.setattr('sys.argv', ['restore', '--manifest', str(path), '--data-dir', str(tmp_path / 'data')])
     assert restore.main() == 0
     assert (tmp_path / 'data/a.bin').read_bytes() == b'abc'
@@ -211,14 +209,14 @@ def test_restore_both_manifest_schemas_without_real_network(tmp_path, monkeypatc
     assert restore.main() == 1
 
 
-def test_restore_rejects_paths_that_escape_or_are_symlinks(tmp_path, monkeypatch):
+def test_restore_rejects_paths_that_escape_or_are_symlinks(tmp_path, monkeypatch, capsys):
     dest = tmp_path / 'dest'
     dest.mkdir()
     (dest / 'out').symlink_to(tmp_path, target_is_directory=True)
-    entry = {'id': 'bad', 'dest': 'out/elsewhere', 'sha256': '0'*64,
+    entry = {'id': 'bad', 'dest': 'out/elsewhere', 'bytes': 1, 'sha256': '0'*64,
              'repo': 'fixture/test', 'ref': 'a'*40, 'path': 'one'}
     path = tmp_path / 'manifest.json'
     path.write_text(json.dumps({'files': [entry]}))
     monkeypatch.setattr('sys.argv', ['restore', '--manifest', str(path), '--data-dir', str(dest)])
-    with pytest.raises(ValueError, match='escapes'):
-        restore.main()
+    assert restore.main() == 2
+    assert 'escapes' in capsys.readouterr().err

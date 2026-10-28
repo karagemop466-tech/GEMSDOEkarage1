@@ -18,8 +18,11 @@ def good():
                              visible_only_features=True, whole_segment_buffered=True,
                              visible_faults_masked_pixel_exact=True, alpha=.2, beta=.8, kernel_radius_m=300),
                 canary=dict(feature_aucs={'a': .6}, all_features_tested=True,
-                            feature_status={'a': 'tested'}, expected_features=['a']),
+                            feature_status={'a': 'tested'}, expected_features=['a'], all_features_have_variation=True,
+                            nonconstant_features_verified=True, invalid_features=[]),
                 registry=dict(complete=True, saved_bytes_checked=True, surface_checked_before_placement=True,
+                              all_registry_rasters_included=True, exact_ranks=True, literal_all_rasters=True,
+                              excluded_registry_rasters=[], duplicate_witnesses=[],
                               expected_count=1, inventory_sha256='c'*64, preplacement_inventory_sha256='c'*64,
                               preplacement_surface_sha256='d'*64, candidate_sha256='a'*64,
                               records=[dict(id='prior', sha256='b'*64,
@@ -49,11 +52,14 @@ def test_promotion_never_selects_slot():
     ('holdout.beats_current_best',False),('holdout.whole_segment_buffered',False),
     ('canary.feature_aucs',{}),('canary.feature_aucs',{'bad':.901}),
     ('canary.feature_aucs',{'bad':float('nan')}),('canary.all_features_tested',False),
-    ('registry.complete',False),('registry.saved_bytes_checked',False),
+    ('canary.all_features_have_variation',False),('canary.nonconstant_features_verified',False),('canary.invalid_features',['constant']),
+    ('registry.complete',False),('registry.saved_bytes_checked',False),('registry.excluded_registry_rasters',['lattice']),
+    ('registry.duplicate_witnesses',[{'witness':.99}]),('registry.literal_all_rasters',False),
+    ('registry.all_registry_rasters_included',False),('registry.exact_ranks',False),
     ('registry.surface_max_abs_rho',.901),('registry.dots_max_abs_rho',.901),
     ('registry.max_directed_overlap_3px',.701),('validator.range_0_1',False),
     ('validator.all_finite',False),('validator.transform_match',False),
-    ('raster_sha256','z'*64),('submission_note','x'*141)])
+    ('raster_sha256','z'*64),('submission_note','  '),('submission_name',True),('submission_note','x'*141)])
 def test_fail_closed(path,value):
     card=copy.deepcopy(good())
     parts=path.split('.')
@@ -119,3 +125,12 @@ def test_release_receipts_must_match_candidate_and_inventory(section, key, value
     card = good()
     card[section][key] = value
     assert gate.assess(card)['verdict'] == 'negative'
+
+
+def test_historical_lattice_witness_is_negative():
+    import json
+    root = Path(__file__).parents[1]
+    scan = json.loads((root/'evidence/fleet_uniqueness_593.json').read_text())
+    assert any('lattice' in r['ref'] and r['cand_in_ref_3px'] > .70 for r in scan['non_competing_lattice_or_continuous_rasters_gt_70pct_cov'])
+    prior = json.loads((root/'evidence/release_gate_hmas_sinter.json').read_text())
+    assert gate.assess(prior['input'])['verdict'] == 'negative'

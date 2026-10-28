@@ -41,12 +41,11 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
     for path in (ROOT / "index.html", ROOT / "docs/executive-summary.html"):
         text = path.read_text()
         assert rows in text
-        assert 'button-disabled' in text and 'No approved .tif to download' in text
-        assert 'NEGATIVE' in text and 'DO NOT SUBMIT' in text
-        assert ' download>' not in text
+        assert 'download' in text and 'RESEARCH ONLY' in text
+        assert "DO NOT SUBMIT" in text and "Not authorized" in text
     assert chips in (ROOT / "index.html").read_text()
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())
-    assert card["verdict"] == "negative" and card["ok_to_submit"] is False and card["download_available"] is False
+    assert card["verdict"] == "negative" and card["ok_to_submit"] is False and card["download_available"] is True
 
 
 def test_all_local_links_and_fragments_work():

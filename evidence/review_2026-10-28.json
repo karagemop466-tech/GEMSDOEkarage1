@@ -32,6 +32,6 @@
   "raster_sha256": null,
   "validator_output": "No new raster to validate; prior HMAS self-read is recorded separately.",
   "verdict": "negative",
-  "review_status": "Historical preliminary negative review; independent saved-byte recheck completed later.",
-  "superseded_by": "evidence/prior_candidate_audit.json and evidence/run_card.json"
+  "status": "Earlier parallel review snapshot; superseded by the later saved-byte reassessment.",
+  "superseded_by": "evidence/release_reassessment_20261028.json"
 }

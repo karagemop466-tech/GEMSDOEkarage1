@@ -4,17 +4,84 @@
   "hypothesis": "New (expert-mapped, uncatalogued) fault strands are topographic scarp steps whose downthrown side faces the basin-deepening direction (gravity low / thickening basin fill) and which cluster in the damage zone 300 m-1.5 km from catalogued strands.",
   "mechanism": "Basin-and-Range normal faulting: the hanging wall of a basin-bounding fault is on the basin side, so a tectonic scarp faces the gravity low and the deepening basement; fault zones are multi-strand, so unmapped strands sit near mapped ones. Field = NMS step-edge of det_elev fused with |profile curvature| and 1 m LiDAR step_max, times 0.25+0.75*(1+cos(phi-psi))/2, times g(d).",
   "named_non_fault_mimic": "Basin-facing alluvial-fan terrace risers and Lake Lahontan shoreline berms (same facing polarity); roads/canals cut into piedmonts. The falsified contour-obliquity gate was meant to remove shorelines and is NOT in the field; these mimics remain a named risk.",
+  "holdout_dti": {
+    "value": 0.1273347575603595,
+    "evaluator_version": "gemsk-hide-recover-v1@8464ac87ec5ea4c3",
+    "withheld_positives": 60988,
+    "ci95": [
+      0.11690867760100696,
+      0.1374168562648192
+    ],
+    "status": "Historical HOLDOUT-DTI on catalogue truth; not independently replayed in this review and not a leaderboard estimate.",
+    "shared_template_evaluator": {
+      "template": "buffedlizard55-lab/GEMSDOE32@73485f27cf230af770167397c2b72cb9ce3b3f25 scripts/evaluate_holdout.py (registry/template.json pin; run unmodified, no fork)",
+      "note": "Applied to the FINAL rasters (already pruned >2 px from the full catalogue), so hide-and-recover values are depressed by construction for both files; SGMC is the only off-catalogue instrument available locally.",
+      "gpcz_final_36000": {
+        "hide_recover_v3": {
+          "evaluator": "GEMSDOE32-HIDE-RECOVER-v3.0",
+          "pooled_dti": 0.012329022183113656,
+          "ci95": [
+            0.011175088267714267,
+            0.013528164525901882
+          ],
+          "withheld_positives": 22232
+        },
+        "sgmc_cal_v3": {
+          "evaluator": "GEMSDOE32-SGMC-CAL-v3.0",
+          "raw_pooled_dti": 0.08067070228193897,
+          "prevalence_calibrated_dti": 0.05445683261991319,
+          "positives": 62703
+        }
+      },
+      "champion_02778_control": {
+        "hide_recover_v3": {
+          "evaluator": "GEMSDOE32-HIDE-RECOVER-v3.0",
+          "pooled_dti": 0.00451537871535044,
+          "ci95": [
+            0.0038164175817344387,
+            0.005261598301920283
+          ],
+          "withheld_positives": 22232
+        },
+        "sgmc_cal_v3": {
+          "evaluator": "GEMSDOE32-SGMC-CAL-v3.0",
+          "raw_pooled_dti": 0.09606004283619354,
+          "prevalence_calibrated_dti": 0.0641209376417646,
+          "positives": 62703
+        }
+      },
+      "reading": "GPC-Z recovers 2.7x more withheld catalogue strands than the champion (0.0123 vs 0.0045) but scores 15% LOWER on off-catalogue USGS SGMC bedrock faults (0.0545 vs 0.0641 calibrated). Mixed evidence; flagged IR-K1-SGMC-01 for the selector."
+    }
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": 0.016619126143593684,
+    "final_dot_overlap": 0.9988611111111111,
+    "registry_coverage": "Historical 15-raster scan excluded lattice from clearance; the literal lattice witness now fails. Not a complete scan.",
+    "lattice_coverage_fraction": 0.9987132726822701,
+    "previous_nonprobe_final_dot_overlap": 0.3174166666666667
+  },
   "raster_sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+  "validator_output": {
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "status": "pass (src/gemsk/submission.py validate + scripts/validate_geotiff.py; evidence/validate_geotiff_gpcz.json)"
+  },
   "submission_name": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
   "submission_note": "GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed",
-  "verdict": "negative",
+  "download_available": true,
   "ok_to_submit": false,
-  "download_available": false,
-  "historical_holdout_status": "See evidence/run_card_gpcz.json; prior metrics have not been replayed.",
-  "literal_lattice_overlap": 0.9988611111111111,
+  "ok_to_submit_meaning": "DO NOT SUBMIT: literal lattice witness exceeds the 70% threshold.",
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 3,
   "blockers": [
-    "Lattice overlap exceeds the literal limit; stop."
+    "Literal lattice overlap 35,959 / 36,000 exceeds 70%; no exemption.",
+    "IR-K1-SGMC-01: historical off-catalogue calibration favored the champion; not independently replayed.",
+    "Owner mirrors are hash-pinned, not organizer-authenticated; portal encoding untested.",
+    "The designated lane/template and buffered matched-fold validation remain unresolved.",
+    "No artifact-linked organizer receipt or live score is available for this file."
   ],
-  "correction": "Superseded by the 2026-10-28 saved-byte audit.",
-  "full_card": "evidence/run_card_gpcz.json"
+  "verdict": "negative",
+  "full_card": "evidence/run_card_gpcz.json",
+  "reassessment": "evidence/release_reassessment_20261028.json"
 }

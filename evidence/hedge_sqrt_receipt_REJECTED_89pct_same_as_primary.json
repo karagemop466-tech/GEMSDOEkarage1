@@ -253,8 +253,9 @@
     "max_abs_spearman_non_probe": 0.016580564443879033,
     "rule_rank_correlation_le_0.90": true,
     "rule_overlap_le_0.70": false,
-    "unique": false
+    "unique": false,
+    "previously_reported_nonprobe_unique": true,
+    "reassessment_note": "Prior receipt's own lattice row is 99.8972%; it was excluded from clearance. Hedge bytes were not independently replayed in this review."
   },
-  "correction": "Historical receipt already recorded 99.897% overlap with the lattice but incorrectly exempted it. The hedge remains rejected; not re-audited in this session.",
-  "verdict": "negative"
+  "submission_authorized": false
 }

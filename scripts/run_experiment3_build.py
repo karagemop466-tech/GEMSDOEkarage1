@@ -25,8 +25,7 @@ FINAL_BUDGET_IF_RISING = 36000
 
 
 def main() -> None:
-    from gemskarage1.guard import stop_inherited_driver
-    stop_inherited_driver()
+    raise RuntimeError("Retired legacy experiment: lane, buffered holdout and literal registry gates are unresolved.")
     t0 = time.time()
     foot = grid.footprint()
     cat = grid.catalogue()
@@ -120,4 +119,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    print("BLOCKED: retired legacy experiment; no training, placement, or release is authorized. See evidence/release_reassessment_20261028.json.", file=sys.stderr)
+    raise SystemExit(2)

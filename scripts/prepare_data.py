@@ -22,6 +22,9 @@ def main() -> int:
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
 
+    print("BLOCKED: the inherited canary uses an unverified holdout split; do not overwrite the historical receipt.", file=sys.stderr)
+    return 2
+
     ddir = data_dir()
     cdir = cache_dir()
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)

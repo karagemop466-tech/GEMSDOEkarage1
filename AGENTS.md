@@ -15,11 +15,18 @@ is maintained by `scripts/render_site.py`; `scripts/build_site.py` maintains the
 parallel review's legacy and per-site pages without overwriting it. Both prior
 and current run cards are negative.
 
-Both inherited GPC-Z and HMAS candidates failed the literal overlap rule in the
-28 October saved-byte review; neither is gated for submission. Read
-`evidence/prior_candidate_audit.json` and `knowledge/three-pass-review-2026-10-28.md`.
-Historical lane pages and generator entrypoints now render negative notices.
-Keep the current homepage, run card and all release decisions synchronized;
-`scripts/build_site.py` invokes the deterministic table and notice generators.
-Historical detailed lane pages are preserved as explicitly superseded text under
-`knowledge/archive/2026-10-27-superseded/` and in git history.
+The 2026-10-28 reassessment found that both inherited GPC-Z and H-K1-1 candidates
+fail the literal registered-lattice duplicate gate. They are research artifacts,
+not gated or approved submissions. Read `evidence/release_reassessment_20261028.json`
+and the active negative `docs/data/run-card.json`; legacy experiment runners are
+blocked before training/placement. A complete inventory, true pre-placement check,
+whole-component buffered split, matched fold-specific refits, valid canaries, and
+a separately assigned lane/template remain outstanding. The past canary's handling
+of constant channels and the competing vendored-template provenance are unresolved;
+do not treat their earlier "pass" as current evidence.
+
+The earlier parallel review `knowledge/review-2026-10-28.md` is preserved as a
+prior snapshot. The later exact-byte reassessment supersedes its statements about
+what was available; see `evidence/release_reassessment_20261028.json`. The
+convenience builder `scripts/build_current_review.py` delegates to the same
+negative-status generators, not an independent promotion path.

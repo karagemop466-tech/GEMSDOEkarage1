@@ -65,7 +65,7 @@
       "sha256": "1a345914983b731ea5868b7a1e31a015fa9d08c8d2743b547d39ea002566ffc7"
     }
   },
-  "verdict": "negative",
-  "approved_for_weekly_slot": false,
-  "correction": "Local format receipt only. Lattice overlap failed; do not submit."
+  "release_verdict": "negative",
+  "submission_authorized": false,
+  "reassessment": "evidence/release_reassessment_20261028.json"
 }

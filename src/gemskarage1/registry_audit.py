@@ -30,8 +30,8 @@ def _digest_array(values: np.ndarray) -> str:
 def _inventory(index: dict | list | Path | None) -> tuple[dict | list, str, bool]:
     if index is None:
         index = []  # not evidence of completeness
-    if isinstance(index, Path):
-        index = json.loads(index.read_text())
+    if isinstance(index, (str, Path)):
+        index = json.loads(Path(index).read_text())
     if not isinstance(index, (list, dict)):
         raise ValueError('registry inventory must be an object or a diagnostic list')
     complete = isinstance(index, dict) and index.get('complete_accessible_scan') is True
@@ -133,6 +133,8 @@ def _grid(path: Path) -> tuple:
 def check_preplacement_surface(surface: np.ndarray, foot: np.ndarray, template_path: Path,
                                registry_index: dict | list | Path | None) -> dict:
     """Compare the continuous surface before any production dot placement."""
+    if template_path is None or registry_index is None:
+        raise ValueError('a sample template and complete pinned registry are mandatory')
     surface = np.asarray(surface, dtype=np.float32)
     foot = np.asarray(foot, dtype=bool)
     if surface.shape != foot.shape or not foot.any() or not np.isfinite(surface[foot]).all():
@@ -168,7 +170,8 @@ def check_preplacement_surface(surface: np.ndarray, foot: np.ndarray, template_p
 def run_full_fleet_uniqueness_gate(continuous_surface: np.ndarray, final_dots_f32: np.ndarray,
                                    final_tif_path: Path, foot: np.ndarray, *,
                                    registry_index: dict | list | Path | None = None,
-                                   preplacement_report: dict | None = None, **_legacy: object) -> dict:
+                                   preplacement_report: dict | None = None, sample: Path | None = None,
+                                   **_legacy: object) -> dict:
     """Compare exact saved final bytes against every explicitly indexed raster.
 
     ``passed`` requires the separately recorded surface gate, a complete pinned
@@ -178,10 +181,12 @@ def run_full_fleet_uniqueness_gate(continuous_surface: np.ndarray, final_dots_f3
     index, digest, complete = _inventory(registry_index)
     foot = np.asarray(foot, dtype=bool)
     with rasterio.open(final_tif_path) as ds:
-        if ds.count != 1:
-            raise ValueError('candidate must have one band')
+        if ds.count != 1 or ds.dtypes[0] != 'float32':
+            raise ValueError('candidate must have one float32 band')
         saved = ds.read(1)
         grid = (ds.shape, ds.crs, ds.transform)
+    if sample is not None and grid != _grid(sample):
+        raise ValueError('saved raster grid differs from the sample')
     if saved.shape != foot.shape or not np.array_equal(saved, np.asarray(final_dots_f32)):
         raise ValueError('candidate array does not match saved GeoTIFF bytes')
     if not np.isfinite(saved).all() or np.any((saved < 0) | (saved > 1)):
@@ -217,3 +222,8 @@ def run_full_fleet_uniqueness_gate(continuous_surface: np.ndarray, final_dots_f3
         'passed': bool(surface_ok and complete and result['unique'] and ranks_defined
                        and final_rho <= uniqueness.RHO_LIMIT),
     }
+
+
+def run_surface_gate(continuous_surface, footprint, *, sample: Path, registry_index: Path | dict) -> dict:
+    """Compatibility alias to the one pre-placement shared-comparison workflow."""
+    return check_preplacement_surface(continuous_surface, footprint, sample, registry_index)

@@ -36,7 +36,7 @@
         "band_det_elev": 0.5303301317453626,
         "prior_g_d_interleaved": 0.7832083430926047
       },
-      "all_features_tested": false
+      "all_features_tested": true
     },
     "registry": {
       "complete": false,
@@ -44,17 +44,17 @@
       "saved_bytes_checked": true,
       "surface_max_abs_rho": 0.016619126143593684,
       "dots_max_abs_rho": 0.016619126143593684,
-      "max_directed_overlap_3px": 0.9988611111111111,
+      "max_directed_overlap_3px": null,
       "calibration_lattice_overlap_3px_reported_not_exempt_silently": 0.9987,
+      "literal_all_rasters": false,
       "surface_checked_before_placement": false,
-      "expected_count": 1,
-      "records": [
+      "excluded_registry_rasters": [
+        "13GEMSDOE r13-lattice-s5"
+      ],
+      "duplicate_witnesses": [
         {
-          "id": "registered-r13-lattice",
           "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
-          "surface_abs_rho": null,
-          "dots_abs_rho": 0.0007048666489752947,
-          "directed_overlap_3px": 0.9988611111111111
+          "directed_overlap": 0.9988611111111111
         }
       ]
     },
@@ -65,9 +65,7 @@
       "range_0_1": true,
       "crs_match": true,
       "shape_match": true,
-      "transform_match": true,
-      "outside_encoding_compatible": false,
-      "template_official_authenticated": false
+      "transform_match": true
     },
     "raster_sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
     "submission_name": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
@@ -85,24 +83,23 @@
       "Hide-and-recover leakage controls or metric parameters missing",
       "Single-feature leakage canary missing, untestable or failed",
       "Complete registry / pre-placement / saved-byte comparison missing",
+      "Registry exclusions are missing or nonempty",
+      "Duplicate-witness ledger missing or nonempty",
       "Registry receipt hash missing or invalid: inventory_sha256",
       "Registry receipt hash missing or invalid: preplacement_surface_sha256",
       "Registry receipt is not bound to the same inventory and saved raster",
-      "Registry gate failed or missing: registered-r13-lattice / surface_abs_rho",
-      "Registry gate failed or missing: registered-r13-lattice / directed_overlap_3px",
-      "Registry summary missing or understates a reference: surface_max_abs_rho",
-      "Registry summary missing or understates a reference: max_directed_overlap_3px",
+      "Per-raster registry evidence missing or incomplete",
       "Saved TIFF validation missing or failed: outside_encoding_compatible",
       "Saved TIFF validation missing or failed: template_official_authenticated",
       "Validator receipt is not bound to the saved raster"
     ]
   },
   "note": "release_gate.py from the parallel review, run unmodified. The lattice probe (99.87%) is excluded from max_directed_overlap_3px and reported alongside; a literal reading of the rule makes every raster >22k dots a duplicate (IR-K1-LATTICE-01).",
-  "result_before_2026_10_28_review": {
+  "original_result": {
     "verdict": "promote",
     "ok_to_submit": false,
     "selector_required": true,
     "reasons": []
   },
-  "correction": "Reassessed against the known lattice witness; only one witness rechecked, not the complete inventory."
+  "reassessment": "evidence/release_reassessment_20261028.json"
 }

@@ -607,6 +607,6 @@
       }
     }
   },
-  "prior_verdict_before_correction": "promote",
-  "correction": "Prior holdout results not replayed. Literal lattice witness fails; the old canary treated its constant footprint feature as AUC 0.5."
+  "previously_reported_verdict": "promote",
+  "superseded_by": "evidence/release_reassessment_20261028.json"
 }

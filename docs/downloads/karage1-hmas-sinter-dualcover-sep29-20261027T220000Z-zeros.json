@@ -114,13 +114,14 @@
   "zip_sha256": "b1c8817b1037384d8d12d6c3b9077716398aa756a931978bc5e5b1f52e3d15e7",
   "approved_for_weekly_slot": false,
   "promoted": false,
-  "submission_slots_used": 0,
-  "status": "Superseded: local format only; literal lattice overlap fails; do not submit.",
+  "submission_slots_used": null,
+  "status": "DO NOT SUBMIT: independently measured literal registry duplicate; format checks are not slot approval.",
   "metadata": {
     "lane_id": "H-K1-1-HMAS-SINTER-ENV",
     "winning_arm": "EXP1_HMAS_MULT",
     "evaluator_version": "gems57-pooled-hide-v2"
   },
   "uniqueness_gate_passed": false,
-  "verdict": "negative"
+  "verdict": "negative",
+  "reassessment": "evidence/release_reassessment_20261028.json"
 }

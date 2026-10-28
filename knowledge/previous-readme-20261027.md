@@ -1,4 +1,7 @@
-> **SUPERSEDED HISTORICAL README — DO NOT SUBMIT.** The prior approval and uniqueness claims below were withdrawn after the literal lattice witness was rechecked. The ZIP hash and some confidence intervals in this historical text conflict with the saved-byte audit or run card. See [current evidence](../evidence/prior_candidate_audit.json) and [current run card](../evidence/run_card.json).
+> **HISTORICAL / SUPERSEDED — DO NOT SUBMIT.** Any prior promotion, score,
+> uniqueness or slot-approval claims below are retained only for provenance.
+> See the [current negative run card](../docs/data/run-card.json) and
+> [saved-byte reassessment](../evidence/release_reassessment_20261028.json).
 
 # HISTORICAL SNAPSHOT — PROMOTION CLAIMS SUPERSEDED
 

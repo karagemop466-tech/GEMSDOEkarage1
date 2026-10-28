@@ -7,6 +7,9 @@
   const chips = Array.from(document.querySelectorAll("[data-source-repo][data-source-ref]"));
   if (!button || !status || chips.length === 0) return;
   let running = false;
+  let lastAttempt = 0;
+  // A low-frequency check is informative only; it never changes release state.
+  const intervalMs = 30 * 60 * 1000;
 
   async function checkChip(chip) {
     const target = chip.querySelector("[data-source-state]");
@@ -43,6 +46,7 @@
   async function refresh() {
     if (running) return;
     running = true;
+    lastAttempt = Date.now();
     button.disabled = true;
     status.textContent = "Checking peer GitHub revisions…";
     try {
@@ -57,5 +61,10 @@
     }
   }
   button.addEventListener("click", refresh);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && Date.now() - lastAttempt >= intervalMs) refresh();
+  });
+  window.addEventListener("online", () => { if (Date.now() - lastAttempt >= intervalMs) refresh(); });
+  window.setInterval(() => { if (!document.hidden) refresh(); }, intervalMs);
   refresh();
 })();

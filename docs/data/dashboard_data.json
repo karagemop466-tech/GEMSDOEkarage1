@@ -23,62 +23,69 @@
       "site": "GEMSDOE32",
       "dti": 0.2778,
       "label": "OWNER-REPORT"
-    }
+    },
+    "leaderboard_freshness": "Historical snapshot only; consult the official live leaderboard."
   },
   "run_card": {
-    "schema": "karage1-run-card-v2",
-    "created_utc": "2026-10-28T05:35:21.120068+00:00",
-    "lane": "No new lane assigned; review of prior HMAS-SINTER-ENV only",
-    "hypothesis": "Buried hydrothermal fault corridors may combine magnetic and gravity structure with shallow thermal or sinter observations.",
-    "mechanism": "A conduit may locally alter magnetization or conductivity while basin-fill cover obscures a surface scarp; this is an unproven hypothesis.",
-    "named_non_fault_mimic": "Lithologic contacts and volcanic flow margins can create magnetic and gravity contrasts without a fault.",
+    "schema": "karage1-active-run-card-v2",
+    "reviewed_utc_date": "2026-10-28",
+    "hypothesis": "Prior H-K1-1: hydrothermal alteration and shallow thermal signatures may identify faults missing from mapped catalogues. No new method lane was assigned in this request.",
+    "mechanism": "Potential-field, radiometric and thermal anomaly coincidence was used as a proxy for a concealed fault; it does not prove a vent or fault.",
+    "non_fault_process_that_could_mimic_it": "Volcanic lithologic contacts and Lake Lahontan shoreline benches.",
     "holdout_dti": {
       "label": "HOLDOUT-DTI",
       "evaluator_version": "gems57-pooled-hide-v2",
-      "withheld_positives": 22619,
-      "value": 0.093547,
+      "dti": 0.093547,
       "ci95": [
         0.081837,
         0.105279
       ],
-      "status": "Prior run report only; not replayed or independently verified in this session; not a leaderboard estimate."
+      "withheld_positives": 22619,
+      "delta_vs_base35": 0.010596,
+      "delta_vs_base35_ci95": [
+        0.00562,
+        0.015814
+      ],
+      "verification_status": "Prior-session measurement; not independently rerun in this review. The original split cut some branches into short chunks and did not establish the requested buffered whole-component holdout.",
+      "independently_replayed_this_review": false
     },
     "correlation_overlap_vs_registry": {
-      "preplacement_surface_spearman": null,
-      "preplacement_status": "not replayed; the pre-placement surface is not available in this checkout",
-      "final_dot_spearman_vs_lattice": -2.856745533511713e-05,
-      "final_dot_overlap_vs_lattice": 0.9993193717277487,
-      "candidate_dot_count": 38200,
+      "surface_rank_correlation": null,
+      "surface_status": "Prior surface unavailable for independent pre-placement replay.",
+      "witness": "registered 13GEMSDOE r13-lattice-s5",
+      "witness_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+      "candidate_dots": 38200,
       "dots_within_3px": 38174,
-      "registry_coverage": "One pinned lattice witness rechecked; not a complete registry."
+      "directed_overlap": 0.9993193717277487,
+      "literal_threshold": 0.7,
+      "duplicate": true,
+      "complete_registry_replayed": false
     },
     "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+    "raster_status": "Previously generated research raster only; not a new submission.",
     "validator_output": {
       "no_nan_inside_footprint": true,
       "values_in_0_1": true,
-      "crs_shape_transform_match": true,
-      "whole_array_finite_and_in_range": true,
-      "outside_all_null_or_nan": false,
-      "status": "Local check against a pinned peer mirror; official template authenticity and portal acceptance unverified."
+      "crs_shape_transform_match_mirror": true,
+      "single_band": true,
+      "all_finite_range": true,
+      "outside_null_or_nan": false,
+      "sample_organizer_authenticated": false,
+      "portal_acceptance_tested": false
     },
     "submission_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
     "submission_name": "karage1-hmas-sinter-dualcover-sep29-zeros",
-    "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular",
-    "download_available": false,
+    "submission_note": "H-K1-1 historical raster; duplicate witness failed; research only, do not submit.",
+    "download_available": true,
+    "download_purpose": "research only",
+    "estimated_leaderboard_score": null,
     "ok_to_submit": false,
-    "slot_selected_or_spent": false,
-    "weekly_allowance_verified": false,
-    "geological_experiments_run": 0,
-    "portal_submissions_this_session": 0,
+    "selector_approved": false,
+    "experiments_this_review": 0,
+    "slots_spent_this_review": 0,
+    "account_quota_known": false,
     "verdict": "negative",
-    "blockers": [
-      "The prior HMAS file exceeds the literal overlap limit against a registered lattice; stop.",
-      "The pre-placement surface, current complete registry, and comparable verified holdout best are unavailable.",
-      "The inherited single-feature canary marked a constant footprint channel as a pass.",
-      "The sample template is a peer mirror and outside-footprint encoding versus portal validation is unresolved.",
-      "The current prompt references an assigned method paragraph but supplies none."
-    ],
-    "evidence": "evidence/prior_candidate_audit.json"
+    "audit": "evidence/release_reassessment_20261028.json"
   },
   "experiments_summary": {
     "schema_version": 1,
@@ -689,8 +696,8 @@
         }
       }
     },
-    "prior_verdict_before_correction": "promote",
-    "correction": "Prior holdout results not replayed. Literal lattice witness fails; the old canary treated its constant footprint feature as AUC 0.5."
+    "previously_reported_verdict": "promote",
+    "superseded_by": "evidence/release_reassessment_20261028.json"
   },
   "leakage_canary_top15": [
     {
@@ -800,11 +807,495 @@
     }
   ],
   "uniqueness_summary": {
+    "protocol_rule": "Rule-1-Pre-And-Post-Placement-Duplication-Gate",
+    "candidate_tif": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+    "candidate_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+    "candidate_pixel_sha256": "cf993ea9278ad094e8978a7770e351e6476f6ee4fbbe7ecde03268dcff46f4ac",
+    "candidate_dots": 38200,
+    "total_fleet_rasters_scanned": 611,
+    "unique_pixel_rasters_scanned": 318,
+    "thresholds": {
+      "spearman_abs_max": 0.9,
+      "discrete_3px_overlap_max": 0.7
+    },
+    "exact_hash_matches": [],
+    "max_pre_placement_surface_spearman": 0.53034,
+    "max_pre_placement_surface_ref": "WBGGEMSDOE1/docs/downloads/wbg-c1-commutator-research-surface-20261026-acea88448272.tif",
+    "max_final_dot_spearman": 0.07574,
+    "max_final_dot_spearman_ref": "WBGGEMSDOE1/docs/downloads/wbg-c1-commutator-research-surface-20261026-acea88448272.tif",
+    "max_discrete_submission_3px_overlap": 0.6039,
+    "max_discrete_submission_ref": "GEMSDOE63/docs/downloads/gemsdoe63-cvarlw-thin-s3p17-54864-20261011T220606Z-c58f60c4-nan.tif",
+    "non_competing_lattice_or_continuous_rasters_gt_70pct_cov": [
+      {
+        "ref": "GEMSDOE24/inputs/calibration/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+        "type": "uniform_lattice_diagnostic",
+        "n_pos": 206895,
+        "cand_in_ref_3px": 0.99932,
+        "dot_spearman": 0.00036
+      },
+      {
+        "ref": "KANLERGEMSDOE1/data/scored/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+        "type": "uniform_lattice_diagnostic",
+        "n_pos": 206895,
+        "cand_in_ref_3px": 0.99932,
+        "dot_spearman": 0.00036
+      },
+      {
+        "ref": "WBGGEMSDOE1/docs/downloads/wbg-c1-commutator-research-surface-20261026-acea88448272.tif",
+        "type": "continuous_unthinned_surface",
+        "n_pos": 5106385,
+        "cand_in_ref_3px": 1.0,
+        "dot_spearman": 0.07574
+      },
+      {
+        "ref": "WBGGEMSDOE2/downloads/wbg-h1-blind-conduit-breach-20261026T220000Z-a1b2c3d4-zeros.tif",
+        "type": "continuous_unthinned_surface",
+        "n_pos": 5167373,
+        "cand_in_ref_3px": 1.0,
+        "dot_spearman": 0.00103
+      },
+      {
+        "ref": "12GEMSDOE/docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62.tif",
+        "type": "overdense_exploratory_mask",
+        "n_pos": 103347,
+        "cand_in_ref_3px": 0.72215,
+        "dot_spearman": 0.02412
+      },
+      {
+        "ref": "GEMSDOE22/docs/downloads/gems22-h23-a-dti-optimal-emission-6pct-20261002-e2ec4b49-nan.tif",
+        "type": "overdense_exploratory_mask",
+        "n_pos": 335879,
+        "cand_in_ref_3px": 0.81728,
+        "dot_spearman": 0.05293
+      },
+      {
+        "ref": "GEMSDOE3/docs/downloads/pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+        "type": "uniform_lattice_diagnostic",
+        "n_pos": 155021,
+        "cand_in_ref_3px": 0.79749,
+        "dot_spearman": 0.00648
+      },
+      {
+        "ref": "GEMSDOE67/docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
+        "type": "overdense_exploratory_mask",
+        "n_pos": 167597,
+        "cand_in_ref_3px": 0.85016,
+        "dot_spearman": 0.01567
+      },
+      {
+        "ref": "scored_manifest/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+        "type": "uniform_lattice_diagnostic",
+        "n_pos": 206895,
+        "cand_in_ref_3px": 0.99932,
+        "dot_spearman": 0.00036
+      }
+    ],
+    "per_focus_9_site_summary": [
+      {
+        "site": "GEMSDOE24",
+        "n_rasters_scanned": 70,
+        "max_surface_spearman": 0.16646,
+        "max_dot_spearman": 0.05081,
+        "max_discrete_3px_overlap": 0.53832,
+        "closest_discrete_raster": "docs/downloads/gems24-s3dep1-negative-10m-monoclinal-20261026-464fa34b4091-nan.tif"
+      },
+      {
+        "site": "GEMSDOE25",
+        "n_rasters_scanned": 57,
+        "max_surface_spearman": 0.09223,
+        "max_dot_spearman": 0.02918,
+        "max_discrete_3px_overlap": 0.50738,
+        "closest_discrete_raster": "docs/downloads/gems25-kdc-b2-plus-hgb-complement-55374-20261025T211001Z-f74e9238cc1c-nan.tif"
+      },
+      {
+        "site": "GEMSDOE27",
+        "n_rasters_scanned": 42,
+        "max_surface_spearman": 0.11236,
+        "max_dot_spearman": 0.03921,
+        "max_discrete_3px_overlap": 0.55838,
+        "closest_discrete_raster": "docs/downloads/gems27-h31-drcg-wl-celf28-20261026-cf8e1bbef244-allfinite.tif"
+      },
+      {
+        "site": "GEMSDOE28",
+        "n_rasters_scanned": 51,
+        "max_surface_spearman": 0.11124,
+        "max_dot_spearman": 0.03969,
+        "max_discrete_3px_overlap": 0.50838,
+        "closest_discrete_raster": "docs/downloads/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-allfinite.tif"
+      },
+      {
+        "site": "GEMSDOE30",
+        "n_rasters_scanned": 34,
+        "max_surface_spearman": 0.11623,
+        "max_dot_spearman": 0.04049,
+        "max_discrete_3px_overlap": 0.57152,
+        "closest_discrete_raster": "docs/downloads/gemsdoe30-sgmc-hedge-d10-85k-20261003-ac08b41e-zeros.tif"
+      },
+      {
+        "site": "GEMSDOE31",
+        "n_rasters_scanned": 60,
+        "max_surface_spearman": 0.15574,
+        "max_dot_spearman": 0.0435,
+        "max_discrete_3px_overlap": 0.49887,
+        "closest_discrete_raster": "docs/downloads/gemsdoe31-h31m-bstep-xmod-submod-20261025-37654-allfinite.tif"
+      },
+      {
+        "site": "GEMSDOE32",
+        "n_rasters_scanned": 73,
+        "max_surface_spearman": 0.11135,
+        "max_dot_spearman": 0.07041,
+        "max_discrete_3px_overlap": 0.58,
+        "closest_discrete_raster": "docs/downloads/gemsdoe32-h48-fbgr-dualcover-axial28-37654-20261027T180500Z-4d38a240-nan.tif"
+      },
+      {
+        "site": "GEMSDOE33",
+        "n_rasters_scanned": 36,
+        "max_surface_spearman": 0.09223,
+        "max_dot_spearman": 0.03095,
+        "max_discrete_3px_overlap": 0.48644,
+        "closest_discrete_raster": "docs/downloads/gemsdoe33-d28-reference-20261004-426073b6b4ab-nan.tif"
+      },
+      {
+        "site": "GEMSDOE36",
+        "n_rasters_scanned": 21,
+        "max_surface_spearman": 0.09893,
+        "max_dot_spearman": 0.04012,
+        "max_discrete_3px_overlap": 0.46668,
+        "closest_discrete_raster": "docs/downloads/gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-nan.tif"
+      }
+    ],
+    "top_25_closest_discrete_submissions": [
+      {
+        "site": "GEMSDOE63",
+        "path": "docs/downloads/gemsdoe63-cvarlw-thin-s3p17-54864-20261011T220606Z-c58f60c4-nan.tif",
+        "file_sha256": "886e470530d8b23a4967a7f8d9f55df5fb39441ff7b544490cab457d076731f7",
+        "pixel_sha256": "c58f60c4a2bfdc9d5007c39f3da998b127a0b6b51a30e1f5fb1921fe42b8e2ff",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 54864,
+        "rho_surf": 0.07533,
+        "rho_dots": 0.02091,
+        "ov_cand_in_ref": 0.6039,
+        "ov_ref_in_cand": 0.37137,
+        "ov_sym_max": 0.6039
+      },
+      {
+        "site": "GEMSDOE37",
+        "path": "docs/downloads/gemsdoe37-h6-physics-dotted-80k-20261005T055000Z-0bef9211631c.tif",
+        "file_sha256": "ce749a992baec603460dfeddd068758855cb8b12978268e6ef94f6e23ffd9ee7",
+        "pixel_sha256": "fd45924e1763273492f9b1f6ef9f68f71b79e1765de6400c891e0c189df44075",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 80000,
+        "rho_surf": 0.08181,
+        "rho_dots": 0.02111,
+        "ov_cand_in_ref": 0.59822,
+        "ov_ref_in_cand": 0.35944,
+        "ov_sym_max": 0.59822
+      },
+      {
+        "site": "GEMSDOE32",
+        "path": "docs/downloads/gemsdoe32-h48-fbgr-dualcover-axial28-37654-20261027T180500Z-4d38a240-nan.tif",
+        "file_sha256": "8dba8c350e2f2dde0f9ebe8b0402566282ac275967f332a6f0849a3be11c8407",
+        "pixel_sha256": "3cfba50d057a0addb581385e2a632c268a067a3d021dd583086bb6b5154729f3",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.1023,
+        "rho_dots": 0.05173,
+        "ov_cand_in_ref": 0.58,
+        "ov_ref_in_cand": 0.61178,
+        "ov_sym_max": 0.61178
+      },
+      {
+        "site": "GEMSDOE32",
+        "path": "docs/downloads/gemsdoe32-h48-fbgr-dualcover-axial28-37654-20261027T180500Z-4d38a240-zeros.tif",
+        "file_sha256": "4177f236b7c6a26fdf39d85f0896d1a83da745c9a36b04be7fe201a0076bf29f",
+        "pixel_sha256": "3cfba50d057a0addb581385e2a632c268a067a3d021dd583086bb6b5154729f3",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.1023,
+        "rho_dots": 0.05173,
+        "ov_cand_in_ref": 0.58,
+        "ov_ref_in_cand": 0.61178,
+        "ov_sym_max": 0.61178
+      },
+      {
+        "site": "GEMSDOE30",
+        "path": "docs/downloads/gemsdoe30-sgmc-hedge-d10-85k-20261003-ac08b41e-zeros.tif",
+        "file_sha256": "d7977d7b93287f17fbf3cb85f10fdbee4acc5c8453a7faa451e760363433a286",
+        "pixel_sha256": "8fde6310da920a39fa2329e3bae946d9e2d0f380a17dbac881eb9f916f7d431a",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 85526,
+        "rho_surf": 0.05593,
+        "rho_dots": 0.01622,
+        "ov_cand_in_ref": 0.57152,
+        "ov_ref_in_cand": 0.27456,
+        "ov_sym_max": 0.57152
+      },
+      {
+        "site": "GEMSDOE30",
+        "path": "docs/downloads/gemsdoe30-sgmc-hedge-d10-85k-20261003-ac08b41e.tif",
+        "file_sha256": "fed5232e8efeefef00728ce9d5884f08e007c542f317cb11419452d14ff866da",
+        "pixel_sha256": "8fde6310da920a39fa2329e3bae946d9e2d0f380a17dbac881eb9f916f7d431a",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 85526,
+        "rho_surf": 0.05593,
+        "rho_dots": 0.01622,
+        "ov_cand_in_ref": 0.57152,
+        "ov_ref_in_cand": 0.27456,
+        "ov_sym_max": 0.57152
+      },
+      {
+        "site": "GEMSDOE23",
+        "path": "docs/downloads/gemsdoe23-h30-arrangement-matched-habitat-20261002-0d4e02e8-nan.tif",
+        "file_sha256": "38539dc647d5ede0d8fa90123810d18130ee15e524097f55e83b6b8a57976ea9",
+        "pixel_sha256": "0d4e02e8f6a0c1e6562eb8ecf436862322388ac28dfd775832b453a320c83f10",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 91533,
+        "rho_surf": 0.04243,
+        "rho_dots": 0.00646,
+        "ov_cand_in_ref": 0.5594,
+        "ov_ref_in_cand": 0.21298,
+        "ov_sym_max": 0.5594
+      },
+      {
+        "site": "GEMSDOE27",
+        "path": "docs/downloads/gems27-h31-drcg-wl-celf28-20261026-cf8e1bbef244-allfinite.tif",
+        "file_sha256": "2c002b02792419864bd3b29a218e543cb41e3f07b3b57c29ef35c6e39e184bfe",
+        "pixel_sha256": "8e44af1e3bfec68e2b92fabf4e8c6afc05090d2e7b0a7824e5008ae5d28d5cc5",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.09361,
+        "rho_dots": 0.02674,
+        "ov_cand_in_ref": 0.55838,
+        "ov_ref_in_cand": 0.52632,
+        "ov_sym_max": 0.55838
+      },
+      {
+        "site": "GEMSDOE27",
+        "path": "docs/downloads/gems27-h31-drcg-wl-celf28-20261026-cf8e1bbef244-nan.tif",
+        "file_sha256": "5f9a7f20a91431dae8fb5a5faacc61336c32bbae1b9a22b6fc73cf9db675d310",
+        "pixel_sha256": "8e44af1e3bfec68e2b92fabf4e8c6afc05090d2e7b0a7824e5008ae5d28d5cc5",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.09361,
+        "rho_dots": 0.02674,
+        "ov_cand_in_ref": 0.55838,
+        "ov_ref_in_cand": 0.52632,
+        "ov_sym_max": 0.55838
+      },
+      {
+        "site": "KANLERGEMSDOE2",
+        "path": "docs/downloads/gems27-h31-drcg-wl-celf28-20261026-cf8e1bbef244-allfinite.tif",
+        "file_sha256": "2c002b02792419864bd3b29a218e543cb41e3f07b3b57c29ef35c6e39e184bfe",
+        "pixel_sha256": "8e44af1e3bfec68e2b92fabf4e8c6afc05090d2e7b0a7824e5008ae5d28d5cc5",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.09361,
+        "rho_dots": 0.02674,
+        "ov_cand_in_ref": 0.55838,
+        "ov_ref_in_cand": 0.52632,
+        "ov_sym_max": 0.55838
+      },
+      {
+        "site": "GEMSDOE32",
+        "path": "docs/downloads/gemsdoe32-h45-kernelspacing-37654dots-20261026T163401Z-2fe5944c-zeros.tif",
+        "file_sha256": "b14bba00d6053e75e5c72d9e68fac52f607fe40de1c356111baea85e1ceee538",
+        "pixel_sha256": "d636c9fa93e2008b5afc49593cc3c1d9ab5c3f8847d36c03a154d1aa6e4854d6",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.07051,
+        "rho_dots": 0.05067,
+        "ov_cand_in_ref": 0.54628,
+        "ov_ref_in_cand": 0.4629,
+        "ov_sym_max": 0.54628
+      },
+      {
+        "site": "GEMSDOE27",
+        "path": "docs/downloads/research/gems27-h31-3-mt-graben-celf28-20261026-0f397db36baf-allfinite.tif",
+        "file_sha256": "da29080bf6acfdc91a835b06464e7d64c056703067967129505af886a59a9d68",
+        "pixel_sha256": "7d557e31c7d3e7ffc327588dcc0fc506e3124ff5ccca655a8b7b9c91959c4e3c",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.09181,
+        "rho_dots": 0.03486,
+        "ov_cand_in_ref": 0.54267,
+        "ov_ref_in_cand": 0.51418,
+        "ov_sym_max": 0.54267
+      },
+      {
+        "site": "GEMSDOE27",
+        "path": "docs/downloads/research/gems27-h31-3-mt-graben-celf28-20261026-0f397db36baf-nan.tif",
+        "file_sha256": "89a41f25de0d92a38dc50ba0f443a6036b51449ae9d513f943c7146f3588cd7b",
+        "pixel_sha256": "7d557e31c7d3e7ffc327588dcc0fc506e3124ff5ccca655a8b7b9c91959c4e3c",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.09181,
+        "rho_dots": 0.03486,
+        "ov_cand_in_ref": 0.54267,
+        "ov_ref_in_cand": 0.51418,
+        "ov_sym_max": 0.54267
+      },
+      {
+        "site": "GEMSDOE24",
+        "path": "docs/downloads/gems24-s3dep1-negative-10m-monoclinal-20261026-464fa34b4091-nan.tif",
+        "file_sha256": "039678640909e8965582e31833bd785a2b62b4c2a776682ad49c50529b8daa6e",
+        "pixel_sha256": "617415b6fee0a38d7d64e7a82f870c9968ad3b39e05ed448e396f625bea89c8d",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.08326,
+        "rho_dots": 0.0313,
+        "ov_cand_in_ref": 0.53832,
+        "ov_ref_in_cand": 0.49363,
+        "ov_sym_max": 0.53832
+      },
+      {
+        "site": "GEMSDOE24",
+        "path": "docs/downloads/gems24-s3dep1-negative-10m-monoclinal-20261026-464fa34b4091-zeros.tif",
+        "file_sha256": "86516533fb525ebce792152ae4ed852e88ae4feda0bd596710c7319a238b8071",
+        "pixel_sha256": "617415b6fee0a38d7d64e7a82f870c9968ad3b39e05ed448e396f625bea89c8d",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.08326,
+        "rho_dots": 0.0313,
+        "ov_cand_in_ref": 0.53832,
+        "ov_ref_in_cand": 0.49363,
+        "ov_sym_max": 0.53832
+      },
+      {
+        "site": "GEMSDOE32",
+        "path": "docs/downloads/gemsdoe32-hcvf2-cvgbm35-b2-greedy37654-20261025T202730Z-f9b36c7e-nan.tif",
+        "file_sha256": "7a588bbe44c51c865790f010f0c2883d05aa2373d5983093850020d6c0ec5946",
+        "pixel_sha256": "58458a986a2f1470d82474aa16b72be8679ba249e598e479ee18692cb54a9239",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.09572,
+        "rho_dots": 0.06646,
+        "ov_cand_in_ref": 0.53283,
+        "ov_ref_in_cand": 0.60626,
+        "ov_sym_max": 0.60626
+      },
+      {
+        "site": "GEMSDOE32",
+        "path": "docs/downloads/gemsdoe32-hcvf2-cvgbm35-b2-greedy37654-20261025T202730Z-f9b36c7e-zeros.tif",
+        "file_sha256": "5d65591a23df0f46e61a5cf429d85811891a602ad5f5abb4a66059a93205d5f3",
+        "pixel_sha256": "58458a986a2f1470d82474aa16b72be8679ba249e598e479ee18692cb54a9239",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.09572,
+        "rho_dots": 0.06646,
+        "ov_cand_in_ref": 0.53283,
+        "ov_ref_in_cand": 0.60626,
+        "ov_sym_max": 0.60626
+      },
+      {
+        "site": "GEMSDOE32",
+        "path": "docs/downloads/gemsdoe32-h35-cv-altfusion-b2-42600-20261025T202439Z-35887fc3-nan.tif",
+        "file_sha256": "8fa6b4cd1622359e18fb3cce1555fd2e722faa5a68ce2a3bfd386a5755c8f1cf",
+        "pixel_sha256": "0935f4cbb437337b658093eeb19ced7684826f985d3ddd86143d60b22b9c10b3",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 42600,
+        "rho_surf": 0.10843,
+        "rho_dots": 0.04088,
+        "ov_cand_in_ref": 0.52487,
+        "ov_ref_in_cand": 0.6358,
+        "ov_sym_max": 0.6358
+      },
+      {
+        "site": "GEMSDOE32",
+        "path": "docs/downloads/gemsdoe32-h35-cv-altfusion-b2-42600-20261025T202439Z-35887fc3-zeros.tif",
+        "file_sha256": "6e048db2dc1b39995c8024cd7492f2f4e5acaa83acece4717cbc525765394c68",
+        "pixel_sha256": "0935f4cbb437337b658093eeb19ced7684826f985d3ddd86143d60b22b9c10b3",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 42600,
+        "rho_surf": 0.10843,
+        "rho_dots": 0.04088,
+        "ov_cand_in_ref": 0.52487,
+        "ov_ref_in_cand": 0.6358,
+        "ov_sym_max": 0.6358
+      },
+      {
+        "site": "GEMSDOE24",
+        "path": "inputs/calibration/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+        "file_sha256": "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58",
+        "pixel_sha256": "a36e1bf254de81ed360d0890574977b093305a5886475403cd94213d22949550",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 69281,
+        "rho_surf": 0.07511,
+        "rho_dots": 0.01695,
+        "ov_cand_in_ref": 0.52372,
+        "ov_ref_in_cand": 0.29258,
+        "ov_sym_max": 0.52372
+      },
+      {
+        "site": "KANLERGEMSDOE1",
+        "path": "data/scored/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+        "file_sha256": "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58",
+        "pixel_sha256": "a36e1bf254de81ed360d0890574977b093305a5886475403cd94213d22949550",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 69281,
+        "rho_surf": 0.07511,
+        "rho_dots": 0.01695,
+        "ov_cand_in_ref": 0.52372,
+        "ov_ref_in_cand": 0.29258,
+        "ov_sym_max": 0.52372
+      },
+      {
+        "site": "GEMSDOE10",
+        "path": "docs/downloads/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+        "file_sha256": "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58",
+        "pixel_sha256": "a36e1bf254de81ed360d0890574977b093305a5886475403cd94213d22949550",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 69281,
+        "rho_surf": 0.07511,
+        "rho_dots": 0.01695,
+        "ov_cand_in_ref": 0.52372,
+        "ov_ref_in_cand": 0.29258,
+        "ov_sym_max": 0.52372
+      },
+      {
+        "site": "scored_manifest",
+        "path": "gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+        "file_sha256": "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58",
+        "pixel_sha256": "a36e1bf254de81ed360d0890574977b093305a5886475403cd94213d22949550",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 69281,
+        "rho_surf": 0.07511,
+        "rho_dots": 0.01695,
+        "ov_cand_in_ref": 0.52372,
+        "ov_ref_in_cand": 0.29258,
+        "ov_sym_max": 0.52372
+      },
+      {
+        "site": "WBGGEMSDOE2",
+        "path": "docs/downloads/cbs/wbg2-d19dotted-38000dots-20261027T191824Z-cb2f6ff4-zeros.tif",
+        "file_sha256": "7c9915f6f5c8bb3fa9145b7ca310b3cb778f7d2d8f9bf5ddd412165d20be6a36",
+        "pixel_sha256": "cb2f6ff422e0eb41d4761e6da4133287a29a0051c251ca8b574949c7d6b5efc0",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 38000,
+        "rho_surf": 0.06509,
+        "rho_dots": 0.02258,
+        "ov_cand_in_ref": 0.52209,
+        "ov_ref_in_cand": 0.37471,
+        "ov_sym_max": 0.52209
+      },
+      {
+        "site": "KANLERGEMSDOE1",
+        "path": "submissions/cgji_htb_20261027/gemsdoe32-cgji-htb-exp2-oof-hgb-b2-20261027T013000Z-5214b9ec-nan.tif",
+        "file_sha256": "8c5db6b033576adab601393320ab789dbe290490fa67a12efd9d23659655eb11",
+        "pixel_sha256": "b1dfa108c630c31de0640e885e85a71670c16cf6ca2520696b224491405c161c",
+        "rtype": "discrete_fault_submission",
+        "n_pos": 37654,
+        "rho_surf": 0.08811,
+        "rho_dots": 0.02512,
+        "ov_cand_in_ref": 0.52097,
+        "ov_ref_in_cand": 0.51933,
+        "ov_sym_max": 0.52097
+      }
+    ],
     "passed": false,
-    "registry_complete": false,
-    "literal_lattice_overlap": 0.9993193717277487,
-    "evidence": "data/prior_candidate_audit.json",
-    "status": "Prior fleet summary is superseded; only one registry witness was rechecked."
+    "previously_reported_nonliteral_pass": true,
+    "superseded_by": "evidence/release_reassessment_20261028.json",
+    "reassessment_note": "Previous discrete-only maximum excluded a registered lattice; it does not implement the literal gate.",
+    "literal_lattice_overlap": 0.9993193717277487
   },
   "comparison_rows": [
     {
@@ -813,11 +1304,11 @@
       "repo_url": "https://github.com/karagemop466-tech/GEMSDOEkarage1",
       "pages_url": "https://karagemop466-tech.github.io/GEMSDOEkarage1/",
       "display_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
-      "download_url": null,
-      "zip_download_url": null,
+      "download_url": "downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+      "zip_download_url": "downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.zip",
       "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
       "owner_reported_dti": null,
-      "owner_score_label": "NO VERIFIED PORTAL RESULT \u2014 DO NOT SUBMIT",
+      "owner_score_label": "NO ORGANIZER SCORE \u2014 DO NOT SUBMIT",
       "gems57_detached_dti": 0.093547,
       "gems57_detached_ci95": [
         0.081837,
@@ -839,13 +1330,10 @@
       "overlap_3px_with_gemsdoe32": 0.4644,
       "spearman_with_gemsdoe32": 0.03241,
       "overlap_3px_with_karage1": 1.0,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "FAIL: literal lattice witness",
       "family": "H-K1-1 HMAS-SINTER Dual-Cover (Independent Lane)",
       "method_short": "58-ch HMAS Mag-Trough + PPGR + F2mDAB/Sinter Dual-Cover GBDT + d=2.9px Submodular",
-      "exec_summary": "Inherited HMAS file fails literal lattice overlap; old gate and canary are superseded.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "Historical research raster; local format checks passed, but the literal lattice overlap gate failed. Prior holdout was not replayed in the reassessment."
     },
     {
       "rank_group": "FOCUS_9",
@@ -857,7 +1345,7 @@
       "zip_download_url": null,
       "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
       "owner_reported_dti": 0.2778,
-      "owner_score_label": "0.2778 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.2778 (OWNER-REPORT \u2014 Registry High)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.093694,
@@ -876,13 +1364,10 @@
       "overlap_3px_with_gemsdoe32": 1.0,
       "spearman_with_gemsdoe32": 1.0,
       "overlap_3px_with_karage1": 0.4644,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "REGISTRY REF (0.2778 Champion)",
       "family": "H19-5 Nested Family (B=2.0px Collar)",
       "method_short": "H33-2 B=2.0px Catalogue-Halo-Stripped H27-4/H19-5 Poisson-Disk d=2.8px",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "Registry leader (0.2778 OWNER-REPORT). Achieved a +0.0070 gain over GEMSDOE28's 0.2708 baseline (h27-4-r1-solo-d2-8, 40,199 dots) via a single surgical geometric operation: expanding the Euclidean exclusion collar around mapped catalogue faults (labels.tif) from B=1.0 px to B=2.0 px (min d_cat = 2.24 px). That stripped exactly 2,545 near-catalogue halo dots (leaving 37,654 binary 1.0 dots, 0 NaNs, -zeros convention) whose 300 m kernels overlapped already-saturated public fault traces and added pure 0.2*FP denominator drag. Also resolved an earlier portal range rejection caused by raw -3.4e38 Float32 sentinels in training_features.tif. Limitation: still inherits the scarp-dominated H19-5 surface (SGMC off-catalogue raw DTI = 0.093694)."
     },
     {
       "rank_group": "FOCUS_9",
@@ -894,7 +1379,7 @@
       "zip_download_url": null,
       "sha256": "96d451d5ffc819fc3834052f22ab66190621f206c0bf8990446082a3363dc2ef",
       "owner_reported_dti": 0.275,
-      "owner_score_label": "0.275 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.2750 (OWNER-REPORT; KPL36-EXP3: 0.1647)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.095111,
@@ -913,13 +1398,10 @@
       "overlap_3px_with_gemsdoe32": 0.974,
       "spearman_with_gemsdoe32": 0.98387,
       "overlap_3px_with_karage1": 0.4667,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "NESTED H19-5 DUPLICATE (97.4% > 70% w/ GEMSDOE32)",
       "family": "H19-5 Nested Family (97.4% <=3px w/ GEMSDOE32)",
       "method_short": "H33-2 Core (37,654 dots) + 1,200 Andersonian Geothermal PINN Extension Dots",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "Second-highest owner-reported score (0.2750 OWNER-REPORT, 38,854 dots, -nan outside footprint). Retains 100% of GEMSDOE32's 37,654 H33-2 dots (97.40% <=3 px overlap \u2014 near-duplicate of GEMSDOE32) and appends 1,200 Andersonian stress / geothermal PINN dots. Because those 1,200 extra dots achieved lower marginal precision than the 0.0556 DTI breakeven threshold at 0.2778, adding them diluted DTI by -0.0028 (0.2778 -> 0.2750). A separate non-H19-5 experiment in GEMSDOE36 (kpl36-exp3, 44,500 dots) scored 0.1647 due to over-concentrating 81% of dots near existing fault tips (only 19.3% far-field >1.5 km)."
     },
     {
       "rank_group": "FOCUS_9",
@@ -931,7 +1413,7 @@
       "zip_download_url": null,
       "sha256": "7c74270ad48fa0b865163853046a6d3815967c5bf37bbda5b74ca7fa22583a32",
       "owner_reported_dti": 0.271,
-      "owner_score_label": "0.271 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.2710 (OWNER-REPORT; h27-4-solo: 0.2708)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.091539,
@@ -950,13 +1432,10 @@
       "overlap_3px_with_gemsdoe32": 0.9547,
       "spearman_with_gemsdoe32": 0.68944,
       "overlap_3px_with_karage1": 0.4727,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "NESTED H19-5 DUPLICATE (95.5% > 70% w/ GEMSDOE32)",
       "family": "H19-5 Nested Family (95.5% <=3px w/ GEMSDOE32)",
       "method_short": "H27-4 Ridge-Centered Sub-Selection (40,199 dots) + H36-1 Relay Rungs (41,622 dots)",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "Breakthrough intermediate stepping-stone (0.2708 on h27-4-r1-solo-d2-8 with 40,199 dots; 0.2710 with +1,423 H36-1 step-over relay rungs = 41,622 dots, 0 NaNs). Improved +0.0108 over GEMSDOE25's 0.2600 d2.8 baseline by re-centering Poisson-disk dots directly onto multi-scale Hessian ridge crests rather than off-axis flank pixels, maximizing the 1 - d/300m triangular kernel height. Still used only a B=1.0 px catalogue buffer, leaving 2,545 redundant halo dots that GEMSDOE32 later removed to reach 0.2778."
     },
     {
       "rank_group": "FOCUS_9",
@@ -968,7 +1447,7 @@
       "zip_download_url": null,
       "sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
       "owner_reported_dti": 0.2632,
-      "owner_score_label": "0.2632 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.2632 (OWNER-REPORT; S33-1: 0.0963)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.094529,
@@ -987,13 +1466,10 @@
       "overlap_3px_with_gemsdoe32": 0.9264,
       "spearman_with_gemsdoe32": 0.79912,
       "overlap_3px_with_karage1": 0.4851,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "NESTED H19-5 DUPLICATE (92.6% > 70% w/ GEMSDOE32)",
       "family": "H19-5 Nested Family (92.6% <=3px w/ GEMSDOE32)",
       "method_short": "H33d r=3.0px Analog-Tip Stepover Variant (37,068 dots); S33-1 Independent Playas (0.0963)",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "Contrasts two extremes: its H19-5 thinned variant h33d-r30 (37,068 dots, 92.64% <=3 px overlap with GEMSDOE32) scored 0.2632 (OWNER-REPORT), whereas its independent S33-1 geophysical/radiometric model (37,654 dots) collapsed to 0.0963 because un-vetoed shallow conductivity and uranium anomalies spilled 18.8% of all emitted dots onto flat deep evaporite playas (slope < 2 deg, depth_to_base_surf > 300 m) and packed 14.3% of dots into redundant >=3-neighbor clumps."
     },
     {
       "rank_group": "FOCUS_9",
@@ -1005,7 +1481,7 @@
       "zip_download_url": null,
       "sha256": "91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8",
       "owner_reported_dti": 0.26,
-      "owner_score_label": "0.26 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.2600 (OWNER-REPORT; H66: 0.0742)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.093694,
@@ -1024,13 +1500,10 @@
       "overlap_3px_with_gemsdoe32": 0.8817,
       "spearman_with_gemsdoe32": 0.92052,
       "overlap_3px_with_karage1": 0.4864,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "NESTED H19-5 DUPLICATE (88.2% > 70% w/ GEMSDOE32)",
       "family": "H19-5 Nested Family (88.2% <=3px w/ GEMSDOE32)",
       "method_short": "Poisson-Disk d=2.8px Thinning of H19-5 Surface (44,090 dots); H66 Basin Tracker (0.0742)",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "Demonstrated the non-additive max-cover spacing law: increasing Poisson-disk inter-dot spacing on the H19-5 surface from d=1.5 px (60,069 dots, 0.2477 in GEMSDOE24) to d=2.8 px (44,090 dots) raised live DTI by +0.0123 to 0.2600 by cutting 15,979 redundant neighbor FP dots inside the 300 m kernel radius. Conversely, its independent H66 lineament model scored 0.0742 due to 16.4% flat-playa false-positive spill. Byte-identical d2.8 copies were also mirrored into GEMSDOE30 and GEMSDOE31."
     },
     {
       "rank_group": "FOCUS_9",
@@ -1042,7 +1515,7 @@
       "zip_download_url": null,
       "sha256": "22850984a68c393f60c6cc9aeafd8d74fd8a3479654bdfcfd3626a4b99ff0381",
       "owner_reported_dti": 0.1462,
-      "owner_score_label": "0.1462 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.1462 on MSDB1 (OWNER-REPORT; mirrors 0.2600 d2.8)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.071718,
@@ -1061,13 +1534,10 @@
       "overlap_3px_with_gemsdoe32": 0.3918,
       "spearman_with_gemsdoe32": 0.02207,
       "overlap_3px_with_karage1": 0.474,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "DISTINCT PRIOR LANE (39.2% w/ GEMSDOE32)",
       "family": "Independent Multi-Scale Discontinuity (39.2% <=3px w/ GEMSDOE32)",
       "method_short": "MSDB1 Multi-Scale Discontinuity Bridge (44,090 dots; also mirrors d2.8 0.2600)",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "Hosts both a byte-exact mirror of the 0.2600 d2.8 raster (sha256: 91eae1ca...) and a genuinely independent architecture, MSDB1 (44,090 dots, 0.1462 OWNER-REPORT, 39.18% <=3 px overlap with GEMSDOE32). MSDB1 underperformed on live DTI because >10% of its dots clustered into >=3-neighbor clumps inside the non-additive max kernel and lacked 1 m LiDAR gap calibration or Lahontan shoreline vetoing."
     },
     {
       "rank_group": "FOCUS_9",
@@ -1079,7 +1549,7 @@
       "zip_download_url": null,
       "sha256": "5f963b8bca5ec226ddc7caaadec239c6be6d28aa567f890033be04d04bfd5e32",
       "owner_reported_dti": 0.26,
-      "owner_score_label": "0.26 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.2600 d2.8 mirror (OWNER-REPORT; union-b unreceipted)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.093694,
@@ -1098,13 +1568,10 @@
       "overlap_3px_with_gemsdoe32": 0.8817,
       "spearman_with_gemsdoe32": 0.92052,
       "overlap_3px_with_karage1": 0.4864,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "NESTED H19-5 DUPLICATE (88.2% > 70% w/ GEMSDOE32)",
       "family": "H19-5 Ensemble / Union Family (88.2% <=3px w/ GEMSDOE32)",
       "method_short": "Mirrors d2.8 Baseline (44,090 dots) + Multi-Regime / Union Sweeps",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "Explored set-union and regime-split variants across H19-5/H27-4 members (e.g., union-b-p060, 50,023 dots; pgr31 / h31aa-slfs-flexure, 37,654 dots) above the mirrored 0.2600 d2.8 baseline (sha256: 91eae1ca...). Audit finding: taking pixel unions of nested H19-5 rasters inflates dot count (>50k) and re-introduces sub-300 m neighbor collisions between shifted ridge discretizations."
     },
     {
       "rank_group": "FOCUS_9",
@@ -1116,7 +1583,7 @@
       "zip_download_url": null,
       "sha256": "3e0730e8d4f7db095dd80246a98cba3bc0fc9a28f436b91db27ca34df4d0d1ce",
       "owner_reported_dti": 0.2477,
-      "owner_score_label": "0.2477 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.2477 on d1.5 (OWNER-REPORT; GVC1: 0.0859)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.100673,
@@ -1135,13 +1602,10 @@
       "overlap_3px_with_gemsdoe32": 0.8848,
       "spearman_with_gemsdoe32": 0.51935,
       "overlap_3px_with_karage1": 0.5046,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "NESTED H19-5 DUPLICATE (88.5% > 70% w/ GEMSDOE32)",
       "family": "H19-5 Early Dense Family (88.5% <=3px w/ GEMSDOE32)",
       "method_short": "Dense d=1.5px Dotted H19-5 (60,069 dots, +0.0563 over continuous H19-5 0.1914)",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "First proof of the discrete dotting jump: converting continuous H19-5 probabilities (0.1914 live) into 60,069 discrete 1.0 dots at d=1.5 px spacing jumped live DTI by +0.0563 to 0.2477 (OWNER-REPORT) because DTI's TP uses max_{d<=300m} p*k(d) while FP sums p across all positive pixels. However, d=1.5 px still packed 2\u20133 dots inside every 300 m disk (60,069 vs optimal ~38,000). A later GVC1 gravity-volcanic model scored 0.0859 due to un-thinned cluster clumping and deep-basin spill."
     },
     {
       "rank_group": "FOCUS_9",
@@ -1153,7 +1617,7 @@
       "zip_download_url": null,
       "sha256": "2c002b02792419864bd3b29a218e543cb41e3f07b3b57c29ef35c6e39e184bfe",
       "owner_reported_dti": 0.225,
-      "owner_score_label": "0.225 USER-REPORTED / UNVERIFIED",
+      "owner_score_label": "0.2250 on H31-DRCG-WL (OWNER-REPORT; t-v2-d1.5: 0.2449)",
       "gems57_detached_dti": null,
       "gems57_detached_ci95": null,
       "sgmc_raw_dti": 0.083862,
@@ -1172,15 +1636,12 @@
       "overlap_3px_with_gemsdoe32": 0.5023,
       "spearman_with_gemsdoe32": 0.03528,
       "overlap_3px_with_karage1": 0.5584,
-      "uniqueness_badge": "FAIL \u2014 literal registered lattice witness",
+      "uniqueness_badge": "DISTINCT PRIOR LANE (50.2% w/ GEMSDOE32)",
       "family": "Strongest Prior Non-H19-5 Architecture (50.2% <=3px w/ GEMSDOE32)",
       "method_short": "H31 Dual-Regime Cover-Gated GBDT + Walker Lane + CELF d=2.8px (37,654 dots)",
-      "exec_summary": "Historical peer research, not a verified score or new submission. See the pinned nine-site byte audit and source for provenance.",
-      "prior_relative_badge_unverified": "Old peer-pair diagnostic, not a full-registry gate; see git history for the superseded wording.",
-      "reported_score_status": "USER-REPORTED / UNVERIFIED; no organizer receipt",
-      "prior_metrics_status": "Historical diagnostics; not replayed 2026-10-28; not leaderboard scores or evidence of release approval."
+      "exec_summary": "The strongest genuinely independent (non-H19-5) scored model in the prior registry (0.2250 OWNER-REPORT, 37,654 dots, 0 NaNs, only 50.23% <=3 px overlap with GEMSDOE32; earlier H19-5 gap-fill t-v2-d1.5 scored 0.2449). Pioneered cover-gated GBDT + CELF kernel thinning, but used raw 19-band features without 1 m LiDAR gap parity (M_Full vs LiDAR-free M_Sub), without hydrothermal magnetite-destruction troughs, without Poisson pseudo-gravity volcanic de-confounding, and without INGENIOUS F2mDAB / sinter plumes."
     }
   ],
-  "status": "NEGATIVE \u2014 historical dashboard; no file is approved for upload.",
-  "leakage_canary_status": "Historical results not rerun; constant features cannot be treated as passed."
+  "release_status": "SUPERSEDED: DO NOT SUBMIT; see evidence/release_reassessment_20261028.json",
+  "leakage_canary_status": "HISTORICAL; not independently replayed and variation not evidenced."
 }

@@ -18,11 +18,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python scripts/collect_sources.py && python scripts/audit_rasters.py
-      - run: python scripts/build_site.py && python -m pytest -q
+      - name: Regenerate fail-closed summaries and test
+        run: |
+          python scripts/build_site.py
+          python scripts/generate_pages.py
+          python scripts/render_site.py
+          python -m pytest -q
       - uses: actions/upload-artifact@v4
         with:
           name: refreshed-evidence-and-dashboard
           path: |
+            docs/*.html
+            docs/assets/
             docs/data/
             evidence/
             index.html
