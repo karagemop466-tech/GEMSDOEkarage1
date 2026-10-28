@@ -13,6 +13,8 @@
 · name `KARAGE1-BBSTEP-72312302675D`
 · note `BB-STEP buried grav/dtb ridge; research only; DO NOT SUBMIT`
 
+Other 28 October parallel-session reviews on `main` remain **DO NOT SUBMIT** (no assigned lane, lattice duplicates, or preflight blocks). They did not generate this BB-STEP raster and do not authorize upload.
+
 **HOLDOUT-DTI 0.0318** [0.0271, 0.0363] · evaluator `gemsk-hide-recover-v1` ·
 withheld positives 60,988. This is **not** an organizer score and is **not** a
 forecast of the USER-REPORTED 0.2778.

@@ -1,0 +1,39 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "session": "arena/0fb1ec81-gemsdoekarage1",
+  "hypothesis": null,
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "hypothesis_status": "No method lane was assigned; no geological hypothesis was executed.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "value": null,
+    "ci95": null,
+    "status": "Not evaluated in this session."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface": null,
+    "final_raster": null,
+    "registry_complete": false,
+    "historical_hmas_overlap_vs_lattice": {"dots_within_3px": 38174, "candidate_dots": 38200},
+    "historical_gpcz_overlap_vs_lattice": {"dots_within_3px": 35959, "candidate_dots": 36000},
+    "status": "These are prior artifacts, not new predictions; either witness exceeds the literal limit."
+  },
+  "raster_sha256": null,
+  "validator_output": "No new raster to validate. Existing artifacts were reread against an unauthenticated pinned mirror; see reassessment_arena_0fb1_20261028.json. Portal acceptance is not established.",
+  "submission_name": null,
+  "submission_note": null,
+  "experiments_run": 0,
+  "new_rasters": 0,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "blockers": [
+    "The prompt's referenced single assigned method paragraph is absent.",
+    "Previously promoted files fail the literal lattice overlap rule; stop.",
+    "The authoritative shared template, feature cache, complete registry and comparable valid holdout baseline are not established.",
+    "Mirrored data and sample are not authenticated against organizer downloads; outside-footprint encoding and portal acceptance remain unverified."
+  ]
+}

@@ -3,6 +3,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 
@@ -25,10 +26,34 @@ def bootstrap():
 
 def preflight():
     pin = json.loads((ROOT / 'registry/template.json').read_text())
-    needed = [ROOT / '.cache/gems_work/feature_stack.npy', ROOT / '.cache/gems_data/training_features.tif',
+    needed = [ROOT / '.cache/gems_work/feature_stack.npy', ROOT / '.cache/gems_data/existing_faults.tif',
+              ROOT / '.cache/gems_data/training_features.tif',
               ROOT / '.cache/gems_data/sample_submission.tif', ROOT / '.cache/gems_data/labels.tif']
-    return {'lane': pin.get('method_lane'), 'missing': [str(p.relative_to(ROOT)) for p in needed if not p.is_file()],
-            'template_commit': pin['commit']}
+    lane = pin.get('method_lane')
+    lane_valid = isinstance(lane, str) and bool(lane.strip())
+    # A suggested peer pin is not an assignment of the shared template.
+    # Require an explicit, recorded assignment bound to this lane and exact pin.
+    # This is an internal consistency check, not authentication of the record.
+    assignment = pin.get('canonical_template_assignment')
+    repo, commit = pin.get('repository'), pin.get('commit')
+    assignment_valid = (
+        lane_valid and isinstance(assignment, dict)
+        and isinstance(repo, str)
+        and bool(re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repo))
+        and all(part not in ('.', '..') for part in repo.split('/'))
+        and isinstance(commit, str) and bool(re.fullmatch(r'[0-9a-f]{40}', commit))
+        and assignment.get('repository') == repo and assignment.get('commit') == commit
+        and assignment.get('method_lane') == lane
+        and isinstance(assignment.get('evidence'), str) and bool(assignment['evidence'].strip())
+    )
+    missing = [str(p.relative_to(ROOT)) for p in needed if not p.is_file()]
+    empty = [str(p.relative_to(ROOT)) for p in needed if p.is_file() and p.stat().st_size == 0]
+    return {'lane': lane, 'missing': missing, 'empty': empty, 'template_commit': commit,
+            'canonical_assignment_recorded': bool(assignment_valid),
+            'ready_for_shared_tools': bool(lane_valid and assignment_valid and not missing and not empty),
+            'ok_to_submit': False,
+            'scope': ('Input presence, nonempty size and recorded lane/template assignment only; not authentication, '
+                      'scientific validation or slot selection.')}
 
 
 def main():
@@ -42,9 +67,9 @@ def main():
     report = preflight()
     if opts.command == 'preflight':
         print(json.dumps(report, indent=2))
-        return
-    if not report['lane'] or report['missing']:
-        raise SystemExit('BLOCKED: lane / cached inputs missing. ' + json.dumps(report))
+        return 0 if report['ready_for_shared_tools'] else 1
+    if not report['ready_for_shared_tools']:
+        raise SystemExit('BLOCKED: lane, canonical template assignment, or cached inputs missing or empty. ' + json.dumps(report))
     bootstrap()
     target = 'evaluate_holdout.py' if opts.command == 'evaluate' else 'submission_writer.py'
     env = dict(os.environ, GEMS_DATA_DIR=str(ROOT / '.cache/gems_data'), GEMS_WORK_DIR=str(ROOT / '.cache/gems_work'))
@@ -52,4 +77,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

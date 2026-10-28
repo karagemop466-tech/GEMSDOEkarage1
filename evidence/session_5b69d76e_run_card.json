@@ -1,0 +1,62 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "created_utc": "2026-10-28T16:23:09.469083+00:00",
+  "session": "arena/5b69d76e-gemsdoekarage1",
+  "hypothesis": null,
+  "mechanism": null,
+  "named_non_fault_process": null,
+  "reason": "No assigned method-lane paragraph was supplied. Rechecked historical artifacts only; no new geological hypothesis was run.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not measured in this session"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "historical_final_dots": {
+      "hmas": {
+        "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+        "dot_spearman_vs_lattice": -2.856745533511713e-05,
+        "dot_overlap_vs_lattice": 0.9993193717277487,
+        "overlapping_dots": 38174,
+        "candidate_dots": 38200,
+        "validator": {
+          "no_nan_inside_footprint": true,
+          "values_in_0_1_inside": true,
+          "crs_shape_transform_match_mirror": true,
+          "outside_null_or_nan": false,
+          "organizer_template_authenticated": false,
+          "portal_acceptance": "not tested"
+        }
+      },
+      "gpcz": {
+        "raster_sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+        "dot_spearman_vs_lattice": -0.0007048666489752947,
+        "dot_overlap_vs_lattice": 0.9988611111111111,
+        "overlapping_dots": 35959,
+        "candidate_dots": 36000,
+        "validator": {
+          "no_nan_inside_footprint": true,
+          "values_in_0_1_inside": true,
+          "crs_shape_transform_match_mirror": true,
+          "outside_null_or_nan": false,
+          "organizer_template_authenticated": false,
+          "portal_acceptance": "not tested"
+        }
+      }
+    },
+    "registry_coverage": "One pinned lattice only; sufficient to reject these artifacts, not a complete registry."
+  },
+  "raster_sha256": null,
+  "validator_output": "No new raster was generated. Historical saved-byte diagnostics are nested above and use an unauthenticated mirror.",
+  "submission_name": null,
+  "submission_note": null,
+  "geological_experiments": 0,
+  "slot_selected_or_spent": false,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "audit": "evidence/session_5b69d76e_prior_audit.json"
+}
