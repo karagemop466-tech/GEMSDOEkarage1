@@ -1,0 +1,29 @@
+{
+  "hypothesis": null,
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run; no assigned lane or shared inputs."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface": null,
+    "final_dots": null,
+    "status": "No new candidate; previous candidates fail lattice witness; registry incomplete."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "status": "No new raster to validate; format alone is not promotion."
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "experiments": 0,
+  "review": "knowledge/session-review-arena-43868644.md"
+}
