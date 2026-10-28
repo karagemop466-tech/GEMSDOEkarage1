@@ -198,4 +198,12 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     assert data["peer_rasters_count"] == 9
     actual_tifs = {f"docs/downloads/{p.name}" for p in (ROOT / "docs/downloads").glob("*.tif")}
     audited_tifs = {r["file"] for r in data["local_downloads"]}
-    assert audited_tifs == actual_tifs
+    # Session 1668dda0's receipt is historical and must not be rewritten.
+    # Any TIF added afterwards must be covered by a later session audit:
+    # 147b0f11's SGMC re-audit covers the new DIPDUAL raster (run card
+    # evidence/run_card_dipdual_20261028.json, verdict negative).
+    later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
+    later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
+    uncovered = actual_tifs - audited_tifs - later_tifs
+    assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
+    assert audited_tifs <= actual_tifs
