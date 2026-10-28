@@ -289,3 +289,16 @@ def test_format_diagnostic_cannot_replace_input(tmp_path, alias):
     assert run.returncode == 2
     assert 'must not overwrite candidate or template' in run.stderr
     assert all(p.read_bytes() == b for p, b in inputs.items())
+
+
+def test_format_diagnostic_rejects_self_template(tmp_path):
+    from scripts.validate_geotiff import diagnose
+    template = np.zeros((8, 8), np.float32); template[0] = np.nan
+    tif = tmp_path / 'candidate.tif'
+    _write(tif, template, 'float32', np.nan)
+    with pytest.raises(ValueError, match='candidate and template must be distinct files'):
+        diagnose(tif, tif)
+    alias = tmp_path / 'alias.tif'
+    alias.symlink_to(tif)
+    with pytest.raises(ValueError, match='candidate and template must be distinct files'):
+        diagnose(tif, alias)

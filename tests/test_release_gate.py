@@ -149,7 +149,7 @@ def test_matching_registry_hash_cannot_be_overridden_by_identity_flags():
     assert any('Candidate hash matches registry raster' in reason for reason in result['reasons'])
 
 
-def test_duplicate_registry_hashes_or_whitespace_ids_fail_closed():
+def test_duplicate_registry_hashes_or_whitespace_ids_and_self_template_fail_closed():
     card = copy.deepcopy(good())
     second = dict(card['registry']['comparisons'][0], id='duplicate-digest')
     card['registry']['comparisons'].append(second)
@@ -160,7 +160,22 @@ def test_duplicate_registry_hashes_or_whitespace_ids_fail_closed():
 
     ws_card = copy.deepcopy(good())
     ws_card['registry']['comparisons'][0]['id'] = '   '
-    assert gate.assess(ws_card)['verdict'] == 'negative'
+    ws_res = gate.assess(ws_card)
+    assert ws_res['verdict'] == 'negative'
+    assert any('Missing or duplicate registry identity' in reason for reason in ws_res['reasons'])
+
+    self_tmpl = copy.deepcopy(good())
+    self_tmpl['validator']['template_sha256'] = self_tmpl['raster_sha256']
+    self_res = gate.assess(self_tmpl)
+    assert self_res['verdict'] == 'negative'
+    assert any('Saved TIFF validation not bound' in reason for reason in self_res['reasons'])
+
+    null_bind = copy.deepcopy(good())
+    null_bind['raster_sha256'] = None
+    null_bind['registry']['candidate_sha256'] = None
+    null_res = gate.assess(null_bind)
+    assert null_res['verdict'] == 'negative'
+    assert any('Registry receipt is not bound' in reason for reason in null_res['reasons'])
 
 
 def test_overlong_submission_name_or_masked_validator_or_mismatched_withheld_fail_closed():
