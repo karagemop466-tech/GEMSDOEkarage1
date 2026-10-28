@@ -7,6 +7,17 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest session run card](evidence/session_b65a5aab_run_card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Concurrent checkout review — session `arena/43868644`
+
+**No new eligible TIFF; do not submit.** The assigned lane and shared cached
+inputs are missing. The release policy now requires an explicit GeoTIFF driver
+check and fails safely on oversized numeric inputs. This is not evidence of
+candidate quality or organizer acceptance. See the [three-pass review](knowledge/session-review-arena-43868644.md)
+and [negative run card](evidence/run_card_arena_43868644.json). Tests: 243 passed;
+no experiment, holdout score or weekly slot selection. The archived hypothesis
+preregistration contains speculative gains and provenance claims that are not
+verified and must not be treated as measured scores.
+
 ## Earlier review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
 The previously reported lattice failure was independently replayed from pinned
