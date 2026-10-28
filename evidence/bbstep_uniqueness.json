@@ -1,0 +1,113 @@
+{
+  "n_our_dots": 17766,
+  "rows": [
+    {
+      "id": "GEMSDOE24",
+      "their_dots": 60069,
+      "frac_our_dots_within_3px": 0.12146797253180232,
+      "spearman_dots": -0.003213050012662832,
+      "spearman_surface": -0.08499952116982575,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "GEMSDOE25",
+      "their_dots": 44090,
+      "frac_our_dots_within_3px": 0.11465721040189125,
+      "spearman_dots": -0.0018340450505983906,
+      "spearman_surface": -0.07255679691381156,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "GEMSDOE27",
+      "their_dots": 61328,
+      "frac_our_dots_within_3px": 0.12625239220983903,
+      "spearman_dots": -0.003319615023066821,
+      "spearman_surface": -0.08288711323393043,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "GEMSDOE28",
+      "their_dots": 37660,
+      "frac_our_dots_within_3px": 0.10790273556231003,
+      "spearman_dots": -0.0005849117185923247,
+      "spearman_surface": -0.06607185634620014,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "GEMSDOE30",
+      "their_dots": 44090,
+      "frac_our_dots_within_3px": 0.11465721040189125,
+      "spearman_dots": -0.0018340450505983906,
+      "spearman_surface": -0.07255679691381156,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "GEMSDOE31",
+      "their_dots": 40199,
+      "frac_our_dots_within_3px": 0.11009793988517393,
+      "spearman_dots": -0.001410518390212056,
+      "spearman_surface": -0.06954233163443513,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "GEMSDOE32",
+      "their_dots": 37654,
+      "frac_our_dots_within_3px": 0.10638297872340426,
+      "spearman_dots": -0.0011037199922514867,
+      "spearman_surface": -0.0669077343059779,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "GEMSDOE33",
+      "their_dots": 41865,
+      "frac_our_dots_within_3px": 0.11443206124057188,
+      "spearman_dots": -0.001613983888169729,
+      "spearman_surface": -0.07046849758409354,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "GEMSDOE36",
+      "their_dots": 38854,
+      "frac_our_dots_within_3px": 0.10857818304626815,
+      "spearman_dots": -0.0012549490858357341,
+      "spearman_surface": -0.06672672737718296,
+      "duplicate_by_overlap": false,
+      "duplicate_by_rho": false
+    },
+    {
+      "id": "lattice",
+      "their_dots": 206895,
+      "frac_our_dots_within_3px": 0.985252729933581,
+      "spearman_dots": 0.0018536261130685252,
+      "spearman_surface": -0.0013141105949291475,
+      "duplicate_by_overlap": true,
+      "duplicate_by_rho": false
+    }
+  ],
+  "unique_vs_nine_focus_sites": true,
+  "worst_focus_overlap": {
+    "id": "GEMSDOE27",
+    "their_dots": 61328,
+    "frac_our_dots_within_3px": 0.12625239220983903,
+    "spearman_dots": -0.003319615023066821,
+    "spearman_surface": -0.08288711323393043,
+    "duplicate_by_overlap": false,
+    "duplicate_by_rho": false
+  },
+  "worst_focus_rho": {
+    "id": "GEMSDOE24",
+    "abs_spearman": 0.08499952116982575
+  },
+  "lattice_overlap": 0.985252729933581,
+  "lattice_duplicate_literal": true,
+  "registry_complete": false,
+  "registry_coverage": "Nine focus-site historic rasters plus the pinned 13GEMSDOE lattice. Not a complete fleet registry."
+}

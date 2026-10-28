@@ -107,3 +107,14 @@ GitHub Pages is already enabled from `main` at `/` according to the repository
 Pages API. Its public URL is https://karagemop466-tech.github.io/GEMSDOEkarage1/ .
 A successful merge is not itself proof that the asynchronous Pages build has
 finished. The current authenticated submission allowance is still unknown.
+
+### Concurrent integration at handoff
+
+Further main changes through `beab878` added an inherited BB-STEP research TIFF
+and its own negative lattice decision. Preserved those bytes/reports without
+claiming to reproduce its experiments or validate its holdout. This session's
+separate run card still records zero new experiments and no new raster. Added
+an explicit README distinction; retained shared-tool integrity blocking alongside
+new canonical-assignment, readable-input and data-role diagnostics. Removed a
+stray inherited merge-marker token from README. Final integrated suite:
+**287 passed**, 90 pending-deprecation warnings. The handoff remains negative.

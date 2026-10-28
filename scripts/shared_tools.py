@@ -1,5 +1,6 @@
 """Bootstrap and invoke pinned shared tools, never copy or fork their implementation."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -25,6 +26,24 @@ def bootstrap():
         raise SystemExit('Template commit mismatch; refusing execution')
     if subprocess.check_output(['git', '-C', str(TEMPLATE), 'status', '--porcelain'], text=True).strip():
         raise SystemExit('Shared template has modifications; no private fork permitted')
+
+
+def _same_bytes(first, second):
+    """Report byte identity only; identical files do not establish data roles."""
+    if not first.is_file() or not second.is_file():
+        return None
+    try:
+        if first.stat().st_size != second.stat().st_size:
+            return False
+        def digest(path):
+            h = hashlib.sha256()
+            with path.open('rb') as stream:
+                for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                    h.update(chunk)
+            return h.digest()
+        return digest(first) == digest(second)
+    except OSError:
+        return None
 
 
 def preflight():
@@ -65,7 +84,11 @@ def preflight():
         except OSError:
             unreadable.append(name)
     integrity = template_integrity_audit(ROOT)
-    return {'template_integrity': integrity, 'lane': lane, 'missing': missing, 'empty': empty, 'unreadable': unreadable, 'template_commit': commit,
+    labels_match_catalogue = _same_bytes(needed[4], needed[1])
+    return {'template_integrity': integrity, 'labels_and_existing_faults_identical_bytes': labels_match_catalogue,
+            'data_role_warning': ('Identical bytes: verify source and fold-local fault roles before evaluation; '
+                                  'identity alone does not establish leakage.' if labels_match_catalogue is True else None),
+            'lane': lane, 'missing': missing, 'empty': empty, 'unreadable': unreadable, 'template_commit': commit,
             'canonical_assignment_recorded': bool(assignment_valid),
             'ready_for_shared_tools': bool(lane_valid and assignment_valid and not (missing or empty or unreadable) and integrity['execution_authorized']),
             'ok_to_submit': False,
