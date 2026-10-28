@@ -1,0 +1,249 @@
+{
+  "schema": "karage1-run-card-v3",
+  "created_utc": "2026-10-28T22:52:14.664914+00:00",
+  "session": "arena/147b0f11-gemsdoekarage1",
+  "lane": "H-K1-DIPDUAL",
+  "preregistration": "docs/research/preregistration-dipdual-20261028.md",
+  "hypothesis": "Dual-regime: exposed LiDAR/DEM step-polarity scarps plus dip-projected (updip-shifted) buried gravity/basement ridges recover off-catalogue faults better than either regime alone.",
+  "mechanism": "Exposed: step-edge+curvature+LiDAR polarity gated by concordance/obliquity with road veto. Buried: BB-STEP ridges shifted updip by clip(dtb,0,2500m)/tan60deg (<=8px). Slope-rank regime split, quota 65% exposed, Poisson 2.8px, 2px catalogue apron.",
+  "named_non_fault_mimic": "Lake Lahontan shoreline benches, road/rail embankments, lithologic contacts and volcanic-flow density edges.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": 0.04005594449368453,
+    "evaluator_version": "gemsk-hide-recover-v1",
+    "withheld_positives": 60988,
+    "ci95": [
+      0.03454361546841292,
+      0.04613127869655852
+    ],
+    "status": "Fold-local emission, blocked whole-component hide-and-recover. Not an organizer score."
+  },
+  "sgmc_diagnostic_dti": {
+    "label": "SGMC-DIAGNOSTIC-DTI",
+    "value": 0.0902444419689995,
+    "truth_positives": 62122,
+    "ci95": [
+      0.0773312191234711,
+      0.10259683669080374
+    ],
+    "status": "Off-catalogue SGMC truth; not the hidden test set."
+  },
+  "saved_raster_censored_blocked_dti": {
+    "label": "HOLDOUT-DTI (censored diagnostic)",
+    "value": 0.00281839585507608,
+    "ci95": [
+      0.002435883805380639,
+      0.003248908147004261
+    ],
+    "status": "Full-catalogue apron cannot recover withheld catalogue px by construction."
+  },
+  "controls_blocked": {
+    "GPC": {
+      "dti": 0.07339389911540638,
+      "ci95": [
+        0.06483814141376597,
+        0.08220192610103493
+      ]
+    },
+    "BBSTEP": {
+      "dti": 0.046742081690138715,
+      "ci95": [
+        0.038376313199924954,
+        0.05582807590324948
+      ]
+    },
+    "BURIED_DIP": {
+      "dti": 0.043513955949675706,
+      "ci95": [
+        0.03745335206881418,
+        0.04944428258571556
+      ]
+    }
+  },
+  "paired_deltas": {
+    "vs_gpc_blocked": {
+      "mean": -0.03328047909376926,
+      "ci95": [
+        -0.04110915920146698,
+        -0.025585110738987966
+      ],
+      "frac_positive": 0.0
+    },
+    "vs_bbstep_blocked": {
+      "mean": -0.0066523599784491716,
+      "ci95": [
+        -0.012802283847020719,
+        -0.0007955978867623296
+      ],
+      "frac_positive": 0.017
+    },
+    "vs_best_control_sgmc": {
+      "mean": -0.035969929311748146,
+      "ci95": [
+        -0.04655851548619842,
+        -0.02580084835736215
+      ],
+      "frac_positive": 0.0
+    },
+    "sgmc_best_control": "GPC"
+  },
+  "gates": {
+    "canary_no_alarm": true,
+    "blocked_beats_bbstep_ci": false,
+    "blocked_no_collapse_vs_gpc": false,
+    "sgmc_beats_best_control_ci": false,
+    "unique_vs_discrete_registry": true,
+    "preplacement_spearman_discrete_ok": true,
+    "format_writer_ok": true,
+    "independent_reread_ok": true
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_worst_discrete": {
+      "id": "local/karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif",
+      "dots": 17766,
+      "role": "discrete_submission",
+      "sha256": "72312302675d65cd1983239dd436412b5db1118a7c08f2a5807ef436b5536d6a",
+      "spearman_surface": 0.05764524894163721,
+      "abs_spearman": 0.05764524894163721,
+      "duplicate_by_rho": false
+    },
+    "final_worst_discrete_forward": {
+      "id": "local/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+      "dots": 36000,
+      "role": "discrete_submission",
+      "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+      "forward_overlap_3px": 0.23747808997716047,
+      "reverse_overlap_3px": 0.27758333333333335,
+      "jaccard_3px_supports": 0.13484041671457422,
+      "spearman_dots": 0.04128224085483722,
+      "duplicate_discrete_rule": false
+    },
+    "unique_vs_discrete": true,
+    "lattice_forward_overlap": 0.9988845806554416,
+    "lattice_duplicate_literal": true,
+    "lattice_min_possible_forward_at_this_N": 0.8234184947150369,
+    "lattice_role": "calibration_probe (IR-DIPDUAL-LATTICE-01); literal value published, selector must acknowledge",
+    "registry_complete": false
+  },
+  "raster_sha256": "7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae",
+  "raster_file": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+  "zip_file": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.zip",
+  "zip_sha256": "88ba3b4e3ba43eb586b2c7d782362e0aec22a9a54ca5e0d445b42d4179336634",
+  "validator_output": {
+    "shared_writer": {
+      "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+      "bytes": 146246,
+      "sha256": "7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    },
+    "template_report_ok": true,
+    "independent_gemsk_validate": {
+      "file": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+      "bytes": 146246,
+      "sha256": "7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae",
+      "emitted_positive_pixels": 37654,
+      "unique_values_in_footprint": [
+        0.0,
+        1.0
+      ],
+      "on_catalogue_dots": 0,
+      "dots_within_2px_of_catalogue": 0,
+      "whole_array_finite": true,
+      "nodata_tag": null,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "crs_matches_template": true,
+        "transform_matches_template": true,
+        "shape_matches_template": true,
+        "crs_is_epsg_32611": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero_or_nan": true,
+        "no_inf_anywhere": true,
+        "whole_array_finite_(zeros_mode)": true
+      },
+      "all_checks_passed": true
+    },
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "portal_acceptance": "not tested"
+  },
+  "submission_name": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+  "submission_note": "DIPDUAL dual-regime dip-shifted research raster; gates failed; DO NOT SUBMIT",
+  "submission_note_chars": 76,
+  "emit_info": {
+    "n_exposed": 24475,
+    "n_buried": 13179,
+    "n_topup": 0,
+    "n_total": 37654
+  },
+  "budget": 37654,
+  "frac_exposed": 0.65,
+  "download_available": true,
+  "download_available_meaning": "Research download only; not authorization to upload. Gates failed.",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 3,
+  "canary_max_direction_invariant_auc": 0.6093728202541556,
+  "verdict": "negative",
+  "blockers": [
+    "blocked>bbstep",
+    "blocked~gpc",
+    "sgmc>control",
+    "Weekly-slot selector has not run; ok_to_submit remains false.",
+    "Literal lattice forward overlap exceeds 70% (mathematically unavoidable at this N); see IR-DIPDUAL-LATTICE-01.",
+    "Registry is not the complete fleet; mirrors are not organizer-authenticated."
+  ]
+}
