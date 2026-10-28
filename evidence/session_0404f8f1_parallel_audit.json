@@ -1,0 +1,39 @@
+{
+  "schema": "parallel-candidate-lattice-audit-v1",
+  "scope": "One pinned witness only; not a complete registry or holdout audit. Peer mirror authenticity is not established.",
+  "distance": "Closed Euclidean disk of radius 3 pixels on the matched mirror grid, within the template footprint.",
+  "footprint_pixels": 5167373,
+  "uncovered_footprint_pixels": 6649,
+  "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+  "lattice_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+  "candidates": {
+    "td": {
+      "pr": 20,
+      "commit": "722d7f1ef1d051e835dc00974a2dfbf04df1d600",
+      "path": "docs/downloads/karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z-zeros.tif",
+      "sha256": "20be4c631571ffb62b27f4c36ce518bf240a478f349e97242c147b763b5250ee",
+      "source_url": "https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/722d7f1ef1d051e835dc00974a2dfbf04df1d600/docs/downloads/karage1-td-ksck-chi10m-stage2-37654d-20261028T061500Z-zeros.tif",
+      "candidate_dots_in_footprint": 37654,
+      "dots_within_3px": 37584,
+      "directed_overlap": 0.9981409677590695,
+      "dot_spearman_in_footprint": 0.001072181380976559,
+      "duplicate_over_70_percent": true,
+      "preplacement_surface_checked": false,
+      "ok_to_submit": false
+    },
+    "ctws": {
+      "pr": 19,
+      "commit": "cd981a202ffe0a4bda10218f14e54348499f67e2",
+      "path": "docs/downloads/karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.tif",
+      "sha256": "f33bc5cfccc917c3d241932253706a9b685db1dced0a95ed4b915d8c2fa5263f",
+      "source_url": "https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/cd981a202ffe0a4bda10218f14e54348499f67e2/docs/downloads/karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.tif",
+      "candidate_dots_in_footprint": 38200,
+      "dots_within_3px": 37999,
+      "directed_overlap": 0.994738219895288,
+      "dot_spearman_in_footprint": -0.00029360385963351924,
+      "duplicate_over_70_percent": true,
+      "preplacement_surface_checked": false,
+      "ok_to_submit": false
+    }
+  }
+}
