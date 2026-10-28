@@ -18,8 +18,8 @@ Existing duplicate decisions remain unchanged. Historical saved-byte audit evide
 
 ## Pass 3 — verification and request reconciliation
 
-- Full suite: **252 passed**, with **90 Rasterio PendingDeprecationWarnings**. These are software tests, not geological validation results.
-- Targeted preflight suite: **23 passed**.
+- Full suite: **272 passed**, with **90 Rasterio PendingDeprecationWarnings**. These are software tests, not geological validation results.
+- Targeted preflight suite: **40 passed**.
 - `python scripts/build_site.py`: 32 deterministic pages; no generated-page diff.
 - `git diff --check`: clean.
 - Dependencies installed in ignored `.venv/`; system Python was left unchanged.
@@ -44,3 +44,7 @@ The request for a unique downloadable eligible TIFF and a validated improvement 
 - [Prior source register](sources-2026-10-28.md): retained historical checks, not newly verified external pages.
 - [Current executive summary](../docs/executive-summary.html) and [nine-site audit](../docs/data/reference-audit.json): inherited evidence, not new organizer receipts.
 - [Session run card](../evidence/session_ea042946_run_card.json).
+
+## Concurrent-main integration
+
+Before merging PR 37, main advanced to `64cc63c` with overlapping empty-file checks and a new canonical-template assignment gate. Merged main into the session branch, preserved that gate and all upstream tests, and integrated this session's readable-input checks rather than overwriting the concurrent protections. Re-ran the complete suite (272 passed) and targeted suite (40 passed) after resolving conflicts; rebuilt all 32 pages with no page changes. Readiness still fails. The upstream assignment record is a consistency requirement, not proof of organizer provenance.

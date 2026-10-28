@@ -33,9 +33,9 @@
   "slot_selected_or_spent": false,
   "verdict": "negative",
   "software_verification": {
-    "full_suite_passed": 252,
+    "full_suite_passed": 272,
     "rasterio_pending_deprecation_warnings": 90,
-    "targeted_preflight_tests_passed": 23,
+    "targeted_preflight_tests_passed": 40,
     "deterministic_pages_rendered": 32,
     "generated_page_diff": false,
     "meaning": "Software verification only, not HOLDOUT-DTI or organizer-confirmed performance."
