@@ -1,6 +1,6 @@
 # Starting point for every session
 
-Read `README.md`, `knowledge/research-review.md`, and `docs/data/run-card.json`
+Read `README.md`, `docs/standing-prompt.md`, `knowledge/research-review.md`, and `docs/data/run-card.json`
 before proposing or implementing work. The owner's parallel-run protocol in
 README is binding: do not invent a missing assigned lane, bypass a registry
 witness, manufacture a score or upload old predictions. Preserve the budget,

@@ -65,6 +65,8 @@ The [source monitor](index.html#source-feed) checks pinned peer GitHub revisions
 
 ## Standing project brief (normalized)
 
+A more detailed reconstructed requirements record is retained in [`docs/standing-prompt.md`](docs/standing-prompt.md); neither text claims to reproduce the lost original verbatim.
+
 **Maximize P(Win). Own the Outcome.** Continue the DOE GEMS Prize project autonomously, with a clean, navigable GitHub Pages executive summary for GEMSDOE24, 25, 27, 28, 30, 31, 32, 33 and 36. Investigate previous high-performing work and the reported GEMSDOE32 H33-B2 result; use historical submissions for learning, never simply rename and resubmit them. Record the best known per-site historical file, reported/validated scores and uniqueness, the actual submit decision, artifact name, and a note of at most 140 characters. Link reliable official sources; preserve research and disclose uncertainties. No new leaderboard score may be invented from a holdout.
 
 Before any future experiment, propose and rank 3–5 distinct geological hypotheses by expected benefit and cost; specify exact layers, fault mechanisms, departure from prior methods, non-fault mimics and verified availability of free official data. Remain within the **one assigned method lane**. A missing assigned paragraph is not permission to invent a lane. Reuse the shared cached feature stack, `evaluate_holdout.py`, and `submission_writer.py`; fix shared tooling in the canonical template rather than in private copies. Do not spend more than three experiments or two hours.

@@ -82,7 +82,7 @@ def test_legacy_lane_generators_cannot_reinstate_approval():
     files = [ROOT/'docs/hmas-sinter/index.html', ROOT/'docs/gpcz/index.html',
              ROOT/'docs/how-to-submit.html', ROOT/'docs/nine-sites.html']
     before = [hashlib.sha256(p.read_bytes()).hexdigest() for p in files]
-    for script in ('scripts/generate_pages.py', 'scripts/build_gpcz_site.py'):
+    for script in ('scripts/generate_pages.py', 'scripts/build_gpcz_site.py', 'scripts/build_current_review.py'):
         subprocess.run([sys.executable, script], cwd=ROOT, check=True)
     assert before == [hashlib.sha256(p.read_bytes()).hexdigest() for p in files]
     assert all('DO NOT SUBMIT' in p.read_text() for p in files)
