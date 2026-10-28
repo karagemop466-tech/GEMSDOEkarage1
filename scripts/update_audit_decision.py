@@ -7,8 +7,10 @@ promotion is superseded. This routine never writes predictions or selects slots.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -25,9 +27,14 @@ def load(path):
 
 def save(path, value):
     text = json.dumps(value, indent=2, allow_nan=False) + '\n'
-    temp = path.with_suffix(path.suffix + '.tmp')
-    temp.write_text(text)
-    temp.replace(path)
+    fd, name = tempfile.mkstemp(prefix='.' + path.name + '.', suffix='.partial', dir=path.parent)
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8') as out:
+            out.write(text)
+        os.chmod(name, 0o644)
+        os.replace(name, path)
+    finally:
+        Path(name).unlink(missing_ok=True)
 
 
 def main():

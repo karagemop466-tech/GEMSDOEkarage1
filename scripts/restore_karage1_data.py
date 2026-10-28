@@ -11,9 +11,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path, PurePosixPath
 from urllib.parse import quote
 
@@ -94,14 +96,16 @@ def restore_entry(entry: dict, dest_root: Path, *, verify_only: bool = False, fe
     if verify_only:
         raise ValueError(f"missing or mismatched: {entry['dest']}")
     target.parent.mkdir(parents=True, exist_ok=True)
-    temp = target.with_name(target.name + ".partial")
+    fd, name = tempfile.mkstemp(prefix='.' + target.name + '.', suffix='.partial', dir=target.parent)
+    temp = Path(name)
     source = entry["source"]
     try:
-        with temp.open("wb") as fh:
+        with os.fdopen(fd, "wb") as fh:
             for path in entry["paths"]:
                 fetcher(source["repo"], source["ref"], path, fh)
         if not matches(temp):
             raise ValueError(f"size or SHA-256 mismatch for {entry['dest']}")
+        os.chmod(temp, 0o644)
         temp.replace(target)
     finally:
         temp.unlink(missing_ok=True)

@@ -54,3 +54,24 @@ def test_all_legacy_page_builders_delegate_to_fail_closed_renderer():
                              cwd=ROOT, capture_output=True, text=True)
     assert blocked.returncode != 0 and 'Quarantined' in blocked.stderr
     assert {path: path.read_bytes() for path in paths} == before
+
+
+def test_concurrent_rendering_never_exposes_partial_pages():
+    import time
+    paths = [ROOT / 'index.html', ROOT / 'executive-summary.html', *sorted((ROOT / 'docs').glob('**/*.html'))]
+    processes = [subprocess.Popen([sys.executable, 'scripts/build_site.py'], cwd=ROOT,
+                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE) for _ in range(3)]
+    try:
+        while any(p.poll() is None for p in processes):
+            for page in paths:
+                content = page.read_bytes()
+                assert content.startswith(b'<!doctype html>') and content.rstrip().endswith(b'</html>'), page
+            time.sleep(.002)
+        for process in processes:
+            out, err = process.communicate(timeout=10)
+            assert process.returncode == 0, (out, err)
+    finally:
+        for process in processes:
+            if process.poll() is None:
+                process.kill()
+                process.wait()

@@ -9,7 +9,9 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import os
 from pathlib import Path
+import tempfile
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -208,7 +210,15 @@ def main():
         pages[DOCS / f'{name}.html'] = shell(name + ' executive summary', site_page(name), 1)
     for path, content in pages.items():
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content + '\n')
+        # Never expose truncated pages to readers or concurrent CI/build jobs.
+        fd, temp_name = tempfile.mkstemp(prefix='.' + path.name + '.', suffix='.partial', dir=path.parent)
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8') as out:
+                out.write(content + '\n')
+            os.chmod(temp_name, 0o644)
+            os.replace(temp_name, path)
+        finally:
+            Path(temp_name).unlink(missing_ok=True)
     print(f'Rendered {len(pages)} deterministic decision pages; no submission authorized.')
 
 

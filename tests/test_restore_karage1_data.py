@@ -46,7 +46,7 @@ def test_hash_mismatch_preserves_existing_file_and_removes_partial(tmp_path):
     with pytest.raises(ValueError, match='SHA-256'):
         restore_entry(e, tmp_path, fetcher=bad)
     assert target.read_bytes() == b'old'
-    assert not target.with_name(target.name+'.partial').exists()
+    assert not list(target.parent.glob('*.partial'))
     with pytest.raises(ValueError, match='mismatched'):
         restore_entry(e, tmp_path, verify_only=True)
 
@@ -68,3 +68,20 @@ def test_actual_manifest_is_fully_normalizable():
     assert len(entries) == 31
     assert len({e['dest'] for e in entries}) == len(entries)
     assert all(len(e['source']['ref']) == 40 for e in entries)
+
+
+def test_concurrent_restore_uses_independent_atomic_staging(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+
+    payload = b'a deterministic synthetic payload'
+    entry = fixture_entry(payload)
+    barrier = Barrier(2)
+    def fetch(repo, ref, path, out):
+        barrier.wait(timeout=5)
+        out.write(payload)
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        results = list(pool.map(lambda _: restore_entry(entry, tmp_path, fetcher=fetch), range(2)))
+    assert [r['status'] for r in results] == ['restored', 'restored']
+    assert (tmp_path / entry['dest']).read_bytes() == payload
+    assert not list((tmp_path / 'nested').glob('*.partial'))

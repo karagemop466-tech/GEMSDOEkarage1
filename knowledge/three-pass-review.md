@@ -94,7 +94,7 @@ The review is not a geological experiment and does not authorize an upload.
 - Ran the saved-byte audit a second time into an ignored file and compared every
   field other than its timestamp; results matched. Re-verified all 31 cached
   mirrors. Rebuilt the pages and verified decision synchronization idempotence.
-- After integrating concurrent main changes, the local suite passed **138 tests**;
+- After integrating concurrent main changes, the local suite passed **140 tests**;
   these are software checks, not evidence of organizer acceptance or scientific
   success.
 - Four ranked geological ideas, data-source provenance, conditional B2
@@ -105,4 +105,7 @@ The review is not a geological experiment and does not authorize an upload.
 - Main advanced concurrently. Its prior review and canary safeguards were
   retained; all page builders now delegate to one fail-closed renderer. Its
   added historical snapshot was marked superseded, and the whole suite was
-  rerun. PR checks and any permitted merge are separate from TIFF authorization.
+  rerun. A concurrent-build check exposed transient empty HTML caused by
+  non-atomic writes; pages and restoration staging now use unique temporary
+  files and atomic replacement. PR checks and any permitted merge are separate
+  from TIFF authorization.
