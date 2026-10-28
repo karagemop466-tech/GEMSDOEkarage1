@@ -1,0 +1,41 @@
+{
+  "hypothesis": "No assigned method lane; no new geological hypothesis tested",
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "lane": null,
+  "experiments": 0,
+  "holdout": {
+    "label": "HOLDOUT-DTI",
+    "dti": null,
+    "ci95": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "status": "not run"
+  },
+  "registry": {
+    "correlation": null,
+    "overlap": null,
+    "status": "not rerun; prior duplicate negatives retained"
+  },
+  "raster_sha256": null,
+  "validator": {
+    "status": "not run; no new raster",
+    "all_finite_inside": null,
+    "range_0_1_inside": null,
+    "crs_match": null,
+    "shape_match": null,
+    "transform_match": null
+  },
+  "submission_name": null,
+  "submission_note": "No candidate: assigned lane and canonical cached inputs absent. Do not submit.",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "limitations": [
+    "Unassigned lane and unresolved canonical shared template",
+    "Five missing required cache files",
+    "No authenticated organizer sample or complete registry",
+    "No measured comparable holdout improvement"
+  ],
+  "review": "knowledge/review-fafb84ff.md"
+}

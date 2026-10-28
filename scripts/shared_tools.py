@@ -47,11 +47,12 @@ def preflight():
         and isinstance(assignment.get('evidence'), str) and bool(assignment['evidence'].strip())
     )
     missing = [str(p.relative_to(ROOT)) for p in needed if not p.is_file()]
-    return {'lane': lane, 'missing': missing, 'template_commit': commit,
+    empty = [str(p.relative_to(ROOT)) for p in needed if p.is_file() and p.stat().st_size == 0]
+    return {'lane': lane, 'missing': missing, 'empty': empty, 'template_commit': commit,
             'canonical_assignment_recorded': bool(assignment_valid),
-            'ready_for_shared_tools': bool(lane_valid and assignment_valid and not missing),
+            'ready_for_shared_tools': bool(lane_valid and assignment_valid and not missing and not empty),
             'ok_to_submit': False,
-            'scope': ('Input presence and recorded lane/template assignment only; not authentication, '
+            'scope': ('Input presence, nonempty size and recorded lane/template assignment only; not authentication, '
                       'scientific validation or slot selection.')}
 
 
@@ -68,7 +69,7 @@ def main():
         print(json.dumps(report, indent=2))
         return 0 if report['ready_for_shared_tools'] else 1
     if not report['ready_for_shared_tools']:
-        raise SystemExit('BLOCKED: lane, canonical template assignment, or cached inputs missing. ' + json.dumps(report))
+        raise SystemExit('BLOCKED: lane, canonical template assignment, or cached inputs missing or empty. ' + json.dumps(report))
     bootstrap()
     target = 'evaluate_holdout.py' if opts.command == 'evaluate' else 'submission_writer.py'
     env = dict(os.environ, GEMS_DATA_DIR=str(ROOT / '.cache/gems_data'), GEMS_WORK_DIR=str(ROOT / '.cache/gems_work'))
