@@ -23,6 +23,21 @@ def test_old_experiment_entrypoints_fail_closed(command):
     assert 'BLOCKED' in result.stderr
 
 
+@pytest.mark.parametrize('command', [
+    ['scripts/build_unique_submission.py'],
+    ['scripts/generate_unique_submission.py'],
+    ['scripts/run_bbstep_experiments.py'],
+])
+def test_quarantined_candidate_generators_fail_closed(command):
+    before_card = (ROOT / 'docs/data/run-card.json').read_bytes()
+    before_latest = (ROOT / 'docs/data/latest-run-card.json').read_bytes()
+    result = subprocess.run([sys.executable, *command], cwd=ROOT, capture_output=True, text=True)
+    assert result.returncode == 2
+    assert 'QUARANTINED' in result.stderr or 'BLOCKED' in result.stderr
+    assert (ROOT / 'docs/data/run-card.json').read_bytes() == before_card
+    assert (ROOT / 'docs/data/latest-run-card.json').read_bytes() == before_latest
+
+
 def test_incomplete_registry_cannot_certify_preplacement(tmp_path):
     import rasterio
     from rasterio.transform import from_origin

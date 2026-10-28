@@ -1,0 +1,193 @@
+{
+  "schema": "karage1-peer-ecosystem-pins-v1",
+  "note": "Immutable 40-char commit pins for sibling karage and peer GEMSDOE ecosystem repositories audited on 2026-10-28. Checksums prove GitHub mirror byte identity, NOT organizer authenticity or complete registry coverage.",
+  "user_reported_leaderboard_context": [
+    {
+      "rank": 1,
+      "participant": "Jacker0429",
+      "user_reported_score": 0.4413,
+      "evidence_class": "USER-REPORTED / UNVERIFIED",
+      "artifact_available": false
+    },
+    {
+      "rank": 2,
+      "participant": "davec",
+      "user_reported_score": 0.3195,
+      "evidence_class": "USER-REPORTED / UNVERIFIED",
+      "artifact_available": false
+    }
+  ],
+  "immutable_repos": [
+    {
+      "repo": "karagemop466-tech/GEMSDOEkarage2",
+      "commit": "b245724edea7ab877adfdac697ccc586f97a1f84"
+    },
+    {
+      "repo": "karagemop466-tech/GEMSDOEkarage3",
+      "commit": "e0010d52e577c6b99e14252bc1d38108fbb0bb11"
+    },
+    {
+      "repo": "buffedlizard55-lab/GEMSDOE91",
+      "commit": "45a2a4368cb1a1b2a21953fdcc4eedd116c19cc7"
+    },
+    {
+      "repo": "buffedlizard55-lab/GEMSDOE92",
+      "commit": "913af0ad6e163c86b46ccd4260207862fb805e79"
+    },
+    {
+      "repo": "kanlerxz87-cyber/KANLERGEMSDOE1",
+      "commit": "ba4199eae65dd1cc7c122aec32d0ec9a48bb9993"
+    },
+    {
+      "repo": "kanlerxz87-cyber/KANLERGEMSDOE2",
+      "commit": "440e78978ed21817632111fe7aec841390664b2e"
+    },
+    {
+      "repo": "kanlerxz87-cyber/KANLERGEMSDOE3",
+      "commit": "295efea629af2e47411bcf0eb715d97e18c534dc"
+    },
+    {
+      "repo": "eugboogieman123-ops/EUGGEMSDOE1",
+      "commit": "81ac8521ea03ac7f25287eb6b5d68ebf1dce23dc"
+    },
+    {
+      "repo": "eugboogieman123-ops/EUGGEMSDOE2",
+      "commit": "3ae1fc951e548fa5d91585c0c9439573c721ff83"
+    },
+    {
+      "repo": "eugboogieman123-ops/EUGGEMSDOE3",
+      "commit": "8fbb61b58ea0804c23eb29f39f7bd6f93aace20f"
+    },
+    {
+      "repo": "wingbangboozle1-lang/WBGGEMSDOE1",
+      "commit": "0eb41440179a10890762241763cc91422779f9c0"
+    },
+    {
+      "repo": "wingbangboozle1-lang/WBGGEMSDOE2",
+      "commit": "74b7e441c29cc39a32a7913a71cacbb9bf45dab9"
+    },
+    {
+      "repo": "wingbangboozle1-lang/WBGGEMSDOE3",
+      "commit": "85f9ce9723454e52610778314ec38c7527688806"
+    },
+    {
+      "repo": "ginnymcfiner23-ux/GINNYGEMSDOE1",
+      "commit": "761158ab9f7a069803f326e72ee165f63ca58b50"
+    },
+    {
+      "repo": "ginnymcfiner23-ux/GINNYGEMSDOE2",
+      "commit": "91d564fcda6cd89f0d2ce3b21ab9dea8dd7ec7ad"
+    },
+    {
+      "repo": "ginnymcfiner23-ux/GINNYGEMSDOE3",
+      "commit": "4e00b89ed1225ba4ede53b54c7d011151cd16dc5"
+    },
+    {
+      "repo": "apartanish22-droid/ApartGEMSDOE1",
+      "commit": "6a66d9560df5aabe269f6920e14aae379fa7f669"
+    },
+    {
+      "repo": "apartanish22-droid/ApartGEMSDOE2",
+      "commit": "2f045837b62083b14a59fa59c5dec9bd942658e0"
+    },
+    {
+      "repo": "apartanish22-droid/ApartGEMSDOE3",
+      "commit": "7fbf30e7d4e57e4ba0378eb110e0cf292e43e146"
+    },
+    {
+      "repo": "sassnarep3-star/GEMSDOESASS1",
+      "commit": "7f87fc64ddedb259f898eed17daa0bfc11cc0d7b"
+    },
+    {
+      "repo": "sassnarep3-star/GEMSDOESASS2",
+      "commit": "3b21e4e9bf70458c91ae9e6c41dbfb6688f3f957"
+    },
+    {
+      "repo": "sassnarep3-star/GEMSDOESASS3",
+      "commit": "86874b72302197a78eb8ad5edbf413acf1c02efe"
+    }
+  ],
+  "rasters": [
+    {
+      "id": "GEMSDOEkarage2_hk3_edgecentrality",
+      "repo": "karagemop466-tech/GEMSDOEkarage2",
+      "ref": "b245724edea7ab877adfdac697ccc586f97a1f84",
+      "path": "docs/downloads/gemsdoekarage2-hk3-edgecentrality-apron3-20261028.tif",
+      "bytes": 156302,
+      "sha256": "064d70e8c949cbc1f5de99f26210540419eb43efd17ef9fcda9e59cbe95f74d9",
+      "user_reported_score": null
+    },
+    {
+      "id": "GEMSDOEkarage3_k3c_csst_bghf",
+      "repo": "karagemop466-tech/GEMSDOEkarage3",
+      "ref": "e0010d52e577c6b99e14252bc1d38108fbb0bb11",
+      "path": "docs/k3c/downloads/gemsdoekarage3-h-k3c-csst-bghf-24cell-d31-b37654-20261028T175133Z-3586582f-zeros.tif",
+      "bytes": 214665,
+      "sha256": "0d1461e8786d99da06182b196af0fc40cf03220dc76126e83623e218516429df",
+      "user_reported_score": null
+    },
+    {
+      "id": "GEMSDOE91_S18_UNIQUE",
+      "repo": "buffedlizard55-lab/GEMSDOE91",
+      "ref": "45a2a4368cb1a1b2a21953fdcc4eedd116c19cc7",
+      "path": "docs/downloads/gems91-S18-UNIQUE-curvtilt-20000dots-20261025T182858Z-29db2405.tif",
+      "bytes": 257856,
+      "sha256": "af01bc7190ce736d2ea7eb28a6e0b9ccd238dd616f41644ba4d8bc5a4f892bb6",
+      "user_reported_score": 0.0435
+    },
+    {
+      "id": "GEMSDOE91_s17_lftg",
+      "repo": "buffedlizard55-lab/GEMSDOE91",
+      "ref": "45a2a4368cb1a1b2a21953fdcc4eedd116c19cc7",
+      "path": "docs/downloads/gems91-s17-lftg-20261025T160014Z-7b6bf90844-zeros.tif",
+      "bytes": 141713,
+      "sha256": "64d589ac8d5365693d8845a5673a42ec593794ac46be2aa14a1f950e948fe2b3",
+      "user_reported_score": 0.1823
+    },
+    {
+      "id": "KANLERGEMSDOE3_k3h1_asgt",
+      "repo": "kanlerxz87-cyber/KANLERGEMSDOE3",
+      "ref": "295efea629af2e47411bcf0eb715d97e18c534dc",
+      "path": "docs/downloads/kanler3-k3h1-asgt-hybrid-48559-20261026T2226Z-7ecb7b69-zeros.tif",
+      "bytes": 172965,
+      "sha256": "4a5b0b480be26df52f77b735487cbe5af192262587237b6514d520dc2698b01f",
+      "user_reported_score": null
+    },
+    {
+      "id": "WBGGEMSDOE1_tip1",
+      "repo": "wingbangboozle1-lang/WBGGEMSDOE1",
+      "ref": "0eb41440179a10890762241763cc91422779f9c0",
+      "path": "docs/downloads/gemsdoe1-tip1-directional-tip-gradient-20261026-9a4b9b4bc8cd-zeros.tif",
+      "bytes": 825918,
+      "sha256": "148718d31ea75cfa3b7c643dfa25643cb0353483b2fa0e2696a62af2a107dca8",
+      "user_reported_score": null
+    },
+    {
+      "id": "ApartGEMSDOE1_maw_gsi",
+      "repo": "apartanish22-droid/ApartGEMSDOE1",
+      "ref": "6a66d9560df5aabe269f6920e14aae379fa7f669",
+      "path": "docs/downloads/apartgems1-maw-gsi-e3-20261028-87f83db9-zeros.tif",
+      "bytes": 145748,
+      "sha256": "09fa04bd481d896a4dcbb808e4ef8136f8e6d0e0d88cebe9afd957db2779d62f",
+      "user_reported_score": null
+    },
+    {
+      "id": "ApartGEMSDOE2_ap1_dilatcond",
+      "repo": "apartanish22-droid/ApartGEMSDOE2",
+      "ref": "2f045837b62083b14a59fa59c5dec9bd942658e0",
+      "path": "docs/downloads/apartgemsdoe2-ap1-dilatcond-37654-20261027-1f26aa05-zeros.tif",
+      "bytes": 258085,
+      "sha256": "973e1615098e5636e9348a3ae1e12d9de392fda2b14f0313c81554cc26274d28",
+      "user_reported_score": null
+    },
+    {
+      "id": "GEMSDOESASS1_swgb_hrv2",
+      "repo": "sassnarep3-star/GEMSDOESASS1",
+      "ref": "7f87fc64ddedb259f898eed17daa0bfc11cc0d7b",
+      "path": "swgb/downloads/gemsass1-swgb-hrv2-44090dots-20261027T122104Z-f9b3f764-zeros.tif",
+      "bytes": 152542,
+      "sha256": "f98c20df5bc67a482de6debd4abef9d3d104498bda0aacf464d693e271287729",
+      "user_reported_score": null
+    }
+  ]
+}

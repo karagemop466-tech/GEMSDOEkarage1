@@ -1,0 +1,132 @@
+{
+  "file": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+  "sha256": "7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae",
+  "bytes": 146246,
+  "submission_name": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros",
+  "note": "DIPDUAL dual-regime dip-shifted research raster; gates failed; DO NOT SUBMIT",
+  "note_chars": 76,
+  "validator": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+    "bytes": 146246,
+    "sha256": "7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+    "bytes": 146246,
+    "sha256": "7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "n_nonzero": 37654,
+    "mass": 37654.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.zip",
+  "zip_sha256": "88ba3b4e3ba43eb586b2c7d782362e0aec22a9a54ca5e0d445b42d4179336634",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "H-K1-DIPDUAL",
+    "verdict": "negative",
+    "emit_info": {
+      "n_exposed": 24475,
+      "n_buried": 13179,
+      "n_topup": 0,
+      "n_total": 37654
+    },
+    "frac_exposed": 0.65,
+    "apron_px": 2,
+    "dip_shift": true
+  }
+}

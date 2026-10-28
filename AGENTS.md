@@ -1,6 +1,10 @@
 # Starting point for every session
 
-Read `knowledge/parallel-candidate-audit-2026-10-28.md` as well: the pinned
+Read `knowledge/session-review-arena-1668dda0.md`, `evidence/session_1668dda0_run_card.json`, and `evidence/local_downloads_and_peer_audit_20261028.json` first: all 9 committed GeoTIFFs in `docs/downloads/` (including the retracted synthetic `karage1-unique-alteration-dots-20261028-zeros.tif`, which had 2,113 outside-footprint positives and 99.8558% 3-px lattice overlap) and 9 SHA-pinned sibling/peer GeoTIFFs across 22 commit-pinned ecosystem repos fail the literal 70% lattice rule (`ok_to_submit: false`). `scripts/generate_unique_submission.py` and `scripts/run_bbstep_experiments.py` are quarantined; `scripts/validate_geotiff.py` and `scripts/audit_references.py` now reject all-finite bogus templates and require `outside_encoding_accepted` for CLI pass.
+
+Read `knowledge/session-review-arena-a1ef4ce0.md` and its session JSON card as well. Baseline positive-count and unmasked-pixel evidence are mandatory in the promotion policy; omitting them is not a pass. This session independently replayed the nine-site mirror audit but generated no new TIFF or holdout result. No lane is assigned.
+
+Read `knowledge/session-review-arena-cf677bd7.md` (latest session: NEGATIVE, 305 tests pass, no new TIF) and `knowledge/parallel-candidate-audit-2026-10-28.md` as well: the pinned
 PR 19 and 20 candidate rasters fail the literal lattice proximity rule even
 though their reports exempted that witness. They are not cleared to submit.
 Read `knowledge/repository-review-2026-10-28.md` for the pinned organizer

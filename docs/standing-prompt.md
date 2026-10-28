@@ -22,3 +22,9 @@
 11. A clean, simple GitHub Pages site under `docs/`.
 12. Put the full prompt into the repository README (this file) and read it at the start of every session. Work on the "next steps" left by the previous session first.
 13. Run three passes: (1) implement and verify, (2) review and fix bugs, (3) recheck against the request. Then create a pull request and merge it to `main`; list the remaining work and limitations for the next session.
+
+## Expanded Ecosystem & Leaderboard Context (28 October 2026)
+
+- **User-reported leaderboard context (`USER-REPORTED / UNVERIFIED`):** `#1 Jacker0429` (`0.4413`) and `#2 davec` (`0.3195`). Neither GeoTIFF nor an organizer receipt is available in this sandbox.
+- **Focus & broader peer families referenced in prompt (`USER-REPORTED / UNVERIFIED`, learning only — never copied):** `GEMSDOE24`, `GEMSDOE25`, `GEMSDOE27`, `GEMSDOE28`, `GEMSDOE30`, `GEMSDOE31`, `GEMSDOE32` (`0.2778`), `GEMSDOE33`, `GEMSDOE36` (`0.2750`), plus `GEMSDOE91` (`0.1823`, `0.0435`), `GEMSDOE92` (`0.2699`), `KANLERGEMSDOE1–3` (`0.2673`), `EUGGEMSDOE1–3` (`0.2449`), `WBGGEMSDOE1–3` (`0.2709`), `GINNYGEMSDOE1–3` (`0.2718`), `GEMSDOEkarage1–3`, `ApartGEMSDOE1–3` (`0.2747`), and `GEMSDOESASS1–3` (`0.2449`). Commit-pinned audits are recorded in `registry/peer_ecosystem_pins.json` and `evidence/local_downloads_and_peer_audit_20261028.json`; full session analysis is in `knowledge/session-review-arena-1668dda0.md`.
+

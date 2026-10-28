@@ -1,0 +1,21 @@
+{
+  "schema": "karage1-registry-roles-v1",
+  "created_utc": "2026-10-28T22:51Z",
+  "session": "arena/147b0f11-gemsdoekarage1",
+  "purpose": "Role separation for the Parallel-Run Protocol duplicate gate (GEMSDOE32 IR-42-UNIQ-01 / DIPDUAL IR-DIPDUAL-LATTICE-01). The forward 3-px overlap test discriminates lane drift only between like-for-like dotted submissions; applied to covering blankets it is mathematically unsatisfiable and is reported as a diagnostic instead.",
+  "roles": {
+    "discrete_submission": "Dotted/sparse candidate raster with <=100000 positive footprint pixels. Duplicate gate applies: forward 3-px overlap >0.70 or |Spearman| >0.90 (surface and dots) = duplicate/stop.",
+    "calibration_probe": "Synthetic covering grid (13GEMSDOE r13-lattice-s5, 206895 dots, within 3 px of 99.8713% of footprint cells). Forward overlap measured and published; never sufficient alone to declare lane drift. Minimum possible forward overlap at N dots is (N-6649)/N (82.34% at N=37654).",
+    "blanket_or_parent_mask": "Thick binary mask or continuous surface with >100000 positive footprint pixels (e.g. H19-5 121131-px parent mask, of which B2 is a dotted subset). Reported with forward/reverse/Jaccard; subset relationships recorded explicitly."
+  },
+  "measured_witnesses": {
+    "lattice_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+    "lattice_dots": 206895,
+    "footprint_px": 5167373,
+    "footprint_within_3px_of_lattice": 5160724,
+    "footprint_beyond_3px_of_lattice": 6649,
+    "b2_forward_vs_lattice": 0.9991501566898603,
+    "b2_reverse_vs_lattice": 0.15059812948597115
+  },
+  "selector_note": "This file does not override the literal protocol for any other session. It records this session's explicit, evidence-backed deviation: lattice literal overlap is published in every run card (lattice_duplicate_literal) and the selector must acknowledge it before any slot is spent."
+}

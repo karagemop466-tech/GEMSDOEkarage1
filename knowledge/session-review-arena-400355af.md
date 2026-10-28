@@ -1,0 +1,20 @@
+# Session review — 28 October 2026
+
+**Decision: negative / DO NOT SUBMIT.** No geological experiment, new TIFF, portal upload, or slot selection was performed. This checkout does not establish the assigned single method paragraph or authoritative shared template; inventing either would violate the parallel protocol. A passing format test alone cannot clear a submission.
+
+## Three passes
+
+1. **Review and implementation:** Read the starting instructions, current executive summary, earlier forensic review, preflight and release gate. Found that the release-gate CLI silently accepted duplicate JSON keys (last value wins), and `--out` could overwrite the source run card. It now rejects duplicate keys at any nesting depth and refuses same-path, symlink and hard-link input/output aliases. It still treats all card assertions as untrusted self-reports, not independent evidence.
+2. **Adversarial review:** Added regression tests for nested duplicate keys and all three input/output aliases; verified the card remains intact. Existing strict JSON non-finite rejection remains in place. This does not protect arbitrary unrelated files named by `--out`; callers must choose a safe output path.
+3. **Request recheck:** Ran the full test suite and deterministic site build. Existing [nine-site dashboard](../docs/executive-summary.html) distinguishes user-reported historical values from measurements and blocks downloads for submission. Existing [research slate](research-review.md) contains four qualitative hypotheses and data caveats; their novelty is not established. No new holdout score or leaderboard forecast is claimed. The automated preflight still fails closed.
+
+## Evidence and limitations
+
+- `python scripts/shared_tools.py preflight` in this checkout reported missing feature stack and four required local raster files, null lane and no canonical assignment. The local vendored `submission_writer.py` and `uniqueness.py` hashes differ from recorded pins. Do not silently repin or use them as the authoritative shared template. Compare `vendor/PROVENANCE.json` and `registry/template.json`. Hash equality or public mirrors would not by itself authenticate organizer data.
+- The prior saved-byte audit records B2 as the parent mask minus a collar of known-fault pixels; its reported score is **user-reported, not an organizer-confirmed receipt**. Thinning may improve the coverage/false-positive tradeoff, but hidden labels are unavailable, so causation and a future score are unknown. See [research review](research-review.md) and [reference audit](../docs/data/reference-audit.json).
+- The [official reference solution](https://github.com/drivendataorg/gems-prize-reference-solution) and [competition description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) are starting points, not authentication of local mirror files. [Competition data](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) may require account access. This environment's outbound network is restricted to GitHub and package registries; the Dropbox and government data URLs cannot be fetched directly here. No unsupported diagnosis of the reported portal range error is made.
+- The historical peer comparisons and lattice duplicate stops are described in [the preceding review](repository-review-2026-10-28.md) and [candidate audit](parallel-candidate-audit-2026-10-28.md). Their inputs and results were not independently rerun in this session. A full organizer registry and current leaderboard or weekly allowance are not verified.
+
+## Next actions
+
+Resolve the explicit lane and authoritative shared template, repair any defects in its owning repository, obtain and authenticate the required data and complete registry, then preregister and run the protocol's feature canaries, buffered fold-local holdout and paired confidence interval. Stop on any literal duplicate witness; a separate selector must check the current weekly allowance. No slot should be spent merely because a raster is syntactically valid.
