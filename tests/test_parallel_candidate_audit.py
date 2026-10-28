@@ -52,17 +52,33 @@ def test_changed_bytes_are_rejected(synthetic):
         audit.audit(synthetic)
 
 
-@pytest.mark.parametrize('case', ['grid', 'nonbinary', 'nodata', 'empty'])
+@pytest.mark.parametrize('case', ['grid', 'nonbinary', 'nodata', 'empty', 'all_ones', 'uint8'])
 def test_invalid_candidate_fails_closed(synthetic, case):
     a = np.zeros((12, 12)); a[5, 5] = 1
     if case == 'nonbinary': a[5, 5] = 1.1
     if case == 'nodata': a[5, 5] = np.nan
     if case == 'empty': a[:] = 0
+    if case == 'all_ones': a[:] = 1
     path = synthetic / 'td.tif'
-    write_tif(path, a, origin=100 if case == 'grid' else 0)
+    if case == 'uint8':
+        with rasterio.open(path, 'w', driver='GTiff', width=a.shape[1], height=a.shape[0],
+                           count=1, dtype='uint8', crs='EPSG:32611',
+                           transform=from_origin(0, 1000, 100, 100)) as ds:
+            ds.write(a.astype('uint8'), 1)
+    else:
+        write_tif(path, a, origin=100 if case == 'grid' else 0)
     audit.PARALLEL_ASSETS['td']['sha256'] = sha256(path)
     with pytest.raises(ValueError):
         audit.audit(synthetic)
+
+
+def test_parallel_audit_cli_refuses_to_overwrite_input(synthetic, monkeypatch):
+    import sys
+    target = synthetic / 'td.tif'
+    before = target.read_bytes()
+    monkeypatch.setattr(sys, 'argv', ['audit_parallel_candidates.py', str(synthetic), '--out', str(target)])
+    assert audit.main() == 2
+    assert target.read_bytes() == before
 
 
 def test_saved_evidence_records_negative_not_approval():

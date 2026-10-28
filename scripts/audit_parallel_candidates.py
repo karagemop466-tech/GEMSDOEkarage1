@@ -42,7 +42,7 @@ def read_pinned(path, pin):
     if sha256(path) != pin:
         raise ValueError(f"SHA-256 mismatch: {path}")
     with rasterio.open(path) as ds:
-        if ds.count != 1 or ds.driver != "GTiff" or ds.crs is None:
+        if ds.count != 1 or ds.driver != "GTiff" or ds.crs is None or ds.dtypes[0] != "float32":
             raise ValueError(f"Invalid single-band georeferenced TIFF: {path}")
         return ds.read(1, masked=True), (ds.shape, ds.crs, ds.transform)
 
@@ -78,13 +78,16 @@ def audit(directory: Path) -> dict:
         if count == 0:
             raise ValueError(f"Candidate has no dots: {label}")
         hits = int(np.count_nonzero(dots & covered))
+        rho = binary_rank_correlation(dots, lattice, footprint)
+        if rho is None:
+            raise ValueError(f"Undefined binary rank correlation in footprint: {label}")
         candidates[label] = {
             **item,
             "source_url": f"https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/{item['commit']}/{item['path']}",
             "candidate_dots_in_footprint": count,
             "dots_within_3px": hits,
             "directed_overlap": hits / count,
-            "dot_spearman_in_footprint": binary_rank_correlation(dots, lattice, footprint),
+            "dot_spearman_in_footprint": rho,
             "duplicate_over_70_percent": hits * 10 > count * 7,
             "preplacement_surface_checked": False,
             "ok_to_submit": False,

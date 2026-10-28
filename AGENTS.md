@@ -5,8 +5,8 @@ PR 19 and 20 candidate rasters fail the literal lattice proximity rule even
 though their reports exempted that witness. They are not cleared to submit.
 
 Read README.md, docs/standing-prompt.md, knowledge/research-review.md,
-knowledge/review-2026-10-28.md, knowledge/review-arena-0fb1-20261028.md and
-knowledge/session-review-arena-9ad4a8a0.md
+knowledge/review-2026-10-28.md, knowledge/review-arena-0fb1-20261028.md,
+knowledge/session-review-arena-9ad4a8a0.md and knowledge/session-0a62cb67-review.md
 before proposing or implementing work. The
 parallel-run protocol is binding: do not invent a lane, bypass any registry
 witness, manufacture a score, or upload old predictions. Preserve the budget,

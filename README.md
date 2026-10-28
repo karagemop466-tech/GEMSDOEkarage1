@@ -3,7 +3,26 @@
 > **DO NOT SUBMIT — No candidate has been cleared for competition upload.**
 > The generated research artifacts and historical references are published with full transparency for audit and learning. All historical files fail the literal lattice proximity gate (>70% overlap within 3 px), and new candidate CDA1 failed to surpass the historical holdout benchmark. A format validation pass is necessary but not sufficient for competition submission clearance.
 
-[Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Session Review](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
+[Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Latest Negative Run Card](evidence/session_0a62cb67_run_card.json) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
+
+## Latest review — 28 October 2026, session `arena/0a62cb67-gemsdoekarage1`
+
+All 12 pinned reference assets, the 2 committed candidates, the 2 parallel PR
+candidates, the 3 archived demonstrators, and the concurrent peer raster were
+freshly fetched from pinned GitHub mirrors into ignored `.cache/` and re-audited:
+every reproduced report matched the committed JSON evidence byte-for-byte
+(excluding execution timestamps and runtime package metadata). Additional
+fail-closed safeguards were added and covered by regression tests: rejecting
+duplicate registry SHA-256 digests, whitespace-only registry IDs, and
+self-template digests in `scripts/release_gate.py`; blocking self-template
+validation in `scripts/validate_geotiff.py` and `scripts/validate_artifact.py`;
+blocking masked/nodata in-footprint candidate pixels in
+`src/gemskarage1/registry_audit.py`; and hardening
+`scripts/audit_parallel_candidates.py` against non-float32 rasters, undefined
+footprint correlations, and `--out` input overwrites. See the
+[session review](knowledge/session-0a62cb67-review.md) and
+[negative session run card](evidence/session_0a62cb67_run_card.json). No new
+portal upload or weekly-slot selection was made.
 
 ---
 
@@ -95,7 +114,7 @@ To achieve scores >0.3195 and compete with the leaderboard top (0.4413), an orth
 The following is the full, unabridged text of the user prompt provided to this repository:
 
 ```text
-Review the repo. 
+Review the repo.
 
 I want to focus on the highest scoring submissions from the following sites, GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36. I want an executive summary on every site that is clear and obvious which is the best submission to submit to obtain a high score on the leaderboard. It should also be unique and not an exact duplicate of any previous submission that is the same as below. Keep iterating and testing until we have the highest scoring submission to download and submit.
 

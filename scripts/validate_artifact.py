@@ -2,19 +2,29 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import numpy as np
 import rasterio
 
 
 def validate(candidate, template, footprint):
+    c_path, t_path, f_path = Path(candidate), Path(template), Path(footprint)
+    distinct_refs = not (
+        c_path.resolve() == t_path.resolve()
+        or (c_path.exists() and t_path.exists() and os.path.samefile(c_path, t_path))
+        or c_path.resolve() == f_path.resolve()
+        or (c_path.exists() and f_path.exists() and os.path.samefile(c_path, f_path))
+    )
     with rasterio.open(template) as t, rasterio.open(candidate) as c, rasterio.open(footprint) as f:
         grid = lambda d: (d.crs, d.shape, d.transform)
         checks = {'geotiff': c.driver == 'GTiff', 'single_band': c.count == 1,
                   'float32': c.dtypes[0] == 'float32',
+                  'distinct_reference_files': distinct_refs,
+                  'template_single_band_geotiff': t.driver == 'GTiff' and t.count == 1,
                   'crs_match': c.crs == t.crs and t.crs is not None,
                   'shape_match': c.shape == t.shape, 'transform_match': c.transform == t.transform,
-                  'footprint_grid_match': grid(f) == grid(t) and f.count == 1}
+                  'footprint_grid_match': f.driver == 'GTiff' and grid(f) == grid(t) and f.count == 1}
         a = c.read(1)
         checks['all_values_finite'] = bool(np.isfinite(a).all())
         checks['all_values_in_range'] = bool((np.isfinite(a) & (a >= 0) & (a <= 1)).all())

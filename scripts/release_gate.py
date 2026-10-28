@@ -117,6 +117,7 @@ def assess(card):
     inventory = reg.get("inventory_sha256")
     surface = reg.get("preplacement_surface_sha256")
     if (not valid_sha256(inventory) or not valid_sha256(surface)
+            or not valid_sha256(reg.get("candidate_sha256"))
             or reg.get("preplacement_inventory_sha256") != inventory
             or reg.get("candidate_sha256") != card.get("raster_sha256")):
         reasons.append("Registry receipt is not bound to a pinned inventory, surface and candidate")
@@ -181,7 +182,8 @@ def assess(card):
     # matching hashes alone do not establish that sample is organizer-authentic.
     if (not valid_sha256(validator.get("candidate_sha256"))
             or validator.get("candidate_sha256") != digest
-            or not valid_sha256(validator.get("template_sha256"))):
+            or not valid_sha256(validator.get("template_sha256"))
+            or validator.get("template_sha256") == digest):
         reasons.append("Saved TIFF validation not bound to candidate and template hashes")
     note = card.get("submission_note")
     name = card.get("submission_name")
