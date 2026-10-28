@@ -16,6 +16,7 @@ def good():
                 holdout=dict(label='HOLDOUT-DTI', evaluator_version='test-only', withheld_positives=10,
                              dti=.2, ci95=[.1,.3], baseline_dti=.1, baseline_evaluator_version='test-only',
                              paired_delta_ci95=[.01,.15], same_evaluator_as_best=True, visible_only_features=True,
+                             fold_assignment_sha256='e'*64, baseline_fold_assignment_sha256='e'*64,
                              whole_segment_buffered=True, pixel_exact_visible_mask=True, alpha=.2, beta=.8,
                              kernel_radius_m=300),
                 canary=dict(feature_aucs={'a': .6}, feature_status={'a': 'tested'}, expected_features=['a'],
@@ -26,9 +27,10 @@ def good():
                               exact_ranks=True, surface_checked_before_placement=True, inventory_sha256='b'*64,
                               preplacement_inventory_sha256='b'*64, preplacement_surface_sha256='c'*64,
                               candidate_sha256='a'*64, expected_rasters=1, comparisons=[row]),
-                validator={k:True for k in ['single_band','float32','all_finite_inside','range_0_1_inside',
+                validator={**{k:True for k in ['single_band','float32','all_finite_inside','range_0_1_inside',
                                             'crs_match','shape_match','transform_match','outside_encoding_accepted',
                                             'template_official_authenticated']},
+                           'candidate_sha256': 'a'*64, 'template_sha256': 'f'*64},
                 raster_sha256='a'*64, submission_name='test',
                 submission_note='Synthetic unit-test evidence, not a scientific result.')
 
@@ -53,6 +55,9 @@ def test_promotion_never_selects_slot():
     ('holdout.kernel_radius_m',299),
     ('holdout.same_evaluator_as_best',False),('holdout.visible_only_features',False),
     ('holdout.baseline_dti',.2),('holdout.paired_delta_ci95',[-.01,.01]),
+    ('holdout.fold_assignment_sha256',None),('holdout.fold_assignment_sha256','z'*64),
+    ('holdout.baseline_fold_assignment_sha256','d'*64),
+    ('holdout.paired_delta_ci95',[.3,.4]), ('holdout.paired_delta_ci95',[.01,1.1]),
     ('holdout.whole_segment_buffered',False),('holdout.pixel_exact_visible_mask',False),
     ('canary.feature_aucs',{}),('canary.feature_aucs',{'bad':.901}),
     ('canary.feature_aucs',{'bad':float('nan')}),('canary.feature_aucs',{'bad':.05}),
@@ -71,6 +76,8 @@ def test_promotion_never_selects_slot():
     ('validator.range_0_1_inside',False),('validator.all_finite_inside',False),
     ('validator.transform_match',False),('validator.outside_encoding_accepted',False),
     ('validator.template_official_authenticated',False),
+    ('validator.candidate_sha256','b'*64),('validator.candidate_sha256',None),
+    ('validator.template_sha256',None),('validator.template_sha256','z'*64),
     ('raster_sha256','z'*64),('submission_note','   '),('submission_note','x'*141)])
 def test_fail_closed(path,value):
     card=copy.deepcopy(good())
@@ -127,6 +134,18 @@ def test_inconsistent_candidate_dot_counts_fail_closed():
     result = gate.assess(card)
     assert result['verdict'] == 'negative'
     assert any('dot counts disagree' in reason for reason in result['reasons'])
+
+
+def test_matching_registry_hash_cannot_be_overridden_by_identity_flags():
+    card = copy.deepcopy(good())
+    second = dict(card['registry']['comparisons'][0])
+    second.update(id='other', sha256=card['raster_sha256'], identical_bytes=False,
+                  identical_pixels=False)
+    card['registry']['comparisons'].append(second)
+    card['registry']['expected_rasters'] = 2
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert any('Candidate hash matches registry raster' in reason for reason in result['reasons'])
 
 
 def test_historical_hedge_does_not_exempt_its_lattice_witness():

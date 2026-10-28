@@ -59,8 +59,9 @@ missing/changed files, traversal paths, missing manifests, and blocked tools.
 
 Open PRs #19 and #20 advertise additional promoted candidates on other session
 branches. Their descriptions are not validation evidence and were not merged or
-endorsed. They require separate saved-byte, literal-all-registry and fold-safe
-reviews. This session edits only its assigned branch.
+endorsed. Concurrent main-branch reviews subsequently audited those candidates
+and recorded duplicate lattice witnesses; those reviews were integrated without
+approving either artifact. This session edits only its assigned branch.
 
 ## Pass 3 — request reconciliation
 
@@ -84,3 +85,25 @@ registry. Then run the highest-ranked lane-compatible hypothesis within the
 three-experiment/two-hour cap, requiring paired holdout improvement before a
 separate slot selector. Until then, the submission decision is automatically
 negative, not a request for a human inspector to approve an unsafe file.
+
+## Final verification and integration
+
+Replayed the full nine-reference plus lattice audit using the existing fetcher
+and independently reopened both saved candidate TIFFs. The resulting audit is
+identical to `evidence/candidate_audit_20261028.json` after excluding its run
+timestamp: HMAS 38,174/38,200 and GPC-Z 35,959/36,000 within 3 px of the lattice.
+This is a disqualifying witness, not registry completeness or a new score.
+
+Integrated concurrent main changes through `e297b7e` on this session branch,
+preserving catalogue-input checks, nonzero blocked-preflight exit status,
+parallel candidate audits and stricter release/format validation. Extended the
+new provenance interlock with a regression proving valid lane plus present
+inputs cannot bypass missing authorization. After integration: **248 tests
+passed**, 90 rasterio pending-deprecation warnings, no skipped tests. The
+deterministic renderer rebuilt 32 pages; link/fragment and repeat-build checks
+passed in that suite. `git diff --check` passed. No new vendor code was changed.
+
+GitHub Pages is already enabled from `main` at `/` according to the repository
+Pages API. Its public URL is https://karagemop466-tech.github.io/GEMSDOEkarage1/ .
+A successful merge is not itself proof that the asynchronous Pages build has
+finished. The current authenticated submission allowance is still unknown.

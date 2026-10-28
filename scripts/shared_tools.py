@@ -9,6 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+from scripts.audit_template_integrity import audit as template_integrity_audit
 TEMPLATE = ROOT / '.work/template'
 
 
@@ -27,14 +28,18 @@ def bootstrap():
 
 def preflight():
     pin = json.loads((ROOT / 'registry/template.json').read_text())
-    needed = [ROOT / '.cache/gems_work/feature_stack.npy', ROOT / '.cache/gems_data/training_features.tif',
+    needed = [ROOT / '.cache/gems_work/feature_stack.npy', ROOT / '.cache/gems_data/existing_faults.tif',
+              ROOT / '.cache/gems_data/training_features.tif',
               ROOT / '.cache/gems_data/sample_submission.tif', ROOT / '.cache/gems_data/labels.tif']
-    # The vendored evaluator and the execution pin came from different peer
-    # lineages. Never choose one silently or repair its provenance by repinning.
-    from scripts.audit_template_integrity import audit
-    integrity = audit(ROOT)
-    return {'lane': pin.get('method_lane'), 'missing': [str(p.relative_to(ROOT)) for p in needed if not p.is_file()],
-            'template_commit': pin['commit'], 'template_integrity': integrity}
+    lane = pin.get('method_lane')
+    lane_valid = isinstance(lane, str) and bool(lane.strip())
+    missing = [str(p.relative_to(ROOT)) for p in needed if not p.is_file()]
+    integrity = template_integrity_audit(ROOT)
+    return {'lane': lane, 'missing': missing, 'template_commit': pin['commit'],
+            'template_integrity': integrity,
+            'ready_for_shared_tools': lane_valid and not missing and integrity['execution_authorized'],
+            'ok_to_submit': False,
+            'scope': 'Input, lane and template provenance interlock; not scientific validation or slot selection.'}
 
 
 def main():
@@ -48,8 +53,8 @@ def main():
     report = preflight()
     if opts.command == 'preflight':
         print(json.dumps(report, indent=2))
-        return
-    if not report['lane'] or report['missing'] or not report['template_integrity']['execution_authorized']:
+        return 0 if report['ready_for_shared_tools'] else 1
+    if not report['ready_for_shared_tools']:
         raise SystemExit('BLOCKED: lane, cached inputs or authoritative shared-template provenance unresolved. ' + json.dumps(report))
     bootstrap()
     target = 'evaluate_holdout.py' if opts.command == 'evaluate' else 'submission_writer.py'
@@ -58,4 +63,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

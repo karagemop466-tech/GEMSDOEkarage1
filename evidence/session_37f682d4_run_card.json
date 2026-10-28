@@ -1,0 +1,23 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/37f682d4-gemsdoekarage1",
+  "hypothesis": "No assigned method lane; signed magnetic-gravity edge displacement is an untested research proposal only.",
+  "mechanism": "Test spatially persistent relative displacement of magnetic and gravity edges as a possible concealed fault signature; not tested in this session.",
+  "named_non_fault_mimic": "Lithologic contacts, volcanic margins and survey leveling can mimic potential-field edge displacement.",
+  "holdout_dti": {"label": "HOLDOUT-DTI", "value": null, "evaluator_version": null, "withheld_positives": null, "ci95": null, "status": "Not run: missing assigned lane, shared cache and authenticated baseline."},
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface": null,
+    "scope": "One pinned lattice witness on an unauthenticated mirrored footprint; not a complete registry.",
+    "td_ksck": {"overlapping_dots": 37584, "candidate_dots": 37654, "fraction": 0.9981409677590695, "dot_spearman": 0.001072181380976559},
+    "ctws_2d": {"overlapping_dots": 37999, "candidate_dots": 38200, "fraction": 0.994738219895288, "dot_spearman": -0.00029360385963351924}
+  },
+  "raster_sha256": null,
+  "validator_output": "No new raster generated or validated. The prior peer candidates failed the overlap stop; outside-footprint encoding and organizer acceptance were not checked.",
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "new_geological_experiments": 0,
+  "slots_selected_or_spent": 0,
+  "audit": "evidence/parallel_candidates_audit_20261028.json"
+}

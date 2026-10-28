@@ -339,6 +339,8 @@
       "provenance": "Owner-audited label-free Euclidean distance in meters to US Bureau of Land Management (BLM MLRS/LR2000 public-domain mineral and geothermal claim records) historic closed lode/hydrothermal claim locations on EPSG:32611 3730x3292 100 m competition grid. SHA-256 pins verify the owner mirror."
     },
     {
+      "id": "scored_gems32_b2",
+      "group": "scored",
       "dest": "scored/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
       "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
       "bytes": 219065,
