@@ -40,7 +40,10 @@ def test_evidence_strict_json():
     card=json.loads((ROOT/'evidence/run_card.json').read_text())
     assert card == json.loads((ROOT/'docs/data/run-card.json').read_text())
     assert card['verdict']=='negative' and card['ok_to_submit'] is False
-    assert card['holdout_dti']['value'] is None
+    assert card['holdout_dti']['label']=='HOLDOUT-DTI'
+    assert card['holdout_dti']['value'] is not None
+    assert card['holdout_dti']['evaluator_version']
+    assert card['slot_selected_or_spent'] is False
 
 
 def test_all_legacy_page_builders_delegate_to_fail_closed_renderer():

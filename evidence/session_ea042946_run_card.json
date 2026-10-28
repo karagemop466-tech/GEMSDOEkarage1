@@ -1,0 +1,43 @@
+{
+  "schema": "karage1-run-card-v2",
+  "date_utc": "2026-10-28",
+  "session": "arena/ea042946-gemsdoekarage1",
+  "hypothesis": "No assigned method lane; existing signed magnetic/gravity profile-displacement proposal remains untested.",
+  "mechanism": "A concealed fault may juxtapose susceptibility and density boundaries; no new geological implementation or experiment performed.",
+  "named_non_fault_mimic": "Volcanic flow margins and lithologic contacts",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run: no assigned lane or shared cached inputs; no score projection."
+  },
+  "correlation_overlap_vs_registry": {
+    "surface_spearman": null,
+    "final_dot_overlap": null,
+    "registry_complete": false,
+    "status": "No new surface or dots. Inherited duplicate evidence was reviewed, not replayed."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "No new raster to validate. Shared preflight fails; see session_ea042946_preflight.json."
+  },
+  "submission_name": null,
+  "submission_note": "Negative review: missing assigned lane and shared cache; no new raster or slot selected. Do not submit.",
+  "geological_experiments_run_this_session": 0,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "software_verification": {
+    "full_suite_passed": 272,
+    "rasterio_pending_deprecation_warnings": 90,
+    "targeted_preflight_tests_passed": 40,
+    "deterministic_pages_rendered": 32,
+    "generated_page_diff": false,
+    "meaning": "Software verification only, not HOLDOUT-DTI or organizer-confirmed performance."
+  }
+}

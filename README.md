@@ -1,104 +1,47 @@
+> **Session b65a5aab review: DO NOT SUBMIT.** No new raster or score was generated in this session. [Review](knowledge/session-b65a5aab-review.md) · [Session card](evidence/session_b65a5aab_run_card.json) · [Template integrity](evidence/template_integrity_20261028.json). Two vendor files differ from recorded pins; the shared runner blocks unresolved provenance. All 31 pinned mirrors were restored here, but are not organizer-authenticated. The concurrent BB-STEP work below is inherited and has not been independently validated by this session; its own verdict is negative.
+
 # GEMSDOEkarage1 — fault discovery, evidence first
 
-> **DO NOT SUBMIT — no eligible new GeoTIFF exists.** The two previously
-> promoted research files each duplicate a registered lattice under the user's
-> literal rule. No geological experiment, competition upload, or weekly-slot
-> selection was made in this session. A format check is not submission approval.
+> **DO NOT SUBMIT.** A new GeoTIFF was generated this session
+> (`karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif`). It is **unique
+> versus GEMSDOE24, 25, 27, 28, 30, 31, 32, 33 and 36** (worst 3-px overlap
+> 12.6%, worst |Spearman| 0.085) and **fails the literal lattice gate**
+> (98.53% > 70%). No weekly slot was selected. A format check is not
+> submission approval. There is **no approved .tif to upload**.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/session_0150ae73_run_card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+**Research download (not for DrivenData):**
+[karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif](docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif)
+· [zip](docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.zip)
+· name `KARAGE1-BBSTEP-72312302675D`
+· note `BB-STEP buried grav/dtb ridge; research only; DO NOT SUBMIT`
 
 ## Latest follow-up — 28 October 2026, session `arena/0150ae73-gemsdoekarage1`
 
-Independent replay from the 31 pinned mirror assets and 12 reference rasters reproduced `docs/data/reference-audit.json`, `evidence/candidate_audit_20261028.json`, `evidence/prior_candidate_audit.json`, `evidence/release_reassessment_20261028.json`, and `evidence/parallel_candidates_audit_20261028.json` exactly. All historical and parallel-branch candidates (`HMAS`, `GPC-Z`, `PR 20 TD-KSCK`, `PR 19 CTWS-2D`) fail the literal `> 70%` 3-pixel lattice overlap gate and remain **DO NOT SUBMIT**. Pass 2 hardened `src/gemskarage1/registry_audit.py` (`run_full_fleet_uniqueness_gate` now rejects GDAL-masked in-footprint pixels on saved candidates), `scripts/release_gate.py` (rejects duplicate registry SHA-256 digests, whitespace-only registry IDs, overlong submission names `> 140` chars, masked validator flags, and mismatched baseline withheld counts), and the audit scripts (`--out` input-overwrite protection and unmasked in-footprint verification). Full suite: **244 passed**. See [session review](knowledge/session-0150ae73-review.md) and [session run card](evidence/session_0150ae73_run_card.json).
+Independent replay from the 31 pinned mirror assets and 12 reference rasters reproduced `docs/data/reference-audit.json`, `evidence/candidate_audit_20261028.json`, `evidence/prior_candidate_audit.json`, `evidence/release_reassessment_20261028.json`, and `evidence/parallel_candidates_audit_20261028.json` exactly. All historical and parallel-branch candidates (`HMAS`, `GPC-Z`, `PR 20 TD-KSCK`, `PR 19 CTWS-2D`, and the concurrent `BB-STEP` research raster below at `98.53%` lattice 3-px overlap) fail the literal `> 70%` 3-pixel lattice overlap gate and remain **DO NOT SUBMIT**. Pass 2 hardened `src/gemskarage1/registry_audit.py` (`run_full_fleet_uniqueness_gate` now rejects GDAL-masked in-footprint pixels on saved candidates), `scripts/release_gate.py` (rejects duplicate registry SHA-256 digests, whitespace-only registry IDs, overlong submission names `> 140` chars, masked validator flags, and mismatched baseline withheld counts), and the audit scripts (`--out` input-overwrite protection and unmasked in-footprint verification). See [session review](knowledge/session-0150ae73-review.md) and [session run card](evidence/session_0150ae73_run_card.json).
 
-## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
+Other 28 October parallel-session reviews on `main` remain **DO NOT SUBMIT** (no assigned lane, lattice duplicates, or preflight blocks). They did not generate this BB-STEP raster and do not authorize upload.
 
-The previously reported lattice failure was independently replayed from pinned
-mirrors: 38,174/38,200 historical HMAS dots and 35,959/36,000 historical GPC-Z
-dots are within 3 px. The [reassessment](evidence/reassessment_arena_0fb1_20261028.json)
-is reproducible but uses a third-party footprint, not an authenticated organizer
-sample. The 31 pinned mirrors were restored into ignored `data/` in a prior
-review runtime; they are not tracked and are **absent from this checkout**. No
-geological experiment, candidate raster, holdout score or submission was made.
-The old `prepare_data.py` is intentionally blocked: it builds a quarantined
-private stack, not an assigned shared cache. Data placement alone is **not** the
-only blocker.
+**HOLDOUT-DTI 0.0318** [0.0271, 0.0363] · evaluator `gemsk-hide-recover-v1` ·
+withheld positives 60,988. This is **not** an organizer score and is **not** a
+forecast of the USER-REPORTED 0.2778.
 
-A selectable ID was added for the B2 reference; the format diagnostic now
-refuses to overwrite its input, and the release policy requires the validator's
-candidate SHA-256 to agree with the run card. This hash agreement does **not**
-independently authenticate a report or its template; the policy still consumes
-assertions and is not a substitute for evidence provenance and a selector.
-The scheduled GitHub workflow archives a refresh artifact; it does not publish
-a live verified leaderboard or automatically update the public Pages site.
-See the [session review](knowledge/review-arena-0fb1-20261028.md) for tests,
-constraints and next actions.
+[Decision dashboard](docs/index.html) · [Executive summary and submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [BB-STEP uniqueness](evidence/bbstep_uniqueness.json) · [Current negative run card](docs/data/run-card.json) · [Research](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
-## Current parallel-run warning — 28 October 2026
+## What changed on 28 October 2026 (this session)
 
-Independent saved-byte checks show the pinned [PR 20 TD-KSCK and PR 19 CTWS-2D candidates](knowledge/parallel-candidate-audit-2026-10-28.md) also fail the literal lattice stop: 37,584/37,654 (99.8141%) and 37,999/38,200 (99.4738%) of their dots respectively lie within 3 pixels of that witness. Their own reports excluded it from the passing maximum. **DO NOT SUBMIT either.** This is a one-witness negative audit, not a holdout or complete registry scan. The mirror is not authenticated; no slot was spent.
+Lane **H-K1-BBSTEP** was executed (3 experiments). Features are label-free
+isostatic-gravity and depth-to-basement NMS ridges with a low-slope veto.
+Leakage-canary max AUC = 0.53 (no alarm). Fold-local HOLDOUT-DTI = **0.03179**
+[0.02714, 0.03627] vs GEMSDOE32 B2 control **0.00485** on the same evaluator
+(`gemsk-hide-recover-v1`, n = 60,988). That comparison is **not** an organizer
+score: blocked catalogue-recovery is a poor test of an anti-scarp hypothesis,
+and it does not imply beating the USER-REPORTED 0.2778.
 
-## Latest follow-up: release-gate consistency
+| File | SHA-256 | Unique vs 9 sites | Lattice 3-px | Decision |
+| --- | --- | --- | --- | --- |
+| `karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif` | `72312302675d65cd1983239dd436412b5db1118a7c08f2a5807ef436b5536d6a` | **yes** (max 12.6%) | 98.53% | **DO NOT SUBMIT** |
 
-[Session review](knowledge/session-0f04bfcc-review.md) ·
-[Negative session run card](evidence/session_0f04bfcc_run_card.json). The local
-release gate now rejects a candidate SHA-256 identical to any reported registry
-raster even if the card claims the bytes differ. This is an internal consistency
-check, not independent hash or registry authentication. No experiment, new TIFF,
-score estimate or slot selection was made; **do not submit**. Full suite: 219
-passed, with 53 rasterio warnings.
-
-## Earlier follow-up: automation preflight
-
-
-The shared-tool adapter now exits **1** when the assigned lane or required
-cached inputs are absent, including `existing_faults.tif`. A successful JSON
-report write is not a readiness pass. Even exit 0 checks input presence only,
-not provenance, scientific merit, uniqueness or upload authorization.
-[Three-pass follow-up review](knowledge/session-a0f0d036-review.md) ·
-[Session negative run card](evidence/session_a0f0d036_run_card.json).
-Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
-
-### Latest follow-up — session `5b69d76e`
-
-An independent saved-byte recheck fetched the pinned peer sample and lattice:
-[replay evidence](evidence/session_5b69d76e_prior_audit.json) and [session run
-card](evidence/session_5b69d76e_run_card.json). Both historical TIFFs again fail
-on the lattice witness; no new raster, holdout result, upload or slot selection
-was made. The session did not receive the protocol's promised single method-lane
-paragraph. Neither the full registry nor organizer-authenticated template is
-established; the mirrored sample is not official proof.
-
-The release gate now requires candidate/template hashes in the validation
-record and matching hash-pinned holdout fold assignments for the baseline and
-candidate. Hash equality is a consistency check, **not** proof of provenance,
-proper spatial splits, or authenticity. Synthetic regression tests cover missing
-and conflicting bindings. The shared template was not modified; its upstream
-identity and previously reported comparator defect still need resolution. See
-[three-pass follow-up](knowledge/session-5b69d76e-review.md).
-### Latest independent session review
-
-The [three-pass session review](knowledge/session-review-arena-9ad4a8a0.md) and [negative session run card](evidence/run_card_arena_9ad4a8a0.json) record a fresh restoration of the pinned mirrors, an exact reproduction of the duplicate audit, and a fix for masked in-footprint pixels in the strict local format checker. **No new TIFF, holdout estimate, or submission-slot decision was produced.** The restored mirrors are not authenticated organizer inputs; the assigned lane, shared stack and complete registry remain unresolved. The scheduled refresh creates a workflow artifact, not a live published feed.
-
-### This branch's independent checkout review
-
-The [review record](evidence/session_review_2026-10-28_arena-470a3424.json)
-reproduced the fail-closed software status; no geological experiment or
-submission was made. Its initial preflight reported no assigned lane and lacked
-the feature stack and input rasters. The inherited TIFFs already fail the
-literal 3-pixel lattice-overlap gate; this is not a pre-placement uniqueness
-check for a new candidate. At that checkout point, the suite had **205 passed,
-0 failed, 0 skipped** (53 Rasterio deprecation warnings) and the site builder
-rendered 32 pages deterministically. A later merged follow-up records 219
-passing tests and strengthens preflight/gate behavior. After synchronizing this
-branch with the latest main, the complete suite passed **240 tests** (90
-Rasterio/Affine pending-deprecation warnings). The final review record
-[here](knowledge/session-review-final-2026-10-28.md) also documents that the
-assigned lane and cached inputs are absent from this checkout, and that source
-and leaderboard refreshes are not authenticated/live. Neither test count is a
-holdout result or submission authorization.
-
-## What changed on 28 October 2026
+## Prior lattice audit (still binding)
 
 An independent audit reopened the **already committed** TIFF bytes against nine
 pinned historical references and the pinned lattice. It did not audit the
@@ -234,9 +177,11 @@ upstream template.
 
 ## Remaining work and next session
 
-- Obtain the method-lane paragraph and identify one authoritative upstream
-  template/cache. Resolve the dense lattice protocol conflict with the owner;
-  don't evade it by renaming, jittering or weakening the rule.
+- BB-STEP is unique versus the nine listed sites and still a lattice duplicate.
+  Resolve the dense lattice protocol conflict with the owner; don't evade it by
+  renaming, jittering or weakening the rule. Do not spend a weekly slot on this file.
+- Obtain an explicit method-lane paragraph and identify one authoritative upstream
+  template/cache. Authenticate official DrivenData bytes (login-walled).
 - Establish an authenticated, complete registry; validate source surfaces
   **before** placement and saved final dots against every raster. Agree how to
   resolve the official null/NaN-outside wording versus any portal checks.

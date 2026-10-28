@@ -1,0 +1,36 @@
+{
+  "schema": "karage1-session-review-v1",
+  "session": "arena/b65a5aab-gemsdoekarage1",
+  "date_utc": "2026-10-28",
+  "hypothesis": "No assigned method paragraph; signed multiscale magnetic-gravity offsets remain a planning hypothesis only.",
+  "mechanism": "Stable paired edge displacement might reveal concealed fault offsets; not tested in this session.",
+  "named_non_fault_mimic": "Volcanic flow margins and lithologic contacts.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run; no current comparable measurement or leaderboard estimate."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface": null,
+    "final_dots": null,
+    "status": "No new raster; prior duplicate witness retained in evidence/candidate_audit_20261028.json. Complete registry not established."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "Not applicable: no new raster generated."
+  },
+  "submission_name": null,
+  "submission_note": "No new candidate: blocked on lane, duplicate stop and shared-tool provenance. Do not submit.",
+  "geological_experiments": 0,
+  "slot_selected_or_spent": false,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "template_integrity_receipt": "evidence/template_integrity_20261028.json",
+  "review": "knowledge/session-b65a5aab-review.md"
+}

@@ -27,7 +27,7 @@ def good():
                               exact_ranks=True, surface_checked_before_placement=True, inventory_sha256='b'*64,
                               preplacement_inventory_sha256='b'*64, preplacement_surface_sha256='c'*64,
                               candidate_sha256='a'*64, expected_rasters=1, comparisons=[row]),
-                validator={**{k:True for k in ['single_band','float32','all_finite_inside','range_0_1_inside',
+                validator={**{k:True for k in ['geotiff','single_band','float32','all_finite_inside','range_0_1_inside',
                                             'crs_match','shape_match','transform_match','outside_encoding_accepted',
                                             'template_official_authenticated']},
                            'candidate_sha256': 'a'*64, 'template_sha256': 'f'*64},
@@ -73,6 +73,7 @@ def test_promotion_never_selects_slot():
     ('registry.preplacement_surface_sha256',None),('registry.preplacement_inventory_sha256','d'*64),
     ('registry.candidate_sha256','d'*64),
     ('registry.expected_rasters',2),('registry.comparisons',[]),
+    ('validator.geotiff',False), ('validator.geotiff',None),
     ('validator.range_0_1_inside',False),('validator.all_finite_inside',False),
     ('validator.transform_match',False),('validator.outside_encoding_accepted',False),
     ('validator.template_official_authenticated',False),
@@ -190,3 +191,11 @@ def test_historical_hedge_does_not_exempt_its_lattice_witness():
     assert hedge['uniqueness']['original_unique_superseded'] is True
     assert hedge['uniqueness']['unique'] is False
     assert hedge['approved_for_weekly_slot'] is False
+
+
+def test_overlarge_numeric_evidence_fails_closed_without_crashing():
+    card = good()
+    card['holdout']['dti'] = 10 ** 1000
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert not result['ok_to_submit']

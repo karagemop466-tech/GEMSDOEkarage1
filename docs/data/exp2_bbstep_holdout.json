@@ -1,0 +1,46 @@
+{
+  "experiment": 2,
+  "lane": "H-K1-BBSTEP",
+  "evaluator_version": "gemsk-hide-recover-v1",
+  "scheme": "blocked",
+  "withheld_positives": 60988,
+  "bbstep": {
+    "tp": 1928.6289634124691,
+    "fp": 58906.018290485845,
+    "fn": 58696.3710365875,
+    "n_truth": 60625,
+    "dti": 0.03179044960528629,
+    "emitted_per_fold": [
+      15720,
+      15573,
+      15683,
+      15721
+    ],
+    "ci95": [
+      0.027137895334894427,
+      0.03627120334389709
+    ]
+  },
+  "b2_control": {
+    "tp": 375.7339808773916,
+    "fp": 144845.3352668399,
+    "fn": 60249.266019122624,
+    "n_truth": 60625,
+    "dti": 0.004845416082319386,
+    "withheld_positives": 60988,
+    "evaluator_version": "gemsk-hide-recover-v1",
+    "ci95": [
+      0.004322235549389281,
+      0.0053456505331544255
+    ]
+  },
+  "paired_delta_vs_b2": {
+    "mean": 0.0268796067536285,
+    "ci95": [
+      0.022417107577935542,
+      0.03154511214354383
+    ],
+    "frac_positive": 1.0
+  },
+  "beats_b2_holdout": true
+}

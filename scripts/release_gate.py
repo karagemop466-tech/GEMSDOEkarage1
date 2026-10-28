@@ -14,7 +14,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def finite_number(value):
-    return type(value) in (int, float) and math.isfinite(value)
+    if type(value) not in (int, float):
+        return False
+    try:
+        return math.isfinite(value)
+    except OverflowError:
+        return False
 
 
 def valid_sha256(value):
@@ -161,7 +166,7 @@ def assess(card):
         reasons.append("Candidate dot counts disagree across registry comparisons")
 
     validator = card.get("validator") if isinstance(card.get("validator"), dict) else {}
-    for key in ("single_band", "float32", "all_finite_inside", "range_0_1_inside",
+    for key in ("geotiff", "single_band", "float32", "all_finite_inside", "range_0_1_inside",
                 "crs_match", "shape_match", "transform_match", "outside_encoding_accepted",
                 "template_official_authenticated"):
         if validator.get(key) is not True:
