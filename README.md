@@ -5,7 +5,11 @@
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/session_0150ae73_run_card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+
+## Latest follow-up — 28 October 2026, session `arena/0150ae73-gemsdoekarage1`
+
+Independent replay from the 31 pinned mirror assets and 12 reference rasters reproduced `docs/data/reference-audit.json`, `evidence/candidate_audit_20261028.json`, `evidence/prior_candidate_audit.json`, `evidence/release_reassessment_20261028.json`, and `evidence/parallel_candidates_audit_20261028.json` exactly. All historical and parallel-branch candidates (`HMAS`, `GPC-Z`, `PR 20 TD-KSCK`, `PR 19 CTWS-2D`) fail the literal `> 70%` 3-pixel lattice overlap gate and remain **DO NOT SUBMIT**. Pass 2 hardened `src/gemskarage1/registry_audit.py` (`run_full_fleet_uniqueness_gate` now rejects GDAL-masked in-footprint pixels on saved candidates), `scripts/release_gate.py` (rejects duplicate registry SHA-256 digests, whitespace-only registry IDs, overlong submission names `> 140` chars, masked validator flags, and mismatched baseline withheld counts), and the audit scripts (`--out` input-overwrite protection and unmasked in-footprint verification). Full suite: **244 passed**. See [session review](knowledge/session-0150ae73-review.md) and [session run card](evidence/session_0150ae73_run_card.json).
 
 ## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
