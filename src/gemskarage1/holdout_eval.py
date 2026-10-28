@@ -111,11 +111,13 @@ def run_leakage_canary(
     max_dir_auc = 0.0
     max_ch = ""
     leaking = []
+    untestable = []
     for ch_i, name in enumerate(ALL_CHANNELS):
         vals = mm[ch_i, ys, xs].astype(np.float64)
         vals = np.nan_to_num(vals, nan=0.0, posinf=0.0, neginf=0.0)
         if np.all(vals == vals[0]):
-            raw_auc = 0.5
+            untestable.append(name)
+            raw_auc = 0.5  # Diagnostic only; an undefined AUC is not a pass.
         else:
             raw_auc = float(roc_auc_score(y_true, vals))
         dir_auc = max(raw_auc, 1.0 - raw_auc)
@@ -145,7 +147,8 @@ def run_leakage_canary(
         "max_direction_invariant_auc": round(max_dir_auc, 5),
         "max_feature": max_ch,
         "leaking_features": leaking,
-        "all_passed": len(leaking) == 0,
+        "untestable_features": untestable,
+        "all_passed": len(leaking) == 0 and len(untestable) == 0,
         "channels": rows,
     }
 
