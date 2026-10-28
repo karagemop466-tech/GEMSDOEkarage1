@@ -6,9 +6,13 @@ A registry report is still only as complete as its authenticated inventory.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import math
+import os
 from pathlib import Path
+import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -109,6 +113,7 @@ def assess(card):
             or reg.get("candidate_sha256") != card.get("raster_sha256")):
         reasons.append("Registry receipt is not bound to a pinned inventory, surface and candidate")
     ids = set()
+    digests = set()
     dot_counts = set()
     lattice_ok = False
     for row in rows:
@@ -116,12 +121,16 @@ def assess(card):
             reasons.append("Malformed registry comparison")
             continue
         ref_id, digest = row.get("id"), row.get("sha256")
-        if not isinstance(ref_id, str) or not ref_id or ref_id in ids:
+        if not isinstance(ref_id, str) or not ref_id.strip() or ref_id in ids:
             reasons.append("Missing or duplicate registry identity")
         else:
             ids.add(ref_id)
         if not valid_sha256(digest):
             reasons.append("Registry raster hash missing or invalid")
+        elif digest in digests:
+            reasons.append("Duplicate registry raster hash: " + str(ref_id))
+        else:
+            digests.add(digest)
         # A self-reported identity flag cannot contradict the actual digests in
         # the card. This checks internal consistency, not the bytes themselves.
         if valid_sha256(digest) and digest == card.get("raster_sha256"):
@@ -154,6 +163,9 @@ def assess(card):
                 "template_official_authenticated"):
         if validator.get(key) is not True:
             reasons.append("Saved TIFF validation missing or failed: " + key)
+    for opt_key in ("geotiff", "unmasked_inside"):
+        if opt_key in validator and validator.get(opt_key) is not True:
+            reasons.append("Saved TIFF validation missing or failed: " + opt_key)
     digest = card.get("raster_sha256")
     if not valid_sha256(digest):
         reasons.append("Saved raster SHA-256 missing")
@@ -164,3 +176,39 @@ def assess(card):
     # Scientific promotion is NOT a weekly slot selection or upload authorization.
     return {"verdict": "negative" if reasons else "promote", "ok_to_submit": False,
             "selector_required": True, "reasons": reasons}
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("card", type=Path, help="Path to JSON run-card / release-gate input")
+    parser.add_argument("--out", type=Path, help="Optional output JSON path")
+    args = parser.parse_args(argv)
+    try:
+        def _reject_constant(value: str):
+            raise ValueError(f"non-standard JSON constant: {value}")
+        payload = json.loads(args.card.read_text(), parse_constant=_reject_constant)
+        if isinstance(payload, dict) and isinstance(payload.get("input"), dict) and "holdout" not in payload:
+            payload = payload["input"]
+        result = assess(payload)
+    except (OSError, ValueError) as exc:
+        result = {"verdict": "negative", "ok_to_submit": False, "selector_required": True,
+                  "reasons": [f"Unreadable or malformed run card: {exc}"]}
+    text = json.dumps(result, indent=2, allow_nan=False) + "\n"
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        fd, tmp_name = tempfile.mkstemp(prefix="." + args.out.name + ".", suffix=".tmp", dir=args.out.parent)
+        tmp = Path(tmp_name)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as fh:
+                fh.write(text)
+            os.chmod(tmp, 0o644)
+            tmp.replace(args.out)
+        finally:
+            tmp.unlink(missing_ok=True)
+    else:
+        sys.stdout.write(text)
+    return 0 if result["verdict"] == "promote" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

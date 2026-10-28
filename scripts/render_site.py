@@ -59,6 +59,33 @@ def evidence():
     return claims, assets, ref, audit, card
 
 
+def secondary_evidence():
+    sec_path = ROOT / 'evidence/nine_sites_secondary_audit_20261028.json'
+    if not sec_path.is_file():
+        return {}
+    def _reject_constant(val: str):
+        raise ValueError(f'non-standard JSON constant: {val}')
+    data = json.loads(sec_path.read_text(), parse_constant=_reject_constant)
+    rows = data.get('rows')
+    if not isinstance(rows, list) or not rows:
+        raise ValueError('secondary site evidence malformed')
+    for r in rows:
+        dots = r.get('positive_pixels_in_footprint')
+        hits = r.get('lattice_dots_within_3px')
+        ov = r.get('lattice_directed_overlap')
+        if (r.get('site') not in SITES
+                or r.get('score_class') != 'USER-REPORTED / UNVERIFIED'
+                or r.get('ok_to_submit') is not False
+                or r.get('literal_lattice_duplicate') is not True
+                or not isinstance(dots, int) or dots <= 0
+                or not isinstance(hits, int) or hits * 10 <= dots * 7
+                or not isinstance(ov, (int, float)) or abs(ov - hits / dots) > 1e-12
+                or len(str(r.get('ref', ''))) != 40
+                or len(str(r.get('sha256', ''))) != 64):
+            raise ValueError(f'secondary site evidence failed fail-closed check: {r.get("matched_file")}')
+    return data
+
+
 def artifact_url(entry):
     return ('https://github.com/' + entry['repo'] + '/blob/' + entry['ref'] + '/'
             + quote(entry['path'], safe='/'))
@@ -152,13 +179,13 @@ def research(depth=1):
     p = '../' * depth
     return f'''<div class="page-top"><span>OVERVIEW <span class="separator">/</span> RESEARCH</span><span class="page-date">REVIEWED 28 OCT 2026</span></div><section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> SCIENCE BEFORE SCORING</p><h1>Understand the ground.<br><em>Respect the unknown.</em></h1><p>The target is previously unmapped geological faults, not direct proof of a geothermal vent.</p></section>
 <section class="notice"><span aria-hidden="true">ⓘ</span><p><strong>Research only:</strong> The ideas below are qualitative proposals. No assigned lane or validated new candidate is available, and novelty across all peer work is unverified.</p></section>
-<section class="section detail-grid" id="b2"><div><p class="eyebrow"><span class="eyebrow-line"></span> WHAT THE BYTES SHOW</p><h2>Why B2 may have worked.</h2></div><div class="prose-card"><p>The mirrored B2 mask is exactly the GEMSDOE25 parent minus 6,436 dots within 2 pixels of the visible catalogue. That geometric relationship is measurable; its effect on hidden-label DTI is not.</p><p>For the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">organizer metric</a>, deleting predictions helps only if the saved false-positive penalty outweighs the loss of distance-weighted true coverage. Spacing can reduce redundant mass; deleting near a catalogue can also miss a nearby new fault. A controlled, identical-fold ablation is needed.</p><p>The reported 0.2778 is an unverified user report. No experiment here establishes a higher leaderboard result.</p></div></section>
+<section class="section detail-grid" id="b2"><div><p class="eyebrow"><span class="eyebrow-line"></span> WHAT THE BYTES SHOW</p><h2>Why B2 may have worked.</h2></div><div class="prose-card"><p>Cross-site pixel algebra shows a controlled collar-ablation ladder on the identical d2.8 parent mask (GEMSDOE25 and GEMSDOE30 share all 44,090 footprint dots): removing 3,891 dots within 1 pixel of the mirrored catalogue yields GEMSDOE31 and GEMSDOE28 h27-4-r1 (40,199 dots, 0.2708 user-reported), and removing all 6,436 dots within 2 pixels yields GEMSDOE32 B2 (37,654 dots, 0.2778 user-reported). GEMSDOE36 (38,854 dots, 0.2750 user-reported) is an exact superset adding 1,200 off-catalogue dots to B2.</p><p>For the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">organizer metric</a>, deleting near-catalogue digitization halos helps only if saved false-positive penalty outweighs lost distance-weighted recall. Firsthand inspection of restored <code>training_features.tif</code> also found 3,073 raw float32 nodata pixels inside the active submission footprint and strictly positive Band 6 <code>tc</code> curvature values, both requiring explicit pre-inference masking.</p><p>The reported 0.2778 is an unverified user report. No experiment here establishes a higher leaderboard result.</p></div></section>
 <section class="section" id="hypotheses"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> RANKED HYPOTHESES · NOT EXECUTED</p><h2>Four ideas worth testing.</h2><p>Ordering reflects qualitative promise relative to cost, not a predicted DTI improvement. The first requires the shared cached layers and an assigned lane; it has not passed holdout.</p></div></div><div class="hypothesis-grid">
 <article class="hypothesis-card"><span class="hypothesis-rank">01 <span>MEDIUM COST</span></span><h3>Signed multiscale offsets</h3><p>Use RTP magnetics, isostatic gravity and detrended elevation: compare oriented, signed cross-profiles at two scales. Stable offsets may indicate a buried discontinuity without a mapped scarp.</p><div><b>Confounders:</b> lithologic contacts, volcanic flow edges and survey artifacts.</div><small>Differs from the prior HMAS unsigned edge/trough features by testing signed profile displacement; global novelty unverified.</small></article>
 <article class="hypothesis-card"><span class="hypothesis-rank">02 <span>MEDIUM COST</span></span><h3>Alteration-boundary residuals</h3><p>Compare local background-normalized K/eTh radiometric boundaries with oriented RTP edges. An altered structure under cover might differ from the catalogue.</p><div><b>Confounders:</b> weathering, potassium-rich intrusions and acquisition blocks.</div><small>Tests directional residuals rather than the prior raw radiometric plume. <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN ↗</a></small></article>
 <article class="hypothesis-card"><span class="hypothesis-rank">03 <span>HIGH COST</span></span><h3>Drainage asymmetry</h3><p>On USGS 3DEP DEMs, test repeated cross-valley asymmetry among adjacent catchments, conditioned on drainage area. A degraded or obscured trace could alter drainage geometry.</p><div><b>Confounders:</b> stream piracy, fan deposition and erosion.</div><small>Different from the prior pixel-level scarp score. <a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP ↗</a>; local official tiles not fetched.</small></article>
 <article class="hypothesis-card"><span class="hypothesis-rank">04 <span>HIGH COST</span></span><h3>Sampling-aware thermal residuals</h3><p>Cross-fit INGENIOUS 2 m probe temperatures against terrain and access, then compare residual patterns with gravity boundaries. Concealed flow could remain near an unmapped structure.</p><div><b>Confounders:</b> solar heating, groundwater and access-biased sampling.</div><small>Unlike the earlier raw thermal plume, explicitly models sampling bias. <a href="https://gdr.openei.org/submissions/1391">GDR 1391 ↗</a>; official raw bytes not authenticated locally.</small></article></div></section>
-<section class="section" id="sources"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> TRACEABLE REFERENCES</p><h2>Go back to the source.</h2><p>These official descriptions do not authenticate the third-party mirrors or validate the hypotheses.</p></div></div><div class="source-list"><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/"><span><b>DrivenData · problem and metric</b><small>Target, features, score and format</small></span><span>OFFICIAL ↗</span></a><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf"><span><b>DOE / NLR · rules</b><small>Submission limits, eligibility and AI disclosure</small></span><span>OFFICIAL ↗</span></a><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and"><span><b>USGS · GeoDAWN</b><small>Magnetic and radiometric grids · CC0</small></span><span>OFFICIAL ↗</span></a><a href="https://gdr.openei.org/submissions/1391"><span><b>GDR · INGENIOUS</b><small>Thermal, geology and geophysics compilation · CC BY 4.0</small></span><span>OFFICIAL ↗</span></a><a href="https://github.com/drivendataorg/gems-prize-reference-solution"><span><b>DrivenData · reference implementation</b><small>Organizer-provided starting point</small></span><span>CODE ↗</span></a><a href="{p}knowledge/sources-2026-10-28.md"><span><b>Project source register</b><small>Access, provenance and limitations</small></span><span>REVIEW ↗</span></a></div></section>'''
+<section class="section" id="sources"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> TRACEABLE REFERENCES</p><h2>Go back to the source.</h2><p>These official descriptions do not authenticate the third-party mirrors or validate the hypotheses.</p></div></div><div class="source-list"><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/"><span><b>DrivenData · problem and metric</b><small>Target, features, score and format</small></span><span>OFFICIAL ↗</span></a><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf"><span><b>DOE / NLR · rules</b><small>Submission limits, eligibility and AI disclosure</small></span><span>OFFICIAL ↗</span></a><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and"><span><b>USGS · GeoDAWN</b><small>Magnetic and radiometric grids · CC0</small></span><span>OFFICIAL ↗</span></a><a href="https://gdr.openei.org/submissions/1391"><span><b>GDR · INGENIOUS</b><small>Thermal, geology and geophysics compilation · CC BY 4.0</small></span><span>OFFICIAL ↗</span></a><a href="https://github.com/drivendataorg/gems-prize-reference-solution"><span><b>DrivenData · reference implementation</b><small>Organizer-provided starting point</small></span><span>CODE ↗</span></a><a href="{p}knowledge/sources-2026-10-28.md"><span><b>Project source register</b><small>Access, provenance and limitations</small></span><span>REVIEW ↗</span></a><a href="{p}knowledge/session-review-arena-9ca08e2e.md"><span><b>Latest forensic &amp; 9-site audit</b><small>21 focus files, B2 calculus and 19-band feature audit</small></span><span>REVIEW ↗</span></a></div></section>'''
 
 
 def standing_brief(depth=1):
@@ -174,14 +201,31 @@ def site_page(name: str):
     claim = next(x for x in claims if x['site'] == name)
     entry, row = assets[name], ref['rows'][name]
     pair = max((v['overlap_fraction'], k.split('->')[1]) for k,v in ref['directed_pairs'].items() if k.startswith(name + '->'))
+    sec_rows = [r for r in secondary_evidence().get('rows', []) if r.get('site') == name]
+    sec_html = ''
+    if sec_rows:
+        items = ''.join(
+            f'<li><a class="wrap" href="{esc(artifact_url(r), quote=True)}">{esc(r["matched_file"])} ↗</a> '
+            f'· SHA-256 <code>{esc(r["sha256"][:16])}…</code> · '
+            f'<strong>{r["user_reported_score"]:.4f} USER-REPORTED · UNVERIFIED</strong> · '
+            f'{r["positive_pixels_in_footprint"]:,} dots · '
+            f'{r["lattice_directed_overlap"]:.2%} within 3 px of lattice · <strong>DO NOT RESUBMIT</strong></li>'
+            for r in sec_rows
+        )
+        sec_html = (f'<section class="section detail-grid"><div><p class="eyebrow">ADDITIONAL AUDITED FILES</p>'
+                    f'<h2>Secondary historical runs.</h2></div><div class="prose-card">'
+                    f'<p>Additional prompt-listed files from {esc(name)} audited against the pinned lattice:</p>'
+                    f'<ul>{items}</ul>'
+                    f'<a class="text-link" href="../evidence/nine_sites_secondary_audit_20261028.json">Inspect secondary 9-site audit JSON ↗</a></div></section>')
     return f'''<div class="page-top"><span>NINE-SITE REVIEW <span class="separator">/</span> {name}</span><span class="page-date">28 OCT 2026</span></div><section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> SITE EXECUTIVE SUMMARY</p><h1>{name}. <em>Research only.</em></h1><p>The reported historical leader is not a newly eligible submission.</p></section>{decision('../')}
-<section class="section detail-grid"><div><p class="eyebrow">HISTORICAL FILE</p><h2>What the evidence says.</h2></div><div class="prose-card"><p><a class="wrap" href="{esc(artifact_url(entry), quote=True)}">{esc(Path(entry['path']).name)} ↗</a><br>SHA-256 <code class="wrap">{entry['sha256']}</code></p><p><strong>{claim['reported_score']:.4f} USER-REPORTED · UNVERIFIED.</strong> No artifact-linked organizer submission receipt is available. A new leaderboard estimate is unavailable.</p><p>The file has {row['positive_pixels']:,} positive pixels; {row['lattice_directed_overlap']:.2%} fall within 3 pixels of the registered lattice. It also overlaps {pair[0]:.2%} with {pair[1]} in the directional nine-file audit. Both exceed the literal 70% threshold. <strong>DO NOT RESUBMIT.</strong></p><p>These are geometric measurements, not proof of equal geologic predictions or a forecast. Scope is one historical raster per site plus the lattice; complete current-registry uniqueness was not checked.</p><a class="text-link" href="data/reference-audit.json">Review the measured audit ↗</a></div></section><section class="next-strip"><div><p class="eyebrow">BACK TO THE DECISION</p><h2>No new file is cleared.</h2><p>Check the current gates and submission guide before considering any upload.</p></div><a class="button button-dark" href="executive-summary.html">Executive summary ↗</a></section>'''
+<section class="section detail-grid"><div><p class="eyebrow">HISTORICAL FILE</p><h2>What the evidence says.</h2></div><div class="prose-card"><p><a class="wrap" href="{esc(artifact_url(entry), quote=True)}">{esc(Path(entry['path']).name)} ↗</a><br>SHA-256 <code class="wrap">{entry['sha256']}</code></p><p><strong>{claim['reported_score']:.4f} USER-REPORTED · UNVERIFIED.</strong> No artifact-linked organizer submission receipt is available. A new leaderboard estimate is unavailable.</p><p>The file has {row['positive_pixels']:,} positive pixels; {row['lattice_directed_overlap']:.2%} fall within 3 pixels of the registered lattice. It also overlaps {pair[0]:.2%} with {pair[1]} in the directional nine-file audit. Both exceed the literal 70% threshold. <strong>DO NOT RESUBMIT.</strong></p><p>These are geometric measurements, not proof of equal geologic predictions or a forecast. Scope is historical focus-site rasters plus the lattice; complete current-registry uniqueness was not checked.</p><a class="text-link" href="data/reference-audit.json">Review the measured audit ↗</a></div></section>{sec_html}<section class="next-strip"><div><p class="eyebrow">BACK TO THE DECISION</p><h2>No new file is cleared.</h2><p>Check the current gates and submission guide before considering any upload.</p></div><a class="button button-dark" href="executive-summary.html">Executive summary ↗</a></section>'''
 
 
 def main():
     # One builder owns all public decision/guide pages so an old lane-specific
     # generator cannot silently restore a false green badge.
     evidence()
+    secondary_evidence()
     pages = {
         ROOT / 'index.html': shell('Submission overview', home(0), 0),
         ROOT / 'legacy-overview.html': shell('Submission overview', home(0), 0),

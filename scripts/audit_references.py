@@ -157,6 +157,13 @@ def read_grid(path: Path) -> tuple[np.ndarray, dict]:
         }
 
 
+def valid_gdal_mask(path: Path) -> np.ndarray:
+    with rasterio.open(path) as ds:
+        if ds.count != 1:
+            raise ValueError(f"expected one band: {path}")
+        return ds.read_masks(1) != 0
+
+
 def same_grid(meta: dict, template: dict) -> bool:
     return all(meta[k] == template[k] for k in ("shape", "crs", "transform"))
 
@@ -213,12 +220,14 @@ def audit(entries: list[dict], cache: Path) -> dict:
         raise ValueError("unexpected mirror template format")
     if template_meta["transform"][:2] != [100.0, 0.0] or template_meta["transform"][3:5] != [0.0, -100.0]:
         raise ValueError("unexpected mirror resolution/rotation")
-    fp = np.isfinite(template_arr)
+    fp = valid_gdal_mask(cache / "template.tif") & np.isfinite(template_arr)
     if not fp.any() or fp.all():
         raise ValueError("mirror footprint is empty or has no outside")
     labels, labels_meta = read_grid(cache / "labels.tif")
     if not same_grid(labels_meta, template_meta):
         raise ValueError("label grid mismatch")
+    if not valid_gdal_mask(cache / "labels.tif")[fp].all():
+        raise ValueError("labels has masked or nodata pixels inside footprint")
     label_support = fp & (labels == 1)
     sample_positive = fp & (template_arr == 1)
     if not np.isin(template_arr[fp], (0, 1)).all():
@@ -226,6 +235,8 @@ def audit(entries: list[dict], cache: Path) -> dict:
     lattice_arr, lattice_meta = read_grid(cache / "lattice.tif")
     if not same_grid(lattice_meta, template_meta):
         raise ValueError("lattice grid mismatch")
+    if not valid_gdal_mask(cache / "lattice.tif")[fp].all():
+        raise ValueError("lattice has masked or nodata pixels inside footprint")
     lattice = binary_support(lattice_arr, fp, "lattice")
     covered = binary_dilation(lattice, structure=disk(3))
     uncovered = int(np.count_nonzero(fp & ~covered))
@@ -234,9 +245,12 @@ def audit(entries: list[dict], cache: Path) -> dict:
     arrays = {}
     rows = {}
     for name in SITES:
-        data, meta = read_grid(cache / (name + ".tif"))
+        site_path = cache / (name + ".tif")
+        data, meta = read_grid(site_path)
         if not same_grid(meta, template_meta):
             raise ValueError(f"{name}: grid mismatch; no resampling is allowed")
+        if not valid_gdal_mask(site_path)[fp].all():
+            raise ValueError(f"{name}: masked or nodata pixels inside footprint")
         dots = binary_support(data, fp, name)
         count = int(dots.sum())
         if count == 0:

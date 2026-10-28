@@ -37,7 +37,8 @@ def main():
             raise ValueError('Artifact integrity failure')
         with rasterio.open(path) as ds:
             a = ds.read(1)
-            finite = np.isfinite(a)
+            unmasked = ds.read_masks(1) != 0
+            finite = unmasked & np.isfinite(a)
             # Shared footprint established below from NaN-outside artifacts.
             grids.append((str(ds.crs), ds.shape, tuple(ds.transform)))
             masks.append(finite & (a > 0))
@@ -45,7 +46,7 @@ def main():
             reports.append({'site': row['site'], 'sha256': row['artifact_sha256'],
                             'bands': ds.count, 'crs': str(ds.crs), 'shape': list(ds.shape),
                             'transform': list(ds.transform), 'nan_count': int(np.isnan(a).sum()),
-                            'all_finite': bool(finite.all()),
+                            'all_finite': bool(np.isfinite(a).all() and unmasked.all()),
                             'finite_range_valid': bool(((a[finite] >= 0) & (a[finite] <= 1)).all()),
                             'binary': bool(np.isin(a[finite], [0, 1]).all())})
     if not all(r['binary'] and r['bands'] == 1 for r in reports):
@@ -64,8 +65,10 @@ def main():
                 'same_dot_mask': bool(np.array_equal(masks[i], masks[j])),
                 'spearman': binary_spearman(masks[i], masks[j], footprint),
                 'within_3px_fraction': overlap(masks[i], masks[j], footprint)})
+        if any(c['within_3px_fraction'] is None or c['spearman'] is None for c in r['comparisons']):
+            raise ValueError(f"Undefined comparison metric in historical raster audit: {r['site']}")
         r['literal_duplicate'] = any(c['within_3px_fraction'] > .70 or
-                                     c['spearman'] > .90 for c in r['comparisons'])
+                                     abs(c['spearman']) > .90 for c in r['comparisons'])
     out = {'version': 'historical-mask-audit-v1',
            'domain': 'intersection of finite peer pixels; NOT organizer-authenticated footprint',
            'footprint_pixels': int(footprint.sum()), 'surface_check': 'unavailable: source surfaces absent',

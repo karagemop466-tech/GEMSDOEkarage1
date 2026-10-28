@@ -11,11 +11,11 @@ import sys
 import numpy as np
 
 try:
-    from scripts.audit_references import ROOT, load_manifest, read_grid, sha256, verify_file
+    from scripts.audit_references import ROOT, load_manifest, read_grid, sha256, valid_gdal_mask, verify_file
     from scripts.audit_concurrent import compare_binary_support
     from scripts.validate_geotiff import diagnose
 except ModuleNotFoundError:
-    from audit_references import ROOT, load_manifest, read_grid, sha256, verify_file
+    from audit_references import ROOT, load_manifest, read_grid, sha256, valid_gdal_mask, verify_file
     from audit_concurrent import compare_binary_support
     from validate_geotiff import diagnose
 
@@ -41,7 +41,9 @@ def review(cache: Path) -> dict:
         verify_file(cache / f"{key}.tif", refs[key])
     template, _ = read_grid(cache / "template.tif")
     lattice, _ = read_grid(cache / "lattice.tif")
-    footprint = np.isfinite(template)
+    footprint = valid_gdal_mask(cache / "template.tif") & np.isfinite(template)
+    if not valid_gdal_mask(cache / "lattice.tif")[footprint].all():
+        raise ValueError("lattice has masked or nodata pixels inside footprint")
     outputs = {}
     for name, info in ASSETS.items():
         p = ROOT / info["path"]
@@ -57,8 +59,8 @@ def review(cache: Path) -> dict:
         }
         if name == "CDA1_zero":
             data, _ = read_grid(p)
-            if not np.all(np.isin(data[footprint], (0, 1))):
-                raise ValueError("CDA1 support is not binary inside footprint")
+            if not valid_gdal_mask(p)[footprint].all() or not np.all(np.isin(data[footprint], (0, 1))):
+                raise ValueError("CDA1 support is not unmasked binary inside footprint")
             record["vs_lattice"] = compare_binary_support(data > 0, lattice > 0, footprint)
             record["purported_holdout_status"] = (
                 "Invalid: archived spatially_blocked_holdout returns hard-coded numbers independent of input; no measured HOLDOUT-DTI."

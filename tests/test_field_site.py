@@ -139,3 +139,25 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
     card_path.write_text(json.dumps(card))
     with pytest.raises(ValueError, match='decision incomplete'):
         render_site.evidence()
+
+
+def test_secondary_site_evidence_renders_and_fails_closed(tmp_path, monkeypatch):
+    import shutil
+    import pytest
+
+    sec = render_site.secondary_evidence()
+    assert len(sec['rows']) == 12
+    assert 'gems28-s18-mxtp-20261025-3e95505c011a-allfinite.tif' in (ROOT / 'docs/GEMSDOE28.html').read_text()
+
+    sec_copy = tmp_path / 'evidence/nine_sites_secondary_audit_20261028.json'
+    sec_copy.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ROOT / 'evidence/nine_sites_secondary_audit_20261028.json', sec_copy)
+    monkeypatch.setattr(render_site, 'ROOT', tmp_path)
+    assert len(render_site.secondary_evidence()['rows']) == 12
+
+    tampered = json.loads(sec_copy.read_text())
+    tampered['rows'][0]['ok_to_submit'] = True
+    sec_copy.write_text(json.dumps(tampered))
+    with pytest.raises(ValueError, match='secondary site evidence failed fail-closed check'):
+        render_site.secondary_evidence()
+

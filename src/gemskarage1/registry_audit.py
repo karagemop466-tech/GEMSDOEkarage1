@@ -137,8 +137,8 @@ def _verify_registry_pixels(index: dict | list, footprint: np.ndarray, expected_
 
 def _grid(path: Path) -> tuple:
     with rasterio.open(path) as ds:
-        if ds.count != 1:
-            raise ValueError('template/candidate must have one band')
+        if ds.driver != 'GTiff' or ds.count != 1 or ds.crs is None:
+            raise ValueError('template/candidate must be a single-band projected GeoTIFF')
         return (ds.shape, ds.crs, ds.transform)
 
 
@@ -193,20 +193,33 @@ def run_full_fleet_uniqueness_gate(continuous_surface: np.ndarray, final_dots_f3
     index, digest, complete = _inventory(registry_index)
     foot = np.asarray(foot, dtype=bool)
     with rasterio.open(final_tif_path) as ds:
-        if ds.count != 1 or ds.dtypes[0] != 'float32':
-            raise ValueError('candidate must have one float32 band')
+        if ds.driver != 'GTiff' or ds.count != 1 or ds.dtypes[0] != 'float32' or ds.crs is None:
+            raise ValueError('candidate must have one float32 band in a projected GeoTIFF')
         saved = ds.read(1)
+        valid_mask = ds.read_masks(1) != 0
         grid = (ds.shape, ds.crs, ds.transform)
     if sample is not None and grid != _grid(sample):
         raise ValueError('saved raster grid differs from the sample')
-    if saved.shape != foot.shape or not np.array_equal(saved, np.asarray(final_dots_f32)):
+    expected_dots = np.asarray(final_dots_f32)
+    if (expected_dots.dtype != np.float32 or saved.shape != foot.shape
+            or not foot.any() or not np.array_equal(saved, expected_dots, equal_nan=True)):
         raise ValueError('candidate array does not match saved GeoTIFF bytes')
-    if not np.isfinite(saved).all() or np.any((saved < 0) | (saved > 1)):
+    if not valid_mask[foot].all():
+        raise ValueError('saved candidate contains masked or nodata pixels inside footprint')
+    inside = saved[foot]
+    if not np.isfinite(inside).all() or np.any((inside < 0) | (inside > 1)):
         raise ValueError('saved candidate contains non-finite or out-of-range values')
+    outside = saved[~foot]
+    outside_valid = valid_mask[~foot]
+    if np.isinf(outside).any() or np.any(outside_valid & ~np.isnan(outside) & (outside != 0)):
+        raise ValueError('saved candidate contains non-zero or infinite values outside footprint')
     errors = _verify_registry_pixels(index, foot, grid)
     if errors:
         return {'passed': False, 'errors': errors, 'inventory_sha256': digest}
-    result = uniqueness.compare_to_registry(final_tif_path, index, foot, expected_grid=grid)
+    clean = np.where(foot, saved, np.float32(0.0))
+    file_sha = uniqueness._sha(final_tif_path)
+    result = uniqueness.compare_array_to_registry(clean, index, foot, file_sha256=file_sha, expected_grid=grid)
+    result['my_file'] = str(final_tif_path)
     surface_comparison = preplacement_report.get('comparison', {}) if isinstance(preplacement_report, dict) else {}
     surface_ranks_defined, surface_rho = _rank_coverage(surface_comparison, index)
     surface_ok = bool(isinstance(preplacement_report, dict)
@@ -221,8 +234,8 @@ def run_full_fleet_uniqueness_gate(continuous_surface: np.ndarray, final_dots_f3
     ranks_defined, final_rho = _rank_coverage(result, index)
     return {
         'protocol_rule': 'literal-Rule-1-all-registry-rasters',
-        'candidate_sha256': uniqueness._sha(final_tif_path),
-        'candidate_dots': int(((saved > 0) & foot).sum()),
+        'candidate_sha256': file_sha,
+        'candidate_dots': int(((clean > 0) & foot).sum()),
         'inventory_sha256': digest,
         'surface_preplacement_verified': surface_ok,
         'complete_accessible_scan': bool(complete and result['complete_accessible_scan']),

@@ -152,3 +152,42 @@ def test_historical_hedge_does_not_exempt_its_lattice_witness():
     assert hedge['uniqueness']['original_unique_superseded'] is True
     assert hedge['uniqueness']['unique'] is False
     assert hedge['approved_for_weekly_slot'] is False
+
+
+def test_whitespace_registry_id_and_duplicate_registry_hashes_fail_closed():
+    card = copy.deepcopy(good())
+    card['registry']['comparisons'][0]['id'] = '   '
+    assert gate.assess(card)['verdict'] == 'negative'
+
+    card = copy.deepcopy(good())
+    dup = dict(card['registry']['comparisons'][0], id='duplicate-witness')
+    card['registry']['comparisons'].append(dup)
+    card['registry']['expected_rasters'] = 2
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert any('Duplicate registry raster hash' in r for r in result['reasons'])
+
+
+@pytest.mark.parametrize('opt_key', ['geotiff', 'unmasked_inside'])
+def test_optional_validator_keys_fail_closed_when_false(opt_key):
+    card = copy.deepcopy(good())
+    card['validator'][opt_key] = False
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert any(opt_key in r for r in result['reasons'])
+
+
+def test_release_gate_cli_exit_codes_and_nan_rejection(tmp_path):
+    import json
+    good_file = tmp_path / 'good.json'
+    out_file = tmp_path / 'out.json'
+    good_file.write_text(json.dumps(good()))
+    assert gate.main([str(good_file), '--out', str(out_file)]) == 0
+    report = json.loads(out_file.read_text())
+    assert report['verdict'] == 'promote' and report['ok_to_submit'] is False
+
+    bad_file = tmp_path / 'nan.json'
+    bad_file.write_text('{"lane": "x", "elapsed_seconds": NaN}')
+    assert gate.main([str(bad_file), '--out', str(out_file)]) == 1
+    assert json.loads(out_file.read_text())['verdict'] == 'negative'
+

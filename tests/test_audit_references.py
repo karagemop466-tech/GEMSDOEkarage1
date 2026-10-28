@@ -260,3 +260,20 @@ def test_format_diagnostic_cli_rejects_invalid_range(tmp_path):
     result = json.loads(output.read_text())
     assert not result["diagnostics"]["grid_and_inside_pass"]
     assert not result["submission_authorized"]
+
+
+def test_reference_audit_rejects_masked_in_footprint_site_raster(tmp_path):
+    fp = np.ones((8, 8), bool); fp[0] = False
+    labels = np.zeros((8, 8), np.int8); labels[3, 3] = 1; labels[~fp] = -1
+    sample = np.where(fp, (labels == 1).astype(np.float32), np.nan)
+    grid = np.where(fp, 0., np.nan).astype(np.float32); grid[3, 3] = 1
+    entries = []
+    for key in sorted(audit.REQUIRED):
+        arr = labels if key == "labels" else sample if key == "template" else grid
+        path = tmp_path / f"{key}.tif"
+        nodata = -1 if key == "labels" else (1.0 if key == "GEMSDOE32" else np.nan)
+        _write(path, arr, "int8" if key == "labels" else "float32", nodata)
+        entries.append({"id": key, "bytes": path.stat().st_size, "sha256": audit.sha256(path)})
+    with pytest.raises(ValueError, match="masked or nodata pixels inside footprint"):
+        audit.audit(entries, tmp_path)
+
