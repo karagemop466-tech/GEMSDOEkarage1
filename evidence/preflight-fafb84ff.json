@@ -1,0 +1,15 @@
+{
+  "lane": null,
+  "missing": [
+    ".cache/gems_work/feature_stack.npy",
+    ".cache/gems_data/existing_faults.tif",
+    ".cache/gems_data/training_features.tif",
+    ".cache/gems_data/sample_submission.tif",
+    ".cache/gems_data/labels.tif"
+  ],
+  "empty": [],
+  "template_commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+  "ready_for_shared_tools": false,
+  "ok_to_submit": false,
+  "scope": "Input presence, nonempty size and lane only; not scientific validation or slot selection."
+}

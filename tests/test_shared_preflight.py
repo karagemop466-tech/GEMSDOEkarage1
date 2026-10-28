@@ -23,7 +23,7 @@ def configure(root, lane, missing=()):
             folder = 'gems_work' if name.endswith('.npy') else 'gems_data'
             path = root / '.cache' / folder / name
             path.parent.mkdir(parents=True, exist_ok=True)
-            path.touch()
+            path.write_bytes(b'placeholder; not authenticated data')
 
 
 @pytest.mark.parametrize('lane', [None, '', '  ', [], 1, False])
@@ -55,4 +55,20 @@ def test_blocked_execution_never_bootstraps(workspace, monkeypatch, command):
     monkeypatch.setattr(sys, 'argv', ['shared_tools.py', command])
     monkeypatch.setattr(shared_tools, 'bootstrap', lambda: pytest.fail('bootstrapped blocked run'))
     with pytest.raises(SystemExit, match='BLOCKED'):
+        shared_tools.main()
+
+
+@pytest.mark.parametrize('name', ['feature_stack.npy', 'training_features.tif',
+                                  'sample_submission.tif', 'labels.tif', 'existing_faults.tif'])
+def test_empty_input_blocks_execution(workspace, monkeypatch, name):
+    configure(workspace, 'assigned-lane')
+    folder = 'gems_work' if name.endswith('.npy') else 'gems_data'
+    path = workspace / '.cache' / folder / name
+    path.write_bytes(b'')
+    report = shared_tools.preflight()
+    assert report['empty'] == [str(path.relative_to(workspace))]
+    assert not report['ready_for_shared_tools']
+    monkeypatch.setattr(sys, 'argv', ['shared_tools.py', 'evaluate'])
+    monkeypatch.setattr(shared_tools, 'bootstrap', lambda: pytest.fail('bootstrapped empty input'))
+    with pytest.raises(SystemExit, match='empty'):
         shared_tools.main()

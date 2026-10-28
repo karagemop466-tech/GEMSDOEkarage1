@@ -7,6 +7,17 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Current follow-up — session `fafb84ff`
+
+**DO NOT SUBMIT: no new eligible TIFF or measured score.** Shared preflight now
+rejects empty cached input files before execution, in addition to missing inputs
+and the absent assigned lane. This is not data authentication or scientific
+validation. [Three-pass review](knowledge/review-fafb84ff.md) ·
+[Current preflight](evidence/preflight-fafb84ff.json) ·
+[Negative run card](evidence/run-card-fafb84ff.json). Full suite: 245 passed.
+The existing nine-site executive summary and four qualified hypotheses remain
+research material, not submission recommendations.
+
 ## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
 The previously reported lattice failure was independently replayed from pinned
