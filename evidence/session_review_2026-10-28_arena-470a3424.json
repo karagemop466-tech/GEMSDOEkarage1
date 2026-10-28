@@ -1,0 +1,84 @@
+{
+  "schema": "karage1-session-review-v1",
+  "review_date_utc": "2026-10-28",
+  "branch": "arena/470a3424-gemsdoekarage1",
+  "scope": "Repository and inherited evidence review only; no geological experiment, new raster, competition upload, or slot selection.",
+  "decision": {
+    "verdict": "negative",
+    "ok_to_submit": false,
+    "new_submission_tif_generated": false,
+    "weekly_slot_selected_or_spent": false,
+    "estimated_new_score": null,
+    "reason": "The current request does not identify the required single method lane. The shared-template preflight reports no lane and no cached feature stack/data inputs. The two inherited candidate rasters already fail the literal 3-pixel/70-percent duplicate gate against the pinned lattice; they are not new candidates. Generating a placeholder or changing a prior mask without the required lane and holdout would not satisfy the protocol."
+  },
+  "inherited_duplicate_witness": {
+    "source": "evidence/candidate_audit_20261028.json",
+    "scope_warning": "A pinned lattice witness proves these two inherited files fail; this does not establish a complete current-registry inventory or candidate uniqueness.",
+    "candidates": [
+      {
+        "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+        "dots_within_3px": 38174,
+        "candidate_dots": 38200,
+        "fraction": 0.9993193717277487,
+        "result": "duplicate"
+      },
+      {
+        "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+        "dots_within_3px": 35959,
+        "candidate_dots": 36000,
+        "fraction": 0.9988611111111111,
+        "result": "duplicate"
+      }
+    ]
+  },
+  "shared_tool_preflight": {
+    "command": "python scripts/shared_tools.py preflight",
+    "lane": null,
+    "template_commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+    "missing": [
+      ".cache/gems_work/feature_stack.npy",
+      ".cache/gems_data/training_features.tif",
+      ".cache/gems_data/sample_submission.tif",
+      ".cache/gems_data/labels.tif"
+    ],
+    "status": "blocked"
+  },
+  "verification": {
+    "test_command": ".venv/bin/python -m pytest -q",
+    "tests_passed": 205,
+    "tests_failed": 0,
+    "tests_skipped": 0,
+    "warnings": 53,
+    "warning_type": "Rasterio PendingDeprecationWarning about Affine multiplication in test transforms",
+    "note": "Dependencies were installed into the ignored local .venv; no dependency files changed. Tests are software-contract checks, not geological validation or a leaderboard score.",
+    "site_build_command": ".venv/bin/python scripts/build_site.py",
+    "site_build_result": "Rendered 32 deterministic decision pages; no submission authorized.",
+    "site_build_worktree_changes": 0
+  },
+  "site_audit": {
+    "focus_sites": ["GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30", "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"],
+    "executive_summary": "docs/executive-summary.html",
+    "per_site_pages": "docs/GEMSDOE{24,25,27,28,30,31,32,33,36}.html",
+    "assessment": "The existing pages list historical files and user-reported/unverified scores, show no defensible estimate for a new candidate, and mark the historical references not eligible for resubmission."
+  },
+  "score_provenance": {
+    "historical_gemsdoe32_claim": "0.2778 USER-REPORTED / UNVERIFIED; no artifact-linked organizer receipt present in this checkout.",
+    "new_candidate_score": "not measured; no projection made",
+    "official_leaderboard_state": "not checked during this review"
+  },
+  "limitations_and_flags": [
+    "The request refers to a single method-lane paragraph, but no lane is identified in the current message.",
+    "The shared feature cache and competition input rasters are not present in the workspace.",
+    "The authenticated and complete current submission registry is not established.",
+    "Pre-placement candidate surfaces and a current, same-evaluator holdout baseline are unavailable.",
+    "The prior sample/grid mirror is not organizer-authenticated; local format diagnostics do not guarantee portal acceptance.",
+    "The earlier local test attempt with system Python failed because pytest was absent; the full suite passed after installing project requirements in ignored .venv.",
+    "The public leaderboard and weekly submission allowance were not inspected; no score or slot status is claimed."
+  ],
+  "next_safe_actions": [
+    "Provide or identify the intended method-lane paragraph and resolve protocol blockers without weakening the uniqueness thresholds.",
+    "Identify the authoritative shared template and restore/authenticate the required cache and official grid.",
+    "Build a complete pinned registry inventory and establish a comparable current holdout best before any experiment.",
+    "Only then consider an assigned-lane hypothesis, with fold-local hide-and-recover, leakage canaries, and both pre-placement and saved-raster uniqueness checks."
+  ]
+}

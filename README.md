@@ -5,7 +5,26 @@
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [This branch's independent review](evidence/session_review_2026-10-28_arena-470a3424.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+
+## Independent checkout review — 28 October 2026
+
+The active branch review reproduced the fail-closed software status and did not
+run an experiment or create a new submission. The command
+`python scripts/shared_tools.py preflight` reports no assigned lane and is
+missing the feature stack plus training, sample-grid, and labels rasters. Both inherited candidate files have
+already failed the literal 3-pixel overlap limit against the pinned lattice;
+that finding is not a substitute for comparing a new pre-placement surface to a
+complete registry. The [review record](evidence/session_review_2026-10-28_arena-470a3424.json)
+records scope and blockers.
+
+Verification in an isolated, ignored `.venv`: **205 tests passed, 0 failed,
+0 skipped**, with 53 Rasterio `PendingDeprecationWarning` notices. The
+fail-closed static-site builder rendered 32 pages deterministically without
+changing tracked files. These are software/site checks only — not a geological
+holdout, score, official template check, or upload authorization. The
+historical `0.2778` remains **USER-REPORTED / UNVERIFIED**; no new score is
+estimated. No weekly slot was selected or spent.
 
 ## What changed on 28 October 2026
 
