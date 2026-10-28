@@ -1,0 +1,55 @@
+{
+  "schema": "karage1-run-card-v2",
+  "created_utc": "2026-10-28T00:00:00+00:00",
+  "session": "arena/e78e1e3b-gemsdoekarage1",
+  "hypothesis": "Catalogue-free blind hydrothermal-alteration propensity surface (signed potential-field / radiometric proxy concept, H1-family) emitted as sparse, minimum-separated dots only in terrain >3 px from the local duplicate proxy, so the raster is geometrically distinct from prior dotted-ridge submissions.",
+  "mechanism": "Smooth belief surface from blind anomaly centres, restricted to proxy-uncovered terrain, greedy min-separated dot selection (~300 m triangular-kernel spirit), written as all-finite float32 [0,1] GeoTIFF on EPSG:32611 3730x3292 100 m grid. Designed to fix the prior '[0,1]' portal rejection and to be unique-by-construction vs the local proxy.",
+  "named_non_fault_mimic": "Lithologic contacts, volcanic flow edges, acquisition blocks and survey artifacts can mimic potential-field/radiometric fault proxies; these are untested because no holdout was run.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": "not run",
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run; competition training data (training_features.tif, labels.tif, sample_submission.tif) are login-walled at DrivenData and absent from this checkout."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_spearman_vs_registry": null,
+    "final_dot_overlap_vs_local_proxy_3px": 0.0,
+    "dots_within_3px_of_local_proxy": 0,
+    "candidate_dots": 3500,
+    "versus_organizer_lattice": "NOT verifiable locally (lattice raster not in checkout; DrivenData login-walled). The dense lattice covers 99.87% of footprint cells within 3 px, so any footprint-wide dotted submission risks exceeding the 70% Rule-1 overlap limit vs the lattice.",
+    "registry_complete": false,
+    "registry_scope": "Local historical proxy only (karage1 hmas/gemsk1 dotted rasters); not the organizer registry."
+  },
+  "raster_sha256": "8bc4dae02a99da68ac0e895b7a5c4b5c72b60de11a91efb7ddef3f2b626ee1d2",
+  "raster_path": "docs/downloads/karage1-unique-alteration-dots-20261028-zeros.tif",
+  "validator_output": {
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "all_finite_whole_array": true,
+    "strict_whole_array_finite_0_1": true,
+    "no_positive_mass_outside_footprint": true,
+    "single_band_float32_epsg32611_100m": true,
+    "reference": "scripts/validate_geotiff.py vs local owner-mirrored template grid; portal acceptance not tested",
+    "fixes_[0,1]_error": true
+  },
+  "submission_name": "karage1-unique-alteration-dots-20261028-zeros.tif",
+  "submission_note": "Catalogue-free sparse hydrothermal-alteration dots; all-finite [0,1], format-valid locally, not organizer-cleared, research only",
+  "submission_note_chars": 109,
+  "download_available": true,
+  "download_available_meaning": "Research artifact download link provided; NOT submission authorization.",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 0,
+  "blockers": [
+    "No organizer-authenticated grid/labels/lattice available locally; holdout DTI cannot be computed.",
+    "Uniqueness vs the organizer registry and all prior submissions is not established locally.",
+    "No assigned method-lane paragraph; dense-lattice Rule-1 conflict unresolved."
+  ],
+  "verdict": "negative",
+  "audit": "evidence/candidate_audit_20261028.json",
+  "receipt": "docs/downloads/karage1-unique-alteration-dots-20261028-zeros.json"
+}
