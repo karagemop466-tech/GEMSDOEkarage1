@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Write this session's honest negative run card; never selects a weekly slot.
 
-No predictions, scientific holdout or release-selector implementation exists in
-this checkout. An available format check or a self-reported score cannot change
-this result. If the audit is missing or malformed, the outcome remains negative.
+Historical predictions and holdout reports exist, but none is cleared for
+submission. This command checks no new candidate. An available format check or
+a self-reported score cannot change this negative session result. If the audit is missing or malformed, the outcome remains negative.
 """
 from __future__ import annotations
 import argparse
 import json
 import math
+import os
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -32,7 +34,7 @@ def run_card(audit: dict | None) -> dict:
     reasons = [
         "The prompt refers to a single assigned method lane but supplies no lane paragraph.",
         "The complete current shared registry, a cached feature stack, and a frozen comparable holdout best are not present in this checkout.",
-        "No candidate surface, leakage-canary results, held-out experiment, independent confirmation, or selector decision exists.",
+        "No new candidate surface, leakage-canary results, held-out experiment, independent confirmation, or selector decision is produced by this preflight.",
         "The mirrored template is not organizer-authenticated and outside-footprint encoding versus the reported portal range error remains unresolved.",
     ]
     if confirmed_bound:
@@ -58,7 +60,7 @@ def run_card(audit: dict | None) -> dict:
             "no_nan_inside_footprint": None,
             "values_in_0_1": None,
             "crs_shape_transform_match": None,
-            "status": "not run; no candidate raster exists",
+            "status": "not run; this preflight generates no candidate raster",
         },
         "submission_name": None,
         "submission_note": None,
@@ -76,17 +78,28 @@ def main() -> int:
     parser.add_argument("--audit", type=Path, default=ROOT / "docs/data/reference-audit.json")
     parser.add_argument("--out", type=Path, default=ROOT / ".cache/preflight/run-card.json")
     args = parser.parse_args()
+    if args.out.resolve() == args.audit.resolve() or (
+        args.out.exists() and args.audit.exists() and args.out.samefile(args.audit)
+    ):
+        parser.error("--out must not overwrite the input audit")
     try:
-        audit = json.loads(args.audit.read_text())
+        def reject_constant(value):
+            raise ValueError(f"non-standard JSON constant: {value}")
+        audit = json.loads(args.audit.read_text(), parse_constant=reject_constant)
         if audit.get("schema") != "karage1-reference-audit-v1":
             audit = None
     except (OSError, ValueError, AttributeError):
         audit = None
     result = run_card(audit)
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    temp = args.out.with_suffix(args.out.suffix + ".tmp")
-    temp.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
-    temp.replace(args.out)
+    fd, name = tempfile.mkstemp(prefix="." + args.out.name + ".", suffix=".tmp", dir=args.out.parent)
+    temp = Path(name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(json.dumps(result, indent=2, allow_nan=False) + "\n")
+        temp.replace(args.out)
+    finally:
+        temp.unlink(missing_ok=True)
     print(json.dumps({"verdict": result["verdict"], "ok_to_submit": False, "run_card": str(args.out)}, indent=2))
     # A blocked/negative decision is a nonzero exit so automation cannot treat
     # a successfully written report as permission to upload.

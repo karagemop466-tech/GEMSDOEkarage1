@@ -1,5 +1,8 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+**Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
+> **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.
+>
 > **DO NOT SUBMIT — no candidate has been cleared for competition upload.**
 > The separately generated BB-STEP research GeoTIFF is unique versus the nine focus-site rasters but fails the literal 3-pixel lattice-overlap rule (98.5253%). Do not submit it. The older CDA1 archive is a synthetic demonstrator whose holdout routine returned hard-coded numbers; its reported DTI is invalid and is not a measurement. All 21 primary and secondary focus-site files audited in this repository also fail the literal lattice gate. Format validation is necessary but not submission approval.
 
@@ -20,6 +23,19 @@
 8. **PARALLEL-RUN PROTOCOL:** one assigned lane; registry duplicate check (|Spearman| > 0.90 or > 70% of dots within 3 px → log and stop); reuse shared `evaluate_holdout.py` / `submission_writer.py` (fix once, never private-fork); label every number; leakage canary (single feature AUC > 0.90 → leakage); budget ≤ 3 experiments or 2 hours; no slot selection (separate selector, weekly cap); end with a JSON run card and promote/negative verdict.
 9. No hallucinations: verify line by line from official sources; collect data/knowledge into auditable tables; state limitations and access needs (no DrivenData login; the data tab is login-walled).
 10. Clean GitHub Pages site under `docs/`; three passes then a PR merged to `main`, listing remaining work and limitations.
+
+## Current session review (`arena/accf3693-gemsdoekarage1`)
+
+**DO NOT SUBMIT — no new candidate generated or cleared.**
+[Three-pass review and next steps](knowledge/session-accf3693-review.md) ·
+[Current shared preflight](evidence/session_accf3693_shared_preflight.json) ·
+[Session run card](evidence/session_accf3693_run_card.json).
+The fresh checkout has no restored shared cache and no assigned method lane or
+canonical-template assignment. Historical evidence below is not a fresh model run.
+This session hardened report input preservation and strict JSON handling;
+**314 software tests pass** (not a performance score). The existing nine-site
+summary and four ranked research proposals remain below; no leaderboard estimate
+or new uniqueness certificate is asserted.
 
 [Latest forensic & 9-site review (`9ca08e2e`)](knowledge/session-review-arena-9ca08e2e.md) · [Latest session run card (`9ca08e2e`)](evidence/session_9ca08e2e_run_card.json) · [19-band `training_features.tif` audit](evidence/training_features_band_audit_20261028.json) · [Secondary 9-site audit (12 files)](evidence/nine_sites_secondary_audit_20261028.json) · [Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Independent repository and BB-STEP/CDA1 saved-byte review](knowledge/repository-review-2026-10-28.md) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
 
