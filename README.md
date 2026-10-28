@@ -7,6 +7,10 @@
 
 [Latest session review](knowledge/session-review-2026-10-28.md) · [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Current parallel-run warning — 28 October 2026
+
+Independent saved-byte checks show the pinned [PR 20 TD-KSCK and PR 19 CTWS-2D candidates](knowledge/parallel-candidate-audit-2026-10-28.md) also fail the literal lattice stop: 37,584/37,654 (99.8141%) and 37,999/38,200 (99.4738%) of their dots respectively lie within 3 pixels of that witness. Their own reports excluded it from the passing maximum. **DO NOT SUBMIT either.** This is a one-witness negative audit, not a holdout or complete registry scan. The mirror is not authenticated; no slot was spent.
+
 ## Latest follow-up: automation preflight
 
 The shared-tool adapter now exits **1** when the assigned lane or required
