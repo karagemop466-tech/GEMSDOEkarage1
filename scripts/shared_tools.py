@@ -1,5 +1,6 @@
 """Bootstrap and invoke pinned shared tools, never copy or fork their implementation."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -8,6 +9,9 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from scripts.audit_template_integrity import audit as template_integrity_audit
 TEMPLATE = ROOT / '.work/template'
 
 
@@ -22,6 +26,24 @@ def bootstrap():
         raise SystemExit('Template commit mismatch; refusing execution')
     if subprocess.check_output(['git', '-C', str(TEMPLATE), 'status', '--porcelain'], text=True).strip():
         raise SystemExit('Shared template has modifications; no private fork permitted')
+
+
+def _same_bytes(first, second):
+    """Report byte identity only; identical files do not establish data roles."""
+    if not first.is_file() or not second.is_file():
+        return None
+    try:
+        if first.stat().st_size != second.stat().st_size:
+            return False
+        def digest(path):
+            h = hashlib.sha256()
+            with path.open('rb') as stream:
+                for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                    h.update(chunk)
+            return h.digest()
+        return digest(first) == digest(second)
+    except OSError:
+        return None
 
 
 def preflight():
@@ -46,13 +68,31 @@ def preflight():
         and assignment.get('method_lane') == lane
         and isinstance(assignment.get('evidence'), str) and bool(assignment['evidence'].strip())
     )
-    missing = [str(p.relative_to(ROOT)) for p in needed if not p.is_file()]
-    empty = [str(p.relative_to(ROOT)) for p in needed if p.is_file() and p.stat().st_size == 0]
-    return {'lane': lane, 'missing': missing, 'empty': empty, 'template_commit': commit,
+    missing, empty, unreadable = [], [], []
+    for path in needed:
+        name = str(path.relative_to(ROOT))
+        try:
+            if not path.is_file():
+                missing.append(name)
+            else:
+                # An interrupted download or touch-created placeholder is not
+                # usable input. Do not load the stack here: this remains a
+                # lightweight preflight, not format/provenance validation.
+                with path.open('rb') as source:
+                    if not source.read(1):
+                        empty.append(name)
+        except OSError:
+            unreadable.append(name)
+    integrity = template_integrity_audit(ROOT)
+    labels_match_catalogue = _same_bytes(needed[4], needed[1])
+    return {'template_integrity': integrity, 'labels_and_existing_faults_identical_bytes': labels_match_catalogue,
+            'data_role_warning': ('Identical bytes: verify source and fold-local fault roles before evaluation; '
+                                  'identity alone does not establish leakage.' if labels_match_catalogue is True else None),
+            'lane': lane, 'missing': missing, 'empty': empty, 'unreadable': unreadable, 'template_commit': commit,
             'canonical_assignment_recorded': bool(assignment_valid),
-            'ready_for_shared_tools': bool(lane_valid and assignment_valid and not missing and not empty),
+            'ready_for_shared_tools': bool(lane_valid and assignment_valid and not (missing or empty or unreadable) and integrity['execution_authorized']),
             'ok_to_submit': False,
-            'scope': ('Input presence, nonempty size and recorded lane/template assignment only; not authentication, '
+            'scope': ('Readable nonempty input presence and recorded lane/template assignment only; not format, provenance authentication, '
                       'scientific validation or slot selection.')}
 
 
@@ -69,7 +109,7 @@ def main():
         print(json.dumps(report, indent=2))
         return 0 if report['ready_for_shared_tools'] else 1
     if not report['ready_for_shared_tools']:
-        raise SystemExit('BLOCKED: lane, canonical template assignment, or cached inputs missing or empty. ' + json.dumps(report))
+        raise SystemExit('BLOCKED: shared-template provenance, lane, canonical template assignment, or cached inputs missing, empty or unreadable. ' + json.dumps(report))
     bootstrap()
     target = 'evaluate_holdout.py' if opts.command == 'evaluate' else 'submission_writer.py'
     env = dict(os.environ, GEMS_DATA_DIR=str(ROOT / '.cache/gems_data'), GEMS_WORK_DIR=str(ROOT / '.cache/gems_work'))

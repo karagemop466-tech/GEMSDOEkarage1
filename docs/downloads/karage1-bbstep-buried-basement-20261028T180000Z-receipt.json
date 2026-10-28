@@ -1,0 +1,68 @@
+{
+ "slug": "karage1-bbstep-buried-basement-20261028T180000Z",
+ "submission_note": "BB-STEP buried grav/dtb ridge; research only; DO NOT SUBMIT",
+ "note_length": 59,
+ "files": {
+  "zeros": {
+   "file": "karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif",
+   "bytes": 103259,
+   "sha256": "72312302675d65cd1983239dd436412b5db1118a7c08f2a5807ef436b5536d6a",
+   "emitted_positive_pixels": 17766,
+   "unique_values_in_footprint": [
+    0.0,
+    1.0
+   ],
+   "on_catalogue_dots": 0,
+   "dots_within_2px_of_catalogue": 0,
+   "whole_array_finite": true,
+   "nodata_tag": null,
+   "checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "crs_matches_template": true,
+    "transform_matches_template": true,
+    "shape_matches_template": true,
+    "crs_is_epsg_32611": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero_or_nan": true,
+    "no_inf_anywhere": true,
+    "whole_array_finite_(zeros_mode)": true
+   },
+   "all_checks_passed": true
+  },
+  "nan": {
+   "file": "karage1-bbstep-buried-basement-20261028T180000Z-nan.tif",
+   "bytes": 173870,
+   "sha256": "d899420605cd98d2e9b05247f51375980a4aedcc6e663ea3e5eab00062d2cf0e",
+   "emitted_positive_pixels": 17766,
+   "unique_values_in_footprint": [
+    0.0,
+    1.0
+   ],
+   "on_catalogue_dots": 0,
+   "dots_within_2px_of_catalogue": 0,
+   "whole_array_finite": false,
+   "nodata_tag": "nan",
+   "checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "crs_matches_template": true,
+    "transform_matches_template": true,
+    "shape_matches_template": true,
+    "crs_is_epsg_32611": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero_or_nan": true,
+    "no_inf_anywhere": true,
+    "whole_array_finite_(zeros_mode)": true
+   },
+   "all_checks_passed": true
+  },
+  "zeros_zip": {
+   "file": "karage1-bbstep-buried-basement-20261028T180000Z-zeros.zip",
+   "bytes": 65885,
+   "sha256": "69055dbf69bdd5e5eac3f970b7b9af2f4e0a9f3eb1cdb209d855866241cf458c"
+  }
+ }
+}
