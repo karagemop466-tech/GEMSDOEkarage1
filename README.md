@@ -13,6 +13,21 @@
 
 [Three-pass review](knowledge/session-7e7b4964-review.md) · [negative run card](evidence/session_7e7b4964_run_card.json). Restored and reverified the 31 pinned third-party mirrors; their organizer provenance remains unverified. Preflight now flags that the mirrored labels and existing-fault files have identical bytes, without claiming this alone proves leakage. The assigned lane and shared cache remain missing. No new TIFF, holdout, score estimate or slot selection was made. **Do not submit.**
 
+## Latest adapter review — session `ea042946` (28 October 2026)
+
+[Three-pass review](knowledge/session-ea042946-review.md) ·
+[Session run card](evidence/session_ea042946_run_card.json) ·
+[Actual preflight](evidence/session_ea042946_preflight.json).
+The shared-tool invocation adapter now rejects **empty and unreadable** cached
+inputs as well as missing files; empty download placeholders can no longer
+report readiness. This is not format or provenance validation. Verification:
+**272 tests passed** (90 Rasterio pending-deprecation warnings); all 32 decision
+pages rebuilt without changes. No new geological experiment, TIFF, score
+estimate, or slot selection was made. **DO NOT SUBMIT.** The method lane and
+all five required shared cached inputs are absent in this checkout. Existing
+nine-site summaries and the four-hypothesis slate remain planning/audit
+material, not evidence of a new high-scoring eligible submission.
+
 ## Current follow-up — session `fafb84ff`
 
 **DO NOT SUBMIT: no new eligible TIFF or measured score.** Shared preflight now
