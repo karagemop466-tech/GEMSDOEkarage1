@@ -148,8 +148,10 @@ def conduitcrest_evidence():
             or old_card.get('verdict') != 'negative'
             or old_card.get('registry_correlation_overlap', {}).get('unique_by_literal_rule') is not False
             or old_card.get('holdout_dti', {}).get('ci95') is not None
+            or old_card.get('leakage_canary', {}).get('passed') is not False
             or latest.get('verdict') != 'negative'
             or latest.get('ok_to_submit') is not False
+            or latest.get('assigned_method_lane', {}).get('active_assignment') is not False
             or latest.get('raster', {}).get('sha256') != candidate.get('sha256')
             or latest.get('registry_correlation_overlap', {}).get('unique_by_literal_rule') is not False
             or latest.get('post_run_lattice_audit', {}).get('directed_overlap') != lattice.get('directed_overlap')

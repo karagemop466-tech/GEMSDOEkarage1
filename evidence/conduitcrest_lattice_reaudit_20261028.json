@@ -41,7 +41,9 @@
     "exceeds_overlap_threshold": true,
     "binary_support_spearman": 0.000233778067251103,
     "exceeds_abs_spearman_threshold": false,
-    "literal_rule_verdict": "duplicate; stop"
+    "literal_rule_verdict": "duplicate; stop",
+    "exact_support_intersection": 711,
+    "jaccard_dot_sets": 0.0031797995518763503
   },
   "nine_focus_site_comparison": {
     "files_checked": 9,
