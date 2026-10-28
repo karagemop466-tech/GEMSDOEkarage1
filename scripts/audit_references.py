@@ -190,7 +190,7 @@ def raster_checks(data: np.ndarray, meta: dict, template: dict, footprint: np.nd
         "nonfinite_inside_count": nonfinite_inside,
         "inside_values_in_0_1": bool(valid_inside.all()),
         "out_of_range_inside_count": out_of_range_inside,
-        "outside_all_nan": bool(np.isnan(outside).all()) if outside.size else True,
+        "outside_all_nan": bool(outside.size > 0 and np.isnan(outside).all()),
         "outside_nan_count": int(np.isnan(outside).sum()),
         "whole_array_strict_finite_0_1": bool(np.all(finite_all & (data >= 0) & (data <= 1))),
         "minimum_finite": float(np.min(data[finite_all])) if finite_all.any() else None,
@@ -338,14 +338,24 @@ def main() -> int:
     p.add_argument("--out", type=Path, default=ROOT / "docs/data/reference-audit.json")
     args = p.parse_args()
     try:
+        if args.out.resolve() == args.manifest.resolve() or (
+            args.out.exists() and args.manifest.exists() and os.path.samefile(args.out, args.manifest)
+        ):
+            raise ValueError("audit output must not overwrite manifest")
         entries = load_manifest(args.manifest)
         if args.fetch:
             fetch_files(entries, args.cache)
         report = audit(entries, args.cache)
         args.out.parent.mkdir(parents=True, exist_ok=True)
-        tmp = args.out.with_suffix(args.out.suffix + ".tmp")
-        tmp.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
-        tmp.replace(args.out)
+        fd, name = tempfile.mkstemp(prefix="." + args.out.name + ".", suffix=".tmp", dir=args.out.parent)
+        tmp = Path(name)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as fh:
+                fh.write(json.dumps(report, indent=2, allow_nan=False) + "\n")
+            os.chmod(tmp, 0o644)
+            tmp.replace(args.out)
+        finally:
+            tmp.unlink(missing_ok=True)
         print(f"Audit written to {args.out}. No submission is authorized.")
         return 0
     except (OSError, ValueError, subprocess.CalledProcessError) as exc:

@@ -141,7 +141,22 @@ def emit_from(surface: np.ndarray, visible: np.ndarray, budget: int, spacing: fl
     return emission.apron_prune(dots, visible, apron_px=apron)
 
 
+QUARANTINED_REASON = (
+    "QUARANTINED: scripts/run_bbstep_experiments.py cannot run while "
+    "registry/template.json has method_lane=null and canonical_template_assignment=null; "
+    "its historical candidate overlaps 98.5253% within 3 px of the 13GEMSDOE lattice, "
+    "uses private src/gemsk/holdout.py (which dilates visible faults by 3 px and "
+    "compares against a static full-catalogue-pruned B2 mask), and would overwrite "
+    "committed run-card receipts (docs/data/run-card.json and docs/data/latest-run-card.json)."
+)
+
+
 def main() -> int:
+    print(QUARANTINED_REASON, file=sys.stderr)
+    return 2
+
+
+def _legacy_unquarantined_main() -> int:
     started = datetime.now(timezone.utc).isoformat()
     foot = grid.footprint()
     cat = grid.catalogue()
