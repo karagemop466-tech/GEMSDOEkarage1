@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — fault discovery, evidence first
 
+> **Latest repository review — 28 October 2026, `arena/3fa432c5-gemsdoekarage1`: DO NOT SUBMIT.** No new TIFF, experiment, holdout score, or slot selection was produced. Shared preflight is blocked: no assigned method lane, cached feature stack, or required raster inputs. The complete software suite passed **240 tests**; this is not scientific validation. See the [session review](knowledge/review-arena-3fa432c5-2026-10-28.md) and [negative run card](evidence/session_run_card_arena_3fa432c5_20261028.json).
+
 > **DO NOT SUBMIT — no eligible new GeoTIFF exists.** The two previously
 > promoted research files each duplicate a registered lattice under the user's
 > literal rule. No geological experiment, competition upload, or weekly-slot
