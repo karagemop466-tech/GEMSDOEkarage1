@@ -71,3 +71,15 @@ def test_saved_evidence_records_negative_not_approval():
     for row in report['candidates'].values():
         assert row['dots_within_3px'] * 10 > row['candidate_dots_in_footprint'] * 7
         assert row['duplicate_over_70_percent'] and row['ok_to_submit'] is False
+
+
+def test_cli_refuses_to_overwrite_input_rasters(synthetic, monkeypatch):
+    import sys
+    before = (synthetic / 'td.tif').read_bytes()
+    monkeypatch.setattr(sys, 'argv', ['audit_parallel_candidates.py', str(synthetic), '--out', str(synthetic / 'td.tif')])
+    assert audit.main() == 2
+    assert (synthetic / 'td.tif').read_bytes() == before
+    out = synthetic / 'nested/out.json'
+    monkeypatch.setattr(sys, 'argv', ['audit_parallel_candidates.py', str(synthetic), '--out', str(out)])
+    assert audit.main() == 0
+    assert json.loads(out.read_text())['candidates']['td']['ok_to_submit'] is False

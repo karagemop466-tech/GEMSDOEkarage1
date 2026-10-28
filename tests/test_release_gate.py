@@ -149,6 +149,38 @@ def test_matching_registry_hash_cannot_be_overridden_by_identity_flags():
     assert any('Candidate hash matches registry raster' in reason for reason in result['reasons'])
 
 
+def test_duplicate_registry_hashes_or_whitespace_ids_fail_closed():
+    card = copy.deepcopy(good())
+    second = dict(card['registry']['comparisons'][0], id='duplicate-digest')
+    card['registry']['comparisons'].append(second)
+    card['registry']['expected_rasters'] = 2
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert any('Duplicate registry raster hash' in reason for reason in result['reasons'])
+
+    ws_card = copy.deepcopy(good())
+    ws_card['registry']['comparisons'][0]['id'] = '   '
+    assert gate.assess(ws_card)['verdict'] == 'negative'
+
+
+def test_overlong_submission_name_or_masked_validator_or_mismatched_withheld_fail_closed():
+    long_name = copy.deepcopy(good())
+    long_name['submission_name'] = 'x' * 141
+    assert gate.assess(long_name)['verdict'] == 'negative'
+
+    masked = copy.deepcopy(good())
+    masked['validator']['masked_inside_count'] = 1
+    assert gate.assess(masked)['verdict'] == 'negative'
+
+    unmasked_false = copy.deepcopy(good())
+    unmasked_false['validator']['unmasked_inside'] = False
+    assert gate.assess(unmasked_false)['verdict'] == 'negative'
+
+    mismatch = copy.deepcopy(good())
+    mismatch['holdout']['baseline_withheld_positives'] = 9
+    assert gate.assess(mismatch)['verdict'] == 'negative'
+
+
 def test_historical_hedge_does_not_exempt_its_lattice_witness():
     import json
     root = Path(__file__).parents[1]

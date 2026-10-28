@@ -15,6 +15,10 @@
 · name `KARAGE1-BBSTEP-72312302675D`
 · note `BB-STEP buried grav/dtb ridge; research only; DO NOT SUBMIT`
 
+## Latest follow-up — 28 October 2026, session `arena/0150ae73-gemsdoekarage1`
+
+Independent replay from the 31 pinned mirror assets and 12 reference rasters reproduced `docs/data/reference-audit.json`, `evidence/candidate_audit_20261028.json`, `evidence/prior_candidate_audit.json`, `evidence/release_reassessment_20261028.json`, and `evidence/parallel_candidates_audit_20261028.json` exactly. All historical and parallel-branch candidates (`HMAS`, `GPC-Z`, `PR 20 TD-KSCK`, `PR 19 CTWS-2D`, and the concurrent `BB-STEP` research raster below at `98.53%` lattice 3-px overlap) fail the literal `> 70%` 3-pixel lattice overlap gate and remain **DO NOT SUBMIT**. Pass 2 hardened `src/gemskarage1/registry_audit.py` (`run_full_fleet_uniqueness_gate` now rejects GDAL-masked in-footprint pixels on saved candidates), `scripts/release_gate.py` (rejects duplicate registry SHA-256 digests, whitespace-only registry IDs, overlong submission names `> 140` chars, masked validator flags, and mismatched baseline withheld counts), and the audit scripts (`--out` input-overwrite protection and unmasked in-footprint verification). See [session review](knowledge/session-0150ae73-review.md) and [session run card](evidence/session_0150ae73_run_card.json).
+
 Other 28 October parallel-session reviews on `main` remain **DO NOT SUBMIT** (no assigned lane, lattice duplicates, or preflight blocks). They did not generate this BB-STEP raster and do not authorize upload.
 
 **HOLDOUT-DTI 0.0318** [0.0271, 0.0363] · evaluator `gemsk-hide-recover-v1` ·

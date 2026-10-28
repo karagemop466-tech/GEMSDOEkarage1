@@ -1,0 +1,34 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/0150ae73-gemsdoekarage1",
+  "hypothesis": "No assigned method lane supplied; no new geological hypothesis was executed in this session.",
+  "mechanism": "None executed. Replayed saved-byte audits on all 12 reference rasters, 31 pinned mirror assets, historical HMAS/GPC-Z candidates, and parallel PR 19/20 candidates.",
+  "named_non_fault_mimic": "Lithologic contacts and Pleistocene Lake Lahontan shoreline benches can mimic potential-field or topographic edges.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run; no comparable current holdout measurement."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_spearman": null,
+    "final_dot_overlap": null,
+    "status": "No new surface or raster generated; replayed saved-byte audits confirm historical HMAS (38,174/38,200 = 99.9319%), GPC-Z (35,959/36,000 = 99.8861%), PR 20 TD-KSCK (37,584/37,654 = 99.8141%), and PR 19 CTWS-2D (37,999/38,200 = 99.4738%) all fail the >70% 3-px overlap rule against the registered lattice witness. Registry is incomplete."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "No new raster to validate; organizer-authenticated sample submission template absent."
+  },
+  "submission_name": null,
+  "submission_note": "No submission: lane, shared cache, and authenticated sample unavailable.",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 0,
+  "verdict": "negative"
+}
