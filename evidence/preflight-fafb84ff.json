@@ -9,7 +9,8 @@
   ],
   "empty": [],
   "template_commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+  "canonical_assignment_recorded": false,
   "ready_for_shared_tools": false,
   "ok_to_submit": false,
-  "scope": "Input presence, nonempty size and lane only; not scientific validation or slot selection."
+  "scope": "Input presence, nonempty size and recorded lane/template assignment only; not authentication, scientific validation or slot selection."
 }

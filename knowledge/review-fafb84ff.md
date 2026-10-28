@@ -35,3 +35,7 @@ The B2 geometry explanation is already in the research review: audited mirror su
 4. Only promote measured improvements that pass every saved-byte gate; a separate selector checks the current weekly cap. No automatic competition upload is implemented or authorized.
 
 The README's stored standing prompt is explicitly reconstructed rather than a verbatim transcript. This review does not claim to have completed the requested unique TIFF or established a new high score. The current site already makes the negative outcome prominent; adding a download button for a failed candidate would misrepresent its eligibility.
+
+## Concurrent-main integration
+
+The first PR merge attempt was blocked by conflicts with concurrent preflight assignment checks. Merged origin/main into this same working branch, retained both canonical-assignment and empty-input safeguards, then reran the complete suite: **260 passed**, 90 warnings. Rebuilt 32 pages and passed diff checks. Refreshed preflight evidence remains negative.
