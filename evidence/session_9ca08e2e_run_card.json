@@ -1,0 +1,113 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "created_utc": "2026-10-28T16:48:00+00:00",
+  "session": "arena/9ca08e2e-gemsdoekarage1",
+  "hypothesis": "Unassigned lane (registry/template.json method_lane is null). Pre-implementation Rank-1 proposal: Sub-Alluvial Basement-Step & Signed Potential-Field Phase-Congruency (SBPF-PC) on bands depth_to_base_surf, iso_grav_anom, iso_grav_anom_hg, iso_grav_anom_vg, rtp, tmi_hg, tmi_vg conditioned on low det_elev_slope/det_elev after masking 3,073 interior nodata pixels.",
+  "mechanism": "Concealed normal and transtensional faults beneath Quaternary Great Basin valley fill preserve strike-persistent multi-scale phase congruency across magnetic and isostatic-gravity horizontal/vertical derivatives coincidental with cross-strike steps in depth_to_base_surf where surface scarps (det_elev_slope) have diffused or aggraded away. Not executed: lane unassigned and 13GEMSDOE lattice gate unresolved.",
+  "named_non_fault_mimic": "Buried paleochannels, unfaulted bedrock pediment ledges or pluton margins, basaltic lava-flow edges, Pleistocene Lake Lahontan shoreline strandlines, and airborne magnetic flight-line leveling seams.",
+  "mimic_process": "Buried paleochannels, unfaulted bedrock pediment ledges or pluton margins, basaltic lava-flow edges, Pleistocene Lake Lahontan shoreline strandlines, and airborne magnetic flight-line leveling seams.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not evaluated; 0 new candidates run because method_lane is null, organizer data provenance is unverified in sandbox, and literal 13GEMSDOE lattice conflict blocks promotion."
+  },
+  "correlation_overlap_vs_registry": {
+    "candidate_preplacement_surface_spearman_max": null,
+    "candidate_final_dot_overlap_max": null,
+    "historic_hmas_vs_13GEMSDOE_lattice": {
+      "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+      "dots_within_3px": 38174,
+      "candidate_dots": 38200,
+      "directed_overlap": 0.9993193717277487,
+      "binary_dot_spearman": -2.856745533511713e-05,
+      "exceeds_70_percent_gate": true
+    },
+    "historic_gpcz_vs_13GEMSDOE_lattice": {
+      "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+      "dots_within_3px": 35959,
+      "candidate_dots": 36000,
+      "directed_overlap": 0.9988611111111111,
+      "binary_dot_spearman": -0.0007048666489752947,
+      "exceeds_70_percent_gate": true
+    },
+    "nine_focus_sites_audited_files": {
+      "primary_count": 9,
+      "secondary_count": 12,
+      "concurrent_count": 1,
+      "all_exceed_70_percent_lattice_gate": true,
+      "min_lattice_directed_overlap": 0.9916874701226961,
+      "max_lattice_directed_overlap": 1.0,
+      "evidence_files": [
+        "docs/data/reference-audit.json",
+        "evidence/nine_sites_secondary_audit_20261028.json",
+        "docs/data/concurrent-review.json"
+      ]
+    },
+    "registry_complete": false
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_candidate_generated": false,
+    "no_nan_inside_footprint": null,
+    "unmasked_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "historic_hmas_saved_bytes": {
+      "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+      "driver": "GTiff",
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "no_nan_inside_footprint": true,
+      "unmasked_inside_footprint": true,
+      "values_in_0_1": true,
+      "all_finite_whole_array": true,
+      "outside_null_or_nan": false,
+      "portal_acceptance": "not tested"
+    },
+    "training_features_interior_nodata_finding": {
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "in_footprint_raw_nodata_pixels": 3073,
+      "band6_tc_strictly_positive_range": [
+        2.9534237384796143,
+        88.56654357910156
+      ],
+      "evidence": "evidence/training_features_band_audit_20261028.json"
+    }
+  },
+  "submission_name": null,
+  "submission_note": "NEGATIVE: no lane; 25 audited rasters include 3px lattice duplicates; 3073 interior nodata pixels; do not submit.",
+  "geological_experiments_run": 0,
+  "download_available": false,
+  "slot_selected_or_spent": false,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "post_merge_candidate_audit": {
+    "evidence": "evidence/conduitcrest_lattice_reaudit_20261028.json",
+    "candidate": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+    "candidate_sha256": "65c9432b2cb417824b846a63ab64bf9d1035e4a9e8102f3ed2175ad48a464687",
+    "generated_by_this_session": false,
+    "candidate_dots": 17415,
+    "lattice_dots_within_3px": 17301,
+    "lattice_directed_overlap": 0.9934539190353144,
+    "lattice_binary_support_spearman": 0.000233778067251103,
+    "literal_rule_verdict": "duplicate; stop",
+    "reported_holdout_dti": {
+      "label": "HOLDOUT-DTI",
+      "value": 0.017415,
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "withheld_positives": 45260,
+      "ci95": null,
+      "status": "Prior run-card claim; no 95% CI present; not independently rerun in this audit and not organizer-confirmed."
+    },
+    "preplacement_lattice_check": false,
+    "single_feature_canary_complete": false,
+    "ok_to_submit": false
+  }
+}

@@ -1,28 +1,19 @@
 #!/usr/bin/env python3
 """
-Build a UNIQUE, validator-clean, single-band GeoTIFF submission for the DOE GEMS Prize.
+QUARANTINED historical Conduitcrest generator — DO NOT USE TO CREATE A SUBMISSION.
 
-Method lane (single, declared): novel-territory potential-field / radiometric / topographic
-conduit-crest emission.
+A prior parallel session generated a 17,415-dot TIFF using a territory mask that
+excluded halos around only the nine focus-site rasters. That is not the complete
+registry check required by the protocol: an independent saved-byte audit found
+99.3454% of its dots within 3 px of the pinned lattice. The archived run card also
+omits a pre-placement lattice check, a complete inventory, a per-feature canary,
+and a 95% CI for its reported HOLDOUT-DTI claim. `registry/template.json` has no
+assigned lane and local template integrity is not authorized.
 
-  * Signature (catalogue-independent, from the 19-band training_features stack only):
-      gravity-slope magnitude (band 5) x signed gravity-gradient magnitude (band 18)
-      x radiometric total-count edge (band 6) x 100 m DEM curvature/relief.
-      Robust median/MAD normalised to [0,1] on the footprint.
-  * Placement gate (uniqueness, NOT truth):
-      dots only on "novel territory" = footprint pixels outside the 3 px (300 m) dilation
-      of EVERY one of the 9 focus-site registry rasters.  This bounds forward 3-px overlap
-      with any registry raster at ~0%, far below the 70% duplicate threshold.
-  * No catalogue-derived feature is used for placement (training features are independent
-    geophysics).  Catalogue faults are only consulted by the holdout evaluator as withheld
-    truth and by the validator as masked-known.
-  * Output: all-finite float32 in [0,1], EPSG:32611, 3730x3292, 100 m, nodata=None,
-    zeros outside the footprint -> can never trigger "Predicted values must be in range [0, 1]".
-
-This script scores the candidate on the shared gems57 hide-and-recover holdout
-(HOLDOUT-DTI, alpha=0.2, beta=0.8, 300 m triangular kernel), runs the literal registry
-uniqueness gate, validates on-disk bytes, writes the TIF + ZIP + receipt, and emits the
-Parallel-Run Protocol JSON run card.  Negative results are a valid deliverable.
+The executable entry point below fails closed before any output is written. The
+remaining implementation is retained for historical code review only. Its former
+claims of uniqueness, submission readiness, and automatic resolution of the
+`[0,1]` error are superseded and must not be repeated.
 """
 from __future__ import annotations
 
@@ -58,7 +49,7 @@ SUBMISSION_NAME = (
     "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4"
 )
 SUBMISSION_NOTE = (
-    "Novel-territory gravity+radiometric+topo crest; dots outside all 9 GEMSDOE site halos; unique vs registry"
+    "Conduitcrest research artifact; duplicate vs pinned lattice; DO NOT SUBMIT"
 )
 assert len(SUBMISSION_NAME) <= 140, "submission name must be <= 140 chars"
 assert len(SUBMISSION_NOTE) <= 140, "submission note must be <= 140 chars"
@@ -160,6 +151,20 @@ def emit_dots(signature: np.ndarray, novel: np.ndarray, budget: int,
 # main
 # --------------------------------------------------------------------------- #
 def main() -> int:
+    # Quarantine this earlier generator after a post-run audit found that its
+    # saved raster has 99.3454% directed overlap with the pinned 13GEMSDOE
+    # lattice. Its original run only compared the nine focus-site rasters and
+    # did not complete the per-feature canary or provide a 95% holdout CI.
+    # Refuse to emit another file until an authorized lane/template and a
+    # corrected shared workflow exist; do not evade the lattice with placement.
+    print(
+        'BLOCKED: historical Conduitcrest generator is superseded by '
+        'evidence/conduitcrest_lattice_reaudit_20261028.json (99.3454% lattice overlap within 3 px). '
+        'No new candidate or submission was written.',
+        file=sys.stderr,
+    )
+    return 2
+
     t0 = time.time()
     EVIDENCE.mkdir(parents=True, exist_ok=True)
     DOWNLOADS.mkdir(parents=True, exist_ok=True)

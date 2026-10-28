@@ -6,9 +6,13 @@ A registry report is still only as complete as its authenticated inventory.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import math
+import os
 from pathlib import Path
+import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -172,8 +176,8 @@ def assess(card):
                 "template_official_authenticated"):
         if validator.get(key) is not True:
             reasons.append("Saved TIFF validation missing or failed: " + key)
-    if validator.get("unmasked_inside") is False or validator.get("masked_inside_count", 0) != 0:
-        reasons.append("Saved TIFF validation reports masked in-footprint pixels")
+    if ("unmasked_inside" in validator and validator.get("unmasked_inside") is not True) or validator.get("masked_inside_count", 0) != 0:
+        reasons.append("Saved TIFF validation missing or failed: unmasked_inside / masked in-footprint pixels")
     digest = card.get("raster_sha256")
     if not valid_sha256(digest):
         reasons.append("Saved raster SHA-256 missing")
@@ -193,3 +197,39 @@ def assess(card):
     # Scientific promotion is NOT a weekly slot selection or upload authorization.
     return {"verdict": "negative" if reasons else "promote", "ok_to_submit": False,
             "selector_required": True, "reasons": reasons}
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("card", type=Path, help="Path to JSON run-card / release-gate input")
+    parser.add_argument("--out", type=Path, help="Optional output JSON path")
+    args = parser.parse_args(argv)
+    try:
+        def _reject_constant(value: str):
+            raise ValueError(f"non-standard JSON constant: {value}")
+        payload = json.loads(args.card.read_text(), parse_constant=_reject_constant)
+        if isinstance(payload, dict) and isinstance(payload.get("input"), dict) and "holdout" not in payload:
+            payload = payload["input"]
+        result = assess(payload)
+    except (OSError, ValueError) as exc:
+        result = {"verdict": "negative", "ok_to_submit": False, "selector_required": True,
+                  "reasons": [f"Unreadable or malformed run card: {exc}"]}
+    text = json.dumps(result, indent=2, allow_nan=False) + "\n"
+    if args.out is not None:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        fd, tmp_name = tempfile.mkstemp(prefix="." + args.out.name + ".", suffix=".tmp", dir=args.out.parent)
+        tmp = Path(tmp_name)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as fh:
+                fh.write(text)
+            os.chmod(tmp, 0o644)
+            tmp.replace(args.out)
+        finally:
+            tmp.unlink(missing_ok=True)
+    else:
+        sys.stdout.write(text)
+    return 0 if result["verdict"] == "promote" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

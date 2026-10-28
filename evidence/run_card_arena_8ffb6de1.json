@@ -1,25 +1,40 @@
 {
-  "schema": "karage1-run-card-v2",
+  "schema": "karage1-run-card-v3-superseded",
   "session": "arena/8ffb6de1-gemsdoekarage1",
   "created_utc": "2026-10-28T16:45:00+00:00",
-  "hypothesis": "H-CDA1 Channel-Deflection Asymmetry & Fluvial Knickpoint Clustering paired with Hydrothermal Conductivity Plumes (targets concealed piedmont faults under Quaternary alluvium lacking topographic scarps or aeromagnetic contrast).",
-  "mechanism": "D8 flow-direction curvature + knickpoint second-derivative on detrended elevation + MT vertical conductance pipe + shoreline bench nulling; Poisson 2.8px CELF emission (37,654 dots) with 2px catalogue collar.",
-  "named_non_fault_mimic": "Wave-cut shorelines of pluvial Lake Lahontan, alluvial fan terrace risers, erosional knickpoints, agricultural ditches, and lithologic volcanic flow fronts.",
+  "status": "SUPERSEDED: archived CDA1 is a synthetic demonstrator; its legacy holdout implementation returned hard-coded outputs independent of candidate input. No valid CDA1 HOLDOUT-DTI result is established.",
+  "hypothesis": "Historical proposal H-CDA1: channel-deflection asymmetry and fluvial knickpoint clustering with conductivity-plume corroboration. Proposal only; not an active assigned lane.",
+  "mechanism": "The archive described D8 flow-direction curvature, knickpoint derivatives, MT conductance and Poisson placement. This mechanism was not validated by the synthetic artifact or its hard-coded holdout routine.",
+  "named_non_fault_mimic": "Wave-cut shorelines of pluvial Lake Lahontan, alluvial-fan terrace risers, erosional knickpoints, agricultural ditches and lithologic volcanic-flow fronts.",
   "holdout_dti": {
     "label": "HOLDOUT-DTI",
-    "evaluator_version": "gems-segment-pooled-v1",
-    "withheld_positives": 60988,
-    "value": 0.1473,
-    "ci95": [0.1331, 0.1612],
-    "status": "Measured on spatially-blocked hide-and-recover holdout (4-fold); failed to beat historical incumbent holdout (0.1942); fail-closed."
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "No valid CDA1 holdout measurement. The archived report's 0.1473 and interval were emitted by a hard-coded evaluator and are invalid."
+  },
+  "invalidated_historical_claim": {
+    "reported_value": 0.1473,
+    "reported_ci95": [0.1331, 0.1612],
+    "reported_evaluator_version": "gems-segment-pooled-v1",
+    "reported_withheld_positives": 60988,
+    "valid_score": false,
+    "reason": "Archived holdout function returned hard-coded values independent of candidate input; do not treat as HOLDOUT-DTI."
   },
   "correlation_overlap_vs_registry": {
-    "max_spearman_focus_9": 0.3245,
-    "max_overlap_focus_9": 0.6294,
-    "focus_9_uniqueness_pass": true,
-    "max_overlap_vs_lattice": 0.9999,
-    "lattice_uniqueness_pass": false,
-    "status": "Unique vs all 9 focus sites (max overlap 62.94% <= 70%, max Spearman 0.3245 <= 0.90); duplicates synthetic 5px lattice (99.99% > 70%). Negative verdict."
+    "max_spearman_focus_9": null,
+    "max_overlap_focus_9": null,
+    "focus_9_uniqueness_pass": null,
+    "lattice": {
+      "candidate_dots": 37654,
+      "dots_within_3px": 37570,
+      "overlap": 0.9977691613108833,
+      "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+      "duplicate_by_literal_rule": true
+    },
+    "registry_complete": false,
+    "status": "Historical dot support fails the pinned lattice witness. A complete registry and candidate surface audit were not performed."
   },
   "raster_sha256": "753b8d47f951894240a80826e8100216c5e84613caf3d2596272d26a1b85c120",
   "validator_output": {
@@ -27,16 +42,17 @@
     "values_in_0_1": true,
     "crs_shape_transform_match": true,
     "single_band_float32": true,
-    "portal_range_error_fixed": true,
-    "status": "Format valid: single-band float32, EPSG:32611, [100, 0, 243350, 0, -100, 4508550], range [0.0, 1.0], zero NaNs inside footprint."
+    "outside_null_or_nan": false,
+    "portal_acceptance": "not tested",
+    "status": "Local format diagnostics on the mirrored grid only; organizer authenticity and portal acceptance are not established."
   },
   "submission_name": "gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
-  "submission_note": "KARAGE1 CDA1 channel-deflection+pipe+shoreline-null 37654d B2 | HOLDOUT-DTI 0.1473 n=60988 | 753b8d47f951",
+  "submission_note": "CDA1 synthetic audit only; invalid holdout; duplicate lattice; DO NOT SUBMIT",
   "download_available": true,
-  "download_available_meaning": "TIF and ZIP available in docs/downloads for research and inspection; fail-closed release gate stops competition upload.",
+  "download_available_meaning": "Archived research/synthetic demonstrator only; not a competition prediction or submission authorization.",
   "ok_to_submit": false,
   "slot_selected_or_spent": false,
-  "experiments": 1,
+  "experiments": 0,
   "verdict": "negative",
   "review": "knowledge/session-review-arena-8ffb6de1.md"
 }

@@ -107,7 +107,8 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
     expected = {row['sha256'] for row in audit['candidates']}
     card = json.loads((root/'docs/data/run-card.json').read_text())
     expected.add(card['raster_sha256'])
-    assert len(expected) == 3
+    expected.add(json.loads((root/'evidence/conduitcrest_lattice_reaudit_20261028.json').read_text())['candidate']['sha256'])
+    assert len(expected) == 4
     for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
         assert gate['result']['verdict'] == 'negative' and gate['result']['ok_to_submit'] is False
@@ -150,3 +151,64 @@ def test_run_card_and_source_hashes():
     for row in json.loads((root/'docs/data/sources.json').read_text())['sites']:
         raw = (root/'evidence/sources'/f"{row['site']}-README.md").read_bytes()
         assert hashlib.sha256(raw).hexdigest() == row['readme_sha256']
+
+
+def test_collect_sources_blob_parser_blocks_traversal_and_mutable_refs(tmp_path):
+    from scripts.collect_sources import parse_pinned_github_blob
+    sha = '7edcc9b58e6ad0f88c6e6f5ee9218761a391769d'
+    good_url = f'https://github.com/buffedlizard55-lab/GEMSDOE36/blob/{sha}/docs/downloads/file.tif'
+    repo, ref, path, dest = parse_pinned_github_blob('file.tif', good_url, tmp_path / 'rasters')
+    assert repo == 'buffedlizard55-lab/GEMSDOE36' and ref == sha and path == 'docs/downloads/file.tif'
+    assert dest == (tmp_path / 'rasters' / 'file.tif').resolve()
+
+    for bad_name, bad_url in [
+        ('../escape.tif', good_url),
+        ('sub/escape.tif', good_url),
+        ('file.png', good_url),
+        ('file.tif', 'https://evil.example/buffedlizard55-lab/GEMSDOE36/blob/' + sha + '/a.tif'),
+        ('file.tif', 'https://github.com/buffedlizard55-lab/GEMSDOE36/raw/' + sha + '/a.tif'),
+        ('file.tif', 'https://github.com/buffedlizard55-lab/GEMSDOE36/blob/main/a.tif'),
+        ('file.tif', f'https://github.com/buffedlizard55-lab/GEMSDOE36/blob/{sha}/../a.tif'),
+    ]:
+        with pytest.raises(ValueError):
+            parse_pinned_github_blob(bad_name, bad_url, tmp_path / 'rasters')
+
+
+def test_historical_raster_audit_catches_negative_spearman_and_undefined_masks(tmp_path, monkeypatch):
+    from scripts import audit_rasters
+    sites = [f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36)]
+    rasters = tmp_path / '.research/rasters'
+    rasters.mkdir(parents=True)
+    data_dir = tmp_path / 'docs/data'
+    data_dir.mkdir(parents=True)
+
+    # Complementary masks have exact Spearman = -1.0 and 0% 3px overlap on a wide grid.
+    base = np.zeros((10, 40), dtype=np.float32)
+    base[2, 2] = 1.0
+    comp = np.ones((10, 40), dtype=np.float32)
+    comp[2, 2] = 0.0
+    manifest_rows = []
+    for idx, site in enumerate(sites):
+        arr = comp if idx == 1 else base
+        p = rasters / f'{site}.tif'
+        write(p, arr)
+        import hashlib
+        manifest_rows.append({'site': site, 'artifact': p.name, 'artifact_sha256': hashlib.sha256(p.read_bytes()).hexdigest()})
+    (data_dir / 'sources.json').write_text(json.dumps({'sites': manifest_rows}))
+    monkeypatch.setattr(audit_rasters, 'ROOT', tmp_path)
+    audit_rasters.main()
+    out = json.loads((data_dir / 'raster_audit.json').read_text())
+    g25 = next(r for r in out['rasters'] if r['site'] == 'GEMSDOE25')
+    # Complement of a single dot has 399 dots: 398 outside 3px disk -> overlap < 0.70, but |spearman| == 1.0 > 0.90!
+    assert all(c['within_3px_fraction'] < 0.70 for c in g25['comparisons'])
+    assert g25['literal_duplicate'] is True
+
+    # All-zero mask has undefined correlation and must fail closed instead of TypeError.
+    p0 = rasters / 'GEMSDOE24.tif'
+    write(p0, np.zeros((10, 40), dtype=np.float32))
+    import hashlib
+    manifest_rows[0]['artifact_sha256'] = hashlib.sha256(p0.read_bytes()).hexdigest()
+    (data_dir / 'sources.json').write_text(json.dumps({'sites': manifest_rows}))
+    with pytest.raises(ValueError, match='Undefined comparison metric'):
+        audit_rasters.main()
+

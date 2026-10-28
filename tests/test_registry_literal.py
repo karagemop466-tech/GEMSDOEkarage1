@@ -169,3 +169,54 @@ def test_shared_comparator_never_sanitizes_nonfinite_inside_footprint(tmp_path):
     report = compare_array_to_registry(a, index(prior), foot,
                 expected_grid=(foot.shape, rasterio.crs.CRS.from_epsg(32611), TRANSFORM))
     assert report['complete_accessible_scan'] and 'error' not in report['rows'][0]
+
+
+def test_final_gate_rejects_masked_inside_footprint_and_supports_nan_outside(tmp_path):
+    foot, sample, a, prior, candidate = fixture(tmp_path)
+    foot[0, :] = False
+    nan_sample = np.where(foot, np.float32(0.0), np.float32(np.nan))
+    with rasterio.open(sample, 'w', driver='GTiff', width=foot.shape[1], height=foot.shape[0],
+                       count=1, dtype='float32', crs='EPSG:32611', transform=TRANSFORM, nodata=np.nan) as dst:
+        dst.write(nan_sample, 1)
+    receipt = run_surface_gate(a, foot, sample=sample, registry_index=index(prior))
+    assert receipt['passed']
+
+    # Official null/NaN outside convention passes when inside footprint is unmasked [0,1].
+    nan_cand = np.where(foot, a, np.float32(np.nan))
+    with rasterio.open(candidate, 'w', driver='GTiff', width=foot.shape[1], height=foot.shape[0],
+                       count=1, dtype='float32', crs='EPSG:32611', transform=TRANSFORM, nodata=np.nan) as dst:
+        dst.write(nan_cand, 1)
+    passed_nan = run_full_fleet_uniqueness_gate(
+        a, nan_cand, candidate, foot, sample=sample, registry_index=index(prior), preplacement_report=receipt
+    )
+    assert passed_nan['passed'] and passed_nan['candidate_dots'] == 2
+
+    # Unmasked finite non-zero outside footprint must be rejected.
+    bad_out = nan_cand.copy()
+    bad_out[0, 3] = np.float32(0.25)
+    with rasterio.open(candidate, 'w', driver='GTiff', width=foot.shape[1], height=foot.shape[0],
+                       count=1, dtype='float32', crs='EPSG:32611', transform=TRANSFORM) as dst:
+        dst.write(np.nan_to_num(bad_out, nan=0.0), 1)
+    with pytest.raises(ValueError, match='outside footprint'):
+        run_full_fleet_uniqueness_gate(
+            a, np.nan_to_num(bad_out, nan=0.0), candidate, foot,
+            sample=sample, registry_index=index(prior), preplacement_report=receipt
+        )
+
+    # Finite nodata sentinel hiding an in-footprint positive dot must be rejected.
+    with rasterio.open(candidate, 'w', driver='GTiff', width=foot.shape[1], height=foot.shape[0],
+                       count=1, dtype='float32', crs='EPSG:32611', transform=TRANSFORM, nodata=1.0) as dst:
+        dst.write(a, 1)
+    with pytest.raises(ValueError, match='masked pixels inside footprint'):
+        run_full_fleet_uniqueness_gate(
+            a, a, candidate, foot, sample=sample, registry_index=index(prior), preplacement_report=receipt
+        )
+
+    # Unprojected template/candidate (crs=None) must be rejected.
+    unproj = tmp_path / 'unprojected.tif'
+    with rasterio.open(unproj, 'w', driver='GTiff', width=foot.shape[1], height=foot.shape[0],
+                       count=1, dtype='float32', crs=None, transform=TRANSFORM) as dst:
+        dst.write(a, 1)
+    with pytest.raises(ValueError, match='projected GeoTIFF'):
+        run_surface_gate(a, foot, sample=unproj, registry_index=index(prior))
+

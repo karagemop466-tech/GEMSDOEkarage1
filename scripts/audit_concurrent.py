@@ -17,10 +17,10 @@ import numpy as np
 from scipy.ndimage import binary_dilation
 
 try:
-    from scripts.audit_references import ROOT, SITES, binary_rank_correlation, disk, fetch_files, load_manifest, read_grid, same_grid, verify_file
+    from scripts.audit_references import ROOT, SITES, binary_rank_correlation, disk, fetch_files, load_manifest, read_grid, same_grid, valid_gdal_mask, verify_file
     from scripts.validate_geotiff import diagnose
 except ModuleNotFoundError:
-    from audit_references import ROOT, SITES, binary_rank_correlation, disk, fetch_files, load_manifest, read_grid, same_grid, verify_file
+    from audit_references import ROOT, SITES, binary_rank_correlation, disk, fetch_files, load_manifest, read_grid, same_grid, valid_gdal_mask, verify_file
     from validate_geotiff import diagnose
 
 
@@ -65,16 +65,19 @@ def run(cache: Path, entry: dict) -> dict:
     for item in [*refs.values(), entry]:
         verify_file(cache / (item["id"] + ".tif"), item)
     template, tmeta = read_grid(cache / "template.tif")
-    footprint = np.isfinite(template)
+    footprint = valid_gdal_mask(cache / "template.tif") & np.isfinite(template)
     cpath = cache / (entry["id"] + ".tif")
     candidate, cmeta = read_grid(cpath)
-    if not same_grid(cmeta, tmeta) or not np.all(np.isin(candidate[footprint], (0, 1))):
-        raise ValueError("candidate must match the pinned grid and be binary inside")
+    if (not same_grid(cmeta, tmeta) or not valid_gdal_mask(cpath)[footprint].all()
+            or not np.all(np.isin(candidate[footprint], (0, 1)))):
+        raise ValueError("candidate must match the pinned grid and be unmasked binary inside")
     cdots = (candidate > 0) & footprint
     comparisons = {}
     for name in (*SITES, "lattice"):
-        reference, rmeta = read_grid(cache / (name + ".tif"))
-        if not same_grid(rmeta, tmeta) or not np.all(np.isin(reference[footprint], (0, 1))):
+        rpath = cache / (name + ".tif")
+        reference, rmeta = read_grid(rpath)
+        if (not same_grid(rmeta, tmeta) or not valid_gdal_mask(rpath)[footprint].all()
+                or not np.all(np.isin(reference[footprint], (0, 1)))):
             raise ValueError(f"invalid binary reference: {name}")
         comparisons[name] = compare_binary_support(cdots, reference > 0, footprint)
     format_report = diagnose(cpath, cache / "template.tif", refs["template"]["sha256"])

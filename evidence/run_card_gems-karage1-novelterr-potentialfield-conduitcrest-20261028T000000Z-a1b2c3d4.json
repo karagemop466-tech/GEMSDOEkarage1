@@ -35,27 +35,43 @@
         "emitted_pixels": 17415
       }
     },
-    "note": "Catalogue-truth hide-and-recover holdout; NOT a leaderboard estimate or projection."
+    "note": "Catalogue-truth hide-and-recover holdout; NOT a leaderboard estimate or projection.",
+    "ci95": null,
+    "status": "Original HOLDOUT-DTI claim, CI absent and not independently rerun in the lattice audit; not an organizer score or release-grade result."
   },
   "registry_correlation_overlap": {
-    "registry_rasters_checked": 9,
-    "registry_rasters_expected": 9,
+    "registry_rasters_checked": 10,
+    "registry_rasters_expected": 10,
     "complete_accessible_scan": false,
-    "worst_spearman_full_footprint": -0.004982171431785802,
-    "worst_forward_overlap": 0.0,
-    "worst_forward_overlap_submission": "GEMSDOE24",
+    "worst_spearman_full_footprint": 0.000233778067251103,
+    "worst_forward_overlap": 0.9934539190353144,
+    "worst_forward_overlap_submission": "lattice",
     "worst_jaccard": 0.0,
-    "duplicate_count": 0,
-    "unique_by_literal_rule": true,
-    "unique": true,
+    "duplicate_count": 1,
+    "unique_by_literal_rule": false,
+    "unique": false,
     "rho_limit": 0.9,
     "overlap_limit": 0.7,
     "novel_territory_pixels": 4156311,
     "dots_on_novel_territory": 17415,
-    "scope": "Nine pinned focus-site rasters (owner mirrors); not a complete organizer registry."
+    "scope": "Nine pinned focus-site rasters plus pinned 13GEMSDOE lattice; this is not a complete organizer registry.",
+    "focus_site_subset_summary": {
+      "rasters_checked": 9,
+      "complete_registry": false,
+      "worst_forward_overlap": 0.0,
+      "worst_spearman_full_footprint": -0.004982171431785802,
+      "statement": "The original run only compared the nine focus-site rasters; this subset result does not clear the full literal registry rule."
+    },
+    "worst_spearman_submission": "lattice",
+    "max_abs_spearman_full_footprint": 0.006373044893315756,
+    "max_abs_spearman_submission": "GEMSDOE27",
+    "lattice_overlap": 0.9934539190353144,
+    "lattice_duplicate_literal": true,
+    "preplacement_surface_checked_against_lattice": false
   },
   "leakage_canary": {
-    "note": "Signature uses only the 19-band training stack (geophysics/DEM), never the catalogue; single-feature canary should be run per-channel before any slot is spent."
+    "passed": false,
+    "status": "No per-feature AUC results are recorded; the original card says the canary remains to be run."
   },
   "raster": {
     "tif": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
@@ -103,10 +119,24 @@
   "ok_to_submit": false,
   "slot_selected_or_spent": false,
   "geological_experiments_run_this_session": 1,
-  "verdict": "promote-to-selector",
-  "verdict_reason": "Unique vs the nine focus-site registry, format-valid, all-finite [0,1]. Holdout DTI reported honestly; live organizer score unknown (no submission made). Promotion to a weekly slot is the separate selector's decision.",
+  "verdict": "negative",
+  "verdict_reason": "Superseding saved-byte audit: 99.3454% 3-px overlap with pinned lattice, so duplicate/stop. Pre-placement lattice check, complete registry, per-feature canary, and HOLDOUT-DTI 95% CI are missing.",
   "blockers": [
-    "No organizer-authenticated score (no live submission made; DrivenData is login-walled).",
-    "Complete organizer registry not accessible; uniqueness is vs nine pinned focus-site rasters only."
-  ]
+    "Saved raster exceeds the literal >70% 3-px overlap rule against the pinned 13GEMSDOE lattice.",
+    "The original run compared only nine focus-site rasters and did not check the lattice in pre-placement surface rank correlation.",
+    "Complete organizer registry and organizer-authenticated inputs are unavailable.",
+    "Per-feature leakage canary results and a 95% CI for the reported holdout are missing."
+  ],
+  "superseded_by": "evidence/conduitcrest_lattice_reaudit_20261028.json",
+  "superseding_decision": "negative / DO NOT SUBMIT: 99.3454% 3-px overlap with the pinned lattice; original uniqueness inventory checked only nine focus-site rasters.",
+  "superseding_lattice_overlap": 0.9934539190353144,
+  "superseding_ci_status": "No 95% CI was present in the original HOLDOUT-DTI claim.",
+  "superseding_per_feature_canary_status": "not recorded; original run card says to run before any slot",
+  "superseded_original_claims": {
+    "unique_by_literal_rule": true,
+    "unique": true,
+    "verdict": "promote-to-selector",
+    "verdict_reason": "Unique vs the nine focus-site registry, format-valid, all-finite [0,1]. Holdout DTI reported honestly; live organizer score unknown (no submission made). Promotion to a weekly slot is the separate selector's decision.",
+    "scope": "Nine pinned focus-site rasters (owner mirrors); not a complete organizer registry."
+  }
 }

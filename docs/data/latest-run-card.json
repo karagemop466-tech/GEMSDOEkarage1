@@ -35,27 +35,35 @@
         "emitted_pixels": 17415
       }
     },
-    "note": "Catalogue-truth hide-and-recover holdout; NOT a leaderboard estimate or projection."
+    "note": "Catalogue-truth hide-and-recover holdout; NOT a leaderboard estimate or projection.",
+    "ci95": null,
+    "status": "Prior run card reports this HOLDOUT-DTI, but no 95% CI is present; not independently rerun in the saved-byte audit and not an organizer score."
   },
   "registry_correlation_overlap": {
-    "registry_rasters_checked": 9,
-    "registry_rasters_expected": 9,
+    "registry_rasters_checked": 10,
+    "registry_rasters_expected": null,
     "complete_accessible_scan": false,
-    "worst_spearman_full_footprint": -0.004982171431785802,
-    "worst_forward_overlap": 0.0,
-    "worst_forward_overlap_submission": "GEMSDOE24",
+    "worst_spearman_full_footprint": 0.000233778067251103,
+    "worst_forward_overlap": 0.9934539190353144,
+    "worst_forward_overlap_submission": "lattice",
     "worst_jaccard": 0.0,
-    "duplicate_count": 0,
-    "unique_by_literal_rule": true,
-    "unique": true,
+    "duplicate_count": 1,
+    "unique_by_literal_rule": false,
+    "unique": false,
     "rho_limit": 0.9,
     "overlap_limit": 0.7,
     "novel_territory_pixels": 4156311,
     "dots_on_novel_territory": 17415,
-    "scope": "Nine pinned focus-site rasters (owner mirrors); not a complete organizer registry."
+    "scope": "Nine focus-site masks plus pinned lattice; this is not a complete organizer registry. The lattice witness alone triggers the literal duplicate stop.",
+    "worst_spearman_submission": "lattice",
+    "max_abs_spearman_full_footprint": 0.006373044893315756,
+    "max_abs_spearman_submission": "GEMSDOE27",
+    "lattice_overlap": 0.9934539190353144,
+    "lattice_duplicate_literal": true
   },
   "leakage_canary": {
-    "note": "Signature uses only the 19-band training stack (geophysics/DEM), never the catalogue; single-feature canary should be run per-channel before any slot is spent."
+    "passed": false,
+    "status": "Per-feature AUC canaries not recorded; original run card says they remain to be run."
   },
   "raster": {
     "tif": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
@@ -98,15 +106,29 @@
     "source": "gates.format_report + gems57.submission_writer on-disk re-read"
   },
   "submission_name": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
-  "submission_note": "Novel-territory gravity+radiometric+topo crest; dots outside all 9 GEMSDOE site halos; unique vs registry",
+  "submission_note": "Conduitcrest research artifact; lattice duplicate; missing CI; DO NOT SUBMIT",
   "submission_note_chars": 105,
   "ok_to_submit": false,
   "slot_selected_or_spent": false,
   "geological_experiments_run_this_session": 1,
-  "verdict": "promote-to-selector",
-  "verdict_reason": "Unique vs the nine focus-site registry, format-valid, all-finite [0,1]. Holdout DTI reported honestly; live organizer score unknown (no submission made). Promotion to a weekly slot is the separate selector's decision.",
+  "verdict": "negative",
+  "verdict_reason": "Superseding saved-byte audit found 99.3454% 3-px overlap with the pinned lattice. Original card omitted this registry witness, has no pre-placement lattice check, incomplete single-feature canaries, and no HOLDOUT-DTI 95% CI.",
   "blockers": [
     "No organizer-authenticated score (no live submission made; DrivenData is login-walled).",
     "Complete organizer registry not accessible; uniqueness is vs nine pinned focus-site rasters only."
-  ]
+  ],
+  "post_run_lattice_audit": {
+    "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+    "candidate_dots_within_closed_3px_disk": 17301,
+    "candidate_dots": 17415,
+    "directed_overlap": 0.9934539190353144,
+    "threshold_strictly_greater_than": 0.7,
+    "exceeds_overlap_threshold": true,
+    "binary_support_spearman": 0.000233778067251103,
+    "exceeds_abs_spearman_threshold": false,
+    "literal_rule_verdict": "duplicate; stop",
+    "submission": "lattice",
+    "candidate_sha256": "65c9432b2cb417824b846a63ab64bf9d1035e4a9e8102f3ed2175ad48a464687"
+  },
+  "superseded_original_run_card": "evidence/run_card_gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4.json"
 }

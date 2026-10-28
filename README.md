@@ -1,11 +1,20 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-> **DO NOT SUBMIT — No candidate has been cleared for competition upload.**
-> The generated research artifacts and historical references are published with full transparency for audit and learning. All historical files fail the literal lattice proximity gate (>70% overlap within 3 px), and new candidate CDA1 failed to surpass the historical holdout benchmark. A format validation pass is necessary but not sufficient for competition submission clearance.
+> **DO NOT SUBMIT — no candidate has been cleared for competition upload.**
+> The separately generated BB-STEP research GeoTIFF is unique versus the nine focus-site rasters but fails the literal 3-pixel lattice-overlap rule (98.5253%). Do not submit it. The older CDA1 archive is a synthetic demonstrator whose holdout routine returned hard-coded numbers; its reported DTI is invalid and is not a measurement. All 21 primary and secondary focus-site files audited in this repository also fail the literal lattice gate. Format validation is necessary but not submission approval.
 
-[Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Independent repository and BB-STEP/CDA1 saved-byte review](knowledge/repository-review-2026-10-28.md) · [Latest Negative Run Card](evidence/session_0a62cb67_run_card.json) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
+[Latest forensic & 9-site review (`9ca08e2e`)](knowledge/session-review-arena-9ca08e2e.md) · [Latest session run card (`9ca08e2e`)](evidence/session_9ca08e2e_run_card.json) · [19-band `training_features.tif` audit](evidence/training_features_band_audit_20261028.json) · [Secondary 9-site audit (12 files)](evidence/nine_sites_secondary_audit_20261028.json) · [Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Independent repository and BB-STEP/CDA1 saved-byte review](knowledge/repository-review-2026-10-28.md) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
 
-## Latest review — 28 October 2026, session `arena/0a62cb67-gemsdoekarage1`
+## Latest session (`arena/9ca08e2e-gemsdoekarage1`): 21-file nine-site audit, 19-band nodata forensics & fail-closed hardening
+
+- **Verdict remains `NEGATIVE / DO NOT SUBMIT`** ([session review](knowledge/session-review-arena-9ca08e2e.md) · [session run card](evidence/session_9ca08e2e_run_card.json)): `0` new competition uploads or weekly-slot selections were made.
+- **All 21 prompt-listed focus-site submissions audited** (`9` primary leaders in [docs/data/reference-audit.json](docs/data/reference-audit.json) + `12` secondary runs in [evidence/nine_sites_secondary_audit_20261028.json](evidence/nine_sites_secondary_audit_20261028.json), plus concurrent `GEMSDOE25` H79 in [docs/data/concurrent-review.json](docs/data/concurrent-review.json)): **every single file overlaps `99.1687%–100.0000%`** within 3 px of the pinned `13GEMSDOE` lattice (even `11,082`-dot `gems28-s18-mxtp` overlaps `100.0000%`).
+- **Exact 4-point B2 collar-ablation ladder proven on pixel masks:** on the mirrored footprint, `GEMSDOE25` $\equiv$ `GEMSDOE30` (`44,090` dots, `0.2600` `USER-REPORTED / UNVERIFIED`) is the $r = 0$ parent; removing `3,891` dots within $r \le 1$ px (`100 m`) of `labels.tif` yields `GEMSDOE31` $\equiv$ `GEMSDOE28` `h27-4-r1` (`40,199` dots, `0.2708` `USER-REPORTED / UNVERIFIED`); removing `6,436` dots within $r \le 2$ px (`200 m`) yields `GEMSDOE32` `h33-h33-2-b2` (`37,654` dots, `0.2778` `USER-REPORTED / UNVERIFIED`); and `GEMSDOE36` (`38,854` dots, `0.2750` `USER-REPORTED / UNVERIFIED`) is `B2` $\cup$ `1,200` off-catalogue dots.
+- **19-band `training_features.tif` forensic discovery** ([evidence/training_features_band_audit_20261028.json](evidence/training_features_band_audit_20261028.json)): **3,073 pixels inside `sample_submission.tif`'s active footprint** contain raw float32 `-3.4028235e+38` `nodata` (`3,061` across 18 bands + `12` extra interior pixels on Band 6 `tc`), providing a direct mechanism for `[0, 1]` portal range errors if unmasked; Band 6 `tc` is also strictly positive (`[2.9534, 88.5665]`) rather than a zero-crossing signed tilt angle.
+- **Later mainline candidate re-audit:** the newer Conduitcrest TIF in main (`65c9432b…`, 17,415 dots) is **99.3454% within 3 px of the lattice** (17,301/17,415), so the literal rule says duplicate/stop despite its reported 0% overlap versus the nine focus sites. Its prior card omitted the lattice, a pre-placement lattice check, a per-feature canary, and a 95% CI for its HOLDOUT-DTI claim; it is **DO NOT SUBMIT**. Details: [`evidence/conduitcrest_lattice_reaudit_20261028.json`](evidence/conduitcrest_lattice_reaudit_20261028.json).
+- **Shared validator & audit hardening:** hardened `src/gemskarage1/registry_audit.py` (GDAL mask + DrivenData `NaN`-outside support + `equal_nan=True`), `scripts/release_gate.py` (fail-closed CLI with strict `NaN`/`Infinity` rejection + atomic `--out`), `scripts/audit_references.py` / `audit_concurrent.py` / `audit_archives.py` / `audit_rasters.py` (GDAL mask + `abs(spearman) > 0.90` + `None`-metric guard), `scripts/collect_sources.py` (40-hex commit SHA enforcement + atomic writes), and `scripts/render_site.py` (fail-closed secondary 9-site audit rendering). This branch's direct test run before integrating current `main` had 230 passing tests; after merging the concurrent mainline regression suite, the current integrated suite passes **305 tests** (119 Rasterio/Affine pending-deprecation warnings).
+
+## Earlier review — 28 October 2026, session `arena/0a62cb67-gemsdoekarage1`
 
 All 12 pinned reference assets, the 2 committed candidates, the 2 parallel PR
 candidates, the 3 archived demonstrators, and the concurrent peer raster were
@@ -41,149 +50,110 @@ The table below summarizes the highest scoring submissions across the nine focus
 | **GEMSDOE30** | `gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif` | 0.2600 | USER-REPORTED / UNVERIFIED | 99.92% vs lattice; identical mask to GEMSDOE25 | **DO NOT RESUBMIT** (Research baseline) |
 | **GEMSDOE24** | `gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif` | 0.2477 | USER-REPORTED / UNVERIFIED | 99.92% vs lattice; D1.5 crowded spacing | **DO NOT RESUBMIT** (Research baseline) |
 | **GEMSDOE27** | `gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif` | 0.2449 | USER-REPORTED / UNVERIFIED | 99.92% vs lattice; 61.20% vs GEMSDOE24 | **DO NOT RESUBMIT** (Research baseline) |
-| **GEMSDOEkarage1 (CDA1)** | `gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif` | 0.1473 [0.1331, 0.1612] | HOLDOUT-DTI (60,988 withheld positives) | **UNIQUE vs Peer 9 Sites** (max 62.94% ≤ 70%, max Spearman 0.3245 ≤ 0.90) | **DOWNLOAD FOR RESEARCH / AUDIT** (Fails literal lattice gate & primary holdout improvement) |
+| **GEMSDOEkarage1 (BB-STEP, prior parallel session)** | `karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif` | 0.031790 [0.027138, 0.036271] | **HOLDOUT-DTI** (`gemsk-hide-recover-v1`; 60,988 withheld positives; 95% CI shown; not organizer-confirmed) | Unique vs nine focus sites (max overlap 12.6252%); **duplicate vs lattice (98.5253%)** | **DO NOT SUBMIT** (literal stop rule) |
+| **GEMSDOEkarage1 (Conduitcrest, later mainline candidate)** | `gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif` | Incomplete report: 0.017415; 95% CI missing | Reported `HOLDOUT-DTI` (`gems57-pooled-hide-v2`; 45,260 withheld positives; not independently rerun; no CI) | 0.0% vs nine focus sites, but **duplicate vs lattice (99.3454%)** | **DO NOT SUBMIT** (literal stop rule) |
+| **CDA1 archive demonstrator (quarantined)** | `gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif` | **No valid score** | **Not a valid HOLDOUT-DTI** (archived evaluator returns hard-coded values; see `docs/data/archive-review.json`) | 99.7769% of 37,654 dots within 3 px of the lattice | **DO NOT SUBMIT** (synthetic research artifact) |
 
 ### Per-Site Summary Findings
-- **GEMSDOE24 (0.2477):** Base H19-5 4-expert surface emitted with tight Poisson spacing $D=1.5\text{ px}$ (60,069 dots). Severely penalized by redundant clustering within the 300 m metric kernel.
-- **GEMSDOE25 (0.2600):** Breakthrough widening of Poisson spacing to $D=2.8\text{ px}$ (44,090 dots), matching the 300 m triangular kernel and reducing false-positive penalty mass (+0.0123 gain).
-- **GEMSDOE27 (0.2449):** Topographic gap closure on $D=1.5$ emission; penalized by scarp bridging errors across wide alluvial basins.
-- **GEMSDOE28 (0.2710):** High-frequency Euler deconvolution paired with $D=2.8$ spacing; strong performance but heavily overlaps GEMSDOE25.
-- **GEMSDOE30 (0.2600):** Explicit off-catalogue Poisson 300 m test; generated a positive-pixel mask byte-for-byte identical to GEMSDOE25.
-- **GEMSDOE31 (0.2708):** Solo $D=2.8$ variant demonstrating cross-family leave-one-out validation stability.
-- **GEMSDOE32 (0.2778):** The highest score in the peer registry. Applied a 2-pixel (200 m) exclusion collar around mapped catalogue faults to GEMSDOE25's $D=2.8$ mask, eliminating 6,436 redundant dots (37,654 dots total) and saving budget for unmapped discoveries.
-- **GEMSDOE33 (0.2632):** Analog tip-stepover dilation model; suffered false positives from off-fault stress concentration artifacts.
-- **GEMSDOE36 (0.2750):** Andersonian geothermal PINN; added 1,200 dots back into B2 (38,854 dots total), slightly lowering precision compared to B2.
+All parenthesized historical values below are **USER-REPORTED / UNVERIFIED**, not organizer-confirmed scores. The mask identities and dot counts are independent measurements on hash-pinned owner mirrors; they do not prove why the reported values changed.
+- **GEMSDOE24 (0.2477 USER-REPORTED / UNVERIFIED):** A 60,069-dot d1.5 emission; the measured mask is 99.9218% within 3 px of the pinned lattice.
+- **GEMSDOE25 (0.2600 USER-REPORTED / UNVERIFIED):** The 44,090-dot d2.8 parent; its footprint mask is pixel-identical to GEMSDOE30.
+- **GEMSDOE27 (0.2449 USER-REPORTED / UNVERIFIED):** 61,328-dot topographic-gap-closure submission; 99.9234% within 3 px of the lattice.
+- **GEMSDOE28 (0.2710 USER-REPORTED / UNVERIFIED):** Highest supplied GEMSDOE28 value in the prompt. A separate r1 file has a 40,199-dot mask identical to GEMSDOE31; these are distinct runs and scores.
+- **GEMSDOE30 (0.2600 USER-REPORTED / UNVERIFIED):** Its 44,090-dot mask is identical to GEMSDOE25 despite a different filename/container hash.
+- **GEMSDOE31 (0.2708 USER-REPORTED / UNVERIFIED):** The 40,199-dot r1 mask is pixel-identical to GEMSDOE28 h27-4-r1.
+- **GEMSDOE32 (0.2778 USER-REPORTED / UNVERIFIED):** Highest value supplied for the nine focus sites. Its mask equals GEMSDOE25's mask with 6,436 dots within 2 px of the mirrored catalogue removed; no dots were added. This geometry does not establish causal score improvement.
+- **GEMSDOE33 (0.2632 USER-REPORTED / UNVERIFIED):** The primary h33d historical mask has 41,865 dots; no organizer receipt ties the score to its audited hash.
+- **GEMSDOE36 (0.2750 USER-REPORTED / UNVERIFIED):** Its primary 38,854-dot mask is a strict superset of B2, preserving its 37,654 dots and adding 1,200. The causal reason for the reported change is not established.
 
 ---
 
-## PhD-Level Forensics: Why GEMSDOE32 H33-2-B2 Scored 0.2778 and How to Beat It
+## Evidence-Limited Forensics: GEMSDOE32 B2 and What Can Be Concluded
 
-### 1. The Operational Edge of H33-2-B2
-Forensic analysis reveals that H33-2-B2 is **not a new geological discovery** — it is an operational optimization of the older H19-5 probability surface designed specifically around the DrivenData distance-weighted metric:
-- **Tversky 300 m Triangular Kernel ($\alpha=0.2, \beta=0.8$):** The metric places a 300 m radius (3 pixels at 100 m resolution) triangular weighting disk around each hidden positive fault pixel. Any prediction within 300 m receives distance-weighted credit. However, having two or more predictions within the same 300 m disk provides zero incremental true-positive credit, while incurring a severe false-positive denominator penalty ($\beta=0.8$). The $D=2.8\text{ px}$ (~280 m) Poisson spacing near-optimally tiles the plane for this kernel.
-- **Catalogue Collar ($B=2\text{ px} = 200\text{ m}$):** Because mapped USGS/INGENIOUS catalogue faults (`existing_faults.tif`) are excluded from hidden evaluation, any prediction placed on or immediately adjacent to a known fault earns zero credit but consumes limited dot budget. Deleting 6,436 near-catalogue dots freed 14.6% of the budget to hit true blind faults.
+**`0.2778` is USER-REPORTED / UNVERIFIED** (no organizer receipt tied to the audited file hash is available here). The following are measured raster-mask relationships on pinned owner mirrors; they are not performance measurements or causal attribution.
 
-### 2. Why H33-2-B2 Plateaued Below the Leaderboard Top (0.4413)
-- **Zero Subsurface Penetration in Covered Basins:** B2 relies exclusively on LiDAR topographic scarps and aeromagnetic gradients. In the Basin and Range province, over 50% of active geothermal fault systems (e.g., McGinness Hills, Bradys/Desert Peak step-overs, Carson Sink) are concealed beneath Quaternary alluvium, sand dunes, or pluvial Lake Lahontan lacustrine sediments where no surface scarp exists.
-- **Lineage Saturation:** B2 correlates >0.90 with its parent H19-5; tuning emission thresholds on an existing surface cannot discover missing physical modalities.
+### Pixel-mask lineage
 
-### 3. How to Surpass 0.2778
-To achieve scores >0.3195 and compete with the leaderboard top (0.4413), an orthogonal geological physics approach is required:
-1. **Fluvial Drainage Deflection & Knickpoint Morphometrics:** Active blind faults deflect stream channels and create knickpoint clusters in drainage networks that persist long after surface scarps are buried by alluvium.
-2. **Hydrothermal Alteration Geochemistry:** Upwelling geothermal fluids oxidize magnetite into hematite/pyrite (producing linear demagnetization troughs in the Magnetic Analytic Signal) and create potassic alteration halos (elevated K/eTh radiometric ratios).
-3. **Deep Magnetotelluric (MT) Conductors:** 3D MT conductance captures deep crustal fluid pathways feeding geothermal reservoirs independent of surface cover.
+- The `GEMSDOE25` / `GEMSDOE30` d2.8 masks are pixel-identical on the mirrored footprint: `44,090` dots.
+- `GEMSDOE31` and secondary `GEMSDOE28 h27-4-r1` share an exact `40,199`-dot mask, equal to the d2.8 parent with `3,891` dots within 1 pixel (`100 m`) of the mirrored catalogue removed.
+- `GEMSDOE32` B2 has `37,654` dots and equals the d2.8 parent with `6,436` dots within 2 pixels (`200 m`) of the mirrored catalogue removed; no dots were added.
+- The primary `GEMSDOE36` mask is a strict superset of B2: it preserves the `37,654` B2 pixels and adds `1,200` pixels, for `38,854` total.
 
----
+The associated historical values `0.2600`, `0.2708`, `0.2778`, and `0.2750` are all **USER-REPORTED / UNVERIFIED**, not organizer-confirmed results. The apparent trend is consistent with a precision/coverage tradeoff, but these cross-site owner reports are not a controlled ablation, and exact pixel inclusion cannot identify why a hidden-label score changed.
 
-## Pre-Registered Untried Geological Hypotheses
+### Metric mechanism and limits
 
-| Rank | Hypothesis | Target Physical Signature | Specific Layers Used | Why Off-Catalogue / Novelty | Confounder / Mimic | Implementation Cost |
-|---|---|---|---|---|---|---|
-| **1** | **CDA1: Drainage Deflection Asymmetry & Knickpoint Clustering** | Stream capture elbows (>90° deflection) & knickpoint second-derivative clusters along fault strike | 1 m / 10 m DEM, D8 flow-routing, detrended elevation | Identifies active blind piedmont faults buried beneath Quaternary gravels where scarps are absent | Lake Lahontan wave-cut terraces, agricultural ditches, alluvial fan risers | Low–Med |
-| **2** | **H-K1-1: Hydrothermal Magnetite Destruction & K/Th Alteration Halos** | Linear demagnetization troughs in 3D Magnetic Analytic Signal coupled with high K/eTh residual ratios | GeoDAWN aeromagnetic RTP/TMI, GeoDAWN airborne radiometrics (K, eTh, eU) | Directly detects geothermal fluid pathways where ascending thermal water destroyed magnetite | Non-magnetic sedimentary interbeds, felsic vs mafic lithologic contacts | Med |
-| **3** | **H-K1-3: Deep MT Conductance Conduit & Basement Step Coupling** | Steep lateral gradients in crustal electrical conductivity (15–35 km) aligned with basement depth flexure | INGENIOUS 3D MT conductance, depth-to-basement | Senses primary deep crustal fluid feeders beneath thick volcanic blankets | Conductive clay-rich basin brine layers, conductive volcanic tuffs | Med–High |
-| **4** | **H-K1-4: Dilatational Step-Over Relay Curvature Polarity Reversal** | Along-strike profile curvature sign reversal across en-echelon overlapping fault segments | Detrended LiDAR DEM curvature ($\sigma=1.5, 3.0$ px) | Focuses on fault step-overs and pull-apart grabens where geothermal upflow concentrates | Erosional gully heads, road cut-and-fill embankments | Low |
+The [official metric specification](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric) uses a distance-weighted Tversky objective. In pooled notation, `DTI = TPw / (TPw + 0.2·FPw + 0.8·FNw)`. Predictions close to a hidden fault receive more kernel-weighted coverage; prediction mass not near hidden truth contributes weighted false-positive cost. Therefore, deleting low-yield predictions can improve DTI **only if** the saved false-positive contribution exceeds any lost true-positive coverage. The mask counts alone cannot measure either quantity.
+
+The [organizer staff clarification](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516) says known-catalogue pixels are masked, not that an arbitrary surrounding collar is a free scoring buffer; nearby unmapped faults can still be meaningful. Thus the 1-pixel and 2-pixel deletion rings are hypotheses about redundancy, not guaranteed false-positive regions.
+
+### Can a future submission beat the reported value?
+
+It is scientifically possible but **not established or numerically estimable** from the evidence here. A prior parallel session recorded `BB-STEP` **HOLDOUT-DTI 0.031790** (evaluator `gemsk-hide-recover-v1`, `60,988` withheld positives, 95% CI `[0.027138, 0.036271]`) and a B2 control **HOLDOUT-DTI 0.004845** (same evaluator and withheld-positive count, 95% CI `[0.004322, 0.005346]`). These are prior-session holdout reports, not organizer scores, were not independently rerun in this session, and are not directly comparable to the separate USER-REPORTED `0.2778` competition value. The BB-STEP raster also fails the literal lattice duplicate gate (98.5253% of its dots within 3 pixels), so it is **DO NOT SUBMIT** regardless of holdout results.
+
+The current status and limitations are recorded in the [BB-STEP review](knowledge/review-bbstep-2026-10-28.md), [session forensic audit](knowledge/session-review-arena-9ca08e2e.md), and [run card](docs/data/run-card.json). Do not treat a holdout difference, a user-supplied leaderboard figure, or a geological narrative as an organizer-confirmed score or submission clearance.
 
 ---
 
-## Unique TIF Submission & Error Resolution
+## New Geological Hypotheses — Research Proposals, Not Results or Lane Assignments
 
-### 1. Fix for DrivenData Error: `"Predicted values must be in range [0, 1]"`
-- **Cause:** DrivenData's backend validator checks that every finite value in the uploaded GeoTIFF lies within $[0.0, 1.0]$. The error occurs when files include:
-  1. Negative nodata sentinel values (such as `-9999.0` or `-3.4028235e+38`).
-  2. Unhandled NaNs or Infs inside the footprint.
-  3. Raw integer scores scaled to $0..255$.
-- **Automated Fix Guaranteed in Our Artifact:**
-  - Raster is written as single-band `float32`.
-  - In-footprint values: strictly binary $0.0$ or $1.0$ (or continuous probabilities in $[0.0, 1.0]$).
-  - Outside-footprint values: filled with $0.0$ (finite) and `nodata=None`, ensuring global `min = 0.0` and global `max = 1.0` across the entire $3730 \times 3292$ grid.
-  - CRS: `EPSG:32611`, Transform: `[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]`.
+The ordering below is **qualitative prioritization only**; no expected score or DTI gain is asserted. No new experiment was run in this session. The current `registry/template.json` still has `method_lane: null`; the four proposals do not assign this session to a lane. See the [complete forensic preregistration and source caveats](knowledge/session-review-arena-9ca08e2e.md#4-four-untried-band-verified-geological-hypotheses-pre-implementation-ranking).
 
-### 2. Available Artifacts for Download & Inspection
-- **TIF File:** [`docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif`](docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif) (133,661 bytes, SHA-256: `753b8d47f951894240a80826e8100216c5e84613caf3d2596272d26a1b85c120`)
-- **ZIP Package:** [`docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b.zip`](docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b.zip) (Contains single matching GeoTIFF)
-- **Submission Name:** `gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros`
-- **Submission Note (108 chars ≤ 140 chars):**
-  `KARAGE1 CDA1 channel-deflection+pipe+shoreline-null 37654d B2 | HOLDOUT-DTI 0.1473 n=60988 | 753b8d47f951`
-- **Zero Human Intervention:** Validation is executed autonomously via `scripts/validate_geotiff.py` and `scripts/validate_artifact.py`.
+| Rank / effort | Layers & targeted physical signature | Why it may expose off-catalogue structure | Named non-fault mimic | Difference / data readiness |
+|---|---|---|---|---|
+| **1 · low–medium** | Existing 19-band stack: `depth_to_base_surf`, `iso_grav_anom`, `iso_grav_anom_hg/vg`, `rtp`, `tmi_hg/vg`; condition on `det_elev_slope`. Detect multi-scale potential-field phase alignment plus a basement step beneath low-slope basin fill. | Concealed buried structure may lack a surface scarp while preserving density/susceptibility discontinuities. | Buried paleochannels, pediment/pluton contacts, basalt-flow edges, or survey seams. | Different from unsigned NMS ridges by testing multi-scale signed phase congruency and coincident basement throw. In-stack proposal only; stack is a third-party mirror, not organizer-authenticated; lane and shared cache unresolved. |
+| **2 · medium** | `geod_shearrate`, `geod_dilaterate`, `geod_2ndinv`, `deq_n100a15`, `ieq_n100a15`, `cond_surf`, `rtp`, and fold-visible fault-tip orientations. Test a low-frequency strain/seismic corridor that links sharp 100-m geophysical ridges across relay zones. | Distributed relay faults can be missed when mappers split traces at fault-segment tips. | Mining/injection seismicity, conductive playa clay, and smoothed GPS fields. | Differs from direct high-resolution placement on smooth strain fields by using strain only as a corridor prior; requires strict fold-local catalogue handling. In-stack proposal; not validated. |
+| **3 · medium–high** | RTP magnetics, magnetic horizontal/vertical gradients, conductivity and local K/eTh radiometric boundaries. Test a destriped, narrow alteration-boundary discontinuity aligned with a magnetic trough. | Hydrothermal alteration may persist where erosion or burial removes a recognizable scarp. | Lithologic contacts, potassic intrusions, weathering, playa evaporites, and flight-line seams. | Different from a raw broad radiometric plume: targets a local boundary after survey-stripe control. Official source: [USGS GeoDAWN](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and). Derived mirror layers exist; official source bytes were not authenticated in this sandbox. |
+| **4 · high** | `det_elev`, `det_elev_slope`, positive-curvature-magnitude `tc`, `iso_grav_anom_hg`, plus official [USGS 3DEP](https://www.usgs.gov/3d-elevation-program) DEMs if independently obtained. Test multi-catchment drainage asymmetry and fan-apex alignment against a conditioned null. | Repeated drainage deflection can persist after a low-relief scarp is degraded. | Lake Lahontan shoreline benches, fan terraces, resistant strata, and stream piracy. | Different from pixel-level scarp scores; requires hydrologic-network extraction. USGS describes free 3DEP products, but exact study-area coverage and official tile bytes were not verified here. Not data-ready. |
+
+The target is mapped fault traces, not direct proof of an active geothermal vent. All four mechanisms are hypotheses with plausible confounders; none is a validated detection or score projection.
 
 ---
 
-## Verbatim Standing Prompt — Mandatory Task Specification
+## Range-Error Triage & Download Status — DO NOT SUBMIT
 
-The following is the full, unabridged text of the user prompt provided to this repository:
+The exact file that produced DrivenData's reported `Predicted values must be in range [0, 1]` error was not retained in this repository. Therefore its cause is **unknown**; a local format check cannot establish portal acceptance. A firsthand audit of the restored, third-party-mirrored `training_features.tif` found 3,073 raw float32 nodata values (`-3.4028234663852886e+38`) in pixels that are finite in the mirrored `sample_submission.tif` footprint. If any inference pipeline consumes those sentinels without an explicit per-band validity mask, invalid or out-of-range predictions are a plausible failure mechanism—but this is not proof of what caused the earlier portal error. See [the 19-band audit](evidence/training_features_band_audit_20261028.json).
 
-```text
-Review the repo.
+The [official submission-format page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#submission-format) describes null/NaN values outside the bounds. Local reports separately test in-footprint range/masks, NaN-outside, and strict whole-array finite range. Neither encoding has been portal-tested here. Do not convert an artifact to zeros or NaNs and assume that fixes the previous rejection.
 
-I want to focus on the highest scoring submissions from the following sites, GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36. I want an executive summary on every site that is clear and obvious which is the best submission to submit to obtain a high score on the leaderboard. It should also be unique and not an exact duplicate of any previous submission that is the same as below. Keep iterating and testing until we have the highest scoring submission to download and submit.
+### Research artifact currently in the repository (generated by a prior parallel session)
 
-We should be able to estimate the score for a submission. I want a table in the executive summary that clearly lists what file to download, what the estimate score is, and whether it is a unique submission unlike any of the other GEMDOE sites listed below.
+- **BB-STEP GeoTIFF:** [`docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif`](docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif), SHA-256 `72312302675d65cd1983239dd436412b5db1118a7c08f2a5807ef436b5536d6a`.
+- **Prior-session HOLDOUT-DTI:** `0.031790` (evaluator `gemsk-hide-recover-v1`, 60,988 withheld positives, 95% CI `[0.027138, 0.036271]`). This is a run-card report, not ORGANIZER-CONFIRMED and was not independently rerun in this session.
+- **Uniqueness:** 12.6252% maximum 3-px overlap versus the nine focus-site rasters, but **98.5253%** of dots are within 3 px of the pinned lattice; literal protocol duplicate. The registry inventory is incomplete.
+- **Decision: `DO NOT SUBMIT`.** It is exposed as a research/audit artifact only. It is not a cleared submission and is not an estimate of the leaderboard score.
 
-THE FOLLOWING IS THE HIGHEST URGENCY AND MUST BE FOLLOWED!
+### Quarantined CDA1 demonstrator
 
-MUST GENERATE A UNIQUE TIF SUBMISSION FOR THE COMPETITION. DO NOT COPY A PREVIOUS SUBMISSION UNLESS IT'S FOR LEARNING AND EDUCATION. BUT WE MUST GENERATE A UNIQUE TIF SUBMISSION. IT MUST BE OBVIOUS WHETHER IT IS OK TO DOWNLOAD AND SUBMIT THE GENERATED TIF SUBMISSION.
+The older [`CDA1` TIFF](docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif) is explicitly a **synthetic demonstrator, not a competition prediction**. Its archived evaluator returned hard-coded values independent of input, so a previously reported `0.1473` is **not a valid HOLDOUT-DTI measurement** and must not be used as a score. The saved bytes also have 37,570 of 37,654 dots within 3 px of the lattice (99.7769%): duplicate. The file is retained for audit only; **DO NOT SUBMIT**. Source: [`docs/data/archive-review.json`](docs/data/archive-review.json).
 
-There should be an easy to download submission tif file as described by the prompt. Read the entire prompt. A lot of sites mention inspection only and a human inspector, but the inspection needs to be done through the project and needs to be validated for submission without human intervention.
-
-PARALLEL-RUN PROTOCOL — read first. This session is one of several running from this same prompt.
-
-1. LANE. Your lane is the single method paragraph below. Stay inside it. If your raster's rank-correlation with any registry raster exceeds [0.90], or more than [70%] of your dots fall within 3 px of one registry raster's dots, you have drifted into another lane: log it as a duplicate and stop. Check this on the surface before placement AND on the final dots.
-
-2. REUSE, DON'T REBUILD. Use the template's cached feature stack, evaluate_holdout.py and submission_writer.py. Holdout = hide-and-recover: withhold whole fault segments with a buffer, derive every catalogue-based feature only from the visible faults, mask visible faults pixel-exactly, score pooled DTI (alpha 0.2, beta 0.8, 300 m triangular kernel). If a shared tool is wrong, fix it once in the template and report it; never keep a private fork.
-
-3. LABEL EVERY NUMBER as HOLDOUT-DTI (evaluator version, number of withheld positives, 95% CI) or ORGANIZER-CONFIRMED (copied from a submission-page receipt). A projection is never written as a score.
-
-4. LEAKAGE CANARY. Test each feature alone on the holdout before trusting any result. AUC above [0.90] means leakage until proven otherwise.
-
-5. RUN CARD. End with one JSON card: hypothesis; mechanism; the named non-fault process that could mimic it; holdout DTI + CI; correlation/overlap vs registry; raster sha256; validator output (no NaN inside the footprint, values in [0,1], CRS/shape/transform match); submission name + note of at most 140 characters; verdict promote / negative. Negative results are deliverables.
-
-6. BUDGET. Stop after [3] experiments or [2] hours. Do not pick submissions: promotion to a real slot is a separate selector step, within the weekly cap shown on the submission page.
-
-The following sites should serve as a starting point for understanding how to generate TIF submissions. These websites are researched, and tested and have generated TIF submissions. But we need to generate high scoring submissions.
-
-[https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html)
-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros: 0.2778
-Why and how did this get the highest score and are we able to generate a submission that scores higher than 0.2778?
-Answer the question using Phd level experience, knowledge, and judgement. Then use the answer to generate a unique TIF submission into the competition. Must be unique submission unlike any within the GEMSDOE sites above. Verify working line by line no hallucinations.
-Current competition leaderboard GEMSDOE high score: 0.4413
-```
+No file in this repository is marked `OK TO SUBMIT`. The selector step remains separate and no competition slot was selected or spent in the current session.
 
 ---
 
-## Remaining Work and Next Session
+## Standing Task Brief — Normalized, Not a Verbatim Transcript
 
-1. **Obtain Missing Method-Lane Paragraph:** Clarify the designated parallel lane and shared feature cache provenance with the coordinator.
-2. **Resolve Dense Calibration Lattice Protocol Conflict:** Because a 5-pixel grid covers >99.8% of the footprint within 3 pixels, establish an updated distance/overlap rule that distinguishes calibration grids from peer submission clusters.
-3. **Phase-2 Multimodal Modeling:** Incorporate external InSAR phase gradients and 3D MT resistivity inversion meshes once authenticated data ingress is established.
+The original, very long user message is available in the conversation replay but was not saved as a raw transcript in this checkout. This repository therefore does **not** claim that the following normalized task brief is a verbatim or complete copy. Read [`docs/standing-prompt.md`](docs/standing-prompt.md), this README, and [`AGENTS.md`](AGENTS.md) at the start of each session; newer explicit user instructions take precedence.
 
----
+### Core requirements
 
-## Historical Session Reviews & Prior Audits
+- **Maximize P(Win) / Own the Outcome:** prefer reproducible, scientifically defensible evidence; report negative results, missing access, and uncertainty honestly.
+- Build an automated, auditable DrivenData DOE GEMS fault-mapping workflow and clean GitHub Pages site. Make a genuinely new, unique GeoTIFF only when every assigned-lane, evidence, novelty, holdout, format, and selector gate permits it. The current site and all generated research files must plainly say **DO NOT SUBMIT** until then.
+- For GEMSDOE24, 25, 27, 28, 30, 31, 32, 33, and 36, distinguish `USER-REPORTED / UNVERIFIED` results from artifact-linked `ORGANIZER-CONFIRMED` receipts. Never invent a leaderboard estimate. A `HOLDOUT-DTI` must state evaluator, withheld-positive count, and 95% CI.
+- Follow the literal parallel-run protocol: use one explicitly assigned lane; compare continuous surfaces before placement and final dots against every registry raster; stop if rank correlation exceeds 0.90 or more than 70% of candidate dots fall within 3 pixels. Do not jitter, rename, or exempt a lattice to evade the rule.
+- Reuse the agreed shared evaluator/writer; whole-segment buffered hide-and-recover; recompute catalogue features from visible faults only; mask visible faults pixel-exactly; pooled DTI with α=0.2, β=0.8 and a 300 m triangular kernel; test each feature alone for leakage; stop after three experiments or two hours. No weekly slot selection in the experiment workflow.
+- Validate reopened saved GeoTIFF bytes automatically (one float32 band; correct CRS, shape, and transform; no nonfinite or masked values inside footprint; values in [0,1]; explicit outside-footprint diagnostics). Local validation is not portal approval.
+- End each run with a JSON card containing hypothesis, mechanism, named non-fault mimic, holdout result/CI, registry checks, raster hash, validator output, name/note (≤140 characters), and promote/negative verdict.
+- Research only free, official sources and keep data provenance auditable. Distinguish fault mapping from proof of active geothermal vents. Follow the official [competition specification](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), [reference solution](https://github.com/drivendataorg/gems-prize-reference-solution), [DOE/NLR rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf), [USGS GeoDAWN](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and), and [GDR INGENIOUS](https://gdr.openei.org/submissions/1391). Source links do not prove payload availability or organizer authentication.
 
-<details><summary>Expand Prior Session Records</summary>
+## Remaining Work and Limitations
 
-- [Session `arena/8ffb6de1` Review](knowledge/session-review-arena-8ffb6de1.md) · [Run Card](evidence/run_card_arena_8ffb6de1.json)
-- [Session `arena/0150ae73` Review](knowledge/session-0150ae73-review.md) · [Run Card](evidence/session_0150ae73_run_card.json)
-- [Session `b65a5aab` Review](knowledge/session-b65a5aab-review.md) · [Run Card](evidence/session_b65a5aab_run_card.json)
-- [Session `arena/43868644` Review](knowledge/session-review-arena-43868644.md) · [Run Card](evidence/run_card_arena_43868644.json)
-- [Session `arena/0fb1ec81` Review](knowledge/review-arena-0fb1-20261028.md) · [Reassessment](evidence/reassessment_arena_0fb1_20261028.json)
-- [Session `arena/9ad4a8a0` Review](knowledge/session-review-arena-9ad4a8a0.md) · [Run Card](evidence/run_card_arena_9ad4a8a0.json)
-- [Session `0f04bfcc` Review](knowledge/session-0f04bfcc-review.md) · [Run Card](evidence/session_0f04bfcc_run_card.json)
-- [Session `5b69d76e` Review](knowledge/session-5b69d76e-review.md) · [Replayed Audit](evidence/session_5b69d76e_prior_audit.json)
-- [Session `a0f0d036` Review](knowledge/session-a0f0d036-review.md) · [Run Card](evidence/session_a0f0d036_run_card.json)
-- [Session `470a3424` Review](knowledge/session-review-2026-10-28.md) · [Audit Record](evidence/session_review_2026-10-28_arena-470a3424.json)
+1. **Assigned lane and canonical shared template are unresolved.** `registry/template.json` still records `method_lane: null` and no canonical-template assignment. Do not invent a lane or run a local/private fork. Reconcile the recorded template-integrity failures with the upstream owner before shared execution.
+2. **The lattice gate blocks the extant candidates.** The pinned lattice covers 99.8713% of the mirrored footprint within the 3-pixel disk. The prior parallel-session BB-STEP TIFF is distinct from the nine focus-site dot masks, but 98.5253% of its dots are within 3 pixels of the lattice. It is a duplicate under the literal rule. Clarify the apparent calibration-lattice/registry conflict with the protocol owner; do not alter the threshold, stuff holes, or treat a unique filename as clearance.
+3. **Official data provenance remains unresolved.** All 31 restored inputs are hash-pinned third-party GitHub mirrors, not authenticated organizer downloads. The mirrored `labels.tif` and `existing_faults.tif` are byte-identical, and the mirrored sample contains positive cells despite the public description of an all-absence template. The mirror-only finding of 3,073 interior feature nodata pixels is documented; mask them explicitly in any future authorized pipeline.
+4. **The complete submission registry and current selector state are unavailable.** Auditing one lattice witness can disqualify a file; passing a partial audit cannot certify uniqueness. No competition slot was selected or spent here.
+5. **CDA1 is quarantined.** Its archived evaluator returned hard-coded values; `0.1473` is not a valid `HOLDOUT-DTI`. Do not cite it as a measured score or recommend its TIFF for upload.
+6. **Prior BB-STEP holdout is not a leaderboard result.** The previous session reports `HOLDOUT-DTI 0.031790` (evaluator `gemsk-hide-recover-v1`, 60,988 withheld positives, 95% CI `[0.027138, 0.036271]`), but the saved raster fails the literal lattice stop. This session did not rerun it, produce another TIFF, estimate leaderboard performance, or select a slot.
+7. **Three-pass follow-up order:** obtain an assigned lane and authoritative template; authenticate organizer data and template geometry; resolve the lattice interpretation without evasion; establish a complete inventory and comparable baseline; only then preregister and run at most three properly buffered, fold-local experiments and the automated validator. A separate selector checks a live weekly allowance only after every gate passes.
 
-</details>
-
-## This session — arena/e78e1e3b-gemsdoekarage1 (28 Oct 2026)
-
-Standing prompt applies (see the Parallel-Run Protocol above): every score is labelled HOLDOUT-DTI or ORGANIZER-CONFIRMED; a projection is never written as a score; the lattice Rule-1 gate (|rho| > 0.90 or > 70% of dots within 3 px of a registry raster) stops a lane as a duplicate; no weekly submission slot is selected or spent.
-
-Deliverables added this session:
-- `karage1-unique-alteration-dots-20261028-zeros.tif` — catalogue-free blind hydrothermal-alteration propensity dots (3,500 dots), all-finite float32 [0,1], EPSG:32611 3730x3292 100 m, zeros outside the footprint. SHA-256 `8bc4dae02a99da68ac0e895b7a5c4b5c72b60de11a91efb7ddef3f2b626ee1d2`. Listed as an additional row in the executive-summary download table; marked research only / not cleared to upload.
-- `evidence/run_card_unique_tif_20261028.json` — Parallel-Run Protocol run card; verdict `negative` (holdout DTI not established; organizer-lattice uniqueness not verifiable locally).
-- `knowledge/hypotheses-20261028.md` — five new untried geological hypotheses ranked by expected DTI gain and cost, with free official sources (USGS GeoDAWN, USGS 3DEP, GDR INGENIOUS 1391).
-- `scripts/generate_unique_submission.py` — deterministic generator for the unique research TIF.
-
-No organizer data were downloaded (DrivenData is login-walled in this sandbox); all mirrors are integrity-pinned, not organizer-authenticated.
+The current active session review is [`knowledge/session-review-arena-9ca08e2e.md`](knowledge/session-review-arena-9ca08e2e.md), with its exact session card at [`evidence/session_9ca08e2e_run_card.json`](evidence/session_9ca08e2e_run_card.json). Prior session records, including [`knowledge/session-review-arena-8ffb6de1.md`](knowledge/session-review-arena-8ffb6de1.md), are historical evidence to inspect—not certificates of current validity.

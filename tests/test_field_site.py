@@ -145,3 +145,42 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
     card_path.write_text(json.dumps(card))
     with pytest.raises(ValueError, match='decision incomplete'):
         render_site.evidence()
+
+
+def test_secondary_site_evidence_renders_and_fails_closed(tmp_path, monkeypatch):
+    import shutil
+    import pytest
+
+    sec = render_site.secondary_evidence()
+    assert len(sec['rows']) == 12
+    assert 'gems28-s18-mxtp-20261025-3e95505c011a-allfinite.tif' in (ROOT / 'docs/GEMSDOE28.html').read_text()
+
+    sec_copy = tmp_path / 'evidence/nine_sites_secondary_audit_20261028.json'
+    sec_copy.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ROOT / 'evidence/nine_sites_secondary_audit_20261028.json', sec_copy)
+    registry_copy = tmp_path / 'registry/reference_assets.json'
+    registry_copy.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ROOT / 'registry/reference_assets.json', registry_copy)
+    monkeypatch.setattr(render_site, 'ROOT', tmp_path)
+    assert len(render_site.secondary_evidence()['rows']) == 12
+
+    tampered = json.loads(sec_copy.read_text())
+    tampered['rows'][0]['ok_to_submit'] = True
+    sec_copy.write_text(json.dumps(tampered))
+    with pytest.raises(ValueError, match='secondary site evidence failed fail-closed check'):
+        render_site.secondary_evidence()
+
+
+def test_newer_conduitcrest_candidate_is_lattice_duplicate_and_not_download_cleared():
+    import hashlib
+    audit, original, latest, raster = render_site.conduitcrest_evidence()
+    lattice = audit['lattice_witness']
+    assert lattice['candidate_dots_within_closed_3px_disk'] == 17301
+    assert lattice['candidate_dots'] == 17415
+    assert lattice['exceeds_overlap_threshold'] is True
+    assert latest['verdict'] == 'negative' and latest['ok_to_submit'] is False
+    assert hashlib.sha256(raster.read_bytes()).hexdigest() == audit['candidate']['sha256']
+    page = (ROOT / 'docs/executive-summary.html').read_text()
+    assert '99.3454%' in page and 'no 95% CI' in page
+    assert 'DO NOT SUBMIT' in page
+

@@ -1,57 +1,50 @@
-# PhD-Level Synthesis: Why GEMSDOE32 H33-2-B2 Achieved 0.2778 OWNER-REPORTED and How to Beat It
-**Verified sources & line-by-line links at bottom. No hallucination — every numeric claim is labeled HOLDOUT-DTI or OWNER-REPORTED.**
+# Why GEMSDOE32 B2 was reported at 0.2778 — evidence-limited forensic note
 
-## Executive Answer: Why 0.2778?
-**Short answer:** H33-2-B2 is not a new geologic discovery — it is the optimal *emission* of an older geometric fusion (H19-5) with two surgical corrections that match the organizer's distance-weighted metric. Its edge is operational, not geological, hence the 0.2778 ceiling and the 0.4413 leaderboard gap.
+**Status: `0.2778 USER-REPORTED / UNVERIFIED`.** No organizer submission-page receipt tied to the saved GeoTIFF SHA-256 is present in this workspace. The analysis below separates measured binary-mask geometry from an untested causal explanation. It is not a new score, a score estimate, a promotion decision, or submission authorization.
 
-### What H33-2-B2 Actually Is (forensics verified)
-From GEMSDOE32 audit JSON (content_digest8 e5eb6e7e, sha c55bafc47005, verified via GitHub API blob 17a76895f681...):
-- **Base:** H19-5 power-law budget multiline corroborated (0.1922 OWNER-REPORTED in GEMSDOE19, 0.2600 in GEMSDOE25 D2.8) — a 4-expert fusion (multiscale geopotential worms + LiDAR scarp + tilt + openness) ranked by corroboration-count (how many independent lines corroborate), placed via submodular CELF with Poisson 300m kernel.
-- **Modification 1 — Poisson spacing D2.8:** Emission uses Poisson-disk with min_sep 2.8px (280m) vs earlier D1.5 (150m). This enforces 300m triangular kernel's effective resolution: prevents multiple dots collapsing into same 300m weighting disk, which the DTI metric (alpha 0.2, beta 0.8) rewards via reduced redundant FP mass. Measured: 44,090dots D2.8 = 0.2600 vs 60,069dots D1.5 = 0.2477 on GEMSDOE24/25 split — spacing alone +0.0123.
-- **Modification 2 — Catalogue collar B=2 (200m):** Deletes every dot within 2px (200m) of `existing_faults.tif` (verified 6,436 deletions: 44,090 → 37,654). This is critical: DTI penalizes FP more than FN (beta 0.8 vs alpha 0.2), but FP near known faults are *not* scored as errors if they overlap known fault buffers? Actually the metric is evaluated only on hidden truth, but dots on known faults waste budget that could be off-catalogue. By pruning on-catalogue dots, B2 frees 14.6% budget for off-catalogue true fault zones. Live-mirror measured +0.00487 in 4/4 folds vs base D2.8 (GEMSDOE32 holdout_metrics.predicted_leaderboard_dti 0.27467).
+## What is directly verified from the pinned mirror rasters
 
-**Why the metric rewards this:** Organizer DTI uses 300m triangular kernel (Tversky alpha 0.2 beta 0.8). At 100m pixel, a 3px kernel means a prediction within 300m of hidden truth gets partial credit weighted linearly to distance. Two predictions within 300m of each other are redundant — only one gets credit. Poisson 2.8 enforces near-optimal packing for this kernel. Catalogue collar removes guaranteed wasted mass (known faults are not hidden truth; predicting them yields zero DTI but costs FP penalty via budget).
+On the owner-mirrored competition grid, exact in-footprint binary-set comparisons establish the following lineage:
 
-### Why It Cannot Reach 0.4413
-- **No new physics:** B2's surface before placement correlates >0.90 with H19-5 (it *is* H19-5 + pruning). It does not introduce a modality that sees through Quaternary cover (channel offsets, alteration, microseismicity). All B2-family dots overlap 98-100% within 3px across GEMSDOE24,25,27,28,30,31,32,33,36 — they are the same method with different emission parameters. This is confirmed by GEMSDOE28 S23 audit (72 directional comparisons exceed 70% threshold).
-- **Holdout vs leader gap:** GEMSDOE32's own holdout (drift_corrected_holdout_mean 0.04504) is far below 0.27467 predicted leaderboard — the prediction is extrapolation, not measurement. The 0.2778 is OWNER-REPORTED, not ORGANIZER-CONFIRMED (no submission-page receipt SHA linking raster hash to score in repo). The 0.4413 leaderboard high is from a team using deeper features (likely INGENIOUS MT + 1m DEM + deep learning) — verified gap.
-- **Geologic blind spot:** B2's feature stack includes no channel topology, no radiometric alteration (Th/K), no seismic density. Piedmont faults under alluvium (>50% of hidden truth per USGS Q-fault gap analysis) have no scarp, no magnetic worm, but do deflect channels — B2 cannot find them.
+| Raster | Measured mask relationship | Dot count | Score status |
+|---|---|---:|---|
+| GEMSDOE25 `dotted-h19-5-d2-8` | Parent mask; exactly equal to GEMSDOE30 positive support | 44,090 | `0.2600 USER-REPORTED / UNVERIFIED` |
+| GEMSDOE31 `h27-4-solo-d28` and GEMSDOE28 secondary `h27-4-r1` | Both equal the parent after removing all dots within the closed 1-pixel disk of mirrored known labels | 40,199; 3,891 removed; zero added | `0.2708 USER-REPORTED / UNVERIFIED` |
+| GEMSDOE32 B2 `h33-h33-2-b2` | Parent after removing all dots within the closed 2-pixel disk of mirrored known labels | 37,654; 6,436 removed; zero added | `0.2778 USER-REPORTED / UNVERIFIED` |
+| GEMSDOE36 `anderson-geothermal-pinn` | Exact strict superset of B2, with 1,200 additional dots | 38,854 | `0.2750 USER-REPORTED / UNVERIFIED` |
 
-### Can We Beat 0.2778?
-**Yes, but not by tuning B2 — by orthogonal geology.** PhD-level paths:
-1. **Channel deflection (CDA1, this repo):** Kirby et al. (2006) BSSA shows drainage captures record blind fault slip even after scarp burial. This is catalogue-free and targets the exact hidden population B2 misses. Our HOLDOUT-DTI 0.1473 vs B0 0.1342 shows signal (+0.013), though not yet beating KPL 0.1701.
-2. **Radiometric alteration halo:** Coolbaugh et al. (2005) GRC shows K-enrichment/Th-depletion halos extend 500-1000m beyond fault trace at geothermal fields (Bradys, Desert Peak). Airborne radiometric at 200m line spacing resolves halos B2's LiDAR misses.
-3. **Seismic lineaments:** Microseismicity at 0-5km depth clusters on hidden faults (Smith et al., 2017, SRL) independent of surface expression.
+The source rasters and template are SHA-pinned third-party GitHub mirrors, **not** organizer-authenticated downloads. These counts establish support-set identities only; they do not establish hidden-label performance or causal effects. Machine-readable details are in [`evidence/nine_sites_secondary_audit_20261028.json`](../evidence/nine_sites_secondary_audit_20261028.json) and [`docs/data/reference-audit.json`](../docs/data/reference-audit.json).
 
-**Cost to beat 0.2778:** The best internally-validated holdout in this fleet is TCD-36 EXP-2 at 0.1942 HOLDOUT-DTI (pooled, 60,988 withheld, CI [0.1803,0.2083], +0.0599 vs B0), but still below 0.2778's *predicted* leader. This suggests holdout DTI underestimates organizer DTI (different hidden set distribution). A true 0.32+ will need 10m DEM + deep learning ensemble, not just handcrafted features.
+## Why thinning could help, without proving that it did
 
-## Verified Lineage of Scores (All OWNER-REPORTED unless noted HOLDOUT-DTI)
-| Site | Historical File | Owner Claim | Evidence Class |
-|------|---------------|-------------|----------------|
-| GEMSDOE24 | h25-1-dotted-h19-5-d1-5 | 0.2477 | OWNER-REPORTED / UNVERIFIED, no receipt |
-| GEMSDOE25 | dotted-h19-5-d2-8 | 0.2600 | OWNER-REPORTED / UNVERIFIED |
-| GEMSDOE27 | topo-gap-closure-t-v2 | 0.2449 | OWNER-REPORTED |
-| GEMSDOE28 | h36-1-rung30-blind-r1 | 0.2710 | OWNER-REPORTED |
-| GEMSDOE30 | d28-poisson300m-offcat-44090 | 0.2600 | OWNER-REPORTED |
-| GEMSDOE31 | h27-4-solo-d28 | 0.2708 | OWNER-REPORTED |
-| GEMSDOE32 | h33-h33-2-b2 | **0.2778** | OWNER-REPORTED / UNVERIFIED (no organizer receipt hash in repo) |
-| GEMSDOE33 | h33d-analog-tip-stepover-r30 | 0.2632 | OWNER-REPORTED |
-| GEMSDOE36 | anderson-geothermal-pinn-38854 | 0.2750 | OWNER-REPORTED |
-| HOLDOUT-DTI CDA1 (this repo) | karage1-cda1 | 0.1473 [0.1331,0.1612] | HOLDOUT-DTI (gems-segment-pooled-v1, 60,988 withheld, 95% CI) |
-| HOLDOUT-DTI TCD-36 (GEMSDOE36) | tcd36-exp2 | 0.1942 [0.1803,0.2083] | HOLDOUT-DTI (same evaluator, paired delta +0.0599) |
+The [official DrivenData metric specification](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric) defines a distance-weighted Tversky objective with α = 0.2, β = 0.8, and a 300 m triangular kernel. In pooled notation, let `T` be weighted true-positive coverage, `F` weighted false-positive mass, `G` the number of hidden positive pixels, and `ε` the numerical stabilizer. The score has the form
 
-**No organizer-confirmed score is available in this repository for any file; all leaderboard projections are withdrawn as unreliable (cross-family LOO RMSE 0.090 barely beats mean, per GEMSDOE31 evidence).**
+```text
+DTI = T / (T + αF + β(G − T) + ε)
+```
 
-## Links for Manual Review (Verified Trusted Official Sources)
-- Competition description & metric: https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
-- About & data (INGENIOUS/GeoDAWN): https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/
-- Reference solution (transform verified): https://github.com/drivendataorg/gems-prize-reference-solution
-- GeoDAWN magnetic/radiometric (USGS): https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and
-- INGENIOUS regional compilation (GDR): https://gdr.openei.org/submissions/1391
-- UTM 11N: https://epsg.io/32611
-- Tversky index: https://en.wikipedia.org/wiki/Tversky_index
-- GEMS Prize PDF (96647): https://docs.nlr.gov/docs/fy26osti/96647.pdf (via Dropbox mirror: https://www.dropbox.com/scl/fi/aemhtutjgcp6tr3tint94/GEMS_96647.pdf )
-- USGS Faults portal: https://www.usgs.gov/programs/earthquake-hazards/science/faults
-- S3DEP 1m DEM (free): https://registry.opendata.aws/usgs-lidar/
-- Kirby et al. 2006 drainage offset: https://doi.org/10.1785/0120050169 (BSSA)
-- Coolbaugh et al. 2005 alteration: https://www.geothermal-library.org/index.php?mode=pubs&action=view&record=1024615
+Consider a deletion that loses `L ≥ 0` units of true-positive coverage and removes `c ≥ 0` units of weighted false-positive mass. Provided denominators remain positive, the deletion improves the ratio only when
+
+```text
+α T c > L [α F + β G + ε]
+```
+
+This explains why a collar can be a useful ablation: it may remove low-yield predictions and reduce false-positive cost. It does **not** show that the removed dots were false positives, that all near-catalogue pixels are unscored, or that another collar radius would improve performance. The [DrivenData staff clarification](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516) says known fault pixels are masked; it does not make a surrounding 100–300 m buffer a free region. New faults can occur close to mapped faults.
+
+The reported sequence (parent, 1-pixel collar, 2-pixel collar, then 1,200-dot addition) is suggestive but not a controlled causal experiment: the score/file receipts are absent, and only the raster masks have been independently compared here. It would require the exact common evaluator, identical fold assignments and a paired buffered holdout to estimate an effect. Never treat a USER-REPORTED leaderboard value as `HOLDOUT-DTI`.
+
+## Can a new result beat the reported 0.2778?
+
+**Possible in principle; not established or forecast here.** The largest scientific opportunity is not to tune a collar solely on these reported results, but to test distinct, physically motivated signals for buried structures, with named non-fault mimics, fold-local features, leakage canaries, and the same evaluator/baseline. The current parallel protocol also imposes a strict duplicate gate against every registry raster, including the pinned lattice. The [current session review](session-review-arena-9ca08e2e.md) finds that all 21 primary/secondary focus-site files audited overlap the lattice by more than 70%; the prior BB-STEP research raster is unique versus those nine historical sites but fails the literal lattice gate. It is therefore **DO NOT SUBMIT**.
+
+No leaderboard estimate is defensible from this mask algebra. A holdout result and an organizer score are different evidence classes and are not interchangeable.
+
+## Trusted source pointers
+
+- [DrivenData problem, metric, feature and submission specification](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- [DrivenData staff clarification on masking known faults](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516)
+- [Official DOE/NLR competition rules (96647 PDF)](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
+- [USGS GeoDAWN data release](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and)
+- [GDR INGENIOUS compilation](https://gdr.openei.org/submissions/1391)
+
+These are source pointers for review. External data payloads and the user's private submission receipts were not obtained or verified in this note.

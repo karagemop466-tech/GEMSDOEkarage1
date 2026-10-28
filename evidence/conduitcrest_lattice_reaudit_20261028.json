@@ -1,0 +1,141 @@
+{
+  "schema": "karage1-mainline-candidate-lattice-audit-v1",
+  "audited_date": "2026-10-28",
+  "candidate_origin": {
+    "repository": "karagemop466-tech/GEMSDOEkarage1",
+    "commit": "43ec819b758d1a59b5bacb48e42b2f73a68a4b68",
+    "path": "docs/downloads/gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+    "session_card": "evidence/run_card_gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4.json"
+  },
+  "scope": "Independent saved-byte audit of the newly merged mainline TIFF against the pinned owner-mirrored sample grid and pinned 13GEMSDOE lattice, plus the nine focus-site dot masks. This does not authenticate organizer data, audit a complete fleet registry, or rerun the scientific holdout.",
+  "candidate": {
+    "sha256": "65c9432b2cb417824b846a63ab64bf9d1035e4a9e8102f3ed2175ad48a464687",
+    "positive_pixels_inside_footprint": 17415,
+    "driver": "GTiff",
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "grid_matches_mirrored_sample": true,
+    "unmasked_inside_footprint": true,
+    "no_nan_inside_footprint": true,
+    "values_inside_in_0_1": true,
+    "outside_encoding": "finite zeros; local check only; portal acceptance not tested"
+  },
+  "lattice_witness": {
+    "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+    "candidate_dots_within_closed_3px_disk": 17301,
+    "candidate_dots": 17415,
+    "directed_overlap": 0.9934539190353144,
+    "threshold_strictly_greater_than": 0.7,
+    "exceeds_overlap_threshold": true,
+    "binary_support_spearman": 0.000233778067251103,
+    "exceeds_abs_spearman_threshold": false,
+    "literal_rule_verdict": "duplicate; stop"
+  },
+  "nine_focus_site_comparison": {
+    "files_checked": 9,
+    "maximum_forward_overlap": 0.0,
+    "maximum_abs_binary_support_spearman": 0.006373044893315756,
+    "maximum_abs_rho_site": "GEMSDOE27",
+    "scope": "These are only the nine focus-site masks; they do not supersede the lattice witness and do not certify a complete registry."
+  },
+  "protocol_gaps_in_original_run_card": {
+    "preplacement_surface_compared_to_lattice": false,
+    "lattice_included_in_original_uniqueness_inventory": false,
+    "complete_authenticated_registry": false,
+    "single_feature_leakage_canary_complete": false,
+    "holdout_95_percent_ci_present": false,
+    "authoritative_method_lane_assignment": false,
+    "notes": "The original card reports nine focus-site rasters, not the pinned lattice; says a per-channel canary remains to be run; omits a 95% CI; and records a lane_id without the active template manifest containing an assigned lane."
+  },
+  "previous_holdout_claim": {
+    "label": "HOLDOUT-DTI",
+    "reported_value": 0.017415,
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positives": 45260,
+    "ci95": null,
+    "status": "Copied from the prior run card; no 95% CI is recorded and it was not independently rerun in this lattice audit. Not an organizer score or release clearance."
+  },
+  "submission_name": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+  "submission_note": "Novel-territory gravity+radiometric+topo crest; research only; DO NOT SUBMIT",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "experiments_run_in_this_audit": 0,
+  "verdict": "negative",
+  "nine_focus_site_comparisons": [
+    {
+      "site": "GEMSDOE24",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.006306512231056459
+    },
+    {
+      "site": "GEMSDOE25",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005394556824251397
+    },
+    {
+      "site": "GEMSDOE27",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.006373044893315756
+    },
+    {
+      "site": "GEMSDOE28",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.004982571273518554
+    },
+    {
+      "site": "GEMSDOE30",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005394556824251397
+    },
+    {
+      "site": "GEMSDOE31",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005149066401623074
+    },
+    {
+      "site": "GEMSDOE32",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.00498217143178577
+    },
+    {
+      "site": "GEMSDOE33",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005255535641728324
+    },
+    {
+      "site": "GEMSDOE36",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005061529580689964
+    }
+  ]
+}

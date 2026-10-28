@@ -214,3 +214,27 @@ def test_overlarge_numeric_evidence_fails_closed_without_crashing():
     result = gate.assess(card)
     assert result['verdict'] == 'negative'
     assert not result['ok_to_submit']
+
+
+@pytest.mark.parametrize('opt_key', ['geotiff', 'unmasked_inside'])
+def test_optional_validator_keys_fail_closed_when_false(opt_key):
+    card = copy.deepcopy(good())
+    card['validator'][opt_key] = False
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert any(opt_key in r for r in result['reasons'])
+
+
+def test_release_gate_cli_exit_codes_and_nan_rejection(tmp_path):
+    import json
+    good_file = tmp_path / 'good.json'
+    out_file = tmp_path / 'out.json'
+    good_file.write_text(json.dumps(good()))
+    assert gate.main([str(good_file), '--out', str(out_file)]) == 0
+    report = json.loads(out_file.read_text())
+    assert report['verdict'] == 'promote' and report['ok_to_submit'] is False
+
+    bad_file = tmp_path / 'nan.json'
+    bad_file.write_text('{"lane": "x", "elapsed_seconds": NaN}')
+    assert gate.main([str(bad_file), '--out', str(out_file)]) == 1
+    assert json.loads(out_file.read_text())['verdict'] == 'negative'
