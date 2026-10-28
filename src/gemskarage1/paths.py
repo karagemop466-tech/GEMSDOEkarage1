@@ -15,16 +15,17 @@ REGISTRY_DIR = REPO_ROOT / "registry"
 def data_dir() -> Path:
     """Return directory containing restored competition & external GeoTIFFs.
 
-    Defaults to ``GEMS_DATA_DIR`` if set, else ``/tmp/gems_data`` when populated
-    (keeping multi-hundred-MB raw rasters out of Git snapshots), else ``REPO_ROOT / 'data'``.
+    Defaults to ``GEMS_DATA_DIR`` if set, else ``REPO_ROOT / 'data'`` only when
+    already populated locally, else ``/tmp/gems_data`` (keeping multi-hundred-MB
+    raw rasters outside Git/workspace snapshots).
     """
     env = os.environ.get("GEMS_DATA_DIR")
     if env:
         return Path(env)
-    tmp = Path("/tmp/gems_data")
-    if (tmp / "sample_submission.tif").is_file():
-        return tmp
-    return REPO_ROOT / "data"
+    repo_data = REPO_ROOT / "data"
+    if (repo_data / "sample_submission.tif").is_file():
+        return repo_data
+    return Path("/tmp/gems_data")
 
 
 def cache_dir() -> Path:

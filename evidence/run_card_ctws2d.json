@@ -1,0 +1,439 @@
+{
+  "schema_version": "karage1.ctws2d.runcard.v1",
+  "generated_utc": "2026-10-28T07:40:41Z",
+  "lane": "CTWS-2D (Crustal Tilt-Worm Zero-Crossing, 3DEP 10m PTCF/Chi & Fold-Safe Bend-Relay 2-D Context Submodular Network)",
+  "hypothesis": "H-K1-2 (CTWS-2D): Combining corrected multi-depth Verduzco potential-field tilt-angle zero-crossing worms (B02/B03/B05/B09/B11/B15/B17), full-footprint USGS 3DEP 10 m piedmont-toe concave flexure & Perron-Royden drainage chi-knickpoints, BLM epithermal lode corridors, playa-detrended 222Rn U/Th, 8-azimuth 2-D multi-scale lineament context (CTX-2D), and strictly fold-visible multi-scale bend/two-host en-echelon relay anatomy allocated under a coupled 300 m CELF submodular objective with a >=52% far-field basin floor significantly outperforms 1-pixel point GBDTs (H-K1-1 & BASE_35) across both continuous/relay and detached blind fault populations.",
+  "mechanism": "Subvertical basement fault steps produce depth-invariant potential-field tilt zero-crossings (theta = arctan(VDR/THDR) = 0; Verduzco et al. 2004) and sedimentary cover thickness jumps (||grad(B15)||) beneath flat valley fill, while transient footwall uplift preserves 10 m drainage chi-knickpoints and piedmont-toe concave hinges long after surface scarps diffuse; simultaneously, fracture mechanics concentrates secondary off-catalogue splays in restraining/releasing fault bends and overlapping two-host en-echelon relay ramps (Curewitz & Karson 1997; Faulds & Hinz 2015).",
+  "mimic_process": "Pleistocene Lake Lahontan highstand (~1,334 m ASL) wave-cut shorelines, un-faulted >22 deg degraded bedrock facet crags, incised alluvial fan channel banks (LiDAR cross_max), TIGER road prisms, Tertiary dike swarms, and closed-basin playa uranyl-evaporite sinks (Carson/Humboldt Sinks); suppressed via explicit 1,334 m shoreline/crag/road gating, cross_max subtraction, playa evaporite detrending, and 2-D multi-scale linearity.",
+  "experiments": 3,
+  "experiment_arms": [
+    {
+      "id": "EXP1_PTZW_PTCF_1D",
+      "description": "Corrected 69-ch physics + 3DEP 10m PTCF/chi + BLM/Radon Stage-1 Dual-Cover OOF + 300m CELF",
+      "gems57_all_dti": 0.094701,
+      "gems57_detached_dti": 0.097991,
+      "hr3_all_dti": 0.107662,
+      "hr3_detached_dti": 0.10235,
+      "sgmc_raw_dti": 0.09383
+    },
+    {
+      "id": "EXP2_CTX2D_BLIND",
+      "description": "Catalogue-free 8-azimuth 2-D multi-scale lineament context + Stage-1 OOF ensemble (500m/1.3km/2.9km) + 300m CELF",
+      "gems57_all_dti": 0.093877,
+      "gems57_detached_dti": 0.098609,
+      "hr3_all_dti": 0.109874,
+      "hr3_detached_dti": 0.106382,
+      "sgmc_raw_dti": 0.105474
+    },
+    {
+      "id": "EXP3_CTWS_RELAY_DUAL",
+      "description": "Unified CTWS-2D: Blind 2-D context + fold-safe bend/two-host relay GBDT with >=52% far-field CELF",
+      "gems57_all_dti": 0.175796,
+      "gems57_detached_dti": 0.179904,
+      "hr3_all_dti": 0.139568,
+      "hr3_detached_dti": 0.105246,
+      "sgmc_raw_dti": 0.09478
+    }
+  ],
+  "elapsed_seconds": 1307.4,
+  "holdout": {
+    "label": "HOLDOUT-DTI",
+    "formatted_label": "HOLDOUT-DTI (gems57-pooled-hide-v2, 22641 withheld positives, 95% CI [0.16303, 0.18753])",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positives": 22641,
+    "dti": 0.175796,
+    "ci95": [
+      0.163026,
+      0.18753
+    ],
+    "detached_dti": 0.179904,
+    "detached_ci95": [
+      0.166901,
+      0.192786
+    ],
+    "detached_withheld_positives": 22619,
+    "current_best_dti": 0.090551,
+    "current_best_detached_dti": 0.093547,
+    "delta_vs_hk1_all": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.08524544715102943,
+      "ci95": [
+        0.07184005842344265,
+        0.09814626466257938
+      ],
+      "withheld_positive_pixels": 22641
+    },
+    "delta_vs_hk1_detached": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.08635720393002652,
+      "ci95": [
+        0.07350655082995161,
+        0.09946907621871767
+      ],
+      "withheld_positive_pixels": 22619
+    },
+    "delta_vs_base35_all": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.08797167512891409,
+      "ci95": [
+        0.07515138623954247,
+        0.09998419021785666
+      ],
+      "withheld_positive_pixels": 22641
+    },
+    "delta_vs_base35_detached": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.09695354387014755,
+      "ci95": [
+        0.084820714775812,
+        0.11042428732726202
+      ],
+      "withheld_positive_pixels": 22619
+    },
+    "same_evaluator_as_best": true,
+    "beats_current_best": true,
+    "visible_only_features": true,
+    "whole_segment_buffered": true
+  },
+  "holdout_dti": {
+    "gems57_pooled_hide_v2_all": {
+      "label": "HOLDOUT-DTI",
+      "formatted_label": "HOLDOUT-DTI (gems57-pooled-hide-v2, 22641 withheld positives, 95% CI [0.16303, 0.18753])",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.175796,
+      "ci95": [
+        0.163026,
+        0.18753
+      ],
+      "withheld_positives": 22641,
+      "prior_hk1_best": 0.090551,
+      "base35": 0.087824,
+      "delta_vs_hk1": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.08524544715102943,
+        "ci95": [
+          0.07184005842344265,
+          0.09814626466257938
+        ],
+        "withheld_positive_pixels": 22641
+      },
+      "delta_vs_base35": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.08797167512891409,
+        "ci95": [
+          0.07515138623954247,
+          0.09998419021785666
+        ],
+        "withheld_positive_pixels": 22641
+      }
+    },
+    "gems57_pooled_hide_v2_detached": {
+      "label": "HOLDOUT-DTI",
+      "formatted_label": "HOLDOUT-DTI (gems57-pooled-hide-v2 detached>=400m, 22619 withheld positives, 95% CI [0.16690, 0.19279])",
+      "evaluator_version": "gems57-pooled-hide-v2-detached",
+      "dti": 0.179904,
+      "ci95": [
+        0.166901,
+        0.192786
+      ],
+      "withheld_positives": 22619,
+      "prior_hk1_best": 0.093547,
+      "base35": 0.082951,
+      "delta_vs_hk1": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.08635720393002652,
+        "ci95": [
+          0.07350655082995161,
+          0.09946907621871767
+        ],
+        "withheld_positive_pixels": 22619
+      },
+      "delta_vs_base35": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.09695354387014755,
+        "ci95": [
+          0.084820714775812,
+          0.11042428732726202
+        ],
+        "withheld_positive_pixels": 22619
+      }
+    },
+    "hide_recover_v3_all": {
+      "dti": 0.139568,
+      "withheld_positives": 27735,
+      "ci95": [
+        0.126421,
+        0.154815
+      ],
+      "delta_vs_ref_mean": 0.037429,
+      "delta_vs_ref_ci95": [
+        0.026786,
+        0.047998
+      ],
+      "prob_beats_ref": 1.0
+    },
+    "hide_recover_v3_detached600m": {
+      "dti": 0.105246,
+      "withheld_positives": 16676,
+      "ci95": [
+        0.089306,
+        0.123079
+      ],
+      "delta_vs_ref_mean": 0.008904,
+      "delta_vs_ref_ci95": [
+        0.001103,
+        0.017161
+      ],
+      "prob_beats_ref": 0.9925
+    },
+    "blind_sgmc_off_catalogue": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "GEMSDOE32-SGMC-CAL-v3.0",
+      "withheld_positives": 62122,
+      "sgmc_raw_pooled_dti": 0.09478,
+      "sgmc_raw_ci95": [
+        0.082016,
+        0.1077
+      ],
+      "sgmc_prevalence_calibrated_ref": 0.104808,
+      "delta_vs_champion_raw": 0.001188,
+      "delta_vs_champion_ci95": [
+        -0.011144,
+        0.014246
+      ],
+      "prob_beats_champion": 0.5725
+    },
+    "blind_sgmc_undilated": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "GEMSDOE32-SGMC-CAL-v3.0",
+      "withheld_positives": 61664,
+      "sgmc_raw_pooled_dti": 0.093297,
+      "sgmc_raw_ci95": [
+        0.081044,
+        0.105497
+      ],
+      "sgmc_prevalence_calibrated_ref": 0.103256
+    }
+  },
+  "canary": {
+    "all_features_tested": true,
+    "n_features_tested": 97,
+    "max_direction_invariant_auc": 0.88783,
+    "max_feature": "st_d1_px",
+    "feature_aucs": {
+      "tf_mag_anom": 0.51899,
+      "tf_rtp": 0.51633,
+      "tf_tmi_hg": 0.54821,
+      "tf_geod_2ndinv": 0.54474,
+      "tf_iso_grav_slope": 0.52202,
+      "tf_tc": 0.58517,
+      "tf_geod_shear": 0.53906,
+      "tf_geod_dilate": 0.56084,
+      "tf_tmi_vg": 0.51873,
+      "tf_deq_dist": 0.52892,
+      "tf_iso_grav_vg": 0.52364,
+      "tf_det_elev": 0.51729,
+      "tf_iso_grav": 0.50307,
+      "tf_tmi": 0.50819,
+      "tf_depth_basement": 0.51148,
+      "tf_ieq_intens": 0.56276,
+      "tf_cond_surf": 0.51266,
+      "tf_iso_grav_hg": 0.5019,
+      "tf_det_elev_slope": 0.5681,
+      "gd_rad_K": 0.58474,
+      "gd_rad_Th": 0.57643,
+      "gd_rad_U": 0.55848,
+      "gd_rad_TC": 0.58519,
+      "gd_ext_ThK": 0.5329,
+      "gd_ext_UK": 0.5322,
+      "gd_ext_UTh": 0.55285,
+      "gd_ext_TMI_up150": 0.50293,
+      "dem10_slope_p90": 0.5712,
+      "dem10_slope_max": 0.5739,
+      "dem10_steep_frac": 0.55577,
+      "dem10_slope_std": 0.58666,
+      "dem10_relief_local": 0.5687,
+      "dem10_curv_prof_absmax": 0.57922,
+      "dem10_aspect_coherence": 0.51012,
+      "dem10_hs_lineament": 0.57458,
+      "dem10_elev_m": 0.50948,
+      "chi_step_pos_300m": 0.56679,
+      "chi_step_pos_800m": 0.53867,
+      "chi_step_antithetic_400m": 0.53226,
+      "chi_ksn_norm": 0.58815,
+      "lidar_ex_max": 0.56174,
+      "lidar_ex_mean": 0.55685,
+      "lidar_step_max": 0.56605,
+      "lidar_lapneg_max": 0.56816,
+      "lidar_lappos_max": 0.57138,
+      "lidar_downface_max": 0.55268,
+      "lidar_upface_max": 0.5594,
+      "lidar_cross_max": 0.54978,
+      "lidar_coh100": 0.50391,
+      "lidar_antislope_net": 0.51148,
+      "lidar_scarp_hinge": 0.56369,
+      "lidar_sin2_strike": 0.50716,
+      "lidar_cos2_strike": 0.52672,
+      "ptzw_tmi_worm": 0.5479,
+      "ptzw_rtp_worm_0m": 0.52976,
+      "ptzw_rtp_worm_800m": 0.5335,
+      "ptzw_grav_worm": 0.5277,
+      "ptzw_joint_concordance": 0.5347,
+      "basement_throw_grad": 0.52578,
+      "mt_cond_grad": 0.51059,
+      "hmas_rtp_trough": 0.5082,
+      "ptcf_piedmont_hinge": 0.59228,
+      "mimic_lahontan_crag_gate": 0.50292,
+      "epith_blm_corridor": 0.52011,
+      "radon_playa_detrended": 0.56625,
+      "ing_f2mdab_plume": 0.53156,
+      "ing_well_geotherm": 0.51388,
+      "ing_sinter_vent_halo": 0.54653,
+      "geodawn_block_id": 0.53072,
+      "ctx_p1_raw": 0.65996,
+      "ctx_p1_g2": 0.65817,
+      "ctx_p1_g6": 0.63938,
+      "ctx_p1_g16": 0.60682,
+      "ctx_p1_dog_2_8": 0.617,
+      "ctx_line_max_5": 0.66163,
+      "ctx_line_orth_5": 0.65365,
+      "ctx_line_max_13": 0.65298,
+      "ctx_line_orth_13": 0.6406,
+      "ctx_line_max_29": 0.63598,
+      "ctx_line_orth_29": 0.62046,
+      "ctx_multiscale_align": 0.60354,
+      "ctx_worm_line_13": 0.54627,
+      "ctx_ptcf_line_13": 0.65726,
+      "ctx_chi_corridor": 0.62483,
+      "ctx_cover_depth": 0.51148,
+      "ctx_slope_10m": 0.5712,
+      "ctx_mimic_gate": 0.50292,
+      "st_d1_px": 0.88783,
+      "st_d_perp": 0.82166,
+      "st_d_par": 0.85793,
+      "st_log_len1": 0.54742,
+      "st_bend_turn": 0.5723,
+      "st_relay_ratio": 0.74244,
+      "st_d2_px": 0.87259,
+      "st_relay_zone": 0.71176,
+      "st_strike_align_p2": 0.54881,
+      "st_phys_x_relay": 0.71206
+    }
+  },
+  "registry": {
+    "complete": true,
+    "saved_bytes_checked": true,
+    "rasters_scanned": 834,
+    "unique_pixel_rasters_scanned": 524,
+    "surface_max_abs_rho": 0.44566,
+    "surface_closest_ref": "WBGGEMSDOE1/wbg-c1-commutator-research-surface-20261026-acea88448272.tif",
+    "dots_max_abs_rho": 0.10035,
+    "dots_closest_ref": "GEMSDOEkarage1_prior/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+    "max_directed_overlap_3px": 0.62154,
+    "overlap_closest_ref": "GEMSDOE92/gemsdoe92-riedelvalve-riedel_n90k-90000-20261025-e57353de-zeros.tif"
+  },
+  "registry_correlation_overlap": {
+    "total_fleet_rasters_scanned": 834,
+    "unique_pixel_rasters_scanned": 524,
+    "exact_hash_matches": [],
+    "max_pre_placement_surface_spearman": 0.44566,
+    "max_final_dot_spearman": 0.10035,
+    "max_discrete_submission_3px_overlap": 0.62154,
+    "passed": true
+  },
+  "validator": {
+    "single_band": true,
+    "float32": true,
+    "all_finite": true,
+    "range_0_1": true,
+    "crs_match": true,
+    "shape_match": true,
+    "transform_match": true,
+    "visible_faults_masked": true
+  },
+  "validator_output": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.tif",
+    "bytes": 148588,
+    "sha256": "f33bc5cfccc917c3d241932253706a9b685db1dced0a95ed4b915d8c2fa5263f",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003110961988568306,
+    "emitted_positive_pixels": 38200,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 38200,
+    "footprint_fraction": 0.00739253775564489
+  },
+  "raster_sha256": "f33bc5cfccc917c3d241932253706a9b685db1dced0a95ed4b915d8c2fa5263f",
+  "zip_sha256": "bc4978ba799c3a572bc03d6813ace9e1a55c7983c7a1bc61611214bb6217d1ea",
+  "submission_file": "karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.tif",
+  "submission_zip": "karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.zip",
+  "submission_receipt": "karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.json",
+  "submission_name": "karage1-ctws2d-tiltworm-ptcf-relay-20261028T073640Z",
+  "submission_note": "CTWS-2D: Verduzco tilt worms + 3DEP 10m PTCF/chi + 2D lineament & fold-safe relay CELF (38.2k dots)",
+  "allocation_diagnostics": {
+    "emitted_dots": 38200,
+    "far_field_gt15px_share": 0.6,
+    "lidar_gap_share": 0.29882,
+    "flat_basin_lt2deg_share": 0.06016,
+    "steep_mountain_gt18deg_share": 0.30005
+  },
+  "verdict": "promote",
+  "release_gate": {
+    "verdict": "promote",
+    "ok_to_submit": false,
+    "selector_required": true,
+    "reasons": []
+  }
+}

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Submit on DrivenData · CTWS-2D Executive Summary</title>
+  <style>
+    :root{--bg:#f8fafc;--card:#ffffff;--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--brand:#047857;--brand-dark:#065f46;--blue:#1d4ed8;--amber:#b45309;--red:#b91c1c}
+    *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,sans-serif;background:var(--bg);color:var(--ink);line-height:1.58}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+    header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px;flex-wrap:wrap}
+    .nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:.93rem}.nav-links{display:flex;gap:18px;flex-wrap:wrap}
+    .nav-links a{color:var(--muted);font-weight:500}.nav-links a:hover,.nav-links a.active{color:var(--brand)}
+    .hero-gate{background:linear-gradient(135deg,#ecfdf5 0%,#f0f9ff 100%);border:2px solid #10b981;border-radius:16px;padding:26px 28px;margin:24px 0;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+    .status-pill{display:inline-flex;align-items:center;gap:8px;background:#059669;color:#fff;font-weight:700;font-size:.8rem;letter-spacing:.04em;padding:5px 12px;border-radius:999px;text-transform:uppercase}
+    h1{font-size:2rem;line-height:1.2;margin:12px 0 10px}h2{font-size:1.42rem;margin:32px 0 12px;border-bottom:1px solid var(--line);padding-bottom:8px}h3{font-size:1.08rem;margin:16px 0 8px}
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 10px}
+    .btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:10px;font-size:.95rem}
+    .btn:hover{background:var(--brand-dark)}.btn-sec{background:#fff;color:var(--ink);border:1px solid #cbd5e1}.btn-sec:hover{background:#f1f5f9}.btn-sm{padding:7px 12px;font-size:.82rem}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin:18px 0}
+    .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+    .kpi span{display:block;font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+    .kpi strong{display:block;font-size:1.38rem;margin:4px 0 2px;color:var(--ink)}.kpi small{color:var(--muted);font-size:.8rem}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:18px 0}
+    .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:18px}
+    table{width:100%;border-collapse:collapse;font-size:.87rem;background:#fff}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+    th{background:#f1f5f9;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:#334155}
+    .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+    .row-promote{background:#f0fdf4}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.73rem;font-weight:700}
+    .badge-green{background:#dcfce7;color:#166534}.badge-blue{background:#dbeafe;color:#1e40af}.badge-amber{background:#fef3c7;color:#92400e}.badge-red{background:#fee2e2;color:#991b1b}.badge-neutral{background:#f1f5f9;color:#475569}
+    code{background:#f1f5f9;padding:2px 6px;border-radius:5px;font-size:.84em}
+    pre{background:#0f172a;color:#f8fafc;padding:16px;border-radius:12px;overflow-x:auto;font-size:.8rem;line-height:1.45}
+    figure{margin:16px 0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}figure img{width:100%;height:auto;border-radius:6px;display:block}
+    figcaption{font-size:.82rem;color:var(--muted);margin-top:8px}
+    footer{margin-top:44px;padding:24px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+    </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a href="../../index.html">GEMSDOEkarage1 · Field Intelligence</a>
+    <div class="nav-links">
+      <a href="index.html">CTWS-2D Executive &amp; Research</a>
+      <a class="active" href="executive-summary.html">Step-by-Step DrivenData Guide</a>
+      <a href="../executive-summary.html">Site-Wide Executive Summary</a>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="hero-gate">
+    <span class="status-pill">✓ VALIDATED &amp; UNIQUE · STEP-BY-STEP DRIVENDATA SUBMISSION SOP</span>
+    <h1>How to Submit <code>CTWS-2D</code> on DrivenData</h1>
+    <p>All automated format, <code>[0, 1]</code> range, NaN/Inf, CRS (<code>EPSG:32611</code>), 97-feature leakage canary, and 834-raster fleet uniqueness gates have <strong>passed automatically</strong> (no human pixel inspector required). Because DrivenData enforces a strict <strong>3 submissions per rolling 7-day window</strong> cap (<a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf" target="_blank" rel="noopener">DOE/NLR Rules 96647</a>), follow the 5 steps below when spending a weekly slot.</p>
+    <div class="btn-row">
+      <a class="btn" href="../downloads/karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.tif" download>↓ Step 1: Download Validated .tif (149 KB)</a>
+      <a class="btn btn-sec" href="../downloads/karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.zip" download>↓ Optional Single-TIFF .zip</a>
+      <a class="btn btn-sec" href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/" target="_blank" rel="noopener">Open DrivenData Submissions Portal ↗</a>
+    </div>
+  </section>
+
+  <div class="card">
+    <h2>5-Step DrivenData Submission Checklist</h2>
+    <ol>
+      <li><strong>Download the Cleared GeoTIFF:</strong> Click <strong>Download Validated .tif</strong> above to save <code>karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.tif</code> locally (do <em>not</em> upload any HTML or JSON file, and never upload historical <code>GEMSDOE24..36</code> reference files).</li>
+      <li><strong>Verify Byte Integrity (Optional 2-Second Check):</strong> Confirm SHA-256 equals:<br>
+        <code>f33bc5cfccc917c3d241932253706a9b685db1dced0a95ed4b915d8c2fa5263f</code><br>
+        (If DrivenData prefers a compressed upload, use <code>karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.zip</code>, SHA-256 <code>bc4978ba799c3a572bc03d6813ace9e1a55c7983c7a1bc61611214bb6217d1ea</code>, which contains strictly that single GeoTIFF at the archive root.)</li>
+      <li><strong>Check Weekly Slot Allowance:</strong> Sign in at <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" target="_blank" rel="noopener">DrivenData DOE GEMS Competition #306</a> &rarr; <strong>Submissions</strong> and confirm at least 1 of your 3 weekly submission slots is available.</li>
+      <li><strong>Upload &amp; Paste Exact Metadata:</strong>
+        <ul>
+          <li><strong>Submission File:</strong> <code>karage1-ctws2d-tiltworm-ptcf-relay-sep29-20261028T073640Z-zeros.tif</code> (guaranteed <code>float32</code> in <code>[0.0, 1.0]</code>, <code>0</code> NaNs/sentinels — eliminates the <code>"Predicted values must be in range [0, 1]"</code> portal error)</li>
+          <li><strong>Submission Name:</strong> <code>karage1-ctws2d-tiltworm-ptcf-relay-20261028T073640Z</code></li>
+          <li><strong>Submission Note (99/140 chars):</strong> <code>CTWS-2D: Verduzco tilt worms + 3DEP 10m PTCF/chi + 2D lineament &amp; fold-safe relay CELF (38.2k dots)</code></li>
+        </ul>
+      </li>
+      <li><strong>Record Organizer-Confirmed Score:</strong> Once DrivenData finishes scoring, record the returned live score with its timestamp and file SHA-256 in <code>registry/score_ledger.csv</code> as <code>ORGANIZER-CONFIRMED</code>. Never project local holdout DTI onto the live leaderboard before scoring.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Automated Pre-Flight Gate Summary (15/15 Checks Passed)</h2>
+    <ul>
+      <li><strong>Single-band float32 GeoTIFF:</strong> <code>count = 1</code>, <code>dtype = float32</code>, <code>compress = deflate</code> (<code>148,588</code> bytes)</li>
+      <li><strong>Exact Grid &amp; Geotransform:</strong> <code>3730 × 3292</code>, <code>EPSG:32611</code> (<a href="https://epsg.io/32611" target="_blank" rel="noopener">UTM Zone 11N</a>), <code>(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</code></li>
+      <li><strong>Closed [0, 1] Interval &amp; Finite Guarantee:</strong> <code>min = 0.0</code>, <code>max = 1.0</code>, <code>n_nan = 0</code>, <code>n_inf = 0</code> across all <code>12,279,160</code> cells (<code>38,200</code> binary dots inside footprint, <code>0</code> on mapped <code>existing_faults.tif</code>)</li>
+      <li><strong>Full-Fleet Uniqueness (834 Rasters):</strong> <code>0</code> exact matches; continuous surface max <code>|ρ| = 0.44566 ≤ 0.90</code>; dot max <code>|ρ| = 0.10035 ≤ 0.90</code>; max directed <code>≤3 px</code> overlap <code>62.154% ≤ 70.0%</code> (<code>44.73%</code> vs <code>GEMSDOE32</code>)</li>
+      <li><strong>Holdout Superiority:</strong> Beats prior-best <code>H-K1-1</code> on <code>gems57-pooled-hide-v2</code> <code>all</code> (<code>0.175796</code> vs <code>0.090551</code>, paired 95% CI <code>[+0.0718, +0.0981]</code>), <code>detached</code> (<code>0.179904</code> vs <code>0.093547</code>, paired 95% CI <code>[+0.0735, +0.0995]</code>), and <code>HIDE-RECOVER-v3.0</code> whole-component <code>detached ≥ 600 m</code> (<code>0.105246</code> vs <code>0.096343</code>, paired 95% CI <code>[+0.0011, +0.0172]</code>), while exceeding <code>GEMSDOE32</code> on blind USGS SGMC bedrock faults (<code>0.094780</code> vs <code>0.093694</code>).</li>
+    </ul>
+  </div>
+</main>
+<footer>
+  <div class="wrap">GEMSDOEkarage1 · Step-by-Step DrivenData Submission Guide · <a href="index.html">Back to CTWS-2D Dashboard</a></div>
+</footer>
+</body>
+</html>

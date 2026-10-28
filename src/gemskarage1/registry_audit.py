@@ -79,17 +79,39 @@ def discover_fleet_tifs(clones_dir: Path, extra_scored_dir: Path, ddir: Path) ->
                     found.append((site, str(p.relative_to(repo_dir)), p))
 
     if extra_scored_dir.is_dir():
-        for repo_dir in sorted(extra_scored_dir.iterdir()):
-            if not repo_dir.is_dir():
-                continue
-            site = repo_dir.name
-            for p in sorted(repo_dir.rglob("*.tif")):
-                if p.name in skip_names or p.stat().st_size < 10_000:
+        for entry in sorted(extra_scored_dir.iterdir()):
+            if entry.is_dir():
+                site = entry.name
+                for p in sorted(entry.rglob("*.tif")):
+                    if p.name in skip_names or p.stat().st_size < 10_000:
+                        continue
+                    rk = f"{site}/{p.relative_to(entry)}"
+                    if rk not in seen_real:
+                        seen_real.add(rk)
+                        found.append((site, str(p.relative_to(entry)), p))
+            elif entry.is_file() and entry.suffix.lower() == ".tif":
+                if entry.name in skip_names or entry.stat().st_size < 10_000:
                     continue
-                rk = f"{site}/{p.relative_to(repo_dir)}"
+                if "__" in entry.name:
+                    site, rel_n = entry.name.split("__", 1)
+                else:
+                    site, rel_n = "extra_scored", entry.name
+                rk = f"{site}/{rel_n}"
                 if rk not in seen_real:
                     seen_real.add(rk)
-                    found.append((site, str(p.relative_to(repo_dir)), p))
+                    found.append((site, rel_n, entry))
+
+    reg_dir = ddir / "registry"
+    if reg_dir.is_dir():
+        for p in sorted(reg_dir.glob("*.tif")):
+            if p.name in skip_names or p.stat().st_size < 10_000:
+                continue
+            prefix = p.name.split("_", 1)[0]
+            site = prefix if prefix in FOCUS_9_SITES else "registry_manifest"
+            rk = f"{site}/{p.name}"
+            if rk not in seen_real:
+                seen_real.add(rk)
+                found.append((site, p.name, p))
 
     scored_dir = ddir / "scored"
     if scored_dir.is_dir():
