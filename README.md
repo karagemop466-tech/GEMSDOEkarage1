@@ -5,7 +5,30 @@
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
-[Latest session review](knowledge/session-review-2026-10-28.md) · [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+
+## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
+
+The previously reported lattice failure was independently replayed from pinned
+mirrors: 38,174/38,200 historical HMAS dots and 35,959/36,000 historical GPC-Z
+dots are within 3 px. The [reassessment](evidence/reassessment_arena_0fb1_20261028.json)
+is reproducible but uses a third-party footprint, not an authenticated organizer
+sample. All 31 pinned mirrors were restored into ignored `data/` in this
+runtime; those local bytes are not tracked and may not persist between sessions.
+No geological experiment, candidate raster, holdout score or submission was made.
+The old `prepare_data.py` is intentionally blocked: it builds a quarantined
+private stack, not an assigned shared cache. Data placement alone is **not** the
+only blocker.
+
+A selectable ID was added for the B2 reference; the format diagnostic now
+refuses to overwrite its input, and the release policy requires the validator's
+candidate SHA-256 to agree with the run card. This hash agreement does **not**
+independently authenticate a report or its template; the policy still consumes
+assertions and is not a substitute for evidence provenance and a selector.
+The scheduled GitHub workflow archives a refresh artifact; it does not publish
+a live verified leaderboard or automatically update the public Pages site.
+See the [session review](knowledge/review-arena-0fb1-20261028.md) for tests,
+constraints and next actions.
 
 ## Latest follow-up: release-gate consistency
 
