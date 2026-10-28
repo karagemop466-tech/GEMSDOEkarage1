@@ -1,0 +1,62 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "session_branch": "arena/1668dda0-gemsdoekarage1",
+  "created_utc": "2026-10-28T22:50:00+00:00",
+  "lane": null,
+  "experiments": 0,
+  "elapsed_seconds": 0,
+  "hypothesis": "Pre-implementation Rank-1 preregistration only (not executed; method_lane is null): Cross-Potential Dip-Polarity Co-Gradient Step (CP-DPCS) testing along-strike coherence between horizontal isostatic-gravity gradient peaks and magnetic analytic-signal phase jumps over depth-to-basement steps beneath low-slope basin fill.",
+  "mechanism": "Normal/transtensional faults juxtaposing denser, magnetic pre-Cenozoic footwall blocks against unconsolidated Cenozoic basin fill preserve coincident gravity horizontal-gradient maxima and asymmetric magnetic phase transitions beneath Holocene alluvial cover where surface scarps have aggraded or eroded.",
+  "named_non_fault_mimic": "Unfaulted plutonic/metasedimentary intrusive contacts, buried Tertiary caldera margins, Miocene basalt flow edges, and airborne geophysical survey stitch lines.",
+  "holdout": {
+    "label": "NOT_RUN_BLOCKED_PREFLIGHT",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "dti": null,
+    "ci95": null,
+    "note": "No model experiment was executed because registry/template.json has method_lane=null and canonical_template_assignment=null, authenticated DrivenData inputs are absent, and the 13GEMSDOE lattice witness blocks champion-sized dot rasters under the literal 70% 3-px stop rule."
+  },
+  "correlation_and_overlap_vs_registry": {
+    "local_downloads_audited": 9,
+    "all_local_downloads_exceed_70pct_lattice": true,
+    "local_lattice_3px_overlap_range": [
+      0.985252729933581,
+      0.9993193717277487
+    ],
+    "defective_pr42_artifact": {
+      "file": "docs/downloads/karage1-unique-alteration-dots-20261028-zeros.tif",
+      "sha256": "8bc4dae02a99da68ac0e895b7a5c4b5c72b60de11a91efb7ddef3f2b626ee1d2",
+      "in_footprint_positives": 1387,
+      "outside_unmasked_positives": 2113,
+      "lattice_3px_overlap": 0.9985580389329488,
+      "superseded": true
+    },
+    "peer_ecosystem_rasters_audited": 9,
+    "peer_ecosystem_repos_pinned": 22,
+    "all_audited_peer_rasters_exceed_70pct_lattice": true,
+    "peer_lattice_3px_overlap_range": [
+      0.993520,
+      0.999523
+    ],
+    "audit_receipt": "evidence/local_downloads_and_peer_audit_20261028.json",
+    "registry_complete": false
+  },
+  "raster_sha256": null,
+  "validator": {
+    "new_candidate_generated": false,
+    "validator_hardening_applied": [
+      "scripts/validate_geotiff.py rejects all-finite templates (footprint.all()) with no outside pixels",
+      "scripts/audit_references.py raster_checks requires outside.size > 0 for outside_all_nan",
+      "scripts/validate_geotiff.py CLI requires diagnostics.outside_encoding_accepted for exit 0",
+      "scripts/audit_references.py and scripts/audit_local_and_peer_rasters.py block --out manifest overwrites",
+      "scripts/generate_unique_submission.py and scripts/run_bbstep_experiments.py quarantined (exit 2)"
+    ],
+    "ok": false
+  },
+  "submission_name": "NONE-DO-NOT-SUBMIT-arena-1668dda0",
+  "submission_note": "DO NOT SUBMIT: negative review; 0 new TIFs; all 9 local & 9 peer TIFs fail 70% lattice gate; PR#42 outside-positive TIF retracted.",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "selector_required": true,
+  "slot_selected_or_spent": false
+}
