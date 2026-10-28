@@ -9,7 +9,8 @@ submission slot selected. A negative result is a valid deliverable.
 [Executive summary & future submission guide](docs/executive-summary.html) ·
 [Current JSON run card](docs/data/run-card.json) ·
 [Saved-byte reassessment](evidence/release_reassessment_20261028.json) ·
-[Research slate and official sources](knowledge/research-review.md)
+[Research slate and official sources](knowledge/research-review.md) ·
+[Parallel three-pass review](knowledge/three-pass-review-2026-10-28.md)
 
 ## Decision and evidence, reviewed 28 October 2026
 
@@ -96,8 +97,12 @@ hash match means identical mirror bytes, not official provenance. The legacy
 experiment runner deliberately exits before training or writing: its split and
 release decisions are not acceptable for the standing protocol. The shared
 `buffered_component_draw` exists but still needs integration with matching
-fold-specific feature recomputation and out-of-fold refits. Do not choose a
-lane or override the duplicate stop to create a TIFF.
+fold-specific feature recomputation and out-of-fold refits. The pre-placement receipt binds
+the surface, footprint, grid and immutable inventory; it cannot prove when it
+was produced or that an inventory includes inaccessible submissions. The
+designated shared-template provenance is unresolved; the vendored comparator
+fix must be carried to the actual shared template once identified. Do not
+choose a lane or override the duplicate stop to create a TIFF.
 
 The homepage automatically checks the nine public GitHub revision pins on page
 load and every 30 minutes while visible; errors/rate limits show “Unavailable”,

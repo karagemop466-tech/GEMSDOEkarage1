@@ -220,8 +220,9 @@ def records_from_index(index):
     errors = index.get('errors')
     if not isinstance(errors, list):
         raise ValueError('registry source-error ledger must be an explicit list')
-    expected = index.get('registry_rasters_expected')
-    if type(expected) is not int or expected <= 0 or expected != len(records):
+    expected = index.get('expected_raster_count', index.get('registry_rasters_expected'))
+    other = index.get('registry_rasters_expected', expected)
+    if type(expected) is not int or expected <= 0 or expected != len(records) or other != expected:
         errors = [*errors, 'Registry count missing, zero, or inconsistent with indexed entries']
     complete = index.get('complete_accessible_scan') is True and bool(records) and not errors
     return records, complete, errors
@@ -269,7 +270,13 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
                     if src.crs is None or src.crs.to_epsg()!=32611 or src.transform != TRANSFORM:
                         raise ValueError('registry CRS/transform mismatch')
                 theirs = src.read(1).astype(np.float32)
-            theirs = np.where(np.isfinite(theirs), theirs, 0.0)
+                valid_mask = src.read_masks(1) != 0
+            # Never turn invalid or masked in-footprint values into a passing
+            # reference. Outside the footprint may legitimately be NaN/nodata.
+            if not valid_mask[fp].all() or not np.isfinite(theirs[fp]).all():
+                raise ValueError('missing or non-finite registry value inside footprint')
+            if np.any((theirs[fp] < 0) | (theirs[fp] > 1)):
+                raise ValueError('registry values outside [0,1] inside footprint')
             # Outside-footprint values are ignored for support and pixel identity.
             theirs[~fp] = 0
             tv = theirs[fp]

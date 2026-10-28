@@ -167,8 +167,10 @@ def main():
         "verdict": "negative", "audit": "evidence/release_reassessment_20261028.json",
     }
     assert len(card["submission_note"]) <= 140
-    save("docs/data/run-card.json", card)
-    save("evidence/active_run_card_20261028.json", card)
+    # One authoritative card, mirrored at legacy paths for existing links.
+    for path in ("docs/data/run-card.json", "docs/data/run_card.json", "evidence/run_card.json",
+                 "evidence/current_run_card.json", "evidence/active_run_card_20261028.json"):
+        save(path, card)
 
     # Make the old generated dashboard data unambiguous if directly inspected.
     dash = load("docs/data/dashboard_data.json")

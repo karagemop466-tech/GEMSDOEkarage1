@@ -38,5 +38,59 @@ def test_evidence_strict_json():
         json.loads(path.read_text(),parse_constant=reject)
     card=json.loads((ROOT/'evidence/run_card.json').read_text())
     assert card['verdict']=='negative'
-    assert card['raster_sha256'] is None
-    assert card['holdout']['dti'] is None
+    assert len(card['raster_sha256']) == 64
+    assert card['holdout_dti']['independently_replayed_this_review'] is False
+    assert card['experiments_this_review'] == 0 and card['slots_spent_this_review'] == 0
+
+
+def test_all_published_pages_have_valid_local_references_and_no_stale_release_claims():
+    from urllib.parse import urlsplit
+    pages = [ROOT/'index.html', ROOT/'executive-summary.html', ROOT/'legacy-overview.html',
+             *(ROOT/'docs').rglob('*.html')]
+    class Page(HTMLParser):
+        def __init__(self):
+            super().__init__(); self.links=[]; self.downloads=[]; self.ids=set(); self.duplicates=[]
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if attrs.get('id') in self.ids: self.duplicates.append(attrs['id'])
+            if attrs.get('id'): self.ids.add(attrs['id'])
+            for key in ('href','src'):
+                if attrs.get(key): self.links.append(attrs[key])
+            if tag == 'a' and 'download' in attrs: self.downloads.append(attrs.get('href'))
+    parsed = {}
+    for page in pages:
+        body = page.read_text()
+        assert 'READY FOR PORTAL' not in body and 'ONE CLEARED TIFF' not in body
+        assert 'CLEARED · SELECTOR PENDING' not in body
+        parser = Page(); parser.feed(body); parsed[page.resolve()] = parser
+        if parser.downloads:
+            # Only prior research bytes may be linked, never presented as an approved upload.
+            import hashlib
+            assert 'DO NOT SUBMIT' in body and 'RESEARCH ONLY' in body.upper(), page
+            allowed = json.loads((ROOT/'docs/data/run-card.json').read_text())['raster_sha256']
+            allowed_gpcz = json.loads((ROOT/'evidence/release_reassessment_20261028.json').read_text())['candidates']['gpcz']['sha256']
+            for link in parser.downloads:
+                data = (page.parent / unquote(urlsplit(link).path)).read_bytes()
+                assert hashlib.sha256(data).hexdigest() in (allowed, allowed_gpcz), (page, link)
+        assert not parser.duplicates, (page, parser.duplicates)
+    for page in pages:
+        parser=parsed[page.resolve()]
+        for link in parser.links:
+            u=urlsplit(link)
+            if u.scheme or u.netloc: continue
+            target=(page.parent/unquote(u.path)).resolve() if u.path else page.resolve()
+            if target.is_dir(): target=target/'index.html'
+            assert target.exists(), (page,link)
+            if u.fragment and target in parsed:
+                assert unquote(u.fragment) in parsed[target].ids, (page,link)
+
+
+def test_legacy_lane_generators_cannot_reinstate_approval():
+    import hashlib
+    files = [ROOT/'docs/hmas-sinter/index.html', ROOT/'docs/gpcz/index.html',
+             ROOT/'docs/how-to-submit.html', ROOT/'docs/nine-sites.html']
+    before = [hashlib.sha256(p.read_bytes()).hexdigest() for p in files]
+    for script in ('scripts/generate_pages.py', 'scripts/build_gpcz_site.py', 'scripts/build_current_review.py'):
+        subprocess.run([sys.executable, script], cwd=ROOT, check=True)
+    assert before == [hashlib.sha256(p.read_bytes()).hexdigest() for p in files]
+    assert all('DO NOT SUBMIT' in p.read_text() for p in files)

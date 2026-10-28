@@ -64,6 +64,31 @@ def quadrant_folds_with_collar(foot: np.ndarray, buffer_px: float = 15.0) -> tup
     return folds, collars
 
 
+def score_canary_feature(values: np.ndarray, labels: np.ndarray, ceiling_auc: float = 0.90) -> dict:
+    """Evaluate one feature; undefined or non-finite inputs are NOT a pass.
+
+    A constant feature gives AUC 0.5 when both classes are present, but it
+    cannot demonstrate that a meaningful feature channel was tested. It fails
+    closed pending removal or data-quality review; this is not a leakage
+    finding. Replacing NaN or infinity with zeros can hide a data error.
+    """
+    values = np.asarray(values, dtype=np.float64)
+    labels = np.asarray(labels)
+    if values.ndim != 1 or labels.ndim != 1 or values.shape != labels.shape or values.size == 0:
+        return {"raw_auc": None, "direction_invariant_auc": None, "status": "invalid_shape_or_empty", "passed": False}
+    if not np.isfinite(values).all():
+        return {"raw_auc": None, "direction_invariant_auc": None, "status": "nonfinite", "passed": False}
+    if not np.isin(labels, (0, 1)).all() or np.unique(labels).size != 2:
+        return {"raw_auc": None, "direction_invariant_auc": None, "status": "missing_class", "passed": False}
+    if np.all(values == values[0]):
+        return {"raw_auc": None, "direction_invariant_auc": None, "status": "constant_no_variation", "passed": False}
+    auc = float(roc_auc_score(labels, values))
+    directional = max(auc, 1.0 - auc)
+    return {"raw_auc": auc, "direction_invariant_auc": directional,
+            "status": "tested" if directional <= ceiling_auc else "leakage_alarm",
+            "passed": bool(directional <= ceiling_auc)}
+
+
 def run_leakage_canary(
     stack_path: Path,
     foot: np.ndarray,
@@ -114,39 +139,28 @@ def run_leakage_canary(
     leaking = []
     untestable = []
     for ch_i, name in enumerate(ALL_CHANNELS):
-        vals = mm[ch_i, ys, xs].astype(np.float64)
-        vals = np.nan_to_num(vals, nan=0.0, posinf=0.0, neginf=0.0)
-        if np.all(vals == vals[0]):
-            untestable.append(name)
-            raw_auc = 0.5  # Diagnostic only; an undefined AUC is not a pass.
-        else:
-            raw_auc = float(roc_auc_score(y_true, vals))
-        dir_auc = max(raw_auc, 1.0 - raw_auc)
-        flag = dir_auc > ceiling_auc
-        if flag:
+        vals = mm[ch_i, ys, xs]
+        result = score_canary_feature(vals, y_true, ceiling_auc)
+        direction = result["direction_invariant_auc"]
+        if result["status"] == "leakage_alarm":
             leaking.append(name)
-        if dir_auc > max_dir_auc:
-            max_dir_auc = dir_auc
+        elif not result["passed"]:
+            untestable.append(name)
+        if direction is not None and direction > max_dir_auc:
+            max_dir_auc = direction
             max_ch = name
-        rows.append(
-            {
-                "channel_index": ch_i,
-                "feature": name,
-                "raw_auc": round(raw_auc, 5),
-                "direction_invariant_auc": round(dir_auc, 5),
-                "leaking": bool(flag),
-            }
-        )
+        rows.append({"channel_index": ch_i, "feature": name, **result})
 
     return {
         "protocol_rule": "Rule-4-Single-Feature-Leakage-Canary",
+        "implementation": "karage1-canary-v2-fail-closed",
         "evaluator_holdout": eh57.VERSION,
         "auc_ceiling": ceiling_auc,
         "n_channels_tested": len(ALL_CHANNELS),
         "n_withheld_detached_positives": int(pos_idx.size),
         "n_background_samples": int(bg_idx.size),
-        "max_direction_invariant_auc": round(max_dir_auc, 5),
-        "max_feature": max_ch,
+        "max_direction_invariant_auc": max_dir_auc if max_ch else None,
+        "max_feature": max_ch or None,
         "leaking_features": leaking,
         "untestable_features": untestable,
         "all_passed": len(leaking) == 0 and len(untestable) == 0,

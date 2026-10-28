@@ -116,13 +116,22 @@
     "ok_to_submit": false,
     "selector_required": true,
     "reasons": [
-      "Single-feature leakage canary missing or failed",
-      "Complete registry / saved-byte comparison missing",
-      "Literal all-raster registry policy not evidenced",
-      "Surface was not checked before placement",
+      "Missing scientific run-card field: hypothesis",
+      "Missing scientific run-card field: mechanism",
+      "Missing scientific run-card field: named_non_fault_mimic",
+      "No same-evaluator improvement over holdout best",
+      "Hide-and-recover leakage controls or metric parameters missing",
+      "Single-feature leakage canary missing, untestable or failed",
+      "Complete registry / pre-placement / saved-byte comparison missing",
       "Registry exclusions are missing or nonempty",
-      "A duplicate witness was recorded; stop",
-      "Registry gate failed or missing: max_directed_overlap_3px"
+      "Duplicate-witness ledger missing or nonempty",
+      "Registry receipt hash missing or invalid: inventory_sha256",
+      "Registry receipt hash missing or invalid: preplacement_surface_sha256",
+      "Registry receipt is not bound to the same inventory and saved raster",
+      "Per-raster registry evidence missing or incomplete",
+      "Saved TIFF validation missing or failed: outside_encoding_compatible",
+      "Saved TIFF validation missing or failed: template_official_authenticated",
+      "Validator receipt is not bound to the saved raster"
     ]
   },
   "original_result": {

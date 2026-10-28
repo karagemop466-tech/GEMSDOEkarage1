@@ -1,39 +1,61 @@
 {
-  "hypothesis": "No assigned method lane: geological slate proposed, not tested",
-  "mechanism": "Repository review and independent byte/geometry/overlap audit; no new prediction raster",
-  "non_fault_mimic": "Lithologic contacts or alluvial fan margins can mimic the proposed edge-displacement signature",
-  "lane": null,
-  "experiments": 0,
-  "elapsed_seconds": null,
-  "holdout": {
+  "schema": "karage1-active-run-card-v2",
+  "reviewed_utc_date": "2026-10-28",
+  "hypothesis": "Prior H-K1-1: hydrothermal alteration and shallow thermal signatures may identify faults missing from mapped catalogues. No new method lane was assigned in this request.",
+  "mechanism": "Potential-field, radiometric and thermal anomaly coincidence was used as a proxy for a concealed fault; it does not prove a vent or fault.",
+  "non_fault_process_that_could_mimic_it": "Volcanic lithologic contacts and Lake Lahontan shoreline benches.",
+  "holdout_dti": {
     "label": "HOLDOUT-DTI",
-    "evaluator_version": null,
-    "withheld_positives": null,
-    "dti": null,
-    "ci95": null,
-    "status": "not run"
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "dti": 0.093547,
+    "ci95": [
+      0.081837,
+      0.105279
+    ],
+    "withheld_positives": 22619,
+    "delta_vs_base35": 0.010596,
+    "delta_vs_base35_ci95": [
+      0.00562,
+      0.015814
+    ],
+    "verification_status": "Prior-session measurement; not independently rerun in this review. The original split cut some branches into short chunks and did not establish the requested buffered whole-component holdout.",
+    "independently_replayed_this_review": false
   },
-  "registry": {
-    "complete": false,
-    "surface_max_abs_rho": null,
-    "dots_max_abs_rho": null,
-    "max_directed_overlap_3px": null,
-    "note": "No candidate; historical-byte comparisons in historical_byte_audit.json, including lattice control"
+  "correlation_overlap_vs_registry": {
+    "surface_rank_correlation": null,
+    "surface_status": "Prior surface unavailable for independent pre-placement replay.",
+    "witness": "registered 13GEMSDOE r13-lattice-s5",
+    "witness_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+    "candidate_dots": 38200,
+    "dots_within_3px": 38174,
+    "directed_overlap": 0.9993193717277487,
+    "literal_threshold": 0.7,
+    "duplicate": true,
+    "complete_registry_replayed": false
   },
-  "raster_sha256": null,
-  "validator": {
-    "status": "not run: no new raster"
+  "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+  "raster_status": "Previously generated research raster only; not a new submission.",
+  "validator_output": {
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match_mirror": true,
+    "single_band": true,
+    "all_finite_range": true,
+    "outside_null_or_nan": false,
+    "sample_organizer_authenticated": false,
+    "portal_acceptance_tested": false
   },
-  "submission_name": null,
-  "submission_note": null,
-  "verdict": "negative",
+  "submission_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+  "submission_name": "karage1-hmas-sinter-dualcover-sep29-zeros",
+  "submission_note": "H-K1-1 historical raster; duplicate witness failed; research only, do not submit.",
+  "download_available": true,
+  "download_purpose": "research only",
+  "estimated_leaderboard_score": null,
   "ok_to_submit": false,
-  "reasons": [
-    "Initial repo contains only README, no previous pipeline or shared cached features",
-    "Method lane paragraph absent from user prompt",
-    "Literal dense lattice overlap gate fails all nine historical best files",
-    "No organizer receipts or comparable current-best holdout available"
-  ],
-  "weekly_slots_used": 0,
-  "projection": null
+  "selector_approved": false,
+  "experiments_this_review": 0,
+  "slots_spent_this_review": 0,
+  "account_quota_known": false,
+  "verdict": "negative",
+  "audit": "evidence/release_reassessment_20261028.json"
 }

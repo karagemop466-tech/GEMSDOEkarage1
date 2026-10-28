@@ -36,11 +36,11 @@ def main() -> int:
     out_canary.write_text(json.dumps(canary, indent=2) + "\n")
     print(
         f"[canary] Tested {canary['n_channels_tested']} channels | "
-        f"max direction-invariant AUC = {canary['max_direction_invariant_auc']:.5f} ({canary['max_feature']}) | "
+        f"max direction-invariant AUC = {canary['max_direction_invariant_auc']} ({canary['max_feature']}) | "
         f"all_passed = {canary['all_passed']}"
     )
     if not canary["all_passed"]:
-        print(f"LEAKAGE DETECTED: {canary['leaking_features']}", file=sys.stderr)
+        print(f"CANARY FAILED: leakage={canary['leaking_features']}, untestable={canary['untestable_features']}", file=sys.stderr)
         return 2
     return 0
 

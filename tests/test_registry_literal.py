@@ -11,6 +11,7 @@ from gemskarage1.registry_audit import run_full_fleet_uniqueness_gate, run_surfa
 from gems57.uniqueness import compare_array_to_registry
 
 TRANSFORM = from_origin(100, 1000, 100, 100)
+REPO, COMMIT = 'fixture/test', 'a' * 40
 
 
 def write(path, arr, *, transform=TRANSFORM, dtype='float32'):
@@ -22,9 +23,11 @@ def write(path, arr, *, transform=TRANSFORM, dtype='float32'):
 
 
 def index(path, **overrides):
-    row = {'repo_first': 'owner/repo', 'sources': ['prior'], 'cache_file': str(path),
+    row = {'repo_first': REPO, 'sources': [f'{REPO}@{COMMIT}/{path.name}'], 'cache_file': str(path),
            'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
-    return {'rasters': [row], 'registry_rasters_expected': 1, 'complete_accessible_scan': True,
+    return {'rasters': [row], 'expected_raster_count': 1, 'complete_accessible_scan': True,
+            'source_coverage': {'scope': 'synthetic tests only',
+                                'immutable_repos': [{'repo': REPO, 'commit': COMMIT}]},
             'errors': []} | overrides
 
 
@@ -38,28 +41,29 @@ def fixture(tmp_path):
     return foot, sample, a, prior, candidate
 
 
-def test_both_phases_and_retrospective_order_fail_closed(tmp_path):
+def test_both_phases_require_bound_preplacement_receipt(tmp_path):
     foot, sample, a, prior, candidate = fixture(tmp_path)
-    assert run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['ok']
-    report = run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample, registry_index=index(prior))
-    assert report['surface']['ok'] and report['dots']['ok'] and report['comparisons_passed']
-    assert report['surface_checked_before_placement'] is False and report['passed'] is False
+    receipt = run_surface_gate(a, foot, sample=sample, registry_index=index(prior))
+    assert receipt['passed']
+    report = run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample,
+                 registry_index=index(prior), preplacement_report=receipt)
+    assert report['passed'] and report['surface_preplacement_verified']
     assert report['candidate_sha256'] == hashlib.sha256(candidate.read_bytes()).hexdigest()
+    late = run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample, registry_index=index(prior))
+    assert not late['passed'] and not late['surface_preplacement_verified']
 
 
 def test_saturated_prior_and_undefined_ranks_are_never_exempt(tmp_path):
     foot, sample, a, prior, candidate = fixture(tmp_path)
     write(prior, np.ones(foot.shape))
-    for phase in ('surface', 'dots'):
-        report = compare_array_to_registry(a, index(prior), foot,
-                    expected_grid=(foot.shape, rasterio.crs.CRS.from_epsg(32611), TRANSFORM))
-        assert not report['unique'] and report['duplicate_count'] == 1
-        assert report['rows'][0]['my_dots_within_3px_of_theirs'] == 1
+    report = compare_array_to_registry(a, index(prior), foot,
+                expected_grid=(foot.shape, rasterio.crs.CRS.from_epsg(32611), TRANSFORM))
+    assert not report['unique'] and report['duplicate_count'] == 1
+    assert report['rows'][0]['my_dots_within_3px_of_theirs'] == 1
     surface = run_surface_gate(a, foot, sample=sample, registry_index=index(prior))
-    assert not surface['ok'] and surface['undefined_rank_references'] == ['prior']
-    assert surface['policy_exemptions'] == []
+    assert not surface['passed'] and not surface['all_reference_ranks_defined']
     write(prior, np.zeros(foot.shape))
-    assert not run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['ok']
+    assert not run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['passed']
 
 
 def test_missing_empty_incomplete_bad_hash_and_wrong_grid(tmp_path):
@@ -68,31 +72,33 @@ def test_missing_empty_incomplete_bad_hash_and_wrong_grid(tmp_path):
         run_surface_gate(a, foot, sample=None, registry_index=index(prior))
     with pytest.raises(ValueError):
         run_surface_gate(a, foot, sample=sample, registry_index=None)
-    empty = {'rasters': [], 'registry_rasters_expected': 0, 'complete_accessible_scan': True, 'errors': []}
-    assert not run_surface_gate(a, foot, sample=sample, registry_index=empty)['ok']
-    for idx in (index(prior, complete_accessible_scan=False),
-                index(prior, complete_accessible_scan='true'),
-                index(prior, registry_rasters_expected=2),
-                index(prior, errors=['incomplete source'])):
-        assert not run_surface_gate(a, foot, sample=sample, registry_index=idx)['ok']
+    empty = index(prior, rasters=[], expected_raster_count=0)
+    with pytest.raises(ValueError):
+        run_surface_gate(a, foot, sample=sample, registry_index=empty)
+    for idx in (index(prior, complete_accessible_scan=False), index(prior, complete_accessible_scan='true')):
+        assert not run_surface_gate(a, foot, sample=sample, registry_index=idx)['passed']
+    with pytest.raises(ValueError):
+        run_surface_gate(a, foot, sample=sample, registry_index=index(prior, expected_raster_count=2))
+    with pytest.raises(ValueError):
+        run_surface_gate(a, foot, sample=sample, registry_index=index(prior, errors=['incomplete source']))
     bad = index(prior); bad['rasters'][0]['sha256'] = 'f'*64
-    assert not run_surface_gate(a, foot, sample=sample, registry_index=bad)['ok']
+    assert not run_surface_gate(a, foot, sample=sample, registry_index=bad)['passed']
     missing = index(prior); prior.unlink()
-    assert not run_surface_gate(a, foot, sample=sample, registry_index=missing)['ok']
+    assert not run_surface_gate(a, foot, sample=sample, registry_index=missing)['passed']
     write(prior, a, transform=from_origin(200, 1000, 100, 100))
-    assert not run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['ok']
+    assert not run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['passed']
     unpinned = index(prior); unpinned['rasters'][0]['sha256'] = None
-    with pytest.raises(ValueError, match='SHA256'):
+    with pytest.raises(ValueError, match='pinned'):
         run_surface_gate(a, foot, sample=sample, registry_index=unpinned)
 
 
 def test_saved_bytes_must_equal_final_array(tmp_path):
     foot, sample, a, prior, candidate = fixture(tmp_path)
     altered = a.copy(); altered[2, 2] = 1
-    with pytest.raises(ValueError, match='exact saved raster'):
+    with pytest.raises(ValueError, match='does not match saved'):
         run_full_fleet_uniqueness_gate(a, altered, candidate, foot, sample=sample, registry_index=index(prior))
     write(candidate, a, dtype='float64')
-    with pytest.raises(ValueError, match='grid differs'):
+    with pytest.raises(ValueError, match='float32'):
         run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample, registry_index=index(prior))
 
 
@@ -102,10 +108,26 @@ def test_exact_70_percent_does_not_trigger_but_eight_tenths_does(tmp_path):
     a = np.zeros(foot.shape, np.float32)
     for x in range(5, 105, 10): a[5, x] = 1
     prior = tmp_path/'prior.tif'
-    b = a.copy(); b[5, 75:] = 0  # seven of ten, separated by >3 pixels
+    b = a.copy(); b[5, 75:] = 0
     write(prior, b)
-    row = run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['rows'][0]
+    row = run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['comparison']['rows'][0]
     assert row['my_dots_within_3px_of_theirs'] == .7 and not row['duplicate_by_overlap']
     b[5, 75] = 1; write(prior, b)
-    row = run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['rows'][0]
+    row = run_surface_gate(a, foot, sample=sample, registry_index=index(prior))['comparison']['rows'][0]
     assert row['my_dots_within_3px_of_theirs'] == .8 and row['duplicate_by_overlap']
+
+
+def test_shared_comparator_never_sanitizes_nonfinite_inside_footprint(tmp_path):
+    foot, sample, a, prior, candidate = fixture(tmp_path)
+    b = np.zeros(foot.shape, np.float32); b[2, 2] = 1; b[4, 4] = np.nan
+    write(prior, b)
+    report = compare_array_to_registry(a, index(prior), foot,
+                expected_grid=(foot.shape, rasterio.crs.CRS.from_epsg(32611), TRANSFORM))
+    assert not report['unique'] and not report['complete_accessible_scan']
+    assert 'non-finite' in report['rows'][0]['error']
+    # NaN outside the footprint remains acceptable: the protocol concerns the
+    # valid competition footprint, and official outside encoding is unresolved.
+    foot[4, 4] = False
+    report = compare_array_to_registry(a, index(prior), foot,
+                expected_grid=(foot.shape, rasterio.crs.CRS.from_epsg(32611), TRANSFORM))
+    assert report['complete_accessible_scan'] and 'error' not in report['rows'][0]
