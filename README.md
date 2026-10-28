@@ -5,7 +5,7 @@
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+[Latest session review](knowledge/session-review-2026-10-28.md) · [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
 ## What changed on 28 October 2026
 
