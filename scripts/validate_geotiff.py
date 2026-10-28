@@ -4,7 +4,9 @@
 This tool never generates predictions, repairs values, checks novelty/holdout,
 proves that the template is official, or authorizes a competition submission.
 It reports the mutually different null/NaN-outside and strict-whole-array checks
-separately because actual portal behavior is unknown.
+separately because actual portal behavior is unknown. CLI exit status defaults to
+the conservative strict-whole-array diagnostic; --require-inside-only explicitly
+opts into the weaker diagnostic. Neither mode authorizes submission.
 """
 from __future__ import annotations
 
@@ -91,6 +93,8 @@ def main() -> int:
     ap.add_argument("--template", type=Path, required=True)
     ap.add_argument("--template-sha256", help="Optional independently obtained sample hash pin")
     ap.add_argument("--out", type=Path, help="Optional JSON report path; stdout otherwise")
+    ap.add_argument("--require-inside-only", action="store_true",
+                    help="Use weaker inside-footprint exit check for research only; not upload authorization")
     args = ap.parse_args()
     try:
         if args.out:
@@ -101,6 +105,9 @@ def main() -> int:
                 ):
                     raise ValueError("report output must not overwrite candidate or template")
         result = diagnose(args.candidate, args.template, args.template_sha256)
+        required_check = "grid_and_inside_pass" if args.require_inside_only else "strict_whole_array_variant_pass"
+        result["cli_exit_check"] = required_check
+        result["cli_exit_check_passed"] = result["diagnostics"][required_check]
         text = json.dumps(result, indent=2, allow_nan=False) + "\n"
         if args.out:
             args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -115,7 +122,7 @@ def main() -> int:
             print(f"Diagnostic written to {args.out}; this is not upload authorization.")
         else:
             print(text, end="")
-        return 0 if result["diagnostics"]["grid_and_inside_pass"] else 1
+        return 0 if result["cli_exit_check_passed"] else 1
     except (OSError, ValueError) as exc:
         print(f"FORMAT DIAGNOSTIC FAILED: {exc}", file=sys.stderr)
         return 2
