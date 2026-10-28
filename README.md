@@ -6,6 +6,24 @@
 > **DO NOT SUBMIT — no candidate has been cleared for competition upload.**
 > The separately generated BB-STEP research GeoTIFF is unique versus the nine focus-site rasters but fails the literal 3-pixel lattice-overlap rule (98.5253%). Do not submit it. The older CDA1 archive is a synthetic demonstrator whose holdout routine returned hard-coded numbers; its reported DTI is invalid and is not a measurement. All 21 primary and secondary focus-site files audited in this repository also fail the literal lattice gate. Format validation is necessary but not submission approval.
 
+## Standing prompt (read at the start of every session)
+
+**Competition.** DrivenData DOE GEMS prize — https://www.drivendata.org/competitions/306/competition-doe-gems/ — single-band GeoTIFF, values in [0, 1], CRS/shape/geotransform identical to the submission format (EPSG:32611).
+
+**Core values.** Maximize P(Win); Own the Outcome. Report negative results, blocked data, and unprovable claims honestly; nothing is projected as a score; irregularities are flagged, not hidden.
+
+**Requirements (full reconstruction in `docs/standing-prompt.md`):**
+1. Build an auditable workflow that generates a **unique, valid** single-band GeoTIFF; prior GEMSDOE submissions (24, 25, 27, 28, 30, 31, 32, 33, 36 and the wider series) are for learning only — never copied.
+2. **Highest urgency: a UNIQUE TIF.** It must be **obvious** whether a TIF is OK to download and submit. The site top shows the download link and the OK / NOT-OK-to-submit status.
+3. Executive summary table per focus site: file to download, labeled number, uniqueness versus all listed GEMSDOE submissions; a how-to-submit subpage (file, unique name, note ≤ 140 characters).
+4. Every number labeled **HOLDOUT-DTI** (evaluator, withheld positives, 95% CI) or **ORGANIZER-CONFIRMED**. A projection is never written as a score.
+5. Autonomous validation (no human inspector): values in [0, 1], no NaN inside the footprint — addresses the earlier "Predicted values must be in range [0, 1]" rejection.
+6. PhD-level explanation of how `GEMSDOE32 h33-h33-2-b2` reported 0.2778 and whether it can be beaten; use that to generate the unique TIF.
+7. Propose 3–5 new geological hypotheses (layers, physical signature, why off-catalogue, how it differs), ranked by expected DTI gain and cost; validate the top candidate on a spatially-blocked hide-and-recover holdout before any slot; free official sources only.
+8. **PARALLEL-RUN PROTOCOL:** one assigned lane; registry duplicate check (|Spearman| > 0.90 or > 70% of dots within 3 px → log and stop); reuse shared `evaluate_holdout.py` / `submission_writer.py` (fix once, never private-fork); label every number; leakage canary (single feature AUC > 0.90 → leakage); budget ≤ 3 experiments or 2 hours; no slot selection (separate selector, weekly cap); end with a JSON run card and promote/negative verdict.
+9. No hallucinations: verify line by line from official sources; collect data/knowledge into auditable tables; state limitations and access needs (no DrivenData login; the data tab is login-walled).
+10. Clean GitHub Pages site under `docs/`; three passes then a PR merged to `main`, listing remaining work and limitations.
+
 ## Current session review (`arena/accf3693-gemsdoekarage1`)
 
 **DO NOT SUBMIT — no new candidate generated or cleared.**
