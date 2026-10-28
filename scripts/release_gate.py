@@ -59,8 +59,8 @@ def assess(card):
     if (h.get("label") != "HOLDOUT-DTI" or not isinstance(h.get("evaluator_version"), str)
             or not h["evaluator_version"].strip()
             or type(h.get("withheld_positives")) is not int or h["withheld_positives"] <= 0
-            or ("baseline_withheld_positives" in h
-                and h.get("baseline_withheld_positives") != h.get("withheld_positives"))):
+            or type(h.get("baseline_withheld_positives")) is not int
+            or h.get("baseline_withheld_positives") != h.get("withheld_positives")):
         reasons.append("Incomplete HOLDOUT-DTI provenance")
     score, ci = h.get("dti"), h.get("ci95")
     if (not finite_number(score) or not 0 <= score <= 1 or not isinstance(ci, list)
@@ -176,7 +176,11 @@ def assess(card):
                 "template_official_authenticated"):
         if validator.get(key) is not True:
             reasons.append("Saved TIFF validation missing or failed: " + key)
-    if ("unmasked_inside" in validator and validator.get("unmasked_inside") is not True) or validator.get("masked_inside_count", 0) != 0:
+    # Finiteness alone cannot detect a finite nodata sentinel or an internal
+    # GDAL mask. Require affirmative mask evidence; absent is not zero.
+    if (validator.get("unmasked_inside") is not True
+            or type(validator.get("masked_inside_count")) is not int
+            or validator.get("masked_inside_count") != 0):
         reasons.append("Saved TIFF validation missing or failed: unmasked_inside / masked in-footprint pixels")
     digest = card.get("raster_sha256")
     if not valid_sha256(digest):
@@ -204,6 +208,17 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("card", type=Path, help="Path to JSON run-card / release-gate input")
     parser.add_argument("--out", type=Path, help="Optional output JSON path")
     args = parser.parse_args(argv)
+    # Preserve the evidence input even for malformed JSON or alias paths.
+    # Atomic output replacement is not protection against selecting the input
+    # as --out; a negative report would otherwise destroy the original card.
+    if args.out is not None:
+        try:
+            if args.out.resolve() == args.card.resolve() or (
+                    args.out.exists() and args.card.exists() and os.path.samefile(args.out, args.card)):
+                raise ValueError("report output must not overwrite the input run card")
+        except (OSError, ValueError) as exc:
+            print(f"RELEASE GATE BLOCKED: {exc}", file=sys.stderr)
+            return 2
     try:
         def _reject_constant(value: str):
             raise ValueError(f"non-standard JSON constant: {value}")

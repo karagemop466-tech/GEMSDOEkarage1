@@ -13,7 +13,7 @@ def good():
                dots_within_3px=20, candidate_dots=100, identical_bytes=False, identical_pixels=False)
     return dict(lane='test-only-method', hypothesis='synthetic', mechanism='synthetic',
                 named_non_fault_mimic='synthetic', experiments=1, elapsed_seconds=60,
-                holdout=dict(label='HOLDOUT-DTI', evaluator_version='test-only', withheld_positives=10,
+                holdout=dict(label='HOLDOUT-DTI', evaluator_version='test-only', withheld_positives=10, baseline_withheld_positives=10,
                              dti=.2, ci95=[.1,.3], baseline_dti=.1, baseline_evaluator_version='test-only',
                              paired_delta_ci95=[.01,.15], same_evaluator_as_best=True, visible_only_features=True,
                              fold_assignment_sha256='e'*64, baseline_fold_assignment_sha256='e'*64,
@@ -30,7 +30,8 @@ def good():
                 validator={**{k:True for k in ['geotiff','single_band','float32','all_finite_inside','range_0_1_inside',
                                             'crs_match','shape_match','transform_match','outside_encoding_accepted',
                                             'template_official_authenticated']},
-                           'candidate_sha256': 'a'*64, 'template_sha256': 'f'*64},
+                           'candidate_sha256': 'a'*64, 'template_sha256': 'f'*64,
+                           'unmasked_inside': True, 'masked_inside_count': 0},
                 raster_sha256='a'*64, submission_name='test',
                 submission_note='Synthetic unit-test evidence, not a scientific result.')
 
@@ -238,3 +239,51 @@ def test_release_gate_cli_exit_codes_and_nan_rejection(tmp_path):
     bad_file.write_text('{"lane": "x", "elapsed_seconds": NaN}')
     assert gate.main([str(bad_file), '--out', str(out_file)]) == 1
     assert json.loads(out_file.read_text())['verdict'] == 'negative'
+
+
+@pytest.mark.parametrize('section,key', [
+    ('holdout', 'baseline_withheld_positives'),
+    ('validator', 'unmasked_inside'), ('validator', 'masked_inside_count'),
+])
+def test_required_evidence_cannot_pass_by_omission(section, key):
+    card = good()
+    del card[section][key]
+    assert gate.assess(card)['verdict'] == 'negative'
+
+
+@pytest.mark.parametrize('value', [False, True, 0.0, '0', None, -1])
+def test_masked_pixel_count_must_be_explicit_integer_zero(value):
+    card = good()
+    card['validator']['masked_inside_count'] = value
+    assert gate.assess(card)['verdict'] == 'negative'
+
+
+@pytest.mark.parametrize('value', [True, 10.0, '10', None])
+def test_baseline_positive_count_is_typed_evidence(value):
+    card = good()
+    card['holdout']['baseline_withheld_positives'] = value
+    assert gate.assess(card)['verdict'] == 'negative'
+
+
+@pytest.mark.parametrize('alias', ['same', 'symlink', 'hardlink', 'relative'])
+@pytest.mark.parametrize('payload', ['good', 'malformed'])
+def test_cli_never_overwrites_evidence_input(tmp_path, monkeypatch, alias, payload):
+    import json
+    import os
+    source = tmp_path / 'card.json'
+    source.write_text(json.dumps(good()) if payload == 'good' else '{invalid')
+    before = source.read_bytes()
+    out = source
+    if alias == 'symlink':
+        out = tmp_path / 'link.json'
+        out.symlink_to(source)
+    elif alias == 'hardlink':
+        out = tmp_path / 'hard.json'
+        os.link(source, out)
+    elif alias == 'relative':
+        monkeypatch.chdir(tmp_path)
+        out = Path('card.json')
+    assert gate.main([str(source), '--out', str(out)]) == 2
+    assert source.read_bytes() == before
+    assert out.read_bytes() == before
+    assert not list(tmp_path.glob('*.tmp'))
