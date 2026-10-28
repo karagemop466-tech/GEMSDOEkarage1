@@ -46,13 +46,26 @@ def preflight():
         and assignment.get('method_lane') == lane
         and isinstance(assignment.get('evidence'), str) and bool(assignment['evidence'].strip())
     )
-    missing = [str(p.relative_to(ROOT)) for p in needed if not p.is_file()]
-    empty = [str(p.relative_to(ROOT)) for p in needed if p.is_file() and p.stat().st_size == 0]
-    return {'lane': lane, 'missing': missing, 'empty': empty, 'template_commit': commit,
+    missing, empty, unreadable = [], [], []
+    for path in needed:
+        name = str(path.relative_to(ROOT))
+        try:
+            if not path.is_file():
+                missing.append(name)
+            else:
+                # An interrupted download or touch-created placeholder is not
+                # usable input. Do not load the stack here: this remains a
+                # lightweight preflight, not format/provenance validation.
+                with path.open('rb') as source:
+                    if not source.read(1):
+                        empty.append(name)
+        except OSError:
+            unreadable.append(name)
+    return {'lane': lane, 'missing': missing, 'empty': empty, 'unreadable': unreadable, 'template_commit': commit,
             'canonical_assignment_recorded': bool(assignment_valid),
-            'ready_for_shared_tools': bool(lane_valid and assignment_valid and not missing and not empty),
+            'ready_for_shared_tools': bool(lane_valid and assignment_valid and not (missing or empty or unreadable)),
             'ok_to_submit': False,
-            'scope': ('Input presence, nonempty size and recorded lane/template assignment only; not authentication, '
+            'scope': ('Readable nonempty input presence and recorded lane/template assignment only; not format, provenance authentication, '
                       'scientific validation or slot selection.')}
 
 
@@ -69,7 +82,7 @@ def main():
         print(json.dumps(report, indent=2))
         return 0 if report['ready_for_shared_tools'] else 1
     if not report['ready_for_shared_tools']:
-        raise SystemExit('BLOCKED: lane, canonical template assignment, or cached inputs missing or empty. ' + json.dumps(report))
+        raise SystemExit('BLOCKED: lane, canonical template assignment, or cached inputs missing, empty or unreadable. ' + json.dumps(report))
     bootstrap()
     target = 'evaluate_holdout.py' if opts.command == 'evaluate' else 'submission_writer.py'
     env = dict(os.environ, GEMS_DATA_DIR=str(ROOT / '.cache/gems_data'), GEMS_WORK_DIR=str(ROOT / '.cache/gems_work'))

@@ -9,6 +9,21 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Latest adapter review — session `ea042946` (28 October 2026)
+
+[Three-pass review](knowledge/session-ea042946-review.md) ·
+[Session run card](evidence/session_ea042946_run_card.json) ·
+[Actual preflight](evidence/session_ea042946_preflight.json).
+The shared-tool invocation adapter now rejects **empty and unreadable** cached
+inputs as well as missing files; empty download placeholders can no longer
+report readiness. This is not format or provenance validation. Verification:
+**272 tests passed** (90 Rasterio pending-deprecation warnings); all 32 decision
+pages rebuilt without changes. No new geological experiment, TIFF, score
+estimate, or slot selection was made. **DO NOT SUBMIT.** The method lane and
+all five required shared cached inputs are absent in this checkout. Existing
+nine-site summaries and the four-hypothesis slate remain planning/audit
+material, not evidence of a new high-scoring eligible submission.
+
 ## Current follow-up — session `fafb84ff`
 
 **DO NOT SUBMIT: no new eligible TIFF or measured score.** Shared preflight now
