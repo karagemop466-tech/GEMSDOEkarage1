@@ -1,0 +1,59 @@
+{
+  "schema": "karage1-format-diagnostics-v1",
+  "candidate": "docs/downloads/karage1-unique-alteration-dots-20261028-zeros.tif",
+  "candidate_sha256": "8bc4dae02a99da68ac0e895b7a5c4b5c72b60de11a91efb7ddef3f2b626ee1d2",
+  "template": "docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+  "template_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+  "template_hash_matched_requested_pin": false,
+  "template_official_authenticity": "not established by this tool",
+  "grid": {
+    "driver": "GTiff",
+    "shape": [
+      3730,
+      3292
+    ],
+    "crs": "EPSG:32611",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "dtype": "float32",
+    "nodata_is_nan": false
+  },
+  "footprint_pixels": 12279160,
+  "checks": {
+    "single_band": true,
+    "driver_is_geotiff": true,
+    "float32": true,
+    "crs_shape_transform_match_mirror": true,
+    "no_nonfinite_inside": true,
+    "nonfinite_inside_count": 0,
+    "inside_values_in_0_1": true,
+    "out_of_range_inside_count": 0,
+    "outside_all_nan": true,
+    "outside_nan_count": 0,
+    "whole_array_strict_finite_0_1": true,
+    "minimum_finite": 0.0,
+    "maximum_finite": 1.0,
+    "nodata_tag_is_nan": false,
+    "portal_acceptance": "not tested",
+    "mirror_grid_and_inside_values_pass": true,
+    "masked_inside_count": 0,
+    "outside_null_or_nan_count": 0,
+    "outside_all_null_or_nan": true,
+    "outside_unmasked_positive_count": 0
+  },
+  "diagnostics": {
+    "grid_and_inside_pass": true,
+    "nan_outside_variant_pass": true,
+    "null_or_nan_outside_variant_pass": true,
+    "strict_whole_array_variant_pass": true,
+    "note": "These are separate local checks, not guarantees of organizer acceptance."
+  },
+  "uniqueness_holdout_and_selector_checked": false,
+  "submission_authorized": false
+}

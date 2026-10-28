@@ -51,11 +51,15 @@ def checked(path: Path, digest: str) -> None:
         raise ValueError(f"unexpected bytes for {path}: {actual} != {digest}")
 
 
-def read_same_grid(path: Path, grid) -> np.ndarray:
+def read_same_grid(path: Path, grid, footprint: np.ndarray | None = None, *, require_float32: bool = False) -> np.ndarray:
     with rasterio.open(path) as ds:
-        if ds.count != 1 or (ds.shape, ds.crs, ds.transform) != grid:
+        if (ds.driver != "GTiff" or ds.count != 1 or (ds.shape, ds.crs, ds.transform) != grid
+                or (require_float32 and ds.dtypes[0] != "float32")):
             raise ValueError(f"single-band CRS/shape/transform mismatch: {path}")
-        return ds.read(1)
+        arr = ds.read(1)
+        if footprint is not None and not (ds.read_masks(1)[footprint] != 0).all():
+            raise ValueError(f"masked pixels inside footprint: {path}")
+        return arr
 
 
 def audit(data: Path, champion: Path) -> dict:
@@ -72,16 +76,16 @@ def audit(data: Path, champion: Path) -> dict:
         grid = (src.shape, src.crs, src.transform)
     if not fp.any():
         raise ValueError("empty sample footprint")
-    lab_arr = read_same_grid(labels, grid)
+    lab_arr = read_same_grid(labels, grid, fp)
     cat = fp & np.isfinite(lab_arr) & (lab_arr > 0)
-    lat = read_same_grid(lattice, grid)
+    lat = read_same_grid(lattice, grid, fp)
     lat_dots = fp & np.isfinite(lat) & (lat > 0)
     if not lat_dots.any():
         raise ValueError("empty lattice witness")
     certificate = saturation_certificate(lattice, fp, expected_grid=grid)
     candidates = {}
     for key, tif in FILES.items():
-        arr = read_same_grid(tif, grid)
+        arr = read_same_grid(tif, grid, fp, require_float32=True)
         if not np.isfinite(arr).all() or not np.all((arr == 0) | (arr == 1)):
             raise ValueError(f"candidate is not finite binary: {tif}")
         dots = fp & (arr > 0)
@@ -102,8 +106,8 @@ def audit(data: Path, champion: Path) -> dict:
             "format_diagnostics": check["diagnostics"], "saved_byte_checks": check["checks"],
             "submit_authorized": False,
         }
-    ref = read_same_grid(parent, grid)
-    champion_arr = read_same_grid(champion, grid)
+    ref = read_same_grid(parent, grid, fp)
+    champion_arr = read_same_grid(champion, grid, fp)
     p = fp & np.isfinite(ref) & (ref > 0)
     c = fp & np.isfinite(champion_arr) & (champion_arr > 0)
     disk2 = np.fromfunction(lambda y, x: (y - 2) ** 2 + (x - 2) ** 2 <= 4, (5, 5))

@@ -114,6 +114,30 @@ def test_saved_bytes_must_equal_final_array(tmp_path):
     write(candidate, a, dtype='float64')
     with pytest.raises(ValueError, match='float32'):
         run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample, registry_index=index(prior))
+    with rasterio.open(candidate, 'w', driver='GTiff', width=a.shape[1], height=a.shape[0],
+                       count=1, dtype='float32', crs='EPSG:32611', transform=TRANSFORM, nodata=1.0) as dst:
+        dst.write(a, 1)
+    with pytest.raises(ValueError, match='masked pixels inside footprint'):
+        run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample, registry_index=index(prior))
+
+
+def test_saved_candidate_with_masked_footprint_pixels_fails_closed(tmp_path):
+    foot, sample, a, prior, candidate = fixture(tmp_path)
+    receipt = run_surface_gate(a, foot, sample=sample, registry_index=index(prior))
+    with rasterio.open(candidate, 'w', driver='GTiff', width=a.shape[1], height=a.shape[0],
+                       count=1, dtype='float32', crs='EPSG:32611', transform=TRANSFORM, nodata=1.0) as dst:
+        dst.write(a, 1)
+    with pytest.raises(ValueError, match='masked pixels inside footprint'):
+        run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample,
+                                       registry_index=index(prior), preplacement_report=receipt)
+    write(candidate, a)
+    with rasterio.open(candidate, 'r+') as dst:
+        mask = np.full(a.shape, 255, dtype='uint8')
+        mask[1, 1] = 0
+        dst.write_mask(mask)
+    with pytest.raises(ValueError, match='masked pixels inside footprint'):
+        run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample,
+                                       registry_index=index(prior), preplacement_report=receipt)
 
 
 def test_exact_70_percent_does_not_trigger_but_eight_tenths_does(tmp_path):

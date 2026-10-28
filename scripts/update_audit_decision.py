@@ -160,6 +160,12 @@ def main():
     receipt_data['supersession_notice'] = notice
     save(gp_receipt, receipt_data)
 
+    existing = load(ROOT / 'docs/data/run-card.json')
+    if (existing.get('lane') == 'H-K1-BBSTEP' and existing.get('verdict') == 'negative'
+            and existing.get('ok_to_submit') is False and existing.get('slot_selected_or_spent') is False):
+        print('Reconciled historical receipts; preserved current negative BB-STEP card; no slot selected.')
+        return
+
     c = candidates[0]
     lattice = c['comparisons'][0]
     current = {

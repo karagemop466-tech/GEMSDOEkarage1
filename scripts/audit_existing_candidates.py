@@ -63,6 +63,8 @@ def audit(cache: Path, candidate_paths: list[Path], entries: list[dict]) -> dict
     supports = []
     for path in candidate_paths:
         fmt = diagnose(path, template, by_id["template"]["sha256"])
+        if fmt["checks"]["masked_inside_count"] != 0:
+            raise ValueError(f"candidate has masked pixels inside footprint: {path}")
         data, meta = refs.read_grid(path)
         if not refs.same_grid(meta, template_meta):
             raise ValueError(f"candidate grid mismatch: {path}")

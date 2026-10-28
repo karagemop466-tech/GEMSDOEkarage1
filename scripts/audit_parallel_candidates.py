@@ -8,8 +8,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 
 import numpy as np
@@ -40,7 +42,7 @@ def read_pinned(path, pin):
     if sha256(path) != pin:
         raise ValueError(f"SHA-256 mismatch: {path}")
     with rasterio.open(path) as ds:
-        if ds.count != 1 or ds.driver != "GTiff" or ds.crs is None:
+        if ds.count != 1 or ds.driver != "GTiff" or ds.crs is None or ds.dtypes[0] != "float32":
             raise ValueError(f"Invalid single-band georeferenced TIFF: {path}")
         return ds.read(1, masked=True), (ds.shape, ds.crs, ds.transform)
 
@@ -76,13 +78,16 @@ def audit(directory: Path) -> dict:
         if count == 0:
             raise ValueError(f"Candidate has no dots: {label}")
         hits = int(np.count_nonzero(dots & covered))
+        rho = binary_rank_correlation(dots, lattice, footprint)
+        if rho is None:
+            raise ValueError(f"Undefined binary rank correlation in footprint: {label}")
         candidates[label] = {
             **item,
             "source_url": f"https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/{item['commit']}/{item['path']}",
             "candidate_dots_in_footprint": count,
             "dots_within_3px": hits,
             "directed_overlap": hits / count,
-            "dot_spearman_in_footprint": binary_rank_correlation(dots, lattice, footprint),
+            "dot_spearman_in_footprint": rho,
             "duplicate_over_70_percent": hits * 10 > count * 7,
             "preplacement_surface_checked": False,
             "ok_to_submit": False,
@@ -138,16 +143,35 @@ def main():
     parser.add_argument("--fetch", action='store_true', help='Fetch missing pinned inputs from GitHub')
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
-    if args.fetch:
-        fetch_inputs(args.directory)
-    result = audit(args.directory)
-    text = json.dumps(result, indent=2, allow_nan=False) + "\n"
-    if args.out:
-        args.out.write_text(text)
-    else:
-        print(text, end="")
-    # This script produces an audit, never a release approval.
-    return 0
+    try:
+        if args.out:
+            for name in ("template", "lattice", *PARALLEL_ASSETS):
+                source = args.directory / (name + ".tif")
+                if args.out.resolve() == source.resolve() or (
+                    args.out.exists() and source.exists() and os.path.samefile(args.out, source)
+                ):
+                    raise ValueError("report output must not overwrite input rasters")
+        if args.fetch:
+            fetch_inputs(args.directory)
+        result = audit(args.directory)
+        text = json.dumps(result, indent=2, allow_nan=False) + "\n"
+        if args.out:
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            fd, name = tempfile.mkstemp(prefix='.' + args.out.name + '.', suffix='.partial', dir=args.out.parent)
+            temp = Path(name)
+            try:
+                with os.fdopen(fd, 'w', encoding='utf-8') as fh:
+                    fh.write(text)
+                temp.replace(args.out)
+            finally:
+                temp.unlink(missing_ok=True)
+        else:
+            print(text, end="")
+        # This script produces an audit, never a release approval.
+        return 0
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        print(f"PARALLEL AUDIT FAILED: {exc}", file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":

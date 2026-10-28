@@ -14,7 +14,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def finite_number(value):
-    return type(value) in (int, float) and math.isfinite(value)
+    if type(value) not in (int, float):
+        return False
+    try:
+        return math.isfinite(value)
+    except OverflowError:
+        return False
 
 
 def valid_sha256(value):
@@ -49,7 +54,9 @@ def assess(card):
     h = card.get("holdout") if isinstance(card.get("holdout"), dict) else {}
     if (h.get("label") != "HOLDOUT-DTI" or not isinstance(h.get("evaluator_version"), str)
             or not h["evaluator_version"].strip()
-            or type(h.get("withheld_positives")) is not int or h["withheld_positives"] <= 0):
+            or type(h.get("withheld_positives")) is not int or h["withheld_positives"] <= 0
+            or ("baseline_withheld_positives" in h
+                and h.get("baseline_withheld_positives") != h.get("withheld_positives"))):
         reasons.append("Incomplete HOLDOUT-DTI provenance")
     score, ci = h.get("dti"), h.get("ci95")
     if (not finite_number(score) or not 0 <= score <= 1 or not isinstance(ci, list)
@@ -110,10 +117,12 @@ def assess(card):
     inventory = reg.get("inventory_sha256")
     surface = reg.get("preplacement_surface_sha256")
     if (not valid_sha256(inventory) or not valid_sha256(surface)
+            or not valid_sha256(reg.get("candidate_sha256"))
             or reg.get("preplacement_inventory_sha256") != inventory
             or reg.get("candidate_sha256") != card.get("raster_sha256")):
         reasons.append("Registry receipt is not bound to a pinned inventory, surface and candidate")
     ids = set()
+    digests = set()
     dot_counts = set()
     lattice_ok = False
     for row in rows:
@@ -121,12 +130,16 @@ def assess(card):
             reasons.append("Malformed registry comparison")
             continue
         ref_id, digest = row.get("id"), row.get("sha256")
-        if not isinstance(ref_id, str) or not ref_id or ref_id in ids:
+        if not isinstance(ref_id, str) or not ref_id.strip() or ref_id in ids:
             reasons.append("Missing or duplicate registry identity")
         else:
             ids.add(ref_id)
         if not valid_sha256(digest):
             reasons.append("Registry raster hash missing or invalid")
+        elif digest in digests:
+            reasons.append("Duplicate registry raster hash: " + str(ref_id))
+        else:
+            digests.add(digest)
         # A self-reported identity flag cannot contradict the actual digests in
         # the card. This checks internal consistency, not the bytes themselves.
         if valid_sha256(digest) and digest == card.get("raster_sha256"):
@@ -154,11 +167,13 @@ def assess(card):
         reasons.append("Candidate dot counts disagree across registry comparisons")
 
     validator = card.get("validator") if isinstance(card.get("validator"), dict) else {}
-    for key in ("single_band", "float32", "all_finite_inside", "range_0_1_inside",
+    for key in ("geotiff", "single_band", "float32", "all_finite_inside", "range_0_1_inside",
                 "crs_match", "shape_match", "transform_match", "outside_encoding_accepted",
                 "template_official_authenticated"):
         if validator.get(key) is not True:
             reasons.append("Saved TIFF validation missing or failed: " + key)
+    if validator.get("unmasked_inside") is False or validator.get("masked_inside_count", 0) != 0:
+        reasons.append("Saved TIFF validation reports masked in-footprint pixels")
     digest = card.get("raster_sha256")
     if not valid_sha256(digest):
         reasons.append("Saved raster SHA-256 missing")
@@ -167,11 +182,13 @@ def assess(card):
     # matching hashes alone do not establish that sample is organizer-authentic.
     if (not valid_sha256(validator.get("candidate_sha256"))
             or validator.get("candidate_sha256") != digest
-            or not valid_sha256(validator.get("template_sha256"))):
+            or not valid_sha256(validator.get("template_sha256"))
+            or validator.get("template_sha256") == digest):
         reasons.append("Saved TIFF validation not bound to candidate and template hashes")
     note = card.get("submission_note")
     name = card.get("submission_name")
-    if not isinstance(note, str) or not note.strip() or len(note) > 140 or not isinstance(name, str) or not name.strip():
+    if (not isinstance(note, str) or not note.strip() or len(note) > 140
+            or not isinstance(name, str) or not name.strip() or len(name) > 140):
         reasons.append("Submission name / short note missing")
     # Scientific promotion is NOT a weekly slot selection or upload authorization.
     return {"verdict": "negative" if reasons else "promote", "ok_to_submit": False,

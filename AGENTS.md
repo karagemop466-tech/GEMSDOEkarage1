@@ -3,10 +3,12 @@
 Read `knowledge/parallel-candidate-audit-2026-10-28.md` as well: the pinned
 PR 19 and 20 candidate rasters fail the literal lattice proximity rule even
 though their reports exempted that witness. They are not cleared to submit.
+Read `knowledge/repository-review-2026-10-28.md` for the pinned organizer
+reference-source audit and the latest three-pass checkout review.
 
 Read README.md, docs/standing-prompt.md, knowledge/research-review.md,
-knowledge/review-2026-10-28.md, knowledge/review-arena-0fb1-20261028.md and
-knowledge/session-review-arena-9ad4a8a0.md
+knowledge/review-2026-10-28.md, knowledge/review-arena-0fb1-20261028.md,
+knowledge/session-review-arena-9ad4a8a0.md and knowledge/session-0a62cb67-review.md
 before proposing or implementing work. The
 parallel-run protocol is binding: do not invent a lane, bypass any registry
 witness, manufacture a score, or upload old predictions. Preserve the budget,
@@ -16,9 +18,12 @@ peer mirrors.
 
 The historical HMAS and GPC-Z promotion statements are superseded. Their
 own recorded overlap with the registry lattice exceeds the literal protocol;
-the HMAS canary also treated a constant feature as a passing test. The current
-verdict is negative. Prior JSON records are retained for audit, not authority.
-Read docs/data/run-card.json and evidence/candidate_audit_20261028.json;
+the HMAS canary also treated a constant feature as a passing test. Session
+`arena/9d2bc03d` executed lane H-K1-BBSTEP (buried basement-step). The generated
+GeoTIFF is unique versus the nine focus sites and still a literal lattice
+duplicate (98.53% 3-px overlap). Verdict remains negative; no slot was spent.
+Read docs/data/run-card.json, evidence/bbstep_uniqueness.json and
+evidence/candidate_audit_20261028.json.
 evidence/review_2026-10-28.json is an earlier review snapshot. The HMAS pipeline and promotional page
 generators are quarantined. Build current entry pages with
 scripts/build_current_review.py or scripts/build_site.py. Do not restore old

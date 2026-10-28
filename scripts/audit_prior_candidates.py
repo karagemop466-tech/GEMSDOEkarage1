@@ -64,6 +64,8 @@ def audit(cache: Path) -> dict:
             raise ValueError(f'{name}: no prediction dots')
         hit_count = int(np.count_nonzero(dots & nearby))
         fmt = diagnose(path, cache / 'template.tif', entries['template']['sha256'])
+        if fmt['checks']['masked_inside_count'] != 0:
+            raise ValueError(f'{name}: masked pixels inside footprint')
         # diagnose records absolute candidate paths when supplied; keep a
         # checkout-independent filename and a mirror label in committed JSON.
         fmt['candidate'] = relative
