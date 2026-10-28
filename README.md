@@ -7,18 +7,31 @@
 
 [Latest session review](knowledge/session-review-2026-10-28.md) · [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
-## Latest follow-up: repository review (28 October 2026)
+## Latest session reviews — 28 October 2026
 
-The shared-tool adapter exits **1** because the assigned method lane and required
-cached inputs are absent, including `existing_faults.tif`. A successful JSON
-report write is not a readiness pass. Even exit 0 checks input presence only,
-not provenance, scientific merit, uniqueness or upload authorization.
-[Final three-pass review](knowledge/session-review-final-2026-10-28.md) ·
-[Previous preflight review](knowledge/session-a0f0d036-review.md) ·
-[Current negative run card](docs/data/run-card.json).
-Installed the requirements into ignored `.venv/` and ran the suite: **218 passed,
-53 pending-deprecation warnings**. The deterministic site build changed no files.
-No new experiment, score, TIFF or slot selection.
+[Release-gate consistency review](knowledge/session-0f04bfcc-review.md) ·
+[Negative session run card](evidence/session_0f04bfcc_run_card.json). The local
+release gate rejects a candidate SHA-256 identical to any reported registry
+raster even if the card claims the bytes differ. This is an internal consistency
+check, not independent hash or registry authentication. No experiment, new TIFF,
+score estimate or slot selection was made; **do not submit**. After integrating
+`origin/main`, the full suite passed: **221 passed, 62 pending-deprecation
+warnings**; deterministic site build and `git diff --check` passed.
+
+[Independent audit review](knowledge/session-review-arena-9ad4a8a0.md) ·
+[Negative run card](evidence/run_card_arena_9ad4a8a0.json) records a restoration
+of pinned mirrors, a duplicate-audit reproduction and a local masked-pixel
+format-checker fix. No new TIFF, holdout estimate or slot decision was produced.
+The peer mirrors are not authenticated organizer inputs; the assigned lane,
+shared stack and complete registry remain unresolved. The scheduled refresh
+creates a workflow artifact, not a live published feed.
+
+[Current repository review](knowledge/session-review-final-2026-10-28.md) ·
+[Current negative run card](docs/data/run-card.json). The shared-tool adapter
+fails closed because the assigned method lane and required cached inputs,
+including `existing_faults.tif`, are absent. Its preflight checks presence only,
+not provenance, scientific merit, uniqueness or upload authorization. This
+review generated no experiment, score, TIFF or slot selection.
 
 ## What changed on 28 October 2026
 

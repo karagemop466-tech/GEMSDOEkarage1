@@ -46,6 +46,17 @@
 5. Compare pre-placement surfaces and final saved dots against every registry raster. Validate saved TIFF bytes against the authenticated submission template, then let the separate weekly selector decide whether a slot is available.
 6. Build an authenticated source/leaderboard refresh mechanism only where allowed by organizer terms and credentials; otherwise clearly timestamp manually supplied facts as unverified, rather than describing the page as a live feed.
 
+## Post-integration recheck
+
+While this PR was being prepared, `origin/main` advanced with an independent
+release-gate consistency check, a stricter local masked-pixel diagnostic, and
+associated tests/reviews. Those changes were merged into this working branch
+before the PR merge. After integration, the full suite passed: **221 passed, 62
+Rasterio/Affine pending-deprecation warnings**. `scripts/build_site.py` again
+rendered 32 deterministic pages without authorizing a submission, and
+`git diff --check` passed. The exact pre-merge run recorded above remains a
+historical 218-test result; 221 is the latest post-integration count.
+
 ## Run card (this review)
 
 ```json
