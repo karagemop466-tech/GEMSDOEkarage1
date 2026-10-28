@@ -1,11 +1,54 @@
 # GEMSDOEkarage1 — fault discovery, evidence first
 
+> **Earlier repository review — 28 October 2026, `arena/3fa432c5-gemsdoekarage1`: DO NOT SUBMIT.** No new TIFF, experiment, holdout score, or slot selection was produced. Shared preflight was blocked: no assigned method lane, cached feature stack, or required raster inputs. Its software suite passed **240 tests**; this is not scientific validation. See the [session review](knowledge/review-arena-3fa432c5-2026-10-28.md) and [negative run card](evidence/session_run_card_arena_3fa432c5_20261028.json).
+
 > **DO NOT SUBMIT — no eligible new GeoTIFF exists.** The two previously
 > promoted research files each duplicate a registered lattice under the user's
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
 [Latest three-pass review](knowledge/session-review-2026-10-28-5c261093.md) · [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [This session's negative run card](evidence/session_run_card_5c261093.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+
+## Earlier follow-up — session `arena/7e7b4964-gemsdoekarage1`
+
+[Three-pass review](knowledge/session-7e7b4964-review.md) · [negative run card](evidence/session_7e7b4964_run_card.json). That session restored and reverified the 31 pinned third-party mirrors in its own runtime; their organizer provenance remains unverified and its cache is not this checkout's cache. Preflight now flags that the mirrored labels and existing-fault files have identical bytes, without claiming this alone proves leakage. The assigned lane and shared cache remain missing. No new TIFF, holdout, score estimate or slot selection was made. **Do not submit.**
+
+## Earlier adapter review — session `ea042946` (28 October 2026)
+
+[Three-pass review](knowledge/session-ea042946-review.md) ·
+[Session run card](evidence/session_ea042946_run_card.json) ·
+[Actual preflight](evidence/session_ea042946_preflight.json).
+The shared-tool invocation adapter now rejects **empty and unreadable** cached
+inputs as well as missing files; empty download placeholders can no longer
+report readiness. This is not format or provenance validation. Verification:
+**272 tests passed** (90 Rasterio pending-deprecation warnings); all 32 decision
+pages rebuilt without changes. No new geological experiment, TIFF, score
+estimate, or slot selection was made. **DO NOT SUBMIT.** The method lane and
+all five required shared cached inputs are absent in this checkout. Existing
+nine-site summaries and the four-hypothesis slate remain planning/audit
+material, not evidence of a new high-scoring eligible submission.
+
+## Earlier follow-up — session `fafb84ff`
+
+**DO NOT SUBMIT: no new eligible TIFF or measured score.** Shared preflight now
+rejects empty cached input files before execution, in addition to missing inputs
+and the absent assigned lane. This is not data authentication or scientific
+validation. [Three-pass review](knowledge/review-fafb84ff.md) ·
+[Current preflight](evidence/preflight-fafb84ff.json) ·
+[Negative run card](evidence/run-card-fafb84ff.json). Full suite: 245 passed.
+The existing nine-site executive summary and four qualified hypotheses remain
+research material, not submission recommendations.
+
+## Earlier follow-up — 28 October 2026, session `arena/0404f8f1-gemsdoekarage1`
+
+The shared-tool preflight now blocks a merely suggested template pin until a
+recorded canonical assignment matches the lane, repository and immutable
+commit. This is a consistency check, not authentication of the assignment,
+cache, holdout or release evidence. A fresh pinned audit reproduced both
+parallel candidates' lattice failures. No new TIFF, holdout score or slot was
+created; **do not submit**. See the [three-pass review](knowledge/session-0404f8f1-review.md),
+[reproduced audit](evidence/session_0404f8f1_parallel_audit.json) and
+[negative run card](evidence/session_0404f8f1_run_card.json).
 
 ## Earlier checkout review — session `arena/43868644`
 
@@ -57,8 +100,9 @@ checks GitHub revision freshness in the browser and scheduled workflow; changed
 or unavailable sources make the workflow check fail. It does not scrape
 DrivenData or grant submission permission. The full review also
 records a shared-metric documentation counterexample and an upstream issue
-creation blocked by integration permissions. No new experiment, TIFF, estimate,
-or slot selection was made.
+creation blocked by integration permissions. After incorporating parallel
+safeguards, 288 tests passed (90 Rasterio pending-deprecation warnings). No
+new experiment, TIFF, estimate, or slot selection was made.
 
 ## Earlier follow-up: release-gate consistency
 
@@ -75,8 +119,9 @@ passed, with 53 rasterio warnings.
 
 The shared-tool adapter now exits **1** when the assigned lane or required
 cached inputs are absent, including `existing_faults.tif`. A successful JSON
-report write is not a readiness pass. Even exit 0 checks input presence only,
-not provenance, scientific merit, uniqueness or upload authorization.
+report write is not a readiness pass. The current preflight also checks for a recorded canonical assignment. Neither
+input presence nor an assignment assertion authenticates provenance or establishes
+scientific merit, uniqueness or upload authorization.
 [Three-pass follow-up review](knowledge/session-a0f0d036-review.md) ·
 [Session negative run card](evidence/session_a0f0d036_run_card.json).
 Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
@@ -115,10 +160,11 @@ rendered 32 pages deterministically. A later merged follow-up records 219
 passing tests and strengthens preflight/gate behavior. After synchronizing that
 branch with the then-current main, the complete suite passed **240 tests** (90
 Rasterio/Affine pending-deprecation warnings). The final review record
-[here](knowledge/session-review-final-2026-10-28.md) also documents that the
-assigned lane and cached inputs are absent from this checkout, and that source
-and leaderboard refreshes are not authenticated/live. Neither test count is a
-holdout result or submission authorization.
+[here](knowledge/session-review-final-2026-10-28.md) also documented that the
+assigned lane and cached inputs were absent in that checkout, and there was no
+authenticated/live leaderboard feed. The current GitHub monitor checks only
+repository revisions. Neither test count is a holdout result or submission
+authorization.
 
 ## What changed on 28 October 2026
 
