@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def audit(root: Path = ROOT) -> dict:
     root = root.resolve()
     problems, rows = [], []
+    manifest_valid = True
     try:
         provenance = json.loads((root / 'vendor/PROVENANCE.json').read_text())
         template = json.loads((root / 'registry/template.json').read_text())
@@ -45,9 +46,10 @@ def audit(root: Path = ROOT) -> dict:
         # No authorization is inferred from a successful file-hash comparison.
         problems.append('Authoritative shared-template assignment and upstream repair approval are not established by this audit.')
     except (OSError, ValueError, TypeError, KeyError) as exc:
+        manifest_valid = False
         problems.append(f'Template provenance unavailable or invalid: {exc}')
     return {'schema': 'karage1-template-integrity-v1', 'files': rows,
-            'file_pins_match': bool(rows) and all(row['matches'] for row in rows),
+            'file_pins_match': manifest_valid and bool(rows) and all(row['matches'] for row in rows),
             'problems': problems, 'execution_authorized': False,
             'scope': 'Local provenance consistency only; no organizer authentication or upstream changes.'}
 

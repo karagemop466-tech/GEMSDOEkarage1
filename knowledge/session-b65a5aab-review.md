@@ -98,7 +98,7 @@ Integrated concurrent main changes through `e297b7e` on this session branch,
 preserving catalogue-input checks, nonzero blocked-preflight exit status,
 parallel candidate audits and stricter release/format validation. Extended the
 new provenance interlock with a regression proving valid lane plus present
-inputs cannot bypass missing authorization. After integration: **248 tests
+inputs cannot bypass missing authorization. After integration: **249 tests
 passed**, 90 rasterio pending-deprecation warnings, no skipped tests. The
 deterministic renderer rebuilt 32 pages; link/fragment and repeat-build checks
 passed in that suite. `git diff --check` passed. No new vendor code was changed.

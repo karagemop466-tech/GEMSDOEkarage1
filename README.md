@@ -5,16 +5,16 @@
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest session run card](evidence/session_b65a5aab_run_card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
-## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
+## Earlier review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
 The previously reported lattice failure was independently replayed from pinned
 mirrors: 38,174/38,200 historical HMAS dots and 35,959/36,000 historical GPC-Z
 dots are within 3 px. The [reassessment](evidence/reassessment_arena_0fb1_20261028.json)
 is reproducible but uses a third-party footprint, not an authenticated organizer
 sample. The 31 pinned mirrors were restored into ignored `data/` in a prior
-review runtime; they are not tracked and are **absent from this checkout**. No
+review runtime; they are not tracked. **Update:** this session restored all 31 into `.cache/gems_data`; the shared feature stack is still absent. No
 geological experiment, candidate raster, holdout score or submission was made.
 The old `prepare_data.py` is intentionally blocked: it builds a quarantined
 private stack, not an assigned shared cache. Data placement alone is **not** the

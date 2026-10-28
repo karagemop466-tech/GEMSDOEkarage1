@@ -65,3 +65,12 @@ def test_current_receipt_replays_and_tools_cannot_run():
                                 cwd=ROOT, text=True, capture_output=True)
         assert result.returncode != 0 and 'BLOCKED' in result.stderr
         assert 'shared-template provenance' in result.stderr
+
+
+def test_partial_manifest_cannot_report_all_pins_match(tmp_path):
+    _, provenance = fixture(tmp_path)
+    provenance['files']['vendor/zzz/../../escape'] = 'a' * 64
+    (tmp_path / 'vendor/PROVENANCE.json').write_text(json.dumps(provenance))
+    result = audit(tmp_path)
+    assert result['files'][0]['matches']  # earlier valid row does not clear the manifest
+    assert not result['file_pins_match'] and not result['execution_authorized']
