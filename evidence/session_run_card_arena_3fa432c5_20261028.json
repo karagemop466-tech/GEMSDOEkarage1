@@ -1,0 +1,51 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "session": "arena/3fa432c5-gemsdoekarage1",
+  "created_utc": "2026-10-28",
+  "hypothesis": null,
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "hypothesis_status": "No single method-lane paragraph was supplied. Four ranked, qualitative hypotheses already exist in knowledge/research-review.md; no lane was selected or tested.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "value": null,
+    "ci95": null,
+    "status": "Not run. Shared preflight failed because the lane, feature stack, and required input rasters are absent."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface": null,
+    "final_raster": null,
+    "status": "No candidate surface or raster was generated. Existing candidate audits are prior historical evidence and not new uniqueness checks.",
+    "registry_complete": false,
+    "prior_audit": "evidence/candidate_audit_20261028.json"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "status": "Not run; no new raster exists.",
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "portal_acceptance": "not tested"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "verdict": "negative",
+  "blockers": [
+    "The request refers to a single assigned method paragraph, but does not identify one.",
+    "The configured template lane is null and the local shared feature stack and required input rasters are missing.",
+    "The complete, authenticated current registry and organizer-authenticated template/data are not established.",
+    "The required pre-placement uniqueness, leakage canary, and buffered hide-and-recover evaluation cannot be performed without the lane and shared inputs.",
+    "The four candidate mechanisms in knowledge/research-review.md have not been checked against all parallel GEMSDOE repositories; global novelty is unknown."
+  ],
+  "tests": {
+    "result": "240 passed",
+    "command": ".venv/bin/python -m pytest -q",
+    "scope": "Software regression suite only; not scientific validation or submission approval."
+  }
+}

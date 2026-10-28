@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — fault discovery, evidence first
 
+> **Latest repository review — 28 October 2026, `arena/3fa432c5-gemsdoekarage1`: DO NOT SUBMIT.** No new TIFF, experiment, holdout score, or slot selection was produced. Shared preflight is blocked: no assigned method lane, cached feature stack, or required raster inputs. The complete software suite passed **240 tests**; this is not scientific validation. See the [session review](knowledge/review-arena-3fa432c5-2026-10-28.md) and [negative run card](evidence/session_run_card_arena_3fa432c5_20261028.json).
+
 > **DO NOT SUBMIT — no eligible new GeoTIFF exists.** The two previously
 > promoted research files each duplicate a registered lattice under the user's
 > literal rule. No geological experiment, competition upload, or weekly-slot
@@ -11,15 +13,48 @@
 
 [Three-pass review](knowledge/session-7e7b4964-review.md) · [negative run card](evidence/session_7e7b4964_run_card.json). Restored and reverified the 31 pinned third-party mirrors; their organizer provenance remains unverified. Preflight now flags that the mirrored labels and existing-fault files have identical bytes, without claiming this alone proves leakage. The assigned lane and shared cache remain missing. No new TIFF, holdout, score estimate or slot selection was made. **Do not submit.**
 
-## Earlier review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
+## Current follow-up — session `fafb84ff`
+
+**DO NOT SUBMIT: no new eligible TIFF or measured score.** Shared preflight now
+rejects empty cached input files before execution, in addition to missing inputs
+and the absent assigned lane. This is not data authentication or scientific
+validation. [Three-pass review](knowledge/review-fafb84ff.md) ·
+[Current preflight](evidence/preflight-fafb84ff.json) ·
+[Negative run card](evidence/run-card-fafb84ff.json). Full suite: 245 passed.
+The existing nine-site executive summary and four qualified hypotheses remain
+research material, not submission recommendations.
+
+## Latest follow-up — 28 October 2026, session `arena/0404f8f1-gemsdoekarage1`
+
+The shared-tool preflight now blocks a merely suggested template pin until a
+recorded canonical assignment matches the lane, repository and immutable
+commit. This is a consistency check, not authentication of the assignment,
+cache, holdout or release evidence. A fresh pinned audit reproduced both
+parallel candidates' lattice failures. No new TIFF, holdout score or slot was
+created; **do not submit**. See the [three-pass review](knowledge/session-0404f8f1-review.md),
+[reproduced audit](evidence/session_0404f8f1_parallel_audit.json) and
+[negative run card](evidence/session_0404f8f1_run_card.json).
+
+## Latest checkout review — session `arena/43868644`
+
+**No new eligible TIFF; do not submit.** The assigned lane and shared cached
+inputs are missing. The release policy now requires an explicit GeoTIFF driver
+check and fails safely on oversized numeric inputs. This is not evidence of
+candidate quality or organizer acceptance. See the [three-pass review](knowledge/session-review-arena-43868644.md)
+and [negative run card](evidence/run_card_arena_43868644.json). Tests: 243 passed;
+no experiment, holdout score or weekly slot selection. The archived hypothesis
+preregistration contains speculative gains and provenance claims that are not
+verified and must not be treated as measured scores.
+
+## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
 The previously reported lattice failure was independently replayed from pinned
 mirrors: 38,174/38,200 historical HMAS dots and 35,959/36,000 historical GPC-Z
 dots are within 3 px. The [reassessment](evidence/reassessment_arena_0fb1_20261028.json)
 is reproducible but uses a third-party footprint, not an authenticated organizer
-sample. All 31 pinned mirrors were restored into ignored `data/` in this
-runtime; those local bytes are not tracked and may not persist between sessions.
-No geological experiment, candidate raster, holdout score or submission was made.
+sample. The 31 pinned mirrors were restored into ignored `data/` in a prior
+review runtime; they are not tracked and are **absent from this checkout**. No
+geological experiment, candidate raster, holdout score or submission was made.
 The old `prepare_data.py` is intentionally blocked: it builds a quarantined
 private stack, not an assigned shared cache. Data placement alone is **not** the
 only blocker.
@@ -53,8 +88,9 @@ passed, with 53 rasterio warnings.
 
 The shared-tool adapter now exits **1** when the assigned lane or required
 cached inputs are absent, including `existing_faults.tif`. A successful JSON
-report write is not a readiness pass. Even exit 0 checks input presence only,
-not provenance, scientific merit, uniqueness or upload authorization.
+report write is not a readiness pass. The current preflight also checks for a recorded canonical assignment. Neither
+input presence nor an assignment assertion authenticates provenance or establishes
+scientific merit, uniqueness or upload authorization.
 [Three-pass follow-up review](knowledge/session-a0f0d036-review.md) ·
 [Session negative run card](evidence/session_a0f0d036_run_card.json).
 Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
@@ -91,9 +127,12 @@ check for a new candidate. At that checkout point, the suite had **205 passed,
 0 failed, 0 skipped** (53 Rasterio deprecation warnings) and the site builder
 rendered 32 pages deterministically. A later merged follow-up records 219
 passing tests and strengthens preflight/gate behavior. After synchronizing this
-branch with the latest main, the complete suite passed **221 tests** (62
-Rasterio warnings). Neither test count is a holdout result or submission
-authorization.
+branch with the latest main, the complete suite passed **240 tests** (90
+Rasterio/Affine pending-deprecation warnings). The final review record
+[here](knowledge/session-review-final-2026-10-28.md) also documents that the
+assigned lane and cached inputs are absent from this checkout, and that source
+and leaderboard refreshes are not authenticated/live. Neither test count is a
+holdout result or submission authorization.
 
 ## What changed on 28 October 2026
 

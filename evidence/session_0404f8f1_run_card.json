@@ -1,0 +1,35 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/0404f8f1-gemsdoekarage1",
+  "date_utc": "2026-10-28",
+  "hypothesis": "Signed relative displacement of magnetic and gravity edges could identify concealed fault traces. This is an untested proposal, not an assigned lane.",
+  "mechanism": "Persistent, aligned, multi-scale offsets between magnetic and gravity boundaries could indicate juxtaposed subsurface rock units beneath basin fill.",
+  "named_non_fault_mimic": "Lithologic contacts, volcanic margins and survey leveling artifacts can mimic potential-field boundary offsets.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run: no assigned method lane, established canonical template, cached feature stack, or comparable validated holdout best."
+  },
+  "correlation_overlap_vs_registry": {
+    "new_surface_spearman": null,
+    "new_final_dot_spearman": null,
+    "new_final_dot_overlap": null,
+    "prior_candidates": "Two pinned parallel candidates were rechecked against one lattice witness; see evidence/session_0404f8f1_parallel_audit.json. This is not a complete registry or a new surface check."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "No new raster exists. Official template authenticity and portal outside-footprint encoding remain unverified."
+  },
+  "submission_name": null,
+  "submission_note": "No submission: lane, canonical template and validation evidence are missing.",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 0,
+  "verdict": "negative"
+}
