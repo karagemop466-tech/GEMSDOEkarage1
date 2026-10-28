@@ -1,3 +1,5 @@
+> **28 October 2026 review note:** This is historical planning material. The checkout now includes inherited HMAS and GPC-Z implementations; statements about an empty checkout or an untried HMAS lane describe an earlier session. Prior score projections and causal claims are unverified, not measured results. Both inherited candidates are negative under the literal lattice rule; see [`evidence/prior_candidate_audit.json`](../evidence/prior_candidate_audit.json). The USGS conductance release spans 2–200 km depth ranges, not 0.5–10 km. Current status and a fresh qualitative slate: [`knowledge/three-pass-review-2026-10-28.md`](three-pass-review-2026-10-28.md).
+
 # Research review and preregistration slate
 
 Updated 2026-10-28 UTC. This is a **planning slate, not an assigned method

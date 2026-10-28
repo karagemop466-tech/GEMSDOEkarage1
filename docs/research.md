@@ -1,3 +1,6 @@
+> **Historical review, 27 October 2026 — superseded where it describes the current state.**
+> The repository now contains inherited HMAS-SINTER and GPC-Z models and historical artifacts; claims below that the repository is empty are prior-session context, not current fact. Both inherited candidates were independently rejected on 28 October: `evidence/prior_candidate_audit.json` records the literal lattice witness. No new geological experiment was run in the 28 October review. The current plan is `knowledge/three-pass-review-2026-10-28.md`; prior ideas remain hypotheses, not estimated scores.
+
 # Scientific review and preregistration slate
 
 ## Scope and evidence

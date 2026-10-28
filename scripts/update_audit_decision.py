@@ -210,8 +210,9 @@ def main():
     }
     if len(current['submission_note']) > 140:
         raise ValueError('note too long')
-    save(ROOT / 'docs/data/run-card.json', current)
-    save(ROOT / 'docs/data/latest-run-card.json', current)
+    for path in ('docs/data/run-card.json', 'docs/data/latest-run-card.json',
+                 'docs/data/run_card.json', 'evidence/run_card.json', 'evidence/current_run_card.json'):
+        save(ROOT / path, current)
 
     gp_path = ROOT / 'docs/data/run-card-gpcz.json'
     gp = load(gp_path)

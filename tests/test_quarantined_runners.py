@@ -23,11 +23,17 @@ def test_old_experiment_entrypoints_fail_closed(command):
     assert 'BLOCKED' in result.stderr
 
 
-def test_old_registry_scanner_cannot_certify_incomplete_inventory(tmp_path):
-    from gemskarage1.registry_audit import run_full_fleet_uniqueness_gate
-    a = np.zeros((2, 2), dtype='float32')
-    with pytest.raises(RuntimeError, match='disabled'):
-        run_full_fleet_uniqueness_gate(a, a, tmp_path / 'missing.tif', np.ones((2, 2), bool))
+def test_incomplete_registry_cannot_certify_preplacement(tmp_path):
+    import rasterio
+    from rasterio.transform import from_origin
+    from gemskarage1.registry_audit import check_preplacement_surface
+    a = np.arange(9, dtype='float32').reshape(3, 3)
+    sample = tmp_path / 'synthetic.tif'
+    with rasterio.open(sample, 'w', driver='GTiff', count=1, dtype='float32', width=3, height=3,
+                       crs='EPSG:32611', transform=from_origin(0, 300, 100, 100)) as dst:
+        dst.write(a, 1)
+    report = check_preplacement_surface(a, np.ones((3, 3), bool), sample, registry_index=None)
+    assert report['passed'] is False
 
 
 def test_old_gpcz_registry_scan_cannot_exempt_lattice():

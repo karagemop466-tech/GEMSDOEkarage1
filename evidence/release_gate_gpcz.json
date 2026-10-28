@@ -170,10 +170,14 @@
     "ok_to_submit": false,
     "selector_required": true,
     "reasons": [
+      "Missing scientific run-card field: hypothesis",
+      "Missing scientific run-card field: mechanism",
+      "Missing scientific run-card field: named_non_fault_mimic",
       "No measured same-evaluator improvement with positive paired CI",
-      "Hide-and-recover leakage or pixel-exact mask controls missing",
+      "Hide-and-recover controls or metric parameters missing",
       "Single-feature leakage canary missing or failed",
-      "Complete registry inventory / saved-byte comparisons missing",
+      "Complete registry inventory / pre-placement and saved-byte comparisons missing",
+      "Registry receipt is not bound to a pinned inventory, surface and candidate",
       "Registry rank correlation missing: lattice",
       "Registry dot overlap exceeds 70%: lattice",
       "Registry rank correlation missing: GEMSDOE24",
@@ -187,7 +191,8 @@
       "Registry rank correlation missing: GEMSDOE36",
       "Saved TIFF validation missing or failed: all_finite_inside",
       "Saved TIFF validation missing or failed: range_0_1_inside",
-      "Saved TIFF validation missing or failed: outside_encoding_accepted"
+      "Saved TIFF validation missing or failed: outside_encoding_accepted",
+      "Saved TIFF validation missing or failed: template_official_authenticated"
     ]
   },
   "note": "release_gate.py from the parallel review, run unmodified. The lattice probe (99.87%) is excluded from max_directed_overlap_3px and reported alongside; a literal reading of the rule makes every raster >22k dots a duplicate (IR-K1-LATTICE-01).",

@@ -1,0 +1,51 @@
+{
+  "schema": "karage1-run-card-v2",
+  "created_utc": "2026-10-28T05:34:16.605676+00:00",
+  "session": "arena/9a5c837d-gemsdoekarage1",
+  "hypothesis": "Historical H-K1-1 hydrothermal magnetic-trough and thermal/sinter conduit hypothesis; no new lane assigned.",
+  "mechanism": "The prior candidate combined potential-field, terrain and hydrothermal proxy features with sparse dot placement; this session audits its saved bytes only.",
+  "named_non_fault_mimic": "Lithologic contacts and Lake Lahontan shorelines can resemble the proposed structural signal.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run in this session; prior claims were not independently reproduced."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_spearman_vs_lattice": -2.856745533511713e-05,
+    "final_dot_overlap_vs_lattice": 0.9993193717277487,
+    "overlapping_dots": 38174,
+    "candidate_dots": 38200,
+    "registry_coverage": "Nine pinned historical site files plus the pinned 13GEMSDOE lattice. This is not a complete registry.",
+    "registry_complete": false
+  },
+  "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+  "raster_status": "Existing historical artifact; not generated in this session; duplicate under literal registry rule.",
+  "validator_output": {
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "all_finite_whole_array": true,
+    "outside_null_or_nan": false,
+    "reference": "Hash-pinned owner mirror; organizer authenticity not established.",
+    "portal_acceptance": "not tested"
+  },
+  "submission_name": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+  "submission_note": "Historical HMAS candidate: audit only; fails literal lattice overlap gate. Do not submit.",
+  "download_available": false,
+  "download_available_meaning": "No submission-ready download; clearly labeled historical files remain available for research only.",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 0,
+  "blockers": [
+    "Both existing candidates exceed the literal 70% overlap limit against the registered lattice; stop.",
+    "The current prompt does not provide the referenced single method-lane paragraph.",
+    "The complete current registry, pre-placement surfaces, cached shared feature stack and a comparable current-best holdout are not established.",
+    "The mirrored sample is not organizer-authenticated; zeros outside its footprint are not the published null/NaN convention."
+  ],
+  "verdict": "negative",
+  "audit": "evidence/candidate_audit_20261028.json"
+}

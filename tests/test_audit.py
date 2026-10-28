@@ -103,8 +103,9 @@ def test_run_card_and_source_hashes():
     import hashlib
     root = Path(__file__).resolve().parents[1]
     card = json.loads((root/'docs/data/run_card.json').read_text())
-    assert card['verdict'] == 'negative' and not card['submission_ready']
-    assert len(card['note']) <= 140
+    assert card == json.loads((root/'docs/data/run-card.json').read_text())
+    assert card['verdict'] == 'negative' and not card['ok_to_submit']
+    assert len(card['submission_note']) <= 140
     for row in json.loads((root/'docs/data/sources.json').read_text())['sites']:
         raw = (root/'evidence/sources'/f"{row['site']}-README.md").read_bytes()
         assert hashlib.sha256(raw).hexdigest() == row['readme_sha256']

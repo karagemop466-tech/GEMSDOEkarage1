@@ -17,6 +17,11 @@ def finite_number(value):
     return type(value) in (int, float) and math.isfinite(value)
 
 
+def valid_sha256(value):
+    return (isinstance(value, str) and len(value) == 64
+            and all(c in "0123456789abcdef" for c in value))
+
+
 def _lattice_pin():
     try:
         entries = json.loads((ROOT / "registry/reference_assets.json").read_text())
@@ -31,6 +36,9 @@ def assess(card):
     if not isinstance(card, dict):
         return {"verdict": "negative", "ok_to_submit": False, "selector_required": True,
                 "reasons": ["Missing run card"]}
+    for key in ("hypothesis", "mechanism", "named_non_fault_mimic"):
+        if not isinstance(card.get(key), str) or not card[key].strip():
+            reasons.append("Missing scientific run-card field: " + key)
     if not isinstance(card.get("lane"), str) or not card["lane"].strip():
         reasons.append("Named assigned method lane missing")
     if type(card.get("experiments")) is not int or not 1 <= card["experiments"] <= 3:
@@ -49,21 +57,31 @@ def assess(card):
             or not 0 <= ci[0] <= score <= ci[1] <= 1):
         reasons.append("Invalid holdout measurement or CI")
     baseline, delta = h.get("baseline_dti"), h.get("paired_delta_ci95")
-    if (h.get("same_evaluator_as_best") is not True or not finite_number(baseline)
+    if (h.get("same_evaluator_as_best") is not True
+            or h.get("baseline_evaluator_version") != h.get("evaluator_version")
+            or not finite_number(baseline)
             or not 0 <= baseline <= 1 or not finite_number(score) or score <= baseline
             or not isinstance(delta, list) or len(delta) != 2
             or not all(finite_number(x) for x in delta) or not 0 < delta[0] <= delta[1]):
         reasons.append("No measured same-evaluator improvement with positive paired CI")
     if (h.get("visible_only_features") is not True or h.get("whole_segment_buffered") is not True
-            or h.get("pixel_exact_visible_mask") is not True):
-        reasons.append("Hide-and-recover leakage or pixel-exact mask controls missing")
+            or h.get("pixel_exact_visible_mask") is not True
+            or h.get("alpha") != .2 or h.get("beta") != .8 or h.get("kernel_radius_m") != 300):
+        reasons.append("Hide-and-recover controls or metric parameters missing")
     canary = card.get("canary") if isinstance(card.get("canary"), dict) else {}
     aucs = canary.get("feature_aucs")
+    statuses = canary.get("feature_status")
+    expected_features = canary.get("expected_features")
     if (not isinstance(aucs, dict) or not aucs or canary.get("passed") is not True
             or canary.get("all_features_tested") is not True
             or canary.get("nonconstant_features_verified") is not True
             or type(canary.get("n_features")) is not int or canary["n_features"] != len(aucs)
             or any(not isinstance(k, str) or not k.strip() for k in aucs)
+            or not isinstance(statuses, dict) or set(statuses) != set(aucs)
+            or any(v != "tested" for v in statuses.values())
+            or not isinstance(expected_features, list)
+            or any(not isinstance(k, str) or not k.strip() for k in expected_features)
+            or len(expected_features) != len(set(expected_features)) or set(expected_features) != set(aucs)
             # Inputs are direction-invariant AUCs: max(raw_auc, 1 - raw_auc).
             or any(not finite_number(v) or not .50 <= v <= .90 for v in aucs.values())):
         reasons.append("Single-feature leakage canary missing or failed")
@@ -73,10 +91,17 @@ def assess(card):
     expected = reg.get("expected_rasters")
     if (reg.get("complete") is not True or reg.get("saved_bytes_checked") is not True
             or reg.get("all_registry_rasters_included") is not True or reg.get("exact_ranks") is not True
+            or reg.get("surface_checked_before_placement") is not True
             or type(expected) is not int or expected <= 0 or not isinstance(rows, list)
             or len(rows) != expected):
-        reasons.append("Complete registry inventory / saved-byte comparisons missing")
+        reasons.append("Complete registry inventory / pre-placement and saved-byte comparisons missing")
         rows = rows if isinstance(rows, list) else []
+    inventory = reg.get("inventory_sha256")
+    surface = reg.get("preplacement_surface_sha256")
+    if (not valid_sha256(inventory) or not valid_sha256(surface)
+            or reg.get("preplacement_inventory_sha256") != inventory
+            or reg.get("candidate_sha256") != card.get("raster_sha256")):
+        reasons.append("Registry receipt is not bound to a pinned inventory, surface and candidate")
     ids = set()
     dot_counts = set()
     lattice_ok = False
@@ -89,8 +114,7 @@ def assess(card):
             reasons.append("Missing or duplicate registry identity")
         else:
             ids.add(ref_id)
-        if (not isinstance(digest, str) or len(digest) != 64
-                or any(c not in "0123456789abcdef" for c in digest)):
+        if not valid_sha256(digest):
             reasons.append("Registry raster hash missing or invalid")
         if ref_id == "lattice" and digest == _lattice_pin() and digest is not None:
             lattice_ok = True
@@ -116,11 +140,12 @@ def assess(card):
 
     validator = card.get("validator") if isinstance(card.get("validator"), dict) else {}
     for key in ("single_band", "float32", "all_finite_inside", "range_0_1_inside",
-                "crs_match", "shape_match", "transform_match", "outside_encoding_accepted"):
+                "crs_match", "shape_match", "transform_match", "outside_encoding_accepted",
+                "template_official_authenticated"):
         if validator.get(key) is not True:
             reasons.append("Saved TIFF validation missing or failed: " + key)
     digest = card.get("raster_sha256")
-    if not isinstance(digest, str) or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+    if not valid_sha256(digest):
         reasons.append("Saved raster SHA-256 missing")
     note = card.get("submission_note")
     name = card.get("submission_name")
