@@ -14,8 +14,18 @@
     "driver": "GTiff",
     "dtype": "float32",
     "crs": "EPSG:32611",
-    "shape": [3730, 3292],
-    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
     "grid_matches_mirrored_sample": true,
     "unmasked_inside_footprint": true,
     "no_nan_inside_footprint": true,
@@ -35,10 +45,10 @@
   },
   "nine_focus_site_comparison": {
     "files_checked": 9,
-    "complete_registry": false,
     "maximum_forward_overlap": 0.0,
     "maximum_abs_binary_support_spearman": 0.006373044893315756,
-    "focus_site_only_result": "no threshold exceeded on these nine pinned historical rasters; this does not supersede the lattice witness or certify a complete registry"
+    "maximum_abs_rho_site": "GEMSDOE27",
+    "scope": "These are only the nine focus-site masks; they do not supersede the lattice witness and do not certify a complete registry."
   },
   "protocol_gaps_in_original_run_card": {
     "preplacement_surface_compared_to_lattice": false,
@@ -62,5 +72,70 @@
   "ok_to_submit": false,
   "slot_selected_or_spent": false,
   "experiments_run_in_this_audit": 0,
-  "verdict": "negative"
+  "verdict": "negative",
+  "nine_focus_site_comparisons": [
+    {
+      "site": "GEMSDOE24",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.006306512231056459
+    },
+    {
+      "site": "GEMSDOE25",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005394556824251397
+    },
+    {
+      "site": "GEMSDOE27",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.006373044893315756
+    },
+    {
+      "site": "GEMSDOE28",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.004982571273518554
+    },
+    {
+      "site": "GEMSDOE30",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005394556824251397
+    },
+    {
+      "site": "GEMSDOE31",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005149066401623074
+    },
+    {
+      "site": "GEMSDOE32",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.00498217143178577
+    },
+    {
+      "site": "GEMSDOE33",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005255535641728324
+    },
+    {
+      "site": "GEMSDOE36",
+      "candidate_dots": 17415,
+      "dots_within_3px": 0,
+      "directed_overlap": 0.0,
+      "binary_support_spearman": -0.005061529580689964
+    }
+  ]
 }

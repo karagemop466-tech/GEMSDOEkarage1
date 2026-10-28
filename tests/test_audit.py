@@ -107,7 +107,8 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
     expected = {row['sha256'] for row in audit['candidates']}
     card = json.loads((root/'docs/data/run-card.json').read_text())
     expected.add(card['raster_sha256'])
-    assert len(expected) == 3
+    expected.add(json.loads((root/'evidence/conduitcrest_lattice_reaudit_20261028.json').read_text())['candidate']['sha256'])
+    assert len(expected) == 4
     for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
         assert gate['result']['verdict'] == 'negative' and gate['result']['ok_to_submit'] is False

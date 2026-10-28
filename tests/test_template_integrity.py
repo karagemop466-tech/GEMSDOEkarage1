@@ -74,3 +74,16 @@ def test_partial_manifest_cannot_report_all_pins_match(tmp_path):
     result = audit(tmp_path)
     assert result['files'][0]['matches']  # earlier valid row does not clear the manifest
     assert not result['file_pins_match'] and not result['execution_authorized']
+
+
+def test_superseded_conduitcrest_generator_stops_before_writes():
+    candidate = ROOT / 'docs/downloads/gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif'
+    latest = ROOT / 'docs/data/latest-run-card.json'
+    before_candidate = hashlib.sha256(candidate.read_bytes()).hexdigest()
+    before_latest = latest.read_bytes()
+    result = subprocess.run([sys.executable, 'scripts/build_unique_submission.py'],
+                            cwd=ROOT, text=True, capture_output=True)
+    assert result.returncode == 2
+    assert '99.3454% lattice overlap' in result.stderr
+    assert hashlib.sha256(candidate.read_bytes()).hexdigest() == before_candidate
+    assert latest.read_bytes() == before_latest

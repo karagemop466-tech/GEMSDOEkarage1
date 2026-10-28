@@ -10,8 +10,9 @@ Read README.md, docs/standing-prompt.md, knowledge/research-review.md,
 knowledge/review-2026-10-28.md, knowledge/review-arena-0fb1-20261028.md,
 knowledge/session-review-arena-9ad4a8a0.md, knowledge/session-0a62cb67-review.md,
 and knowledge/session-review-arena-9ca08e2e.md (together with
-evidence/training_features_band_audit_20261028.json and
-evidence/nine_sites_secondary_audit_20261028.json)
+evidence/training_features_band_audit_20261028.json,
+evidence/nine_sites_secondary_audit_20261028.json, and
+evidence/conduitcrest_lattice_reaudit_20261028.json)
 before proposing or implementing work. The
 parallel-run protocol is binding: do not invent a lane, bypass any registry
 witness, manufacture a score, or upload old predictions. Preserve the budget,
@@ -25,9 +26,9 @@ the HMAS canary also treated a constant feature as a passing test. Session
 `arena/9d2bc03d` executed lane H-K1-BBSTEP (buried basement-step). The generated
 GeoTIFF is unique versus the nine focus sites and still a literal lattice
 duplicate (98.53% 3-px overlap). Verdict remains negative; no slot was spent.
-Read docs/data/run-card.json, evidence/bbstep_uniqueness.json and
-evidence/candidate_audit_20261028.json.
-evidence/review_2026-10-28.json is an earlier review snapshot. The HMAS pipeline and promotional page
+Read docs/data/run-card.json, evidence/bbstep_uniqueness.json,
+evidence/conduitcrest_lattice_reaudit_20261028.json and
+evidence/candidate_audit_20261028.json. The later Conduitcrest candidate is also a literal lattice duplicate (99.3454% overlap); its earlier run card omitted the lattice, lacked a pre-placement lattice check and single-feature canary, and had no 95% CI. `scripts/build_unique_submission.py` is quarantined and must not be re-enabled around these gates. `evidence/review_2026-10-28.json` is an earlier review snapshot. The HMAS pipeline and promotional page
 generators are quarantined. Build current entry pages with
 scripts/build_current_review.py or scripts/build_site.py. Do not restore old
 promotional pages. Shared-template fixes belong in its owning template, not a

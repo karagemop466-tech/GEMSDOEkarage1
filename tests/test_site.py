@@ -50,7 +50,8 @@ def test_all_legacy_page_builders_delegate_to_fail_closed_renderer():
     paths = [ROOT / 'index.html', ROOT / 'executive-summary.html', *sorted((ROOT / 'docs').glob('**/*.html'))]
     before = {path: path.read_bytes() for path in paths}
     for entry in ('build_site.py', 'build_current_review.py', 'generate_pages.py',
-                  'build_detail_pages.py', 'build_gpcz_site.py', 'build_archived_lanes.py'):
+                  'build_detail_pages.py', 'build_gpcz_site.py', 'build_archived_lanes.py',
+                  'build_executive_summary.py'):
         subprocess.run([sys.executable, f'scripts/{entry}'], cwd=ROOT, check=True, capture_output=True)
         assert {path: path.read_bytes() for path in paths} == before, entry
     blocked = subprocess.run([sys.executable, 'scripts/build_dashboard_and_figures.py'],
