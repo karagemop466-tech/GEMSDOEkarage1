@@ -1,13 +1,39 @@
 # GEMSDOEkarage1 — fault discovery, evidence first
 
-> **DO NOT SUBMIT — no eligible new GeoTIFF exists.** The two previously
-> promoted research files each duplicate a registered lattice under the user's
-> literal rule. No geological experiment, competition upload, or weekly-slot
-> selection was made in this session. A format check is not submission approval.
+> **DO NOT SUBMIT.** A new GeoTIFF was generated this session
+> (`karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif`). It is **unique
+> versus GEMSDOE24, 25, 27, 28, 30, 31, 32, 33 and 36** (worst 3-px overlap
+> 12.6%, worst |Spearman| 0.085) and **fails the literal lattice gate**
+> (98.53% > 70%). No weekly slot was selected. A format check is not
+> submission approval. There is **no approved .tif to upload**.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+**Research download (not for DrivenData):**
+[karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif](docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif)
+· [zip](docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.zip)
+· name `KARAGE1-BBSTEP-72312302675D`
+· note `BB-STEP buried grav/dtb ridge; research only; DO NOT SUBMIT`
 
-## What changed on 28 October 2026
+**HOLDOUT-DTI 0.0318** [0.0271, 0.0363] · evaluator `gemsk-hide-recover-v1` ·
+withheld positives 60,988. This is **not** an organizer score and is **not** a
+forecast of the USER-REPORTED 0.2778.
+
+[Decision dashboard](docs/index.html) · [Executive summary and submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [BB-STEP uniqueness](evidence/bbstep_uniqueness.json) · [Current negative run card](docs/data/run-card.json) · [Research](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+
+## What changed on 28 October 2026 (this session)
+
+Lane **H-K1-BBSTEP** was executed (3 experiments). Features are label-free
+isostatic-gravity and depth-to-basement NMS ridges with a low-slope veto.
+Leakage-canary max AUC = 0.53 (no alarm). Fold-local HOLDOUT-DTI = **0.03179**
+[0.02714, 0.03627] vs GEMSDOE32 B2 control **0.00485** on the same evaluator
+(`gemsk-hide-recover-v1`, n = 60,988). That comparison is **not** an organizer
+score: blocked catalogue-recovery is a poor test of an anti-scarp hypothesis,
+and it does not imply beating the USER-REPORTED 0.2778.
+
+| File | SHA-256 | Unique vs 9 sites | Lattice 3-px | Decision |
+| --- | --- | --- | --- | --- |
+| `karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif` | `72312302675d65cd1983239dd436412b5db1118a7c08f2a5807ef436b5536d6a` | **yes** (max 12.6%) | 98.53% | **DO NOT SUBMIT** |
+
+## Prior lattice audit (still binding)
 
 An independent audit reopened the **already committed** TIFF bytes against nine
 pinned historical references and the pinned lattice. It did not audit the
@@ -143,9 +169,11 @@ upstream template.
 
 ## Remaining work and next session
 
-- Obtain the method-lane paragraph and identify one authoritative upstream
-  template/cache. Resolve the dense lattice protocol conflict with the owner;
-  don't evade it by renaming, jittering or weakening the rule.
+- BB-STEP is unique versus the nine listed sites and still a lattice duplicate.
+  Resolve the dense lattice protocol conflict with the owner; don't evade it by
+  renaming, jittering or weakening the rule. Do not spend a weekly slot on this file.
+- Obtain an explicit method-lane paragraph and identify one authoritative upstream
+  template/cache. Authenticate official DrivenData bytes (login-walled).
 - Establish an authenticated, complete registry; validate source surfaces
   **before** placement and saved final dots against every raster. Agree how to
   resolve the official null/NaN-outside wording versus any portal checks.

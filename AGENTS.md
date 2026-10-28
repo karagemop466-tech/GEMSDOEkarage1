@@ -10,9 +10,12 @@ peer mirrors.
 
 The historical HMAS and GPC-Z promotion statements are superseded. Their
 own recorded overlap with the registry lattice exceeds the literal protocol;
-the HMAS canary also treated a constant feature as a passing test. The current
-verdict is negative. Prior JSON records are retained for audit, not authority.
-Read docs/data/run-card.json and evidence/candidate_audit_20261028.json;
+the HMAS canary also treated a constant feature as a passing test. Session
+`arena/9d2bc03d` executed lane H-K1-BBSTEP (buried basement-step). The generated
+GeoTIFF is unique versus the nine focus sites and still a literal lattice
+duplicate (98.53% 3-px overlap). Verdict remains negative; no slot was spent.
+Read docs/data/run-card.json, evidence/bbstep_uniqueness.json and
+evidence/candidate_audit_20261028.json.
 evidence/review_2026-10-28.json is an earlier review snapshot. The HMAS pipeline and promotional page
 generators are quarantined. Build current entry pages with
 scripts/build_current_review.py or scripts/build_site.py. Do not restore old
