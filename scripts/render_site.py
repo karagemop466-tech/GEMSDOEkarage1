@@ -137,7 +137,7 @@ def decision(prefix: str):
 <div class="decision-actions"><button class="button button-disabled" disabled>No approved .tif to download</button>
 <a class="button button-light" href="{prefix}docs/executive-summary.html#audit">Research GeoTIFF is on the executive summary ↗</a>
 <a class="button button-light" href="{prefix}evidence/bbstep_uniqueness.json">Inspect uniqueness ↗</a></div>
-<p class="download-help">Name: <code>KARAGE1-BBSTEP-72312302675D</code> · note (59/140): <code>{esc(card['submission_note'])}</code>. The GeoTIFF is linked only from the labeled audit card. Portal acceptance is untested.</p></div>
+<p class="download-help">Name: <code>KARAGE1-BBSTEP-72312302675D</code> · note (59/140): <code>{esc(card['submission_note'])}</code>. The GeoTIFF is linked only from the labeled audit card. Portal acceptance is untested. <a href="{prefix}evidence/template_integrity_20261028.json">Shared-tool provenance audit ↗</a>: two vendor files differ from recorded pins; shared execution remains blocked pending upstream reconciliation.</p></div>
 <div class="decision-side"><div><span>VERDICT</span><strong>Negative · lattice duplicate</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Unavailable</strong></div><div><span>UNIQUE VS 9 SITES</span><strong>Yes · 12.6% max overlap</strong></div><a href="{prefix}docs/data/run-card.json">Current run card ↗</a></div></section>'''
 
 

@@ -1,3 +1,5 @@
+> **Session b65a5aab review: DO NOT SUBMIT.** No new raster or score was generated in this session. [Review](knowledge/session-b65a5aab-review.md) · [Session card](evidence/session_b65a5aab_run_card.json) · [Template integrity](evidence/template_integrity_20261028.json). Two vendor files differ from recorded pins; the shared runner blocks unresolved provenance. All 31 pinned mirrors were restored here, but are not organizer-authenticated. The concurrent BB-STEP work below is inherited and has not been independently validated by this session; its own verdict is negative.
+
 # GEMSDOEkarage1 — fault discovery, evidence first
 
 > **DO NOT SUBMIT.** A new GeoTIFF was generated this session
@@ -17,7 +19,7 @@ Other 28 October parallel-session reviews on `main` remain **DO NOT SUBMIT** (no
 
 **HOLDOUT-DTI 0.0318** [0.0271, 0.0363] · evaluator `gemsk-hide-recover-v1` ·
 withheld positives 60,988. This is **not** an organizer score and is **not** a
-forecast of the USER-REPORTED 0.2778.>>>>>>> origin/main
+forecast of the USER-REPORTED 0.2778.
 
 [Decision dashboard](docs/index.html) · [Executive summary and submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [BB-STEP uniqueness](evidence/bbstep_uniqueness.json) · [Current negative run card](docs/data/run-card.json) · [Research](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
