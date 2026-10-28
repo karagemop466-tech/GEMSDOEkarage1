@@ -19,8 +19,10 @@ def good():
                              whole_segment_buffered=True, pixel_exact_visible_mask=True, alpha=.2, beta=.8,
                              kernel_radius_m=300),
                 canary=dict(feature_aucs={'a': .6}, feature_status={'a': 'tested'}, expected_features=['a'],
-                            all_features_tested=True, passed=True, n_features=1, nonconstant_features_verified=True),
+                            all_features_tested=True, passed=True, n_features=1, nonconstant_features_verified=True,
+                            all_features_have_variation=True, invalid_features=[]),
                 registry=dict(complete=True, saved_bytes_checked=True, all_registry_rasters_included=True,
+                              literal_all_rasters=True, excluded_registry_rasters=[], duplicate_witnesses=[],
                               exact_ranks=True, surface_checked_before_placement=True, inventory_sha256='b'*64,
                               preplacement_inventory_sha256='b'*64, preplacement_surface_sha256='c'*64,
                               candidate_sha256='a'*64, expected_rasters=1, comparisons=[row]),
@@ -55,10 +57,13 @@ def test_promotion_never_selects_slot():
     ('canary.feature_aucs',{}),('canary.feature_aucs',{'bad':.901}),
     ('canary.feature_aucs',{'bad':float('nan')}),('canary.feature_aucs',{'bad':.05}),
     ('canary.all_features_tested',False),('canary.passed',False),('canary.n_features',2),
-    ('canary.nonconstant_features_verified',False), ('canary.feature_status',{'a':'untestable'}),
+    ('canary.nonconstant_features_verified',False), ('canary.all_features_have_variation',False),
+    ('canary.invalid_features',['a']), ('canary.feature_status',{'a':'untestable'}),
     ('canary.expected_features',['a','b']), ('holdout.evaluator_version',True),
     ('registry.complete',False),('registry.saved_bytes_checked',False),
     ('registry.all_registry_rasters_included',False),('registry.exact_ranks',False),
+    ('registry.literal_all_rasters',False),('registry.excluded_registry_rasters',['lattice']),
+    ('registry.duplicate_witnesses',['lattice']),
     ('registry.surface_checked_before_placement',False),('registry.inventory_sha256','z'*64),
     ('registry.preplacement_surface_sha256',None),('registry.preplacement_inventory_sha256','d'*64),
     ('registry.candidate_sha256','d'*64),
@@ -66,7 +71,7 @@ def test_promotion_never_selects_slot():
     ('validator.range_0_1_inside',False),('validator.all_finite_inside',False),
     ('validator.transform_match',False),('validator.outside_encoding_accepted',False),
     ('validator.template_official_authenticated',False),
-    ('raster_sha256','z'*64),('submission_note','x'*141)])
+    ('raster_sha256','z'*64),('submission_note','   '),('submission_note','x'*141)])
 def test_fail_closed(path,value):
     card=copy.deepcopy(good())
     parts=path.split('.')

@@ -8,6 +8,7 @@ reports the problem, rather than quietly changing the owner's protocol.
 from __future__ import annotations
 import hashlib
 import json
+import re
 from pathlib import Path
 import numpy as np
 import rasterio
@@ -196,16 +197,35 @@ def _sha(path):
 
 
 def records_from_index(index):
+    """Read a pinned inventory; an unauditable or incomplete index never clears.
+
+    A count and completeness declaration are necessary, but not independent
+    proof that hidden/private or unlinked submissions are represented.
+    """
     if isinstance(index, list):
         return index, False, ["Legacy list has no complete-inventory certificate; diagnostic only"]
-    if not isinstance(index, dict) or 'rasters' not in index:
-        raise ValueError('registry must be a list or a full inventory with rasters')
-    records = [dict(repo=r['repo_first'], submission=r['sources'][0], file=r['cache_file'],
-                    sha256=r['sha256'], sources=r['sources']) for r in index['rasters']]
-    # Historical /tmp inventory never had a completeness certificate; file checks
-    # below still prevent it from passing when all ephemeral caches disappear.
-    complete = index.get('complete_accessible_scan', False)
-    return records, bool(complete), index.get('errors', [])
+    if not isinstance(index, dict) or not isinstance(index.get('rasters'), list):
+        raise ValueError('registry must contain a raster inventory list')
+    records = []
+    for r in index['rasters']:
+        if (not isinstance(r, dict) or not isinstance(r.get('repo_first'), str)
+                or not r['repo_first'] or not isinstance(r.get('sources'), list)
+                or not r['sources'] or not isinstance(r['sources'][0], str)
+                or not r['sources'][0] or not isinstance(r.get('cache_file'), str)
+                or not r['cache_file'] or not isinstance(r.get('sha256'), str)
+                or not re.fullmatch(r'[0-9a-f]{64}', r['sha256'])):
+            raise ValueError('registry entry missing source, local raster, or full SHA256 pin')
+        records.append(dict(repo=r['repo_first'], submission=r['sources'][0], file=r['cache_file'],
+                            sha256=r['sha256'], sources=r['sources']))
+    errors = index.get('errors')
+    if not isinstance(errors, list):
+        raise ValueError('registry source-error ledger must be an explicit list')
+    expected = index.get('expected_raster_count', index.get('registry_rasters_expected'))
+    other = index.get('registry_rasters_expected', expected)
+    if type(expected) is not int or expected <= 0 or expected != len(records) or other != expected:
+        errors = [*errors, 'Registry count missing, zero, or inconsistent with indexed entries']
+    complete = index.get('complete_accessible_scan') is True and bool(records) and not errors
+    return records, complete, errors
 
 
 def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=None,
@@ -250,7 +270,13 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
                     if src.crs is None or src.crs.to_epsg()!=32611 or src.transform != TRANSFORM:
                         raise ValueError('registry CRS/transform mismatch')
                 theirs = src.read(1).astype(np.float32)
-            theirs = np.where(np.isfinite(theirs), theirs, 0.0)
+                valid_mask = src.read_masks(1) != 0
+            # Never turn invalid or masked in-footprint values into a passing
+            # reference. Outside the footprint may legitimately be NaN/nodata.
+            if not valid_mask[fp].all() or not np.isfinite(theirs[fp]).all():
+                raise ValueError('missing or non-finite registry value inside footprint')
+            if np.any((theirs[fp] < 0) | (theirs[fp] > 1)):
+                raise ValueError('registry values outside [0,1] inside footprint')
             # Outside-footprint values are ignored for support and pixel identity.
             theirs[~fp] = 0
             tv = theirs[fp]

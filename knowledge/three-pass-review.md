@@ -94,7 +94,7 @@ The review is not a geological experiment and does not authorize an upload.
 - Ran the saved-byte audit a second time into an ignored file and compared every
   field other than its timestamp; results matched. Re-verified all 31 cached
   mirrors. Rebuilt the pages and verified decision synchronization idempotence.
-- After integrating concurrent main changes, the local suite passed **171 tests**;
+- After integrating concurrent main changes, the local suite passed **205 tests**;
   these are software checks, not evidence of organizer acceptance or scientific
   success.
 - Four ranked geological ideas, data-source provenance, conditional B2
@@ -102,8 +102,9 @@ The review is not a geological experiment and does not authorize an upload.
   instructions are recorded. No assigned lane was supplied; no new experiment,
   new candidate TIFF or competition slot was created. The central unique-TIFF
   goal remains unmet and must not be relabeled as completed.
-- Main advanced twice concurrently. Independent saved-byte audit and prior
-  review/canary safeguards were retained; all page builders now delegate to one fail-closed renderer. Its
+- Main advanced concurrently through PRs #13–#17. Two independent saved-byte
+  reassessments and prior review/canary safeguards were retained; all page
+  builders now delegate to one fail-closed renderer. Its
   added historical snapshot was marked superseded, and the whole suite was
   rerun. A concurrent-build check exposed transient empty HTML caused by
   non-atomic writes; pages and restoration staging now use unique temporary
@@ -114,3 +115,8 @@ The independent peer review and ours agree on both saved-byte lattice counts.
 The locally added shared-comparator adapter requires a pinned lattice but still
 cannot authenticate inventory completeness or prove temporal ordering; it is
 not an upstream fix, and no current production lane is authorized.
+
+A third, independent shared-comparator reassessment was replayed from the
+restored bytes and exactly matched `evidence/release_reassessment_20261028.json`.
+The legacy 58-channel canary itself is now blocked; its strict single-feature
+helper is only a local safeguard, not an upstream-template clearance.

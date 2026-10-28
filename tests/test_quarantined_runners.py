@@ -32,8 +32,8 @@ def test_incomplete_registry_cannot_certify_preplacement(tmp_path):
     with rasterio.open(sample, 'w', driver='GTiff', count=1, dtype='float32', width=3, height=3,
                        crs='EPSG:32611', transform=from_origin(0, 300, 100, 100)) as dst:
         dst.write(a, 1)
-    report = check_preplacement_surface(a, np.ones((3, 3), bool), sample, registry_index=None)
-    assert report['passed'] is False
+    with pytest.raises(ValueError, match='registry'):
+        check_preplacement_surface(a, np.ones((3, 3), bool), sample, registry_index=None)
 
 
 def test_old_gpcz_registry_scan_cannot_exempt_lattice():

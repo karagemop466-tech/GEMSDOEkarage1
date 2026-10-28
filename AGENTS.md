@@ -23,7 +23,8 @@ Thirty-one third-party data mirrors are pinned and restorable, but their hashes
 do not establish organizer authenticity. Cached data and the shared feature
 stack are not tracked. Research-only downloads are not submission authorization.
 
-A separate independent peer audit is retained at evidence/prior_candidate_audit.json;
-its same-day review is knowledge/three-pass-review-2026-10-28.md. The shared
+Independent peer audits are retained at evidence/prior_candidate_audit.json and
+evidence/release_reassessment_20261028.json; the latter has been replayed exactly.
+The same-day peer review is knowledge/three-pass-review-2026-10-28.md. The shared
 comparison adapter is a conservative check, not proof of a complete registry
 or a substitute for fixing the authoritative upstream template.

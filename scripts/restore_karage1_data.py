@@ -16,6 +16,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path, PurePosixPath
 from urllib.parse import quote
 
@@ -52,7 +53,8 @@ def normalize_entry(entry: dict) -> dict:
     if not isinstance(source, dict) or source.get("kind") not in ("git_blob", "git_split_blob"):
         raise ValueError("unsupported manifest source")
     repo, ref = source.get("repo"), source.get("ref")
-    if not isinstance(repo, str) or not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repo):
+    if (not isinstance(repo, str) or not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repo)
+            or any(part in (".", "..") for part in repo.split("/"))):
         raise ValueError("invalid repository")
     if not isinstance(ref, str) or not re.fullmatch(r"[0-9a-f]{40}", ref):
         raise ValueError("source must be pinned to a 40-character commit")
@@ -77,10 +79,21 @@ def normalize_entry(entry: dict) -> dict:
 
 def fetch_blob(repo: str, ref: str, path: str, out_fh) -> None:
     endpoint = f"repos/{repo}/contents/{quote(path, safe='/')}?ref={ref}"
-    subprocess.run(
-        ["gh", "api", endpoint, "-H", "Accept: application/vnd.github.raw"],
-        stdout=out_fh, check=True, timeout=600,
-    )
+    start = out_fh.tell()
+    for attempt in range(3):
+        try:
+            subprocess.run(
+                ["gh", "api", endpoint, "-H", "Accept: application/vnd.github.raw"],
+                stdout=out_fh, check=True, timeout=600,
+            )
+            return
+        except (OSError, subprocess.SubprocessError):
+            # A failed blob can have emitted partial bytes, including in a split file.
+            out_fh.seek(start)
+            out_fh.truncate()
+            if attempt == 2:
+                raise
+            time.sleep(2 ** attempt)
 
 
 def restore_entry(entry: dict, dest_root: Path, *, verify_only: bool = False, fetcher=fetch_blob) -> dict:
@@ -117,6 +130,7 @@ def main() -> int:
     ap.add_argument("--data-dir", type=Path, default=None, help="Destination (default: GEMS_DATA_DIR or ./data)")
     ap.add_argument("--manifest", type=Path, default=REGISTRY_DIR / "karage1_data_manifest.json")
     ap.add_argument("--group", choices=("core", "external", "scored", "all"), default="all")
+    ap.add_argument("--id", action="append", help="Restore a specific manifest ID (repeatable)")
     ap.add_argument("--verify-only", action="store_true")
     args = ap.parse_args()
     root = args.data_dir or data_dir()
@@ -125,7 +139,13 @@ def main() -> int:
         entries = [normalize_entry(e) for e in manifest["files"]]
         if len({e["dest"] for e in entries}) != len(entries):
             raise ValueError("duplicate destinations in manifest")
-        selected = [e for e in entries if args.group == "all" or e.get("group", "scored") == args.group]
+        ids = [e["id"] for e in entries if e.get("id")]
+        if len(ids) != len(set(ids)):
+            raise ValueError("duplicate IDs in manifest")
+        if args.id and not set(args.id).issubset(ids):
+            raise ValueError("unknown manifest ID")
+        selected = [e for e in entries if (args.group == "all" or e.get("group", "scored") == args.group)
+                    and (not args.id or e.get("id") in args.id)]
         if not selected:
             raise ValueError("manifest selection is empty")
         for entry in selected:

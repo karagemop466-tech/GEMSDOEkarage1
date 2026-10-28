@@ -75,6 +75,7 @@ def assess(card):
     if (not isinstance(aucs, dict) or not aucs or canary.get("passed") is not True
             or canary.get("all_features_tested") is not True
             or canary.get("nonconstant_features_verified") is not True
+            or canary.get("all_features_have_variation") is not True or canary.get("invalid_features") != []
             or type(canary.get("n_features")) is not int or canary["n_features"] != len(aucs)
             or any(not isinstance(k, str) or not k.strip() for k in aucs)
             or not isinstance(statuses, dict) or set(statuses) != set(aucs)
@@ -91,7 +92,8 @@ def assess(card):
     expected = reg.get("expected_rasters")
     if (reg.get("complete") is not True or reg.get("saved_bytes_checked") is not True
             or reg.get("all_registry_rasters_included") is not True or reg.get("exact_ranks") is not True
-            or reg.get("surface_checked_before_placement") is not True
+            or reg.get("literal_all_rasters") is not True or reg.get("excluded_registry_rasters") != []
+            or reg.get("duplicate_witnesses") != [] or reg.get("surface_checked_before_placement") is not True
             or type(expected) is not int or expected <= 0 or not isinstance(rows, list)
             or len(rows) != expected):
         reasons.append("Complete registry inventory / pre-placement and saved-byte comparisons missing")
@@ -149,7 +151,7 @@ def assess(card):
         reasons.append("Saved raster SHA-256 missing")
     note = card.get("submission_note")
     name = card.get("submission_name")
-    if not isinstance(note, str) or not 0 < len(note) <= 140 or not isinstance(name, str) or not name.strip():
+    if not isinstance(note, str) or not note.strip() or len(note) > 140 or not isinstance(name, str) or not name.strip():
         reasons.append("Submission name / short note missing")
     # Scientific promotion is NOT a weekly slot selection or upload authorization.
     return {"verdict": "negative" if reasons else "promote", "ok_to_submit": False,

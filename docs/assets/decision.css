@@ -12,3 +12,9 @@ tbody th[scope=row] a:hover{text-decoration:underline}.snapshot a{text-decoratio
 @media(max-width:680px){.audit-grid{grid-template-columns:1fr}.audit-card{padding:22px}}
 
 .brief-pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;color:#52695e;font-size:12px;line-height:1.75}
+
+/* Current verdict remains visible on research and archive-facing pages too. */
+.site-header { height: auto; }
+.site-header .header-inner { height: 76px; }
+.global-hold { margin: 0; padding: .25rem 0 .65rem; color: #973d35; font-size: .78rem; letter-spacing: .01em; }
+@media(max-width:680px){.site-header .header-inner{height:auto}}
