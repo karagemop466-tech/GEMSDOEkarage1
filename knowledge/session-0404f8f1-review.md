@@ -75,3 +75,8 @@ comparator defect remains unresolved in its actual upstream template; a local
 adapter is not a shared fix. A live feed is not yet published by the scheduled
 artifact-only workflow. The standing brief is a reconstruction, not a verbatim
 copy of the original prompt.
+
+After merging concurrent `main` review updates into this session branch, the
+full suite was rerun: **255 passed**, 90 Rasterio warnings; the site builder
+again produced no tracked page differences. The earlier 252-test count above is
+the pre-merge result. No scientific experiments were added by the merge.
