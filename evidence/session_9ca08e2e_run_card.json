@@ -60,7 +60,10 @@
       "driver": "GTiff",
       "dtype": "float32",
       "crs": "EPSG:32611",
-      "shape": [3730, 3292],
+      "shape": [
+        3730,
+        3292
+      ],
       "no_nan_inside_footprint": true,
       "unmasked_inside_footprint": true,
       "values_in_0_1": true,
@@ -71,15 +74,40 @@
     "training_features_interior_nodata_finding": {
       "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
       "in_footprint_raw_nodata_pixels": 3073,
-      "band6_tc_strictly_positive_range": [2.9534237384796143, 88.56654357910156],
+      "band6_tc_strictly_positive_range": [
+        2.9534237384796143,
+        88.56654357910156
+      ],
       "evidence": "evidence/training_features_band_audit_20261028.json"
     }
   },
   "submission_name": null,
-  "submission_note": "NEGATIVE: unassigned lane; 23/23 audited GeoTIFFs exceed 70% 13GEMSDOE 3px lattice gate; 3073 interior nodata px flagged. Do not submit.",
+  "submission_note": "NEGATIVE: no lane; 25 audited rasters include 3px lattice duplicates; 3073 interior nodata pixels; do not submit.",
   "geological_experiments_run": 0,
   "download_available": false,
   "slot_selected_or_spent": false,
   "ok_to_submit": false,
-  "verdict": "negative"
+  "verdict": "negative",
+  "post_merge_candidate_audit": {
+    "evidence": "evidence/conduitcrest_lattice_reaudit_20261028.json",
+    "candidate": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+    "candidate_sha256": "65c9432b2cb417824b846a63ab64bf9d1035e4a9e8102f3ed2175ad48a464687",
+    "generated_by_this_session": false,
+    "candidate_dots": 17415,
+    "lattice_dots_within_3px": 17301,
+    "lattice_directed_overlap": 0.9934539190353144,
+    "lattice_binary_support_spearman": 0.000233778067251103,
+    "literal_rule_verdict": "duplicate; stop",
+    "reported_holdout_dti": {
+      "label": "HOLDOUT-DTI",
+      "value": 0.017415,
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "withheld_positives": 45260,
+      "ci95": null,
+      "status": "Prior run-card claim; no 95% CI present; not independently rerun in this audit and not organizer-confirmed."
+    },
+    "preplacement_lattice_check": false,
+    "single_feature_canary_complete": false,
+    "ok_to_submit": false
+  }
 }
