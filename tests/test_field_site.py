@@ -46,11 +46,13 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
         assert "99.93%" in text and "99.89%" in text
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())
     assert card["verdict"] == "negative" and card["ok_to_submit"] is False
-    assert card["download_available"] is False and card["slot_selected_or_spent"] is False
+    assert card["download_available"] is True and card["slot_selected_or_spent"] is False
+    assert 'not authorization' in card['download_available_meaning'].lower()
     session_card = json.loads((ROOT / 'evidence/session_run_card_5c261093.json').read_text())
     assert session_card['verdict'] == 'negative' and session_card['ok_to_submit'] is False
-    assert session_card['raster_sha256'] is None and session_card['holdout_dti']['value'] is None
-    assert session_card['submission_note'] is None or len(session_card['submission_note']) <= 140
+    assert session_card['raster_sha256'] == card['raster_sha256'] and session_card['holdout_dti']['value'] is None
+    assert session_card['research_download_available'] is True and session_card['download_available'] is False
+    assert len(session_card['submission_note']) <= 140
     assert 'evidence/session_run_card_5c261093.json' in (ROOT / 'index.html').read_text()
 
 
@@ -153,7 +155,7 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
         'docs/data/reference-audit.json', 'docs/data/run-card.json',
         'evidence/candidate_audit_20261028.json', 'evidence/run_card_hmas_sinter.json',
         'evidence/run_card_gpcz.json', 'evidence/parallel_candidates_audit_20261028.json',
-        'evidence/session_run_card_5c261093.json',
+        'evidence/session_run_card_5c261093.json', 'evidence/bbstep_independent_audit_5c261093.json',
     ]
     for rel in relative:
         target = tmp_path / rel
@@ -161,7 +163,8 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
         shutil.copyfile(ROOT / rel, target)
     audit_path = tmp_path / 'evidence/candidate_audit_20261028.json'
     audit = json.loads(audit_path.read_text())
-    for c in audit['candidates']:
+    bb_audit = json.loads((tmp_path / 'evidence/bbstep_independent_audit_5c261093.json').read_text())
+    for c in audit['candidates'] + bb_audit['candidates']:
         target = tmp_path / 'docs/downloads' / c['file']
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / 'docs/downloads' / c['file'], target)
@@ -236,6 +239,16 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
         with pytest.raises(ValueError, match='Parallel candidate evidence'):
             render_site.decision('')
     parallel_path.write_text(clean_parallel)
+    bb_path = tmp_path / 'evidence/bbstep_independent_audit_5c261093.json'
+    bb_clean = bb_path.read_text()
+    for key, value in (('directed_overlap', float('nan')), ('candidate_dots_within_3px', 20000),
+                       ('overlap_exceeds_70_percent', False)):
+        modified = json.loads(bb_clean)
+        modified['candidates'][0]['comparisons'][0][key] = value
+        bb_path.write_text(json.dumps(modified))
+        with pytest.raises(ValueError, match='BB-STEP saved-byte audit'):
+            render_site.evidence()
+    bb_path.write_text(bb_clean)
     session_path = tmp_path / 'evidence/session_run_card_5c261093.json'
     session = json.loads(session_path.read_text())
     session['download_available'] = True

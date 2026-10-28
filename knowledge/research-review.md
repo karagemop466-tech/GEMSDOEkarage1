@@ -6,9 +6,10 @@ Updated 2026-10-28 UTC. This is a **planning slate, not an assigned method
 lane, a geological experiment, a finding of a vent, or a forecast**. The current
 checkout includes historical HMAS and GPC-Z implementations, and related ideas
 exist in peer repositories. Novelty across the whole fleet has **not** been
-established. No new experiment was run in this session because the requested
-lane was not supplied and both inherited candidate TIFFs fail the literal
-registry rule.
+established. No new experiment was run in this review session because the
+requested lane was not supplied. A separate parallel session ran BB-STEP, but
+its saved TIFF fails the lattice rule and its holdout is not promotion evidence;
+see the [integration correction](review-bbstep-2026-10-28.md).
 
 ## What can the B2 result actually tell us?
 

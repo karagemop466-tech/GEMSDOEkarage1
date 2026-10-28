@@ -9,6 +9,32 @@
 
 [Latest three-pass review](knowledge/session-review-2026-10-28-5c261093.md) · [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [This session's negative run card](evidence/session_run_card_5c261093.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Parallel BB-STEP raster — research only, DO NOT SUBMIT
+
+Another session generated [BB-STEP](docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif)
+(SHA-256 `72312302675d65cd1983239dd436412b5db1118a7c08f2a5807ef436b5536d6a`;
+research note: `BB-STEP buried grav/dtb ridge; research only; DO NOT SUBMIT`).
+Our independent [saved-byte audit](evidence/bbstep_independent_audit_5c261093.json)
+finds **17,504 / 17,766 = 98.5253%** of dots within 3 px of the lattice, so
+it fails the literal >70% duplicate stop. Its strongest final-dot overlap against
+the nine pinned historical files was 2,243 / 17,766 = 12.6252% vs GEMSDOE27;
+that scoped result is not a pre-placement check or complete-registry clearance.
+The zero and NaN TIFF variants match the mirrored grid and are finite in [0,1]
+inside its footprint, but only the NaN version is null/NaN outside it. The
+mirror is not organizer-authenticated; portal acceptance is untested.
+
+The parallel session reported exploratory **HOLDOUT-DTI 0.03179**
+[0.02714, 0.03627], evaluator `gemsk-hide-recover-v1`, 60,988 positives
+assigned and 60,625 scored. It used different settings from the saved TIFF,
+local rather than agreed shared tools, and a fixed full-catalogue B2 control
+versus fold-local candidate emissions. It is not a validated score for this
+file, a fair promotion comparison or a leaderboard estimate. No owner lane
+was identified and the surface comparison occurred after placement. The
+[corrected review](knowledge/review-bbstep-2026-10-28.md) records these
+limitations; the runner is quarantined. Two vendored tool files also differ
+from their recorded pins ([integrity audit](evidence/template_integrity_20261028.json));
+shared execution remains blocked pending an upstream repair.
+
 ## Earlier follow-up — session `arena/7e7b4964-gemsdoekarage1`
 
 [Three-pass review](knowledge/session-7e7b4964-review.md) · [negative run card](evidence/session_7e7b4964_run_card.json). That session restored and reverified the 31 pinned third-party mirrors in its own runtime; their organizer provenance remains unverified and its cache is not this checkout's cache. Preflight now flags that the mirrored labels and existing-fault files have identical bytes, without claiming this alone proves leakage. The assigned lane and shared cache remain missing. No new TIFF, holdout, score estimate or slot selection was made. **Do not submit.**
@@ -101,8 +127,9 @@ or unavailable sources make the workflow check fail. It does not scrape
 DrivenData or grant submission permission. The full review also
 records a shared-metric documentation counterexample and an upstream issue
 creation blocked by integration permissions. After incorporating parallel
-safeguards, 288 tests passed (90 Rasterio pending-deprecation warnings). No
-new experiment, TIFF, estimate, or slot selection was made.
+safeguards and the BB-STEP audit, 304 tests passed (90 Rasterio
+pending-deprecation warnings). No new experiment, TIFF, estimate, or slot
+selection was made in this review.
 
 ## Earlier follow-up: release-gate consistency
 

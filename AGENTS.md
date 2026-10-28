@@ -15,9 +15,14 @@ peer mirrors.
 
 The historical HMAS and GPC-Z promotion statements are superseded. Their
 own recorded overlap with the registry lattice exceeds the literal protocol;
-the HMAS canary also treated a constant feature as a passing test. The current
-verdict is negative. Prior JSON records are retained for audit, not authority.
-Read docs/data/run-card.json and evidence/candidate_audit_20261028.json;
+the HMAS canary also treated a constant feature as a passing test. A parallel
+session generated the BB-STEP research GeoTIFF without an identified owner
+lane or the agreed shared evaluator/writer. Its saved dots pass the scoped
+nine-site overlap test but duplicate the lattice (98.53%); its surface check
+was not performed before placement. Verdict is negative; no slot was spent.
+The BB-STEP runner is quarantined. Read docs/data/run-card.json,
+evidence/bbstep_independent_audit_5c261093.json and
+knowledge/review-bbstep-2026-10-28.md.
 evidence/review_2026-10-28.json is an earlier review snapshot. The HMAS pipeline and promotional page
 generators are quarantined. Build current entry pages with
 scripts/build_current_review.py or scripts/build_site.py. Do not restore old

@@ -144,20 +144,29 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--cache", type=Path, default=ROOT / ".cache/references")
     ap.add_argument("--manifest", type=Path, default=ROOT / "registry/reference_assets.json")
-    ap.add_argument("--out", type=Path, default=ROOT / "evidence/candidate_audit_20261028.json")
+    ap.add_argument("--candidate", type=Path, action="append",
+                    help="Existing TIFF to audit; repeat for multiple files. Defaults to the two historical files.")
+    ap.add_argument("--out", type=Path, help="Report path; required with custom candidates.")
     args = ap.parse_args()
+    if args.candidate and args.out is None:
+        ap.error("--out is required with --candidate to avoid overwriting the historical audit")
+    output = args.out or ROOT / "evidence/candidate_audit_20261028.json"
     try:
         entries = refs.load_manifest(args.manifest)
-        paths = [ROOT / "docs/downloads" / name for name in CANDIDATES]
+        paths = args.candidate if args.candidate else [ROOT / "docs/downloads" / name for name in CANDIDATES]
+        sources = [args.manifest, *paths, *(args.cache / (x['id'] + '.tif') for x in entries)]
+        if any(output.resolve() == path.resolve() or
+               (output.exists() and path.exists() and output.samefile(path)) for path in sources):
+            raise ValueError("report output must not overwrite a source file")
         report = audit(args.cache, paths, entries)
-        args.out.parent.mkdir(parents=True, exist_ok=True)
-        tmp = args.out.with_suffix(args.out.suffix + ".tmp")
+        output.parent.mkdir(parents=True, exist_ok=True)
+        tmp = output.with_suffix(output.suffix + ".tmp")
         tmp.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
-        tmp.replace(args.out)
+        tmp.replace(output)
     except (OSError, ValueError) as exc:
         print(f"AUDIT BLOCKED: {exc}", file=sys.stderr)
         return 2
-    print(f"Audit written to {args.out}; no upload is authorized.")
+    print(f"Audit written to {output}; no upload is authorized.")
     return 0
 
 

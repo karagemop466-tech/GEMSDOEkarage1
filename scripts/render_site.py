@@ -51,6 +51,70 @@ def strongest_peer_witness(name: str, ref: dict) -> tuple[float, str]:
     return strongest
 
 
+def bbstep_evidence(card: dict, assets: dict) -> dict:
+    """Validate the parallel TIFF's saved-byte negative audit, not its holdout."""
+    report = json.loads((ROOT / 'evidence/bbstep_independent_audit_5c261093.json').read_text())
+    candidates = report.get('candidates')
+    if (report.get('registry_complete') is not False or report.get('upload_authorized') is not False
+            or report.get('preplacement_surfaces_checked') is not False
+            or report.get('lattice_sha256') != assets['lattice']['sha256']
+            or not isinstance(candidates, list) or len(candidates) != 2):
+        raise ValueError('BB-STEP saved-byte audit incomplete')
+    stem = 'karage1-bbstep-buried-basement-20261028T180000Z'
+    for candidate, suffix, outside_null in zip(candidates, ('zeros', 'nan'), (False, True)):
+        filename = f'{stem}-{suffix}.tif'
+        rows, checks = candidate.get('comparisons'), candidate.get('format_checks')
+        if (candidate.get('file') != filename or candidate.get('verdict') != 'duplicate'
+                or candidate.get('ok_to_submit') is not False
+                or candidate.get('sha256') != hashlib.sha256((DOCS / 'downloads' / filename).read_bytes()).hexdigest()
+                or not isinstance(rows, list) or len(rows) != 10
+                or not isinstance(checks, dict)
+                or any(checks.get(k) is not True for k in ('single_band', 'float32',
+                    'crs_shape_transform_match_mirror', 'no_nonfinite_inside', 'inside_values_in_0_1'))
+                or checks.get('outside_all_null_or_nan') is not outside_null):
+            raise ValueError('BB-STEP saved-byte audit incomplete')
+        by_id = {row.get('reference'): row for row in rows}
+        if set(by_id) != {'lattice', *SITES}:
+            raise ValueError('BB-STEP saved-byte audit incomplete')
+        for name, row in by_id.items():
+            count, hits, overlap = row.get('candidate_dots'), row.get('candidate_dots_within_3px'), row.get('directed_overlap')
+            if (row.get('reference_sha256') != assets[name]['sha256']
+                    or type(count) is not int or count <= 0 or count != candidate.get('positive_pixels_in_footprint')
+                    or type(hits) is not int or not 0 <= hits <= count
+                    or type(overlap) not in (int, float) or not 0 <= overlap <= 1
+                    or not math.isfinite(overlap) or abs(overlap - hits / count) > 1e-12
+                    or row.get('overlap_exceeds_70_percent') is not (hits * 10 > count * 7)):
+                raise ValueError('BB-STEP saved-byte audit incomplete')
+        if by_id['lattice']['overlap_exceeds_70_percent'] is not True:
+            raise ValueError('BB-STEP saved-byte audit incomplete')
+    zeros = candidates[0]
+    note = card.get('submission_note')
+    corr = card.get('correlation_overlap_vs_registry')
+    holdout = card.get('holdout_dti')
+    if (card.get('submission_name') != zeros['file'] or card.get('raster_sha256') != zeros['sha256']
+            or card.get('download_available') is not True
+            or 'not authorization' not in card.get('download_available_meaning', '').lower()
+            or not isinstance(note, str) or len(note) > 140 or 'DO NOT SUBMIT' not in note
+            or not isinstance(corr, dict) or corr.get('lattice_duplicate_literal') is not True
+            or corr.get('registry_complete') is not False
+            or corr.get('lattice_overlap') != zeros['comparisons'][0]['directed_overlap']
+            or not isinstance(holdout, dict) or holdout.get('label') != 'HOLDOUT-DTI'
+            or not isinstance(holdout.get('evaluator_version'), str)
+            or type(holdout.get('withheld_positives')) is not int or holdout['withheld_positives'] <= 0
+            or type(holdout.get('scored_positives_after_active_mask')) is not int
+            or not 0 < holdout['scored_positives_after_active_mask'] <= holdout['withheld_positives']
+            or 'different settings' not in holdout.get('status', '').lower()
+            or card.get('beats_b2_on_holdout') is not None):
+        raise ValueError('BB-STEP research card does not match saved bytes')
+    value, ci = holdout.get('value'), holdout.get('ci95')
+    if (type(value) not in (int, float) or not 0 <= value <= 1 or not math.isfinite(value)
+            or not isinstance(ci, list) or len(ci) != 2
+            or any(type(x) not in (int, float) or not 0 <= x <= 1 or not math.isfinite(x) for x in ci)
+            or not ci[0] <= value <= ci[1]):
+        raise ValueError('BB-STEP reported exploratory holdout is malformed')
+    return zeros
+
+
 def evidence():
     claims = json.loads((ROOT / 'registry/historical_claims.json').read_text())
     entries = json.loads((ROOT / 'registry/reference_assets.json').read_text())
@@ -64,8 +128,8 @@ def evidence():
             or audit.get('upload_authorized') is not False or audit.get('registry_complete') is not False
             or session.get('verdict') != 'negative' or session.get('ok_to_submit') is not False
             or session.get('download_available') is not False or session.get('slot_selected_or_spent') is not False
-            or session.get('raster_sha256') is not None or type(session.get('geological_experiments_run')) is not int
-            or session['geological_experiments_run'] != 0
+            or session.get('research_download_available') is not True
+            or type(session.get('geological_experiments_run')) is not int or session['geological_experiments_run'] != 0
             or not isinstance(holdout, dict) or holdout.get('value') is not None):
         raise ValueError('site evidence incomplete or not fail-closed')
     assets = {a['id']: a for a in entries}
@@ -89,7 +153,7 @@ def evidence():
             raise ValueError(f'bad reference evidence for {name}')
         strongest_peer_witness(name, ref)
     candidates = audit.get('candidates', [])
-    if len(candidates) != 2 or card.get('download_available') is not False or card.get('slot_selected_or_spent') is not False:
+    if len(candidates) != 2 or card.get('slot_selected_or_spent') is not False:
         raise ValueError('candidate or slot decision incomplete')
     historical = (json.loads((ROOT / 'evidence/run_card_hmas_sinter.json').read_text()),
                   json.loads((ROOT / 'evidence/run_card_gpcz.json').read_text()))
@@ -118,8 +182,11 @@ def evidence():
                 or any(type(checks.get(key)) is not int or checks[key] != 0 for key in required_zero)
                 or checks.get('outside_all_null_or_nan') is not False):
             raise ValueError(f'candidate audit and saved bytes disagree: {c["file"]}')
-    if card['raster_sha256'] != candidates[0]['sha256']:
-        raise ValueError('current card does not identify the audited artifact')
+    bb = bbstep_evidence(card, assets)
+    if (session.get('raster_sha256') != bb['sha256'] or session.get('submission_name') != bb['file']
+            or session.get('submission_note') != card['submission_note']
+            or session.get('correlation_overlap_vs_registry', {}).get('final_lattice_overlap') != bb['comparisons'][0]['directed_overlap']):
+        raise ValueError('session card does not match the independently audited research TIFF')
     return claims, assets, ref, audit, card
 
 
@@ -226,22 +293,38 @@ def parallel_candidates(assets: dict) -> tuple[dict, dict]:
 
 
 def decision(prefix: str):
-    _, assets, _, audit, _ = evidence()
+    _, assets, _, audit, card = evidence()
     a, b = audit['candidates']
     ar, br = a['comparisons'][0], b['comparisons'][0]
     td, ctws = parallel_candidates(assets)
+    bb = bbstep_evidence(card, assets)
+    lattice = bb['comparisons'][0]
+    focus = max((r for r in bb['comparisons'] if r['reference'] != 'lattice'), key=lambda r: r['directed_overlap'])
+    holdout = card['holdout_dti']
     return f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> CURRENT SUBMISSION DECISION <span class="status-tag">DO NOT SUBMIT</span></div>
-<h2 id="decision-title">No eligible submission file yet.</h2><p>Both previously promoted files fail the required registry proximity rule. The saved HMAS file has <strong>{ar['directed_overlap']:.2%}</strong> of its dots within 3 pixels of the registered lattice; GPC-Z has <strong>{br['directed_overlap']:.2%}</strong>. The limit is 70%. A different hash is not enough to prove uniqueness.</p>
-<p>Parallel PR candidates TD-KSCK and CTWS-2D also fail this rule: <strong>{td['directed_overlap']:.2%}</strong> and <strong>{ctws['directed_overlap']:.2%}</strong> within 3 pixels of the same lattice. Their alternative pass reports excluded that witness. <a href="{prefix}knowledge/parallel-candidate-audit-2026-10-28.md">Review the independent audit ↗</a></p>
-<div class="decision-actions"><button class="button button-disabled" disabled>No approved .tif to download</button><a class="button button-light" href="{prefix}docs/executive-summary.html">Read the submission guide ↗</a><a class="button button-light" href="{prefix}evidence/candidate_audit_20261028.json">Inspect the audit ↗</a></div>
-<p class="download-help">No new experiment or competition upload was run in this review. A separate selector decides a weekly slot only after all gates pass. <a href="{prefix}evidence/session_5b69d76e_prior_audit.json">Replayed lattice audit ↗</a></p></div>
-<div class="decision-side"><div><span>VERDICT</span><strong>Negative · duplicate</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Unavailable</strong></div><div><span>PRE-PLACEMENT SURFACE</span><strong>Not available</strong></div><a href="{prefix}evidence/session_run_card_5c261093.json">Session run card ↗</a></div></section>'''
+<h2 id="decision-title">No eligible submission file yet.</h2><p>A parallel session generated the BB-STEP research TIFF. Our saved-byte replay finds <strong>{lattice['candidate_dots_within_3px']:,} / {lattice['candidate_dots']:,} dots ({lattice['directed_overlap']:.2%})</strong> within 3 pixels of the registered lattice: above the 70% stop. Its strongest final-dot overlap among the nine historical files is {focus['directed_overlap']:.2%} ({esc(focus['reference'])}), but the full registry and a pre-placement check remain unresolved. <strong>DO NOT SUBMIT.</strong></p>
+<p>The parallel session reported an exploratory HOLDOUT-DTI of {holdout['value']:.4f} [{holdout['ci95'][0]:.4f}, {holdout['ci95'][1]:.4f}], evaluator {esc(holdout['evaluator_version'])}, {holdout['withheld_positives']:,} withheld positives ({holdout['scored_positives_after_active_mask']:,} scored). It used different settings from the saved raster and an incomparable fixed B2 control. It is not a validated score for this TIFF or a leaderboard estimate. <a href="{prefix}knowledge/review-bbstep-2026-10-28.md">Review the limitations ↗</a></p>
+<p>Previously promoted HMAS and GPC-Z also fail the lattice stop ({ar['directed_overlap']:.2%} and {br['directed_overlap']:.2%}). Parallel PR candidates TD-KSCK and CTWS-2D fail it at {td['directed_overlap']:.2%} and {ctws['directed_overlap']:.2%}. A different hash is not enough to prove uniqueness.</p>
+<div class="decision-actions"><button class="button button-disabled" disabled>No approved .tif to download</button><a class="button button-light" href="{prefix}docs/executive-summary.html#audit">Research-only downloads ↗</a><a class="button button-light" href="{prefix}evidence/bbstep_independent_audit_5c261093.json">Inspect the saved-byte audit ↗</a></div>
+<p class="download-help">No experiment or upload was run in this review. Shared execution is blocked by an unresolved assignment and two mismatched vendor pins. <a href="{prefix}evidence/template_integrity_20261028.json">Template integrity audit ↗</a></p></div>
+<div class="decision-side"><div><span>VERDICT</span><strong>Negative · duplicate</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Unavailable</strong></div><div><span>PRE-PLACEMENT CHECK</span><strong>Not established</strong></div><a href="{prefix}evidence/session_run_card_5c261093.json">Session run card ↗</a></div></section>'''
 
 
 def comparison(prefix: str):
+    _, assets, _, _, card = evidence()
+    bb = bbstep_evidence(card, assets)
+    lat = bb['comparisons'][0]
+    focus = max((r for r in bb['comparisons'] if r['reference'] != 'lattice'), key=lambda r: r['directed_overlap'])
+    ours = (f'<tr><th scope="row">GEMSDOEkarage1</th><td><a class="file-link" href="{prefix}docs/executive-summary.html#audit">'
+            f'{esc(bb["file"])}</a><span class="cell-sub">Parallel research file · not cleared</span></td>'
+            '<td>Not validated<span class="cell-sub">Exploratory holdout is not the saved file</span></td>'
+            '<td>Unavailable<span class="cell-sub">No defensible forecast</span></td>'
+            f'<td><span class="pill pill-red">NO</span><span class="cell-sub">{lat["directed_overlap"]:.2%} vs lattice; '
+            f'{focus["directed_overlap"]:.2%} maximum final-dot overlap vs nine</span></td>'
+            '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>')
     return f'''<section class="section comparison" id="comparison"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> HISTORICAL REFERENCE</p><h2>Nine sites. One careful decision.</h2><p>The highest figures supplied for each site are unverified user reports, not file-linked organizer receipts. They are not predictions of a new file's score. For each historical file the table shows its strongest directional overlap with one of the other eight, plus the lattice witness. None is recommended for resubmission; this is not a complete registry audit.</p></div></div>
-<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>Historical file · research only</th><th>Historical report</th><th>New score estimate</th><th>Unique vs eight?</th><th>Action</th></tr></thead><tbody>{rows_for(prefix)}</tbody></table></div></div></section>'''
+<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>File · research only</th><th>Result / report</th><th>New score estimate</th><th>Uniqueness</th><th>Action</th></tr></thead><tbody>{ours}{rows_for(prefix)}</tbody></table></div></div></section>'''
 
 
 def home(depth=0):
@@ -256,21 +339,23 @@ def home(depth=0):
 
 def guide(depth=1):
     p = '../' * depth
-    _, _, _, audit, _ = evidence()
+    _, assets, _, audit, card = evidence()
     cand = audit['candidates']
-    cards = []
+    bb = bbstep_evidence(card, assets)
+    lattice = bb['comparisons'][0]
+    cards = [f'''<article class="audit-card"><p class="eyebrow">PARALLEL RESEARCH ARTIFACT · BB-STEP</p><h3>DO NOT SUBMIT</h3><p><code class="wrap">{esc(bb['file'])}</code></p><p>SHA-256 <code class="wrap">{bb['sha256']}</code></p><p>{lattice['candidate_dots_within_3px']:,} / {lattice['candidate_dots']:,} dots within 3 px of lattice ({lattice['directed_overlap']:.2%}) · duplicate. Its zeros version passes local in-footprint range and mirror-grid checks but is not null outside; portal acceptance is untested.</p><p>Research note: <code>{esc(card['submission_note'])}</code></p><a class="text-link" href="{p}docs/downloads/{quote(bb['file'])}" download>Download for research only ↗</a></article>''']
     for label, c in zip(('HMAS-SINTER', 'GPC-Z'), cand):
         row = c['comparisons'][0]
         cards.append(f'''<article class="audit-card"><p class="eyebrow">HISTORICAL ARTIFACT · {label}</p><h3>DO NOT SUBMIT</h3><p><code class="wrap">{esc(c['file'])}</code></p><p>SHA-256 <code class="wrap">{c['sha256']}</code></p><p>{row['candidate_dots_within_3px']:,} / {row['candidate_dots']:,} dots within 3 px of lattice ({row['directed_overlap']:.2%}) · duplicate. Mirror-grid and inside [0,1] checks pass; null/NaN-outside check fails. Portal acceptance is untested.</p><a class="text-link" href="{p}docs/downloads/{quote(c['file'])}" download>Download for research only ↗</a></article>''')
     return f'''<div class="page-top"><span>OVERVIEW <span class="separator">/</span> EXECUTIVE SUMMARY</span><span class="page-date">REVIEWED 28 OCT 2026</span></div><section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> THE SUBMISSION CHECKLIST</p><h1>One file. <em>Evidence first.</em></h1><p>What to submit, when—and why today's answer is no.</p></section>{decision(p)}
-<section class="section" id="audit"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SAVED-BYTE CHECK</p><h2>Two prior files, both blocked.</h2><p>Research downloads are explicitly not submission recommendations. The comparisons cover a pinned lattice and one historical raster from each focus site, not the complete registry.</p></div></div><div class="audit-grid">{''.join(cards)}</div><p class="body-copy">The official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#submission-format">format description</a> says data outside the bounds should be null or NaN. These files use zeros outside the mirrored footprint. A strict all-finite check and a null/NaN-outside check are different diagnostics; neither establishes actual portal acceptance. The rejected original file was not supplied, so the cause of its range error is unknown.</p></section>
+<section class="section" id="audit"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SAVED-BYTE CHECK</p><h2>Three research files, all blocked.</h2><p>Research downloads are explicitly not submission recommendations. The comparisons cover a pinned lattice and one historical raster from each focus site, not the complete registry.</p></div></div><div class="audit-grid">{''.join(cards)}</div><p class="body-copy">The official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#submission-format">format description</a> says data outside the bounds should be null or NaN. These files use zeros outside the mirrored footprint. A strict all-finite check and a null/NaN-outside check are different diagnostics; neither establishes actual portal acceptance. The rejected original file was not supplied, so the cause of its range error is unknown.</p></section>
 {comparison(p)}{source_monitor()}<section class="section" id="steps"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> FOR A FUTURE CLEARED CANDIDATE</p><h2>How to submit, once eligible.</h2><p>These steps are not permission to upload either historical artifact.</p></div></div><div class="steps-grid"><article><span>01 / EVIDENCE</span><h3>Pass the automated gates</h3><p>Use the shared evaluator, fold-local features and per-feature canaries. Beat a frozen comparable holdout best; audit surface and dots against the complete registry; reopen the TIFF and validate saved bytes.</p></article><article><span>02 / SELECTOR</span><h3>Choose a slot separately</h3><p>Only an independent selector may choose an eligible candidate and check the current allowance on the authenticated submission page. The September rules say three submissions per week.</p></article><article><span>03 / DOWNLOAD</span><h3>Choose the exact file</h3><p>Download the approved single-band GeoTIFF (or a ZIP containing one GeoTIFF). Check its displayed SHA-256, unique name and note of at most 140 characters.</p></article><article><span>04 / UPLOAD</span><h3>Use the official form</h3><p>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData</a>, select Submit → Make new submission, choose the .tif or ZIP, and paste the note. Retain the file-linked organizer receipt.</p></article></div><div class="notice guide-notice"><span aria-hidden="true">ⓘ</span><p>The <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official rules</a> require disclosure of generative-AI use in the narrative when applicable. Public leaderboard performance is not the private final score.</p></div></section>'''
 
 
 def research(depth=1):
     p = '../' * depth
     return f'''<div class="page-top"><span>OVERVIEW <span class="separator">/</span> RESEARCH</span><span class="page-date">REVIEWED 28 OCT 2026</span></div><section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> SCIENCE BEFORE SCORING</p><h1>Understand the ground.<br><em>Respect the unknown.</em></h1><p>The target is previously unmapped geological faults, not direct proof of a geothermal vent.</p></section>
-<section class="notice"><span aria-hidden="true">ⓘ</span><p><strong>Research only:</strong> The ideas below are qualitative proposals. No assigned lane or validated new candidate is available, and novelty across all peer work is unverified.</p></section>
+<section class="notice"><span aria-hidden="true">ⓘ</span><p><strong>Research only:</strong> A parallel BB-STEP run produced a lattice duplicate without an assigned lane or the agreed shared tools. Its exploratory holdout does not validate the saved TIFF. The four proposals below remain qualitative; novelty across all peer work is unverified. <a href="{p}knowledge/review-bbstep-2026-10-28.md">See the integration correction ↗</a></p></section>
 <section class="section detail-grid" id="b2"><div><p class="eyebrow"><span class="eyebrow-line"></span> WHAT THE BYTES SHOW</p><h2>Why B2 may have worked.</h2></div><div class="prose-card"><p>The mirrored B2 mask is exactly the GEMSDOE25 parent minus 6,436 dots within 2 pixels of the visible catalogue. That geometric relationship is measurable; its effect on hidden-label DTI is not.</p><p>For the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">organizer metric</a>, deleting predictions helps only if the saved false-positive penalty outweighs the loss of distance-weighted true coverage. Spacing can reduce redundant mass; deleting near a catalogue can also miss a nearby new fault. A controlled, identical-fold ablation is needed.</p><p>The reported 0.2778 is an unverified user report. No experiment here establishes a higher leaderboard result.</p></div></section>
 <section class="section" id="hypotheses"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> RANKED HYPOTHESES · NOT EXECUTED</p><h2>Four ideas worth testing.</h2><p>Ordering reflects qualitative promise relative to cost, not a predicted DTI improvement. The first requires the shared cached layers and an assigned lane; it has not passed holdout.</p></div></div><div class="hypothesis-grid">
 <article class="hypothesis-card"><span class="hypothesis-rank">01 <span>MEDIUM COST</span></span><h3>Signed multiscale offsets</h3><p>Use RTP magnetics, isostatic gravity and detrended elevation: compare oriented, signed cross-profiles at two scales. Stable offsets may indicate a buried discontinuity without a mapped scarp.</p><div><b>Confounders:</b> lithologic contacts, volcanic flow edges and survey artifacts.</div><small>Proposes paired magnetic–gravity displacement, but HMAS already measures gravity-crest migration; distinctness requires verification.</small></article>

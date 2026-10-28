@@ -10,6 +10,9 @@ from scripts import shared_tools
 @pytest.fixture
 def workspace(tmp_path, monkeypatch):
     monkeypatch.setattr(shared_tools, 'ROOT', tmp_path)
+    # Isolate input-readiness tests from the separate provenance interlock.
+    monkeypatch.setattr(shared_tools, 'template_integrity_audit',
+                        lambda root: {'execution_authorized': True})
     (tmp_path / 'registry').mkdir()
     return tmp_path
 
@@ -63,6 +66,16 @@ def test_blocked_execution_never_bootstraps(workspace, monkeypatch, command):
     with pytest.raises(SystemExit, match='BLOCKED'):
         shared_tools.main()
 
+
+def test_provenance_failure_blocks_even_with_valid_lane_and_all_inputs(workspace, monkeypatch):
+    configure(workspace, 'assigned-lane')
+    monkeypatch.setattr(shared_tools, 'template_integrity_audit',
+                        lambda root: {'execution_authorized': False, 'problems': ['mismatch']})
+    assert not shared_tools.preflight()['ready_for_shared_tools']
+    monkeypatch.setattr(sys, 'argv', ['shared_tools.py', 'evaluate'])
+    monkeypatch.setattr(shared_tools, 'bootstrap', lambda: pytest.fail('unsafe bootstrap'))
+    with pytest.raises(SystemExit, match='shared-template provenance'):
+        shared_tools.main()
 
 def test_identical_data_roles_are_flagged_but_not_called_leakage(workspace):
     configure(workspace, 'assigned-lane')

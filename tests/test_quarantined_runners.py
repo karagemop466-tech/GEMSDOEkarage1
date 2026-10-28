@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
     ['scripts/run_experiment1_screen.py'],
     ['scripts/run_experiment2_gpcz.py'],
     ['scripts/run_experiment3_build.py'],
+    ['scripts/run_bbstep_experiments.py'],
 ])
 def test_old_experiment_entrypoints_fail_closed(command):
     result = subprocess.run([sys.executable, *command], cwd=ROOT, capture_output=True, text=True)
