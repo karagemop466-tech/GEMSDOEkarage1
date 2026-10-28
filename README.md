@@ -5,9 +5,39 @@
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Shared-template audit](evidence/shared_template_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_a2fe7ce0_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
-## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
+## Latest review — 28 October 2026, session `arena/a2fe7ce0-gemsdoekarage1`
+
+**DO NOT SUBMIT — no new candidate TIFF exists.** The current runtime restored
+and hash-verified 16 third-party mirror inputs and built the pinned template's
+35-channel float32 cache (`3730 × 3292 × 35`, 1,719,082,528 bytes, SHA-256
+`f95486ffa937e0237c53c5e7f59e49cc142825ae5ea56b166d64dcbfeef5bdc0`).
+Those ignored bytes may not persist and are not organizer-authenticated. Data
+placement is no longer the immediate local blocker, but it is not sufficient.
+
+An unchanged replay of the reviewed shared-template pin found that its claimed
+15-pixel buffered holdout has a measured minimum truth-to-visible distance of
+**2 pixels** in every cell; **15,705 / 22,232** withheld-positive pixel
+instances lie inside the claimed collar, and 76 selected connected-component
+instances are only partly scored. A deliberately leaking full-catalogue static
+input is still nested under a `HOLDOUT-DTI` label and numerically returns
+`1.0 [1.0, 1.0]`; this is explicitly **INVALID-HOLDOUT / LEAKAGE-CANARY**, not a
+score. The defects were reported centrally as [upstream issue 60](https://github.com/buffedlizard55-lab/GEMSDOE32/issues/60)
+and [issue 61](https://github.com/buffedlizard55-lab/GEMSDOE32/issues/61), alongside
+open cache/filter [issues 49](https://github.com/buffedlizard55-lab/GEMSDOE32/issues/49)
+and [53](https://github.com/buffedlizard55-lab/GEMSDOE32/issues/53). No private
+fork was made.
+
+The prompt still provides no single method-lane paragraph. Preflight now binds
+the exact shared checkout, tool bytes and six runtime assets (including the
+1.7 GB cache) to a machine-readable contract and blocks even with all local
+inputs present. No geological experiment, score estimate, uniqueness
+claim, portal upload, or weekly-slot selection occurred. See the [three-pass
+review](knowledge/session-a2fe7ce0-review.md), [tool/cache evidence](evidence/shared_template_audit_20261028.json),
+and [session run card](evidence/run_card_arena_a2fe7ce0_20261028.json).
+
+## Prior review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
 The previously reported lattice failure was independently replayed from pinned
 mirrors: 38,174/38,200 historical HMAS dots and 35,959/36,000 historical GPC-Z
@@ -205,8 +235,10 @@ python -m pip install -r requirements.txt
 # Public GitHub mirrors, not a DrivenData download:
 bash scripts/download_competition_data.sh --data-dir .cache/gems_data
 bash scripts/download_competition_data.sh --data-dir .cache/gems_data --verify-only
-python scripts/shared_tools.py preflight        # lane and shared feature stack currently missing
-python scripts/build_site.py                     # deterministic, negative decision pages
+python scripts/shared_tools.py bootstrap
+python scripts/shared_tools.py audit --report-only  # negative until the upstream contract is fixed
+python scripts/shared_tools.py preflight            # currently blocked by lane + contract, not input placement
+python scripts/build_site.py                        # deterministic, negative decision pages
 python -m pytest -q
 ```
 
@@ -227,13 +259,18 @@ upstream template.
 
 ## Remaining work and next session
 
-- Obtain the method-lane paragraph and identify one authoritative upstream
-  template/cache. Resolve the dense lattice protocol conflict with the owner;
-  don't evade it by renaming, jittering or weakening the rule.
+- Obtain the missing method-lane paragraph. Resolve the dense lattice protocol
+  conflict without renaming, jittering or weakening the literal rule.
+- Resolve shared-template issues [49](https://github.com/buffedlizard55-lab/GEMSDOE32/issues/49),
+  [53](https://github.com/buffedlizard55-lab/GEMSDOE32/issues/53),
+  [60](https://github.com/buffedlizard55-lab/GEMSDOE32/issues/60) and
+  [61](https://github.com/buffedlizard55-lab/GEMSDOE32/issues/61) centrally;
+  publish immutable tool/cache hashes and rerun the contract. Do not retain a
+  downstream evaluator fork.
 - Establish an authenticated, complete registry; validate source surfaces
   **before** placement and saved final dots against every raster. Agree how to
   resolve the official null/NaN-outside wording versus any portal checks.
-- Authenticate official data and use the shared whole-segment buffered
+- Authenticate official data and use a corrected shared whole-segment buffered
   hide-and-recover evaluator. Recompute catalogue features from visible faults
   within every fold; mask known pixels exactly; run every feature solo for
   leakage. Establish a frozen same-evaluator holdout best and paired 95% CI.
@@ -255,7 +292,7 @@ precedence over assumptions in older summaries.
 
 # Standing brief (the user's prompt) — read at the start of every session
 
-**Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
+**Provenance note:** this is a normalized standing requirements record assembled from the current and prior user requests, not a verbatim chat transcript. Repeated score/site ledgers are preserved in the repository registries rather than duplicated here. Apply newer explicit instructions first; never claim this file proves the exact wording of the original chat.
 
 ## Arena Core Values (keep as focus)
 

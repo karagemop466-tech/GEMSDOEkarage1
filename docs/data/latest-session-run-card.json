@@ -1,0 +1,88 @@
+{
+  "schema": "karage1-run-card-v2",
+  "created_utc": "2026-10-28T16:47:00+00:00",
+  "session": "arena/a2fe7ce0-gemsdoekarage1",
+  "hypothesis": "Unassigned. Signed multiscale magnetic-gravity edge displacement remains the highest-ranked research proposal, not an active method lane.",
+  "mechanism": "A concealed fault may produce a scale-persistent relative displacement of signed RTP-magnetic and isostatic-gravity gradients with terrain context; no geological model was fit or evaluated.",
+  "named_non_fault_mimic": "Lithologic contacts, volcanic flow margins, remanent magnetization, and survey-leveling boundaries can create similar potential-field offsets without a fault.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run. The prompt supplies no method-lane paragraph, and the pinned shared evaluator fails the requested buffered whole-segment contract."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "status": "Not run because no candidate surface or final dots were generated.",
+    "historical_negative_witness": "Existing HMAS, GPC-Z, TD-KSCK and CTWS-2D artifacts remain rejected by the previously recorded lattice audits; those are not this session's candidate."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "Not run; no new raster exists."
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "geological_experiments_run": 0,
+  "software_leakage_canaries_run": 1,
+  "candidate_rasters_generated": 0,
+  "submission_slots_selected_or_spent": 0,
+  "project_validation": {
+    "root_pytest": "248 passed",
+    "reviewed_upstream_pytest": "259 passed, 10 skipped, 3 subtests passed",
+    "strict_shared_audit_exit": 1,
+    "report_only_shared_audit_exit": 0,
+    "preflight_exit": 1,
+    "rendered_decision_pages": 32,
+    "strict_json": true,
+    "public_evidence_copies_byte_identical": true,
+    "status": "PASS for a fail-closed negative deliverable; not candidate or submission validation."
+  },
+  "shared_cache": {
+    "status": "Built locally from hash-pinned third-party mirrors; ignored bytes may not persist and are not organizer-authenticated.",
+    "shape": [3730, 3292, 35],
+    "dtype": "float32",
+    "bytes": 1719082528,
+    "sha256": "f95486ffa937e0237c53c5e7f59e49cc142825ae5ea56b166d64dcbfeef5bdc0"
+  },
+  "shared_template_audit": {
+    "repository": "buffedlizard55-lab/GEMSDOE32",
+    "commit": "e56a10a9d2f218c05ea66c5a5b7228bb780bb5a7",
+    "audit_sha256": "763d0e0c41a93924e6671331559aa3beccfa20985f734b74d4332f50f38d9208",
+    "contract_sha256": "8c2f480e420d8bab36b1ca7cdd45159302a55564f6ad62a26450c00a6d35639b",
+    "protocol_compatible": false,
+    "claimed_buffer_px": 15,
+    "measured_minimum_truth_to_visible_px": 2.0,
+    "withheld_positive_pixel_instances": 22232,
+    "within_claimed_buffer": 15705,
+    "partially_scored_component_instances": 76,
+    "invalid_full_catalogue_canary": {
+      "evidence_class": "INVALID-HOLDOUT / LEAKAGE-CANARY",
+      "tool_mislabeled_as": "HOLDOUT-DTI",
+      "numeric_output_not_a_score": 1.0,
+      "ci95_not_valid_holdout_evidence": [1.0, 1.0]
+    },
+    "upstream_issues": [
+      "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/49",
+      "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/53",
+      "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/60",
+      "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/61"
+    ]
+  },
+  "blockers": [
+    "The current request references a single method paragraph but does not supply one; inventing a lane would violate the parallel-run protocol.",
+    "The shared split's nearest withheld truth is 2 pixels from visible faults despite a claimed 15-pixel collar, and selected connected components are clipped in the scored truth.",
+    "The shared static evaluator labels a deliberately leaking full-catalogue diagnostic as HOLDOUT-DTI; the numeric 1.0 output is invalid holdout evidence.",
+    "The shared Hessian ridge defect and canonical-cache provenance issue remain open upstream.",
+    "Mirrored data hashes are reproducible but organizer authenticity, a complete registry, and portal acceptance are not established."
+  ],
+  "evidence": "evidence/shared_template_audit_20261028.json"
+}

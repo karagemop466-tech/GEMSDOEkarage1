@@ -1,6 +1,6 @@
 # Standing brief (the user's prompt) — read at the start of every session
 
-**Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
+**Provenance note:** this is a normalized standing requirements record assembled from the current and prior user requests, not a verbatim chat transcript. Repeated score/site ledgers are preserved in the repository's source and score registries rather than duplicated here. Apply newer explicit instructions first; never claim this file proves the exact wording of the original chat.
 
 ## Arena Core Values (keep as focus)
 

@@ -1,6 +1,8 @@
 {
   "repository": "buffedlizard55-lab/GEMSDOE32",
-  "commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+  "commit": "e56a10a9d2f218c05ea66c5a5b7228bb780bb5a7",
   "method_lane": null,
-  "note": "Prior review suggested this peer pin; the canonical shared template remains unresolved across parallel lineages. Confirm assignment before reusing its tools; never privately fork an evaluator or writer."
+  "reviewed_utc_date": "2026-10-28",
+  "status": "candidate shared template; not protocol-compatible",
+  "note": "Pinned to the reviewed upstream main head after its fail-closed writer improvements. No method lane was supplied. Open upstream defects in the feature cache/filter, buffered holdout geometry, and static evidence classification block experiments; see registry/template_contract.json. Do not create a private evaluator fork."
 }

@@ -1,0 +1,337 @@
+{
+  "schema": "karage1-shared-template-audit-v1",
+  "created_utc": "2026-10-28T00:00:00+00:00",
+  "template_pin": {
+    "repository": "buffedlizard55-lab/GEMSDOE32",
+    "commit": "e56a10a9d2f218c05ea66c5a5b7228bb780bb5a7",
+    "method_lane": null,
+    "reviewed_utc_date": "2026-10-28",
+    "status": "candidate shared template; not protocol-compatible",
+    "note": "Pinned to the reviewed upstream main head after its fail-closed writer improvements. No method lane was supplied. Open upstream defects in the feature cache/filter, buffered holdout geometry, and static evidence classification block experiments; see registry/template_contract.json. Do not create a private evaluator fork."
+  },
+  "checkout": {
+    "present": true,
+    "actual_commit": "e56a10a9d2f218c05ea66c5a5b7228bb780bb5a7",
+    "commit_matches_pin": true,
+    "clean": true,
+    "remote": "https://github.com/buffedlizard55-lab/GEMSDOE32.git",
+    "remote_matches_pin": true,
+    "errors": []
+  },
+  "tool_sha256": {
+    "scripts/evaluate_holdout.py": "21ed7f6460d876dc0eb83d8c01d3843ee660f43bb73576eb3f0adb1a07e61dbb",
+    "scripts/submission_writer.py": "663bc075d90cdfa8d440fa201eeb87fba2783c503562e06044a705963d76bcf6",
+    "scripts/build_features.py": "8232b42e06c42d00942b1b2bc3bff2a3dba3d16c171be0a47d2435ee92e39087",
+    "src/gems32/holdout.py": "9ce9cf359f4d7b7fa844dd8f208ec00c3e6c15afef5d724d9014320b944d318d",
+    "src/gems32/submission.py": "d397118a7165f674ba45bdea89b65852f2a24450edaa9b7e00e7cd5b87f0b9e1",
+    "src/gems32/features.py": "58cff8551ba2f2eb5bbc5656306d8e19243c38721368ddd3d5e393c8e889e316",
+    "registry/feature_receipt.json": "cf74bf3fc0371620b208e720f4900f9e2da720548bc3dca229ea662f13e3c654"
+  },
+  "tool_errors": [],
+  "static_contract": {
+    "checks": {
+      "assigned_method_lane": {
+        "passed": false,
+        "observed": null,
+        "requirement": "A non-empty single method paragraph must be assigned before a parallel run."
+      },
+      "whole_segment_buffer_contract": {
+        "passed": false,
+        "observed": {
+          "uses_8_connected_components": true,
+          "truth_clipped_to_eroded_domain": true,
+          "collar_is_built_from_quadrant": true
+        },
+        "requirement": "Withhold whole fault segments with a measured buffer from visible catalogue context.",
+        "upstream_issue": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/60",
+        "status": "Dynamic replay required; current pinned implementation is known to fail it."
+      },
+      "static_input_evidence_class": {
+        "passed": false,
+        "observed": {
+          "outer_mode_is_static_diagnostic": true,
+          "static_mask_still_invokes_holdout": true
+        },
+        "requirement": "A static full-catalogue diagnostic must not be emitted as valid HOLDOUT-DTI evidence.",
+        "upstream_issue": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/61"
+      },
+      "writer_rejects_implicit_probability_conversion": {
+        "passed": true,
+        "observed": "require_binary_mask present",
+        "requirement": "Reject rather than silently threshold or clip model output."
+      },
+      "writer_checks_rendered_note_length": {
+        "passed": true,
+        "observed": "post-format guard present",
+        "requirement": "The final rendered portal note must be <=140 characters."
+      },
+      "feature_builder_known_hessian_issue_resolved": {
+        "passed": false,
+        "observed": "known smaller-eigenvalue expression present",
+        "requirement": "Resolve the shared ridge-response defect and invalidate affected cache bytes.",
+        "upstream_issue": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/49"
+      },
+      "canonical_cache_is_content_addressed": {
+        "passed": false,
+        "observed": {
+          "receipt_path": "registry/feature_receipt.json",
+          "sha256_present": false,
+          "receipt_channels": 35,
+          "receipt_shape": [
+            3730,
+            3292
+          ]
+        },
+        "requirement": "Publish canonical cache bytes, digest, inputs, channel order and builder commit.",
+        "upstream_issue": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/53"
+      }
+    },
+    "all_passed": false
+  },
+  "input_receipt": {
+    "rows": {
+      "training_features": {
+        "path": "training_features.tif",
+        "exists": true,
+        "bytes": 418912844,
+        "expected_bytes": 418912844,
+        "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+        "expected_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+        "verified": true,
+        "organizer_authenticated": false
+      },
+      "labels": {
+        "path": "labels.tif",
+        "exists": true,
+        "bytes": 425830,
+        "expected_bytes": 425830,
+        "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+        "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+        "verified": true,
+        "organizer_authenticated": false
+      },
+      "existing_faults": {
+        "path": "existing_faults.tif",
+        "exists": true,
+        "bytes": 425830,
+        "expected_bytes": 425830,
+        "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+        "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+        "verified": true,
+        "organizer_authenticated": false
+      },
+      "sample_submission": {
+        "path": "sample_submission.tif",
+        "exists": true,
+        "bytes": 1599597,
+        "expected_bytes": 1599597,
+        "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "expected_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "verified": true,
+        "organizer_authenticated": false
+      },
+      "ext_derived_sgmc_faults_100m_u8": {
+        "path": "external/derived_sgmc_faults_100m_u8.tif",
+        "exists": true,
+        "bytes": 198602,
+        "expected_bytes": 198602,
+        "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+        "expected_sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+        "verified": true,
+        "organizer_authenticated": false
+      }
+    },
+    "missing_manifest_ids": [],
+    "all_verified_to_third_party_manifest": true,
+    "organizer_authenticated": false,
+    "scope": "Hash agreement proves mirror consistency only; it does not authenticate organizer origin."
+  },
+  "shared_cache_receipt": {
+    "present": true,
+    "verified": true,
+    "path": ".cache/gems_work/feature_stack.npy",
+    "bytes": 1719082528,
+    "sha256": "f95486ffa937e0237c53c5e7f59e49cc142825ae5ea56b166d64dcbfeef5bdc0",
+    "shape": [
+      3730,
+      3292,
+      35
+    ],
+    "dtype": "float32",
+    "ordered_channels": [
+      "band01",
+      "band02",
+      "band03",
+      "band04",
+      "band05",
+      "band06",
+      "band07",
+      "band08",
+      "band09",
+      "band10",
+      "band11",
+      "band12",
+      "band13",
+      "band14",
+      "band15",
+      "band16",
+      "band17",
+      "band18",
+      "band19",
+      "curv_s1",
+      "curv_s2",
+      "ridge_s1",
+      "ridge_s2",
+      "ridge_s3",
+      "relief5",
+      "tophat2",
+      "tmi_edge",
+      "rtp_edge",
+      "grav_edge",
+      "cond_edge",
+      "depth_grad",
+      "coherence_s2",
+      "strike_cos",
+      "strike_sin",
+      "footprint"
+    ],
+    "builder_files": {
+      "scripts/build_features.py": "8232b42e06c42d00942b1b2bc3bff2a3dba3d16c171be0a47d2435ee92e39087",
+      "src/gems32/features.py": "58cff8551ba2f2eb5bbc5656306d8e19243c38721368ddd3d5e393c8e889e316"
+    },
+    "source_input_sha256": {
+      "training_features": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "labels": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "existing_faults": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "sample_submission": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "ext_derived_sgmc_faults_100m_u8": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0"
+    },
+    "organizer_authenticated": false,
+    "errors": [],
+    "caveat": "A reproducible local cache does not resolve the open shared feature-filter defect or make these official organizer bytes."
+  },
+  "dynamic_holdout_probe": {
+    "split_geometry": {
+      "catalogue_8_connected_components": 3199,
+      "claimed_buffer_px": 15,
+      "minimum_truth_to_visible_distance_px": 2.0,
+      "withheld_positive_pixel_instances": 22232,
+      "truth_pixel_instances_within_claimed_buffer": 15705,
+      "fraction_within_claimed_buffer": 0.7064141777617848,
+      "partially_scored_component_instances": 76,
+      "buffer_contract_passed": false,
+      "whole_selected_component_scoring_passed": false,
+      "cells": [
+        {
+          "cell": "draw20_fold0",
+          "withheld_positive_pixels": 1911,
+          "selected_8_connected_components": 136,
+          "selected_component_pixels": 2008,
+          "scored_fraction_of_selected_components": 0.9516932270916335,
+          "minimum_truth_to_visible_distance_px": 2.0,
+          "truth_pixels_within_claimed_buffer": 1450,
+          "partially_scored_component_instances": 6
+        },
+        {
+          "cell": "draw20_fold1",
+          "withheld_positive_pixels": 2351,
+          "selected_8_connected_components": 158,
+          "selected_component_pixels": 2428,
+          "scored_fraction_of_selected_components": 0.9682866556836903,
+          "minimum_truth_to_visible_distance_px": 2.0,
+          "truth_pixels_within_claimed_buffer": 1573,
+          "partially_scored_component_instances": 6
+        },
+        {
+          "cell": "draw20_fold2",
+          "withheld_positive_pixels": 3685,
+          "selected_8_connected_components": 202,
+          "selected_component_pixels": 3899,
+          "scored_fraction_of_selected_components": 0.945114131828674,
+          "minimum_truth_to_visible_distance_px": 2.0,
+          "truth_pixels_within_claimed_buffer": 2837,
+          "partially_scored_component_instances": 18
+        },
+        {
+          "cell": "draw20_fold3",
+          "withheld_positive_pixels": 3225,
+          "selected_8_connected_components": 123,
+          "selected_component_pixels": 3429,
+          "scored_fraction_of_selected_components": 0.9405074365704287,
+          "minimum_truth_to_visible_distance_px": 2.0,
+          "truth_pixels_within_claimed_buffer": 2045,
+          "partially_scored_component_instances": 9
+        },
+        {
+          "cell": "draw21_fold0",
+          "withheld_positive_pixels": 2111,
+          "selected_8_connected_components": 122,
+          "selected_component_pixels": 2159,
+          "scored_fraction_of_selected_components": 0.9777674849467346,
+          "minimum_truth_to_visible_distance_px": 2.0,
+          "truth_pixels_within_claimed_buffer": 1592,
+          "partially_scored_component_instances": 3
+        },
+        {
+          "cell": "draw21_fold1",
+          "withheld_positive_pixels": 2265,
+          "selected_8_connected_components": 138,
+          "selected_component_pixels": 2402,
+          "scored_fraction_of_selected_components": 0.9429641965029142,
+          "minimum_truth_to_visible_distance_px": 2.0,
+          "truth_pixels_within_claimed_buffer": 1545,
+          "partially_scored_component_instances": 9
+        },
+        {
+          "cell": "draw21_fold2",
+          "withheld_positive_pixels": 3584,
+          "selected_8_connected_components": 192,
+          "selected_component_pixels": 3864,
+          "scored_fraction_of_selected_components": 0.927536231884058,
+          "minimum_truth_to_visible_distance_px": 2.0,
+          "truth_pixels_within_claimed_buffer": 2494,
+          "partially_scored_component_instances": 14
+        },
+        {
+          "cell": "draw21_fold3",
+          "withheld_positive_pixels": 3100,
+          "selected_8_connected_components": 136,
+          "selected_component_pixels": 3274,
+          "scored_fraction_of_selected_components": 0.9468540012217471,
+          "minimum_truth_to_visible_distance_px": 2.0,
+          "truth_pixels_within_claimed_buffer": 2169,
+          "partially_scored_component_instances": 11
+        }
+      ]
+    },
+    "full_catalogue_leakage_canary": {
+      "evidence_class": "INVALID-HOLDOUT / LEAKAGE-CANARY",
+      "valid_holdout": false,
+      "input": "the complete mirrored labels.tif catalogue",
+      "tool_emitted_score_label": "HOLDOUT-DTI",
+      "tool_evaluator_version": "GEMSDOE32-HIDE-RECOVER-v3.0",
+      "tool_withheld_positive_pixels": 22232,
+      "tool_numeric_output_not_a_score": 1.0,
+      "tool_ci95_not_valid_holdout_evidence": [
+        1.0,
+        1.0
+      ],
+      "classification_contract_passed": false,
+      "reason": "The static input contains every hidden catalogue pixel and has no fold-local provenance; it must emit no holdout score or CI."
+    }
+  },
+  "runtime_errors": [],
+  "upstream_issues": {
+    "feature_filter": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/49",
+    "cache_provenance": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/53",
+    "holdout_buffer": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/60",
+    "static_evidence_class": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/61"
+  },
+  "protocol_compatible": false,
+  "geological_experiments_run": 0,
+  "candidate_rasters_generated": 0,
+  "submission_slots_selected_or_spent": 0,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "scope": "Tool/cache/split audit only. No scientific candidate, leaderboard estimate, uniqueness pass, portal test, or slot decision."
+}

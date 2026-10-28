@@ -1,0 +1,69 @@
+{
+  "schema": "karage1-shared-template-contract-v1",
+  "repository": "buffedlizard55-lab/GEMSDOE32",
+  "commit": "e56a10a9d2f218c05ea66c5a5b7228bb780bb5a7",
+  "audited_utc": "2026-10-28T00:00:00+00:00",
+  "protocol_compatible": false,
+  "tool_sha256": {
+    "scripts/evaluate_holdout.py": "21ed7f6460d876dc0eb83d8c01d3843ee660f43bb73576eb3f0adb1a07e61dbb",
+    "scripts/submission_writer.py": "663bc075d90cdfa8d440fa201eeb87fba2783c503562e06044a705963d76bcf6",
+    "scripts/build_features.py": "8232b42e06c42d00942b1b2bc3bff2a3dba3d16c171be0a47d2435ee92e39087",
+    "src/gems32/holdout.py": "9ce9cf359f4d7b7fa844dd8f208ec00c3e6c15afef5d724d9014320b944d318d",
+    "src/gems32/submission.py": "d397118a7165f674ba45bdea89b65852f2a24450edaa9b7e00e7cd5b87f0b9e1",
+    "src/gems32/features.py": "58cff8551ba2f2eb5bbc5656306d8e19243c38721368ddd3d5e393c8e889e316",
+    "registry/feature_receipt.json": "cf74bf3fc0371620b208e720f4900f9e2da720548bc3dca229ea662f13e3c654"
+  },
+  "runtime_assets": {
+    ".cache/gems_data/training_features.tif": {
+      "bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"
+    },
+    ".cache/gems_data/labels.tif": {
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093"
+    },
+    ".cache/gems_data/existing_faults.tif": {
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093"
+    },
+    ".cache/gems_data/sample_submission.tif": {
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+    },
+    ".cache/gems_data/external/derived_sgmc_faults_100m_u8.tif": {
+      "bytes": 198602,
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0"
+    },
+    ".cache/gems_work/feature_stack.npy": {
+      "bytes": 1719082528,
+      "sha256": "f95486ffa937e0237c53c5e7f59e49cc142825ae5ea56b166d64dcbfeef5bdc0",
+      "shape": [
+        3730,
+        3292,
+        35
+      ],
+      "dtype": "float32"
+    }
+  },
+  "failed_check_ids": [
+    "assigned_method_lane",
+    "whole_segment_buffer_contract",
+    "static_input_evidence_class",
+    "feature_builder_known_hessian_issue_resolved",
+    "canonical_cache_is_content_addressed"
+  ],
+  "dynamic_contract": {
+    "run": true,
+    "buffer_contract_passed": false,
+    "whole_selected_component_scoring_passed": false,
+    "static_classification_contract_passed": false
+  },
+  "upstream_issues": {
+    "feature_filter": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/49",
+    "cache_provenance": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/53",
+    "holdout_buffer": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/60",
+    "static_evidence_class": "https://github.com/buffedlizard55-lab/GEMSDOE32/issues/61"
+  },
+  "ok_to_submit": false,
+  "scope": "Shared-tool compatibility only; never scientific promotion, uniqueness clearance, portal acceptance, or slot selection."
+}

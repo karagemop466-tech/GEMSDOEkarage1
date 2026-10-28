@@ -109,6 +109,7 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
     relative = [
         'registry/historical_claims.json', 'registry/reference_assets.json',
         'docs/data/reference-audit.json', 'docs/data/run-card.json',
+        'docs/data/shared-template-audit.json', 'docs/data/latest-session-run-card.json',
         'evidence/candidate_audit_20261028.json', 'evidence/run_card_hmas_sinter.json',
         'evidence/run_card_gpcz.json',
     ]
