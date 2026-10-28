@@ -27,7 +27,7 @@ def good():
                               exact_ranks=True, surface_checked_before_placement=True, inventory_sha256='b'*64,
                               preplacement_inventory_sha256='b'*64, preplacement_surface_sha256='c'*64,
                               candidate_sha256='a'*64, expected_rasters=1, comparisons=[row]),
-                validator={**{k:True for k in ['single_band','float32','all_finite_inside','range_0_1_inside',
+                validator={**{k:True for k in ['geotiff','single_band','float32','all_finite_inside','range_0_1_inside',
                                             'crs_match','shape_match','transform_match','outside_encoding_accepted',
                                             'template_official_authenticated']},
                            'candidate_sha256': 'a'*64, 'template_sha256': 'f'*64},
@@ -73,6 +73,7 @@ def test_promotion_never_selects_slot():
     ('registry.preplacement_surface_sha256',None),('registry.preplacement_inventory_sha256','d'*64),
     ('registry.candidate_sha256','d'*64),
     ('registry.expected_rasters',2),('registry.comparisons',[]),
+    ('validator.geotiff',False), ('validator.geotiff',None),
     ('validator.range_0_1_inside',False),('validator.all_finite_inside',False),
     ('validator.transform_match',False),('validator.outside_encoding_accepted',False),
     ('validator.template_official_authenticated',False),
@@ -148,11 +149,10 @@ def test_matching_registry_hash_cannot_be_overridden_by_identity_flags():
     assert any('Candidate hash matches registry raster' in reason for reason in result['reasons'])
 
 
-def test_duplicate_registry_hashes_and_whitespace_ids_and_self_template_fail_closed():
+def test_duplicate_registry_hashes_or_whitespace_ids_and_self_template_fail_closed():
     card = copy.deepcopy(good())
-    duplicate_hash = dict(card['registry']['comparisons'][0])
-    duplicate_hash['id'] = 'distinct-id-same-hash'
-    card['registry']['comparisons'].append(duplicate_hash)
+    second = dict(card['registry']['comparisons'][0], id='duplicate-digest')
+    card['registry']['comparisons'].append(second)
     card['registry']['expected_rasters'] = 2
     result = gate.assess(card)
     assert result['verdict'] == 'negative'
@@ -178,6 +178,24 @@ def test_duplicate_registry_hashes_and_whitespace_ids_and_self_template_fail_clo
     assert any('Registry receipt is not bound' in reason for reason in null_res['reasons'])
 
 
+def test_overlong_submission_name_or_masked_validator_or_mismatched_withheld_fail_closed():
+    long_name = copy.deepcopy(good())
+    long_name['submission_name'] = 'x' * 141
+    assert gate.assess(long_name)['verdict'] == 'negative'
+
+    masked = copy.deepcopy(good())
+    masked['validator']['masked_inside_count'] = 1
+    assert gate.assess(masked)['verdict'] == 'negative'
+
+    unmasked_false = copy.deepcopy(good())
+    unmasked_false['validator']['unmasked_inside'] = False
+    assert gate.assess(unmasked_false)['verdict'] == 'negative'
+
+    mismatch = copy.deepcopy(good())
+    mismatch['holdout']['baseline_withheld_positives'] = 9
+    assert gate.assess(mismatch)['verdict'] == 'negative'
+
+
 def test_historical_hedge_does_not_exempt_its_lattice_witness():
     import json
     root = Path(__file__).parents[1]
@@ -188,3 +206,11 @@ def test_historical_hedge_does_not_exempt_its_lattice_witness():
     assert hedge['uniqueness']['original_unique_superseded'] is True
     assert hedge['uniqueness']['unique'] is False
     assert hedge['approved_for_weekly_slot'] is False
+
+
+def test_overlarge_numeric_evidence_fails_closed_without_crashing():
+    card = good()
+    card['holdout']['dti'] = 10 ** 1000
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert not result['ok_to_submit']

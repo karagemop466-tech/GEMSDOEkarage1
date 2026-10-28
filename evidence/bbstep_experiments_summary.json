@@ -1,0 +1,10 @@
+{
+  "lane": "H-K1-BBSTEP",
+  "n_experiments": 3,
+  "exp1": "evidence/exp1_bbstep_canary.json",
+  "exp2": "evidence/exp2_bbstep_holdout.json",
+  "exp3": "evidence/exp3_bbstep_sweep.json",
+  "uniqueness": "evidence/bbstep_uniqueness.json",
+  "verdict": "negative",
+  "ok_to_submit": false
+}

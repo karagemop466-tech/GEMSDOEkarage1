@@ -14,7 +14,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def finite_number(value):
-    return type(value) in (int, float) and math.isfinite(value)
+    if type(value) not in (int, float):
+        return False
+    try:
+        return math.isfinite(value)
+    except OverflowError:
+        return False
 
 
 def valid_sha256(value):
@@ -49,7 +54,9 @@ def assess(card):
     h = card.get("holdout") if isinstance(card.get("holdout"), dict) else {}
     if (h.get("label") != "HOLDOUT-DTI" or not isinstance(h.get("evaluator_version"), str)
             or not h["evaluator_version"].strip()
-            or type(h.get("withheld_positives")) is not int or h["withheld_positives"] <= 0):
+            or type(h.get("withheld_positives")) is not int or h["withheld_positives"] <= 0
+            or ("baseline_withheld_positives" in h
+                and h.get("baseline_withheld_positives") != h.get("withheld_positives"))):
         reasons.append("Incomplete HOLDOUT-DTI provenance")
     score, ci = h.get("dti"), h.get("ci95")
     if (not finite_number(score) or not 0 <= score <= 1 or not isinstance(ci, list)
@@ -160,11 +167,13 @@ def assess(card):
         reasons.append("Candidate dot counts disagree across registry comparisons")
 
     validator = card.get("validator") if isinstance(card.get("validator"), dict) else {}
-    for key in ("single_band", "float32", "all_finite_inside", "range_0_1_inside",
+    for key in ("geotiff", "single_band", "float32", "all_finite_inside", "range_0_1_inside",
                 "crs_match", "shape_match", "transform_match", "outside_encoding_accepted",
                 "template_official_authenticated"):
         if validator.get(key) is not True:
             reasons.append("Saved TIFF validation missing or failed: " + key)
+    if validator.get("unmasked_inside") is False or validator.get("masked_inside_count", 0) != 0:
+        reasons.append("Saved TIFF validation reports masked in-footprint pixels")
     digest = card.get("raster_sha256")
     if not valid_sha256(digest):
         reasons.append("Saved raster SHA-256 missing")
@@ -178,7 +187,8 @@ def assess(card):
         reasons.append("Saved TIFF validation not bound to candidate and template hashes")
     note = card.get("submission_note")
     name = card.get("submission_name")
-    if not isinstance(note, str) or not note.strip() or len(note) > 140 or not isinstance(name, str) or not name.strip():
+    if (not isinstance(note, str) or not note.strip() or len(note) > 140
+            or not isinstance(name, str) or not name.strip() or len(name) > 140):
         reasons.append("Submission name / short note missing")
     # Scientific promotion is NOT a weekly slot selection or upload authorization.
     return {"verdict": "negative" if reasons else "promote", "ok_to_submit": False,

@@ -203,7 +203,7 @@ def run_full_fleet_uniqueness_gate(continuous_surface: np.ndarray, final_dots_f3
     if saved.shape != foot.shape or not np.array_equal(saved, np.asarray(final_dots_f32)):
         raise ValueError('candidate array does not match saved GeoTIFF bytes')
     if not valid_mask[foot].all():
-        raise ValueError('saved candidate has masked or nodata pixels inside footprint')
+        raise ValueError('saved candidate has masked pixels inside footprint')
     if not np.isfinite(saved).all() or np.any((saved < 0) | (saved > 1)):
         raise ValueError('saved candidate contains non-finite or out-of-range values')
     errors = _verify_registry_pixels(index, foot, grid)

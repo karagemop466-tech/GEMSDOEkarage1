@@ -145,8 +145,8 @@ def main():
     args = parser.parse_args()
     try:
         if args.out:
-            for name in ("template", "lattice", "td", "ctws"):
-                source = args.directory / f"{name}.tif"
+            for name in ("template", "lattice", *PARALLEL_ASSETS):
+                source = args.directory / (name + ".tif")
                 if args.out.resolve() == source.resolve() or (
                     args.out.exists() and source.exists() and os.path.samefile(args.out, source)
                 ):
@@ -167,11 +167,11 @@ def main():
                 temp.unlink(missing_ok=True)
         else:
             print(text, end="")
+        # This script produces an audit, never a release approval.
+        return 0
     except (OSError, ValueError, subprocess.SubprocessError) as exc:
         print(f"PARALLEL AUDIT FAILED: {exc}", file=sys.stderr)
         return 2
-    # This script produces an audit, never a release approval.
-    return 0
 
 
 if __name__ == "__main__":

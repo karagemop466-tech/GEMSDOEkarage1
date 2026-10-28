@@ -70,7 +70,9 @@ audit tools:
 
 ## Pass 3 — recheck against requirements and limitations
 
-- Ran `.venv/bin/python -m pytest -q`: **245 passed**, 0 failed, 0 skipped.
+- Ran `.venv/bin/python -m pytest -q`: **245 passed** before merging concurrent
+  `origin/main` updates and **295 passed**, 0 failed, 0 skipped after merging
+  `origin/main`.
 - Ran `.venv/bin/python scripts/build_site.py` and `scripts/reconcile_prior_decisions.py`:
   all 32 HTML pages and reconciled evidence files are deterministic and preserve
   the prominent `DO NOT SUBMIT` decision.
