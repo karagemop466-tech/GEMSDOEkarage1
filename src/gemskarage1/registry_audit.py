@@ -23,6 +23,15 @@ from gems57 import uniqueness
 FOCUS_9_SITES = tuple(f"GEMSDOE{n}" for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
 
 
+def _lattice_pin() -> str | None:
+    try:
+        entries = json.loads((Path(__file__).resolve().parents[2] / 'registry/reference_assets.json').read_text())
+        matches = [row['sha256'] for row in entries if row.get('id') == 'lattice']
+        return matches[0] if len(matches) == 1 else None
+    except (OSError, ValueError, TypeError, KeyError):
+        return None
+
+
 def _digest_array(values: np.ndarray) -> str:
     return hashlib.sha256(np.ascontiguousarray(values, dtype='<f4').tobytes()).hexdigest()
 
@@ -48,6 +57,7 @@ def _inventory(index: dict | list | Path | None) -> tuple[dict | list, str, bool
         if not isinstance(sources, list) or not sources:
             raise ValueError('complete inventory requires immutable source-repository pins')
         if any(not isinstance(x, dict) or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', str(x.get('repo', '')))
+               or any(part in ('.', '..') for part in str(x.get('repo', '')).split('/'))
                or not re.fullmatch(r'[0-9a-f]{40}', str(x.get('commit', ''))) for x in sources):
             raise ValueError('source coverage contains an unpinned repository')
         source_repos = {x['repo'] for x in sources}
@@ -62,6 +72,8 @@ def _inventory(index: dict | list | Path | None) -> tuple[dict | list, str, bool
             if item['sha256'] in seen:
                 raise ValueError('complete inventory contains repeated raster hashes')
             seen.add(item['sha256'])
+        if _lattice_pin() is None or _lattice_pin() not in seen:
+            raise ValueError('complete inventory must include the SHA-pinned lattice witness')
     encoded = json.dumps(index, sort_keys=True, separators=(',', ':'), allow_nan=False).encode()
     return index, hashlib.sha256(encoded).hexdigest(), bool(complete)
 

@@ -7,11 +7,24 @@ import pytest
 import rasterio
 from rasterio.transform import from_origin
 
+from gemskarage1 import registry_audit
 from gemskarage1.registry_audit import run_full_fleet_uniqueness_gate, run_surface_gate
 from gems57.uniqueness import compare_array_to_registry
 
 TRANSFORM = from_origin(100, 1000, 100, 100)
 REPO, COMMIT = 'fixture/test', 'a' * 40
+
+
+@pytest.fixture(autouse=True)
+def use_fixture_as_lattice_witness(tmp_path, monkeypatch):
+    """Only synthetic tests may replace the real registered lattice pin."""
+    last = [None]
+    def fixture_pin():
+        path = tmp_path / 'prior.tif'
+        if path.exists():
+            last[0] = hashlib.sha256(path.read_bytes()).hexdigest()
+        return last[0]
+    monkeypatch.setattr(registry_audit, '_lattice_pin', fixture_pin)
 
 
 def write(path, arr, *, transform=TRANSFORM, dtype='float32'):
@@ -82,7 +95,8 @@ def test_missing_empty_incomplete_bad_hash_and_wrong_grid(tmp_path):
     with pytest.raises(ValueError):
         run_surface_gate(a, foot, sample=sample, registry_index=index(prior, errors=['incomplete source']))
     bad = index(prior); bad['rasters'][0]['sha256'] = 'f'*64
-    assert not run_surface_gate(a, foot, sample=sample, registry_index=bad)['passed']
+    with pytest.raises(ValueError, match='lattice witness'):
+        run_surface_gate(a, foot, sample=sample, registry_index=bad)
     missing = index(prior); prior.unlink()
     assert not run_surface_gate(a, foot, sample=sample, registry_index=missing)['passed']
     write(prior, a, transform=from_origin(200, 1000, 100, 100))

@@ -35,7 +35,7 @@ def load_raster(p: Path) -> np.ndarray:
 
 
 def main() -> None:
-    raise RuntimeError("Retired legacy experiment: lane, buffered holdout and literal registry gates are unresolved.")
+    raise SystemExit("BLOCKED: the historical GPC-Z lane failed the literal lattice gate; an assigned lane and shared pre-placement registry gate are required before further experiments.")
     t0 = time.time()
     foot = grid.footprint()
     cat = grid.catalogue()
@@ -94,5 +94,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    print("BLOCKED: retired legacy experiment; no training, placement, or release is authorized. See evidence/release_reassessment_20261028.json.", file=sys.stderr)
-    raise SystemExit(2)
+    main()

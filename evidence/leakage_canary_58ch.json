@@ -417,6 +417,6 @@
       "leaking": false
     }
   ],
-  "previously_reported_all_passed": true,
-  "reassessment_note": "Not independently replayed; the historical implementation assigned AUC 0.5 to constant features without recording variation, and used a split that does not establish the requested buffered holdout."
+  "original_all_passed_superseded": true,
+  "validation_status": "Not established: historical implementation substitutes zero for nonfinite values and treats constant features as AUC 0.5; reported AUCs were not reproduced."
 }

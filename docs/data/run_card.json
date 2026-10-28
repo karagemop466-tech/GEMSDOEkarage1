@@ -1,61 +1,51 @@
 {
-  "schema": "karage1-active-run-card-v2",
-  "reviewed_utc_date": "2026-10-28",
-  "hypothesis": "Prior H-K1-1: hydrothermal alteration and shallow thermal signatures may identify faults missing from mapped catalogues. No new method lane was assigned in this request.",
-  "mechanism": "Potential-field, radiometric and thermal anomaly coincidence was used as a proxy for a concealed fault; it does not prove a vent or fault.",
-  "non_fault_process_that_could_mimic_it": "Volcanic lithologic contacts and Lake Lahontan shoreline benches.",
+  "schema": "karage1-run-card-v2",
+  "created_utc": "2026-10-28T05:34:16.605676+00:00",
+  "session": "arena/9a5c837d-gemsdoekarage1",
+  "hypothesis": "Historical H-K1-1 hydrothermal magnetic-trough and thermal/sinter conduit hypothesis; no new lane assigned.",
+  "mechanism": "The prior candidate combined potential-field, terrain and hydrothermal proxy features with sparse dot placement; this session audits its saved bytes only.",
+  "named_non_fault_mimic": "Lithologic contacts and Lake Lahontan shorelines can resemble the proposed structural signal.",
   "holdout_dti": {
     "label": "HOLDOUT-DTI",
-    "evaluator_version": "gems57-pooled-hide-v2",
-    "dti": 0.093547,
-    "ci95": [
-      0.081837,
-      0.105279
-    ],
-    "withheld_positives": 22619,
-    "delta_vs_base35": 0.010596,
-    "delta_vs_base35_ci95": [
-      0.00562,
-      0.015814
-    ],
-    "verification_status": "Prior-session measurement; not independently rerun in this review. The original split cut some branches into short chunks and did not establish the requested buffered whole-component holdout.",
-    "independently_replayed_this_review": false
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run in this session; prior claims were not independently reproduced."
   },
   "correlation_overlap_vs_registry": {
-    "surface_rank_correlation": null,
-    "surface_status": "Prior surface unavailable for independent pre-placement replay.",
-    "witness": "registered 13GEMSDOE r13-lattice-s5",
-    "witness_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+    "preplacement_surface_spearman": null,
+    "final_dot_spearman_vs_lattice": -2.856745533511713e-05,
+    "final_dot_overlap_vs_lattice": 0.9993193717277487,
+    "overlapping_dots": 38174,
     "candidate_dots": 38200,
-    "dots_within_3px": 38174,
-    "directed_overlap": 0.9993193717277487,
-    "literal_threshold": 0.7,
-    "duplicate": true,
-    "complete_registry_replayed": false
+    "registry_coverage": "Nine pinned historical site files plus the pinned 13GEMSDOE lattice. This is not a complete registry.",
+    "registry_complete": false
   },
   "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
-  "raster_status": "Previously generated research raster only; not a new submission.",
+  "raster_status": "Existing historical artifact; not generated in this session; duplicate under literal registry rule.",
   "validator_output": {
     "no_nan_inside_footprint": true,
     "values_in_0_1": true,
-    "crs_shape_transform_match_mirror": true,
-    "single_band": true,
-    "all_finite_range": true,
+    "crs_shape_transform_match": true,
+    "all_finite_whole_array": true,
     "outside_null_or_nan": false,
-    "sample_organizer_authenticated": false,
-    "portal_acceptance_tested": false
+    "reference": "Hash-pinned owner mirror; organizer authenticity not established.",
+    "portal_acceptance": "not tested"
   },
-  "submission_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
-  "submission_name": "karage1-hmas-sinter-dualcover-sep29-zeros",
-  "submission_note": "H-K1-1 historical raster; duplicate witness failed; research only, do not submit.",
-  "download_available": true,
-  "download_purpose": "research only",
-  "estimated_leaderboard_score": null,
+  "submission_name": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+  "submission_note": "Historical HMAS candidate: audit only; fails literal lattice overlap gate. Do not submit.",
+  "download_available": false,
+  "download_available_meaning": "No submission-ready download; clearly labeled historical files remain available for research only.",
   "ok_to_submit": false,
-  "selector_approved": false,
-  "experiments_this_review": 0,
-  "slots_spent_this_review": 0,
-  "account_quota_known": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 0,
+  "blockers": [
+    "Both existing candidates exceed the literal 70% overlap limit against the registered lattice; stop.",
+    "The current prompt does not provide the referenced single method-lane paragraph.",
+    "The complete current registry, pre-placement surfaces, cached shared feature stack and a comparable current-best holdout are not established.",
+    "The mirrored sample is not organizer-authenticated; zeros outside its footprint are not the published null/NaN convention."
+  ],
   "verdict": "negative",
-  "audit": "evidence/release_reassessment_20261028.json"
+  "audit": "evidence/candidate_audit_20261028.json"
 }

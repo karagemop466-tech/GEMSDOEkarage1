@@ -9,7 +9,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -153,9 +155,15 @@ def main() -> int:
         text = json.dumps(report, indent=2, allow_nan=False) + "\n"
         if args.out:
             args.out.parent.mkdir(parents=True, exist_ok=True)
-            tmp = args.out.with_name(args.out.name + ".partial")
-            tmp.write_text(text)
-            tmp.replace(args.out)
+            fd, name = tempfile.mkstemp(prefix='.' + args.out.name + '.', suffix='.partial', dir=args.out.parent)
+            tmp = Path(name)
+            try:
+                with os.fdopen(fd, 'w', encoding='utf-8') as fh:
+                    fh.write(text)
+                os.chmod(tmp, 0o644)
+                tmp.replace(args.out)
+            finally:
+                tmp.unlink(missing_ok=True)
             print(f"Wrote {args.out}. Negative witness; this does not approve a submission.")
         else:
             print(text, end="")

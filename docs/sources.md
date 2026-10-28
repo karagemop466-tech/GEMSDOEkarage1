@@ -21,7 +21,7 @@ feature and historical raster bytes were verified against the
 [manifest](../registry/karage1_data_manifest.json). GitHub hashes establish
 mirror identity, **not** organizer provenance. The official external-data
 hosts are outside the shell allowlist; official web descriptions were reviewed
-through page retrieval. A [prior receipt](data/restore_receipt_summary.json)
-is dated 2026-10-27, not a claim that all listed files were fetched today.
+through page retrieval. The [31-file verification receipt](../evidence/data_restore_verification_20261028.json)
+records the later 2026-10-28 mirror restoration; it does not establish organizer authenticity.
 See the [full research slate](../knowledge/research-review.md) and
 [current run card](data/run-card.json).

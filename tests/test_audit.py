@@ -58,38 +58,52 @@ def test_evidence_scope():
     assert all(r['literal_duplicate'] for r in a['rasters'])
 
 
-def test_site_local_links_and_research_download_is_not_approved():
-    """Research downloads must be exact, negative, and unmistakably labelled."""
+def test_research_downloads_are_labeled_and_match_audited_bytes():
+    """No primary download is offered; research copies must be the audited duplicates."""
     import hashlib
     from html.parser import HTMLParser
-    from urllib.parse import urlsplit
+    from urllib.parse import unquote, urlsplit
     root = Path(__file__).resolve().parents[1]
-    card = json.loads((root/'docs/data/run-card.json').read_text())
-    assert card['verdict'] == 'negative' and card['ok_to_submit'] is False
+    audit = json.loads((root/'evidence/candidate_audit_20261028.json').read_text())
+    expected = {row['sha256'] for row in audit['candidates']}
+    assert len(expected) == 2
     for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
-        assert gate['result']['verdict'] == 'negative' and not gate['result']['ok_to_submit']
+        assert gate['result']['verdict'] == 'negative' and gate['result']['ok_to_submit'] is False
     class Links(HTMLParser):
+        def __init__(self, page):
+            super().__init__(); self.page = page; self.downloads = []; self.in_audit = False; self.label = ''
         def handle_starttag(self, tag, attrs):
             attrs = dict(attrs)
+            if tag == 'article' and 'audit-card' in attrs.get('class', ''):
+                self.in_audit = True; self.label = ''; self.article_downloads = []
             for key in ('href', 'src'):
                 value = attrs.get(key, '')
-                if value and not urlsplit(value).scheme and not value.startswith('#'):
-                    assert (root / value.split('#')[0]).is_file(), value
+                url = urlsplit(value)
+                if value and not url.scheme and not url.netloc and url.path:
+                    assert (self.page.parent / unquote(url.path)).is_file(), (self.page, value)
             if 'download' in attrs:
-                target = root / attrs['href']
-                assert hashlib.sha256(target.read_bytes()).hexdigest() == card['raster_sha256']
-    for name in ('index.html', 'executive-summary.html'):
-        text = (root/name).read_text()
-        Links().feed(text)
-        if ' download>' in text:
-            assert 'DO NOT SUBMIT' in text and 'RESEARCH ONLY' in text
+                assert self.in_audit, 'research file must be inside an audit warning card'
+                target = (self.page.parent / unquote(urlsplit(attrs['href']).path)).resolve()
+                self.article_downloads.append(hashlib.sha256(target.read_bytes()).hexdigest())
+        def handle_data(self, text):
+            if self.in_audit: self.label += text
+        def handle_endtag(self, tag):
+            if tag == 'article' and self.in_audit:
+                assert 'DO NOT SUBMIT' in self.label and 'research only' in self.label.lower()
+                self.downloads.extend(self.article_downloads); self.in_audit = False
+    home = Links(root/'index.html'); home.feed((root/'index.html').read_text())
+    assert not home.downloads
+    for page in (root/'executive-summary.html', root/'docs/executive-summary.html'):
+        parsed = Links(page); parsed.feed(page.read_text())
+        assert set(parsed.downloads) == expected
 
 
 def test_run_card_and_source_hashes():
     import hashlib
     root = Path(__file__).resolve().parents[1]
-    card = json.loads((root/'docs/data/run-card.json').read_text())
+    card = json.loads((root/'docs/data/run_card.json').read_text())
+    assert card == json.loads((root/'docs/data/run-card.json').read_text())
     assert card['verdict'] == 'negative' and not card['ok_to_submit']
     assert len(card['submission_note']) <= 140
     for row in json.loads((root/'docs/data/sources.json').read_text())['sites']:

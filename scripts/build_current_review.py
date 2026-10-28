@@ -1,19 +1,11 @@
 #!/usr/bin/env python3
-"""Rebuild every current review entry point from the negative evidence.
-
-Compatibility entry point introduced by a parallel review; it delegates to the
-same generators rather than overwriting them with a separate release claim.
-"""
-from build_site import main as build_site
-from generate_pages import build_lanes
-from render_site import main as render_site
-
-
-def main():
-    build_site()
-    build_lanes()
-    render_site()
-
+"""Compatibility entry point for the single, fail-closed site renderer."""
+from pathlib import Path
+import sys
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from scripts.render_site import main
 
 if __name__ == '__main__':
     main()

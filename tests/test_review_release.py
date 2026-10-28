@@ -24,13 +24,13 @@ def test_active_card_matches_real_saved_bytes_and_evidence():
     assert card == json.loads((ROOT/'evidence/active_run_card_20261028.json').read_text())
     for alias in ('docs/data/run_card.json', 'evidence/run_card.json', 'evidence/current_run_card.json'):
         assert card == json.loads((ROOT/alias).read_text())
-    assert card['verdict'] == 'negative' and not card['selector_approved'] and not card['ok_to_submit']
-    assert card['holdout_dti']['independently_replayed_this_review'] is False
-    assert card['correlation_overlap_vs_registry']['directed_overlap'] == audit['candidates']['hmas']['lattice_directed_overlap'] > .70
+    assert card['verdict'] == 'negative' and not card['slot_selected_or_spent'] and not card['ok_to_submit']
+    assert card['holdout_dti']['value'] is None
+    assert card['correlation_overlap_vs_registry']['final_dot_overlap_vs_lattice'] == audit['candidates']['hmas']['lattice_directed_overlap'] > .70
     assert len(card['submission_note']) <= 140
-    assert hashlib.sha256((ROOT/'docs/downloads'/card['submission_file']).read_bytes()).hexdigest() == card['raster_sha256']
+    assert hashlib.sha256((ROOT/'docs/downloads'/card['submission_name']).read_bytes()).hexdigest() == card['raster_sha256']
     assert not card['validator_output']['outside_null_or_nan']
-    assert not card['validator_output']['portal_acceptance_tested']
+    assert card['validator_output']['portal_acceptance'] == 'not tested'
 
 
 def test_regenerators_keep_all_main_pages_negative():
@@ -51,7 +51,7 @@ def test_regenerators_keep_all_main_pages_negative():
 def test_legacy_experiment_entrypoints_are_blocked_before_work():
     for script in ('run_experiment1_screen.py', 'run_experiment2_gpcz.py', 'run_experiment3_build.py'):
         p = subprocess.run([sys.executable, 'scripts/'+script], cwd=ROOT, text=True, capture_output=True)
-        assert p.returncode == 2 and 'BLOCKED' in p.stderr
+        assert p.returncode != 0 and 'BLOCKED' in p.stderr
 
 
 def test_legacy_pages_do_not_claim_approval_or_receipt():
@@ -79,5 +79,6 @@ def test_independent_audits_and_compatibility_reconciler_agree():
     paths = [ROOT/'docs/data/run-card.json', ROOT/'evidence/active_run_card_20261028.json',
              ROOT/'evidence/release_gate_hmas_sinter.json', ROOT/'evidence/release_gate_gpcz.json']
     before = [p.read_bytes() for p in paths]
-    subprocess.run([sys.executable, 'scripts/reconcile_prior_decisions.py'], cwd=ROOT, check=True)
-    assert before == [p.read_bytes() for p in paths]
+    for script in ('reconcile_prior_decisions.py', 'sync_review_status.py'):
+        subprocess.run([sys.executable, 'scripts/' + script], cwd=ROOT, check=True)
+        assert before == [p.read_bytes() for p in paths]

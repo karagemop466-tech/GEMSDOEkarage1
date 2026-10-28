@@ -1,8 +1,6 @@
 """One-call GPC-Z pipeline (what scripts/run_experiment3_build.py does, reusable)."""
 from __future__ import annotations
 
-import hashlib
-from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -34,19 +32,8 @@ def damage_zone_prior_full() -> tuple[np.ndarray, np.ndarray]:
 
 
 def build(budget: int, coupling: str = "linear") -> tuple[np.ndarray, np.ndarray]:
-    phys = physics_field()
-    _, g = damage_zone_prior_full()
-    gg = g if coupling == "linear" else np.sqrt(g)
-    field = (phys * gg).astype(np.float32)
-    dots = emission.emit(field, budget, grid.catalogue(), spacing=SPACING, apron_px=APRON)
-    return dots, field
+    raise RuntimeError("Historical GPC-Z pipeline disabled: its saved candidate failed the literal lattice duplicate rule.")
 
 
 def ship(dots: np.ndarray, field: np.ndarray, tag: str, note: str, out_dir: Path) -> dict:
-    n = int(dots.sum())
-    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    digest8 = hashlib.sha256(np.packbits(dots).tobytes()).hexdigest()[:8]
-    slug = f"gemsk1-{tag}-{n}dots-{stamp}-{digest8}"
-    rec = submission.write_bundle(dots, out_dir, slug, note[:140])
-    rec["uniqueness"] = uniqueness.check(dots, surface=field)
-    return rec
+    raise RuntimeError("Historical shipping helper disabled: it checked an incomplete registry after writing the raster.")

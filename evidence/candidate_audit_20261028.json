@@ -1,0 +1,306 @@
+{
+  "schema": "karage1-existing-candidate-audit-v1",
+  "created_utc": "2026-10-28T05:34:16.605676+00:00",
+  "method": "Exact saved binary supports; closed Euclidean 3-pixel disk; Spearman on all mirror-footprint pixels.",
+  "reference_scope": "Nine pinned historical site files plus the pinned 13GEMSDOE lattice. This is not a complete registry.",
+  "template_authenticity": "Owner mirror with verified SHA-256; not independently authenticated against DrivenData.",
+  "footprint_pixels": 5167373,
+  "lattice_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+  "thresholds": {
+    "directed_overlap_strictly_greater_than": 0.7,
+    "absolute_spearman_strictly_greater_than": 0.9
+  },
+  "preplacement_surfaces_checked": false,
+  "registry_complete": false,
+  "candidates": [
+    {
+      "file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+      "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+      "positive_pixels_in_footprint": 38200,
+      "format_diagnostics": {
+        "grid_and_inside_pass": true,
+        "nan_outside_variant_pass": false,
+        "null_or_nan_outside_variant_pass": false,
+        "strict_whole_array_variant_pass": true,
+        "note": "These are separate local checks, not guarantees of organizer acceptance."
+      },
+      "format_checks": {
+        "single_band": true,
+        "float32": true,
+        "crs_shape_transform_match_mirror": true,
+        "no_nonfinite_inside": true,
+        "nonfinite_inside_count": 0,
+        "inside_values_in_0_1": true,
+        "out_of_range_inside_count": 0,
+        "masked_inside_count": 0,
+        "outside_all_null_or_nan": false,
+        "whole_array_strict_finite_0_1": true,
+        "minimum_finite": 0.0,
+        "maximum_finite": 1.0
+      },
+      "preplacement_surface": "unavailable in checkout; not checked",
+      "comparisons": [
+        {
+          "reference": "lattice",
+          "reference_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+          "candidate_dots_within_3px": 38174,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.9993193717277487,
+          "binary_dot_spearman": -2.856745533511713e-05,
+          "overlap_exceeds_70_percent": true,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE24",
+          "reference_sha256": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+          "candidate_dots_within_3px": 19274,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.5045549738219895,
+          "binary_dot_spearman": 0.032603649106247565,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE25",
+          "reference_sha256": "91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8",
+          "candidate_dots_within_3px": 18582,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.48643979057591624,
+          "binary_dot_spearman": 0.027093839599867244,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE27",
+          "reference_sha256": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+          "candidate_dots_within_3px": 19420,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.5083769633507853,
+          "binary_dot_spearman": 0.03232740741735457,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE28",
+          "reference_sha256": "5556aa1438fd67376b60d5ffc99228ec09dcc11a8408298a743ccb88d6163641",
+          "candidate_dots_within_3px": 18056,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.4726701570680628,
+          "binary_dot_spearman": 0.027903837412559435,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE30",
+          "reference_sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+          "candidate_dots_within_3px": 18582,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.48643979057591624,
+          "binary_dot_spearman": 0.027093839599867244,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE31",
+          "reference_sha256": "07b6db440535404bb41ec8ddc797713e200d308e3da35937393efde5eb84bc40",
+          "candidate_dots_within_3px": 18231,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.4772513089005236,
+          "binary_dot_spearman": 0.029103686074197502,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE32",
+          "reference_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+          "candidate_dots_within_3px": 17739,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.4643717277486911,
+          "binary_dot_spearman": 0.03056343052627118,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE33",
+          "reference_sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+          "candidate_dots_within_3px": 18529,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.48505235602094243,
+          "binary_dot_spearman": 0.02733094039974475,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE36",
+          "reference_sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+          "candidate_dots_within_3px": 17827,
+          "candidate_dots": 38200,
+          "directed_overlap": 0.46667539267015706,
+          "binary_dot_spearman": 0.030094647669887294,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        }
+      ],
+      "duplicate_references": [
+        "lattice"
+      ],
+      "verdict": "duplicate",
+      "ok_to_submit": false
+    },
+    {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+      "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+      "positive_pixels_in_footprint": 36000,
+      "format_diagnostics": {
+        "grid_and_inside_pass": true,
+        "nan_outside_variant_pass": false,
+        "null_or_nan_outside_variant_pass": false,
+        "strict_whole_array_variant_pass": true,
+        "note": "These are separate local checks, not guarantees of organizer acceptance."
+      },
+      "format_checks": {
+        "single_band": true,
+        "float32": true,
+        "crs_shape_transform_match_mirror": true,
+        "no_nonfinite_inside": true,
+        "nonfinite_inside_count": 0,
+        "inside_values_in_0_1": true,
+        "out_of_range_inside_count": 0,
+        "masked_inside_count": 0,
+        "outside_all_null_or_nan": false,
+        "whole_array_strict_finite_0_1": true,
+        "minimum_finite": 0.0,
+        "maximum_finite": 1.0
+      },
+      "preplacement_surface": "unavailable in checkout; not checked",
+      "comparisons": [
+        {
+          "reference": "lattice",
+          "reference_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+          "candidate_dots_within_3px": 35959,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.9988611111111111,
+          "binary_dot_spearman": -0.0007048666489752947,
+          "overlap_exceeds_70_percent": true,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE24",
+          "reference_sha256": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+          "candidate_dots_within_3px": 10567,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.2935277777777778,
+          "binary_dot_spearman": 0.007304343142761949,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE25",
+          "reference_sha256": "91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8",
+          "candidate_dots_within_3px": 10068,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.2796666666666667,
+          "binary_dot_spearman": 0.006066926743536559,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE27",
+          "reference_sha256": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+          "candidate_dots_within_3px": 11115,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.30875,
+          "binary_dot_spearman": 0.007728935166622892,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE28",
+          "reference_sha256": "5556aa1438fd67376b60d5ffc99228ec09dcc11a8408298a743ccb88d6163641",
+          "candidate_dots_within_3px": 9260,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.25722222222222224,
+          "binary_dot_spearman": 0.0064727104359110395,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE30",
+          "reference_sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+          "candidate_dots_within_3px": 10068,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.2796666666666667,
+          "binary_dot_spearman": 0.006066926743536559,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE31",
+          "reference_sha256": "07b6db440535404bb41ec8ddc797713e200d308e3da35937393efde5eb84bc40",
+          "candidate_dots_within_3px": 9401,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.26113888888888886,
+          "binary_dot_spearman": 0.007069229359149601,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE32",
+          "reference_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+          "candidate_dots_within_3px": 8683,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.24119444444444443,
+          "binary_dot_spearman": 0.00778744422748261,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE33",
+          "reference_sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+          "candidate_dots_within_3px": 9735,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.2704166666666667,
+          "binary_dot_spearman": 0.0077430576035759455,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        },
+        {
+          "reference": "GEMSDOE36",
+          "reference_sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+          "candidate_dots_within_3px": 8899,
+          "candidate_dots": 36000,
+          "directed_overlap": 0.24719444444444444,
+          "binary_dot_spearman": 0.007953706143414719,
+          "overlap_exceeds_70_percent": false,
+          "rank_abs_exceeds_0_90": false,
+          "exact_dot_mask_match": false
+        }
+      ],
+      "duplicate_references": [
+        "lattice"
+      ],
+      "verdict": "duplicate",
+      "ok_to_submit": false
+    }
+  ],
+  "upload_authorized": false
+}

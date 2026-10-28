@@ -36,7 +36,9 @@
         "band_det_elev": 0.5303301317453626,
         "prior_g_d_interleaved": 0.7832083430926047
       },
-      "all_features_tested": true
+      "all_features_tested": true,
+      "passed": false,
+      "status": "Historical canary implementation could mask invalid or constant data; not independently established."
     },
     "registry": {
       "complete": false,
@@ -44,17 +46,109 @@
       "saved_bytes_checked": true,
       "surface_max_abs_rho": 0.016619126143593684,
       "dots_max_abs_rho": 0.016619126143593684,
-      "max_directed_overlap_3px": null,
+      "max_directed_overlap_3px": 0.3174166666666667,
       "calibration_lattice_overlap_3px_reported_not_exempt_silently": 0.9987,
-      "literal_all_rasters": false,
-      "surface_checked_before_placement": false,
-      "excluded_registry_rasters": [
-        "13GEMSDOE r13-lattice-s5"
-      ],
-      "duplicate_witnesses": [
+      "expected_rasters": 10,
+      "comparisons": [
         {
+          "id": "lattice",
           "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
-          "directed_overlap": 0.9988611111111111
+          "surface_spearman": null,
+          "dot_spearman": -0.0007048666489752947,
+          "dots_within_3px": 35959,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE24",
+          "sha256": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+          "surface_spearman": null,
+          "dot_spearman": 0.007304343142761949,
+          "dots_within_3px": 10567,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE25",
+          "sha256": "91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8",
+          "surface_spearman": null,
+          "dot_spearman": 0.006066926743536559,
+          "dots_within_3px": 10068,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE27",
+          "sha256": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+          "surface_spearman": null,
+          "dot_spearman": 0.007728935166622892,
+          "dots_within_3px": 11115,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE28",
+          "sha256": "5556aa1438fd67376b60d5ffc99228ec09dcc11a8408298a743ccb88d6163641",
+          "surface_spearman": null,
+          "dot_spearman": 0.0064727104359110395,
+          "dots_within_3px": 9260,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE30",
+          "sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+          "surface_spearman": null,
+          "dot_spearman": 0.006066926743536559,
+          "dots_within_3px": 10068,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE31",
+          "sha256": "07b6db440535404bb41ec8ddc797713e200d308e3da35937393efde5eb84bc40",
+          "surface_spearman": null,
+          "dot_spearman": 0.007069229359149601,
+          "dots_within_3px": 9401,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE32",
+          "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+          "surface_spearman": null,
+          "dot_spearman": 0.00778744422748261,
+          "dots_within_3px": 8683,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE33",
+          "sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+          "surface_spearman": null,
+          "dot_spearman": 0.0077430576035759455,
+          "dots_within_3px": 9735,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
+        },
+        {
+          "id": "GEMSDOE36",
+          "sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+          "surface_spearman": null,
+          "dot_spearman": 0.007953706143414719,
+          "dots_within_3px": 8899,
+          "candidate_dots": 36000,
+          "identical_bytes": false,
+          "identical_pixels": false
         }
       ]
     },
@@ -79,27 +173,43 @@
       "Missing scientific run-card field: hypothesis",
       "Missing scientific run-card field: mechanism",
       "Missing scientific run-card field: named_non_fault_mimic",
-      "No same-evaluator improvement over holdout best",
-      "Hide-and-recover leakage controls or metric parameters missing",
-      "Single-feature leakage canary missing, untestable or failed",
-      "Complete registry / pre-placement / saved-byte comparison missing",
-      "Registry exclusions are missing or nonempty",
-      "Duplicate-witness ledger missing or nonempty",
-      "Registry receipt hash missing or invalid: inventory_sha256",
-      "Registry receipt hash missing or invalid: preplacement_surface_sha256",
-      "Registry receipt is not bound to the same inventory and saved raster",
-      "Per-raster registry evidence missing or incomplete",
-      "Saved TIFF validation missing or failed: outside_encoding_compatible",
-      "Saved TIFF validation missing or failed: template_official_authenticated",
-      "Validator receipt is not bound to the saved raster"
+      "No measured same-evaluator improvement with positive paired CI",
+      "Hide-and-recover controls or metric parameters missing",
+      "Single-feature leakage canary missing or failed",
+      "Complete registry inventory / pre-placement and saved-byte comparisons missing",
+      "Registry receipt is not bound to a pinned inventory, surface and candidate",
+      "Registry rank correlation missing: lattice",
+      "Registry dot overlap exceeds 70%: lattice",
+      "Registry rank correlation missing: GEMSDOE24",
+      "Registry rank correlation missing: GEMSDOE25",
+      "Registry rank correlation missing: GEMSDOE27",
+      "Registry rank correlation missing: GEMSDOE28",
+      "Registry rank correlation missing: GEMSDOE30",
+      "Registry rank correlation missing: GEMSDOE31",
+      "Registry rank correlation missing: GEMSDOE32",
+      "Registry rank correlation missing: GEMSDOE33",
+      "Registry rank correlation missing: GEMSDOE36",
+      "Saved TIFF validation missing or failed: all_finite_inside",
+      "Saved TIFF validation missing or failed: range_0_1_inside",
+      "Saved TIFF validation missing or failed: outside_encoding_accepted",
+      "Saved TIFF validation missing or failed: template_official_authenticated"
     ]
   },
   "note": "release_gate.py from the parallel review, run unmodified. The lattice probe (99.87%) is excluded from max_directed_overlap_3px and reported alongside; a literal reading of the rule makes every raster >22k dots a duplicate (IR-K1-LATTICE-01).",
-  "original_result": {
+  "original_result_superseded": {
     "verdict": "promote",
     "ok_to_submit": false,
     "selector_required": true,
     "reasons": []
   },
-  "reassessment": "evidence/release_reassessment_20261028.json"
+  "superseded_registry_summary": {
+    "complete": true,
+    "scope": "15 pinned rasters (registry/data_manifest.json): the nine focus-site bests, GEMSDOE27 h31, the H19-5 source field, GEMSDOE28 variants, and the r13-lattice-s5 calibration probe",
+    "saved_bytes_checked": true,
+    "surface_max_abs_rho": 0.016619126143593684,
+    "dots_max_abs_rho": 0.016619126143593684,
+    "max_directed_overlap_3px": 0.3174166666666667,
+    "calibration_lattice_overlap_3px_reported_not_exempt_silently": 0.9987
+  },
+  "supersession_notice": "SUPERSEDED 2026-10-28: the earlier promotion exempted a registered lattice. The independent saved-byte audit applies the literal protocol; this artifact is a duplicate. Prior holdout figures are retained as unverified historical claims, not reproduced here."
 }

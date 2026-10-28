@@ -254,8 +254,8 @@
     "rule_rank_correlation_le_0.90": true,
     "rule_overlap_le_0.70": false,
     "unique": false,
-    "previously_reported_nonprobe_unique": true,
-    "reassessment_note": "Prior receipt's own lattice row is 99.8972%; it was excluded from clearance. Hedge bytes were not independently replayed in this review."
+    "original_unique_superseded": true
   },
-  "submission_authorized": false
+  "supersession_notice": "Historical receipt only; its own lattice row reports 99.8972% overlap, which violates the literal rule. Hedge raster bytes were not rechecked in this session.",
+  "approved_for_weekly_slot": false
 }

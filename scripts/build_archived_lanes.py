@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-"""Compatibility builder; preserved archives and current pages stay fail-closed."""
-from build_detail_pages import main as build_detail_pages
-from generate_pages import build_lanes
-
-
-def build():
-    build_detail_pages()
-    build_lanes()
-
+"""Compatibility entry point for the single, fail-closed site renderer."""
+from pathlib import Path
+import sys
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from scripts.render_site import main
 
 if __name__ == '__main__':
-    build()
+    main()

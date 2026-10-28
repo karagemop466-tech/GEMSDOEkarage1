@@ -607,6 +607,7 @@
       }
     }
   },
-  "previously_reported_verdict": "promote",
-  "superseded_by": "evidence/release_reassessment_20261028.json"
+  "original_verdict_superseded": "promote",
+  "supersession_notice": "SUPERSEDED 2026-10-28: the earlier promotion exempted a registered lattice. The independent saved-byte audit applies the literal protocol; this artifact is a duplicate. Prior holdout figures are retained as unverified historical claims, not reproduced here.",
+  "holdout_reproduced_this_session": false
 }

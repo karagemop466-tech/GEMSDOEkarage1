@@ -484,8 +484,8 @@
     }
   ],
   "passed": false,
-  "previously_reported_nonliteral_pass": true,
-  "superseded_by": "evidence/release_reassessment_20261028.json",
-  "reassessment_note": "Previous discrete-only maximum excluded a registered lattice; it does not implement the literal gate.",
-  "literal_lattice_overlap": 0.9993193717277487
+  "original_passed_superseded": true,
+  "supersession_notice": "SUPERSEDED 2026-10-28: the earlier promotion exempted a registered lattice. The independent saved-byte audit applies the literal protocol; this artifact is a duplicate. Prior holdout figures are retained as unverified historical claims, not reproduced here.",
+  "literal_lattice_overlap": 0.9993193717277487,
+  "independent_audit": "evidence/candidate_audit_20261028.json"
 }

@@ -12,6 +12,7 @@ import rasterio
 from rasterio.transform import from_origin
 
 from gemskarage1.holdout_eval import score_canary_feature
+from gemskarage1 import registry_audit
 from gemskarage1.registry_audit import check_preplacement_surface, run_full_fleet_uniqueness_gate
 from scripts import restore_karage1_data as restore
 
@@ -39,7 +40,7 @@ def complete_index(*paths):
 
 
 @pytest.fixture
-def geometry(tmp_path):
+def geometry(tmp_path, monkeypatch):
     shape = (20, 20)
     foot = np.ones(shape, dtype=bool)
     surface = np.random.default_rng(3).random(shape, dtype=np.float32)
@@ -51,6 +52,12 @@ def geometry(tmp_path):
     write_tif(template, np.zeros(shape))
     write_tif(ref_file, ref)
     write_tif(final, dots)
+    last_digest = [sha(ref_file)]
+    def fixture_lattice_pin():
+        if ref_file.exists():
+            last_digest[0] = sha(ref_file)
+        return last_digest[0]
+    monkeypatch.setattr(registry_audit, '_lattice_pin', fixture_lattice_pin)
     index = complete_index(ref_file)
     return dict(foot=foot, surface=surface, dots=dots, template=template, final=final,
                 ref=ref_file, index=index)
@@ -185,38 +192,38 @@ def test_canary_accepts_a_really_testable_nonleaking_feature():
     assert result['direction_invariant_auc'] == .5
 
 
-def test_restore_both_manifest_schemas_without_real_network(tmp_path, monkeypatch):
+def test_restore_both_manifest_schemas_without_real_network(tmp_path):
     chunks = {'one': b'abc', 'part1': b'def', 'part2': b'ghi'}
     common = {'repo': 'fixture/test', 'ref': 'a'*40}
-    manifest = {'files': [
-        {'id': 'top', 'dest': 'a.bin', 'bytes': 3, 'sha256': hashlib.sha256(chunks['one']).hexdigest(),
-         **common, 'path': 'one'},
-        {'id': 'nested', 'dest': 'b.bin', 'bytes': 6, 'sha256': hashlib.sha256(b'defghi').hexdigest(),
-         'source': {**common, 'kind': 'git_split_blob', 'parts': ['part1', 'part2']}},
-    ]}
-    path = tmp_path / 'manifest.json'
-    path.write_text(json.dumps(manifest))
-    def fake_fetch(repo, ref, path, fh):
+    entries = [
+        {'id': 'top', 'dest': 'a.bin', 'sha256': hashlib.sha256(chunks['one']).hexdigest(),
+         'bytes': 3, **common, 'path': 'one'},
+        {'id': 'nested', 'dest': 'b.bin', 'sha256': hashlib.sha256(b'defghi').hexdigest(),
+         'bytes': 6, 'source': {**common, 'kind': 'git_split_blob', 'parts': ['part1', 'part2']}},
+    ]
+    def fetch(repo, ref, path, fh):
         assert repo == common['repo'] and ref == common['ref']
         fh.write(chunks[path])
-    monkeypatch.setattr(restore, 'fetch_blob', fake_fetch)
-    monkeypatch.setattr('sys.argv', ['restore', '--manifest', str(path), '--data-dir', str(tmp_path / 'data')])
-    assert restore.main() == 0
-    assert (tmp_path / 'data/a.bin').read_bytes() == b'abc'
-    assert (tmp_path / 'data/b.bin').read_bytes() == b'defghi'
-    (tmp_path / 'data/b.bin').write_bytes(b'corrupt')
-    monkeypatch.setattr('sys.argv', ['restore', '--manifest', str(path), '--data-dir', str(tmp_path / 'data'), '--verify-only'])
-    assert restore.main() == 1
+    for entry in entries:
+        assert restore.restore_entry(entry, tmp_path, fetcher=fetch)['status'] == 'restored'
+    assert (tmp_path / 'a.bin').read_bytes() == b'abc'
+    assert (tmp_path / 'b.bin').read_bytes() == b'defghi'
+    (tmp_path / 'b.bin').write_bytes(b'corrupt')
+    with pytest.raises(ValueError, match='mismatched'):
+        restore.restore_entry(entries[1], tmp_path, verify_only=True)
 
 
-def test_restore_rejects_paths_that_escape_or_are_symlinks(tmp_path, monkeypatch, capsys):
+def test_restore_rejects_paths_that_escape_or_are_symlinks(tmp_path):
     dest = tmp_path / 'dest'
     dest.mkdir()
     (dest / 'out').symlink_to(tmp_path, target_is_directory=True)
-    entry = {'id': 'bad', 'dest': 'out/elsewhere', 'bytes': 1, 'sha256': '0'*64,
+    entry = {'id': 'bad', 'dest': 'out/elsewhere', 'sha256': '0'*64, 'bytes': 1,
              'repo': 'fixture/test', 'ref': 'a'*40, 'path': 'one'}
-    path = tmp_path / 'manifest.json'
-    path.write_text(json.dumps({'files': [entry]}))
-    monkeypatch.setattr('sys.argv', ['restore', '--manifest', str(path), '--data-dir', str(dest)])
-    assert restore.main() == 2
-    assert 'escapes' in capsys.readouterr().err
+    with pytest.raises(ValueError, match='escapes'):
+        restore.restore_entry(entry, dest, verify_only=True)
+
+
+def test_complete_inventory_must_include_the_pinned_lattice(geometry, monkeypatch):
+    monkeypatch.setattr(registry_audit, '_lattice_pin', lambda: 'f' * 64)
+    with pytest.raises(ValueError, match='lattice witness'):
+        before(geometry)

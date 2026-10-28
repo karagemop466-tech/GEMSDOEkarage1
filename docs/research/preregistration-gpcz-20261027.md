@@ -1,3 +1,5 @@
+> **Historical preregistration; superseded decision (28 Oct 2026):** The later independent saved-byte audit found the candidate duplicates the registered lattice. Prior positive uniqueness, leakage and promotion claims are not current authorization; no slot was selected. See [`evidence/candidate_audit_20261028.json`](../../evidence/candidate_audit_20261028.json) and [`docs/data/run-card.json`](../data/run-card.json). Historical scores below were not reproduced in this session.
+
 # Pre-registration — lane GPC-Z (written before Experiment 2 was run)
 
 **Session:** Arena `arena/e6d7804d-gemsdoekarage1` · **Date:** 2026-10-27 · **Repository:** `karagemop466-tech/GEMSDOEkarage1`

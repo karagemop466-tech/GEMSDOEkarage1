@@ -91,7 +91,8 @@
       0.7777052025717479
     ],
     "max_single_feature_auc": "0.78 (prior) < 0.90",
-    "verdict": "no leakage flagged"
+    "verdict": "not established; historical output was not independently reproduced",
+    "original_verdict_superseded": "no leakage flagged"
   },
   "budget": {
     "chosen": 36000,
@@ -103,7 +104,7 @@
     "max_overlap_non_probe": 0.3174166666666667,
     "max_abs_spearman_non_probe": 0.016619126143593684,
     "rule_rank_correlation_le_0.90": true,
-    "rule_overlap_le_0.70": true,
+    "rule_overlap_le_0.70": false,
     "unique": false,
     "literal_lattice_overlap": 0.9988611111111111
   },
@@ -319,7 +320,7 @@
   "submission_note": "GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed",
   "organizer_confirmed_score": null,
   "verdict": "negative",
-  "verdict_reason": "Literal lattice overlap exceeds 70%; stop. The prior non-probe clearance is superseded.",
+  "verdict_reason": "Literal lattice overlap exceeds 70%; prior restricted-registry pass is superseded.",
   "template_shared_evaluator": {
     "template": "buffedlizard55-lab/GEMSDOE32@73485f27cf230af770167397c2b72cb9ce3b3f25 scripts/evaluate_holdout.py (registry/template.json pin; run unmodified, no fork)",
     "note": "Applied to the FINAL rasters (already pruned >2 px from the full catalogue), so hide-and-recover values are depressed by construction for both files; SGMC is the only off-catalogue instrument available locally.",
@@ -362,6 +363,8 @@
   "irregularities": [
     "IR-K1-SGMC-01: champion beats GPC-Z on the template SGMC off-catalogue calibration (0.0641 vs 0.0545); SGMC bedrock faults may not represent the hidden expert-mapped set (sibling SGMC-targeted designs scored 0.03-0.05 live), but the selector must weigh this."
   ],
-  "previously_reported_verdict": "promote-to-selector",
-  "reassessment": "evidence/release_reassessment_20261028.json"
+  "original_verdict_superseded": "promote-to-selector",
+  "ok_to_submit": false,
+  "supersession_notice": "SUPERSEDED 2026-10-28: the earlier promotion exempted a registered lattice. The independent saved-byte audit applies the literal protocol; this artifact is a duplicate. Prior holdout figures are retained as unverified historical claims, not reproduced here.",
+  "independent_audit": "evidence/candidate_audit_20261028.json"
 }

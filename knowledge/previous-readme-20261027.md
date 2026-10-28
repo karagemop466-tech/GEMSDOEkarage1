@@ -1,7 +1,4 @@
-> **HISTORICAL / SUPERSEDED — DO NOT SUBMIT.** Any prior promotion, score,
-> uniqueness or slot-approval claims below are retained only for provenance.
-> See the [current negative run card](../docs/data/run-card.json) and
-> [saved-byte reassessment](../evidence/release_reassessment_20261028.json).
+> **Historical archive only — superseded 28 Oct 2026:** The prior promotion and uniqueness claims below are invalid under the literal lattice rule. Do not submit either candidate. See [the independent audit](../evidence/candidate_audit_20261028.json).
 
 # HISTORICAL SNAPSHOT — PROMOTION CLAIMS SUPERSEDED
 

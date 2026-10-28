@@ -65,7 +65,7 @@
       "sha256": "1a345914983b731ea5868b7a1e31a015fa9d08c8d2743b547d39ea002566ffc7"
     }
   },
-  "release_verdict": "negative",
-  "submission_authorized": false,
-  "reassessment": "evidence/release_reassessment_20261028.json"
+  "verdict": "negative",
+  "approved_for_weekly_slot": false,
+  "supersession_notice": "SUPERSEDED 2026-10-28: the earlier promotion exempted a registered lattice. The independent saved-byte audit applies the literal protocol; this artifact is a duplicate. Prior holdout figures are retained as unverified historical claims, not reproduced here."
 }

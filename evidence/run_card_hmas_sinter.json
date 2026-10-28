@@ -160,13 +160,9 @@
     ],
     "spearman_ceiling": 0.9,
     "overlap_3px_ceiling": 0.7,
-    "passed": false,
-    "literal_witness": {
-      "source_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
-      "candidate_dots_within_3px": 38174,
-      "candidate_dots": 38200,
-      "directed_overlap": 0.9993193717277487
-    }
+    "passed": true,
+    "literal_lattice_overlap": 0.9993193717277487,
+    "literal_uniqueness_passed": false
   },
   "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
   "zip_sha256": "b1c8817b1037384d8d12d6c3b9077716398aa756a931978bc5e5b1f52e3d15e7",
@@ -231,6 +227,8 @@
   "submission_zip": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.zip",
   "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular",
   "verdict": "negative",
-  "previously_reported_verdict": "promote",
-  "status_update": "Superseded 2026-10-28 by independent literal-overlap witness; historical holdout not replayed."
+  "original_verdict_superseded": "promote",
+  "ok_to_submit": false,
+  "supersession_notice": "SUPERSEDED 2026-10-28: the earlier promotion exempted a registered lattice. The independent saved-byte audit applies the literal protocol; this artifact is a duplicate. Prior holdout figures are retained as unverified historical claims, not reproduced here.",
+  "independent_audit": "evidence/candidate_audit_20261028.json"
 }

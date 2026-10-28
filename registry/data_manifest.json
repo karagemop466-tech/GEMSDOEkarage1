@@ -17,7 +17,7 @@
       "group": "core",
       "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
       "bytes": 418912844,
-      "provenance": "DrivenData competition file 'gems-geodawn-numerical-features.tif' (19 float32 bands, EPSG:32611, 100 m)."
+      "provenance": "Owner-described mirror; not independently authenticated: DrivenData competition file 'gems-geodawn-numerical-features.tif' (19 float32 bands, EPSG:32611, 100 m)."
     },
     {
       "id": "labels",
@@ -28,7 +28,7 @@
       "group": "core",
       "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
       "bytes": 425830,
-      "provenance": "DrivenData competition label raster (USGS Qfaults + INGENIOUS catalogue)."
+      "provenance": "Owner-described mirror; not independently authenticated: DrivenData competition label raster (USGS Qfaults + INGENIOUS catalogue)."
     },
     {
       "id": "existing_faults",
@@ -39,7 +39,7 @@
       "group": "core",
       "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
       "bytes": 425830,
-      "provenance": "DrivenData competition file; byte-identical to labels.tif."
+      "provenance": "Owner-described mirror; not independently authenticated: DrivenData competition file; byte-identical to labels.tif."
     },
     {
       "id": "sample_submission",
@@ -50,7 +50,7 @@
       "group": "core",
       "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
       "bytes": 1599597,
-      "provenance": "DrivenData example_submission.tif; used only as the CRS/shape/transform template."
+      "provenance": "Owner-described mirror; not independently authenticated: DrivenData example_submission.tif; used only as the CRS/shape/transform template."
     },
     {
       "id": "ext_lidar_scarp_features_u8",
@@ -61,7 +61,7 @@
       "group": "external",
       "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
       "bytes": 36943606,
-      "provenance": "Owner-derived from USGS 3DEP 1 m DEM tiles (706/716 tiles) listed in the competition PDF; uint8-quantised scarp metrics aggregated to the 100 m grid."
+      "provenance": "Owner-described mirror; not independently authenticated: Owner-derived from USGS 3DEP 1 m DEM tiles (706/716 tiles) listed in the competition PDF; uint8-quantised scarp metrics aggregated to the 100 m grid."
     },
     {
       "id": "ext_geodawn_rad_u8",
@@ -72,7 +72,7 @@
       "group": "external",
       "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
       "bytes": 26612970,
-      "provenance": "Owner-derived from USGS GeoDAWN (DOI 10.5066/P93LGLVQ) K/Th/U/TC grids."
+      "provenance": "Owner-described mirror; not independently authenticated: Owner-derived from USGS GeoDAWN (DOI 10.5066/P93LGLVQ) K/Th/U/TC grids."
     },
     {
       "id": "reg_champion_02778_zeros",

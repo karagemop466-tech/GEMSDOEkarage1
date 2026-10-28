@@ -1,11 +1,11 @@
 site,file,dots,score,label,source
-GEMSDOE32,gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif,37654,0.2778,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOE36,anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif,38854,0.2750,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOE28,h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif,37660,0.2710,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOE31,h27-4-solo-d28-20261004-8acb75e1-nan.tif,40199,0.2708,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOE33,h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif,41865,0.2632,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOE25,dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif,44090,0.2600,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOE30,d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif,44090,0.2600,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOE24,h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif,60069,0.2477,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOE27,topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif,61328,0.2449,USER-REPORTED (no file-linked organizer receipt),standing brief
-GEMSDOEkarage1,gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif,36000,,NOT YET SUBMITTED (HOLDOUT-DTI 0.1273 [0.1169;0.1374] gemsk-hide-recover-v1),evidence/run_card_gpcz.json
+GEMSDOE32,gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif,37654,0.2778,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOE36,anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif,38854,0.2750,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOE28,h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif,37660,0.2710,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOE31,h27-4-solo-d28-20261004-8acb75e1-nan.tif,40199,0.2708,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOE33,h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif,41865,0.2632,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOE25,dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif,44090,0.2600,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOE30,d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif,44090,0.2600,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOE24,h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif,60069,0.2477,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOE27,topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif,61328,0.2449,USER-REPORTED / UNVERIFIED (no receipt),standing brief
+GEMSDOEkarage1,gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif,36000,,UNVERIFIED HISTORICAL HOLDOUT / DUPLICATE; NOT SUBMITTED,evidence/run_card_gpcz.json

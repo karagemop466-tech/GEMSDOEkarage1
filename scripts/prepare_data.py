@@ -22,7 +22,12 @@ def main() -> int:
     ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
 
-    print("BLOCKED: the inherited canary uses an unverified holdout split; do not overwrite the historical receipt.", file=sys.stderr)
+    print(
+        "BLOCKED: the legacy 58-channel private stack is not the assigned shared "
+        "template cache, and its candidate failed the literal lattice gate. "
+        "No features or canary receipts were overwritten.",
+        file=sys.stderr,
+    )
     return 2
 
     ddir = data_dir()

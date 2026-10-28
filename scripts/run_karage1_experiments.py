@@ -43,8 +43,22 @@ SUBMISSION_NOTE = (
 assert len(SUBMISSION_NOTE) <= 140
 
 
+def _require_protocol_repair() -> None:
+    """Quarantine this historical runner until its unsafe ordering is repaired.
+
+    It previously emitted before the surface registry check, exempted a lattice,
+    and marked a weekly slot approved automatically. Re-enabling requires an
+    assigned lane, a complete literal pre-placement registry check and a separate
+    selector; changing a flag here is not sufficient.
+    """
+    raise RuntimeError(
+        "Historical H-K1-1 runner disabled: duplicate lattice witness and missing "
+        "pre-placement literal registry gate. No experiment or TIFF was produced."
+    )
+
+
 def run_stage_fit(force: bool = False) -> None:
-    raise RuntimeError("Retired legacy split; no training is authorized. See release reassessment.")
+    _require_protocol_repair()
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()
@@ -61,7 +75,7 @@ def run_stage_fit(force: bool = False) -> None:
 
 
 def run_stage_eval_and_package() -> int:
-    raise RuntimeError("Retired legacy split; no placement or packaging is authorized. See release reassessment.")
+    _require_protocol_repair()
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()
@@ -305,7 +319,8 @@ def run_stage_eval_and_package() -> int:
     receipt_json_path = out_tif.with_suffix(".json")
     rec_disk = json.loads(receipt_json_path.read_text())
     rec_disk["promoted"] = bool(promote_ok)
-    rec_disk["approved_for_weekly_slot"] = bool(promote_ok)
+    # The scientific gate can never select or authorize a weekly slot.
+    rec_disk["approved_for_weekly_slot"] = False
     rec_disk["uniqueness_gate_passed"] = bool(uniq_report["passed"])
     rec_disk["verdict"] = verdict
     receipt_json_path.write_text(json.dumps(rec_disk, indent=2) + "\n")
@@ -424,20 +439,15 @@ def main() -> int:
     ap.add_argument("--force-fit", action="store_true")
     args = ap.parse_args()
 
-    # Fail closed BEFORE training, placement, or writing.  The inherited
-    # runner used H57.build_holdout, whose <=12-pixel chunks and unbuffered
-    # "all" context are not the requested whole-component buffered split.
-    # The shared template already exposes buffered_component_draw; integration
-    # and a new same-split baseline are required before this runner can resume.
-    # In addition, both prior outputs exceed the literal lattice overlap limit.
-    print(
-        "BLOCKED: legacy runner does not use the shared buffered whole-component "
-        "holdout and its prior outputs failed the literal registry gate. "
-        "Do not train, place dots, write, or submit. See "
-        "evidence/release_reassessment_20261028.json.",
-        file=sys.stderr,
-    )
-    return 2
+    try:
+        if args.stage in ("fit", "all"):
+            run_stage_fit(force=args.force_fit)
+        if args.stage in ("eval", "all"):
+            return run_stage_eval_and_package()
+    except RuntimeError as exc:
+        print(f"BLOCKED: {exc}", file=sys.stderr)
+        return 2
+    return 0
 
 
 if __name__ == "__main__":

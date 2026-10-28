@@ -109,10 +109,10 @@
   "ok_to_submit_meaning": "release_gate.py never sets ok_to_submit=True automatically: all 9 automated scientific/format/uniqueness gates passed (verdict promote); spending one of 3 weekly portal slots is the human selector step",
   "slot_selected_or_spent": false,
   "geological_experiments_run": 3,
-  "verdict": "negative",
+  "verdict": "promote",
   "full_card": "evidence/run_card_hmas_sinter.json",
   "concurrent_secondary_lane": "evidence/run_card_gpcz.json",
-  "previously_reported_verdict": "promote",
-  "record_status": "Historical report; promotion superseded by independent lattice witness.",
-  "superseded_by": "evidence/release_reassessment_20261028.json"
+  "current_authorization": false,
+  "supersession_notice": "Historical snapshot only: its promotion and uniqueness claims are superseded by the literal lattice duplicate audit; do not submit.",
+  "superseded_by": "evidence/candidate_audit_20261028.json"
 }
