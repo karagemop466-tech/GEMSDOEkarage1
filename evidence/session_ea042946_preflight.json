@@ -1,0 +1,18 @@
+{
+  "lane": null,
+  "missing": [
+    ".cache/gems_work/feature_stack.npy",
+    ".cache/gems_data/existing_faults.tif",
+    ".cache/gems_data/training_features.tif",
+    ".cache/gems_data/sample_submission.tif",
+    ".cache/gems_data/labels.tif"
+  ],
+  "empty": [],
+  "unreadable": [],
+  "template_commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+  "ready_for_shared_tools": false,
+  "ok_to_submit": false,
+  "scope": "Readable nonempty input presence and lane only; not format, provenance, scientific validation or slot selection.",
+  "session": "arena/ea042946-gemsdoekarage1",
+  "date_utc": "2026-10-28"
+}
