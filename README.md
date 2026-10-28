@@ -7,6 +7,17 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Latest follow-up — 28 October 2026, session `arena/0404f8f1-gemsdoekarage1`
+
+The shared-tool preflight now blocks a merely suggested template pin until a
+recorded canonical assignment matches the lane, repository and immutable
+commit. This is a consistency check, not authentication of the assignment,
+cache, holdout or release evidence. A fresh pinned audit reproduced both
+parallel candidates' lattice failures. No new TIFF, holdout score or slot was
+created; **do not submit**. See the [three-pass review](knowledge/session-0404f8f1-review.md),
+[reproduced audit](evidence/session_0404f8f1_parallel_audit.json) and
+[negative run card](evidence/session_0404f8f1_run_card.json).
+
 ## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
 The previously reported lattice failure was independently replayed from pinned
