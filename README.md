@@ -257,3 +257,15 @@ Parallel-Run Protocol:
 6. Budget: Max 3 experiments or 2 hours; do not spend a submission slot on a candidate that fails to beat holdout best.
 ```
 </details>
+
+## This session — arena/e78e1e3b-gemsdoekarage1 (28 Oct 2026)
+
+Standing prompt applies (see the Parallel-Run Protocol above): every score is labelled HOLDOUT-DTI or ORGANIZER-CONFIRMED; a projection is never written as a score; the lattice Rule-1 gate (|rho| > 0.90 or > 70% of dots within 3 px of a registry raster) stops a lane as a duplicate; no weekly submission slot is selected or spent.
+
+Deliverables added this session:
+- `karage1-unique-alteration-dots-20261028-zeros.tif` — catalogue-free blind hydrothermal-alteration propensity dots (3,500 dots), all-finite float32 [0,1], EPSG:32611 3730x3292 100 m, zeros outside the footprint. SHA-256 `8bc4dae02a99da68ac0e895b7a5c4b5c72b60de11a91efb7ddef3f2b626ee1d2`. Listed as an additional row in the executive-summary download table; marked research only / not cleared to upload.
+- `evidence/run_card_unique_tif_20261028.json` — Parallel-Run Protocol run card; verdict `negative` (holdout DTI not established; organizer-lattice uniqueness not verifiable locally).
+- `knowledge/hypotheses-20261028.md` — five new untried geological hypotheses ranked by expected DTI gain and cost, with free official sources (USGS GeoDAWN, USGS 3DEP, GDR INGENIOUS 1391).
+- `scripts/generate_unique_submission.py` — deterministic generator for the unique research TIF.
+
+No organizer data were downloaded (DrivenData is login-walled in this sandbox); all mirrors are integrity-pinned, not organizer-authenticated.

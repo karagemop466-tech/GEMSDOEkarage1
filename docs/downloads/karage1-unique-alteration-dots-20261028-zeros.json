@@ -1,0 +1,53 @@
+{
+  "schema": "karage1-unique-research-tif-v1",
+  "created_utc": "2026-10-28T16:30:28.593967+00:00",
+  "method": "catalogue-free blind hydrothermal-alteration propensity + min-separated dot emission",
+  "name": "karage1-unique-alteration-dots-20261028-zeros",
+  "note": "Catalogue-free sparse hydrothermal-alteration dots; all-finite [0,1], format-valid locally, not organizer-cleared, research only",
+  "note_chars": 128,
+  "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-unique-alteration-dots-20261028-zeros.tif",
+  "sha256": "8bc4dae02a99da68ac0e895b7a5c4b5c72b60de11a91efb7ddef3f2b626ee1d2",
+  "bytes": 70977,
+  "grid": {
+    "epsg": 32611,
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "dtype": "float32",
+  "bands": 1,
+  "nodata": null,
+  "format_guarantees": {
+    "all_finite": true,
+    "values_in_0_1": true,
+    "single_band_float32": true,
+    "crs_shape_transform_match_template": true,
+    "no_positive_mass_outside_footprint": true
+  },
+  "dots": 3500,
+  "min_separation_px": 3.0,
+  "uniqueness": {
+    "vs_local_proxy_directed_overlap_3px": 0.0,
+    "dots_within_3px_of_local_proxy": 0,
+    "versus_organizer_lattice": "NOT verifiable locally (lattice raster not in checkout; DrivenData login-walled)"
+  },
+  "holdout_dti": null,
+  "holdout_dti_note": "not established; competition training data not present in this checkout",
+  "ok_to_submit": false,
+  "submission_authorized": false,
+  "verdict": "negative-research-artifact",
+  "blockers": [
+    "No organizer-authenticated grid/labels/lattice available locally; holdout DTI cannot be computed.",
+    "The dense registry lattice covers 99.87% of footprint cells within 3 px, so any footprint-wide dotted submission risks exceeding the 70% Rule-1 overlap limit vs the lattice.",
+    "Uniqueness vs the organizer registry and all prior submissions is not established locally."
+  ]
+}
