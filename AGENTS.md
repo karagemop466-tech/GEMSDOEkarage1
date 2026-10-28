@@ -3,6 +3,8 @@
 Read `knowledge/parallel-candidate-audit-2026-10-28.md` as well: the pinned
 PR 19 and 20 candidate rasters fail the literal lattice proximity rule even
 though their reports exempted that witness. They are not cleared to submit.
+Read `knowledge/repository-review-2026-10-28.md` for the pinned organizer
+reference-source audit and the latest three-pass checkout review.
 
 Read README.md, docs/standing-prompt.md, knowledge/research-review.md,
 knowledge/review-2026-10-28.md, knowledge/review-arena-0fb1-20261028.md and

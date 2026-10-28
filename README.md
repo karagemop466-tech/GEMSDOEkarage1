@@ -7,6 +7,10 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Latest repository review — 28 October 2026
+
+[Three-pass repository review and pinned organizer-reference forensics](knowledge/repository-review-2026-10-28.md). The current checkout is synchronized through PR 29; a local replay reproduced the historical duplicate counts, the public organizer reference notebook was reviewed at a pinned GitHub commit, and the fail-closed result remains **DO NOT SUBMIT**. This review ran no new experiment and created no submission. Local verification after synchronization: 240 tests passed, no failures or skips (90 Rasterio pending-deprecation warnings).
+
 ## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
 The previously reported lattice failure was independently replayed from pinned
