@@ -33,10 +33,13 @@ def assess(card):
     canary = card.get('canary') if isinstance(card.get('canary'), dict) else {}
     aucs = canary.get('feature_aucs')
     if (not isinstance(aucs, dict) or not aucs or canary.get('all_features_tested') is not True
-            or any(not finite_number(v) or not 0 <= v <= .90 for v in aucs.values())):
+            or canary.get('nonconstant_features_verified') is not True
+            or any(not finite_number(v) or not .5 <= v <= .90 for v in aucs.values())):
         reasons.append('Single-feature leakage canary missing or failed')
     reg = card.get('registry') if isinstance(card.get('registry'), dict) else {}
-    if reg.get('complete') is not True or reg.get('saved_bytes_checked') is not True:
+    if (reg.get('complete') is not True or reg.get('saved_bytes_checked') is not True
+            or reg.get('all_registry_rasters_included') is not True
+            or reg.get('exact_ranks') is not True):
         reasons.append('Complete registry / saved-byte comparison missing')
     for key, limit in [('surface_max_abs_rho', .90), ('dots_max_abs_rho', .90), ('max_directed_overlap_3px', .70)]:
         value = reg.get(key)

@@ -44,6 +44,7 @@ assert len(SUBMISSION_NOTE) <= 140
 
 
 def run_stage_fit(force: bool = False) -> None:
+    raise RuntimeError("Pipeline quarantined: resolve literal registry overlap and invalid canary evidence before rerunning.")
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()
@@ -60,6 +61,7 @@ def run_stage_fit(force: bool = False) -> None:
 
 
 def run_stage_eval_and_package() -> int:
+    raise RuntimeError("Pipeline quarantined: prior gate excluded registry rasters and cannot authorize a submission.")
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()

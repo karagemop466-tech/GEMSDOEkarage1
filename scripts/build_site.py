@@ -10,6 +10,9 @@ def shell(title, body):
 
 
 def main():
+    import runpy
+    runpy.run_path(str(ROOT / 'scripts/build_current_review.py'), run_name='__main__')
+    return
     # Preserve the concurrently merged detailed site and its independent audit.
     from build_detail_pages import main as build_details
     build_details()

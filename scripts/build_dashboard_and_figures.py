@@ -2,6 +2,8 @@
 """Generate SHA-256-verified 9-Focus-Site comparison JSON and scientific diagnostic maps."""
 from __future__ import annotations
 
+raise RuntimeError("Quarantined generator: historical promotion claims are superseded by current review.")
+
 import hashlib
 import json
 import sys
