@@ -50,8 +50,8 @@ def diagnose(candidate: Path, template: Path, expected_template_sha256: str | No
             "transform": list(t.transform)[:6], "dtype": t.dtypes[0],
             "nodata_is_nan": bool(t.nodata is not None and np.isnan(t.nodata)),
         }
-    if not footprint.any():
-        raise ValueError("sample footprint is empty")
+    if not footprint.any() or footprint.all():
+        raise ValueError("sample footprint is empty or has no outside")
     if (tmeta["driver"] != "GTiff" or tmeta["crs"] != "EPSG:32611" or
             tmeta["transform"][:2] != [100.0, 0.0] or tmeta["transform"][3:5] != [0.0, -100.0]):
         raise ValueError("template is not an EPSG:32611, 100 m, unrotated GeoTIFF")
@@ -63,9 +63,15 @@ def diagnose(candidate: Path, template: Path, expected_template_sha256: str | No
         masked = ds.read_masks(1) == 0
     checks["masked_inside_count"] = int(np.count_nonzero(masked & footprint))
     checks["outside_null_or_nan_count"] = int(np.count_nonzero((masked | np.isnan(data)) & ~footprint))
-    checks["outside_all_null_or_nan"] = checks["outside_null_or_nan_count"] == int((~footprint).sum())
+    checks["outside_all_null_or_nan"] = bool(
+        not footprint.all() and checks["outside_null_or_nan_count"] == int((~footprint).sum())
+    )
     checks["outside_unmasked_positive_count"] = int(np.count_nonzero(~footprint & ~masked & np.isfinite(data) & (data > 0)))
     base = bool(checks["mirror_grid_and_inside_values_pass"] and checks["masked_inside_count"] == 0)
+    nan_pass = bool(base and checks["outside_all_nan"])
+    null_or_nan_pass = bool(base and checks["outside_all_null_or_nan"])
+    strict_pass = bool(base and checks["whole_array_strict_finite_0_1"] and not checks["outside_unmasked_positive_count"])
+    outside_accepted = bool(nan_pass or null_or_nan_pass or strict_pass)
     return {
         "schema": "karage1-format-diagnostics-v1",
         "candidate": str(candidate),
@@ -79,9 +85,10 @@ def diagnose(candidate: Path, template: Path, expected_template_sha256: str | No
         "checks": checks,
         "diagnostics": {
             "grid_and_inside_pass": base,
-            "nan_outside_variant_pass": bool(base and checks["outside_all_nan"]),
-            "null_or_nan_outside_variant_pass": bool(base and checks["outside_all_null_or_nan"]),
-            "strict_whole_array_variant_pass": bool(base and checks["whole_array_strict_finite_0_1"] and not checks["outside_unmasked_positive_count"]),
+            "nan_outside_variant_pass": nan_pass,
+            "null_or_nan_outside_variant_pass": null_or_nan_pass,
+            "strict_whole_array_variant_pass": strict_pass,
+            "outside_encoding_accepted": outside_accepted,
             "note": "These are separate local checks, not guarantees of organizer acceptance.",
         },
         "uniqueness_holdout_and_selector_checked": False,
@@ -113,13 +120,15 @@ def main() -> int:
             try:
                 with os.fdopen(fd, 'w', encoding='utf-8') as fh:
                     fh.write(text)
+                os.chmod(temp, 0o644)
                 temp.replace(args.out)
             finally:
                 temp.unlink(missing_ok=True)
             print(f"Diagnostic written to {args.out}; this is not upload authorization.")
         else:
             print(text, end="")
-        return 0 if result["diagnostics"]["grid_and_inside_pass"] else 1
+        diag = result["diagnostics"]
+        return 0 if (diag["grid_and_inside_pass"] and diag["outside_encoding_accepted"]) else 1
     except (OSError, ValueError) as exc:
         print(f"FORMAT DIAGNOSTIC FAILED: {exc}", file=sys.stderr)
         return 2

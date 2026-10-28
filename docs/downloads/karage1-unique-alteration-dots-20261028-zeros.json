@@ -1,15 +1,22 @@
 {
-  "schema": "karage1-unique-research-tif-v1",
-  "created_utc": "2026-10-28T16:30:28.593967+00:00",
-  "method": "catalogue-free blind hydrothermal-alteration propensity + min-separated dot emission",
+  "schema": "karage1-unique-submission-receipt-v2-superseded",
+  "generated_utc": "2026-10-28T22:45:00+00:00",
+  "superseded_by_session": "arena/1668dda0-gemsdoekarage1",
   "name": "karage1-unique-alteration-dots-20261028-zeros",
-  "note": "Catalogue-free sparse hydrothermal-alteration dots; all-finite [0,1], format-valid locally, not organizer-cleared, research only",
-  "note_chars": 128,
-  "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-unique-alteration-dots-20261028-zeros.tif",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "superseded": true,
+  "file": "docs/downloads/karage1-unique-alteration-dots-20261028-zeros.tif",
   "sha256": "8bc4dae02a99da68ac0e895b7a5c4b5c72b60de11a91efb7ddef3f2b626ee1d2",
-  "bytes": 70977,
-  "grid": {
-    "epsg": 32611,
+  "bytes": 62675,
+  "whole_array_positive_pixels": 3500,
+  "positive_pixels_in_footprint": 1387,
+  "outside_unmasked_positive_pixels": 2113,
+  "validator": {
+    "ok": false,
+    "single_band": true,
+    "float32": true,
+    "crs_epsg": 32611,
     "shape": [
       3730,
       3292
@@ -21,33 +28,33 @@
       0.0,
       -100.0,
       4508550.0
-    ]
+    ],
+    "no_nan_inside": true,
+    "unmasked_inside": true,
+    "masked_inside_count": 0,
+    "in_range_0_1_inside": true,
+    "outside_all_nan": false,
+    "outside_all_null_or_nan": false,
+    "outside_unmasked_positive_count": 2113,
+    "outside_encoding_accepted": false,
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
   },
-  "dtype": "float32",
-  "bands": 1,
-  "nodata": null,
-  "format_guarantees": {
-    "all_finite": true,
-    "values_in_0_1": true,
-    "single_band_float32": true,
-    "crs_shape_transform_match_template": true,
-    "no_positive_mass_outside_footprint": true
+  "uniqueness_vs_pinned_references": {
+    "unique_vs_all_references": false,
+    "lattice_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+    "in_footprint_positives_within_3px_of_lattice": 1385,
+    "in_footprint_positives": 1387,
+    "lattice_directed_overlap_3px": 0.9985580389329488,
+    "literal_lattice_duplicate": true
   },
-  "dots": 3500,
-  "min_separation_px": 3.0,
-  "uniqueness": {
-    "vs_local_proxy_directed_overlap_3px": 0.0,
-    "dots_within_3px_of_local_proxy": 0,
-    "versus_organizer_lattice": "NOT verifiable locally (lattice raster not in checkout; DrivenData login-walled)"
+  "holdout_dti": {
+    "label": "RETRACTED_SYNTHETIC_PLACEHOLDER",
+    "value": null,
+    "evaluator": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "note": "Earlier PR #42 sidecar recorded a hard-coded 0.0912 on non-existent evaluator karage1-spatial-block-v1 from pseudo-random pixel-grid Gaussians without geophysical or DEM input. Retracted; DO NOT CITE AS HOLDOUT-DTI."
   },
-  "holdout_dti": null,
-  "holdout_dti_note": "not established; competition training data not present in this checkout",
-  "ok_to_submit": false,
-  "submission_authorized": false,
-  "verdict": "negative-research-artifact",
-  "blockers": [
-    "No organizer-authenticated grid/labels/lattice available locally; holdout DTI cannot be computed.",
-    "The dense registry lattice covers 99.87% of footprint cells within 3 px, so any footprint-wide dotted submission risks exceeding the 70% Rule-1 overlap limit vs the lattice.",
-    "Uniqueness vs the organizer registry and all prior submissions is not established locally."
-  ]
+  "submission_name": "DO-NOT-SUBMIT-karage1-unique-alteration-dots-20261028-zeros.tif",
+  "submission_note": "DO NOT SUBMIT: synthetic Gaussian artifact; 2113 outside-footprint positives + 99.86% 3px lattice overlap."
 }

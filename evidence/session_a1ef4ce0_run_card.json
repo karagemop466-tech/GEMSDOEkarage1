@@ -1,0 +1,98 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "session": "arena/a1ef4ce0-gemsdoekarage1",
+  "review_date_utc": "2026-10-28",
+  "hypothesis": "PROPOSED ONLY, NOT AN ASSIGNED LANE: magnetic texture-boundary change point using directional half-window semivariograms of locally detrended RTP/TMI.",
+  "mechanism": "A concealed fault could juxtapose magnetic fabrics with differing correlation length or anisotropy even when mean amplitude and scarp strength are weak. This is untested.",
+  "named_non_fault_mimic": "Unfaulted lithologic contacts, volcanic texture boundaries, and airborne survey flight-line processing seams.",
+  "assigned_method_lane": null,
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run: lane and canonical template unassigned; approved cache and same-fold baseline unavailable."
+  },
+  "correlation_overlap_vs_registry": {
+    "candidate_preplacement_surface_spearman_max": null,
+    "candidate_final_dot_overlap_max": null,
+    "registry_complete": false,
+    "status": "No new candidate; no pre-placement or final-dot candidate comparison claimed.",
+    "historical_reference_audit_reproduced": true,
+    "fetched_and_sha256_verified_assets": 12,
+    "source_manifest": "registry/reference_assets.json",
+    "source_manifest_sha256": "8239d7299ead44b9824b99cbcd23f896e2b29aefada46b8bfb82e37a65adee3a",
+    "replayed_audit_normalized_sha256": "98ebd743e2adbb7f1087e711cca53bbd8f4cc1a0a7d48418667905ba254f4898",
+    "normalization": "Remove created_utc and software only; sort keys, compact JSON, UTF-8.",
+    "historical_lattice_coverage_fraction": 0.9987132726822701,
+    "historical_b2_budget_bound": {
+      "dots": 37654,
+      "uncovered_pixels": 6649,
+      "minimum_overlapping_dots": 31005,
+      "minimum_fraction": 0.8234184947150369,
+      "limit": 0.7,
+      "necessarily_exceeds_limit": true,
+      "maximum_dots_not_ruled_out": 22163
+    },
+    "scope": "Historical mirror-byte geometry, not scores, organizer data authentication or full-registry certification."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_candidate_generated": false,
+    "no_nan_inside_footprint": null,
+    "unmasked_inside_footprint": null,
+    "masked_inside_count": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "portal_acceptance": "not tested",
+    "status": "No new candidate exists; no format pass asserted."
+  },
+  "submission_name": null,
+  "submission_note": "NEGATIVE: lane/template unassigned; audit reproduced; baseline and mask evidence now mandatory. No new TIFF or competition upload.",
+  "geological_experiments_run": 0,
+  "slot_selected_or_spent": false,
+  "download_available": false,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "preflight": {
+    "lane": null,
+    "canonical_assignment_recorded": false,
+    "ready_for_shared_tools": false,
+    "missing_shared_execution_inputs": [
+      ".cache/gems_work/feature_stack.npy",
+      ".cache/gems_data/existing_faults.tif",
+      ".cache/gems_data/training_features.tif",
+      ".cache/gems_data/sample_submission.tif",
+      ".cache/gems_data/labels.tif"
+    ],
+    "template_integrity_problems": [
+      "Vendored bytes differ from recorded immutable provenance; do not repin without upstream review.",
+      "Vendored source and execution-template pin identify different repositories or commits.",
+      "Assigned method lane is absent.",
+      "Authoritative shared-template assignment and upstream repair approval are not established by this audit."
+    ]
+  },
+  "official_code_source_receipt": "evidence/official_code_receipt_a1ef4ce0.json",
+  "software_verification": {
+    "baseline_tests_passed": 305,
+    "full_suite_tests_passed": 330,
+    "scientific_measurement": false,
+    "full_suite_failures": 0,
+    "warnings": 119,
+    "warning_scope": "Rasterio/Affine pending-deprecation warnings; not holdout measurements.",
+    "commands": [
+      "python -m pytest -q",
+      "python scripts/build_site.py",
+      "python scripts/reconcile_prior_decisions.py"
+    ]
+  },
+  "limitations": [
+    "No assigned method paragraph in current prompt or registry.",
+    "Canonical shared template and approved cached stack unresolved.",
+    "Full current registry, organizer data authentication and same-fold current best unavailable.",
+    "Network permits GitHub and package registries, not direct DrivenData, USGS, GDR, NLR or Dropbox.",
+    "No live organizer receipts, leaderboard target or weekly allowance verified.",
+    "No new TIFF or validated geological hypothesis delivered."
+  ]
+}
