@@ -238,3 +238,26 @@ def test_release_gate_cli_exit_codes_and_nan_rejection(tmp_path):
     bad_file.write_text('{"lane": "x", "elapsed_seconds": NaN}')
     assert gate.main([str(bad_file), '--out', str(out_file)]) == 1
     assert json.loads(out_file.read_text())['verdict'] == 'negative'
+
+
+def test_cli_rejects_duplicate_json_keys_at_any_depth(tmp_path, capsys):
+    card = tmp_path / 'card.json'
+    card.write_text('{"holdout":{"dti":0.1,"dti":0.2}}')
+    assert gate.main([str(card)]) == 1
+    assert 'duplicate JSON key: dti' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('alias', ['same', 'symlink', 'hardlink'])
+def test_cli_refuses_to_overwrite_input_card(tmp_path, capsys, alias):
+    card = tmp_path / 'card.json'
+    original = '{"lane":"original"}'
+    card.write_text(original)
+    output = card if alias == 'same' else tmp_path / 'alias.json'
+    if alias == 'symlink':
+        output.symlink_to(card)
+    elif alias == 'hardlink':
+        import os
+        os.link(card, output)
+    assert gate.main([str(card), '--out', str(output)]) == 1
+    assert card.read_text() == original
+    assert 'must not overwrite' in capsys.readouterr().err
