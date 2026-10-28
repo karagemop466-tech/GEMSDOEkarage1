@@ -11,7 +11,18 @@
 
 Independent saved-byte checks show the pinned [PR 20 TD-KSCK and PR 19 CTWS-2D candidates](knowledge/parallel-candidate-audit-2026-10-28.md) also fail the literal lattice stop: 37,584/37,654 (99.8141%) and 37,999/38,200 (99.4738%) of their dots respectively lie within 3 pixels of that witness. Their own reports excluded it from the passing maximum. **DO NOT SUBMIT either.** This is a one-witness negative audit, not a holdout or complete registry scan. The mirror is not authenticated; no slot was spent.
 
-## Latest follow-up: automation preflight
+## Latest follow-up: release-gate consistency
+
+[Session review](knowledge/session-0f04bfcc-review.md) ·
+[Negative session run card](evidence/session_0f04bfcc_run_card.json). The local
+release gate now rejects a candidate SHA-256 identical to any reported registry
+raster even if the card claims the bytes differ. This is an internal consistency
+check, not independent hash or registry authentication. No experiment, new TIFF,
+score estimate or slot selection was made; **do not submit**. Full suite: 219
+passed, with 53 rasterio warnings.
+
+## Earlier follow-up: automation preflight
+
 
 The shared-tool adapter now exits **1** when the assigned lane or required
 cached inputs are absent, including `existing_faults.tif`. A successful JSON
@@ -20,6 +31,27 @@ not provenance, scientific merit, uniqueness or upload authorization.
 [Three-pass follow-up review](knowledge/session-a0f0d036-review.md) ·
 [Session negative run card](evidence/session_a0f0d036_run_card.json).
 Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
+
+### Latest follow-up — session `5b69d76e`
+
+An independent saved-byte recheck fetched the pinned peer sample and lattice:
+[replay evidence](evidence/session_5b69d76e_prior_audit.json) and [session run
+card](evidence/session_5b69d76e_run_card.json). Both historical TIFFs again fail
+on the lattice witness; no new raster, holdout result, upload or slot selection
+was made. The session did not receive the protocol's promised single method-lane
+paragraph. Neither the full registry nor organizer-authenticated template is
+established; the mirrored sample is not official proof.
+
+The release gate now requires candidate/template hashes in the validation
+record and matching hash-pinned holdout fold assignments for the baseline and
+candidate. Hash equality is a consistency check, **not** proof of provenance,
+proper spatial splits, or authenticity. Synthetic regression tests cover missing
+and conflicting bindings. The shared template was not modified; its upstream
+identity and previously reported comparator defect still need resolution. See
+[three-pass follow-up](knowledge/session-5b69d76e-review.md).
+### Latest independent session review
+
+The [three-pass session review](knowledge/session-review-arena-9ad4a8a0.md) and [negative session run card](evidence/run_card_arena_9ad4a8a0.json) record a fresh restoration of the pinned mirrors, an exact reproduction of the duplicate audit, and a fix for masked in-footprint pixels in the strict local format checker. **No new TIFF, holdout estimate, or submission-slot decision was produced.** The restored mirrors are not authenticated organizer inputs; the assigned lane, shared stack and complete registry remain unresolved. The scheduled refresh creates a workflow artifact, not a live published feed.
 
 ## What changed on 28 October 2026
 

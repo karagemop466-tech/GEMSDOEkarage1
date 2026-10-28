@@ -1,0 +1,34 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/0f04bfcc-gemsdoekarage1",
+  "hypothesis": "No assigned method lane supplied; no new geological hypothesis was tested in this session.",
+  "mechanism": "None executed. Historical B2 thinning may alter the coverage versus false-positive tradeoff; causality is unverified.",
+  "named_non_fault_mimic": "Lithologic contacts can mimic magnetic or gravity edges.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run; no comparable current measurement."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_spearman": null,
+    "final_dot_overlap": null,
+    "status": "No new surface or raster generated; inherited artifacts fail the literal lattice rule in evidence/candidate_audit_20261028.json. Registry is incomplete."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "No new raster to validate; authenticated official template absent."
+  },
+  "submission_name": null,
+  "submission_note": "No submission: lane and validation inputs unavailable.",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 0,
+  "verdict": "negative"
+}
