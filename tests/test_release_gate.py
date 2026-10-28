@@ -109,3 +109,15 @@ def test_inconsistent_candidate_dot_counts_fail_closed():
     result = gate.assess(card)
     assert result['verdict'] == 'negative'
     assert any('dot counts disagree' in reason for reason in result['reasons'])
+
+
+def test_historical_hedge_does_not_exempt_its_lattice_witness():
+    import json
+    root = Path(__file__).parents[1]
+    hedge = json.loads((root / 'evidence/hedge_sqrt_receipt_REJECTED_89pct_same_as_primary.json').read_text())
+    rows = hedge['uniqueness']['rows']
+    lattice = next(r for r in rows if 'lattice' in r['registry_id'])
+    assert lattice['frac_our_dots_within_3px'] > .7
+    assert hedge['uniqueness']['original_unique_superseded'] is True
+    assert hedge['uniqueness']['unique'] is False
+    assert hedge['approved_for_weekly_slot'] is False

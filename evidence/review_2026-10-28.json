@@ -1,0 +1,38 @@
+{
+  "schema": "karage1-review-v1",
+  "date_utc": "2026-10-28",
+  "current_verdict": "negative",
+  "ok_to_submit": false,
+  "new_experiments": 0,
+  "reason": "No method paragraph was assigned in the current prompt; prior HMAS run already reports three experiments. Existing uniqueness evidence excludes a registry lattice that exceeds the literal directed-overlap threshold. Constant-feature canary was treated as passing. The shared template and official data are not present locally.",
+  "hmas_prior_artifact": "docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+  "hmas_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+  "hmas_prior_audit_lattice_overlap": 0.99932,
+  "lattice_source": "evidence/fleet_uniqueness_593.json (previously excluded calibration raster)",
+  "gpcz_prior_audit_lattice_overlap": 0.9988611111111111,
+  "gpcz_lattice_source": "evidence/run_card_gpcz.json uniqueness_rows (previously excluded calibration raster)",
+  "current_holdout": null,
+  "current_registry_comparison": null,
+  "current_validator": {
+    "hmas_self_read": "Single-band float32; finite whole-array range [0,1]; shape 3730x3292; CRS EPSG:32611; affine [100,0,243350,0,-100,4508550]. Verified locally; organizer template and footprint absent, so no independent template comparison or footprint verification.",
+    "official_template_match": null
+  },
+  "organizer_confirmed_score": null,
+  "submission_name": null,
+  "submission_note": null,
+  "hypothesis": null,
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "holdout_dti_and_ci": null,
+  "correlation_overlap_vs_registry": {
+    "current_run": null,
+    "prior_hmas_lattice_overlap": 0.99932,
+    "prior_gpcz_lattice_overlap": 0.9988611111111111
+  },
+  "raster_sha256": null,
+  "validator_output": "No new raster to validate; prior HMAS self-read is recorded separately.",
+  "verdict": "negative",
+  "supersession_notice": "Earlier 28 Oct review, retained as a historical snapshot. The subsequent saved-byte recheck and 31-file mirror restoration are recorded in the newer audit and run card; the verdict remains negative.",
+  "superseded_by": "docs/data/run-card.json",
+  "newer_audit": "evidence/candidate_audit_20261028.json"
+}

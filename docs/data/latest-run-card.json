@@ -36,6 +36,7 @@
   "submission_name": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
   "submission_note": "Historical HMAS candidate: audit only; fails literal lattice overlap gate. Do not submit.",
   "download_available": false,
+  "download_available_meaning": "No submission-ready download; clearly labeled historical files remain available for research only.",
   "ok_to_submit": false,
   "slot_selected_or_spent": false,
   "geological_experiments_run_this_session": 0,

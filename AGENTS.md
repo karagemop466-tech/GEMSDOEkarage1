@@ -1,23 +1,24 @@
 # Starting point for every session
 
-Read `README.md`, `knowledge/research-review.md`, and `docs/data/run-card.json`
-before proposing or implementing work. The owner's parallel-run protocol in
-README is binding: do not invent a missing assigned lane, bypass a registry
-witness, manufacture a score or upload old predictions. Preserve the budget,
-separate the technical gates from slot selection, and update the run card and
-visible site together with any future evidence. Data-derived conclusions must
-be traceable to immutable sources and exact saved bytes.
+Read README.md, docs/standing-prompt.md, knowledge/research-review.md and
+knowledge/review-2026-10-28.md before proposing or implementing work. The
+parallel-run protocol is binding: do not invent a lane, bypass any registry
+witness, manufacture a score, or upload old predictions. Preserve the budget,
+separate technical gates from slot selection, and update current evidence and
+visible pages together. Official-data provenance must not be inferred from
+peer mirrors.
 
-Concurrent synthetic H-UNQ-1 and CDA1 artifacts are archived, not submissions;
-CDA1's hard-coded evaluator is not a measurement. Read `docs/data/archive-review.json`
-and both archive READMEs before using any inherited claim. The current homepage
-is maintained by `scripts/render_site.py`; `scripts/build_site.py` maintains the
-parallel review's legacy and per-site pages without overwriting it. Both prior
-and current run cards are negative.
+The historical HMAS and GPC-Z promotion statements are superseded. Their
+own recorded overlap with the registry lattice exceeds the literal protocol;
+the HMAS canary also treated a constant feature as a passing test. The current
+verdict is negative. Prior JSON records are retained for audit, not authority.
+Read docs/data/run-card.json and evidence/candidate_audit_20261028.json;
+evidence/review_2026-10-28.json is an earlier review snapshot. The HMAS pipeline and promotional page
+generators are quarantined. Build current entry pages with
+scripts/build_current_review.py or scripts/build_site.py. Do not restore old
+promotional pages. Shared-template fixes belong in its owning template, not a
+private fork.
 
-Lane GPC-Z (2026-10-27) produced a gated candidate: read `evidence/run_card_gpcz.json`,
-`evidence/release_gate_gpcz.json` and `docs/gpcz/index.html`. Lane pages are built by
-`scripts/build_gpcz_site.py` into `docs/gpcz/`; the homepage decision panel in `index.html`,
-`docs/executive-summary.html` and the alert in `scripts/build_detail_pages.py` must be
-updated together whenever the gate result changes. The lane's shared tools live in
-`src/gemsk/`; the pinned GEMSDOE32 template evaluator was run unmodified for comparison.
+Thirty-one third-party data mirrors are pinned and restorable, but their hashes
+do not establish organizer authenticity. Cached data and the shared feature
+stack are not tracked. Research-only downloads are not submission authorization.

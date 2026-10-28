@@ -128,6 +128,16 @@ def main():
                                    'and treats constant features as AUC 0.5; reported AUCs were not reproduced.')
     save(path, canary)
 
+    hedge_path = ROOT / 'evidence/hedge_sqrt_receipt_REJECTED_89pct_same_as_primary.json'
+    hedge = load(hedge_path)
+    hedge['uniqueness'].setdefault('original_unique_superseded', hedge['uniqueness'].get('unique'))
+    hedge['uniqueness']['unique'] = False
+    hedge['uniqueness']['rule_overlap_le_0.70'] = False
+    hedge['supersession_notice'] = ('Historical receipt only; its own lattice row reports 99.8972% overlap, '
+                                   'which violates the literal rule. Hedge raster bytes were not rechecked in this session.')
+    hedge['approved_for_weekly_slot'] = False
+    save(hedge_path, hedge)
+
     receipt = ROOT / 'docs/downloads' / (Path(candidates[0]['file']).stem + '.json')
     receipt_data = load(receipt)
     receipt_data['promoted'] = False
@@ -178,6 +188,7 @@ def main():
         'submission_name': c['file'],
         'submission_note': 'Historical HMAS candidate: audit only; fails literal lattice overlap gate. Do not submit.',
         'download_available': False,
+        'download_available_meaning': 'No submission-ready download; clearly labeled historical files remain available for research only.',
         'ok_to_submit': False,
         'slot_selected_or_spent': False,
         'geological_experiments_run_this_session': 0,

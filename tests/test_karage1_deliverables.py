@@ -164,6 +164,7 @@ def test_pages_ui_and_readme_integrity() -> None:
     for site in ("GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30", "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"):
         assert site in idx
         assert site in readme
+        assert "DO NOT SUBMIT" in readme
 
     # Verify all relative href/src assets referenced in docs/hmas-sinter/{index,executive-summary}.html exist
     for html_doc in (idx, exe):

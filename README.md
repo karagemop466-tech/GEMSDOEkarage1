@@ -132,9 +132,10 @@ bytes or negative decision disagree. `scripts/release_gate.py` requires
 comparison rows, the pinned lattice, holdout provenance and validator checks,
 but it **cannot authenticate self-attested rows or establish registry
 completeness**. Even a future scientific `promote` is not a slot selection:
-`ok_to_submit` remains false until a separate selector step. The inherited
-canary substitutes values for invalid features and treats constants as AUC .5;
-its recorded pass is not sufficient proof of no leakage. The inherited
+`ok_to_submit` remains false until a separate selector step. The historical
+canary treated constants as passing at AUC .5. The inherited code now flags
+constant channels, but still substitutes zero for nonfinite values; its old
+recorded pass is not sufficient proof of no leakage. The inherited
 holdout's chunking also needs confirmation as whole original fault segments.
 Do not silently modify a vendor copy instead of fixing the agreed shared
 upstream template.

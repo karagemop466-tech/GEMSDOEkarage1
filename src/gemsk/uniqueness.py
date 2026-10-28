@@ -1,13 +1,8 @@
-"""Registry-uniqueness checks required by the parallel-run protocol.
+"""Historical GPC-Z uniqueness helper — disabled, not a release policy.
 
-Two rules, checked on the FINAL dots (and, for continuous surfaces, on the surface):
-1. rank-correlation (Spearman) with every registry raster <= 0.90 on the footprint;
-2. at most 70% of our dots within 3 px of any single registry raster's dots.
-
-Documented calibration probes (e.g. the 5-px lattice ``r13-lattice-s5``, which places 99.87% of the
-footprint within 3 px of a dot) are exempt from rule 2 and flagged: for any raster with more than
-~22,000 dots the literal rule is mathematically impassable against that probe (sibling finding
-IR-49-LATTICE-01, re-derived here from the pinned bytes).
+The former implementation exempted lattice witnesses, sampled correlations,
+and silently skipped missing rasters. It cannot establish literal uniqueness.
+Use the agreed shared template with an authenticated complete inventory.
 """
 from __future__ import annotations
 
@@ -39,6 +34,7 @@ def load_registry() -> list[dict]:
 
 
 def check(dots: np.ndarray, surface: np.ndarray | None = None, seed: int = 0, n_sample: int = 400_000) -> dict:
+    raise RuntimeError("Historical GPC-Z uniqueness helper disabled: it exempted the lattice and skipped missing rasters.")
     foot = grid.footprint()
     reg = load_registry()
     rng = np.random.default_rng(seed)

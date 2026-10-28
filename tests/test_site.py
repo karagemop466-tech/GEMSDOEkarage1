@@ -41,3 +41,16 @@ def test_evidence_strict_json():
     assert card['verdict']=='negative'
     assert card['raster_sha256'] is None
     assert card['holdout']['dti'] is None
+
+
+def test_all_legacy_page_builders_delegate_to_fail_closed_renderer():
+    paths = [ROOT / 'index.html', ROOT / 'executive-summary.html', *sorted((ROOT / 'docs').glob('**/*.html'))]
+    before = {path: path.read_bytes() for path in paths}
+    for entry in ('build_site.py', 'build_current_review.py', 'generate_pages.py',
+                  'build_detail_pages.py', 'build_gpcz_site.py'):
+        subprocess.run([sys.executable, f'scripts/{entry}'], cwd=ROOT, check=True, capture_output=True)
+        assert {path: path.read_bytes() for path in paths} == before, entry
+    blocked = subprocess.run([sys.executable, 'scripts/build_dashboard_and_figures.py'],
+                             cwd=ROOT, capture_output=True, text=True)
+    assert blocked.returncode != 0 and 'Quarantined' in blocked.stderr
+    assert {path: path.read_bytes() for path in paths} == before
