@@ -1,5 +1,6 @@
 """Bootstrap and invoke pinned shared tools, never copy or fork their implementation."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -23,6 +24,24 @@ def bootstrap():
         raise SystemExit('Shared template has modifications; no private fork permitted')
 
 
+def _same_bytes(first, second):
+    """Report byte identity only; identical files do not establish data roles."""
+    if not first.is_file() or not second.is_file():
+        return None
+    try:
+        if first.stat().st_size != second.stat().st_size:
+            return False
+        def digest(path):
+            h = hashlib.sha256()
+            with path.open('rb') as stream:
+                for chunk in iter(lambda: stream.read(1024 * 1024), b''):
+                    h.update(chunk)
+            return h.digest()
+        return digest(first) == digest(second)
+    except OSError:
+        return None
+
+
 def preflight():
     pin = json.loads((ROOT / 'registry/template.json').read_text())
     needed = [ROOT / '.cache/gems_work/feature_stack.npy', ROOT / '.cache/gems_data/existing_faults.tif',
@@ -31,7 +50,11 @@ def preflight():
     lane = pin.get('method_lane')
     lane_valid = isinstance(lane, str) and bool(lane.strip())
     missing = [str(p.relative_to(ROOT)) for p in needed if not p.is_file()]
+    labels_match_catalogue = _same_bytes(needed[4], needed[1])
     return {'lane': lane, 'missing': missing, 'template_commit': pin['commit'],
+            'labels_and_existing_faults_identical_bytes': labels_match_catalogue,
+            'data_role_warning': ('Identical bytes: verify source and fold-local fault roles before evaluation; '
+                                  'identity alone does not establish leakage.' if labels_match_catalogue is True else None),
             'ready_for_shared_tools': lane_valid and not missing,
             'ok_to_submit': False,
             'scope': 'Input presence and lane only; not scientific validation or slot selection.'}

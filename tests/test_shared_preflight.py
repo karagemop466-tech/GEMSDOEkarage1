@@ -56,3 +56,22 @@ def test_blocked_execution_never_bootstraps(workspace, monkeypatch, command):
     monkeypatch.setattr(shared_tools, 'bootstrap', lambda: pytest.fail('bootstrapped blocked run'))
     with pytest.raises(SystemExit, match='BLOCKED'):
         shared_tools.main()
+
+
+def test_identical_data_roles_are_flagged_but_not_called_leakage(workspace):
+    configure(workspace, 'assigned-lane')
+    report = shared_tools.preflight()
+    assert report['labels_and_existing_faults_identical_bytes'] is True
+    assert 'does not establish leakage' in report['data_role_warning']
+    assert report['ready_for_shared_tools'] is True  # presence only, not scientific approval
+    (workspace / '.cache/gems_data/labels.tif').write_bytes(b'different')
+    report = shared_tools.preflight()
+    assert report['labels_and_existing_faults_identical_bytes'] is False
+    assert report['data_role_warning'] is None
+
+
+def test_missing_role_cannot_be_reported_as_distinct(workspace):
+    configure(workspace, 'assigned-lane', ('labels.tif',))
+    report = shared_tools.preflight()
+    assert report['labels_and_existing_faults_identical_bytes'] is None
+    assert report['ready_for_shared_tools'] is False
