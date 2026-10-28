@@ -51,11 +51,12 @@
 While this PR was being prepared, `origin/main` advanced with an independent
 release-gate consistency check, a stricter local masked-pixel diagnostic, and
 associated tests/reviews. Those changes were merged into this working branch
-before the PR merge. After integration, the full suite passed: **221 passed, 62
-Rasterio/Affine pending-deprecation warnings**. `scripts/build_site.py` again
-rendered 32 deterministic pages without authorizing a submission, and
-`git diff --check` passed. The exact pre-merge run recorded above remains a
-historical 218-test result; 221 is the latest post-integration count.
+before the PR merge. After the first integration, 221 tests passed. The base
+advanced again during PR preparation, so it was merged a second time; the latest
+full suite then passed: **228 passed, 62 Rasterio/Affine pending-deprecation
+warnings**. `scripts/build_site.py` again rendered 32 deterministic pages
+without authorizing a submission, and `git diff --check` passed. Earlier 218- and
+221-test runs are historical counts; 228 is the latest post-integration result.
 
 ## Run card (this review)
 

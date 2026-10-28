@@ -14,24 +14,37 @@
 release gate rejects a candidate SHA-256 identical to any reported registry
 raster even if the card claims the bytes differ. This is an internal consistency
 check, not independent hash or registry authentication. No experiment, new TIFF,
-score estimate or slot selection was made; **do not submit**. After integrating
-`origin/main`, the full suite passed: **221 passed, 62 pending-deprecation
-warnings**; deterministic site build and `git diff --check` passed.
+score estimate or slot selection was made; **do not submit**.
 
 [Independent audit review](knowledge/session-review-arena-9ad4a8a0.md) ·
 [Negative run card](evidence/run_card_arena_9ad4a8a0.json) records a restoration
 of pinned mirrors, a duplicate-audit reproduction and a local masked-pixel
 format-checker fix. No new TIFF, holdout estimate or slot decision was produced.
-The peer mirrors are not authenticated organizer inputs; the assigned lane,
-shared stack and complete registry remain unresolved. The scheduled refresh
-creates a workflow artifact, not a live published feed.
+
+A subsequent [saved-byte recheck](knowledge/session-5b69d76e-review.md) fetched
+the pinned peer sample and lattice; both historical TIFFs failed the lattice
+overlap gate again. It also strengthened the local release record to bind
+validation hashes and holdout fold assignments. Hash bindings do not prove
+provenance, authenticity or fold validity. The protocol's assigned method lane,
+full registry and organizer-authenticated template remain unresolved.
+
+The [independent checkout review](evidence/session_review_2026-10-28_arena-470a3424.json)
+found the same fail-closed status: no new experiment, raster or submission.
+Following concurrent merges, the complete suite passed **228 tests** with 62
+Rasterio/Affine pending-deprecation warnings; the deterministic site build and
+`git diff --check` passed. Test success is not a holdout score or submission
+authorization.
 
 [Current repository review](knowledge/session-review-final-2026-10-28.md) ·
 [Current negative run card](docs/data/run-card.json). The shared-tool adapter
 fails closed because the assigned method lane and required cached inputs,
 including `existing_faults.tif`, are absent. Its preflight checks presence only,
-not provenance, scientific merit, uniqueness or upload authorization. This
-review generated no experiment, score, TIFF or slot selection.
+not provenance, scientific merit, uniqueness or upload authorization. No new
+experiment, score, TIFF or slot selection was made in this review.
+
+Earlier automation-preflight review: [session report](knowledge/session-a0f0d036-review.md) ·
+[run card](evidence/session_a0f0d036_run_card.json). The scheduled refresh creates
+a workflow artifact, not a live published feed.
 
 ## What changed on 28 October 2026
 
