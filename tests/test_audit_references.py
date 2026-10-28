@@ -289,3 +289,29 @@ def test_format_diagnostic_cannot_replace_input(tmp_path, alias):
     assert run.returncode == 2
     assert 'must not overwrite candidate or template' in run.stderr
     assert all(p.read_bytes() == b for p, b in inputs.items())
+
+
+def test_format_cli_defaults_to_strict_and_inside_only_is_explicit(tmp_path):
+    import subprocess
+    import sys
+    template = np.zeros((8, 8), np.float32); template[0] = np.nan
+    sample, candidate = tmp_path / 'sample.tif', tmp_path / 'candidate.tif'
+    _write(sample, template, 'float32', np.nan)
+    _write(candidate, template, 'float32', np.nan)
+    command = [sys.executable, str(audit.ROOT / 'scripts/validate_geotiff.py'),
+               str(candidate), '--template', str(sample)]
+    strict = subprocess.run(command, capture_output=True, text=True)
+    assert strict.returncode == 1
+    report = json.loads(strict.stdout)
+    assert report['diagnostics']['grid_and_inside_pass']
+    assert report['cli_exit_check'] == 'strict_whole_array_variant_pass'
+    assert not report['cli_exit_check_passed'] and not report['submission_authorized']
+    weak = subprocess.run(command + ['--require-inside-only'], capture_output=True, text=True)
+    assert weak.returncode == 0
+    report = json.loads(weak.stdout)
+    assert report['cli_exit_check'] == 'grid_and_inside_pass'
+    assert report['cli_exit_check_passed'] and not report['submission_authorized']
+    _write(candidate, np.nan_to_num(template), 'float32', None)
+    strict = subprocess.run(command, capture_output=True, text=True)
+    assert strict.returncode == 0
+    assert not json.loads(strict.stdout)['submission_authorized']

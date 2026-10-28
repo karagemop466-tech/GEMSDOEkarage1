@@ -7,6 +7,17 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Latest review — session `arena/3bbd3469-gemsdoekarage1`
+
+**DO NOT SUBMIT.** No new TIFF or holdout result was produced. The assigned
+method lane, authenticated organizer inputs, shared feature cache, complete
+registry and comparable holdout baseline are not established. The format
+checker CLI now defaults to a conservative whole-array finite/range check;
+`--require-inside-only` explicitly selects the weaker research-only check.
+Neither mode authorizes submission or establishes portal acceptance. See the
+[three-pass review](knowledge/session-review-arena-3bbd3469.md) and
+[negative run card](evidence/session_3bbd3469_run_card.json).
+
 ## Latest checkout review — session `arena/43868644`
 
 **No new eligible TIFF; do not submit.** The assigned lane and shared cached

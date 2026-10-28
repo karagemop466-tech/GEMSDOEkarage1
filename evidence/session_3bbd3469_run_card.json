@@ -1,0 +1,17 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/3bbd3469-gemsdoekarage1",
+  "hypothesis": "Unassigned; signed multiscale magnetic-gravity margin asymmetry is an earlier research proposal, not an active experiment.",
+  "mechanism": "Oriented cross-profile potential-field gradients might reveal concealed lithological displacement; not tested in this session.",
+  "named_non_fault_mimic": "Lithologic contacts and volcanic flow margins can produce similar gradients.",
+  "holdout_dti": {"label": "HOLDOUT-DTI", "value": null, "evaluator_version": null, "withheld_positives": null, "ci95": null, "status": "not run"},
+  "correlation_overlap_vs_registry": {"preplacement_surface_spearman": null, "final_dot_spearman": null, "final_dot_overlap": null, "status": "not run; no candidate and no complete registry"},
+  "raster_sha256": null,
+  "validator_output": {"no_nan_inside_footprint": null, "values_in_0_1": null, "crs_shape_transform_match": null, "status": "not run; no candidate or official template"},
+  "submission_name": null,
+  "submission_note": null,
+  "geological_experiments_run": 0,
+  "slot_selected_or_spent": false,
+  "ok_to_submit": false,
+  "verdict": "negative"
+}
