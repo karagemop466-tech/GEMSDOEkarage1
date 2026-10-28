@@ -116,7 +116,7 @@ def decision(prefix: str):
 <div class="status-line"><span class="status-dot"></span> CURRENT SUBMISSION DECISION <span class="status-tag">DO NOT SUBMIT</span></div>
 <h2 id="decision-title">No eligible submission file yet.</h2><p>Both previously promoted files fail the required registry proximity rule. The saved HMAS file has <strong>{ar['directed_overlap']:.2%}</strong> of its dots within 3 pixels of the registered lattice; GPC-Z has <strong>{br['directed_overlap']:.2%}</strong>. The limit is 70%. A different hash is not enough to prove uniqueness.</p>
 <div class="decision-actions"><button class="button button-disabled" disabled>No approved .tif to download</button><a class="button button-light" href="{prefix}docs/executive-summary.html">Read the submission guide ↗</a><a class="button button-light" href="{prefix}evidence/candidate_audit_20261028.json">Inspect the audit ↗</a></div>
-<p class="download-help">No new experiment or competition upload was run in this session. A separate selector decides a weekly slot only after all gates pass.</p></div>
+<p class="download-help">No new experiment or competition upload was run in this review. A separate selector decides a weekly slot only after all gates pass. <a href="{prefix}evidence/session_5b69d76e_prior_audit.json">Replayed lattice audit ↗</a></p></div>
 <div class="decision-side"><div><span>VERDICT</span><strong>Negative · duplicate</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Unavailable</strong></div><div><span>PRE-PLACEMENT SURFACE</span><strong>Not available</strong></div><a href="{prefix}docs/data/run-card.json">Current run card ↗</a></div></section>'''
 
 

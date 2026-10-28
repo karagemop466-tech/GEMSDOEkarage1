@@ -50,10 +50,41 @@ not provenance, scientific merit, uniqueness or upload authorization.
 [Session negative run card](evidence/session_a0f0d036_run_card.json).
 Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
 
+### Latest follow-up — session `5b69d76e`
+
+An independent saved-byte recheck fetched the pinned peer sample and lattice:
+[replay evidence](evidence/session_5b69d76e_prior_audit.json) and [session run
+card](evidence/session_5b69d76e_run_card.json). Both historical TIFFs again fail
+on the lattice witness; no new raster, holdout result, upload or slot selection
+was made. The session did not receive the protocol's promised single method-lane
+paragraph. Neither the full registry nor organizer-authenticated template is
+established; the mirrored sample is not official proof.
+
+The release gate now requires candidate/template hashes in the validation
+record and matching hash-pinned holdout fold assignments for the baseline and
+candidate. Hash equality is a consistency check, **not** proof of provenance,
+proper spatial splits, or authenticity. Synthetic regression tests cover missing
+and conflicting bindings. The shared template was not modified; its upstream
+identity and previously reported comparator defect still need resolution. See
+[three-pass follow-up](knowledge/session-5b69d76e-review.md).
 ### Latest independent session review
 
 The [three-pass session review](knowledge/session-review-arena-9ad4a8a0.md) and [negative session run card](evidence/run_card_arena_9ad4a8a0.json) record a fresh restoration of the pinned mirrors, an exact reproduction of the duplicate audit, and a fix for masked in-footprint pixels in the strict local format checker. **No new TIFF, holdout estimate, or submission-slot decision was produced.** The restored mirrors are not authenticated organizer inputs; the assigned lane, shared stack and complete registry remain unresolved. The scheduled refresh creates a workflow artifact, not a live published feed.
 
+### This branch's independent checkout review
+
+The [review record](evidence/session_review_2026-10-28_arena-470a3424.json)
+reproduced the fail-closed software status; no geological experiment or
+submission was made. Its initial preflight reported no assigned lane and lacked
+the feature stack and input rasters. The inherited TIFFs already fail the
+literal 3-pixel lattice-overlap gate; this is not a pre-placement uniqueness
+check for a new candidate. At that checkout point, the suite had **205 passed,
+0 failed, 0 skipped** (53 Rasterio deprecation warnings) and the site builder
+rendered 32 pages deterministically. A later merged follow-up records 219
+passing tests and strengthens preflight/gate behavior. After synchronizing this
+branch with the latest main, the complete suite passed **221 tests** (62
+Rasterio warnings). Neither test count is a holdout result or submission
+authorization.
 
 ## What changed on 28 October 2026
 

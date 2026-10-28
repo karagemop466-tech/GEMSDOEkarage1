@@ -59,7 +59,10 @@ new prediction rasters, slot selections or uploads were made. See the
   without altering committed site output; `git diff --check` passed. After merging
   concurrent main-branch changes into this working branch and resolving README
   and AGENTS conflicts, the combined suite passed **228 tests** with 62 Rasterio
-  pending-deprecation warnings; the site build remained unchanged.
+  pending-deprecation warnings; the site build remained unchanged. A second
+  main synchronization incorporated another session's stronger candidate and
+  template hash checks and fold-binding safeguards; the resulting suite passed
+  **233 tests** with 62 warnings. Both hashes remain unauthenticated assertions.
 * The nine-site summaries, named files, reported (unverified) numbers, negative
   verdict, B2 discussion and four qualified research proposals already exist in
   [the dashboard](../docs/index.html) and [research review](research-review.md).
