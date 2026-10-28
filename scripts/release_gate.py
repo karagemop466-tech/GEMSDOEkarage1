@@ -57,8 +57,13 @@ def assess(card):
             or not 0 <= ci[0] <= score <= ci[1] <= 1):
         reasons.append("Invalid holdout measurement or CI")
     baseline, delta = h.get("baseline_dti"), h.get("paired_delta_ci95")
+    # Matching evaluator names do not establish that the two measurements used
+    # the same withheld segments. Require an immutable split-assignment digest
+    # for both arms. A digest is a consistency check, not proof of honest folds.
+    split = h.get("fold_assignment_sha256")
     if (h.get("same_evaluator_as_best") is not True
             or h.get("baseline_evaluator_version") != h.get("evaluator_version")
+            or not valid_sha256(split) or h.get("baseline_fold_assignment_sha256") != split
             or not finite_number(baseline)
             or not 0 <= baseline <= 1 or not finite_number(score) or score <= baseline
             or not isinstance(delta, list) or len(delta) != 2
@@ -149,6 +154,13 @@ def assess(card):
     digest = card.get("raster_sha256")
     if not valid_sha256(digest):
         reasons.append("Saved raster SHA-256 missing")
+    # Diagnostic booleans from an unrelated TIFF must never clear this card.
+    # The template hash binds the reported grid checks to one particular sample;
+    # matching hashes alone do not establish that sample is organizer-authentic.
+    if (not valid_sha256(validator.get("candidate_sha256"))
+            or validator.get("candidate_sha256") != digest
+            or not valid_sha256(validator.get("template_sha256"))):
+        reasons.append("Saved TIFF validation not bound to candidate and template hashes")
     note = card.get("submission_note")
     name = card.get("submission_name")
     if not isinstance(note, str) or not note.strip() or len(note) > 140 or not isinstance(name, str) or not name.strip():
