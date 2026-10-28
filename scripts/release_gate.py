@@ -56,6 +56,9 @@ def assess(card):
             or len(ci) != 2 or not all(finite_number(x) for x in ci)
             or not 0 <= ci[0] <= score <= ci[1] <= 1):
         reasons.append("Invalid holdout measurement or CI")
+    # Conservative policy, not a theorem about confidence intervals: require
+    # the reported paired interval to contain the observed point difference.
+    # Some valid bootstrap intervals need not; they require manual policy review.
     baseline, delta = h.get("baseline_dti"), h.get("paired_delta_ci95")
     # Matching evaluator names do not establish that the two measurements used
     # the same withheld segments. Require an immutable split-assignment digest
@@ -67,7 +70,8 @@ def assess(card):
             or not finite_number(baseline)
             or not 0 <= baseline <= 1 or not finite_number(score) or score <= baseline
             or not isinstance(delta, list) or len(delta) != 2
-            or not all(finite_number(x) for x in delta) or not 0 < delta[0] <= delta[1]):
+            or not all(finite_number(x) for x in delta)
+            or not 0 < delta[0] <= score - baseline <= delta[1] <= 1):
         reasons.append("No measured same-evaluator improvement with positive paired CI")
     if (h.get("visible_only_features") is not True or h.get("whole_segment_buffered") is not True
             or h.get("pixel_exact_visible_mask") is not True

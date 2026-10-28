@@ -1,0 +1,17 @@
+{
+  "session": "arena/7136be8c-gemsdoekarage1",
+  "hypothesis": null,
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "status": "No assigned method lane; historical candidates already fail the literal lattice-overlap stop. No new experiment or raster generated.",
+  "holdout_dti": {"label": "HOLDOUT-DTI", "value": null, "evaluator_version": null, "withheld_positives": null, "ci95": null, "status": "not run"},
+  "correlation_overlap_vs_registry": {"surface": null, "final_dots": null, "status": "No new candidate; prior audit was not replayed in this session.", "prior_audit": "evidence/candidate_audit_20261028.json"},
+  "raster_sha256": null,
+  "validator_output": {"no_nan_inside_footprint": null, "values_in_0_1": null, "crs_shape_transform_match": null, "status": "No new raster to validate; organizer sample not authenticated."},
+  "submission_name": null,
+  "submission_note": null,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "experiments": 0,
+  "verdict": "negative"
+}

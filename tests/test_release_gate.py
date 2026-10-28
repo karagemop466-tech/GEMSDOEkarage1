@@ -57,6 +57,7 @@ def test_promotion_never_selects_slot():
     ('holdout.baseline_dti',.2),('holdout.paired_delta_ci95',[-.01,.01]),
     ('holdout.fold_assignment_sha256',None),('holdout.fold_assignment_sha256','z'*64),
     ('holdout.baseline_fold_assignment_sha256','d'*64),
+    ('holdout.paired_delta_ci95',[.3,.4]), ('holdout.paired_delta_ci95',[.01,1.1]),
     ('holdout.whole_segment_buffered',False),('holdout.pixel_exact_visible_mask',False),
     ('canary.feature_aucs',{}),('canary.feature_aucs',{'bad':.901}),
     ('canary.feature_aucs',{'bad':float('nan')}),('canary.feature_aucs',{'bad':.05}),
