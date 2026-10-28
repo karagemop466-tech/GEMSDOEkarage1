@@ -7,6 +7,17 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Latest follow-up — 28 October 2026, session `arena/0404f8f1-gemsdoekarage1`
+
+The shared-tool preflight now blocks a merely suggested template pin until a
+recorded canonical assignment matches the lane, repository and immutable
+commit. This is a consistency check, not authentication of the assignment,
+cache, holdout or release evidence. A fresh pinned audit reproduced both
+parallel candidates' lattice failures. No new TIFF, holdout score or slot was
+created; **do not submit**. See the [three-pass review](knowledge/session-0404f8f1-review.md),
+[reproduced audit](evidence/session_0404f8f1_parallel_audit.json) and
+[negative run card](evidence/session_0404f8f1_run_card.json).
+
 ## Latest checkout review — session `arena/43868644`
 
 **No new eligible TIFF; do not submit.** The assigned lane and shared cached
@@ -60,8 +71,9 @@ passed, with 53 rasterio warnings.
 
 The shared-tool adapter now exits **1** when the assigned lane or required
 cached inputs are absent, including `existing_faults.tif`. A successful JSON
-report write is not a readiness pass. Even exit 0 checks input presence only,
-not provenance, scientific merit, uniqueness or upload authorization.
+report write is not a readiness pass. The current preflight also checks for a recorded canonical assignment. Neither
+input presence nor an assignment assertion authenticates provenance or establishes
+scientific merit, uniqueness or upload authorization.
 [Three-pass follow-up review](knowledge/session-a0f0d036-review.md) ·
 [Session negative run card](evidence/session_a0f0d036_run_card.json).
 Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
