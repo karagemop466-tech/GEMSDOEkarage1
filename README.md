@@ -3,7 +3,7 @@
 > **DO NOT SUBMIT — No candidate has been cleared for competition upload.**
 > The generated research artifacts and historical references are published with full transparency for audit and learning. All historical files fail the literal lattice proximity gate (>70% overlap within 3 px), and new candidate CDA1 failed to surpass the historical holdout benchmark. A format validation pass is necessary but not sufficient for competition submission clearance.
 
-[Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Latest Negative Run Card](evidence/session_0a62cb67_run_card.json) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
+[Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Independent repository and BB-STEP/CDA1 saved-byte review](knowledge/repository-review-2026-10-28.md) · [Latest Negative Run Card](evidence/session_0a62cb67_run_card.json) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
 
 ## Latest review — 28 October 2026, session `arena/0a62cb67-gemsdoekarage1`
 
