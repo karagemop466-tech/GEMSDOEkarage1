@@ -7,6 +7,22 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+## Latest session: shared-tool integrity interlock
+
+The [current review](knowledge/session-b65a5aab-review.md) restored all 31 pinned
+mirrors and checked the organizer's public reference notebook, but ran no new
+geological experiment. A new [read-only integrity receipt](evidence/template_integrity_20261028.json)
+finds that `vendor/gems57/submission_writer.py` and `uniqueness.py` differ from
+their recorded hashes. The vendored provenance and execution-template pin also
+name different sources. The shared-tool runner now blocks on these unresolved
+conflicts even if inputs and lane are later populated. No hashes were repinned,
+no vendor implementation was privately repaired, and no new TIFF is approved.
+
+```bash
+python scripts/audit_template_integrity.py  # expected exit 1: blocked, not a successful clearance
+python scripts/shared_tools.py preflight   # diagnostic JSON; does not authorize execution
+```
+
 ## What changed on 28 October 2026
 
 An independent audit reopened the **already committed** TIFF bytes against nine
