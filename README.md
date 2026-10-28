@@ -144,6 +144,9 @@ Current competition leaderboard GEMSDOE high score: 0.4413
 
 <details><summary>Expand Prior Session Records</summary>
 
+- [Session `arena/8ffb6de1` Review](knowledge/session-review-arena-8ffb6de1.md) · [Run Card](evidence/run_card_arena_8ffb6de1.json)
+- [Session `arena/0150ae73` Review](knowledge/session-0150ae73-review.md) · [Run Card](evidence/session_0150ae73_run_card.json)
+- [Session `b65a5aab` Review](knowledge/session-b65a5aab-review.md) · [Run Card](evidence/session_b65a5aab_run_card.json)
 - [Session `arena/43868644` Review](knowledge/session-review-arena-43868644.md) · [Run Card](evidence/run_card_arena_43868644.json)
 - [Session `arena/0fb1ec81` Review](knowledge/review-arena-0fb1-20261028.md) · [Reassessment](evidence/reassessment_arena_0fb1_20261028.json)
 - [Session `arena/9ad4a8a0` Review](knowledge/session-review-arena-9ad4a8a0.md) · [Run Card](evidence/run_card_arena_9ad4a8a0.json)

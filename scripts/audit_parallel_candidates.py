@@ -8,8 +8,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 
 import numpy as np
@@ -138,16 +140,35 @@ def main():
     parser.add_argument("--fetch", action='store_true', help='Fetch missing pinned inputs from GitHub')
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
-    if args.fetch:
-        fetch_inputs(args.directory)
-    result = audit(args.directory)
-    text = json.dumps(result, indent=2, allow_nan=False) + "\n"
-    if args.out:
-        args.out.write_text(text)
-    else:
-        print(text, end="")
-    # This script produces an audit, never a release approval.
-    return 0
+    try:
+        if args.out:
+            for name in ("template", "lattice", *PARALLEL_ASSETS):
+                source = args.directory / (name + ".tif")
+                if args.out.resolve() == source.resolve() or (
+                    args.out.exists() and source.exists() and os.path.samefile(args.out, source)
+                ):
+                    raise ValueError("report output must not overwrite input rasters")
+        if args.fetch:
+            fetch_inputs(args.directory)
+        result = audit(args.directory)
+        text = json.dumps(result, indent=2, allow_nan=False) + "\n"
+        if args.out:
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            fd, name = tempfile.mkstemp(prefix='.' + args.out.name + '.', suffix='.partial', dir=args.out.parent)
+            temp = Path(name)
+            try:
+                with os.fdopen(fd, 'w', encoding='utf-8') as fh:
+                    fh.write(text)
+                temp.replace(args.out)
+            finally:
+                temp.unlink(missing_ok=True)
+        else:
+            print(text, end="")
+        # This script produces an audit, never a release approval.
+        return 0
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        print(f"PARALLEL AUDIT FAILED: {exc}", file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":

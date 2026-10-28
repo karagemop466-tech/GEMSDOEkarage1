@@ -1,0 +1,92 @@
+{
+  "experiment": 3,
+  "lane": "H-K1-BBSTEP",
+  "evaluator_version": "gemsk-hide-recover-v1",
+  "withheld_positives": 60988,
+  "sweep": [
+    {
+      "slope_gate": 0.5,
+      "budget": 18000,
+      "spacing": 2.8,
+      "use_magnetic": false,
+      "dti": 0.03179044960528629,
+      "tp": 1928.6289634124691,
+      "fp": 58906.018290485845,
+      "fn": 58696.3710365875,
+      "emitted_per_fold": [
+        15720,
+        15573,
+        15683,
+        15721
+      ]
+    },
+    {
+      "slope_gate": 0.6,
+      "budget": 18000,
+      "spacing": 2.8,
+      "use_magnetic": false,
+      "dti": 0.026786022598185147,
+      "tp": 1597.2318117413931,
+      "fp": 54049.27461463855,
+      "fn": 59027.768188258604,
+      "emitted_per_fold": [
+        14271,
+        14192,
+        14247,
+        14281
+      ]
+    },
+    {
+      "slope_gate": 0.5,
+      "budget": 25000,
+      "spacing": 3.2,
+      "use_magnetic": false,
+      "dti": 0.024714418221835746,
+      "tp": 1422.0339309375668,
+      "fp": 43771.149492083045,
+      "fn": 59202.96606906243,
+      "emitted_per_fold": [
+        11706,
+        11593,
+        11685,
+        11691
+      ]
+    },
+    {
+      "slope_gate": 0.55,
+      "budget": 22000,
+      "spacing": 2.8,
+      "use_magnetic": true,
+      "dti": 0.033975161731092406,
+      "tp": 2123.224879730409,
+      "fp": 67843.99698890571,
+      "fn": 58501.77512026958,
+      "emitted_per_fold": [
+        17929,
+        17832,
+        17893,
+        17942
+      ]
+    }
+  ],
+  "best": {
+    "slope_gate": 0.55,
+    "budget": 22000,
+    "spacing": 2.8,
+    "use_magnetic": true,
+    "dti": 0.033975161731092406,
+    "tp": 2123.224879730409,
+    "fp": 67843.99698890571,
+    "fn": 58501.77512026958,
+    "emitted_per_fold": [
+      17929,
+      17832,
+      17893,
+      17942
+    ],
+    "surface_key": [
+      0.55,
+      true
+    ]
+  }
+}
