@@ -114,6 +114,11 @@ def test_saved_bytes_must_equal_final_array(tmp_path):
     write(candidate, a, dtype='float64')
     with pytest.raises(ValueError, match='float32'):
         run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample, registry_index=index(prior))
+    with rasterio.open(candidate, 'w', driver='GTiff', width=a.shape[1], height=a.shape[0],
+                       count=1, dtype='float32', crs='EPSG:32611', transform=TRANSFORM, nodata=1.0) as dst:
+        dst.write(a, 1)
+    with pytest.raises(ValueError, match='masked or nodata pixels inside footprint'):
+        run_full_fleet_uniqueness_gate(a, a, candidate, foot, sample=sample, registry_index=index(prior))
 
 
 def test_exact_70_percent_does_not_trigger_but_eight_tenths_does(tmp_path):

@@ -27,6 +27,10 @@ except ModuleNotFoundError:
 
 
 def diagnose(candidate: Path, template: Path, expected_template_sha256: str | None = None) -> dict:
+    if candidate.resolve() == template.resolve() or (
+        candidate.exists() and template.exists() and os.path.samefile(candidate, template)
+    ):
+        raise ValueError("candidate and template must be distinct files")
     template_hash = sha256(template)
     if expected_template_sha256 is not None:
         if not re.fullmatch(r"[0-9a-f]{64}", expected_template_sha256):

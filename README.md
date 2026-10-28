@@ -5,9 +5,28 @@
 > literal rule. No geological experiment, competition upload, or weekly-slot
 > selection was made in this session. A format check is not submission approval.
 
-[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/run_card_arena_0fb1_20261028.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
+[Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest negative run card](evidence/session_0a62cb67_run_card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
-## Latest review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
+## Latest review — 28 October 2026, session `arena/0a62cb67-gemsdoekarage1`
+
+All 12 pinned reference assets, the 2 committed candidates, the 2 parallel PR
+candidates, the 3 archived demonstrators, and the concurrent peer raster were
+freshly fetched from pinned GitHub mirrors into ignored `.cache/` and re-audited:
+every reproduced report matched the committed JSON evidence byte-for-byte
+(excluding execution timestamps and runtime package metadata). Five additional
+fail-closed safeguards were added and covered by regression tests: rejecting
+duplicate registry SHA-256 digests, whitespace-only registry IDs, and
+self-template digests in `scripts/release_gate.py`; blocking self-template
+validation in `scripts/validate_geotiff.py` and `scripts/validate_artifact.py`;
+blocking masked/nodata in-footprint candidate pixels in
+`src/gemskarage1/registry_audit.py`; and hardening
+`scripts/audit_parallel_candidates.py` against non-float32 rasters, undefined
+footprint correlations, and `--out` input overwrites. Full suite: **245 passed**.
+See the [session review](knowledge/session-0a62cb67-review.md) and
+[negative session run card](evidence/session_0a62cb67_run_card.json). No new
+GeoTIFF, holdout experiment, score projection, or weekly-slot selection was made.
+
+## Earlier review — 28 October 2026, session `arena/0fb1ec81-gemsdoekarage1`
 
 The previously reported lattice failure was independently replayed from pinned
 mirrors: 38,174/38,200 historical HMAS dots and 35,959/36,000 historical GPC-Z

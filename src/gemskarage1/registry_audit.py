@@ -193,14 +193,17 @@ def run_full_fleet_uniqueness_gate(continuous_surface: np.ndarray, final_dots_f3
     index, digest, complete = _inventory(registry_index)
     foot = np.asarray(foot, dtype=bool)
     with rasterio.open(final_tif_path) as ds:
-        if ds.count != 1 or ds.dtypes[0] != 'float32':
+        if ds.driver != 'GTiff' or ds.count != 1 or ds.dtypes[0] != 'float32':
             raise ValueError('candidate must have one float32 band')
         saved = ds.read(1)
+        valid_mask = ds.read_masks(1) != 0
         grid = (ds.shape, ds.crs, ds.transform)
     if sample is not None and grid != _grid(sample):
         raise ValueError('saved raster grid differs from the sample')
     if saved.shape != foot.shape or not np.array_equal(saved, np.asarray(final_dots_f32)):
         raise ValueError('candidate array does not match saved GeoTIFF bytes')
+    if not valid_mask[foot].all():
+        raise ValueError('saved candidate has masked or nodata pixels inside footprint')
     if not np.isfinite(saved).all() or np.any((saved < 0) | (saved > 1)):
         raise ValueError('saved candidate contains non-finite or out-of-range values')
     errors = _verify_registry_pixels(index, foot, grid)

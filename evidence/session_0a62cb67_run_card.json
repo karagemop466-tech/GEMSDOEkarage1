@@ -1,0 +1,64 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/0a62cb67-gemsdoekarage1",
+  "hypothesis": "No assigned method lane in the prompt; the 4 ranked geological hypotheses in knowledge/research-review.md and knowledge/three-pass-review-2026-10-28.md remain qualitative planning proposals only.",
+  "mechanism": "Not executed: the prompt refers to a single assigned method paragraph that is absent, and existing candidates already fail the literal registry lattice stop.",
+  "named_non_fault_mimic": "Lithologic contacts, volcanic flow margins, Lake Lahontan shorelines, potassic intrusions, drainage piracy, and access-biased thermal sampling can mimic candidate structural signals.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run in this session; missing assigned lane, shared feature cache, and authenticated comparable baseline."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface": null,
+    "registry_complete": false,
+    "scope": "Reproduced 12 pinned reference assets, 2 committed candidates, 2 parallel PR candidates, 3 archived demonstrators, and 1 concurrent peer raster against the pinned lattice on the mirrored footprint.",
+    "hmas_sinter": {
+      "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+      "overlapping_dots": 38174,
+      "candidate_dots": 38200,
+      "fraction": 0.9993193717277487,
+      "dot_spearman": -2.856745533511713e-05
+    },
+    "gpcz": {
+      "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+      "overlapping_dots": 35959,
+      "candidate_dots": 36000,
+      "fraction": 0.9988611111111111,
+      "dot_spearman": -0.0007048666489752947
+    },
+    "td_ksck_pr20": {
+      "sha256": "20be4c631571ffb62b27f4c36ce518bf240a478f349e97242c147b763b5250ee",
+      "overlapping_dots": 37584,
+      "candidate_dots": 37654,
+      "fraction": 0.9981409677590695,
+      "dot_spearman": 0.001072181380976559
+    },
+    "ctws_2d_pr19": {
+      "sha256": "f33bc5cfccc917c3d241932253706a9b685db1dced0a95ed4b915d8c2fa5263f",
+      "overlapping_dots": 37999,
+      "candidate_dots": 38200,
+      "fraction": 0.994738219895288,
+      "dot_spearman": -0.00029360385963351924
+    }
+  },
+  "raster_sha256": null,
+  "validator_output": "No new raster generated. Existing artifacts were re-verified against the pinned mirror footprint; self-template validation, duplicate registry digests, whitespace registry IDs, masked in-footprint candidate pixels, and parallel-audit input overwrites are now blocked.",
+  "submission_name": null,
+  "submission_note": "Negative session review: no assigned lane; prior and parallel TIFFs fail literal >70% lattice overlap gate. Do not submit.",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "new_geological_experiments": 0,
+  "slots_selected_or_spent": 0,
+  "audits_reproduced": [
+    "docs/data/reference-audit.json",
+    "evidence/candidate_audit_20261028.json",
+    "evidence/prior_candidate_audit.json",
+    "evidence/parallel_candidates_audit_20261028.json",
+    "docs/data/archive-review.json",
+    "docs/data/concurrent-review.json"
+  ]
+}

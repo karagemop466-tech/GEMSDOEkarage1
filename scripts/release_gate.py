@@ -110,10 +110,12 @@ def assess(card):
     inventory = reg.get("inventory_sha256")
     surface = reg.get("preplacement_surface_sha256")
     if (not valid_sha256(inventory) or not valid_sha256(surface)
+            or not valid_sha256(reg.get("candidate_sha256"))
             or reg.get("preplacement_inventory_sha256") != inventory
             or reg.get("candidate_sha256") != card.get("raster_sha256")):
         reasons.append("Registry receipt is not bound to a pinned inventory, surface and candidate")
     ids = set()
+    digests = set()
     dot_counts = set()
     lattice_ok = False
     for row in rows:
@@ -121,12 +123,16 @@ def assess(card):
             reasons.append("Malformed registry comparison")
             continue
         ref_id, digest = row.get("id"), row.get("sha256")
-        if not isinstance(ref_id, str) or not ref_id or ref_id in ids:
+        if not isinstance(ref_id, str) or not ref_id.strip() or ref_id in ids:
             reasons.append("Missing or duplicate registry identity")
         else:
             ids.add(ref_id)
         if not valid_sha256(digest):
             reasons.append("Registry raster hash missing or invalid")
+        elif digest in digests:
+            reasons.append("Duplicate registry raster hash: " + str(ref_id))
+        else:
+            digests.add(digest)
         # A self-reported identity flag cannot contradict the actual digests in
         # the card. This checks internal consistency, not the bytes themselves.
         if valid_sha256(digest) and digest == card.get("raster_sha256"):
@@ -167,7 +173,8 @@ def assess(card):
     # matching hashes alone do not establish that sample is organizer-authentic.
     if (not valid_sha256(validator.get("candidate_sha256"))
             or validator.get("candidate_sha256") != digest
-            or not valid_sha256(validator.get("template_sha256"))):
+            or not valid_sha256(validator.get("template_sha256"))
+            or validator.get("template_sha256") == digest):
         reasons.append("Saved TIFF validation not bound to candidate and template hashes")
     note = card.get("submission_note")
     name = card.get("submission_name")

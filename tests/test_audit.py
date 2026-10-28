@@ -77,6 +77,12 @@ def test_footprint_mask_and_candidate_dtype_are_checked(tmp_path):
         ds.write(a.astype('uint8'), 1)
     assert not validate(c, t, f)['checks']['float32']
     assert not validate(c, t, f)['format_pass']
+    # Passing candidate as its own template or footprint must fail format_pass.
+    write(c, a)
+    assert not validate(c, c, f)['checks']['distinct_reference_files']
+    assert not validate(c, c, f)['format_pass']
+    assert not validate(c, t, c)['checks']['distinct_reference_files']
+    assert not validate(c, t, c)['format_pass']
 
 
 def test_evidence_scope():
