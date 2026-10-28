@@ -2,8 +2,9 @@
 """Check GitHub HEADs against the nine historical audit pins, without scraping scores.
 
 Revision freshness is not a scientific audit, registry completeness, or upload
-permission. Failures are recorded as unavailable and cause a nonzero exit.
-This script reads no DrivenData pages and does not select or change a submission.
+permission. Changed or unavailable revisions cause a nonzero exit so a stale
+comparison cannot look like a passing freshness check. This script reads no
+DrivenData pages and does not select or change a submission.
 """
 from __future__ import annotations
 
@@ -101,7 +102,7 @@ def main() -> int:
         print(f"Revision check blocked: {exc}")
         return 2
     print(json.dumps({"report": str(args.out), **report["counts"], "ok_to_submit": False}))
-    return 1 if report["counts"]["unavailable"] else 0
+    return 1 if report["counts"]["changed"] or report["counts"]["unavailable"] else 0
 
 
 if __name__ == "__main__":

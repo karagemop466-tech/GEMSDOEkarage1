@@ -1,8 +1,12 @@
 # Starting point for every session
 
 Read README.md (including its full owner-request section), docs/standing-prompt.md,
-knowledge/research-review.md, knowledge/review-2026-10-28.md, and the latest
-session review before proposing or implementing work. The
+knowledge/research-review.md, knowledge/review-2026-10-28.md,
+knowledge/review-arena-0fb1-20261028.md, the latest session review, and
+knowledge/parallel-candidate-audit-2026-10-28.md before proposing or implementing
+work. The pinned PR 19 and 20 candidates fail the literal lattice proximity
+rule even though their reports exempted that witness; they are not cleared.
+The
 parallel-run protocol is binding: do not invent a lane, bypass any registry
 witness, manufacture a score, or upload old predictions. Preserve the budget,
 separate technical gates from slot selection, and update current evidence and

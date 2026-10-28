@@ -40,8 +40,8 @@ def strongest_peer_witness(name: str, ref: dict) -> tuple[float, str]:
                                  pair.get('candidate_dots'), pair.get('overlap_fraction'))
         if (type(hits) is not int or type(count) is not int or count != expected_count
                 or count <= 0 or not 0 <= hits <= count
-                or type(fraction) not in (int, float) or not math.isfinite(fraction)
-                or abs(fraction - hits / count) > 1e-12
+                or type(fraction) not in (int, float) or not 0 <= fraction <= 1
+                or not math.isfinite(fraction) or abs(fraction - hits / count) > 1e-12
                 or pair.get('overlap_exceeds_70_percent') is not (hits * 10 > count * 7)):
             raise ValueError(f'bad directional pair evidence for {name} and {peer}')
         witnesses.append((fraction, peer))
@@ -57,9 +57,16 @@ def evidence():
     ref = json.loads((DOCS / 'data/reference-audit.json').read_text())
     audit = json.loads((ROOT / 'evidence/candidate_audit_20261028.json').read_text())
     card = json.loads((DOCS / 'data/run-card.json').read_text())
+    session = json.loads((ROOT / 'evidence/session_run_card_5c261093.json').read_text())
+    holdout = session.get('holdout_dti')
     if (len(claims) != 9 or {r['site'] for r in claims} != set(SITES)
             or card.get('verdict') != 'negative' or card.get('ok_to_submit') is not False
-            or audit.get('upload_authorized') is not False or audit.get('registry_complete') is not False):
+            or audit.get('upload_authorized') is not False or audit.get('registry_complete') is not False
+            or session.get('verdict') != 'negative' or session.get('ok_to_submit') is not False
+            or session.get('download_available') is not False or session.get('slot_selected_or_spent') is not False
+            or session.get('raster_sha256') is not None or type(session.get('geological_experiments_run')) is not int
+            or session['geological_experiments_run'] != 0
+            or not isinstance(holdout, dict) or holdout.get('value') is not None):
         raise ValueError('site evidence incomplete or not fail-closed')
     assets = {a['id']: a for a in entries}
     expected_pairs = {f'{a}->{b}' for a in SITES for b in SITES if a != b}
@@ -77,8 +84,8 @@ def evidence():
                 or not re.fullmatch(r'[0-9a-f]{40}', assets[name]['ref'])
                 or type(n) is not int or type(hits) is not int or n <= 0 or not 0 <= hits <= n
                 or hits * 10 <= n * 7 or row['literal_lattice_duplicate'] is not True
-                or type(overlap) not in (int, float) or not math.isfinite(overlap)
-                or abs(overlap - hits / n) > 1e-12):
+                or type(overlap) not in (int, float) or not 0 <= overlap <= 1
+                or not math.isfinite(overlap) or abs(overlap - hits / n) > 1e-12):
             raise ValueError(f'bad reference evidence for {name}')
         strongest_peer_witness(name, ref)
     candidates = audit.get('candidates', [])
@@ -105,8 +112,8 @@ def evidence():
                 or type(hits) is not int or not 0 <= hits <= count
                 or count != c['positive_pixels_in_footprint'] or hits * 10 <= count * 7
                 or witness.get('overlap_exceeds_70_percent') is not True
-                or type(overlap) not in (int, float) or not math.isfinite(overlap)
-                or abs(overlap - hits / count) > 1e-12
+                or type(overlap) not in (int, float) or not 0 <= overlap <= 1
+                or not math.isfinite(overlap) or abs(overlap - hits / count) > 1e-12
                 or any(checks.get(key) is not True for key in required_true)
                 or any(type(checks.get(key)) is not int or checks[key] != 0 for key in required_zero)
                 or checks.get('outside_all_null_or_nan') is not False):
@@ -186,19 +193,50 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation">{nav}</nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
 <div class="container"><p class="global-hold"><strong>DO NOT SUBMIT</strong> · No candidate has been cleared.</p></div></header>
-<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{doc}data/run-card.json">Current run card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/session_run_card_5c261093.json">Session run card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+
+
+def parallel_candidates(assets: dict) -> tuple[dict, dict]:
+    """Validate the separate, single-witness parallel audit before displaying it."""
+    report = json.loads((ROOT / 'evidence/parallel_candidates_audit_20261028.json').read_text())
+    if not isinstance(report, dict):
+        raise ValueError('Parallel candidate evidence must be reviewed before rendering')
+    rows = report.get('candidates')
+    if (report.get('lattice_sha256') != assets['lattice']['sha256']
+            or report.get('template_sha256') != assets['template']['sha256']
+            or not isinstance(rows, dict) or set(rows) != {'td', 'ctws'}):
+        raise ValueError('Parallel candidate evidence must be reviewed before rendering')
+    for name, pr in (('td', 20), ('ctws', 19)):
+        row = rows[name]
+        if not isinstance(row, dict):
+            raise ValueError('Parallel candidate evidence must be reviewed before rendering')
+        count, hits, overlap = (row.get('candidate_dots_in_footprint'),
+                                row.get('dots_within_3px'), row.get('directed_overlap'))
+        if (row.get('pr') != pr or type(count) is not int or count <= 0
+                or type(hits) is not int or not 0 <= hits <= count or hits * 10 <= count * 7
+                or type(overlap) not in (int, float) or not 0 <= overlap <= 1
+                or not math.isfinite(overlap) or abs(overlap - hits / count) > 1e-12
+                or row.get('duplicate_over_70_percent') is not True
+                or row.get('preplacement_surface_checked') is not False
+                or row.get('ok_to_submit') is not False
+                or not isinstance(row.get('sha256'), str)
+                or not re.fullmatch(r'[0-9a-f]{64}', row['sha256'])):
+            raise ValueError('Parallel candidate evidence must be reviewed before rendering')
+    return rows['td'], rows['ctws']
 
 
 def decision(prefix: str):
-    _, _, _, audit, _ = evidence()
+    _, assets, _, audit, _ = evidence()
     a, b = audit['candidates']
     ar, br = a['comparisons'][0], b['comparisons'][0]
+    td, ctws = parallel_candidates(assets)
     return f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> CURRENT SUBMISSION DECISION <span class="status-tag">DO NOT SUBMIT</span></div>
 <h2 id="decision-title">No eligible submission file yet.</h2><p>Both previously promoted files fail the required registry proximity rule. The saved HMAS file has <strong>{ar['directed_overlap']:.2%}</strong> of its dots within 3 pixels of the registered lattice; GPC-Z has <strong>{br['directed_overlap']:.2%}</strong>. The limit is 70%. A different hash is not enough to prove uniqueness.</p>
+<p>Parallel PR candidates TD-KSCK and CTWS-2D also fail this rule: <strong>{td['directed_overlap']:.2%}</strong> and <strong>{ctws['directed_overlap']:.2%}</strong> within 3 pixels of the same lattice. Their alternative pass reports excluded that witness. <a href="{prefix}knowledge/parallel-candidate-audit-2026-10-28.md">Review the independent audit ↗</a></p>
 <div class="decision-actions"><button class="button button-disabled" disabled>No approved .tif to download</button><a class="button button-light" href="{prefix}docs/executive-summary.html">Read the submission guide ↗</a><a class="button button-light" href="{prefix}evidence/candidate_audit_20261028.json">Inspect the audit ↗</a></div>
-<p class="download-help">No new experiment or competition upload was run in this session. A separate selector decides a weekly slot only after all gates pass.</p></div>
-<div class="decision-side"><div><span>VERDICT</span><strong>Negative · duplicate</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Unavailable</strong></div><div><span>PRE-PLACEMENT SURFACE</span><strong>Not available</strong></div><a href="{prefix}docs/data/run-card.json">Current run card ↗</a></div></section>'''
+<p class="download-help">No new experiment or competition upload was run in this review. A separate selector decides a weekly slot only after all gates pass. <a href="{prefix}evidence/session_5b69d76e_prior_audit.json">Replayed lattice audit ↗</a></p></div>
+<div class="decision-side"><div><span>VERDICT</span><strong>Negative · duplicate</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Unavailable</strong></div><div><span>PRE-PLACEMENT SURFACE</span><strong>Not available</strong></div><a href="{prefix}evidence/session_run_card_5c261093.json">Session run card ↗</a></div></section>'''
 
 
 def comparison(prefix: str):

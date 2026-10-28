@@ -47,6 +47,11 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())
     assert card["verdict"] == "negative" and card["ok_to_submit"] is False
     assert card["download_available"] is False and card["slot_selected_or_spent"] is False
+    session_card = json.loads((ROOT / 'evidence/session_run_card_5c261093.json').read_text())
+    assert session_card['verdict'] == 'negative' and session_card['ok_to_submit'] is False
+    assert session_card['raster_sha256'] is None and session_card['holdout_dti']['value'] is None
+    assert session_card['submission_note'] is None or len(session_card['submission_note']) <= 140
+    assert 'evidence/session_run_card_5c261093.json' in (ROOT / 'index.html').read_text()
 
 
 def test_all_local_links_and_fragments_work():
@@ -147,7 +152,8 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
         'registry/historical_claims.json', 'registry/reference_assets.json',
         'docs/data/reference-audit.json', 'docs/data/run-card.json',
         'evidence/candidate_audit_20261028.json', 'evidence/run_card_hmas_sinter.json',
-        'evidence/run_card_gpcz.json',
+        'evidence/run_card_gpcz.json', 'evidence/parallel_candidates_audit_20261028.json',
+        'evidence/session_run_card_5c261093.json',
     ]
     for rel in relative:
         target = tmp_path / rel
@@ -210,6 +216,34 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
         with pytest.raises(ValueError, match='disagree'):
             render_site.evidence()
     audit_path.write_text(clean_audit)
+
+    # Parallel PR warnings are a separate single-witness audit; a truthy flag
+    # alone cannot support a displayed percentage or an approval decision.
+    parallel_path = tmp_path / 'evidence/parallel_candidates_audit_20261028.json'
+    parallel = json.loads(parallel_path.read_text())
+    clean_parallel = json.dumps(parallel)
+    render_site.decision('')
+    for key, value in (
+        ('directed_overlap', float('nan')),
+        ('dots_within_3px', 100000),
+        ('duplicate_over_70_percent', 'true'),
+        ('preplacement_surface_checked', True),
+        ('ok_to_submit', True),
+    ):
+        modified = json.loads(clean_parallel)
+        modified['candidates']['td'][key] = value
+        parallel_path.write_text(json.dumps(modified))
+        with pytest.raises(ValueError, match='Parallel candidate evidence'):
+            render_site.decision('')
+    parallel_path.write_text(clean_parallel)
+    session_path = tmp_path / 'evidence/session_run_card_5c261093.json'
+    session = json.loads(session_path.read_text())
+    session['download_available'] = True
+    session_path.write_text(json.dumps(session))
+    with pytest.raises(ValueError, match='not fail-closed'):
+        render_site.evidence()
+    session['download_available'] = False
+    session_path.write_text(json.dumps(session))
     card_path = tmp_path / 'docs/data/run-card.json'
     card = json.loads(card_path.read_text())
     card['slot_selected_or_spent'] = True

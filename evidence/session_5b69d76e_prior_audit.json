@@ -1,0 +1,195 @@
+{
+  "schema": "karage1-prior-candidate-audit-v1",
+  "created_utc": "2026-10-28T16:22:35.311381+00:00",
+  "scope": "One pinned registry lattice is a decisive duplicate witness, not a complete registry audit.",
+  "source_authenticity": "Pinned GitHub peer mirrors; not organizer-authenticated.",
+  "reference_sources": {
+    "template": {
+      "id": "template",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/sample_submission.tif",
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+    },
+    "lattice": {
+      "id": "lattice",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "inputs/calibration/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+      "bytes": 1706456,
+      "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2"
+    }
+  },
+  "footprint_pixels": 5167373,
+  "lattice_dots": 206895,
+  "footprint_pixels_outside_closed_3px_disk": 6649,
+  "overlap_rule": "candidate dots within Euclidean distance <= 3 pixels; strictly > 70% fails",
+  "results": {
+    "hmas": {
+      "file": "docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+      "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+      "dots": 38200,
+      "dots_within_closed_3px_disk": 38174,
+      "directed_overlap_fraction": 0.9993193717277487,
+      "binary_spearman_vs_lattice": -2.856745533511713e-05,
+      "lattice_rule_exceeded": true,
+      "pigeonhole_bound": {
+        "dots": 38200,
+        "uncovered_pixels": 6649,
+        "minimum_overlapping_dots": 31551,
+        "minimum_fraction": 0.8259424083769633,
+        "limit": 0.7,
+        "necessarily_exceeds_limit": true,
+        "maximum_dots_not_ruled_out": 22163
+      },
+      "surface_correlation": null,
+      "surface_status": "not replayed; the pre-placement surface is not available in this checkout",
+      "format_diagnostic": {
+        "schema": "karage1-format-diagnostics-v1",
+        "candidate": "docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+        "candidate_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+        "template": "pinned peer mirror: data/bridge/sample_submission.tif",
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "template_hash_matched_requested_pin": true,
+        "template_official_authenticity": "not established by this tool",
+        "grid": {
+          "driver": "GTiff",
+          "shape": [
+            3730,
+            3292
+          ],
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "nodata_is_nan": false
+        },
+        "footprint_pixels": 5167373,
+        "checks": {
+          "single_band": true,
+          "driver_is_geotiff": true,
+          "float32": true,
+          "crs_shape_transform_match_mirror": true,
+          "no_nonfinite_inside": true,
+          "nonfinite_inside_count": 0,
+          "inside_values_in_0_1": true,
+          "out_of_range_inside_count": 0,
+          "outside_all_nan": false,
+          "outside_nan_count": 0,
+          "whole_array_strict_finite_0_1": true,
+          "minimum_finite": 0.0,
+          "maximum_finite": 1.0,
+          "nodata_tag_is_nan": false,
+          "portal_acceptance": "not tested",
+          "mirror_grid_and_inside_values_pass": true,
+          "masked_inside_count": 0,
+          "outside_null_or_nan_count": 0,
+          "outside_all_null_or_nan": false,
+          "outside_unmasked_positive_count": 0
+        },
+        "diagnostics": {
+          "grid_and_inside_pass": true,
+          "nan_outside_variant_pass": false,
+          "null_or_nan_outside_variant_pass": false,
+          "strict_whole_array_variant_pass": true,
+          "note": "These are separate local checks, not guarantees of organizer acceptance."
+        },
+        "uniqueness_holdout_and_selector_checked": false,
+        "submission_authorized": false
+      },
+      "verdict": "negative",
+      "ok_to_submit": false
+    },
+    "gpcz": {
+      "file": "docs/downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+      "sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+      "dots": 36000,
+      "dots_within_closed_3px_disk": 35959,
+      "directed_overlap_fraction": 0.9988611111111111,
+      "binary_spearman_vs_lattice": -0.0007048666489752947,
+      "lattice_rule_exceeded": true,
+      "pigeonhole_bound": {
+        "dots": 36000,
+        "uncovered_pixels": 6649,
+        "minimum_overlapping_dots": 29351,
+        "minimum_fraction": 0.8153055555555555,
+        "limit": 0.7,
+        "necessarily_exceeds_limit": true,
+        "maximum_dots_not_ruled_out": 22163
+      },
+      "surface_correlation": null,
+      "surface_status": "not replayed; the pre-placement surface is not available in this checkout",
+      "format_diagnostic": {
+        "schema": "karage1-format-diagnostics-v1",
+        "candidate": "docs/downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+        "candidate_sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+        "template": "pinned peer mirror: data/bridge/sample_submission.tif",
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "template_hash_matched_requested_pin": true,
+        "template_official_authenticity": "not established by this tool",
+        "grid": {
+          "driver": "GTiff",
+          "shape": [
+            3730,
+            3292
+          ],
+          "crs": "EPSG:32611",
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "dtype": "float32",
+          "nodata_is_nan": false
+        },
+        "footprint_pixels": 5167373,
+        "checks": {
+          "single_band": true,
+          "driver_is_geotiff": true,
+          "float32": true,
+          "crs_shape_transform_match_mirror": true,
+          "no_nonfinite_inside": true,
+          "nonfinite_inside_count": 0,
+          "inside_values_in_0_1": true,
+          "out_of_range_inside_count": 0,
+          "outside_all_nan": false,
+          "outside_nan_count": 0,
+          "whole_array_strict_finite_0_1": true,
+          "minimum_finite": 0.0,
+          "maximum_finite": 1.0,
+          "nodata_tag_is_nan": false,
+          "portal_acceptance": "not tested",
+          "mirror_grid_and_inside_values_pass": true,
+          "masked_inside_count": 0,
+          "outside_null_or_nan_count": 0,
+          "outside_all_null_or_nan": false,
+          "outside_unmasked_positive_count": 0
+        },
+        "diagnostics": {
+          "grid_and_inside_pass": true,
+          "nan_outside_variant_pass": false,
+          "null_or_nan_outside_variant_pass": false,
+          "strict_whole_array_variant_pass": true,
+          "note": "These are separate local checks, not guarantees of organizer acceptance."
+        },
+        "uniqueness_holdout_and_selector_checked": false,
+        "submission_authorized": false
+      },
+      "verdict": "negative",
+      "ok_to_submit": false
+    }
+  },
+  "geological_experiments_this_session": 0,
+  "portal_submissions_this_session": 0,
+  "selector_decision_made": false
+}

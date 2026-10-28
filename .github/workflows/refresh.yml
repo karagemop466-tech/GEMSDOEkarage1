@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Compare public GitHub HEADs to the historical audit pins
+      - name: Compare public GitHub HEADs to pins (stale or unavailable fails)
         env:
           GH_TOKEN: ${{ github.token }}
         run: python scripts/check_peer_revisions.py --out .cache/peer-revisions.json
