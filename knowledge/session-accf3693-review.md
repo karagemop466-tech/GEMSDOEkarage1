@@ -95,3 +95,12 @@ This repository cannot update the other eight owners' websites through changes
 to this checkout. The local dashboard summarizes all nine. Official source links
 are retained for review in [the source register](sources-2026-10-28.md); historical
 access claims there were not freshly reverified on non-allowlisted hosts here.
+
+## Concurrent-main integration
+
+The first merge attempt was blocked by concurrent mainline edits. Merged
+`origin/main` at `71eac67` into this session branch, retained its equivalent
+release-gate input-preservation implementation and duplicate-key JSON checks,
+and adjusted our regression to its established exit-1 contract. Integrated
+suite: **318 tests passed**, 119 existing warnings. This supersedes the
+pre-integration final count above; no scientific result changed.

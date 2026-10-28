@@ -28,7 +28,7 @@ def test_output_cannot_overwrite_input(tmp_path, script, alias):
     else:
         out.hardlink_to(source)
     result = subprocess.run(command(script, source, out), capture_output=True, text=True)
-    assert result.returncode == 2
+    assert result.returncode == (2 if script == 'preflight.py' else 1)
     assert 'must not overwrite' in result.stderr
     assert source.read_bytes() == original
 

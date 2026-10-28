@@ -1,0 +1,39 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "created_utc": "2026-10-28T00:00:00+00:00",
+  "session": "arena/cf677bd7-gemsdoekarage1",
+  "hypothesis": "Unassigned lane (registry/template.json method_lane is null). Pre-registered Rank-1 proposal H1: signed two-scale magnetic/gravity offset (knowledge/hypotheses-20261028.md). Not executed.",
+  "mechanism": "Buried faults displace magnetic basement/gravity at two scales; signed cross-profile offsets catch blind faults absent from the trace catalogue. Blocked: no lane assignment and literal 13GEMSDOE lattice gate (99.8713% footprint coverage within 3px; champion-sized raster >=82.34% overlap > 70% stop rule).",
+  "named_non_fault_mimic": "Lithologic contacts, volcanic flow edges, and magnetic/gravity survey acquisition-block boundaries.",
+  "mimic_process": "Lithologic contacts, volcanic flow edges, and magnetic/gravity survey acquisition-block boundaries.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not evaluated this session; 0 experiments run (lane null, data unauthenticated, lattice gate unresolved). Prior best on record: BB-STEP 0.0318, gemsk-hide-recover-v1, n=60988, 95% CI [0.0271, 0.0363] - its raster is a lattice duplicate, DO NOT SUBMIT."
+  },
+  "correlation_overlap_vs_registry": {
+    "candidate_preplacement_surface_spearman_max": null,
+    "candidate_final_dot_overlap_max": null,
+    "nine_focus_sites": "All 9 primary leaders 99.91-99.92% within 3px of pinned lattice (docs/data/reference-audit.json); all literal duplicates; scores USER-REPORTED / UNVERIFIED, no organizer receipts.",
+    "registry_complete": false
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_candidate_generated": false,
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "tests_this_session": "305 passed (fresh venv, requirements from PyPI)",
+    "portal_acceptance": "not tested"
+  },
+  "submission_name": null,
+  "submission_note": "NEGATIVE: no lane assigned; lattice gate blocks champion-sized rasters; no new TIF; do not submit.",
+  "geological_experiments_run": 0,
+  "download_available": false,
+  "slot_selected_or_spent": false,
+  "ok_to_submit": false,
+  "verdict": "negative"
+}
