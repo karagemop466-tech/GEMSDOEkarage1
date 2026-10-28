@@ -1,6 +1,6 @@
 # Starting point for every session
 
-Read `knowledge/parallel-candidate-audit-2026-10-28.md` as well: the pinned
+Read `knowledge/session-review-arena-cf677bd7.md` (latest session: NEGATIVE, 305 tests pass, no new TIF) and `knowledge/parallel-candidate-audit-2026-10-28.md` as well: the pinned
 PR 19 and 20 candidate rasters fail the literal lattice proximity rule even
 though their reports exempted that witness. They are not cleared to submit.
 Read `knowledge/repository-review-2026-10-28.md` for the pinned organizer
