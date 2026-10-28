@@ -3,6 +3,19 @@
 > **DO NOT SUBMIT — no candidate has been cleared for competition upload.**
 > The separately generated BB-STEP research GeoTIFF is unique versus the nine focus-site rasters but fails the literal 3-pixel lattice-overlap rule (98.5253%). Do not submit it. The older CDA1 archive is a synthetic demonstrator whose holdout routine returned hard-coded numbers; its reported DTI is invalid and is not a measurement. All 21 primary and secondary focus-site files audited in this repository also fail the literal lattice gate. Format validation is necessary but not submission approval.
 
+## Current session review (`arena/accf3693-gemsdoekarage1`)
+
+**DO NOT SUBMIT — no new candidate generated or cleared.**
+[Three-pass review and next steps](knowledge/session-accf3693-review.md) ·
+[Current shared preflight](evidence/session_accf3693_shared_preflight.json) ·
+[Session run card](evidence/session_accf3693_run_card.json).
+The fresh checkout has no restored shared cache and no assigned method lane or
+canonical-template assignment. Historical evidence below is not a fresh model run.
+This session hardened report input preservation and strict JSON handling;
+**314 software tests pass** (not a performance score). The existing nine-site
+summary and four ranked research proposals remain below; no leaderboard estimate
+or new uniqueness certificate is asserted.
+
 [Latest forensic & 9-site review (`9ca08e2e`)](knowledge/session-review-arena-9ca08e2e.md) · [Latest session run card (`9ca08e2e`)](evidence/session_9ca08e2e_run_card.json) · [19-band `training_features.tif` audit](evidence/training_features_band_audit_20261028.json) · [Secondary 9-site audit (12 files)](evidence/nine_sites_secondary_audit_20261028.json) · [Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Independent repository and BB-STEP/CDA1 saved-byte review](knowledge/repository-review-2026-10-28.md) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
 
 ## Latest session (`arena/9ca08e2e-gemsdoekarage1`): 21-file nine-site audit, 19-band nodata forensics & fail-closed hardening

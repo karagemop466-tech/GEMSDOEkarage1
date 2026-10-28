@@ -204,6 +204,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("card", type=Path, help="Path to JSON run-card / release-gate input")
     parser.add_argument("--out", type=Path, help="Optional output JSON path")
     args = parser.parse_args(argv)
+    if args.out is not None and (
+        args.out.resolve() == args.card.resolve()
+        or (args.out.exists() and args.card.exists() and args.out.samefile(args.card))
+    ):
+        parser.error("--out must not overwrite the input run card")
     try:
         def _reject_constant(value: str):
             raise ValueError(f"non-standard JSON constant: {value}")
