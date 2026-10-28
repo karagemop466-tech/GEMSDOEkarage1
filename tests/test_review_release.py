@@ -32,7 +32,7 @@ def test_active_card_matches_real_saved_bytes_and_evidence():
 
 
 def test_regenerators_keep_all_main_pages_negative():
-    for script in ('build_site.py', 'generate_pages.py', 'build_gpcz_site.py', 'render_site.py'):
+    for script in ('build_site.py', 'generate_pages.py', 'build_gpcz_site.py', 'render_site.py', 'build_current_review.py'):
         subprocess.run([sys.executable, 'scripts/'+script], cwd=ROOT, check=True)
     for name in ('index.html', 'docs/index.html', 'docs/executive-summary.html',
                  'docs/hmas-sinter/index.html', 'docs/hmas-sinter/executive-summary.html',

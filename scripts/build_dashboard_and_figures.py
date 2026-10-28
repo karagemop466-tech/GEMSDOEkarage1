@@ -219,6 +219,7 @@ def _overlap_3px(dots_a: np.ndarray, dots_b: np.ndarray) -> float:
 
 
 def main() -> int:
+    raise RuntimeError("Retired generator: historical promotion claims are superseded by the current review.")
     ddir = data_dir()
     cdir = cache_dir()
     assets_dir = DOCS_DIR / "assets"

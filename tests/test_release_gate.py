@@ -13,8 +13,8 @@ def good():
                 holdout=dict(label='HOLDOUT-DTI', evaluator_version='test-only', withheld_positives=10,
                              dti=.2, ci95=[.1,.3], same_evaluator_as_best=True, beats_current_best=True,
                              visible_only_features=True, whole_segment_buffered=True),
-                canary=dict(feature_aucs={'a': .6}, all_features_tested=True, all_features_have_variation=True, invalid_features=[]),
-                registry=dict(complete=True, saved_bytes_checked=True, literal_all_rasters=True,
+                canary=dict(feature_aucs={'a': .6}, all_features_tested=True, all_features_have_variation=True, nonconstant_features_verified=True, invalid_features=[]),
+                registry=dict(complete=True, saved_bytes_checked=True, all_registry_rasters_included=True, exact_ranks=True, literal_all_rasters=True,
                               surface_checked_before_placement=True, excluded_registry_rasters=[], duplicate_witnesses=[], surface_max_abs_rho=.1,
                               dots_max_abs_rho=.1, max_directed_overlap_3px=.2),
                 validator={k:True for k in ['single_band','float32','all_finite','range_0_1','crs_match','shape_match','transform_match']},
@@ -39,8 +39,8 @@ def test_promotion_never_selects_slot():
     ('holdout.beats_current_best',False),('holdout.whole_segment_buffered',False),
     ('canary.feature_aucs',{}),('canary.feature_aucs',{'bad':.901}),
     ('canary.feature_aucs',{'bad':float('nan')}),('canary.feature_aucs',{'inverse':.099}),
-    ('canary.all_features_tested',False),('canary.all_features_have_variation',False),('canary.invalid_features',['constant']),
-    ('registry.complete',False),('registry.saved_bytes_checked',False),
+    ('canary.all_features_tested',False),('canary.nonconstant_features_verified',False),('canary.all_features_have_variation',False),('canary.invalid_features',['constant']),
+    ('registry.complete',False),('registry.saved_bytes_checked',False),('registry.all_registry_rasters_included',False),('registry.exact_ranks',False),
     ('registry.literal_all_rasters',False),('registry.surface_checked_before_placement',False),
     ('registry.excluded_registry_rasters',['lattice']),('registry.excluded_registry_rasters',None),
     ('registry.duplicate_witnesses',[{'lattice':.99}]),('registry.duplicate_witnesses',None),
@@ -70,3 +70,14 @@ def test_malformed_sections(key):
     card=good()
     card[key]="not evidence"
     assert gate.assess(card)["verdict"]=="negative"
+
+
+def test_historical_release_and_its_own_lattice_witness_are_negative():
+    import json
+    root = Path(__file__).parents[1]
+    scan = json.loads((root / 'evidence/fleet_uniqueness_593.json').read_text())
+    witnesses = scan['non_competing_lattice_or_continuous_rasters_gt_70pct_cov']
+    assert any('lattice' in w['ref'] and w['cand_in_ref_3px'] > .7 for w in witnesses)
+    prior = json.loads((root / 'evidence/release_gate_hmas_sinter.json').read_text())
+    result = gate.assess(prior['input'])
+    assert result['verdict'] == 'negative' and result['ok_to_submit'] is False

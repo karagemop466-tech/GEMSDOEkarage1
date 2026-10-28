@@ -1,6 +1,6 @@
 # Starting point for every session
 
-Read `README.md`, `knowledge/research-review.md`, and `docs/data/run-card.json`
+Read `README.md`, `docs/standing-prompt.md`, `knowledge/research-review.md`, and `docs/data/run-card.json`
 before proposing or implementing work. The owner's parallel-run protocol in
 README is binding: do not invent a missing assigned lane, bypass a registry
 witness, manufacture a score or upload old predictions. Preserve the budget,
@@ -24,3 +24,9 @@ whole-component buffered split, matched fold-specific refits, valid canaries, an
 a separately assigned lane/template remain outstanding. The past canary's handling
 of constant channels and the competing vendored-template provenance are unresolved;
 do not treat their earlier "pass" as current evidence.
+
+The earlier parallel review `knowledge/review-2026-10-28.md` is preserved as a
+prior snapshot. The later exact-byte reassessment supersedes its statements about
+what was available; see `evidence/release_reassessment_20261028.json`. The
+convenience builder `scripts/build_current_review.py` delegates to the same
+negative-status generators, not an independent promotion path.

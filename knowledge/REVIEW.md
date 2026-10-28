@@ -1,4 +1,4 @@
-> **Update:** This prior review remains for provenance. See the newer [research review](research-review.md), [current run card](../docs/data/run-card.json), and [archive diagnostics](../docs/data/archive-review.json).
+> **Provenance:** This document records the initial historical review and remains useful for that context. The current decision is the [active negative run card](../docs/data/run-card.json) and [exact-byte reassessment](../evidence/release_reassessment_20261028.json). The [earlier parallel review](review-2026-10-28.md) is preserved as a superseded snapshot; neither prior promotion record is release approval. See also the [research review](research-review.md) and [archive diagnostics](../docs/data/archive-review.json).
 
 # Scientific and engineering review
 
@@ -44,3 +44,14 @@ This repository cannot modify nine other repositories' websites as part of this 
 
 ## Concurrent main integration
 After the three audit passes, main gained a synthetic prototype from another session. It was preserved under `archive/prototype/` rather than replacing this audit or authorizing its TIFFs. Its evaluator has a stub scoring CLI and a bootstrap that loses repeated-block multiplicity; it must not be used as the designated template. The shared template itself was not modified or privately forked. No real holdout evidence was introduced by this merge.
+
+## Parallel review snapshot — 2026-10-28
+
+The earlier [`evidence/review_2026-10-28.json`](../evidence/review_2026-10-28.json)
+and [`knowledge/review-2026-10-28.md`](review-2026-10-28.md) are retained as
+historical snapshots. Their negative decision was independently reinforced by the
+later [saved-byte reassessment](../evidence/release_reassessment_20261028.json):
+38,174/38,200 HMAS and 35,959/36,000 GPC-Z dots overlap the registered lattice.
+The current [run card](../docs/data/run-card.json) is negative. Owner mirrors were
+subsequently restored and hash-verified, but do not establish official provenance.
+Prior artifacts are research only and **must not be submitted**.

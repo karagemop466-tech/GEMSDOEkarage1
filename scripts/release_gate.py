@@ -35,12 +35,14 @@ def assess(card):
     aucs = canary.get('feature_aucs')
     if (not isinstance(aucs, dict) or not aucs or canary.get('all_features_tested') is not True
             or canary.get('all_features_have_variation') is not True
+            or canary.get('nonconstant_features_verified') is not True
             or canary.get('invalid_features') != []
             # AUC below .10 is equally alarming after reversing its direction.
             or any(not finite_number(v) or not .10 <= v <= .90 for v in aucs.values())):
         reasons.append('Single-feature leakage canary missing or failed')
     reg = card.get('registry') if isinstance(card.get('registry'), dict) else {}
-    if reg.get('complete') is not True or reg.get('saved_bytes_checked') is not True:
+    if (reg.get('complete') is not True or reg.get('saved_bytes_checked') is not True
+            or reg.get('all_registry_rasters_included') is not True or reg.get('exact_ranks') is not True):
         reasons.append('Complete registry / saved-byte comparison missing')
     if reg.get('literal_all_rasters') is not True:
         reasons.append('Literal all-raster registry policy not evidenced')
