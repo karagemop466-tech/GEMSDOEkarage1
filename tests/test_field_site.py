@@ -42,11 +42,13 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
         assert render_site.rows_for(prefix) in text
         parser = Tags(); parser.feed(text)
         assert parser.disabled_downloads >= 1
-        assert "DO NOT SUBMIT" in text and "No eligible submission file yet" in text
+        assert "DO NOT SUBMIT" in text and "not cleared for upload" in text
+        assert "No approved .tif to download" in text
         assert "99.93%" in text and "99.89%" in text
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())
     assert card["verdict"] == "negative" and card["ok_to_submit"] is False
-    assert card["download_available"] is False and card["slot_selected_or_spent"] is False
+    assert card["slot_selected_or_spent"] is False
+    assert "not authorization" in card["download_available_meaning"].lower()
 
 
 def test_all_local_links_and_fragments_work():
@@ -110,7 +112,7 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
         'registry/historical_claims.json', 'registry/reference_assets.json',
         'docs/data/reference-audit.json', 'docs/data/run-card.json',
         'evidence/candidate_audit_20261028.json', 'evidence/run_card_hmas_sinter.json',
-        'evidence/run_card_gpcz.json',
+        'evidence/run_card_gpcz.json', 'evidence/bbstep_uniqueness.json',
     ]
     for rel in relative:
         target = tmp_path / rel
@@ -122,6 +124,10 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
         target = tmp_path / 'docs/downloads' / c['file']
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / 'docs/downloads' / c['file'], target)
+    card = json.loads((tmp_path / 'docs/data/run-card.json').read_text())
+    bb = tmp_path / 'docs/downloads' / card['submission_name']
+    bb.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ROOT / 'docs/downloads' / card['submission_name'], bb)
     monkeypatch.setattr(render_site, 'ROOT', tmp_path)
     monkeypatch.setattr(render_site, 'DOCS', tmp_path / 'docs')
     render_site.evidence()
@@ -152,6 +158,9 @@ def test_secondary_site_evidence_renders_and_fails_closed(tmp_path, monkeypatch)
     sec_copy = tmp_path / 'evidence/nine_sites_secondary_audit_20261028.json'
     sec_copy.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / 'evidence/nine_sites_secondary_audit_20261028.json', sec_copy)
+    registry_copy = tmp_path / 'registry/reference_assets.json'
+    registry_copy.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ROOT / 'registry/reference_assets.json', registry_copy)
     monkeypatch.setattr(render_site, 'ROOT', tmp_path)
     assert len(render_site.secondary_evidence()['rows']) == 12
 

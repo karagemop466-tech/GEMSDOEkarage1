@@ -223,6 +223,10 @@ def audit(entries: list[dict], cache: Path) -> dict:
     fp = valid_gdal_mask(cache / "template.tif") & np.isfinite(template_arr)
     if not fp.any() or fp.all():
         raise ValueError("mirror footprint is empty or has no outside")
+    for ref_name in ("template", "labels", "lattice", *SITES):
+        with rasterio.open(cache / (ref_name + ".tif")) as ds:
+            if not (ds.read_masks(1)[fp] != 0).all():
+                raise ValueError(f"{ref_name}: masked pixels inside footprint")
     labels, labels_meta = read_grid(cache / "labels.tif")
     if not same_grid(labels_meta, template_meta):
         raise ValueError("label grid mismatch")

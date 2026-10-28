@@ -16,6 +16,7 @@ def good():
                 holdout=dict(label='HOLDOUT-DTI', evaluator_version='test-only', withheld_positives=10,
                              dti=.2, ci95=[.1,.3], baseline_dti=.1, baseline_evaluator_version='test-only',
                              paired_delta_ci95=[.01,.15], same_evaluator_as_best=True, visible_only_features=True,
+                             fold_assignment_sha256='e'*64, baseline_fold_assignment_sha256='e'*64,
                              whole_segment_buffered=True, pixel_exact_visible_mask=True, alpha=.2, beta=.8,
                              kernel_radius_m=300),
                 canary=dict(feature_aucs={'a': .6}, feature_status={'a': 'tested'}, expected_features=['a'],
@@ -26,9 +27,10 @@ def good():
                               exact_ranks=True, surface_checked_before_placement=True, inventory_sha256='b'*64,
                               preplacement_inventory_sha256='b'*64, preplacement_surface_sha256='c'*64,
                               candidate_sha256='a'*64, expected_rasters=1, comparisons=[row]),
-                validator={k:True for k in ['single_band','float32','all_finite_inside','range_0_1_inside',
+                validator={**{k:True for k in ['geotiff','single_band','float32','all_finite_inside','range_0_1_inside',
                                             'crs_match','shape_match','transform_match','outside_encoding_accepted',
                                             'template_official_authenticated']},
+                           'candidate_sha256': 'a'*64, 'template_sha256': 'f'*64},
                 raster_sha256='a'*64, submission_name='test',
                 submission_note='Synthetic unit-test evidence, not a scientific result.')
 
@@ -53,6 +55,8 @@ def test_promotion_never_selects_slot():
     ('holdout.kernel_radius_m',299),
     ('holdout.same_evaluator_as_best',False),('holdout.visible_only_features',False),
     ('holdout.baseline_dti',.2),('holdout.paired_delta_ci95',[-.01,.01]),
+    ('holdout.fold_assignment_sha256',None),('holdout.fold_assignment_sha256','z'*64),
+    ('holdout.baseline_fold_assignment_sha256','d'*64),
     ('holdout.paired_delta_ci95',[.3,.4]), ('holdout.paired_delta_ci95',[.01,1.1]),
     ('holdout.whole_segment_buffered',False),('holdout.pixel_exact_visible_mask',False),
     ('canary.feature_aucs',{}),('canary.feature_aucs',{'bad':.901}),
@@ -69,9 +73,12 @@ def test_promotion_never_selects_slot():
     ('registry.preplacement_surface_sha256',None),('registry.preplacement_inventory_sha256','d'*64),
     ('registry.candidate_sha256','d'*64),
     ('registry.expected_rasters',2),('registry.comparisons',[]),
+    ('validator.geotiff',False), ('validator.geotiff',None),
     ('validator.range_0_1_inside',False),('validator.all_finite_inside',False),
     ('validator.transform_match',False),('validator.outside_encoding_accepted',False),
     ('validator.template_official_authenticated',False),
+    ('validator.candidate_sha256','b'*64),('validator.candidate_sha256',None),
+    ('validator.template_sha256',None),('validator.template_sha256','z'*64),
     ('raster_sha256','z'*64),('submission_note','   '),('submission_note','x'*141)])
 def test_fail_closed(path,value):
     card=copy.deepcopy(good())
@@ -142,6 +149,53 @@ def test_matching_registry_hash_cannot_be_overridden_by_identity_flags():
     assert any('Candidate hash matches registry raster' in reason for reason in result['reasons'])
 
 
+def test_duplicate_registry_hashes_or_whitespace_ids_and_self_template_fail_closed():
+    card = copy.deepcopy(good())
+    second = dict(card['registry']['comparisons'][0], id='duplicate-digest')
+    card['registry']['comparisons'].append(second)
+    card['registry']['expected_rasters'] = 2
+    result = gate.assess(card)
+    assert result['verdict'] == 'negative'
+    assert any('Duplicate registry raster hash' in reason for reason in result['reasons'])
+
+    ws_card = copy.deepcopy(good())
+    ws_card['registry']['comparisons'][0]['id'] = '   '
+    ws_res = gate.assess(ws_card)
+    assert ws_res['verdict'] == 'negative'
+    assert any('Missing or duplicate registry identity' in reason for reason in ws_res['reasons'])
+
+    self_tmpl = copy.deepcopy(good())
+    self_tmpl['validator']['template_sha256'] = self_tmpl['raster_sha256']
+    self_res = gate.assess(self_tmpl)
+    assert self_res['verdict'] == 'negative'
+    assert any('Saved TIFF validation not bound' in reason for reason in self_res['reasons'])
+
+    null_bind = copy.deepcopy(good())
+    null_bind['raster_sha256'] = None
+    null_bind['registry']['candidate_sha256'] = None
+    null_res = gate.assess(null_bind)
+    assert null_res['verdict'] == 'negative'
+    assert any('Registry receipt is not bound' in reason for reason in null_res['reasons'])
+
+
+def test_overlong_submission_name_or_masked_validator_or_mismatched_withheld_fail_closed():
+    long_name = copy.deepcopy(good())
+    long_name['submission_name'] = 'x' * 141
+    assert gate.assess(long_name)['verdict'] == 'negative'
+
+    masked = copy.deepcopy(good())
+    masked['validator']['masked_inside_count'] = 1
+    assert gate.assess(masked)['verdict'] == 'negative'
+
+    unmasked_false = copy.deepcopy(good())
+    unmasked_false['validator']['unmasked_inside'] = False
+    assert gate.assess(unmasked_false)['verdict'] == 'negative'
+
+    mismatch = copy.deepcopy(good())
+    mismatch['holdout']['baseline_withheld_positives'] = 9
+    assert gate.assess(mismatch)['verdict'] == 'negative'
+
+
 def test_historical_hedge_does_not_exempt_its_lattice_witness():
     import json
     root = Path(__file__).parents[1]
@@ -154,18 +208,12 @@ def test_historical_hedge_does_not_exempt_its_lattice_witness():
     assert hedge['approved_for_weekly_slot'] is False
 
 
-def test_whitespace_registry_id_and_duplicate_registry_hashes_fail_closed():
-    card = copy.deepcopy(good())
-    card['registry']['comparisons'][0]['id'] = '   '
-    assert gate.assess(card)['verdict'] == 'negative'
-
-    card = copy.deepcopy(good())
-    dup = dict(card['registry']['comparisons'][0], id='duplicate-witness')
-    card['registry']['comparisons'].append(dup)
-    card['registry']['expected_rasters'] = 2
+def test_overlarge_numeric_evidence_fails_closed_without_crashing():
+    card = good()
+    card['holdout']['dti'] = 10 ** 1000
     result = gate.assess(card)
     assert result['verdict'] == 'negative'
-    assert any('Duplicate registry raster hash' in r for r in result['reasons'])
+    assert not result['ok_to_submit']
 
 
 @pytest.mark.parametrize('opt_key', ['geotiff', 'unmasked_inside'])
@@ -190,4 +238,3 @@ def test_release_gate_cli_exit_codes_and_nan_rejection(tmp_path):
     bad_file.write_text('{"lane": "x", "elapsed_seconds": NaN}')
     assert gate.main([str(bad_file), '--out', str(out_file)]) == 1
     assert json.loads(out_file.read_text())['verdict'] == 'negative'
-

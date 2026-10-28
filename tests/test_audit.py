@@ -77,6 +77,12 @@ def test_footprint_mask_and_candidate_dtype_are_checked(tmp_path):
         ds.write(a.astype('uint8'), 1)
     assert not validate(c, t, f)['checks']['float32']
     assert not validate(c, t, f)['format_pass']
+    # Passing candidate as its own template or footprint must fail format_pass.
+    write(c, a)
+    assert not validate(c, c, f)['checks']['distinct_reference_files']
+    assert not validate(c, c, f)['format_pass']
+    assert not validate(c, t, c)['checks']['distinct_reference_files']
+    assert not validate(c, t, c)['format_pass']
 
 
 def test_evidence_scope():
@@ -99,7 +105,9 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
     root = Path(__file__).resolve().parents[1]
     audit = json.loads((root/'evidence/candidate_audit_20261028.json').read_text())
     expected = {row['sha256'] for row in audit['candidates']}
-    assert len(expected) == 2
+    card = json.loads((root/'docs/data/run-card.json').read_text())
+    expected.add(card['raster_sha256'])
+    assert len(expected) == 3
     for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
         assert gate['result']['verdict'] == 'negative' and gate['result']['ok_to_submit'] is False

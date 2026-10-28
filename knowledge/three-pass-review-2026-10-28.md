@@ -44,6 +44,19 @@ An earlier document proposed a 0.5–10 km magnetotelluric product under DOI `10
 - The inherited `gems57-pooled-hide-v2` detached **HOLDOUT-DTI** 0.093547, n=22,619, CI [0.081837, 0.105279] is recorded as an unreplayed prior report only; not a leaderboard estimate.
 - Local verification: **118 tests passed, 2 skipped** (the skips need unrestored competition data); 46 rasterio deprecation warnings. Re-running the saved-byte audit reproduced the committed result, ignoring its timestamp. A link/fragment scan checked **32 HTML pages** with no broken local references or duplicate IDs. The `build_site.py` generator and retired lane wrappers were deterministic in tests. The PR merge and post-merge status are verified in the handoff. When a task is blocked, no manual inspection placeholder replaces the automated negative decision.
 
+## Active-branch follow-through — 28 October 2026
+
+A later independent checkout review on `arena/470a3424-gemsdoekarage1` is
+recorded in [`evidence/session_review_2026-10-28_arena-470a3424.json`](../evidence/session_review_2026-10-28_arena-470a3424.json).
+It confirmed the stop condition without creating a new raster or running a
+geological experiment: the shared-tool preflight has no assigned lane and lacks
+the cached feature stack and required input rasters. It ran the full software
+test suite in an ignored `.venv` (205 passed, no failures or skips), then
+re-rendered the site (32 pages, no tracked changes). Those checks are not
+scientific validation, scores, or permission to submit. The earlier 118-test
+count above describes the earlier pass; the later run is separate, not a
+replacement holdout result.
+
 ## Next safe work
 
 1. Obtain an explicit lane and resolve the literal dense-lattice protocol conflict without evading it; identify the canonical shared template and repair its comparator once for every user.

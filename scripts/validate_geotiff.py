@@ -10,9 +10,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 import re
 import sys
+import tempfile
 
 import numpy as np
 import rasterio
@@ -25,6 +27,10 @@ except ModuleNotFoundError:
 
 
 def diagnose(candidate: Path, template: Path, expected_template_sha256: str | None = None) -> dict:
+    if candidate.resolve() == template.resolve() or (
+        candidate.exists() and template.exists() and os.path.samefile(candidate, template)
+    ):
+        raise ValueError("candidate and template must be distinct files")
     template_hash = sha256(template)
     if expected_template_sha256 is not None:
         if not re.fullmatch(r"[0-9a-f]{64}", expected_template_sha256):
@@ -91,20 +97,32 @@ def main() -> int:
     ap.add_argument("--out", type=Path, help="Optional JSON report path; stdout otherwise")
     args = ap.parse_args()
     try:
+        if args.out:
+            # Do not replace input bytes, even via an alias, symlink, or hard link.
+            for source in (args.candidate, args.template):
+                if args.out.resolve() == source.resolve() or (
+                    args.out.exists() and source.exists() and os.path.samefile(args.out, source)
+                ):
+                    raise ValueError("report output must not overwrite candidate or template")
         result = diagnose(args.candidate, args.template, args.template_sha256)
+        text = json.dumps(result, indent=2, allow_nan=False) + "\n"
+        if args.out:
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            fd, name = tempfile.mkstemp(prefix='.' + args.out.name + '.', suffix='.partial', dir=args.out.parent)
+            temp = Path(name)
+            try:
+                with os.fdopen(fd, 'w', encoding='utf-8') as fh:
+                    fh.write(text)
+                temp.replace(args.out)
+            finally:
+                temp.unlink(missing_ok=True)
+            print(f"Diagnostic written to {args.out}; this is not upload authorization.")
+        else:
+            print(text, end="")
+        return 0 if result["diagnostics"]["grid_and_inside_pass"] else 1
     except (OSError, ValueError) as exc:
         print(f"FORMAT DIAGNOSTIC FAILED: {exc}", file=sys.stderr)
         return 2
-    text = json.dumps(result, indent=2, allow_nan=False) + "\n"
-    if args.out:
-        args.out.parent.mkdir(parents=True, exist_ok=True)
-        temp = args.out.with_suffix(args.out.suffix + ".tmp")
-        temp.write_text(text)
-        temp.replace(args.out)
-        print(f"Diagnostic written to {args.out}; this is not upload authorization.")
-    else:
-        print(text, end="")
-    return 0 if result["diagnostics"]["grid_and_inside_pass"] else 1
 
 
 if __name__ == "__main__":

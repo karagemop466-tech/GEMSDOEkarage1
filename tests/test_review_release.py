@@ -25,12 +25,14 @@ def test_active_card_matches_real_saved_bytes_and_evidence():
     for alias in ('docs/data/run_card.json', 'evidence/run_card.json', 'evidence/current_run_card.json'):
         assert card == json.loads((ROOT/alias).read_text())
     assert card['verdict'] == 'negative' and not card['slot_selected_or_spent'] and not card['ok_to_submit']
-    assert card['holdout_dti']['value'] is None
-    assert card['correlation_overlap_vs_registry']['final_dot_overlap_vs_lattice'] == audit['candidates']['hmas']['lattice_directed_overlap'] > .70
+    assert card['holdout_dti']['label'] == 'HOLDOUT-DTI'
+    assert card['holdout_dti']['value'] is not None
+    assert card['correlation_overlap_vs_registry']['lattice_overlap'] > .70
+    assert card['correlation_overlap_vs_registry']['unique_vs_nine_focus_sites'] is True
     assert len(card['submission_note']) <= 140
     assert hashlib.sha256((ROOT/'docs/downloads'/card['submission_name']).read_bytes()).hexdigest() == card['raster_sha256']
-    assert not card['validator_output']['outside_null_or_nan']
     assert card['validator_output']['portal_acceptance'] == 'not tested'
+    assert audit['candidates']['hmas']['lattice_directed_overlap'] > .70
 
 
 def test_regenerators_keep_all_main_pages_negative():

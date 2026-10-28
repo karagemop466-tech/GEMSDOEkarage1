@@ -274,6 +274,47 @@ def test_reference_audit_rejects_masked_in_footprint_site_raster(tmp_path):
         nodata = -1 if key == "labels" else (1.0 if key == "GEMSDOE32" else np.nan)
         _write(path, arr, "int8" if key == "labels" else "float32", nodata)
         entries.append({"id": key, "bytes": path.stat().st_size, "sha256": audit.sha256(path)})
-    with pytest.raises(ValueError, match="masked or nodata pixels inside footprint"):
+    with pytest.raises(ValueError, match="masked pixels inside footprint"):
         audit.audit(entries, tmp_path)
 
+
+@pytest.mark.parametrize('alias', ['candidate', 'template', 'candidate_symlink', 'template_hardlink'])
+def test_format_diagnostic_cannot_replace_input(tmp_path, alias):
+    import os
+    import subprocess
+    import sys
+    template = np.zeros((8, 8), np.float32); template[0] = np.nan
+    candidate = np.zeros((8, 8), np.float32)
+    sample, tif = tmp_path / 'sample.tif', tmp_path / 'candidate.tif'
+    _write(sample, template, 'float32', np.nan)
+    _write(tif, candidate, 'float32', None)
+    inputs = {p: p.read_bytes() for p in (sample, tif)}
+    if alias == 'candidate':
+        output = tif
+    elif alias == 'template':
+        output = sample
+    elif alias == 'candidate_symlink':
+        output = tmp_path / 'alias.tif'
+        output.symlink_to(tif)
+    else:
+        output = tmp_path / 'hardlink.tif'
+        os.link(sample, output)
+    run = subprocess.run([sys.executable, str(audit.ROOT / 'scripts/validate_geotiff.py'),
+                          str(tif), '--template', str(sample), '--out', str(output)],
+                         capture_output=True, text=True)
+    assert run.returncode == 2
+    assert 'must not overwrite candidate or template' in run.stderr
+    assert all(p.read_bytes() == b for p, b in inputs.items())
+
+
+def test_format_diagnostic_rejects_self_template(tmp_path):
+    from scripts.validate_geotiff import diagnose
+    template = np.zeros((8, 8), np.float32); template[0] = np.nan
+    tif = tmp_path / 'candidate.tif'
+    _write(tif, template, 'float32', np.nan)
+    with pytest.raises(ValueError, match='candidate and template must be distinct files'):
+        diagnose(tif, tif)
+    alias = tmp_path / 'alias.tif'
+    alias.symlink_to(tif)
+    with pytest.raises(ValueError, match='candidate and template must be distinct files'):
+        diagnose(tif, alias)

@@ -85,3 +85,12 @@ def test_concurrent_restore_uses_independent_atomic_staging(tmp_path):
     assert [r['status'] for r in results] == ['restored', 'restored']
     assert (tmp_path / entry['dest']).read_bytes() == payload
     assert not list((tmp_path / 'nested').glob('*.partial'))
+
+
+def test_b2_mirror_has_selectable_id_and_scored_group():
+    root = Path(__file__).resolve().parents[1]
+    entries = json.loads((root / 'registry/karage1_data_manifest.json').read_text())['files']
+    selected = [entry for entry in entries if entry.get('id') == 'scored_gems32_b2']
+    assert len(selected) == 1
+    assert selected[0]['group'] == 'scored'
+    assert normalize_entry(selected[0])['sha256'] == 'c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9'
