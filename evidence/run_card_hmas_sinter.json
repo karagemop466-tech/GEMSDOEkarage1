@@ -160,7 +160,13 @@
     ],
     "spearman_ceiling": 0.9,
     "overlap_3px_ceiling": 0.7,
-    "passed": true
+    "passed": false,
+    "literal_lattice_witness": {
+      "file_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+      "dots_within_3px": 38174,
+      "candidate_dots": 38200,
+      "directed_overlap": 0.9993193717277487
+    }
   },
   "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
   "zip_sha256": "b1c8817b1037384d8d12d6c3b9077716398aa756a931978bc5e5b1f52e3d15e7",
@@ -224,5 +230,8 @@
   "submission_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
   "submission_zip": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.zip",
   "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular",
-  "verdict": "promote"
+  "verdict": "negative",
+  "verdict_before_2026_10_28_review": "promote",
+  "ok_to_submit": false,
+  "correction": "2026-10-28: the prior gate excluded a registered lattice and is superseded. The saved candidate fails the literal directed-overlap rule. Prior holdouts have not been replayed."
 }

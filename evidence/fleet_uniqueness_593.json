@@ -483,5 +483,13 @@
       "ov_sym_max": 0.52097
     }
   ],
-  "passed": true
+  "passed": false,
+  "prior_scanner_passed_before_correction": true,
+  "correction": "Historical diagnostic only; the old pass excluded lattice and dense witnesses, and the full inventory was not replayed on 2026-10-28.",
+  "literal_lattice_witness": {
+    "file_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+    "dots_within_3px": 38174,
+    "candidate_dots": 38200,
+    "directed_overlap": 0.9993193717277487
+  }
 }

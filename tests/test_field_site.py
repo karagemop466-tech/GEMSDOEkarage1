@@ -33,14 +33,20 @@ class Tags(HTMLParser):
 
 
 def test_site_tables_are_rendered_from_evidence_and_never_approve():
+    rows, chips = render_site.build()
+    assert rows.count("DO NOT RESUBMIT") == 9
+    assert rows.count("USER-REPORTED · UNVERIFIED") == 9
+    assert rows.count("Unavailable") == 9
+    assert chips.count("data-source-repo=") == 9
     for path in (ROOT / "index.html", ROOT / "docs/executive-summary.html"):
         text = path.read_text()
-        assert "DO NOT SUBMIT" in text
-        assert "USER-REPORTED, unverified" in text
-        assert "no cleared new TIFF" in text
-        assert "ONE CLEARED TIFF" not in text
-    card = json.loads((ROOT / "evidence/review_2026-10-28.json").read_text())
-    assert card["current_verdict"] == "negative" and card["ok_to_submit"] is False
+        assert rows in text
+        assert 'button-disabled' in text and 'No approved .tif to download' in text
+        assert 'NEGATIVE' in text and 'DO NOT SUBMIT' in text
+        assert ' download>' not in text
+    assert chips in (ROOT / "index.html").read_text()
+    card = json.loads((ROOT / "docs/data/run-card.json").read_text())
+    assert card["verdict"] == "negative" and card["ok_to_submit"] is False and card["download_available"] is False
 
 
 def test_all_local_links_and_fragments_work():
@@ -68,7 +74,7 @@ def test_concurrent_update_is_clearly_research_only():
     assert result["submission_authorized"] is False
     assert result["holdout_reproduced"] is False
     assert "DO NOT SUBMIT" in result["owner_status"]
-    assert "DO NOT SUBMIT" in (ROOT / "index.html").read_text()
+    assert "data/concurrent-review.json" in (ROOT / "index.html").read_text()
 
 
 def test_archives_are_quarantined_and_invalid_claims_are_not_promoted():

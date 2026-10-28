@@ -1,35 +1,55 @@
 {
-  "schema": "karage1-review-v1",
-  "date_utc": "2026-10-28",
-  "current_verdict": "negative",
-  "ok_to_submit": false,
-  "new_experiments": 0,
-  "reason": "No method paragraph was assigned in the current prompt; prior HMAS run already reports three experiments. Existing uniqueness evidence excludes a registry lattice that exceeds the literal directed-overlap threshold. Constant-feature canary was treated as passing. The shared template and official data are not present locally.",
-  "hmas_prior_artifact": "docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
-  "hmas_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
-  "hmas_prior_audit_lattice_overlap": 0.99932,
-  "lattice_source": "evidence/fleet_uniqueness_593.json (previously excluded calibration raster)",
-  "gpcz_prior_audit_lattice_overlap": 0.9988611111111111,
-  "gpcz_lattice_source": "evidence/run_card_gpcz.json uniqueness_rows (previously excluded calibration raster)",
-  "current_holdout": null,
-  "current_registry_comparison": null,
-  "current_validator": {
-    "hmas_self_read": "Single-band float32; finite whole-array range [0,1]; shape 3730x3292; CRS EPSG:32611; affine [100,0,243350,0,-100,4508550]. Verified locally; organizer template and footprint absent, so no independent template comparison or footprint verification.",
-    "official_template_match": null
+  "schema": "karage1-run-card-v2",
+  "created_utc": "2026-10-28T05:35:21.120068+00:00",
+  "lane": "No new lane assigned; review of prior HMAS-SINTER-ENV only",
+  "hypothesis": "Buried hydrothermal fault corridors may combine magnetic and gravity structure with shallow thermal or sinter observations.",
+  "mechanism": "A conduit may locally alter magnetization or conductivity while basin-fill cover obscures a surface scarp; this is an unproven hypothesis.",
+  "named_non_fault_mimic": "Lithologic contacts and volcanic flow margins can create magnetic and gravity contrasts without a fault.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positives": 22619,
+    "value": 0.093547,
+    "ci95": [
+      0.081837,
+      0.105279
+    ],
+    "status": "Prior run report only; not replayed or independently verified in this session; not a leaderboard estimate."
   },
-  "organizer_confirmed_score": null,
-  "submission_name": null,
-  "submission_note": null,
-  "hypothesis": null,
-  "mechanism": null,
-  "named_non_fault_mimic": null,
-  "holdout_dti_and_ci": null,
   "correlation_overlap_vs_registry": {
-    "current_run": null,
-    "prior_hmas_lattice_overlap": 0.99932,
-    "prior_gpcz_lattice_overlap": 0.9988611111111111
+    "preplacement_surface_spearman": null,
+    "preplacement_status": "not replayed; the pre-placement surface is not available in this checkout",
+    "final_dot_spearman_vs_lattice": -2.856745533511713e-05,
+    "final_dot_overlap_vs_lattice": 0.9993193717277487,
+    "candidate_dot_count": 38200,
+    "dots_within_3px": 38174,
+    "registry_coverage": "One pinned lattice witness rechecked; not a complete registry."
   },
-  "raster_sha256": null,
-  "validator_output": "No new raster to validate; prior HMAS self-read is recorded separately.",
-  "verdict": "negative"
+  "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
+  "validator_output": {
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "whole_array_finite_and_in_range": true,
+    "outside_all_null_or_nan": false,
+    "status": "Local check against a pinned peer mirror; official template authenticity and portal acceptance unverified."
+  },
+  "submission_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+  "submission_name": "karage1-hmas-sinter-dualcover-sep29-zeros",
+  "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular",
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "weekly_allowance_verified": false,
+  "geological_experiments_run": 0,
+  "portal_submissions_this_session": 0,
+  "verdict": "negative",
+  "blockers": [
+    "The prior HMAS file exceeds the literal overlap limit against a registered lattice; stop.",
+    "The pre-placement surface, current complete registry, and comparable verified holdout best are unavailable.",
+    "The inherited single-feature canary marked a constant footprint channel as a pass.",
+    "The sample template is a peer mirror and outside-footprint encoding versus portal validation is unresolved.",
+    "The current prompt references an assigned method paragraph but supplies none."
+  ],
+  "evidence": "evidence/prior_candidate_audit.json"
 }

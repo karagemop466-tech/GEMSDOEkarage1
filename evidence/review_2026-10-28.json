@@ -31,5 +31,7 @@
   },
   "raster_sha256": null,
   "validator_output": "No new raster to validate; prior HMAS self-read is recorded separately.",
-  "verdict": "negative"
+  "verdict": "negative",
+  "review_status": "Historical preliminary negative review; independent saved-byte recheck completed later.",
+  "superseded_by": "evidence/prior_candidate_audit.json and evidence/run_card.json"
 }

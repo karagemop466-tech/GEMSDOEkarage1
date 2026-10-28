@@ -1,4 +1,4 @@
-> **Provenance:** This document records the initial historical review and remains useful for that context. The current authority is the [2026-10-28 review decision](../evidence/review_2026-10-28.json) and its [detailed review note](review-2026-10-28.md). The newer [`docs/data/run-card.json`](../docs/data/run-card.json) and prior GPC-Z promotion records are historical evidence, **not current release approval**. See also the [research review](research-review.md) and [archive diagnostics](../docs/data/archive-review.json).
+> **Historical review:** The initial findings below are retained for provenance. The [current run card](../evidence/run_card.json), [saved-byte audit](../evidence/prior_candidate_audit.json), and [three-pass review](three-pass-review-2026-10-28.md) supersede any earlier approval. The review at [2026-10-28](review-2026-10-28.md) predates the independent lattice recheck.
 
 # Scientific and engineering review
 
@@ -47,6 +47,6 @@ After the three audit passes, main gained a synthetic prototype from another ses
 
 ## Current review — 2026-10-28
 
-The linked [`evidence/review_2026-10-28.json`](../evidence/review_2026-10-28.json) is the machine-readable current decision; the detailed [`knowledge/review-2026-10-28.md`](review-2026-10-28.md) records its findings. Verdict: **negative — DO NOT DOWNLOAD OR SUBMIT**. The older `docs/data/run-card.json`, HMAS and GPC-Z promotion records, and their portal-ready language are historical provenance only.
+The earlier [`evidence/review_2026-10-28.json`](../evidence/review_2026-10-28.json) records the initial negative decision; the [current run card](../evidence/run_card.json) and [three-pass review](three-pass-review-2026-10-28.md) contain the later independent byte audit. Verdict: **negative — DO NOT SUBMIT**. Previous HMAS and GPC-Z promotion records are historical provenance only.
 
 No method paragraph was assigned, no current holdout result or organizer-confirmed score exists, and no leaderboard estimate is defensible. No new experiment or TIFF was produced; the earlier HMAS record already reports three experiments, so the budget does not reset. Competition inputs, the prepared feature stack, the official sample template and footprint are absent from this checkout. The prior HMAS uniqueness audit excluded a calibration-lattice witness despite reporting 99.932% directed 3-pixel overlap; the GPC-Z record likewise reports 99.8861% against its excluded lattice. Both exceed the literal 70% rule unless the protocol owner explicitly resolves the registry scope. The retained artifacts are audit/education only; neither is cleared for download or submission.

@@ -59,12 +59,15 @@ def test_emitter_edge_cases_and_spacing_contract() -> None:
         assert float(dists[:, 1].min()) > 2.9 - 1e-6
 
 
-def test_leakage_canary_all_58_channels_pass() -> None:
+def test_inherited_canary_report_is_not_replayed_evidence() -> None:
     canary = json.loads((EVIDENCE_DIR / "leakage_canary_58ch.json").read_text())
     assert canary["n_channels_tested"] == 58
-    assert canary["all_passed"] is True
-    assert canary["leaking_features"] == []
-    assert canary["max_direction_invariant_auc"] <= 0.90
+    # Its old pass was recorded before untestable channels became fail-closed.
+    assert canary["all_passed"] is False
+    assert canary["untestable_features"] == ["footprint"]
+    assert canary["prior_all_passed_before_review"] is True
+    current = json.loads((EVIDENCE_DIR / "run_card.json").read_text())
+    assert current["verdict"] == "negative" and not current["ok_to_submit"]
 
 
 def test_geotiff_and_zip_contract_zero_human_inspection() -> None:
@@ -115,30 +118,14 @@ def test_geotiff_and_zip_contract_zero_human_inspection() -> None:
         assert rep["on_catalogue_positive_pixels"] == 0
 
 
-def test_full_fleet_uniqueness_gate() -> None:
+def test_inherited_fleet_claim_is_superseded_by_lattice_witness() -> None:
     uniq = json.loads((EVIDENCE_DIR / "fleet_uniqueness_593.json").read_text())
-    assert uniq["passed"] is True
-    assert uniq["total_fleet_rasters_scanned"] >= 590
-    assert uniq["exact_hash_matches"] == []
-    assert uniq["max_pre_placement_surface_spearman"] <= 0.90
-    assert uniq["max_final_dot_spearman"] <= 0.90
-    assert uniq["max_discrete_submission_3px_overlap"] <= 0.70
-
-    focus_sites = {s["site"] for s in uniq["per_focus_9_site_summary"]}
-    expected_9 = {
-        "GEMSDOE24",
-        "GEMSDOE25",
-        "GEMSDOE27",
-        "GEMSDOE28",
-        "GEMSDOE30",
-        "GEMSDOE31",
-        "GEMSDOE32",
-        "GEMSDOE33",
-        "GEMSDOE36",
-    }
-    assert focus_sites == expected_9
-    for row in uniq["per_focus_9_site_summary"]:
-        assert row["max_discrete_3px_overlap"] <= 0.70
+    witness = uniq['literal_lattice_witness']
+    assert uniq['passed'] is False
+    assert witness['dots_within_3px'] == 38174
+    assert witness['candidate_dots'] == 38200
+    assert witness['directed_overlap'] > .70
+    assert 'superseded' in uniq['correction'].lower() or 'historical' in uniq['correction'].lower()
 
 
 def test_run_card_and_protocol_budget() -> None:
@@ -170,13 +157,13 @@ def test_pages_ui_and_readme_integrity() -> None:
     exe = (lane_dir / "executive-summary.html").read_text()
     readme = (REPO_ROOT / "README.md").read_text()
 
-    assert "OK TO SUBMIT" in idx or "DO NOT SUBMIT" in idx
+    assert "DO NOT SUBMIT" in idx and "OK TO SUBMIT" not in idx
     assert "human inspector" not in idx.lower()
     assert "TODO" not in idx
 
     for site in ("GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30", "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"):
-        assert site in idx
-        assert "DO NOT SUBMIT" in readme
+        assert site in readme
+        assert (DOCS_DIR / (site + ".html")).is_file()
 
     # Verify all relative href/src assets referenced in docs/hmas-sinter/{index,executive-summary}.html exist
     for html_doc in (idx, exe):

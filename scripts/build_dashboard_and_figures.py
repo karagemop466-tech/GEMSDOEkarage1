@@ -2,8 +2,6 @@
 """Generate SHA-256-verified 9-Focus-Site comparison JSON and scientific diagnostic maps."""
 from __future__ import annotations
 
-raise RuntimeError("Quarantined generator: historical promotion claims are superseded by current review.")
-
 import hashlib
 import json
 import sys
@@ -221,6 +219,7 @@ def _overlap_3px(dots_a: np.ndarray, dots_b: np.ndarray) -> float:
 
 
 def main() -> int:
+    raise RuntimeError("Retired dashboard: its old clearance excluded a registered lattice; use scripts/build_site.py.")
     ddir = data_dir()
     cdir = cache_dir()
     assets_dir = DOCS_DIR / "assets"

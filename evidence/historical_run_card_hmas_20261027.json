@@ -104,12 +104,14 @@
   "submission_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
   "submission_name": "karage1-hmas-sinter-dualcover-sep29-zeros",
   "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular",
-  "download_available": true,
+  "download_available": false,
   "ok_to_submit": false,
-  "ok_to_submit_meaning": "release_gate.py never sets ok_to_submit=True automatically: all 9 automated scientific/format/uniqueness gates passed (verdict promote); spending one of 3 weekly portal slots is the human selector step",
+  "ok_to_submit_meaning": "Prior promotion withdrawn; lattice overlap fails the literal protocol.",
   "slot_selected_or_spent": false,
   "geological_experiments_run": 3,
-  "verdict": "promote",
+  "verdict": "negative",
   "full_card": "evidence/run_card_hmas_sinter.json",
-  "concurrent_secondary_lane": "evidence/run_card_gpcz.json"
+  "concurrent_secondary_lane": "evidence/run_card_gpcz.json",
+  "verdict_before_2026_10_28_review": "promote",
+  "superseded_by": "evidence/prior_candidate_audit.json and evidence/run_card.json"
 }

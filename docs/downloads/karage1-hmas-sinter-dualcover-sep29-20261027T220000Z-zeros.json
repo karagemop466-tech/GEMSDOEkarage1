@@ -112,15 +112,15 @@
   },
   "zip_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.zip",
   "zip_sha256": "b1c8817b1037384d8d12d6c3b9077716398aa756a931978bc5e5b1f52e3d15e7",
-  "approved_for_weekly_slot": true,
-  "promoted": true,
+  "approved_for_weekly_slot": false,
+  "promoted": false,
   "submission_slots_used": 0,
-  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "status": "Superseded: local format only; literal lattice overlap fails; do not submit.",
   "metadata": {
     "lane_id": "H-K1-1-HMAS-SINTER-ENV",
     "winning_arm": "EXP1_HMAS_MULT",
     "evaluator_version": "gems57-pooled-hide-v2"
   },
-  "uniqueness_gate_passed": true,
-  "verdict": "promote"
+  "uniqueness_gate_passed": false,
+  "verdict": "negative"
 }
