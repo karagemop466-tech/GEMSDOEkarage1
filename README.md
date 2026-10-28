@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — fault discovery, evidence first
 
+> **Latest repository review — 28 October 2026, `arena/3fa432c5-gemsdoekarage1`: DO NOT SUBMIT.** No new TIFF, experiment, holdout score, or slot selection was produced. Shared preflight is blocked: no assigned method lane, cached feature stack, or required raster inputs. The complete software suite passed **240 tests**; this is not scientific validation. See the [session review](knowledge/review-arena-3fa432c5-2026-10-28.md) and [negative run card](evidence/session_run_card_arena_3fa432c5_20261028.json).
+
 > **DO NOT SUBMIT — no eligible new GeoTIFF exists.** The two previously
 > promoted research files each duplicate a registered lattice under the user's
 > literal rule. No geological experiment, competition upload, or weekly-slot
@@ -7,7 +9,44 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Latest session run card](evidence/session_b65a5aab_run_card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
-## Concurrent checkout review — session `arena/43868644`
+## Latest adapter review — session `ea042946` (28 October 2026)
+
+[Three-pass review](knowledge/session-ea042946-review.md) ·
+[Session run card](evidence/session_ea042946_run_card.json) ·
+[Actual preflight](evidence/session_ea042946_preflight.json).
+The shared-tool invocation adapter now rejects **empty and unreadable** cached
+inputs as well as missing files; empty download placeholders can no longer
+report readiness. This is not format or provenance validation. Verification:
+**272 tests passed** (90 Rasterio pending-deprecation warnings); all 32 decision
+pages rebuilt without changes. No new geological experiment, TIFF, score
+estimate, or slot selection was made. **DO NOT SUBMIT.** The method lane and
+all five required shared cached inputs are absent in this checkout. Existing
+nine-site summaries and the four-hypothesis slate remain planning/audit
+material, not evidence of a new high-scoring eligible submission.
+
+## Current follow-up — session `fafb84ff`
+
+**DO NOT SUBMIT: no new eligible TIFF or measured score.** Shared preflight now
+rejects empty cached input files before execution, in addition to missing inputs
+and the absent assigned lane. This is not data authentication or scientific
+validation. [Three-pass review](knowledge/review-fafb84ff.md) ·
+[Current preflight](evidence/preflight-fafb84ff.json) ·
+[Negative run card](evidence/run-card-fafb84ff.json). Full suite: 245 passed.
+The existing nine-site executive summary and four qualified hypotheses remain
+research material, not submission recommendations.
+
+## Latest follow-up — 28 October 2026, session `arena/0404f8f1-gemsdoekarage1`
+
+The shared-tool preflight now blocks a merely suggested template pin until a
+recorded canonical assignment matches the lane, repository and immutable
+commit. This is a consistency check, not authentication of the assignment,
+cache, holdout or release evidence. A fresh pinned audit reproduced both
+parallel candidates' lattice failures. No new TIFF, holdout score or slot was
+created; **do not submit**. See the [three-pass review](knowledge/session-0404f8f1-review.md),
+[reproduced audit](evidence/session_0404f8f1_parallel_audit.json) and
+[negative run card](evidence/session_0404f8f1_run_card.json).
+
+## Latest checkout review — session `arena/43868644`
 
 **No new eligible TIFF; do not submit.** The assigned lane and shared cached
 inputs are missing. The release policy now requires an explicit GeoTIFF driver
@@ -60,8 +99,9 @@ passed, with 53 rasterio warnings.
 
 The shared-tool adapter now exits **1** when the assigned lane or required
 cached inputs are absent, including `existing_faults.tif`. A successful JSON
-report write is not a readiness pass. Even exit 0 checks input presence only,
-not provenance, scientific merit, uniqueness or upload authorization.
+report write is not a readiness pass. The current preflight also checks for a recorded canonical assignment. Neither
+input presence nor an assignment assertion authenticates provenance or establishes
+scientific merit, uniqueness or upload authorization.
 [Three-pass follow-up review](knowledge/session-a0f0d036-review.md) ·
 [Session negative run card](evidence/session_a0f0d036_run_card.json).
 Full suite: **216 passed**. No new experiment, score, TIFF or slot selection.
