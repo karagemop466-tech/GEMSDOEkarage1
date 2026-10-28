@@ -56,7 +56,10 @@ new prediction rasters, slot selections or uploads were made. See the
   After the gate change, the first full pass exposed stale regenerated historical
   gate receipts; reconciling them and rerunning made the suite pass. The saved
   byte audit replay matched exactly. Deterministic page build generated 32 pages
-  without altering committed site output; `git diff --check` passed.
+  without altering committed site output; `git diff --check` passed. After merging
+  concurrent main-branch changes into this working branch and resolving README
+  and AGENTS conflicts, the combined suite passed **228 tests** with 62 Rasterio
+  pending-deprecation warnings; the site build remained unchanged.
 * The nine-site summaries, named files, reported (unverified) numbers, negative
   verdict, B2 discussion and four qualified research proposals already exist in
   [the dashboard](../docs/index.html) and [research review](research-review.md).
