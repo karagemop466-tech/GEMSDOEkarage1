@@ -15,9 +15,12 @@ is maintained by `scripts/render_site.py`; `scripts/build_site.py` maintains the
 parallel review's legacy and per-site pages without overwriting it. Both prior
 and current run cards are negative.
 
-Lane GPC-Z (2026-10-27) produced a gated candidate: read `evidence/run_card_gpcz.json`,
-`evidence/release_gate_gpcz.json` and `docs/gpcz/index.html`. Lane pages are built by
-`scripts/build_gpcz_site.py` into `docs/gpcz/`; the homepage decision panel in `index.html`,
-`docs/executive-summary.html` and the alert in `scripts/build_detail_pages.py` must be
-updated together whenever the gate result changes. The lane's shared tools live in
-`src/gemsk/`; the pinned GEMSDOE32 template evaluator was run unmodified for comparison.
+The 2026-10-28 reassessment found that both inherited GPC-Z and H-K1-1 candidates
+fail the literal registered-lattice duplicate gate. They are research artifacts,
+not gated or approved submissions. Read `evidence/release_reassessment_20261028.json`
+and the active negative `docs/data/run-card.json`; legacy experiment runners are
+blocked before training/placement. A complete inventory, true pre-placement check,
+whole-component buffered split, matched fold-specific refits, valid canaries, and
+a separately assigned lane/template remain outstanding. The past canary's handling
+of constant channels and the competing vendored-template provenance are unresolved;
+do not treat their earlier "pass" as current evidence.

@@ -12,7 +12,7 @@
       0.11690867760100696,
       0.1374168562648192
     ],
-    "status": "HOLDOUT-DTI on catalogue truth; NOT a leaderboard estimate",
+    "status": "Historical HOLDOUT-DTI on catalogue truth; not independently replayed in this review and not a leaderboard estimate.",
     "shared_template_evaluator": {
       "template": "buffedlizard55-lab/GEMSDOE32@73485f27cf230af770167397c2b72cb9ce3b3f25 scripts/evaluate_holdout.py (registry/template.json pin; run unmodified, no fork)",
       "note": "Applied to the FINAL rasters (already pruned >2 px from the full catalogue), so hide-and-recover values are depressed by construction for both files; SGMC is the only off-catalogue instrument available locally.",
@@ -55,9 +55,10 @@
   },
   "correlation_overlap_vs_registry": {
     "preplacement_surface_spearman": 0.016619126143593684,
-    "final_dot_overlap": 0.3174166666666667,
-    "registry_coverage": "15 pinned rasters (registry/data_manifest.json); lattice probe reported separately",
-    "lattice_coverage_fraction": 0.9987132726822701
+    "final_dot_overlap": 0.9988611111111111,
+    "registry_coverage": "Historical 15-raster scan excluded lattice from clearance; the literal lattice witness now fails. Not a complete scan.",
+    "lattice_coverage_fraction": 0.9987132726822701,
+    "previous_nonprobe_final_dot_overlap": 0.3174166666666667
   },
   "raster_sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
   "validator_output": {
@@ -70,15 +71,17 @@
   "submission_note": "GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed",
   "download_available": true,
   "ok_to_submit": false,
-  "ok_to_submit_meaning": "release_gate.py never sets this flag: all automated gates passed (verdict promote); spending a weekly slot is the separate selector step",
+  "ok_to_submit_meaning": "DO NOT SUBMIT: literal lattice witness exceeds the 70% threshold.",
   "slot_selected_or_spent": false,
   "geological_experiments_run": 3,
   "blockers": [
-    "IR-K1-SGMC-01: champion beats GPC-Z on SGMC off-catalogue calibration (0.0641 vs 0.0545)",
-    "IR-K1-LATTICE-01: calibration lattice makes the literal 70% rule impassable; exempted and reported",
-    "IR-K1-DATA-01: data mirrors are SHA-pinned but not organizer-authenticated",
-    "No organizer receipt exists for this file; no live estimate is possible"
+    "Literal lattice overlap 35,959 / 36,000 exceeds 70%; no exemption.",
+    "IR-K1-SGMC-01: historical off-catalogue calibration favored the champion; not independently replayed.",
+    "Owner mirrors are hash-pinned, not organizer-authenticated; portal encoding untested.",
+    "The designated lane/template and buffered matched-fold validation remain unresolved.",
+    "No artifact-linked organizer receipt or live score is available for this file."
   ],
-  "verdict": "promote",
-  "full_card": "evidence/run_card_gpcz.json"
+  "verdict": "negative",
+  "full_card": "evidence/run_card_gpcz.json",
+  "reassessment": "evidence/release_reassessment_20261028.json"
 }

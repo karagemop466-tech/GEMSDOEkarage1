@@ -1,11 +1,31 @@
 # Research review and preregistration slate
 
-Reviewed 2026-10-27 UTC. This is a **planning slate, not an assigned method
+Initially reviewed 2026-10-27; reassessed 2026-10-28 UTC. This is a **planning slate, not an assigned method
 lane, a geological experiment, a finding of a vent, or a forecast**. The
-initial checkout contained no previous implementations; several related ideas
-exist in peer repositories. Novelty across the whole fleet has **not** been
-established. No experiment was run because the requested lane was not supplied
-and the literal registry rule fails at the historical dot budget.
+initial planning slate preceded later local H-K1-1 and GPC-Z runs; several
+related ideas exist locally and in peer repositories. Novelty across the whole fleet has **not** been
+established. No new experiment was run in the 2026-10-28 reassessment because the requested
+lane was not supplied and the literal registry rule fails at the historical dot budget.
+
+
+## 2026-10-28 reassessment of inherited experiments
+
+The inherited H-K1-1 and GPC-Z outputs are **negative**, not promotion candidates:
+[the saved-byte witness](../evidence/release_reassessment_20261028.json) found
+38,174/38,200 and 35,959/36,000 dots, respectively, within 3 pixels of the
+registered lattice. The past discrete-only scan excluded that raster and is
+superseded. The inherited H-K1-1 holdout values were not replayed in this review;
+its reported split cuts fault branches into short chunks and does not establish
+the requested whole-segment buffered protocol. An AUC=0.5 assigned to a
+constant feature is not evidence that it was meaningfully tested.
+
+The four proposals below are variants, not claims of fleet-wide novelty. H-K1-1
+already combines potential-field, radiometric and shallow-thermal signatures,
+and GPC-Z already used a polarity/damage-zone concept; the **differences** in
+the table must therefore be tested rather than assumed. The restored owner
+mirror includes the raw 19-band feature stack, labels, visible faults and
+template, but the prepared fold-safe cache, canonical shared template
+provenance and specified method lane remain unresolved.
 
 ## What can the B2 result actually tell us?
 
@@ -45,13 +65,12 @@ above 0.2778 nor a leadership position is established by this repository.
 Ranking is a scientific prioritization, not measured improvement. Each starts
 from the competition feature names in the [official problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#provided-features);
 actual units, orientation and provenance must be checked against the official
-metadata before use. “Different” means different from the *empty initial
-checkout* and the cited peer implementation; it does not guarantee uniqueness
+metadata before use. “Different” means a specific proposed variation on existing local and cited peer implementations; it does not guarantee uniqueness
 in all peer sites.
 
 | Rank / relative cost | Specific layers and proposed physical signature | Why it could expose a missing trace / named non-fault mimic | Prior-art difference and data status |
 | --- | --- | --- | --- |
-| **1 · medium** | `rtp` magnetic anomaly and isostatic gravity anomaly, plus detrended-elevation slope: estimate oriented, **signed** cross-profile changes at two wavelengths; rank margin locations where the direction and relative displacement of both gradients are stable across scale. Normalize orientation consistently rather than assuming a universal sign. | A fault buried by basin fill can juxtapose rocks with differing magnetic susceptibility and density where a surface trace was missed. Volcanic flow margins, lithologic contacts and survey-leveling artifacts can create the same signal. | More specific than a single unsigned gradient or simple cross-gradient ridge; compare with prior [GEMSDOE24 cross-front / pair experiments](https://github.com/buffedlizard55-lab/GEMSDOE24/tree/main/docs/downloads). No such method existed in this checkout. Uses organizer-specified layers; their owner mirror is listed as five pinned GitHub parts in the [peer manifest](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/registry/data_manifest.json). Parts exist in a [pinned tree](https://github.com/buffedlizard55-lab/GEMSDOE/tree/c0c06ac82178f26b94fce3397036ef8f12a2f3a0/data/bridge), but were not downloaded or organizer-authenticated here. Prepared template cache absent. **Not ready to run.** |
+| **1 · medium** | `rtp` magnetic anomaly and isostatic gravity anomaly, plus detrended-elevation slope: estimate oriented, **signed** cross-profile changes at two wavelengths; rank margin locations where the direction and relative displacement of both gradients are stable across scale. Normalize orientation consistently rather than assuming a universal sign. | A fault buried by basin fill can juxtapose rocks with differing magnetic susceptibility and density where a surface trace was missed. Volcanic flow margins, lithologic contacts and survey-leveling artifacts can create the same signal. | More specific than a single unsigned gradient or simple cross-gradient ridge; compare with prior [GEMSDOE24 cross-front / pair experiments](https://github.com/buffedlizard55-lab/GEMSDOE24/tree/main/docs/downloads). A simple signed polarity idea was later used in GPC-Z; this proposal specifically adds an orientation-consistent multi-scale stability test and is not a demonstrated new result. Uses organizer-specified layers; their owner mirror is listed as five pinned GitHub parts in the [peer manifest](https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/registry/data_manifest.json). Parts exist in a [pinned tree](https://github.com/buffedlizard55-lab/GEMSDOE/tree/c0c06ac82178f26b94fce3397036ef8f12a2f3a0/data/bridge), and selected mirrors were downloaded and hash-checked on 2026-10-28; none are organizer-authenticated. Prepared template cache absent. **Not ready to run.** |
 | **2 · medium** | GeoDAWN radiometric K, eTh and RTP magnetics: a robust local K/eTh residual against nearby terrain, with directional alignment of the alteration boundary to a persistent magnetic edge. Test a mask of low signal and flight-block edges explicitly. | A mineralized or altered margin associated with an unmapped fault might be visible where the catalogue is incomplete; unaltered potassium-rich intrusive lithology, soil/weathering and flight-height changes can mimic it. USGS observed elevated K/Th in some altered ore rocks, **not proof** of a Nevada geothermal fault. | Unlike [GEMSDOE33 R5's Th/K × conductivity](https://buffedlizard55-lab.github.io/GEMSDOE33/), this tests an oriented boundary and local residual. The [official USGS GeoDAWN release](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and) advertises GeoTIFF grids and CC0; the actual official bytes were not downloaded here. An [owner-derived cache](https://github.com/buffedlizard55-lab/GEMSDOE24/tree/07345ea0604953d7efb858d9cfbc21e20c7aca0b/data/external) exists but is not official-source authentication. **Not ready to run.** |
 | **3 · high** | [USGS 3DEP 1/3 arc-second DEM](https://data.usgs.gov/datacatalog/data/USGS:3a81321b-c153-416f-98b7-cc8e5f0e17c3): directional consistency of small tributary cross-valley slope/asymmetry across adjacent catchments, conditioned on drainage-area and elevation. | Repeated drainage deflection across a range front might retain a degraded trace that is no longer visibly sharp; stream piracy, fan deposition and erosion also produce bends. A high score would not by itself demonstrate faulting. | Different from a single scarp or a pure fluvial-χ detector such as [GEMSDOE36 TCD-36](https://buffedlizard55-lab.github.io/GEMSDOE36/docs/); exact fleet novelty unverified. USGS says 3DEP products are free and unrestricted and advertises conterminous coverage; **tile bytes, provenance, and local coverage were not verified here**, and the sandbox cannot download from USGS. Deferred until data is actually accessible. |
 | **4 · high** | [GDR INGENIOUS 2 m temperature probes](https://gdr.openei.org/submissions/1391) with a road-distance sampling layer and competition gravity: spatially cross-fit a background model of sampling access and elevation, then test persistent residual probe anomalies near potential-field boundaries. No label-derived distances in features. | A clustered shallow thermal anomaly could point to a concealed fluid pathway missed by fault mapping. Solar heating, groundwater, cultural heat and access-biased sampling are alternatives; well/probe density is not fault evidence. | Unlike a raw hotspot-distance layer, explicit cross-fitted sampling-bias correction is proposed. Related geothermal/road methods exist in peer work; fleet novelty unverified. The GDR page lists the probes and CC BY 4.0. A GitHub owner mirror is [listed](https://github.com/buffedlizard55-lab/GEMSDOE24/tree/07345ea0604953d7efb858d9cfbc21e20c7aca0b/data/external); official ZIP and road data were **not downloaded or checked for local coverage**. Deferred. |

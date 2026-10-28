@@ -483,5 +483,9 @@
       "ov_sym_max": 0.52097
     }
   ],
-  "passed": true
+  "passed": false,
+  "previously_reported_nonliteral_pass": true,
+  "superseded_by": "evidence/release_reassessment_20261028.json",
+  "reassessment_note": "Previous discrete-only maximum excluded a registered lattice; it does not implement the literal gate.",
+  "literal_lattice_overlap": 0.9993193717277487
 }

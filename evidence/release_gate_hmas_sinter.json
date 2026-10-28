@@ -81,11 +81,22 @@
       "all_features_tested": true
     },
     "registry": {
-      "complete": true,
+      "complete": false,
       "saved_bytes_checked": true,
       "surface_max_abs_rho": 0.53034,
       "dots_max_abs_rho": 0.07574,
-      "max_directed_overlap_3px": 0.6039
+      "max_directed_overlap_3px": null,
+      "literal_all_rasters": false,
+      "surface_checked_before_placement": false,
+      "excluded_registry_rasters": [
+        "13GEMSDOE r13-lattice-s5"
+      ],
+      "duplicate_witnesses": [
+        {
+          "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+          "directed_overlap": 0.9993193717277487
+        }
+      ]
     },
     "validator": {
       "single_band": true,
@@ -101,9 +112,24 @@
     "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular"
   },
   "result": {
+    "verdict": "negative",
+    "ok_to_submit": false,
+    "selector_required": true,
+    "reasons": [
+      "Single-feature leakage canary missing or failed",
+      "Complete registry / saved-byte comparison missing",
+      "Literal all-raster registry policy not evidenced",
+      "Surface was not checked before placement",
+      "Registry exclusions are missing or nonempty",
+      "A duplicate witness was recorded; stop",
+      "Registry gate failed or missing: max_directed_overlap_3px"
+    ]
+  },
+  "original_result": {
     "verdict": "promote",
     "ok_to_submit": false,
     "selector_required": true,
     "reasons": []
-  }
+  },
+  "reassessment": "evidence/release_reassessment_20261028.json"
 }

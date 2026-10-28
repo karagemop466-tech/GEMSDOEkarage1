@@ -277,7 +277,7 @@ def main() -> int:
             "zip_download_url": f"downloads/{rc['submission_zip']}",
             "sha256": rc["raster_sha256"],
             "owner_reported_dti": None,
-            "owner_score_label": "UNSUBMITTED — READY FOR PORTAL (0/3 weekly slots spent)",
+            "owner_score_label": "NO ORGANIZER SCORE — DO NOT SUBMIT",
             "gems57_detached_dti": rc["holdout_dti"]["gems57_pooled_hide_v2_detached"]["dti"],
             "gems57_detached_ci95": rc["holdout_dti"]["gems57_pooled_hide_v2_detached"]["ci95"],
             "sgmc_raw_dti": our_sgmc["sgmc_raw_pooled_dti"],
@@ -527,4 +527,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit("Retired historical dashboard builder: it uses a superseded nonliteral clearance. Use scripts/build_site.py, scripts/generate_pages.py and scripts/render_site.py.")

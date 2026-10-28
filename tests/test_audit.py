@@ -58,17 +58,17 @@ def test_evidence_scope():
     assert all(r['literal_duplicate'] for r in a['rasters'])
 
 
-def test_site_local_links_and_download_only_for_gated_raster():
-    """A download link may appear on the homepage only for the exact bytes the release gate promoted."""
+def test_site_local_links_and_research_download_is_not_approved():
+    """Research downloads must be exact, negative, and unmistakably labelled."""
     import hashlib
     from html.parser import HTMLParser
     from urllib.parse import urlsplit
     root = Path(__file__).resolve().parents[1]
-    promoted_hashes = set()
+    card = json.loads((root/'docs/data/run-card.json').read_text())
+    assert card['verdict'] == 'negative' and card['ok_to_submit'] is False
     for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
-        assert gate['result']['verdict'] == 'promote' and not gate['result']['reasons']
-        promoted_hashes.add(gate['input']['raster_sha256'])
+        assert gate['result']['verdict'] == 'negative' and not gate['result']['ok_to_submit']
     class Links(HTMLParser):
         def handle_starttag(self, tag, attrs):
             attrs = dict(attrs)
@@ -78,9 +78,12 @@ def test_site_local_links_and_download_only_for_gated_raster():
                     assert (root / value.split('#')[0]).is_file(), value
             if 'download' in attrs:
                 target = root / attrs['href']
-                assert hashlib.sha256(target.read_bytes()).hexdigest() in promoted_hashes, 'download link does not point at a gated raster'
+                assert hashlib.sha256(target.read_bytes()).hexdigest() == card['raster_sha256']
     for name in ('index.html', 'executive-summary.html'):
-        Links().feed((root/name).read_text())
+        text = (root/name).read_text()
+        Links().feed(text)
+        if ' download>' in text:
+            assert 'DO NOT SUBMIT' in text and 'RESEARCH ONLY' in text
 
 
 def test_run_card_and_source_hashes():

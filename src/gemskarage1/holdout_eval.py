@@ -71,7 +71,8 @@ def run_leakage_canary(
     *,
     ceiling_auc: float = 0.90,
 ) -> dict:
-    """Protocol Rule 4: Solo single-feature ROC-AUC canary on withheld fault segments across all 58 channels."""
+    """Retired canary: the inherited split and constant-channel handling are not clearance evidence."""
+    raise RuntimeError("Legacy canary is blocked until whole-component buffered splits and valid feature variation are implemented in the shared workflow.")
     mm = open_memmap(stack_path, mode="r")
     grid = G57.Grid(
         footprint=foot,

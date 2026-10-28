@@ -1,115 +1,61 @@
 {
-  "schema": "karage1-run-card-v1",
-  "created_utc": "20261027T220000Z",
-  "lane": "H-K1-1: HMAS-SINTER-ENV",
-  "hypothesis": "H-K1-1 (HMAS-SINTER-ENV): Blind hydrothermal conduit faults missed by Quaternary scarp catalogues exhibit linear negative magnetic tilt-curvature / 3-D analytic-signal demagnetization troughs (titanomagnetite -> hematite/pyrite/clay oxidation), positive Poisson pseudo-gravity orthogonal basement steps, 4-block standardized GeoDAWN 214Bi radon & K/Th alteration crests, and strike-projected INGENIOUS 2m temperature probe (F2mDAB), Quaternary sinter/breccia, and quartz-geothermometer plumes; fusing Dual-Cover (M_Full inside 75.37% 1m LiDAR + quantile-matched LiDAR-free M_Sub inside the 24.63% gap) with hydrothermal conduit modulation and d=2.9px axial-spaced submodular 300m kernel allocation recovers detached & off-catalogue faults without neighbor clumping.",
-  "mechanism": "150-300C hydrothermal upflow along permeable Great Basin normal/transtensional fault damage zones destroys host-rock magnetite while depositing silica sinter/breccia and shallow conductive clay caps, creating contrarian magnetic troughs paired with upward-continued (400-1800m) non-magnetic basement gravity gradients and strike-elongated F2mDAB thermal & 214Bi radon anomalies under Holocene fill.",
-  "named_non_fault_mimic": "Late Pleistocene Lake Lahontan wave-cut shoreline benches (sharp 1m DEM steps inside deep basin fill with zero basement gravity gradient), US Census TIGER highway/railroad embankments (<=140m symmetric berms), tabular Neogene basalt/ash-flow lava margins (removed via 2-D FFT 1/|k| Poisson pseudo-gravity orthogonal regression), and flat conductive evaporite playas (vetoed where slope < 1.8 deg and cover > 320m).",
+  "schema": "karage1-active-run-card-v2",
+  "reviewed_utc_date": "2026-10-28",
+  "hypothesis": "Prior H-K1-1: hydrothermal alteration and shallow thermal signatures may identify faults missing from mapped catalogues. No new method lane was assigned in this request.",
+  "mechanism": "Potential-field, radiometric and thermal anomaly coincidence was used as a proxy for a concealed fault; it does not prove a vent or fault.",
+  "non_fault_process_that_could_mimic_it": "Volcanic lithologic contacts and Lake Lahontan shoreline benches.",
   "holdout_dti": {
-    "value": 0.093547,
-    "evaluator_version": "gems57-pooled-hide-v2 (detached)",
-    "withheld_positives": 22619,
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "dti": 0.093547,
     "ci95": [
       0.081837,
       0.105279
     ],
-    "status": "HOLDOUT-DTI (+0.010596 / +12.77% over BASE_35, 95% CI [+0.005620, +0.015814]); NOT a leaderboard estimate",
-    "gems57_all": {
-      "label": "HOLDOUT-DTI",
-      "evaluator_version": "gems57-pooled-hide-v2",
-      "dti": 0.090551,
-      "ci95": [
-        0.080105,
-        0.100904
-      ],
-      "withheld_positives": 22641,
-      "delta_vs_base35": 0.002726,
-      "delta_vs_base35_ci95": [
-        -0.002348,
-        0.008082
-      ]
-    },
-    "hide_recover_v3_per_cell": {
-      "evidence_class": "HOLDOUT-DTI",
-      "evaluator_version": "GEMSDOE32-HIDE-RECOVER-v3.0",
-      "all": {
-        "dti": 0.102018,
-        "withheld_positives": 27735,
-        "ci95": [
-          0.088455,
-          0.117154
-        ],
-        "delta_vs_ref_mean": 0.00436,
-        "delta_vs_ref_ci95": [
-          -0.00066,
-          0.00928
-        ],
-        "prob_beats_ref": 0.9525
-      },
-      "detached": {
-        "dti": 0.096634,
-        "withheld_positives": 16676,
-        "ci95": [
-          0.0816,
-          0.113088
-        ],
-        "delta_vs_ref_mean": -0.000102,
-        "delta_vs_ref_ci95": [
-          -0.006095,
-          0.005753
-        ],
-        "prob_beats_ref": 0.4925
-      }
-    },
-    "sgmc_off_catalogue_bedrock_faults": {
-      "evidence_class": "HOLDOUT-DTI",
-      "evaluator_version": "GEMSDOE32-SGMC-CAL-v3.0",
-      "withheld_positives": 62122,
-      "sgmc_raw_pooled_dti": 0.11195,
-      "sgmc_raw_ci95": [
-        0.092417,
-        0.133886
-      ],
-      "sgmc_prevalence_calibrated_ref": 0.12371,
-      "delta_vs_champion_raw": 0.018396,
-      "delta_vs_champion_ci95": [
-        0.001638,
-        0.035548
-      ],
-      "prob_beats_champion": 0.9875
-    },
-    "head_to_head_vs_gpcz_and_champion": {
-      "hmas_sinter_sgmc_raw": 0.11195,
-      "champion_02778_sgmc_raw": 0.093694,
-      "gpcz_sgmc_raw": 0.080671,
-      "reading": "H-K1-1 (HMAS-SINTER-ENV) resolves IR-K1-SGMC-01 by beating BOTH the 0.2778 GEMSDOE32 Champion (+19.6%, paired 95% CI [+0.0016, +0.0355]) AND concurrent lane GPC-Z (+38.8%) on off-catalogue USGS SGMC bedrock faults while using ZERO catalogue-distance features."
-    }
+    "withheld_positives": 22619,
+    "delta_vs_base35": 0.010596,
+    "delta_vs_base35_ci95": [
+      0.00562,
+      0.015814
+    ],
+    "verification_status": "Prior-session measurement; not independently rerun in this review. The original split cut some branches into short chunks and did not establish the requested buffered whole-component holdout.",
+    "independently_replayed_this_review": false
   },
   "correlation_overlap_vs_registry": {
-    "preplacement_surface_spearman": 0.53034,
-    "final_dot_spearman": 0.07574,
-    "final_dot_overlap": 0.6039,
-    "overlap_vs_gemsdoe32_champion": 0.46437,
-    "overlap_vs_concurrent_gpcz": 0.26707,
-    "registry_coverage": "611 fleet rasters (318 unique pixel maps) + concurrent GPC-Z lane"
+    "surface_rank_correlation": null,
+    "surface_status": "Prior surface unavailable for independent pre-placement replay.",
+    "witness": "registered 13GEMSDOE r13-lattice-s5",
+    "witness_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+    "candidate_dots": 38200,
+    "dots_within_3px": 38174,
+    "directed_overlap": 0.9993193717277487,
+    "literal_threshold": 0.7,
+    "duplicate": true,
+    "complete_registry_replayed": false
   },
   "raster_sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
-  "zip_sha256": "b1c8817b1037384d8d12d6c3b9077716398aa756a931978bc5e5b1f52e3d15e7",
+  "raster_status": "Previously generated research raster only; not a new submission.",
   "validator_output": {
     "no_nan_inside_footprint": true,
     "values_in_0_1": true,
-    "crs_shape_transform_match": true,
-    "status": "pass (15/15 vendor/gems57/validate.py + scripts/validate_geotiff.py; evidence/validate_geotiff_hmas_sinter.json)"
+    "crs_shape_transform_match_mirror": true,
+    "single_band": true,
+    "all_finite_range": true,
+    "outside_null_or_nan": false,
+    "sample_organizer_authenticated": false,
+    "portal_acceptance_tested": false
   },
   "submission_file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
   "submission_name": "karage1-hmas-sinter-dualcover-sep29-zeros",
-  "submission_note": "H-K1-1 HMAS mag-trough + PPGR + F2mDAB/sinter DualCover GBDT + d=2.9px 300m submodular",
+  "submission_note": "H-K1-1 historical raster; duplicate witness failed; research only, do not submit.",
   "download_available": true,
+  "download_purpose": "research only",
+  "estimated_leaderboard_score": null,
   "ok_to_submit": false,
-  "ok_to_submit_meaning": "release_gate.py never sets ok_to_submit=True automatically: all 9 automated scientific/format/uniqueness gates passed (verdict promote); spending one of 3 weekly portal slots is the human selector step",
-  "slot_selected_or_spent": false,
-  "geological_experiments_run": 3,
-  "verdict": "promote",
-  "full_card": "evidence/run_card_hmas_sinter.json",
-  "concurrent_secondary_lane": "evidence/run_card_gpcz.json"
+  "selector_approved": false,
+  "experiments_this_review": 0,
+  "slots_spent_this_review": 0,
+  "account_quota_known": false,
+  "verdict": "negative",
+  "audit": "evidence/release_reassessment_20261028.json"
 }

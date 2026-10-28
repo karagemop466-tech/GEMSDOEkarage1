@@ -44,6 +44,7 @@ assert len(SUBMISSION_NOTE) <= 140
 
 
 def run_stage_fit(force: bool = False) -> None:
+    raise RuntimeError("Retired legacy split; no training is authorized. See release reassessment.")
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()
@@ -60,6 +61,7 @@ def run_stage_fit(force: bool = False) -> None:
 
 
 def run_stage_eval_and_package() -> int:
+    raise RuntimeError("Retired legacy split; no placement or packaging is authorized. See release reassessment.")
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()
@@ -422,11 +424,20 @@ def main() -> int:
     ap.add_argument("--force-fit", action="store_true")
     args = ap.parse_args()
 
-    if args.stage in ("fit", "all"):
-        run_stage_fit(force=args.force_fit)
-    if args.stage in ("eval", "all"):
-        return run_stage_eval_and_package()
-    return 0
+    # Fail closed BEFORE training, placement, or writing.  The inherited
+    # runner used H57.build_holdout, whose <=12-pixel chunks and unbuffered
+    # "all" context are not the requested whole-component buffered split.
+    # The shared template already exposes buffered_component_draw; integration
+    # and a new same-split baseline are required before this runner can resume.
+    # In addition, both prior outputs exceed the literal lattice overlap limit.
+    print(
+        "BLOCKED: legacy runner does not use the shared buffered whole-component "
+        "holdout and its prior outputs failed the literal registry gate. "
+        "Do not train, place dots, write, or submit. See "
+        "evidence/release_reassessment_20261028.json.",
+        file=sys.stderr,
+    )
+    return 2
 
 
 if __name__ == "__main__":

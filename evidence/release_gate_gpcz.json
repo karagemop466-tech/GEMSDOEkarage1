@@ -1,70 +1,96 @@
 {
- "schema": "karage1-release-gate-input+result",
- "input": {
-  "lane": "GPC-Z",
-  "experiments": 3,
-  "elapsed_seconds": 1980,
-  "holdout": {
-   "label": "HOLDOUT-DTI",
-   "evaluator_version": "gemsk-hide-recover-v1@8464ac87ec5ea4c3",
-   "withheld_positives": 60988,
-   "dti": 0.12981213112152554,
-   "ci95": [
-    0.119917213448872,
-    0.1409712505717961
-   ],
-   "same_evaluator_as_best": true,
-   "beats_current_best": true,
-   "visible_only_features": true,
-   "whole_segment_buffered": true,
-   "best_compared_against": "H19-5 source field (origin of the 0.2778 family) re-emitted under the same rule on the same folds: 0.1049; prior-only 0.1131; physics-only 0.0701"
+  "schema": "karage1-release-gate-input+result",
+  "input": {
+    "lane": "GPC-Z",
+    "experiments": 3,
+    "elapsed_seconds": 1980,
+    "holdout": {
+      "label": "HOLDOUT-DTI",
+      "evaluator_version": "gemsk-hide-recover-v1@8464ac87ec5ea4c3",
+      "withheld_positives": 60988,
+      "dti": 0.12981213112152554,
+      "ci95": [
+        0.119917213448872,
+        0.1409712505717961
+      ],
+      "same_evaluator_as_best": true,
+      "beats_current_best": true,
+      "visible_only_features": true,
+      "whole_segment_buffered": true,
+      "best_compared_against": "H19-5 source field (origin of the 0.2778 family) re-emitted under the same rule on the same folds: 0.1049; prior-only 0.1131; physics-only 0.0701"
+    },
+    "canary": {
+      "feature_aucs": {
+        "step": 0.5087990347789889,
+        "curvbreak": 0.6089346133461817,
+        "concord": 0.553031378612155,
+        "oblique": 0.43938242662304006,
+        "lidar_step": 0.5920694716210962,
+        "band_det_elev_slope": 0.5944409759696458,
+        "band_iso_grav_anom_hg": 0.5247242589135148,
+        "band_tmi_hg": 0.5487738844555529,
+        "band_tc": 0.49905521306388134,
+        "band_iso_grav_anom": 0.5029277308215628,
+        "band_depth_to_base_surf": 0.5200042537087497,
+        "band_cond_surf": 0.5713774287287806,
+        "band_det_elev": 0.5303301317453626,
+        "prior_g_d_interleaved": 0.7832083430926047
+      },
+      "all_features_tested": true
+    },
+    "registry": {
+      "complete": false,
+      "scope": "15 pinned rasters (registry/data_manifest.json): the nine focus-site bests, GEMSDOE27 h31, the H19-5 source field, GEMSDOE28 variants, and the r13-lattice-s5 calibration probe",
+      "saved_bytes_checked": true,
+      "surface_max_abs_rho": 0.016619126143593684,
+      "dots_max_abs_rho": 0.016619126143593684,
+      "max_directed_overlap_3px": null,
+      "calibration_lattice_overlap_3px_reported_not_exempt_silently": 0.9987,
+      "literal_all_rasters": false,
+      "surface_checked_before_placement": false,
+      "excluded_registry_rasters": [
+        "13GEMSDOE r13-lattice-s5"
+      ],
+      "duplicate_witnesses": [
+        {
+          "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+          "directed_overlap": 0.9988611111111111
+        }
+      ]
+    },
+    "validator": {
+      "single_band": true,
+      "float32": true,
+      "all_finite": true,
+      "range_0_1": true,
+      "crs_match": true,
+      "shape_match": true,
+      "transform_match": true
+    },
+    "raster_sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
+    "submission_name": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+    "submission_note": "GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed"
   },
-  "canary": {
-   "feature_aucs": {
-    "step": 0.5087990347789889,
-    "curvbreak": 0.6089346133461817,
-    "concord": 0.553031378612155,
-    "oblique": 0.43938242662304006,
-    "lidar_step": 0.5920694716210962,
-    "band_det_elev_slope": 0.5944409759696458,
-    "band_iso_grav_anom_hg": 0.5247242589135148,
-    "band_tmi_hg": 0.5487738844555529,
-    "band_tc": 0.49905521306388134,
-    "band_iso_grav_anom": 0.5029277308215628,
-    "band_depth_to_base_surf": 0.5200042537087497,
-    "band_cond_surf": 0.5713774287287806,
-    "band_det_elev": 0.5303301317453626,
-    "prior_g_d_interleaved": 0.7832083430926047
-   },
-   "all_features_tested": true
+  "result": {
+    "verdict": "negative",
+    "ok_to_submit": false,
+    "selector_required": true,
+    "reasons": [
+      "Single-feature leakage canary missing or failed",
+      "Complete registry / saved-byte comparison missing",
+      "Literal all-raster registry policy not evidenced",
+      "Surface was not checked before placement",
+      "Registry exclusions are missing or nonempty",
+      "A duplicate witness was recorded; stop",
+      "Registry gate failed or missing: max_directed_overlap_3px"
+    ]
   },
-  "registry": {
-   "complete": true,
-   "scope": "15 pinned rasters (registry/data_manifest.json): the nine focus-site bests, GEMSDOE27 h31, the H19-5 source field, GEMSDOE28 variants, and the r13-lattice-s5 calibration probe",
-   "saved_bytes_checked": true,
-   "surface_max_abs_rho": 0.016619126143593684,
-   "dots_max_abs_rho": 0.016619126143593684,
-   "max_directed_overlap_3px": 0.3174166666666667,
-   "calibration_lattice_overlap_3px_reported_not_exempt_silently": 0.9987
+  "note": "release_gate.py from the parallel review, run unmodified. The lattice probe (99.87%) is excluded from max_directed_overlap_3px and reported alongside; a literal reading of the rule makes every raster >22k dots a duplicate (IR-K1-LATTICE-01).",
+  "original_result": {
+    "verdict": "promote",
+    "ok_to_submit": false,
+    "selector_required": true,
+    "reasons": []
   },
-  "validator": {
-   "single_band": true,
-   "float32": true,
-   "all_finite": true,
-   "range_0_1": true,
-   "crs_match": true,
-   "shape_match": true,
-   "transform_match": true
-  },
-  "raster_sha256": "75ac577a9131f6837b2de28be8932c326d1083bb46fcaebc1efc28e177526dbd",
-  "submission_name": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
-  "submission_note": "GEMSDOEkarage1 GPC-Z: topo step x gravity-polarity gate x damage-zone prior g(d); 36000 dots, 2.8px, apron2; holdout-only, no score claimed"
- },
- "result": {
-  "verdict": "promote",
-  "ok_to_submit": false,
-  "selector_required": true,
-  "reasons": []
- },
- "note": "release_gate.py from the parallel review, run unmodified. The lattice probe (99.87%) is excluded from max_directed_overlap_3px and reported alongside; a literal reading of the rule makes every raster >22k dots a duplicate (IR-K1-LATTICE-01)."
+  "reassessment": "evidence/release_reassessment_20261028.json"
 }

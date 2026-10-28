@@ -8,7 +8,7 @@
   "max_direction_invariant_auc": 0.59876,
   "max_feature": "band06",
   "leaking_features": [],
-  "all_passed": true,
+  "all_passed": false,
   "channels": [
     {
       "channel_index": 0,
@@ -416,5 +416,7 @@
       "direction_invariant_auc": 0.52621,
       "leaking": false
     }
-  ]
+  ],
+  "previously_reported_all_passed": true,
+  "reassessment_note": "Not independently replayed; the historical implementation assigned AUC 0.5 to constant features without recording variation, and used a split that does not establish the requested buffered holdout."
 }

@@ -3,11 +3,11 @@
   "generated_at_utc": "2026-10-27T22:00:00Z",
   "lane_id": "H-K1-1-HMAS-SINTER-ENV",
   "winning_arm": "EXP1_HMAS_MULT",
-  "verdict": "promote",
+  "verdict": "negative",
   "gates": {
-    "leakage_canary_passed": true,
+    "leakage_canary_passed": false,
     "validator_ok": true,
-    "uniqueness_gate_passed": true,
+    "uniqueness_gate_passed": false,
     "beats_base35_gems57_all": true,
     "beats_base35_gems57_detached": true,
     "beats_base35_gems57_detached_95ci_gt_zero": true,
@@ -606,5 +606,7 @@
         "footprint_300m_disk_cov": 0.16294
       }
     }
-  }
+  },
+  "previously_reported_verdict": "promote",
+  "superseded_by": "evidence/release_reassessment_20261028.json"
 }

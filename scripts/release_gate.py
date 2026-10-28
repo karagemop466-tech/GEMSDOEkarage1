@@ -18,7 +18,8 @@ def assess(card):
     if not finite_number(elapsed) or not 0 < elapsed <= 7200:
         reasons.append('Elapsed-time budget not evidenced')
     h = card.get('holdout') if isinstance(card.get('holdout'), dict) else {}
-    if (h.get('label') != 'HOLDOUT-DTI' or not h.get('evaluator_version')
+    version = h.get('evaluator_version')
+    if (h.get('label') != 'HOLDOUT-DTI' or not isinstance(version, str) or not version.strip()
             or type(h.get('withheld_positives')) is not int or h['withheld_positives'] <= 0):
         reasons.append('Incomplete HOLDOUT-DTI provenance')
     score, ci = h.get('dti'), h.get('ci95')
@@ -33,11 +34,26 @@ def assess(card):
     canary = card.get('canary') if isinstance(card.get('canary'), dict) else {}
     aucs = canary.get('feature_aucs')
     if (not isinstance(aucs, dict) or not aucs or canary.get('all_features_tested') is not True
-            or any(not finite_number(v) or not 0 <= v <= .90 for v in aucs.values())):
+            or canary.get('all_features_have_variation') is not True
+            or canary.get('invalid_features') != []
+            # AUC below .10 is equally alarming after reversing its direction.
+            or any(not finite_number(v) or not .10 <= v <= .90 for v in aucs.values())):
         reasons.append('Single-feature leakage canary missing or failed')
     reg = card.get('registry') if isinstance(card.get('registry'), dict) else {}
     if reg.get('complete') is not True or reg.get('saved_bytes_checked') is not True:
         reasons.append('Complete registry / saved-byte comparison missing')
+    if reg.get('literal_all_rasters') is not True:
+        reasons.append('Literal all-raster registry policy not evidenced')
+    if reg.get('surface_checked_before_placement') is not True:
+        reasons.append('Surface was not checked before placement')
+    excluded = reg.get('excluded_registry_rasters')
+    if not isinstance(excluded, list) or excluded:
+        reasons.append('Registry exclusions are missing or nonempty')
+    witnesses = reg.get('duplicate_witnesses')
+    if not isinstance(witnesses, list):
+        reasons.append('Registry duplicate-witness ledger missing')
+    elif witnesses:
+        reasons.append('A duplicate witness was recorded; stop')
     for key, limit in [('surface_max_abs_rho', .90), ('dots_max_abs_rho', .90), ('max_directed_overlap_3px', .70)]:
         value = reg.get(key)
         if not finite_number(value) or not 0 <= value <= limit:
@@ -50,7 +66,9 @@ def assess(card):
     if not isinstance(digest, str) or len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest):
         reasons.append('Saved raster SHA-256 missing')
     note = card.get('submission_note')
-    if not isinstance(note, str) or not 0 < len(note) <= 140 or not card.get('submission_name'):
+    name = card.get('submission_name')
+    if (not isinstance(note, str) or not note.strip() or len(note) > 140
+            or not isinstance(name, str) or not name.strip()):
         reasons.append('Submission name / short note missing')
     # Scientific promotion is NOT a weekly slot selection or upload authorization.
     return {'verdict': 'negative' if reasons else 'promote', 'ok_to_submit': False,

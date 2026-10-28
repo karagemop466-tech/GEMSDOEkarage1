@@ -9,7 +9,7 @@
     "zip_download_url": "downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.zip",
     "sha256": "198076f81067353c3ee41d947c7830ef11db2e8128bc5f8c5bd20ef036736f76",
     "owner_reported_dti": null,
-    "owner_score_label": "UNSUBMITTED \u2014 READY FOR PORTAL (0/3 weekly slots spent)",
+    "owner_score_label": "NO ORGANIZER SCORE \u2014 DO NOT SUBMIT",
     "gems57_detached_dti": 0.093547,
     "gems57_detached_ci95": [
       0.081837,
@@ -31,10 +31,11 @@
     "overlap_3px_with_gemsdoe32": 0.4644,
     "spearman_with_gemsdoe32": 0.03241,
     "overlap_3px_with_karage1": 1.0,
-    "uniqueness_badge": "UNIQUE PASS (max 60.4% fleet / 58.0% 9-site <= 70%)",
+    "uniqueness_badge": "FAIL: literal lattice witness",
     "family": "H-K1-1 HMAS-SINTER Dual-Cover (Independent Lane)",
     "method_short": "58-ch HMAS Mag-Trough + PPGR + F2mDAB/Sinter Dual-Cover GBDT + d=2.9px Submodular",
-    "exec_summary": "Dedicated H-K1-1 (HMAS-SINTER-ENV) architecture built from scratch on the leak-checked 58-channel stack. Combines negative magnetic tilt-curvature / 3-D analytic-signal magnetite-destruction troughs, 2-D FFT 1/|k| Poisson pseudo-gravity orthogonal basement residuals, 4-block standardized GeoDAWN 214Bi radon & K/Th alteration crests, and strike-projected INGENIOUS F2mDAB (2,782 probes), Quaternary sinter/breccia (281 sites), and quartz-geothermometer plumes via Dual-Cover cross-fitting (M_Full inside 75.37% 1m LiDAR + quantile-matched LiDAR-free M_Sub inside the 24.63% gap) and d=2.9px 300m submodular kernel emission. Beats BASE_35 on gems57 detached (+0.0106, 95% CI [+0.0056, +0.0158]) and beats the 0.2778 Champion on off-catalogue USGS SGMC bedrock faults (+0.0184, 95% CI [+0.0016, +0.0355]) with only 46.44% 3-px overlap with GEMSDOE32 (20,461 of 38,200 dots = 53.56% genuinely novel fault placements >300 m away)."
+    "exec_summary": "Historical research raster; literal lattice overlap exceeds the threshold. Not a submission recommendation.",
+    "superseded_by": "evidence/release_reassessment_20261028.json"
   },
   {
     "rank_group": "FOCUS_9",
