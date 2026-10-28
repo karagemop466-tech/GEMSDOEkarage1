@@ -1,6 +1,6 @@
 {
   "schema": "karage1-reference-audit-v1",
-  "created_utc": "2026-10-28T05:32:51.150787+00:00",
+  "created_utc": "2026-10-28T16:36:42.387826+00:00",
   "scope": "Nine historical pinned rasters, mirror template and one lattice witness. No pre-placement surfaces, complete registry, holdout or portal receipt were checked.",
   "source_authentication": "Owner mirrors pinned by SHA-256; not independently authenticated against DrivenData data files.",
   "software": {
