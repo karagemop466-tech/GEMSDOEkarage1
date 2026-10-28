@@ -1,0 +1,45 @@
+{
+  "schema": "karage1-official-code-source-receipt-v1",
+  "checked_date_utc": "2026-10-28",
+  "repository": "drivendataorg/gems-prize-reference-solution",
+  "commit": "aebe92f7c8a990f0e3443451b7a825d9afd6336b",
+  "transport": "gh api raw contents; fetched from organizer-owned GitHub repository",
+  "scope": "Source-code inspection only; no competition data authentication, portal access, or holdout execution.",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "cfa4d55559c9128313beb9417eae7e0a94c31677132afb1120f9e86222804239",
+      "bytes": 2367,
+      "source_url": "https://github.com/drivendataorg/gems-prize-reference-solution/blob/aebe92f7c8a990f0e3443451b7a825d9afd6336b/README.md"
+    },
+    {
+      "path": "unet-mc-cv-reference-solution.ipynb",
+      "sha256": "1a7622732ba00f67237058bc0efe79b45ba4e87c449fc9c1e5d6ea659de92ca0",
+      "bytes": 1578736,
+      "source_url": "https://github.com/drivendataorg/gems-prize-reference-solution/blob/aebe92f7c8a990f0e3443451b7a825d9afd6336b/unet-mc-cv-reference-solution.ipynb"
+    }
+  ],
+  "findings": [
+    {
+      "claim": "The official README explicitly offers a CPU-only environment; a GPU is faster, not an absolute training requirement.",
+      "path": "README.md",
+      "section": "Choosing GPU vs. CPU"
+    },
+    {
+      "claim": "The reference notebook trains a U-Net on randomized patch splits with TverskyLoss; this is not the requested buffered whole-segment hide-and-recover design.",
+      "path": "unet-mc-cv-reference-solution.ipynb",
+      "zero_based_cells": [
+        0,
+        12,
+        16
+      ]
+    },
+    {
+      "claim": "The notebook writes a single-band GeoTIFF using label-grid CRS and transform. That example alone does not validate range, registry uniqueness or portal approval.",
+      "path": "unet-mc-cv-reference-solution.ipynb",
+      "zero_based_cells": [
+        19
+      ]
+    }
+  ]
+}
