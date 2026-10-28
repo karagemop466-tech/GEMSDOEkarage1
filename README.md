@@ -7,6 +7,10 @@
 
 [Decision dashboard](docs/index.html) · [Executive summary and future submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [Two-candidate saved-byte audit](evidence/candidate_audit_20261028.json) · [Current negative run card](docs/data/run-card.json) · [Research hypotheses](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
+### Latest independent session review
+
+The [three-pass session review](knowledge/session-review-arena-9ad4a8a0.md) and [negative session run card](evidence/run_card_arena_9ad4a8a0.json) record a fresh restoration of the pinned mirrors, an exact reproduction of the duplicate audit, and a fix for masked in-footprint pixels in the strict local format checker. **No new TIFF, holdout estimate, or submission-slot decision was produced.** The restored mirrors are not authenticated organizer inputs; the assigned lane, shared stack and complete registry remain unresolved. The scheduled refresh creates a workflow artifact, not a live published feed.
+
 ## What changed on 28 October 2026
 
 An independent audit reopened the **already committed** TIFF bytes against nine

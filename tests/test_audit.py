@@ -46,6 +46,39 @@ def test_valid_format_not_permission(tmp_path):
     assert not validate(c, t, f)['format_pass']
 
 
+def test_masked_in_footprint_values_never_pass(tmp_path):
+    t, f, c = [tmp_path / n for n in ('t.tif', 'f.tif', 'c.tif')]
+    a = np.ones((3, 3), dtype='float32')
+    write(t, a); write(f, a)
+    # Finite values can nevertheless be null through a nodata sentinel.
+    write(c, a, nodata=1)
+    result = validate(c, t, f)
+    assert result['checks']['all_values_in_range']
+    assert not result['checks']['unmasked_inside_footprint']
+    assert not result['format_pass'] and not result['submission_ready']
+    # Nor may an explicit internal mask hide an in-footprint prediction.
+    write(c, a)
+    with rasterio.open(c, 'r+') as ds:
+        mask = np.full(a.shape, 255, dtype='uint8')
+        mask[1, 1] = 0
+        ds.write_mask(mask)
+    assert not validate(c, t, f)['format_pass']
+
+
+def test_footprint_mask_and_candidate_dtype_are_checked(tmp_path):
+    t, f, c = [tmp_path / n for n in ('t.tif', 'f.tif', 'c.tif')]
+    a = np.ones((3, 3), dtype='float32')
+    write(t, a); write(f, a, nodata=1); write(c, a)
+    result = validate(c, t, f)
+    assert not result['checks']['footprint_unmasked'] and not result['format_pass']
+    write(f, a)
+    with rasterio.open(c, 'w', driver='GTiff', width=3, height=3, count=1,
+                       dtype='uint8', crs='EPSG:32611', transform=from_origin(0, 1000, 100, 100)) as ds:
+        ds.write(a.astype('uint8'), 1)
+    assert not validate(c, t, f)['checks']['float32']
+    assert not validate(c, t, f)['format_pass']
+
+
 def test_evidence_scope():
     root = Path(__file__).resolve().parents[1]
     s = json.loads((root/'docs/data/sources.json').read_text())
