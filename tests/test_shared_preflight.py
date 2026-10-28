@@ -64,6 +64,23 @@ def test_blocked_execution_never_bootstraps(workspace, monkeypatch, command):
         shared_tools.main()
 
 
+def test_identical_data_roles_are_flagged_but_not_called_leakage(workspace):
+    configure(workspace, 'assigned-lane')
+    report = shared_tools.preflight()
+    assert report['labels_and_existing_faults_identical_bytes'] is True
+    assert 'does not establish leakage' in report['data_role_warning']
+    assert report['ready_for_shared_tools'] is True  # input checks only, not scientific approval
+    (workspace / '.cache/gems_data/labels.tif').write_bytes(b'different')
+    report = shared_tools.preflight()
+    assert report['labels_and_existing_faults_identical_bytes'] is False
+    assert report['data_role_warning'] is None
+
+
+def test_missing_role_cannot_be_reported_as_distinct(workspace):
+    configure(workspace, 'assigned-lane', ('labels.tif',))
+    report = shared_tools.preflight()
+    assert report['labels_and_existing_faults_identical_bytes'] is None
+    assert report['ready_for_shared_tools'] is False
 @pytest.mark.parametrize('name', ['feature_stack.npy', 'training_features.tif',
                                   'sample_submission.tif', 'labels.tif', 'existing_faults.tif'])
 def test_empty_input_blocks_execution(workspace, monkeypatch, name):
@@ -133,3 +150,68 @@ def test_recorded_assignment_dispatches_but_does_not_authorize(workspace, monkey
     assert kwargs['env']['GEMS_DATA_DIR'] == str(workspace / '.cache/gems_data')
     assert kwargs['env']['GEMS_WORK_DIR'] == str(workspace / '.cache/gems_work')
     assert shared_tools.preflight()['ok_to_submit'] is False
+
+
+@pytest.mark.parametrize('name', [
+    'feature_stack.npy', 'existing_faults.tif', 'training_features.tif',
+    'sample_submission.tif', 'labels.tif',
+])
+def test_empty_input_blocks_readiness(workspace, name):
+    configure(workspace, 'assigned-lane')
+    folder = 'gems_work' if name.endswith('.npy') else 'gems_data'
+    path = workspace / '.cache' / folder / name
+    path.write_bytes(b'')
+    report = shared_tools.preflight()
+    assert report['empty'] == [str(path.relative_to(workspace))]
+    assert report['missing'] == []
+    assert report['unreadable'] == []
+    assert not report['ready_for_shared_tools']
+
+
+@pytest.mark.parametrize('command', ['preflight', 'evaluate', 'write'])
+def test_empty_cache_never_runs_shared_tools(workspace, monkeypatch, capsys, command):
+    configure(workspace, 'assigned-lane')
+    (workspace / '.cache/gems_work/feature_stack.npy').write_bytes(b'')
+    monkeypatch.setattr(sys, 'argv', ['shared_tools.py', command])
+    monkeypatch.setattr(shared_tools, 'bootstrap', lambda: pytest.fail('bootstrapped empty cache'))
+    if command == 'preflight':
+        assert shared_tools.main() == 1
+        assert json.loads(capsys.readouterr().out)['empty']
+    else:
+        with pytest.raises(SystemExit, match='empty or unreadable'):
+            shared_tools.main()
+
+
+def test_unreadable_input_fails_closed(workspace, monkeypatch):
+    configure(workspace, 'assigned-lane')
+    original = shared_tools.Path.open
+    def denied(path, *args, **kwargs):
+        if path.name == 'feature_stack.npy':
+            raise PermissionError('synthetic unreadable cache')
+        return original(path, *args, **kwargs)
+    monkeypatch.setattr(shared_tools.Path, 'open', denied)
+    report = shared_tools.preflight()
+    assert report['unreadable'] == ['.cache/gems_work/feature_stack.npy']
+    assert not report['ready_for_shared_tools']
+
+
+@pytest.mark.parametrize('kind', ['directory', 'broken-symlink'])
+def test_nonfile_input_is_missing(workspace, kind):
+    configure(workspace, 'assigned-lane')
+    path = workspace / '.cache/gems_work/feature_stack.npy'
+    path.unlink()
+    if kind == 'directory':
+        path.mkdir()
+    else:
+        path.symlink_to(workspace / 'not-downloaded')
+    report = shared_tools.preflight()
+    assert report['missing'] == ['.cache/gems_work/feature_stack.npy']
+    assert not report['ready_for_shared_tools']
+
+
+def test_nonempty_bytes_are_not_format_or_submission_approval(workspace):
+    configure(workspace, 'assigned-lane')
+    report = shared_tools.preflight()
+    assert report['ready_for_shared_tools']
+    assert report['ok_to_submit'] is False
+    assert 'not format, provenance' in report['scope']

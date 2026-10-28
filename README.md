@@ -17,7 +17,7 @@ Other 28 October parallel-session reviews on `main` remain **DO NOT SUBMIT** (no
 
 **HOLDOUT-DTI 0.0318** [0.0271, 0.0363] · evaluator `gemsk-hide-recover-v1` ·
 withheld positives 60,988. This is **not** an organizer score and is **not** a
-forecast of the USER-REPORTED 0.2778.
+forecast of the USER-REPORTED 0.2778.>>>>>>> origin/main
 
 [Decision dashboard](docs/index.html) · [Executive summary and submission guide](docs/executive-summary.html) · [Nine-site audit](docs/data/reference-audit.json) · [BB-STEP uniqueness](evidence/bbstep_uniqueness.json) · [Current negative run card](docs/data/run-card.json) · [Research](docs/research.html) · [Official source register](knowledge/sources-2026-10-28.md)
 
