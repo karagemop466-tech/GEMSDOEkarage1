@@ -21,10 +21,11 @@
     }
     target.textContent = "Checking…";
     target.dataset.state = "unknown";
-    const controller = new AbortController();
-    const timer = window.setTimeout(() => controller.abort(), 12000);
+    let timer;
     try {
-      const response = await fetch(`https://api.github.com/repos/${repo}/commits/main`, {
+      const controller = new AbortController();
+      timer = window.setTimeout(() => controller.abort(), 12000);
+      const response = await fetch(`https://api.github.com/repos/${repo}/commits/HEAD`, {
         headers: { Accept: "application/vnd.github+json" }, cache: "no-store", signal: controller.signal
       });
       if (!response.ok) throw new Error(`GitHub HTTP ${response.status}`);
@@ -39,7 +40,7 @@
       target.dataset.state = "unknown";
       return "unknown";
     } finally {
-      window.clearTimeout(timer);
+      if (timer !== undefined) window.clearTimeout(timer);
     }
   }
 
@@ -55,6 +56,8 @@
       const changed = results.filter(value => value === "changed").length;
       const unknown = results.filter(value => value === "unknown").length;
       status.textContent = `Checked ${new Date().toISOString().replace("T", " ").replace(/\.\d{3}Z$/, " UTC")} · ${same} at audit pin · ${changed} changed · ${unknown} unavailable. Changed or unavailable is not a pass.`;
+    } catch (_) {
+      status.textContent = "Revision check unavailable. No source freshness or submission approval was established.";
     } finally {
       running = false;
       button.disabled = false;

@@ -1,4 +1,4 @@
-name: Refresh public evidence archive
+name: Check peer source revisions
 on:
   workflow_dispatch:
   schedule:
@@ -6,33 +6,23 @@ on:
 permissions:
   contents: read
 jobs:
-  refresh:
+  revisions:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -r requirements.txt
-      - name: Refresh pinned public evidence
+      - name: Compare public GitHub HEADs to the historical audit pins
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python scripts/collect_sources.py && python scripts/audit_rasters.py
-      - name: Regenerate fail-closed summaries and test
-        run: |
-          python scripts/build_site.py
-          python scripts/generate_pages.py
-          python scripts/render_site.py
-          python -m pytest -q
-      - uses: actions/upload-artifact@v4
+        run: python scripts/check_peer_revisions.py --out .cache/peer-revisions.json
+      - name: Save revision check (never changes submission status)
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: refreshed-evidence-and-dashboard
-          path: |
-            docs/*.html
-            docs/assets/
-            docs/data/
-            evidence/
-            index.html
-            executive-summary.html
-            style.css
+          name: peer-revision-check
+          path: .cache/peer-revisions.json
+          if-no-files-found: warn
+          include-hidden-files: true
           retention-days: 30

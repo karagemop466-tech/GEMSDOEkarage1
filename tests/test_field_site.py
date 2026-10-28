@@ -65,6 +65,43 @@ def test_all_local_links_and_fragments_work():
                 assert u.fragment in target_parser.ids, (page, link)
 
 
+def test_published_monitor_has_nine_pinned_sources_and_a_loaded_script():
+    class Monitor(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.chips, self.scripts, self.ids = [], [], set()
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if 'data-source-repo' in attrs:
+                self.chips.append((attrs.get('data-source-repo'), attrs.get('data-source-ref')))
+            if tag == 'script':
+                self.scripts.append(attrs.get('src'))
+            if 'id' in attrs:
+                self.ids.add(attrs['id'])
+
+    entries = {r['id']: r for r in json.loads((ROOT / 'registry/reference_assets.json').read_text())}
+    for rel in ('index.html', 'docs/index.html', 'docs/executive-summary.html'):
+        page = ROOT / rel
+        parsed = Monitor(); parsed.feed(page.read_text())
+        assert {'feed-status', 'refresh-sources'} <= parsed.ids
+        assert len(parsed.chips) == 9
+        assert set(parsed.chips) == {(entries[s]['repo'], entries[s]['ref']) for s in render_site.SITES}
+        assert len(parsed.scripts) == 1 and (page.parent / parsed.scripts[0]).resolve() == ROOT / 'docs/assets/app.js'
+        assert 'does not check scores' in page.read_text()
+        assert 'DO NOT SUBMIT' in page.read_text()
+
+
+def test_source_monitor_javascript_on_success_error_and_offline():
+    import shutil
+    import subprocess
+    import pytest
+    if not shutil.which('node'):
+        pytest.skip('Node.js unavailable for browser monitor regression')
+    result = subprocess.run(['node', 'tests/js/test-source-monitor.cjs'], cwd=ROOT,
+                            text=True, capture_output=True, timeout=30)
+    assert result.returncode == 0, result.stderr
+
+
 def test_concurrent_update_is_clearly_research_only():
     result = json.loads((ROOT / "docs/data/concurrent-review.json").read_text())
     cmp = result["comparisons_candidate_to_reference"]
@@ -126,13 +163,53 @@ def test_renderer_fails_closed_on_tampered_decision_data(tmp_path, monkeypatch):
     monkeypatch.setattr(render_site, 'DOCS', tmp_path / 'docs')
     render_site.evidence()
 
+    # The displayed nine-site witness must be backed by all 72 consistent
+    # directional rows, not just a stale boolean or a self-reported fraction.
+    ref_path = tmp_path / 'docs/data/reference-audit.json'
+    reference = json.loads(ref_path.read_text())
+    original_reference = json.dumps(reference)
+    reference['directed_pairs']['GEMSDOE32->GEMSDOE36']['overlap_fraction'] = float('nan')
+    ref_path.write_text(json.dumps(reference))
+    with pytest.raises(ValueError, match='pair evidence'):
+        render_site.evidence()
+    reference = json.loads(original_reference)
+    del reference['directed_pairs']['GEMSDOE32->GEMSDOE36']
+    ref_path.write_text(json.dumps(reference))
+    with pytest.raises(ValueError, match='pairwise evidence incomplete'):
+        render_site.evidence()
+    reference = json.loads(original_reference)
+    reference['rows']['GEMSDOE32']['lattice_directed_overlap'] = float('nan')
+    ref_path.write_text(json.dumps(reference))
+    with pytest.raises(ValueError, match='bad reference evidence'):
+        render_site.evidence()
+    ref_path.write_text(original_reference)
+
     audit['candidates'][0]['comparisons'][0]['directed_overlap'] = 0.2
     audit_path.write_text(json.dumps(audit))
     with pytest.raises(ValueError, match='disagree'):
         render_site.evidence()
 
     audit['candidates'][0]['comparisons'][0]['directed_overlap'] = 38174 / 38200
-    audit_path.write_text(json.dumps(audit))
+    clean_audit = json.dumps(audit)
+    # NaN must never slip through numeric comparisons, and the published format
+    # claims must agree with the recorded diagnostics, not just the filename.
+    for section, key, value in (
+        ('witness', 'directed_overlap', float('nan')),
+        ('witness', 'candidate_dots_within_3px', float('nan')),
+        ('witness', 'candidate_dots_within_3px', 40000),
+        ('witness', 'overlap_exceeds_70_percent', False),
+        ('format', 'no_nonfinite_inside', False),
+        ('format', 'masked_inside_count', 1),
+        ('format', 'outside_all_null_or_nan', True),
+    ):
+        modified = json.loads(clean_audit)
+        candidate = modified['candidates'][0]
+        target = candidate['comparisons'][0] if section == 'witness' else candidate['format_checks']
+        target[key] = value
+        audit_path.write_text(json.dumps(modified))
+        with pytest.raises(ValueError, match='disagree'):
+            render_site.evidence()
+    audit_path.write_text(clean_audit)
     card_path = tmp_path / 'docs/data/run-card.json'
     card = json.loads(card_path.read_text())
     card['slot_selected_or_spent'] = True

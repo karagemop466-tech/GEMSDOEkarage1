@@ -1,0 +1,86 @@
+{
+  "schema": "karage1-peer-revision-check-v1",
+  "checked_utc": "2026-10-28T16:29:15.216339+00:00",
+  "scope": "GitHub HEADs versus historical artifact commits; not a raster, score or full-registry audit.",
+  "sites": [
+    {
+      "site": "GEMSDOE24",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "audit_commit": "a73f9ffba29260cc7708e8e0557c84c5bea7d47b",
+      "head": "5a7f227d6f38219e5e0e5fa428ef0f9854967ac4",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE24/commits/HEAD"
+    },
+    {
+      "site": "GEMSDOE25",
+      "repo": "buffedlizard55-lab/GEMSDOE25",
+      "audit_commit": "b13ccabae15d4951854d47cb35e17322e7537b64",
+      "head": "a728c9f42e6298aaa5b65013806ac578f1b2a3ef",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE25/commits/HEAD"
+    },
+    {
+      "site": "GEMSDOE27",
+      "repo": "buffedlizard55-lab/GEMSDOE27",
+      "audit_commit": "4f34228a9f39e99da592aa34fd835c96d1b693f5",
+      "head": "0f9e3e4b06eeecdd584d32fb9dd7544a01d2f3f0",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE27/commits/HEAD"
+    },
+    {
+      "site": "GEMSDOE28",
+      "repo": "buffedlizard55-lab/GEMSDOE28",
+      "audit_commit": "4955e29c7b66503ba2178b25d356d713dc1bc534",
+      "head": "f6746e1ad4eb49a35902bb4fd5404b5e6edc9287",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE28/commits/HEAD"
+    },
+    {
+      "site": "GEMSDOE30",
+      "repo": "buffedlizard55-lab/GEMSDOE30",
+      "audit_commit": "d21ddd9502f3c3911e8d77b8f1e6abfaadffc876",
+      "head": "c3d6c815ae5b6415b07a39d99058a10d4fda0789",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE30/commits/HEAD"
+    },
+    {
+      "site": "GEMSDOE31",
+      "repo": "buffedlizard55-lab/GEMSDOE31",
+      "audit_commit": "88ec212955353f7590e94b8ef2a9763ffa035d45",
+      "head": "cd0b12260807732f3ddb339889984f066d12e870",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE31/commits/HEAD"
+    },
+    {
+      "site": "GEMSDOE32",
+      "repo": "buffedlizard55-lab/GEMSDOE32",
+      "audit_commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+      "head": "109f364fb39030e40ef51b839b79cf694123b51b",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE32/commits/HEAD"
+    },
+    {
+      "site": "GEMSDOE33",
+      "repo": "buffedlizard55-lab/GEMSDOE33",
+      "audit_commit": "844f514819041c7be9efd345a24cf5cd70263f00",
+      "head": "1e08a7e81ee4595e2f3770f5c4f7c071adc1a53e",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE33/commits/HEAD"
+    },
+    {
+      "site": "GEMSDOE36",
+      "repo": "buffedlizard55-lab/GEMSDOE36",
+      "audit_commit": "7edcc9b58e6ad0f88c6e6f5ee9218761a391769d",
+      "head": "4b717aaff6eaf5de9b53030e637f8e1cf0d56e43",
+      "status": "changed",
+      "source": "https://github.com/buffedlizard55-lab/GEMSDOE36/commits/HEAD"
+    }
+  ],
+  "counts": {
+    "at_audit_pin": 0,
+    "changed": 9,
+    "unavailable": 0
+  },
+  "ok_to_submit": false,
+  "slot_selected": false
+}

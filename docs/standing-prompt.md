@@ -1,6 +1,6 @@
 # Standing brief (the user's prompt) — read at the start of every session
 
-**Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
+**Provenance note:** what follows is a reconstructed summary, not proof of an exact original transcript. The [README's full working transcription](../README.md#full-owner-request--28-october-2026) combines a pinned earlier owner brief with updates from the current request; it is not machine-compared with the full chat. Read both at session start and apply newer explicit user instructions.
 
 ## Arena Core Values (keep as focus)
 

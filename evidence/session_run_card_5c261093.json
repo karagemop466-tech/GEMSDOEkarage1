@@ -1,0 +1,45 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/5c261093-gemsdoekarage1",
+  "date_utc": "2026-10-28",
+  "hypothesis": "Unassigned; signed multiscale magnetic-gravity edge displacement is a ranked research proposal, not an authorized method lane.",
+  "mechanism": "Untested persistence of relative offsets between oriented magnetic and gravity boundaries, with terrain context; a buried discontinuity might lack a mapped scarp.",
+  "named_non_fault_mimic": "A lithologic contact or volcanic flow margin can generate similar magnetic and gravity contrasts without fault displacement.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run; no lane, shared cache, complete registry or comparable frozen baseline was established."
+  },
+  "correlation_overlap_vs_registry": {
+    "new_surface_spearman": null,
+    "new_final_dot_overlap": null,
+    "registry_complete": false,
+    "historical_replay_scope": "Nine pinned historical site rasters and a lattice witness on an unauthenticated mirror footprint; no placement surfaces.",
+    "historical_hmas_lattice_overlap": 0.9993193717277487,
+    "historical_gpcz_lattice_overlap": 0.9988611111111111,
+    "lattice_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "No new raster exists to validate. The historical mirror-grid checks and outside-encoding caveat are documented separately."
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "geological_experiments_run": 0,
+  "slot_selected_or_spent": false,
+  "blockers": [
+    "No single method-lane paragraph is supplied and the authoritative shared template is unresolved.",
+    "The two historical local candidate rasters fail the literal all-registry lattice overlap stop; this is not a complete-registry audit.",
+    "The shared cached feature stack, complete registry, organizer-authenticated template, and comparable frozen holdout best are not established.",
+    "Outside-footprint encoding and the reported portal range rejection have not been resolved against the organizer."
+  ],
+  "verdict": "negative"
+}
