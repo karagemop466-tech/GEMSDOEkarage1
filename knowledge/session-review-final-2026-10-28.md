@@ -48,15 +48,17 @@
 
 ## Post-integration recheck
 
-While this PR was being prepared, `origin/main` advanced with an independent
-release-gate consistency check, a stricter local masked-pixel diagnostic, and
-associated tests/reviews. Those changes were merged into this working branch
-before the PR merge. After the first integration, 221 tests passed. The base
-advanced again during PR preparation, so it was merged a second time; the latest
-full suite then passed: **228 passed, 62 Rasterio/Affine pending-deprecation
-warnings**. `scripts/build_site.py` again rendered 32 deterministic pages
-without authorizing a submission, and `git diff --check` passed. Earlier 218- and
-221-test runs are historical counts; 228 is the latest post-integration result.
+While this PR was being prepared, `origin/main` advanced repeatedly with
+independent release-gate, validator, and parallel-candidate audit changes and
+associated evidence/pages. These were merged into the assigned working branch;
+README conflicts were resolved to retain the upstream session history and this
+review. Earlier suites passed 221 and then 228 tests. After the latest merge, the
+full suite passed: **240 passed, 90 Rasterio/Affine pending-deprecation
+warnings**. `scripts/build_site.py` rendered 32 deterministic pages without
+authorizing a submission, and `git diff --check` passed. The current preflight
+still exits 1: lane `null`, feature stack and four required rasters absent. The
+31 mirror restore reported by a prior parallel review is not present in this
+checkout. These tests are not a holdout score or submission authorization.
 
 ## Run card (this review)
 
