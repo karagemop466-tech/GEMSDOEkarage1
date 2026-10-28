@@ -1,5 +1,7 @@
 # Starting point for every session
 
+Read `knowledge/session-review-arena-a1ef4ce0.md` and its session JSON card first. Baseline positive-count and unmasked-pixel evidence are mandatory in the promotion policy; omitting them is not a pass. This session independently replayed the nine-site mirror audit but generated no new TIFF or holdout result. No lane is assigned.
+
 Read `knowledge/session-review-arena-cf677bd7.md` (latest session: NEGATIVE, 305 tests pass, no new TIF) and `knowledge/parallel-candidate-audit-2026-10-28.md` as well: the pinned
 PR 19 and 20 candidate rasters fail the literal lattice proximity rule even
 though their reports exempted that witness. They are not cleared to submit.

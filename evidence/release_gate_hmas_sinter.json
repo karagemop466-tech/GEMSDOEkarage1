@@ -213,6 +213,7 @@
       "Missing scientific run-card field: hypothesis",
       "Missing scientific run-card field: mechanism",
       "Missing scientific run-card field: named_non_fault_mimic",
+      "Incomplete HOLDOUT-DTI provenance",
       "No measured same-evaluator improvement with positive paired CI",
       "Hide-and-recover controls or metric parameters missing",
       "Single-feature leakage canary missing or failed",
@@ -234,6 +235,7 @@
       "Saved TIFF validation missing or failed: range_0_1_inside",
       "Saved TIFF validation missing or failed: outside_encoding_accepted",
       "Saved TIFF validation missing or failed: template_official_authenticated",
+      "Saved TIFF validation missing or failed: unmasked_inside / masked in-footprint pixels",
       "Saved TIFF validation not bound to candidate and template hashes"
     ]
   },
