@@ -1,0 +1,442 @@
+{
+  "schema": "karage1-run-card-probcollar-v1",
+  "created_utc": "2026-10-29",
+  "branch": "arena/c26ad154-gemsdoekarage1",
+  "lane": {
+    "id": "probcollar-dti-holdout",
+    "description": "Single method lane: GBM probability emission with a catalogue collar, tested by hide-and-recover holdout against proximity, random and ring-tie-break controls.",
+    "experiments": [
+      {
+        "id": "E1",
+        "mode": "all",
+        "file": "evidence/holdout_probcollar_20261029.json",
+        "result": "model_K37654_r3 does not beat ctrl_proximity_K37654"
+      },
+      {
+        "id": "E2",
+        "mode": "detached",
+        "file": "evidence/holdout_probcollar_detached_20261029.json",
+        "result": "model_K37654_r3 does not beat ctrl_proximity_K37654 (not significant)"
+      },
+      {
+        "id": "E3",
+        "mode": "all+detached",
+        "file": "evidence/holdout_ring_tiebreak_{all,detached}_20261029.json",
+        "hypothesis": "H3: model ranking inside the 1 px catalogue ring beats a random tie-break",
+        "result": "H3 rejected in both modes"
+      }
+    ],
+    "experiments_used": 3,
+    "experiment_budget": 3,
+    "budget_note": "3 of 3 holdout experiments used; no further holdout experiments in this session."
+  },
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "submission_slots_used": 0,
+  "submission_note": "GBM top-37654 pixels, 3px catalogue collar, 19 organiser bands; research candidate, not cleared",
+  "candidate": {
+    "file": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029.tif",
+    "name": "karage1-probcollar-gbm-K37654-collar3-20261029",
+    "sha256": "8e5269c6312135409ae609ecfbb8df929d32cda8b9d608e393ca62c20869941e",
+    "status": "research-only; NOT CLEARED; DO NOT SUBMIT",
+    "download_offered": false,
+    "dots": 37654,
+    "min_distance_to_catalogue_px": 3.1622776601683795,
+    "dots_within_3px_of_catalogue": 0,
+    "format_checks": {
+      "crs_ok": true,
+      "shape_ok": true,
+      "transform_ok": true,
+      "single_band_float32": true,
+      "all_finite": true,
+      "values_in_0_1": true,
+      "outside_footprint_positive": 0
+    }
+  },
+  "holdout": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "evaluator_scope": "vendor/gems57 shared evaluator; hide-and-recover on the organiser catalogue; withheld units are catalogue segments",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "radius_px": 3,
+    "withheld_positive_pixels": {
+      "all": 22641,
+      "detached": 22619
+    },
+    "modes": {
+      "all": {
+        "arms": {
+          "model_K22163_r0": {
+            "dti": 0.036115988310439946,
+            "ci95": [
+              0.030191601331068366,
+              0.04247887364859371
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "model_K22163_r1": {
+            "dti": 0.04210493479197666,
+            "ci95": [
+              0.035622307651494704,
+              0.04845096435394074
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "model_K22163_r2": {
+            "dti": 0.045478876892755746,
+            "ci95": [
+              0.0392831511455408,
+              0.05131392527344037
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "model_K22163_r3": {
+            "dti": 0.04476421957247367,
+            "ci95": [
+              0.03558599092889069,
+              0.05394776673380265
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "ctrl_proximity_K22163": {
+            "dti": 0.05402549232528556,
+            "ci95": [
+              0.048996899084115024,
+              0.06048644111250554
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "ctrl_random_K22163": {
+            "dti": 0.032611204909480954,
+            "ci95": [
+              0.0285309048941886,
+              0.03584440262208507
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "model_K37654_r0": {
+            "dti": 0.04779701107066877,
+            "ci95": [
+              0.04173867644636523,
+              0.05275325434231175
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "model_K37654_r1": {
+            "dti": 0.05474418041475707,
+            "ci95": [
+              0.04760116972637687,
+              0.0601421307798013
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "model_K37654_r2": {
+            "dti": 0.05946389261903443,
+            "ci95": [
+              0.051441750270356704,
+              0.0663602808640921
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "model_K37654_r3": {
+            "dti": 0.06193728672414978,
+            "ci95": [
+              0.05228062439114941,
+              0.07104962702418513
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "ctrl_proximity_K37654": {
+            "dti": 0.06978659875483138,
+            "ci95": [
+              0.06473913748758107,
+              0.07518403484520819
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "ctrl_random_K37654": {
+            "dti": 0.04343254092708531,
+            "ci95": [
+              0.03823507274821843,
+              0.048044705468124754
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "ring_random_K37654_collar0": {
+            "dti": 0.09240744628973672,
+            "ci95": [
+              0.08250950927416843,
+              0.10266371630349592
+            ],
+            "withheld_positive_pixels": null
+          },
+          "ring_model_K37654_collar0": {
+            "dti": 0.06615625421951347,
+            "ci95": [
+              0.061000899001524625,
+              0.07142310938571389
+            ],
+            "withheld_positive_pixels": 22641
+          }
+        },
+        "best_arm": "ring_random_K37654_collar0",
+        "ring": {
+          "ring_model": {
+            "dti": 0.06615625421951347,
+            "ci95": [
+              0.061000899001524625,
+              0.07142310938571389
+            ],
+            "withheld_positive_pixels": 22641
+          },
+          "ring_random": {
+            "dti": 0.09240744628973672,
+            "ci95": [
+              0.08250950927416843,
+              0.10266371630349592
+            ]
+          },
+          "delta": {
+            "delta": -0.02625119207022325,
+            "ci95": [
+              -0.03249522647078414,
+              -0.01931867424479169
+            ]
+          },
+          "H3_supported": false
+        }
+      },
+      "detached": {
+        "arms": {
+          "model_K22163_r0": {
+            "dti": 0.031343197693021387,
+            "ci95": [
+              0.02217437738451839,
+              0.042241461874297455
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "model_K22163_r1": {
+            "dti": 0.03667145371398168,
+            "ci95": [
+              0.02760014903139084,
+              0.04775742579203834
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "model_K22163_r2": {
+            "dti": 0.0407542695060234,
+            "ci95": [
+              0.03111491796467651,
+              0.05225321542734142
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "model_K22163_r3": {
+            "dti": 0.04224587410046477,
+            "ci95": [
+              0.031622792765844884,
+              0.05461785805256724
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "ctrl_proximity_K22163": {
+            "dti": 0.048478096339639995,
+            "ci95": [
+              0.04258678179318154,
+              0.05494767677785064
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "ctrl_random_K22163": {
+            "dti": 0.0326623377223483,
+            "ci95": [
+              0.02838761188114863,
+              0.03647638176791953
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "model_K37654_r0": {
+            "dti": 0.042821657202036845,
+            "ci95": [
+              0.03366438093456695,
+              0.053372514720181626
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "model_K37654_r1": {
+            "dti": 0.04992324524358267,
+            "ci95": [
+              0.040883331784224236,
+              0.0605472591208943
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "model_K37654_r2": {
+            "dti": 0.056964546416185556,
+            "ci95": [
+              0.04764520061970758,
+              0.06814540628991506
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "model_K37654_r3": {
+            "dti": 0.05878410830901507,
+            "ci95": [
+              0.05013857597226334,
+              0.06928758101809297
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "ctrl_proximity_K37654": {
+            "dti": 0.0626299319930274,
+            "ci95": [
+              0.05870222235643885,
+              0.06743046633983402
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "ctrl_random_K37654": {
+            "dti": 0.04657398999052238,
+            "ci95": [
+              0.042253106943220445,
+              0.050150047171809056
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "ring_random_K37654_collar0": {
+            "dti": 0.09038828482895367,
+            "ci95": [
+              0.08460173602112842,
+              0.09559823425631693
+            ],
+            "withheld_positive_pixels": null
+          },
+          "ring_model_K37654_collar0": {
+            "dti": 0.05906859963711296,
+            "ci95": [
+              0.05644332313638312,
+              0.06220267410675947
+            ],
+            "withheld_positive_pixels": 22619
+          }
+        },
+        "best_arm": "ring_random_K37654_collar0",
+        "ring": {
+          "ring_model": {
+            "dti": 0.05906859963711296,
+            "ci95": [
+              0.05644332313638312,
+              0.06220267410675947
+            ],
+            "withheld_positive_pixels": 22619
+          },
+          "ring_random": {
+            "dti": 0.09038828482895367,
+            "ci95": [
+              0.08460173602112842,
+              0.09559823425631693
+            ]
+          },
+          "delta": {
+            "delta": -0.03131968519184071,
+            "ci95": [
+              -0.038019129165772575,
+              -0.023053752145342978
+            ]
+          },
+          "H3_supported": false
+        }
+      }
+    },
+    "candidate_arm": "model_K37654_r3",
+    "candidate_vs_best_control": {
+      "all": {
+        "best_control": "ring_random_K37654_collar0",
+        "best_control_dti": 0.09240744628973672,
+        "candidate_dti": 0.06193728672414978,
+        "candidate_beats_best": false
+      },
+      "detached": {
+        "best_control": "ring_random_K37654_collar0",
+        "best_control_dti": 0.09038828482895367,
+        "candidate_dti": 0.05878410830901507,
+        "candidate_beats_best": false
+      }
+    },
+    "ci95_level": 0.95,
+    "not_a_leaderboard_estimate": true
+  },
+  "leakage_canary": {
+    "threshold_auc": 0.9,
+    "all": {
+      "max_auc": 0.6050405665961945,
+      "feature": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+      "leakage": false
+    },
+    "detached": {
+      "max_auc": 0.6869953308710373,
+      "feature": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+      "leakage": false
+    },
+    "passes": true
+  },
+  "uniqueness": {
+    "comparator": "vendor/gems57/uniqueness.py (shared comparator)",
+    "registry_scope": "PARTIAL: 15 pinned registry + 9 committed karage1 TIFs (see index errors)",
+    "literal_gates": {
+      "rank_correlation_abs_limit": 0.9,
+      "my_dots_within_3px_limit": 0.7,
+      "jaccard_limit": 0.5
+    },
+    "worst_my_dots_within_3px_vs_focus_nine": {
+      "value": 0.40906676581505286,
+      "file": ".cache/gems_data/registry/GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif"
+    },
+    "max_abs_spearman_vs_focus_nine": {
+      "value": 0.016159745237249303,
+      "file": ".cache/gems_data/registry/GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif"
+    },
+    "lattice": {
+      "file": ".cache/gems_data/registry/13GEMSDOE_r13-lattice-s5_v2_nan-outside.tif",
+      "my_dots_within_3px_of_lattice": 0.9916077973123706,
+      "chance_for_uniform_random_dots_in_candidate_region": 0.9987254845286866,
+      "chance_for_uniform_random_dots_in_footprint": 0.9987132726822701,
+      "literal_gate": "FAILS (>70%)",
+      "interpretation": "At chance: the lattice covers ~99.9% of the footprint, so the literal gate cannot discriminate."
+    },
+    "literal_duplicate_flag": true,
+    "comparator_unique_flag": false
+  },
+  "irregularities": [
+    "The 13GEMSDOE lattice covers ~99.9% of the footprint; the literal 70% gate is at chance and effectively unsatisfiable for any footprint-spread submission.",
+    "The holdout's withheld units are catalogue segments, so proximity to visible faults is rewarded by construction; it does not measure hidden new-fault discovery (see evidence caveats).",
+    "Owner-reported scores (0.2600-0.2778) are unverified; no organiser receipt ties them to the audited hashes.",
+    "Organiser leaderboard top is 0.4544 (live check); owner quotes of 0.4413 do not match the live page.",
+    "GEMSDOE25 and GEMSDOE30 have identical positive sets (XOR 0); GEMSDOE28 (h27-4 r1) and GEMSDOE31 have identical positive sets.",
+    "The pinned card paths (evidence/run_card.json, docs/data/run-card.json, docs/data/run_card.json) still hold the prior BB-STEP card. Three existing tests pin them to it, so this card is written to new file names. To make this card the pinned one, update those tests and the render_site BB-STEP check in one change."
+  ],
+  "remaining_work": [
+    "A spatially blocked holdout for H4 (dispersion-constrained selection) has not been run: holdout budget exhausted.",
+    "Measure per-dot marginal credit and within-selection redundancy directly (not yet measured).",
+    "Replace or augment the catalogue-segment holdout with a distance-stratified truth check before any promotion rule relies on it.",
+    "Obtain organiser-confirmed scores for any candidate; none are available from this sandbox."
+  ],
+  "links": {
+    "official_metric": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "official_rules_pdf": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+    "leaderboard": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "organiser_masking_thread": "https://community.drivendata.org/t/11516",
+    "reference_repo": "https://github.com/drivendataorg/gems-prize-reference-solution"
+  },
+  "receipts": {
+    "holdout_all": "evidence/holdout_probcollar_20261029.json",
+    "holdout_detached": "evidence/holdout_probcollar_detached_20261029.json",
+    "ring_all": "evidence/holdout_ring_tiebreak_all_20261029.json",
+    "ring_detached": "evidence/holdout_ring_tiebreak_detached_20261029.json",
+    "uniqueness": "evidence/candidate_uniqueness_probcollar_20261029.json",
+    "focus_sites": "evidence/focus_site_table_20261029.json"
+  }
+}

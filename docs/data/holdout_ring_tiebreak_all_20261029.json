@@ -1,0 +1,38 @@
+{
+  "mode": "all",
+  "K": 37654,
+  "ring_model": {
+    "dti": 0.06615625421951347,
+    "ci95": [
+      0.061000899001524625,
+      0.07142310938571389
+    ],
+    "withheld_positive_pixels": 22641
+  },
+  "ring_random": {
+    "dti": 0.09240744628973672,
+    "ci95": [
+      0.08250950927416843,
+      0.10266371630349592
+    ]
+  },
+  "delta_ring_model_minus_ring_random": {
+    "delta": -0.02625119207022325,
+    "ci95": [
+      -0.03249522647078414,
+      -0.01931867424479169
+    ]
+  },
+  "H3_supported": false,
+  "canary_max_auc": 0.6050405665961945,
+  "canary_max_feature": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+  "canary_leakage_flag": false,
+  "runtime_s": 294.2,
+  "software": {
+    "python": "3.11.2",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "training_features_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"
+  }
+}

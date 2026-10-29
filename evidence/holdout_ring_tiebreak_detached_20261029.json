@@ -1,0 +1,38 @@
+{
+  "mode": "detached",
+  "K": 37654,
+  "ring_model": {
+    "dti": 0.05906859963711296,
+    "ci95": [
+      0.05644332313638312,
+      0.06220267410675947
+    ],
+    "withheld_positive_pixels": 22619
+  },
+  "ring_random": {
+    "dti": 0.09038828482895367,
+    "ci95": [
+      0.08460173602112842,
+      0.09559823425631693
+    ]
+  },
+  "delta_ring_model_minus_ring_random": {
+    "delta": -0.03131968519184071,
+    "ci95": [
+      -0.038019129165772575,
+      -0.023053752145342978
+    ]
+  },
+  "H3_supported": false,
+  "canary_max_auc": 0.6869953308710373,
+  "canary_max_feature": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+  "canary_leakage_flag": false,
+  "runtime_s": 291.1,
+  "software": {
+    "python": "3.11.2",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "training_features_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"
+  }
+}
