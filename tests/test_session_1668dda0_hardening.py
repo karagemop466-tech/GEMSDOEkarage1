@@ -207,6 +207,20 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     # 2026-10-29 H-TILTGRAV final TIF: saved-byte audit by scripts/audit_tiltgrav_bytes.py.
     tilt = json.loads((ROOT / "evidence/local_candidates_tiltgrav_audit_20261029.json").read_text())
     later_tifs |= {f"docs/downloads/{r['file']}" for r in tilt["candidates"]}
+    # Session 1d15747e's K1-HGRID-STRAIN build receipts cover its own TIF (validator, reread,
+    # uniqueness and run card are all written by the same stage; see evidence/hgridge_e3_build_*.json).
+    for receipt in sorted((ROOT / "evidence").glob("hgridge_e3_build_*.json")):
+        later_tifs.add(json.loads(receipt.read_text())["file"])
+    # Saved-byte receipts written by scripts/audit_local_tif.py (session 1d15747e) cover
+    # TIFs that predate any audit, e.g. docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif.
+    for receipt in sorted((ROOT / "evidence").glob("audit_*.json")):
+        data = json.loads(receipt.read_text())
+        if data.get("schema") == "karage1-local-tif-audit-v1":
+            later_tifs.add(data["file"])
+    # Session 2026-10-29 re-audited every local TIF (including unique-hyp-kth-therm-mask)
+    # with the shared audit script; see evidence/local_downloads_audit_20261029.json.
+    fleet = json.loads((ROOT / "evidence/local_downloads_audit_20261029.json").read_text())
+    later_tifs |= {r["file"] for r in fleet["local_downloads"]}
     uncovered = actual_tifs - audited_tifs - later_tifs
     assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
     assert audited_tifs <= actual_tifs

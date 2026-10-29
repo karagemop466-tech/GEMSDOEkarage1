@@ -31,6 +31,18 @@ def _strict(obj):
     return obj
 
 
+def _shared_receipt() -> dict:
+    return json.loads((ROOT / "evidence/audit_tiltgrav_ridge_sp6_20261029.json").read_text())
+
+
+def _shared_ok() -> bool:
+    return bool(_shared_receipt()["format_report_ok"])
+
+
+def _shared_problems() -> list:
+    return list(_shared_receipt()["format_report_problems"])
+
+
 def main() -> None:
     f = h.build_facts()
     rows = h.site_rows(f)
@@ -100,6 +112,12 @@ def main() -> None:
         },
         "focus_site_rows": [{k: r[k] for k in ("site", "file", "reported", "unique", "dup_focus", "dup_rho",
                                                "lattice_fwd", "cand_fwd")} for r in rows],
+        "shared_template_validator": {
+            "receipt": "evidence/audit_tiltgrav_ridge_sp6_20261029.json",
+            "format_report_ok": _shared_ok(),
+            "problems": _shared_problems(),
+            "note": "Fails only on the NaN-outside policy (shared validator requires zeros outside; official spec allows null or NaN).",
+        },
         "irregularities": [
             "B5: sample_submission.tif positives equal labels.tif positives; sample carries the known-fault set; official text says it 'predicts total fault absence'.",
             "B6: two evaluator lineages (gems57-pooled-hide-v2 and gemsk-hide-recover-v1); numbers not directly comparable.",

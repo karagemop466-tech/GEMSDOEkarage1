@@ -6,7 +6,7 @@
 <body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner container">
 <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation"><a href="../index.html">Overview</a><a class=active aria-current=page href="../docs/submission-hub.html">Submit now</a><a href="../docs/executive-summary.html">Executive summary</a><a href="../docs/research.html">Research</a></nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
-<div class="container"><p class="global-hold"><strong>DO NOT SUBMIT</strong> · No candidate has been cleared.</p></div></header>
+<div class="container"><p class="global-hold"><strong>DO NOT SUBMIT</strong> · NOT CLEARED · Newest file <a href="../docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif">karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif</a> · SHA-256 <code>15f330343236f41c…</code> · download for audit only · literal lattice gate fails (pigeonhole floor 82.3%) · holdout not above random placement · no slot spent.</p></div></header>
 <main id="main"><div class="container">
 <section class="hub-decision" id="download" aria-labelledby="hub-title">
   <p class="eyebrow">SUBMISSION DECISION · 29 OCT 2026</p>
@@ -88,6 +88,10 @@
   </ol>
   <details><summary>Local validator results for the file above (all checks)</summary>
   <ul class="checks"><li><code>single_band</code>: PASS</li><li><code>dtype_float32</code>: PASS</li><li><code>crs_epsg_32611</code>: PASS</li><li><code>shape_matches_sample</code>: PASS</li><li><code>transform_matches_sample</code>: PASS</li><li><code>bounds_match_sample</code>: PASS</li><li><code>cell_100m</code>: PASS</li><li><code>no_inf_anywhere</code>: PASS</li><li><code>in_footprint_all_finite</code>: PASS</li><li><code>outside_footprint_all_nan</code>: PASS</li><li><code>range_0_1_inside_footprint</code>: PASS</li><li><code>no_sentinel_values_inside</code>: PASS</li><li><code>nodata_is_nan</code>: PASS</li><li><code>zero_dots_on_mapped_catalogue</code>: PASS</li></ul></details>
+  <p class="shared-check"><strong>Shared template validator: FAILS on this file.</strong> <code>scripts/audit_local_tif.py</code>
+  (receipt <code>evidence/audit_tiltgrav_ridge_sp6_20261029.json</code>) reports <code>format_report_ok: false</code>:
+  7111787 NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN); nodata tag outside all-finite [0,1] export policy. The shared policy requires zeros outside the footprint; the official spec allows null or NaN.
+  This is the unresolved NaN-versus-zeros conflict and is one more reason the file is not cleared.</p>
 </section>
 
 <section class="hub-table" id="irregularities" aria-labelledby="irr-title">
@@ -107,6 +111,7 @@
     <li>The 13GEMSDOE lattice overlap gate blocks every dotted file (measured 99.62% for the new file; all
     15 restored registry rasters with dots were measured in the registry audit). The literal gate has no
     passing dotted candidate, which the protocol owner must decide.</li>
+    <li>Another team's TIF on <code>main</code>, <code>karage1-convect-cell-upflow-20261029-zeros.tif</code>, is not covered by the fleet audit that <code>main</code> ships with. The shared validator (receipt <code>evidence/audit_convect_cell_upflow_20261029.json</code>) reports 65 emitted pixels outside the footprint and dots on the mapped catalogue. It was appended to the fleet audit with <code>ok_to_submit: false</code>. Flagged for review; not modified here.</li>
     <li>The method lane paragraph the parallel-run protocol refers to is absent from the brief; the registry records
     <code>method_lane: null</code>.</li>
   </ul>

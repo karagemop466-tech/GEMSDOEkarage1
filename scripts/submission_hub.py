@@ -50,6 +50,12 @@ def _load(name):
     return json.loads((EVID / name).read_text(encoding="utf-8"))
 
 
+def _load_optional(name):
+    """Shared-validator receipt for the candidate (evidence/audit_*.json); None if absent."""
+    path = EVID / name
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+
+
 def facts() -> dict:
     """Assemble all displayed facts from the evidence files (no hand-typed numbers)."""
     canary = _load("tiltgrav_exp1_canary_20261029.json")["exp1_canary"]
@@ -163,6 +169,8 @@ def body(f: dict, depth: int) -> str:
             "<td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); "
             "re-upload is a copy, and it fails the lattice gate</small></td>"
             "</tr>")
+    _shared = _load_optional("audit_tiltgrav_ridge_sp6_20261029.json")
+    shared_problems = "; ".join(esc(x) for x in _shared["format_report_problems"]) if _shared else "receipt missing"
     checks = "".join(
         f"<li><code>{esc(k)}</code>: {'PASS' if v else 'FAIL'}</li>" for k, v in fl["checks"].items())
     return f"""
@@ -246,6 +254,10 @@ def body(f: dict, depth: int) -> str:
   </ol>
   <details><summary>Local validator results for the file above (all checks)</summary>
   <ul class="checks">{checks}</ul></details>
+  <p class="shared-check"><strong>Shared template validator: FAILS on this file.</strong> <code>scripts/audit_local_tif.py</code>
+  (receipt <code>evidence/audit_tiltgrav_ridge_sp6_20261029.json</code>) reports <code>format_report_ok: false</code>:
+  {shared_problems}. The shared policy requires zeros outside the footprint; the official spec allows null or NaN.
+  This is the unresolved NaN-versus-zeros conflict and is one more reason the file is not cleared.</p>
 </section>
 
 <section class="hub-table" id="irregularities" aria-labelledby="irr-title">
@@ -265,6 +277,7 @@ def body(f: dict, depth: int) -> str:
     <li>The 13GEMSDOE lattice overlap gate blocks every dotted file (measured {_pct(f['lattice']['fwd'])} for the new file; all
     {f['registry_checked']} restored registry rasters with dots were measured in the registry audit). The literal gate has no
     passing dotted candidate, which the protocol owner must decide.</li>
+    <li>Another team's TIF on <code>main</code>, <code>karage1-convect-cell-upflow-20261029-zeros.tif</code>, is not covered by the fleet audit that <code>main</code> ships with. The shared validator (receipt <code>evidence/audit_convect_cell_upflow_20261029.json</code>) reports 65 emitted pixels outside the footprint and dots on the mapped catalogue. It was appended to the fleet audit with <code>ok_to_submit: false</code>. Flagged for review; not modified here.</li>
     <li>The method lane paragraph the parallel-run protocol refers to is absent from the brief; the registry records
     <code>method_lane: null</code>.</li>
   </ul>

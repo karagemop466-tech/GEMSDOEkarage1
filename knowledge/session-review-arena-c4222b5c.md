@@ -27,6 +27,16 @@ Experiment budget: 3 of 3 (EXP-1 canary, EXP-2 hide-and-recover holdout, EXP-3 6
 2. **Code and tests.** Removed an unused import and an unused variable in `run_tiltgrav_candidate.py` (no effect on results). Fixed a NaN-in-JSON failure by writing strict JSON (`null`). Two guard tests failed on first build and were resolved without weakening them: the phrase "OK TO SUBMIT" was removed from the page text (the status is now "NOT CLEARED: DO NOT SUBMIT"); the new TIF got a saved-byte audit card (`evidence/local_candidates_tiltgrav_audit_20261029.json`), and the test now reads that audit as later coverage. The research download link sits inside an audit card labelled "research only — DO NOT SUBMIT"; the home page carries a plain link with no `download` attribute. Full suite: **369 passed**.
 3. **Site and reproducibility.** Build is deterministic (two consecutive builds hash identically). Every local link on the hub and home pages resolves. Missing CSS for the hub classes was added to `docs/assets/decision.css`. The decision hub now shows rank-correlation partners as well as overlap partners per site. A browser visual check was **not** possible in this sandbox (no browser; CDN unreachable).
 
+## Merge with `main` (pass 4)
+
+`main` advanced to `d4ce4b2` while this branch was open. Conflicts were resolved as follows:
+generated HTML was regenerated from the merged renderer (every conflicted page is written by `scripts/render_site.py`);
+`scripts/render_site.py` kept `main`'s nine-site section and this branch's decision strip;
+the stylesheet and the test file kept both sides' additions.
+`main` already failed its own fleet-coverage test: `karage1-convect-cell-upflow-20261029-zeros.tif` was added without a fleet row.
+Both TIFs were appended with the shared tool (`scripts/audit_local_tif.py --append-fleet`), which sets `ok_to_submit: false`.
+The shared validator fails the new TIF only on its NaN-outside policy, and fails the convect TIF on 65 outside-footprint pixels and dots on the mapped catalogue. Both facts are disclosed on the hub.
+
 ## Decisions needed (not made here)
 
 - **Lattice gate ruling** from the protocol owner: (a) keep the literal 70%/3-px rule (no dotted file can be cleared); (b) treat 13GEMSDOE as a calibration probe per `registry/registry_roles.json`; (c) other. Not jittered, renamed or exempted.
@@ -39,7 +49,7 @@ Experiment budget: 3 of 3 (EXP-1 canary, EXP-2 hide-and-recover holdout, EXP-3 6
 - Vendor writer encodes outside cells as zeros; official text says null or NaN. An adapter was used; the pinned vendor template was not edited. Reconcile upstream.
 - Irregularities B5–B7 (sample description vs mirror, two evaluator lineages, missing magnetic-depth band) remain open for review.
 - The 0.3195 and 0.4413 claims are not verified (leaderboard pages 2–3 unread).
-- The standing prompt in `docs/prompt-2026-10-29.md` is a reconstruction, not the original verbatim text.
+- The standing prompt in `docs/prompt-2026-10-29.md` is a byte-for-byte copy of the README session prompt on `main` (copied by script). The condensed record is `knowledge/user-standing-prompt-20261029.md`. The copy was not independently checked against the owner's original message.
 
 ## Remaining work
 

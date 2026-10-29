@@ -364,6 +364,15 @@
   "promotion": "not performed; promotion to a slot is a separate selector step",
   "schema": "run-card/v1",
   "session": "arena/c4222b5c-gemsdoekarage1",
+  "shared_template_validator": {
+    "format_report_ok": false,
+    "note": "Fails only on the NaN-outside policy (shared validator requires zeros outside; official spec allows null or NaN).",
+    "problems": [
+      "7111787 NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)",
+      "nodata tag outside all-finite [0,1] export policy"
+    ],
+    "receipt": "evidence/audit_tiltgrav_ridge_sp6_20261029.json"
+  },
   "sources": [
     "https://www.drivendata.org/competitions/306/competition-doe-gems/",
     "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
