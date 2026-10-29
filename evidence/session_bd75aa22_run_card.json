@@ -1,0 +1,51 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc": "2026-10-29T00:00:00Z",
+  "session": "arena/bd75aa22-gemsdoekarage1",
+  "hypothesis": "No hypothesis selected: registry/template.json has no assigned method lane, and prior sessions already proposed and explored multiple candidate families; novelty cannot be certified from this checkout.",
+  "mechanism": "Review only. No candidate surface, placement, experiment, or GeoTIFF was generated.",
+  "named_non_fault_mimic": "Not applicable; no candidate mechanism tested.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run; no score estimate or organizer score claimed"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "registry_coverage": "No new candidate; historical inventory is partial and mirror-based, not a complete authenticated registry.",
+    "status": "not computed in this session"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run; no raster generated"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "software_tests": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 365,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 119,
+    "meaning": "software verification only, not geological performance"
+  },
+  "blockers": [
+    "No assigned method paragraph or canonical shared-template assignment.",
+    "Competition data and cached feature stack are absent; no authenticated data access in this session.",
+    "Complete authenticated registry unavailable; historical lattice overlap gate remains unresolved.",
+    "No fresh access to official DrivenData, USGS, NLR, or GDR sources in this session.",
+    "No organizer submission receipt or live weekly slot capacity verified."
+  ],
+  "verdict": "negative"
+}
