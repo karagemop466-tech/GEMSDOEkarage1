@@ -1,5 +1,21 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## Executive summary — session `arena/c65129cb` (29 Oct 2026)
+
+**Status: NOTHING IS CLEARED FOR UPLOAD. Do not submit any file from this repository yet.**
+
+| File to download | Estimated leaderboard score | Unique? (tested against the 25 registry rasters available locally, not every listed submission) | OK to submit? |
+|---|---|---|---|
+| [`DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif`](docs/downloads/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif) (new; format-valid) | **Not estimable.** HOLDOUT-DTI **0.0093**, 95% CI **[0.0042, 0.0136]**, 22,641 withheld positives (evaluator `gems57-pooled-hide-v2`). Not a leaderboard projection. | **Byte- and pixel-unique** vs the 25 local registry rasters; Spearman worst 0.007; but **99.91% 3-px overlap with the 13GEMS lattice fails the literal 70% gate** (that gate also fails random noise, see review §4) | **NO — DO NOT SUBMIT.** Owner must resolve the gate first. |
+| GEMSDOE32 `h33-h33-2-b2` (reference only) | USER-REPORTED 0.2778 — unverified | **No.** Strict subset of GEMSDOE25 with all 6,436 removed dots within 2 px of the catalogue | DO NOT RESUBMIT |
+
+- **Holdout result for the second hypothesis** (strain-rate ridge `geod_2ndinv`, holdout only, no file): HOLDOUT-DTI 0.0129 [0.0031, 0.0201]. Not a clear gain.
+- **Leaderboard, verified on the official page this session:** #1 **0.4544**; #47 **0.3195** confirmed; **0.4413 is not in the top 50**.
+- **Full analysis:** [knowledge/session-review-2026-10-29-thd-ridge.md](knowledge/session-review-2026-10-29-thd-ridge.md) · run card [evidence/session_thd_ridge_run_card_20261029.json](evidence/session_thd_ridge_run_card_20261029.json) · gate null check [evidence/lattice_gate_null_check_20261029.json](evidence/lattice_gate_null_check_20261029.json).
+
+Labels: **HOLDOUT-DTI** = our proxy on withheld known-catalogue segments; **ORGANIZER-CONFIRMED** = none exists for any file here; **USER-REPORTED** = values supplied in the request, not verified.
+
+
 > **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
 
 > **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false

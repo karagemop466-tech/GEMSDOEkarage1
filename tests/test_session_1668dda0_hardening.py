@@ -204,6 +204,10 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     # evidence/run_card_dipdual_20261028.json, verdict negative).
     later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
     later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
+    # 2026-10-29 session audit of the label-free THD-ridge DO-NOT-SUBMIT raster
+    # (evidence/thd_ridge_candidate_20261029.json, verdict negative).
+    thd = json.loads((ROOT / "evidence/thd_ridge_candidate_20261029.json").read_text())
+    later_tifs |= {f"docs/downloads/{r['file']}" for r in thd["candidates"]}
     uncovered = actual_tifs - audited_tifs - later_tifs
     assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
     assert audited_tifs <= actual_tifs

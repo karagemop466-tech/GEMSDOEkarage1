@@ -1,0 +1,223 @@
+{
+  "hypothesis": "H1 geodetic strain-rate ridge (geod_2ndinv), label-free, 3x3 maxima, pct 98, 3-px visible collar",
+  "experiment": "3 of 3 (holdout only)",
+  "evaluator": "gems57-pooled-hide-v2 (gems57.holdout.build_holdout / score_cell)",
+  "holdout_all": {
+    "dti": 0.012850356615970141,
+    "tp": 430.9454310989525,
+    "fp": 76683.4482421875,
+    "fn": 22210.054568901047,
+    "n_truth": 22641,
+    "n_cells": 8
+  },
+  "holdout_detached": {
+    "dti": 0.00976503272581204,
+    "tp": 326.2974405556343,
+    "fp": 76272.125,
+    "fn": 22292.702559444366,
+    "n_truth": 22619,
+    "n_cells": 8
+  },
+  "ci95_all": [
+    0.00309768456833487,
+    0.02014455269342033
+  ],
+  "ridge_candidates_before_collar": 56131,
+  "label": "HOLDOUT-DTI",
+  "verdict": "negative",
+  "comparison_note": "Reference 0.0318 is the BB-STEP HOLDOUT-DTI recorded in the repo under gemsk-hide-recover-v1 (n=60,988). It used a different withheld-positive set, so the comparison is indicative only.",
+  "cells": [
+    {
+      "key": "draw20_foldNW_all",
+      "mode": "all",
+      "fold": 0,
+      "seed": 20,
+      "n_truth": 1925,
+      "n_emitted": 0,
+      "tp": 0.0,
+      "fp": 0.0,
+      "fn": 1925.0,
+      "dti": 0.0
+    },
+    {
+      "key": "draw20_foldNW_detached",
+      "mode": "detached",
+      "fold": 0,
+      "seed": 20,
+      "n_truth": 1919,
+      "n_emitted": 0,
+      "tp": 0.0,
+      "fp": 0.0,
+      "fn": 1919.0,
+      "dti": 0.0
+    },
+    {
+      "key": "draw20_foldNE_all",
+      "mode": "all",
+      "fold": 1,
+      "seed": 20,
+      "n_truth": 2360,
+      "n_emitted": 0,
+      "tp": 0.0,
+      "fp": 0.0,
+      "fn": 2360.0,
+      "dti": 0.0
+    },
+    {
+      "key": "draw20_foldNE_detached",
+      "mode": "detached",
+      "fold": 1,
+      "seed": 20,
+      "n_truth": 2361,
+      "n_emitted": 0,
+      "tp": 0.0,
+      "fp": 0.0,
+      "fn": 2361.0,
+      "dti": 0.0
+    },
+    {
+      "key": "draw20_foldSW_all",
+      "mode": "all",
+      "fold": 2,
+      "seed": 20,
+      "n_truth": 3780,
+      "n_emitted": 22271,
+      "tp": 129.84033035177876,
+      "fp": 21973.845703125,
+      "fn": 3650.159669648221,
+      "dti": 0.017440552533541147
+    },
+    {
+      "key": "draw20_foldSW_detached",
+      "mode": "detached",
+      "fold": 2,
+      "seed": 20,
+      "n_truth": 3778,
+      "n_emitted": 22451,
+      "tp": 173.4141134690249,
+      "fp": 22061.095703125,
+      "fn": 3604.585886530975,
+      "dti": 0.02321691027095288
+    },
+    {
+      "key": "draw20_foldSE_all",
+      "mode": "all",
+      "fold": 3,
+      "seed": 20,
+      "n_truth": 3253,
+      "n_emitted": 16294,
+      "tp": 33.0462330429663,
+      "fp": 16216.5068359375,
+      "fn": 3219.9537669570336,
+      "dti": 0.005646698410891575
+    },
+    {
+      "key": "draw20_foldSE_detached",
+      "mode": "detached",
+      "fold": 3,
+      "seed": 20,
+      "n_truth": 3249,
+      "n_emitted": 16188,
+      "tp": 12.333333333333334,
+      "fp": 16147.20703125,
+      "fn": 3236.6666666666665,
+      "dti": 0.0021150925654451662
+    },
+    {
+      "key": "draw21_foldNW_all",
+      "mode": "all",
+      "fold": 0,
+      "seed": 21,
+      "n_truth": 1919,
+      "n_emitted": 0,
+      "tp": 0.0,
+      "fp": 0.0,
+      "fn": 1919.0,
+      "dti": 0.0
+    },
+    {
+      "key": "draw21_foldNW_detached",
+      "mode": "detached",
+      "fold": 0,
+      "seed": 21,
+      "n_truth": 1924,
+      "n_emitted": 0,
+      "tp": 0.0,
+      "fp": 0.0,
+      "fn": 1924.0,
+      "dti": 0.0
+    },
+    {
+      "key": "draw21_foldNE_all",
+      "mode": "all",
+      "fold": 1,
+      "seed": 21,
+      "n_truth": 2365,
+      "n_emitted": 0,
+      "tp": 0.0,
+      "fp": 0.0,
+      "fn": 2365.0,
+      "dti": 0.0
+    },
+    {
+      "key": "draw21_foldNE_detached",
+      "mode": "detached",
+      "fold": 1,
+      "seed": 21,
+      "n_truth": 2358,
+      "n_emitted": 0,
+      "tp": 0.0,
+      "fp": 0.0,
+      "fn": 2358.0,
+      "dti": 0.0
+    },
+    {
+      "key": "draw21_foldSW_all",
+      "mode": "all",
+      "fold": 2,
+      "seed": 21,
+      "n_truth": 3786,
+      "n_emitted": 22703,
+      "tp": 212.18128519907992,
+      "fp": 22200.57421875,
+      "fn": 3573.81871480092,
+      "dti": 0.028248085111714335
+    },
+    {
+      "key": "draw21_foldSW_detached",
+      "mode": "detached",
+      "fold": 2,
+      "seed": 21,
+      "n_truth": 3781,
+      "n_emitted": 22255,
+      "tp": 139.00501314727333,
+      "fp": 21961.3671875,
+      "fn": 3641.9949868527265,
+      "dti": 0.01867123673678185
+    },
+    {
+      "key": "draw21_foldSE_all",
+      "mode": "all",
+      "fold": 3,
+      "seed": 21,
+      "n_truth": 3253,
+      "n_emitted": 16437,
+      "tp": 55.877582505127535,
+      "fp": 16292.521484375,
+      "fn": 3197.1224174948725,
+      "dti": 0.009515807734398269
+    },
+    {
+      "key": "draw21_foldSE_detached",
+      "mode": "detached",
+      "fold": 3,
+      "seed": 21,
+      "n_truth": 3249,
+      "n_emitted": 16104,
+      "tp": 1.54498060600275,
+      "fp": 16102.455078125,
+      "fn": 3247.455019393997,
+      "dti": 0.000265460584688075
+    }
+  ]
+}

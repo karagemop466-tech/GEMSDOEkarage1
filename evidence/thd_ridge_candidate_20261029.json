@@ -1,0 +1,830 @@
+{
+  "arms": {
+    "A_pct99": {
+      "pct": 99.0,
+      "holdout_all": {
+        "dti": 0.004614780765485833,
+        "tp": 89.50857367088673,
+        "fp": 6326.801239013672,
+        "fn": 22551.49142632911,
+        "n_truth": 22641,
+        "n_cells": 8
+      },
+      "holdout_detached": {
+        "dti": 0.0054239827696503954,
+        "tp": 105.118780813344,
+        "fp": 6320.720031738281,
+        "fn": 22513.881219186656,
+        "n_truth": 22619,
+        "n_cells": 8
+      },
+      "ci95_all": [
+        0.0014195138419883034,
+        0.007503490379338746
+      ],
+      "cells": [
+        {
+          "key": "draw20_foldNW_all",
+          "mode": "all",
+          "fold": 0,
+          "seed": 20,
+          "n_truth": 1925,
+          "n_emitted": 550,
+          "tp": 3.6615534260451215,
+          "fp": 548.3548583984375,
+          "fn": 1921.3384465739548,
+          "dti": 0.002218581037234975
+        },
+        {
+          "key": "draw20_foldNW_detached",
+          "mode": "detached",
+          "fold": 0,
+          "seed": 20,
+          "n_truth": 1919,
+          "n_emitted": 553,
+          "tp": 7.2659158936723065,
+          "fp": 550.2189331054688,
+          "fn": 1911.7340841063276,
+          "dti": 0.004412418330104503
+        },
+        {
+          "key": "draw20_foldNE_all",
+          "mode": "all",
+          "fold": 1,
+          "seed": 20,
+          "n_truth": 2360,
+          "n_emitted": 350,
+          "tp": 2.485598744378315,
+          "fp": 349.07867431640625,
+          "fn": 2357.5144012556216,
+          "dti": 0.0012692551849028154
+        },
+        {
+          "key": "draw20_foldNE_detached",
+          "mode": "detached",
+          "fold": 1,
+          "seed": 20,
+          "n_truth": 2361,
+          "n_emitted": 348,
+          "tp": 0.0,
+          "fp": 348.0,
+          "fn": 2361.0,
+          "dti": 0.0
+        },
+        {
+          "key": "draw20_foldSW_all",
+          "mode": "all",
+          "fold": 2,
+          "seed": 20,
+          "n_truth": 3780,
+          "n_emitted": 1954,
+          "tp": 31.259243090704608,
+          "fp": 1941.008056640625,
+          "fn": 3748.740756909295,
+          "dti": 0.009144264638078752
+        },
+        {
+          "key": "draw20_foldSW_detached",
+          "mode": "detached",
+          "fold": 2,
+          "seed": 20,
+          "n_truth": 3778,
+          "n_emitted": 1955,
+          "tp": 35.88802626316216,
+          "fp": 1940.1904296875,
+          "fn": 3742.1119737368376,
+          "dti": 0.010500895801617968
+        },
+        {
+          "key": "draw20_foldSE_all",
+          "mode": "all",
+          "fold": 3,
+          "seed": 20,
+          "n_truth": 3253,
+          "n_emitted": 327,
+          "tp": 8.49906153375705,
+          "fp": 323.6524658203125,
+          "fn": 3244.500938466243,
+          "dti": 0.0031845642326283874
+        },
+        {
+          "key": "draw20_foldSE_detached",
+          "mode": "detached",
+          "fold": 3,
+          "seed": 20,
+          "n_truth": 3249,
+          "n_emitted": 329,
+          "tp": 9.911084192923648,
+          "fp": 324.788330078125,
+          "fn": 3239.0889158070763,
+          "dti": 0.0037173909203568984
+        },
+        {
+          "key": "draw21_foldNW_all",
+          "mode": "all",
+          "fold": 0,
+          "seed": 21,
+          "n_truth": 1919,
+          "n_emitted": 556,
+          "tp": 5.579941762796812,
+          "fp": 553.3763427734375,
+          "fn": 1913.4200582372032,
+          "dti": 0.003387960767487579
+        },
+        {
+          "key": "draw21_foldNW_detached",
+          "mode": "detached",
+          "fold": 0,
+          "seed": 21,
+          "n_truth": 1924,
+          "n_emitted": 555,
+          "tp": 7.415990401510791,
+          "fp": 551.5715942382812,
+          "fn": 1916.5840095984893,
+          "dti": 0.0044918240793661865
+        },
+        {
+          "key": "draw21_foldNE_all",
+          "mode": "all",
+          "fold": 1,
+          "seed": 21,
+          "n_truth": 2365,
+          "n_emitted": 348,
+          "tp": 0.0,
+          "fp": 348.0,
+          "fn": 2365.0,
+          "dti": 0.0
+        },
+        {
+          "key": "draw21_foldNE_detached",
+          "mode": "detached",
+          "fold": 1,
+          "seed": 21,
+          "n_truth": 2358,
+          "n_emitted": 349,
+          "tp": 3.0,
+          "fp": 348.0,
+          "fn": 2355.0,
+          "dti": 0.0015332720024532345
+        },
+        {
+          "key": "draw21_foldSW_all",
+          "mode": "all",
+          "fold": 2,
+          "seed": 21,
+          "n_truth": 3786,
+          "n_emitted": 1958,
+          "tp": 36.34012331974437,
+          "fp": 1943.1712646484375,
+          "fn": 3749.659876680256,
+          "dti": 0.0106111773737245
+        },
+        {
+          "key": "draw21_foldSW_detached",
+          "mode": "detached",
+          "fold": 2,
+          "seed": 21,
+          "n_truth": 3781,
+          "n_emitted": 1947,
+          "tp": 33.643608736905186,
+          "fp": 1933.635986328125,
+          "fn": 3747.356391263095,
+          "dti": 0.009842331742855433
+        },
+        {
+          "key": "draw21_foldSE_all",
+          "mode": "all",
+          "fold": 3,
+          "seed": 21,
+          "n_truth": 3253,
+          "n_emitted": 321,
+          "tp": 1.6830517934604485,
+          "fp": 320.1595764160156,
+          "fn": 3251.3169482065396,
+          "dti": 0.0006311203155719467
+        },
+        {
+          "key": "draw21_foldSE_detached",
+          "mode": "detached",
+          "fold": 3,
+          "seed": 21,
+          "n_truth": 3249,
+          "n_emitted": 328,
+          "tp": 7.994155325169908,
+          "fp": 324.31475830078125,
+          "fn": 3241.0058446748303,
+          "dti": 0.0029989383413064606
+        }
+      ]
+    },
+    "B_pct98": {
+      "pct": 98.0,
+      "holdout_all": {
+        "dti": 0.009291942368246466,
+        "tp": 189.58550324767742,
+        "fp": 11262.492370605469,
+        "fn": 22451.414496752324,
+        "n_truth": 22641,
+        "n_cells": 8
+      },
+      "holdout_detached": {
+        "dti": 0.009337506670923618,
+        "tp": 190.34149978548925,
+        "fp": 11256.744873046875,
+        "fn": 22428.65850021451,
+        "n_truth": 22619,
+        "n_cells": 8
+      },
+      "ci95_all": [
+        0.004165981338059086,
+        0.01362874490120239
+      ],
+      "cells": [
+        {
+          "key": "draw20_foldNW_all",
+          "mode": "all",
+          "fold": 0,
+          "seed": 20,
+          "n_truth": 1925,
+          "n_emitted": 1083,
+          "tp": 21.053123122725538,
+          "fp": 1074.04296875,
+          "fn": 1903.9468768772745,
+          "dti": 0.011968671463510251
+        },
+        {
+          "key": "draw20_foldNW_detached",
+          "mode": "detached",
+          "fold": 0,
+          "seed": 20,
+          "n_truth": 1919,
+          "n_emitted": 1076,
+          "tp": 13.320184514675198,
+          "fp": 1071.023681640625,
+          "fn": 1905.6798154853248,
+          "dti": 0.00760254661129021
+        },
+        {
+          "key": "draw20_foldNE_all",
+          "mode": "all",
+          "fold": 1,
+          "seed": 20,
+          "n_truth": 2360,
+          "n_emitted": 620,
+          "tp": 4.2473398636720265,
+          "fp": 618.4119873046875,
+          "fn": 2355.752660136328,
+          "dti": 0.0021104460190779556
+        },
+        {
+          "key": "draw20_foldNE_detached",
+          "mode": "detached",
+          "fold": 1,
+          "seed": 20,
+          "n_truth": 2361,
+          "n_emitted": 618,
+          "tp": 0.05719095841793653,
+          "fp": 617.9428100585938,
+          "fn": 2360.942809041582,
+          "dti": 2.8419279672110886e-05
+        },
+        {
+          "key": "draw20_foldSW_all",
+          "mode": "all",
+          "fold": 2,
+          "seed": 20,
+          "n_truth": 3780,
+          "n_emitted": 3339,
+          "tp": 65.83511701780903,
+          "fp": 3311.19189453125,
+          "fn": 3714.164882982191,
+          "dti": 0.01779613474551972
+        },
+        {
+          "key": "draw20_foldSW_detached",
+          "mode": "detached",
+          "fold": 2,
+          "seed": 20,
+          "n_truth": 3778,
+          "n_emitted": 3339,
+          "tp": 64.119294970761,
+          "fp": 3312.96240234375,
+          "fn": 3713.880705029239,
+          "dti": 0.017339772742762594
+        },
+        {
+          "key": "draw20_foldSE_all",
+          "mode": "all",
+          "fold": 3,
+          "seed": 20,
+          "n_truth": 3253,
+          "n_emitted": 635,
+          "tp": 20.03673799593176,
+          "fp": 627.3406372070312,
+          "fn": 3232.9632620040684,
+          "dti": 0.007334425810764316
+        },
+        {
+          "key": "draw20_foldSE_detached",
+          "mode": "detached",
+          "fold": 3,
+          "seed": 20,
+          "n_truth": 3249,
+          "n_emitted": 638,
+          "tp": 19.877168441058732,
+          "fp": 630.026611328125,
+          "fn": 3229.1228315589415,
+          "dti": 0.007283199691957281
+        },
+        {
+          "key": "draw21_foldNW_all",
+          "mode": "all",
+          "fold": 0,
+          "seed": 21,
+          "n_truth": 1919,
+          "n_emitted": 1080,
+          "tp": 9.868087458092994,
+          "fp": 1075.65234375,
+          "fn": 1909.131912541907,
+          "dti": 0.005631492579155188
+        },
+        {
+          "key": "draw21_foldNW_detached",
+          "mode": "detached",
+          "fold": 0,
+          "seed": 21,
+          "n_truth": 1924,
+          "n_emitted": 1078,
+          "tp": 10.62544677097371,
+          "fp": 1073.571533203125,
+          "fn": 1913.3745532290263,
+          "dti": 0.00605080204647359
+        },
+        {
+          "key": "draw21_foldNE_all",
+          "mode": "all",
+          "fold": 1,
+          "seed": 21,
+          "n_truth": 2365,
+          "n_emitted": 618,
+          "tp": 1.7617411192937116,
+          "fp": 617.3333740234375,
+          "fn": 2363.2382588807063,
+          "dti": 0.0008739579789493645
+        },
+        {
+          "key": "draw21_foldNE_detached",
+          "mode": "detached",
+          "fold": 1,
+          "seed": 21,
+          "n_truth": 2358,
+          "n_emitted": 619,
+          "tp": 3.0571909584179364,
+          "fp": 617.9428100585938,
+          "fn": 2354.942809041582,
+          "dti": 0.001520536634889413
+        },
+        {
+          "key": "draw21_foldSW_all",
+          "mode": "all",
+          "fold": 2,
+          "seed": 21,
+          "n_truth": 3786,
+          "n_emitted": 3338,
+          "tp": 57.93384524205966,
+          "fp": 3313.39306640625,
+          "fn": 3728.0661547579402,
+          "dti": 0.01564483455207385
+        },
+        {
+          "key": "draw21_foldSW_detached",
+          "mode": "detached",
+          "fold": 2,
+          "seed": 21,
+          "n_truth": 3781,
+          "n_emitted": 3329,
+          "tp": 58.32259269467323,
+          "fp": 3304.881591796875,
+          "fn": 3722.6774073053266,
+          "dti": 0.01577377306829298
+        },
+        {
+          "key": "draw21_foldSE_all",
+          "mode": "all",
+          "fold": 3,
+          "seed": 21,
+          "n_truth": 3253,
+          "n_emitted": 629,
+          "tp": 8.849511428092713,
+          "fp": 625.1260986328125,
+          "fn": 3244.1504885719073,
+          "dti": 0.0032425352649641777
+        },
+        {
+          "key": "draw21_foldSE_detached",
+          "mode": "detached",
+          "fold": 3,
+          "seed": 21,
+          "n_truth": 3249,
+          "n_emitted": 637,
+          "tp": 20.962430476511493,
+          "fp": 628.3934326171875,
+          "fn": 3228.0375695234884,
+          "dti": 0.00768115932146853
+        }
+      ]
+    }
+  },
+  "canary": [
+    {
+      "feature": "mag_anom",
+      "mean_auc_over_all_cells": 0.5025817951126716,
+      "direction_invariant_auc": 0.5025817951126716,
+      "passed": true
+    },
+    {
+      "feature": "rtp",
+      "mean_auc_over_all_cells": 0.5130630181802736,
+      "direction_invariant_auc": 0.5130630181802736,
+      "passed": true
+    },
+    {
+      "feature": "tmi_hg",
+      "mean_auc_over_all_cells": 0.5117479798609792,
+      "direction_invariant_auc": 0.5117479798609792,
+      "passed": true
+    },
+    {
+      "feature": "geod_2ndinv",
+      "mean_auc_over_all_cells": 0.5090721585284689,
+      "direction_invariant_auc": 0.5090721585284689,
+      "passed": true
+    },
+    {
+      "feature": "iso_grav_anom_slope",
+      "mean_auc_over_all_cells": 0.5430997232408882,
+      "direction_invariant_auc": 0.5430997232408882,
+      "passed": true
+    },
+    {
+      "feature": "tc",
+      "mean_auc_over_all_cells": 0.4346177288520098,
+      "direction_invariant_auc": 0.5653822711479902,
+      "passed": true
+    },
+    {
+      "feature": "geod_shearrate",
+      "mean_auc_over_all_cells": 0.5097332112132509,
+      "direction_invariant_auc": 0.5097332112132509,
+      "passed": true
+    },
+    {
+      "feature": "geod_dilaterate",
+      "mean_auc_over_all_cells": 0.5271543721635676,
+      "direction_invariant_auc": 0.5271543721635676,
+      "passed": true
+    },
+    {
+      "feature": "tmi_vg",
+      "mean_auc_over_all_cells": 0.4910333426731338,
+      "direction_invariant_auc": 0.5089666573268662,
+      "passed": true
+    },
+    {
+      "feature": "deq_n100a15",
+      "mean_auc_over_all_cells": 0.5090467188399315,
+      "direction_invariant_auc": 0.5090467188399315,
+      "passed": true
+    },
+    {
+      "feature": "iso_grav_anom_vg",
+      "mean_auc_over_all_cells": 0.5227677839832571,
+      "direction_invariant_auc": 0.5227677839832571,
+      "passed": true
+    },
+    {
+      "feature": "det_elev",
+      "mean_auc_over_all_cells": 0.5096399755275149,
+      "direction_invariant_auc": 0.5096399755275149,
+      "passed": true
+    },
+    {
+      "feature": "iso_grav_anom",
+      "mean_auc_over_all_cells": 0.4984416919902963,
+      "direction_invariant_auc": 0.5015583080097037,
+      "passed": true
+    },
+    {
+      "feature": "tmi",
+      "mean_auc_over_all_cells": 0.5024976343956269,
+      "direction_invariant_auc": 0.5024976343956269,
+      "passed": true
+    },
+    {
+      "feature": "depth_to_base_surf",
+      "mean_auc_over_all_cells": 0.5012716354756819,
+      "direction_invariant_auc": 0.5012716354756819,
+      "passed": true
+    },
+    {
+      "feature": "ieq_n100a15",
+      "mean_auc_over_all_cells": 0.5231916447992797,
+      "direction_invariant_auc": 0.5231916447992797,
+      "passed": true
+    },
+    {
+      "feature": "cond_surf",
+      "mean_auc_over_all_cells": 0.49877124989117205,
+      "direction_invariant_auc": 0.501228750108828,
+      "passed": true
+    },
+    {
+      "feature": "iso_grav_anom_hg",
+      "mean_auc_over_all_cells": 0.5001005212564623,
+      "direction_invariant_auc": 0.5001005212564623,
+      "passed": true
+    },
+    {
+      "feature": "det_elev_slope",
+      "mean_auc_over_all_cells": 0.5635570205850426,
+      "direction_invariant_auc": 0.5635570205850426,
+      "passed": true
+    }
+  ],
+  "selected_arm": "B_pct98",
+  "status": "NEGATIVE / DO NOT SUBMIT (see registry_check and holdout)",
+  "final": {
+    "file": "docs/downloads/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+    "selected_arm": "B_pct98",
+    "dots": 5734,
+    "file_sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
+    "zip_sha256": "a447b62ffa0b519b13e5149459e5286099fd30ade480688eb7559ca81667f68d",
+    "validator": {
+      "file": "/home/user/GEMSDOEkarage1/docs/downloads/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+      "bytes": 72023,
+      "sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0004669700574595481,
+      "emitted_positive_pixels": 5734,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 5734,
+      "footprint_fraction": 0.0011096547510698377
+    }
+  },
+  "registry_check": {
+    "my_file": null,
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "my_dots": 5734,
+    "candidate_decoded_sha256": "5f087a70a97dd5e78e3107939f8ae06c293af2ec248e6436fe2823a60dac3400",
+    "candidate_file_sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
+    "rho_limit": 0.9,
+    "overlap_limit": 0.7,
+    "jaccard_limit": 0.5,
+    "registry_rasters_expected": 25,
+    "registry_rasters_checked": 25,
+    "complete_accessible_scan": false,
+    "missing_or_invalid": 0,
+    "source_errors": [],
+    "worst_spearman_full_footprint": 0.007208319921863626,
+    "worst_rho_submission": "gemsdoe-ens12-adopted-7f00890a.tif",
+    "worst_dot_overlap": 0.9991280083711196,
+    "worst_overlap_submission": "13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+    "worst_jaccard_dot_sets": 0.0023276292395102444,
+    "worst_jaccard_submission": "gemsdoe-ens12-adopted-7f00890a.tif",
+    "byte_unique_among_checked": true,
+    "pixel_unique_among_checked": true,
+    "duplicate_count": 1,
+    "unique": false,
+    "jaccard_diagnostic_only": true,
+    "verdict": "negative",
+    "stop_required": true,
+    "candidate_rank_variation": true,
+    "scope": "All hash-verified accessible entries in the indexed public owner-repository inventory; not a complete organizer registry. External/private/unlinked/inaccessible files may be absent. Reverse overlap is diagnostic only."
+  },
+  "candidates": [
+    {
+      "file": "DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+      "sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
+      "verdict": "negative",
+      "literal_lattice_duplicate": true,
+      "note": "DO NOT SUBMIT: fails literal 70%/3px gate vs 13GEMS lattice (non-informative, see lattice_gate_null_check)"
+    }
+  ],
+  "registry_rows_top": [
+    {
+      "repo": "local-mirror",
+      "submission": "13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+      "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+      "decoded_sha256": "3140ac4bcfca3d20dc2684c1efb7d8b770d9f861ac3f1869e360b0451970cfec",
+      "their_dots": 206895,
+      "my_dots_within_3px_of_theirs": 0.9991280083711196,
+      "their_dots_within_3px_of_mine": 0.02788370912781846,
+      "spearman_full_footprint": -0.0005805877601380784,
+      "jaccard_dot_sets": 0.000988612129800065,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": true,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "8GEMSDOE_Hedge-v2_submission.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/8GEMSDOE_Hedge-v2_submission.tif",
+      "sha256": "052688eafbc7a55d90caab72252a50304fe5caa8ecf973f8e791b4ae910f0792",
+      "decoded_sha256": "0f7957b8c772b8a92a525c23cccf0bbccdd9ae66726a2387b88bf59941d1cbc6",
+      "their_dots": 227507,
+      "my_dots_within_3px_of_theirs": 0.44715730728985004,
+      "their_dots_within_3px_of_mine": 0.04299647922921053,
+      "spearman_full_footprint": 0.004605405522607258,
+      "jaccard_dot_sets": 0.0017824469775712334,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "gemsdoe-ens12-adopted-7f00890a.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/gemsdoe-ens12-adopted-7f00890a.tif",
+      "sha256": "7f00890a62878d612fb5eef67a9a364a2df819433dde74b6762ce4fc0fc4fe15",
+      "decoded_sha256": "cc063e629aec10ea582b27bfa81bb0d009db4366e04c10378f3c3a47d04137a8",
+      "their_dots": 172974,
+      "my_dots_within_3px_of_theirs": 0.44715730728985004,
+      "their_dots_within_3px_of_mine": 0.05655185172338039,
+      "spearman_full_footprint": 0.007208319921863626,
+      "jaccard_dot_sets": 0.0023276292395102444,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+      "sha256": "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58",
+      "decoded_sha256": "a36e1bf254de81ed360d0890574977b093305a5886475403cd94213d22949550",
+      "their_dots": 69281,
+      "my_dots_within_3px_of_theirs": 0.33554237879316356,
+      "their_dots_within_3px_of_mine": 0.034295116987341404,
+      "spearman_full_footprint": 0.0007137280013065548,
+      "jaccard_dot_sets": 0.0012145640916128343,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "gems10-h25-ctx-ridge-20260927T232947704150Z-6452ae1d00.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/gems10-h25-ctx-ridge-20260927T232947704150Z-6452ae1d00.tif",
+      "sha256": "1381e784fb8b8340beffd0e735ac9eea89ad35d1a807f8a9bab5506e3fc8275e",
+      "decoded_sha256": "1b28f9a9ba5a533eda6ccab54f796d92e186503e4e49220d056ded9ccba472d1",
+      "their_dots": 174232,
+      "my_dots_within_3px_of_theirs": 0.31409138472270665,
+      "their_dots_within_3px_of_mine": 0.03198034804169154,
+      "spearman_full_footprint": 0.0004399777287651722,
+      "jaccard_dot_sets": 0.0011515417865030403,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "gems16-h16-1-topo-geophys-baseline-ridges-20260930-df20f65e-nan.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/gems16-h16-1-topo-geophys-baseline-ridges-20260930-df20f65e-nan.tif",
+      "sha256": "055309694ed499ca3d87e76b3f5e81c292aef6e39c418d33ff5a817aa1309bea",
+      "decoded_sha256": "e52c2a9275b903dad2701a52afe773ac0ab88c14bbf3583d1eb7c99fe6dc2920",
+      "their_dots": 123939,
+      "my_dots_within_3px_of_theirs": 0.27589815137774676,
+      "their_dots_within_3px_of_mine": 0.0335164879497172,
+      "spearman_full_footprint": -0.0004760074348670205,
+      "jaccard_dot_sets": 0.0009648933213943867,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "gems19-h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/gems19-h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan.tif",
+      "sha256": "89109a3bd2cd3b12e7a0f388113c519843acfc9c4f46825affefc3e63dd99b22",
+      "decoded_sha256": "ce1a8d20b67e9a117f1e1ba18b6e454181495b6e26a35a38c97c6a9048e390cd",
+      "their_dots": 123779,
+      "my_dots_within_3px_of_theirs": 0.2575863271712592,
+      "their_dots_within_3px_of_mine": 0.03279231533620404,
+      "spearman_full_footprint": -0.00035551345150344353,
+      "jaccard_dot_sets": 0.0009892955133902694,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif",
+      "sha256": "ec1f9b56b83ce33cad781ceb9f104b18fb4f2ff785263a4e89616af4aabdee8d",
+      "decoded_sha256": "3020681a4b0bed4b2697d8fa012d2995e9890987dbded62285df9e9b4d4d47a2",
+      "their_dots": 121131,
+      "my_dots_within_3px_of_theirs": 0.24189047785141263,
+      "their_dots_within_3px_of_mine": 0.032369913564653144,
+      "spearman_full_footprint": 6.094681286071282e-05,
+      "jaccard_dot_sets": 0.0010731561047589739,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+      "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+      "sha256": "7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae",
+      "decoded_sha256": "b1fb6363d677632466d3874ff42862abf55829ca19f73593c664deb9283387f7",
+      "their_dots": 37654,
+      "my_dots_within_3px_of_theirs": 0.22584583188001395,
+      "their_dots_within_3px_of_mine": 0.037605566473681414,
+      "spearman_full_footprint": 0.001791755700562732,
+      "jaccard_dot_sets": 0.001569713758079409,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    },
+    {
+      "repo": "local-mirror",
+      "submission": "gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+      "file": "/home/user/GEMSDOEkarage1/data/scored/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+      "sha256": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+      "decoded_sha256": "240e047ba45f9e50356dfc473b1613f758d96030c5bcb268ed5d350f95e17791",
+      "their_dots": 61328,
+      "my_dots_within_3px_of_theirs": 0.22288106034182073,
+      "their_dots_within_3px_of_mine": 0.03297025828332899,
+      "spearman_full_footprint": -0.0002712168715988461,
+      "jaccard_dot_sets": 0.0009403125419782384,
+      "identical_bytes": false,
+      "identical_decoded_predictions": false,
+      "duplicate_by_rho": false,
+      "duplicate_by_overlap": false,
+      "duplicate_by_jaccard": false
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "file": "DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+  "sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
+  "bytes": 72023,
+  "submission_name": "gemsdoekarage1-thd-ridge-collar-20261029-b_pct98",
+  "note": "label-free tmi_hg ridge, pct 98, 3px catalogue collar, 5734 dots",
+  "note_chars": 64,
+  "validator": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+    "bytes": 72023,
+    "sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0004669700574595481,
+    "emitted_positive_pixels": 5734,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 5734,
+    "footprint_fraction": 0.0011096547510698377
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOEkarage1/docs/downloads/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+    "bytes": 72023,
+    "sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0004669700574595481,
+    "n_nonzero": 5734,
+    "mass": 5734.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.zip",
+  "zip_sha256": "a447b62ffa0b519b13e5149459e5286099fd30ade480688eb7559ca81667f68d",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "method": "label-free tmi_hg 3x3 ridge, percentile threshold, 3px collar"
+  }
+}
