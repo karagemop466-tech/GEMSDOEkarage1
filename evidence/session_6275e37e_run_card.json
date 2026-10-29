@@ -54,6 +54,13 @@
     "holdout champion-control DTI 0.00452 vs leaderboard 0.2778 (scales not calibrated)",
     "leaderboard figures conflict (0.4413 vs 0.3195 vs earlier-fetched 0.4544)",
     "portal error 'Predicted values must be in range [0, 1]' not reproduced by any local file; cause unknown",
-    "official reference writes float64 (np.zeros default, no cast) while the brief says float32"
-  ]
+    "official reference writes float64 (np.zeros default, no cast) while the brief says float32",
+    "main had 7 pre-existing pytest failures and red CI (two TIFs without saved-byte audits; generated docs out of sync with build_site.py) before and after PR #81"
+  ],
+  "merge": {
+    "pr": 81,
+    "merged_into": "main",
+    "merge_commit": "b9daedf92ad2244bb97a2cf694e74ecc5e078b28",
+    "checks_at_merge": "failing before and after (pre-existing; see review section 10)"
+  }
 }

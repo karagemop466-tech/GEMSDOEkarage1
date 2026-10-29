@@ -87,3 +87,13 @@ Owner action: run the script on the **exact file that failed upload**. If it rep
 4. Which file failed the portal, and what does `portal_range_check.py` report on it?
 
 **Next session (if decisions arrive):** restore or place the authorised data (`scripts/restore_karage1_data.py` for the mirror, or the owner's official download); run the shared evaluator on the champion control to confirm the 0.00452 figure; then test one candidate from [`docs/research/hypotheses-20261029.md`](../docs/research/hypotheses-20261029.md) against it, with the leakage canary and the marginal rule as the first check.
+
+## 10. Merge and post-merge state (added after PR #81)
+
+- **Merge:** PR [#81](https://github.com/karagemop466-tech/GEMSDOEkarage1/pull/81) merged into `main` at `b9daedf`. Main had moved (PRs #74 and #79 and others). Conflicts were only in the README and AGENTS.md "latest session" pointers; both sides were kept.
+- **Pre-existing red checks on `main` (not caused by this session):** the same **7 pytest failures** occur on a clean extraction of `origin/main` as on this branch. Causes, from the failure messages:
+  - Two TIFs on `main` have no saved-byte audit record: `docs/downloads/gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif` and `docs/downloads/karage1-convect-cell-upflow-20261029-zeros.tif`. Tests: `test_session_1668dda0_hardening.py` and `test_session_20261029.py`.
+  - The site is not in sync with its generator. Running `scripts/build_site.py` on a clean `main` changes `docs/executive-summary.html`, `docs/index.html`, `docs/nine-sites.html`, `docs/gpcz/nine-sites.html`, `index.html` and `executive-summary.html`. CI runs `git diff --exit-code -- docs` and so fails. The merge commit `c22fd1d` on `main` says it kept "main's version" of generated pages, which explains the drift.
+  - The GitHub Actions run logs were not retrieved (API rate limit). The CI results are consistent with these local reproductions.
+- **Not fixed here:** these are other sessions' artefacts, and regenerating pages or audit records is a separate change. Flagged for the owner.
+- **Note from `main`:** another session records that the restored `sample_submission` raster is a copy of the label raster (60,988 positives coincide with known faults). It is consistent with irregularity 2 in §6. Not re-verified here.
