@@ -98,7 +98,7 @@ def test_evidence_scope():
 
 
 def test_research_downloads_are_labeled_and_match_audited_bytes():
-    """No primary download is offered; research copies must be the audited duplicates."""
+    """No primary download is offered; research links stay labeled and evidence-scoped."""
     import hashlib
     from html.parser import HTMLParser
     from urllib.parse import unquote, urlsplit
@@ -108,7 +108,11 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
     card = json.loads((root/'docs/data/run-card.json').read_text())
     expected.add(card['raster_sha256'])
     expected.add(json.loads((root/'evidence/conduitcrest_lattice_reaudit_20261028.json').read_text())['candidate']['sha256'])
-    assert len(expected) == 4
+    gse = json.loads((root/'evidence/run_card_gse_exp1.json').read_text())
+    halo = json.loads((root/'evidence/run_card_karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json').read_text())
+    expected.add(gse['raster']['sha256'])
+    expected.add(halo['raster_sha256'])
+    assert len(expected) == 6
     for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
         assert gate['result']['verdict'] == 'negative' and gate['result']['ok_to_submit'] is False

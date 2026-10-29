@@ -13,9 +13,9 @@ The repository started with no tracked changes in this review. The checked-out r
 
 - `registry/template.json` has `method_lane: null` and no recorded canonical shared-template assignment. The missing method paragraph cannot be inferred from historical proposals.
 - `python scripts/shared_tools.py preflight` exited 1. It reported immutable vendor pin mismatches for `vendor/gems57/submission_writer.py` and `vendor/gems57/uniqueness.py`, no lane, no canonical assignment, and missing `.cache` feature/input files. The tool says execution is unauthorized.
-- `data/` had zero files and `.cache/` was absent. A safe `bash scripts/download_competition_data.sh --group core --verify-only` check exited 1 with `training_features.tif` missing. That wrapper calls the owner-mirror restorer, not an organizer downloader; no data was restored or authenticated.
-- The DrivenData data page redirects to login. No organizer labels, features, sample, submission receipt, or private score were available.
-- The 70%-within-3-px and rank-correlation thresholds remain the user's internal literal stop gate. A prior experiment's role/separation or selector wording is not an exemption. No surface or dot comparison was run because no new candidate exists.
+- At review start, `data/` had zero files and `.cache/` was absent. A safe `bash scripts/download_competition_data.sh --group core --verify-only` check exited 1 with `training_features.tif` missing. That wrapper calls the owner-mirror restorer, not an organizer downloader; this session restored no data. Later, `origin/main` integration brought in an earlier mirror-verification receipt, but its bytes are not present in this checkout; mirrors are not organizer-authenticated.
+- The DrivenData data page redirects to login. No organizer labels, features, sample, submission receipt, or private score were available to this session.
+- The 70%-within-3-px and absolute rank-correlation thresholds remain the user's internal literal stop gate. A prior experiment's role/separation or selector wording is not an exemption. No candidate was generated or compared in this session. The merged mainline's GSE file has a prior measured 99.9125% lattice overlap and is blocked; HALO has no registry comparison or holdout and remains unverified. Neither is this session's output.
 
 ## 2. Three-pass review
 
@@ -52,9 +52,9 @@ The final review checks that:
 
 ## 3. Tests and build verification
 
-**Before this session's edits:** 365 passed, 119 warnings (23.49 s). **After implementation:** 373 passed, 119 warnings (20.77 s). The deterministic site renderer produced 32 pages with no submission authorized. These results verify software behavior only; no geological performance is established.
+**Before this session's edits:** 365 passed, 119 warnings (23.49 s). The original pre-merge implementation had 373 passed, 119 warnings (20.77 s); after integrating `origin/main` at `ea662e1` and resolving its four conflicts, the full suite passed: **387 passed, 119 warnings (24.39 s)**. The deterministic site renderer produced 32 decision pages with no submission authorized. These results verify software behavior only; no geological performance is established.
 
-The new focused regression run passed: **19 passed, 1 warning** across `tests/test_official_leaderboard.py` and `tests/test_quarantined_runners.py`.
+The pre-merge focused regression run passed: **19 passed, 1 warning** across `tests/test_official_leaderboard.py` and `tests/test_quarantined_runners.py`. Five integration assertions initially failed because the new GSE/HALO artifacts and updated decision copy were not represented in older test inventories; tests and renderer were corrected to distinguish the GSE duplicate audit from HALO's explicitly unmeasured registry status. The corrected focused integration set passed **5/5**; the final full suite then passed **387/387**. Two consecutive builds produced identical SHA-256 digests for all **39 HTML files**; the renderer emitted 32 decision pages.
 
 ## 4. Current sources and numerical claims
 
@@ -75,9 +75,19 @@ The new focused regression run passed: **19 passed, 1 warning** across `tests/te
 | `prepare_data.py` no-write gate | Fixed and regression-tested. |
 | Official public leaderboard freshness | Dated partial snapshot plus fail-closed daily workflow; live run still required. |
 | New TIFF / holdout / registry uniqueness / portal acceptance | Not produced or tested. |
-| PR and merge | Not completed at time of writing; current branch remains the only work branch. Update this row only with the actual PR/merge result. |
+| PR and merge | PR #75 is the review vehicle from this branch. This report records the pre-merge checkpoint; use the linked GitHub PR for the authoritative current check/merge status. |
 
-## 6. Remaining blockers and next steps
+## 6. Upstream-main integration and inherited artifacts
+
+After the original PR implementation was pushed, `origin/main` advanced to `ea662e1` (PR #73). The merge stopped with conflicts in `README.md`, `docs/executive-summary.html`, `executive-summary.html`, and `scripts/render_site.py`. The conflicts were resolved on this branch: the latest mainline audit/history is retained, the current fail-closed renderer is preserved, and generated summaries are rebuilt with explicit GSE/HALO status. At the precommit review checkpoint, no merge-resolution commit had yet been created.
+
+- Mainline evidence records an earlier mirror restore, but the active checkout still has zero files under `data/` and no `.cache/`; do not mistake that historical mirror receipt for present local inputs or organizer authentication.
+- The inherited GSE TIFF is a prior-session artifact. Its saved-byte audit finds 23,979 / 24,000 dots (99.9125%) within 3 px of the pinned lattice; the earlier uniqueness claim excluded that witness and is superseded. It is blocked under the literal 70% rule.
+- The inherited HALO TIFF is also prior-session research. Its run card has null registry correlation/overlap and no HOLDOUT-DTI/CI; structural difference from dot maps is not a uniqueness certificate. It remains unmeasured and blocked, not cleared.
+- All 12 files in `evidence/local_downloads_audit_20261029.json` fail the literal lattice gate; the accompanying null simulation says the gate is saturated, which is a limitation and not a waiver. No experiment, candidate promotion, or slot selection is authorized.
+- At this pre-push checkpoint PR #75 was open against `main`; checks had not yet been inspected and the resolution commit/push were pending. This is a dated process snapshot, not a claim about the PR's eventual status; GitHub PR #75 is authoritative.
+
+## 7. Remaining blockers and next steps
 
 1. Owner supplies the exact method paragraph. Do not choose a historical proposal as a substitute.
 2. Shared-template owner resolves the `submission_writer.py` and `uniqueness.py` pin mismatch and records the canonical assignment. Do not edit a private fork.

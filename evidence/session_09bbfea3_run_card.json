@@ -86,7 +86,8 @@
       ".cache/gems_data/sample_submission.tif",
       ".cache/gems_data/labels.tif"
     ],
-    "data_directory_file_count": 0
+    "data_directory_file_count": 0,
+    "cache_directory_present": false
   },
   "safety_regression": {
     "legacy_prepare_data_before_fix": {
@@ -122,15 +123,23 @@
     },
     "final_full_suite": {
       "status": "PASSED",
+      "passed": 387,
+      "warnings": 119,
+      "duration_seconds": 24.39,
+      "command": ".venv/bin/python -m pytest -q",
+      "note": "Post-origin/main integration and conflict-resolution verification; software tests do not establish geological performance."
+    },
+    "pre_mainline_integration_suite": {
       "passed": 373,
       "warnings": 119,
-      "duration_seconds": 20.77
+      "duration_seconds": 20.77,
+      "note": "Original feature-branch result before integrating origin/main."
     }
   },
   "limitations": [
     "DrivenData data tab is login-walled; organizer-authenticated features, labels, sample, and submission receipt were not available.",
     "The wrapper scripts/ download_competition_data.sh restores owner mirrors, not official competition data.",
-    "No candidate raster, spatially blocked holdout result, 95% CI, registry surface comparison, portal test, or score estimate was produced.",
+    "No new candidate raster, spatially blocked holdout result, 95% CI, candidate registry comparison, portal test, or score estimate was produced in this session. The inherited GSE artifact fails the lattice gate; HALO has no measured registry comparison or holdout.",
     "The local public-board scraper has fixture tests but has not yet parsed the live leaderboard HTML; the scheduled workflow must succeed before the feed automation is called live-verified.",
     "External GDR chemistry payload returned HTTP 500; no schema or study-area coverage was verified.",
     "USGS Water Data API documentation was reviewed, but no footprint coverage query or time-series data was obtained.",
@@ -141,5 +150,59 @@
     "Have the template owner resolve vendor/source hash mismatches and establish a canonical shared-template assignment.",
     "Obtain organizer-authenticated input bytes and complete registry inventory; do not treat mirrors as organizer data.",
     "Only after all gates pass, follow the preregistered whole-segment buffered holdout, leakage, uniqueness, writer, and validator protocol."
-  ]
+  ],
+  "site_build": {
+    "status": "PASSED",
+    "command": ".venv/bin/python scripts/build_site.py",
+    "decision_pages_rendered": 32,
+    "submission_authorized": false,
+    "deterministic_rebuild_check": "PASSED",
+    "html_files_compared": 39,
+    "verified_after_postmerge_test_count_update": true
+  },
+  "mainline_integration": {
+    "upstream_main_commit": "ea662e16beff61634b6a546df9695ef33f264094",
+    "conflict_files_resolved": [
+      "README.md",
+      "docs/executive-summary.html",
+      "executive-summary.html",
+      "scripts/render_site.py"
+    ],
+    "prior_mainline_artifacts_reviewed": {
+      "gse": {
+        "filename": "karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+        "sha256": "f5879e1902e6c15407582a67e210bacfd0b2425570c4aefbdf5c585a4579c37b",
+        "dots": 24000,
+        "dots_within_3px_of_lattice": 23979,
+        "directed_overlap": 0.999125,
+        "evidence": "evidence/local_downloads_audit_20261029.json",
+        "status": "BLOCKED; literal 70% duplicate stop; earlier uniqueness result excluded lattice; no HOLDOUT-DTI."
+      },
+      "halo": {
+        "filename": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+        "sha256": "f6307da88c20fef477a7dfc13b45891f680e4d2abb680497e36cee1a492452ad",
+        "preplacement_surface_spearman": null,
+        "final_dot_overlap": null,
+        "holdout_dti": null,
+        "ci95": null,
+        "evidence": "evidence/run_card_karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json",
+        "status": "NOT MEASURED / DO NOT SUBMIT; prior artifact, not a current-session output."
+      }
+    },
+    "current_checkout_data_status": {
+      "data_directory_file_count": 0,
+      "cache_directory_present": false,
+      "historical_mirror_verification_receipt": "evidence/core_data_verification_20261029.json",
+      "receipt_does_not_establish_current_byte_availability_or_organizer_authentication": true
+    },
+    "pull_request": {
+      "number": 75,
+      "base": "main",
+      "status_recorded_at_snapshot": "OPEN",
+      "merge_completed_at_snapshot": false,
+      "checks_inspected_at_snapshot": false
+    },
+    "checkpoint_scope": "Pre-resolution-commit validation snapshot; the current GitHub PR page is authoritative for subsequent state.",
+    "resolution_commit_created_at_snapshot": false
+  }
 }

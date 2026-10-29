@@ -1,25 +1,94 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-> **Current session `arena/09bbfea3-gemsdoekarage1` · 2026-10-29: NEGATIVE / DO NOT SUBMIT.** No new GeoTIFF, geological experiment, HOLDOUT-DTI result, leaderboard estimate, or slot selection. The legacy `scripts/prepare_data.py` fail-closed defect was fixed and regression-tested. See the [current review](knowledge/session-review-arena-09bbfea3.md), [session card](evidence/session_09bbfea3_run_card.json), and [ranked hypothesis slate](knowledge/hypotheses-20261029.md).
+## Current session review (`arena/09bbfea3-gemsdoekarage1`, 2026-10-29)
 
-**Current hard blockers:** `registry/template.json` still has no assigned `method_lane` or canonical template assignment; the shared-tool preflight finds two vendored SHA mismatches and five missing organizer-input/cache files; the DrivenData data tab is login-walled. The hash-pinned owner mirrors are not organizer-authenticated. `data/` is empty and no shared feature cache is present. Do not run the quarantined legacy builder or any experiment until the assignment, template provenance, and authenticated inputs are resolved.
+**NEGATIVE / DO NOT SUBMIT.** This session generated no candidate TIFF, ran no geological experiment or holdout, made no score estimate, and selected no slot. The historical `scripts/prepare_data.py` defect was fixed so it exits before cache, feature, or canary writes. Full review: [session report](knowledge/session-review-arena-09bbfea3.md) · [JSON run card](evidence/session_09bbfea3_run_card.json) · [three-proposal slate](knowledge/hypotheses-20261029.md).
 
-**Latest official public-board snapshot:** fetched 2026-10-29; #1 is **0.4544** and **0.3195 is rank #47**, not the top score. This is a dated public leaderboard reading, not a file-linked receipt, private score, or project estimate. See the [verified official-source register](knowledge/official-sources-verified-2026-10-29.md) and the [machine-readable snapshot](docs/data/official-leaderboard.json). A daily, fail-closed public-page refresh workflow is provided; it reads no submission page and selects no slot.
+- Shared preflight remains blocked: no assigned `method_lane`, no canonical shared-template assignment, mismatched recorded hashes for `submission_writer.py` and `uniqueness.py`, and no local authenticated inputs/cache. The latest mainline mirror-verification receipt documents earlier hash-matched third-party files, but the current checkout's `data/` and `.cache/` are empty; mirrors are not organizer-authenticated.
+- Mainline already contains two prior-session research artifacts: the GSE file fails the literal lattice gate at **99.9125%** of dots within 3 px (`evidence/local_downloads_audit_20261029.json`); the HALO run has no holdout and no measured registry comparison. Both are **NOT CLEARED / DO NOT SUBMIT**; neither was generated or selected in this session.
+- Official public leaderboard snapshot (2026-10-29): #1 = **0.4544**; **0.3195 is rank #47**. This is a dated public-board value, not a project estimate, private score, or file-linked receipt. See [`docs/data/official-leaderboard.json`](docs/data/official-leaderboard.json) and the [source register](knowledge/official-sources-verified-2026-10-29.md). Daily public-page refresh is implemented but not yet live-verified.
+- Post-integration full suite: **387 passed, 119 warnings in 24.39s**. The deterministic site build renders 32 decision pages. Software verification does not establish geological performance.
 
-**Status banner:** no candidate is cleared for download-and-submit. Historical session logs below are retained for audit only; older “unique,” score, shortlist, or lane recommendations are not current authorization and must not override the current review. The original prompt was not preserved verbatim; the standing brief later in this README and [`docs/standing-prompt.md`](docs/standing-prompt.md) are explicitly reconstructions.
+## ▶ Can I download and submit a file? — **NO. Nothing in this repository is cleared.**
 
-## Current session review (`arena/09bbfea3-gemsdoekarage1`)
+Prior review `arena/ca9c4488` (2026-10-29): **NEGATIVE / DO NOT SUBMIT.** No new GeoTIFF was generated. Full review: [knowledge/session-review-arena-ca9c4488.md](knowledge/session-review-arena-ca9c4488.md) · run card: [evidence/session_ca9c4488_run_card.json](evidence/session_ca9c4488_run_card.json).
 
-- Existing baseline before this session's new tests: **365 passed, 119 warnings**. After implementation: **373 passed, 119 warnings**. This is software verification, not geological validation.
-- A temporary-directory reproduction confirmed that the old `prepare_data.py` printed `BLOCKED` but created the configured cache before failing. It now exits before any cache/data/canary writes; a regression test asserts this behavior.
-- A safe mirror `--verify-only` check remains blocked because `training_features.tif` is absent. It does not restore or authenticate organizer data.
-- Three qualitative hypotheses were preregistered; none was selected as an assigned lane or tested. Experiment, holdout, uniqueness, TIFF validation, and portal acceptance remain **NOT RUN**.
-- The public site and JSON feed now distinguish current session evidence from historical cards. The scheduled feed refresh is fail-closed and publishes only the public leaderboard snapshot; a workflow run is required before calling the automation live-verified.
-- Three-pass review and remaining work: [session review](knowledge/session-review-arena-09bbfea3.md) · [current JSON card](evidence/session_09bbfea3_run_card.json) · [official sources](knowledge/official-sources-verified-2026-10-29.md) · [hypotheses](knowledge/hypotheses-20261029.md).
+| Site | Best file (reported score) | New estimate | Unique vs the other 8 focus files? | Unique vs lattice (70 % / 3 px)? | OK to download & submit? |
+|---|---|---|---|---|---|
+| GEMSDOE32 (B2) | `gemsdoe32-h33-h33-2-b2-…-zeros.tif` (0.2778, USER-REPORTED) | not estimable | No (1.000 vs 24/25/27/28) | No (0.9992) | **NO** |
+| GEMSDOE36 | `gemsdoe36-anderson-geothermal-pinn-38854-…-zeros.tif` (0.2750) | not estimable | No (0.976 vs 27) | No (0.9992) | **NO** |
+| GEMSDOE28 | `gems28-h27-4-r1-solo-d2-8-…-allfinite.tif` (0.2708) | not estimable | No (identical mask to 31) | No (0.9992) | **NO** |
+| GEMSDOE33 | `GEMSDOE33-h33d-analog-tip-stepover-r30-…tif` (0.2632) | not estimable | No (0.997 vs 27) | No (0.9991) | **NO** |
+| GEMSDOE25 / 30 | `…d2-8…-nan.tif` / `gemsdoe30-d28-poisson…tif` (0.2600) | not estimable | No (identical masks) | No (0.9992) | **NO** |
+| GEMSDOE31 | `gemsdoe31-h27-4-solo-d28-…-nan.tif` (0.2708) | not estimable | No (identical mask to 28) | No (0.9992) | **NO** |
+| GEMSDOE24 | `gems24-h25-1-dotted-h19-5-d1-5-…-nan.tif` (0.2477) | not estimable | No (1.000 vs 25) | No (0.9992) | **NO** |
+| GEMSDOE27 | `gems27-topo-gap-closure-t-v2-on-d1-5-…-nan.tif` (0.2449) | not estimable | No (0.980 vs 24) | No (0.9992) | **NO** |
 
-## Historical session log — audit only
+- **Why no file is cleared.** The literal duplicate rule (70 % of dots within 3 px of one registry raster) is failed by all nine focus files against the lattice. The lattice covers 99.87 % of the footprint, so a dotted file can pass only if it has ≤ 22,163 dots and ≥ 30 % of them in 6,649 uncovered cells. That is not a geological result, and the protocol bars placing dots to evade the rule. The shared gate also needs a complete registry inventory, which this repository does not have.
+- **Apply the user's internal duplicate gate literally.** The 70% / 3-px and |Spearman| > 0.90 thresholds are project protocol, not organizer rules. Do not waive, reinterpret, or evade them with jitter, renaming, representation changes, or witness exemptions. The 13GEMSDOE lattice is third-party provenance, and its near-footprint coverage makes this gate highly restrictive; that is a recorded limitation, not permission to change the threshold. No current artifact clears it.
+- **Score estimates are withheld.** Every score above is USER-REPORTED / UNVERIFIED. A new estimate needs a HOLDOUT-DTI run with a 95 % CI, which has not been done.
+- **Format error.** The sample grid uses NaN outside the footprint, but the cause of the "must be in range [0, 1]" portal rejection is unknown; no supplied rejection artifact or local reproduction establishes a cause. Keep outside-footprint encoding and portal acceptance explicitly unresolved.
+- **Standing prompt.** The standing brief is in [docs/standing-prompt.md](docs/standing-prompt.md) and the section below. The full verbatim prompt was not saved as a file in this checkout.
 
-All prior session entries below describe their own dates and evidence. They are superseded by the current blockers above; they do not assign a lane, clear a TIFF, or authorize a submission.
+## READ FIRST — Standing brief (updated 29 Oct 2026)
+
+> **Condensed rewrite of the session brief, not the verbatim prompt.** Newer explicit instructions take precedence.
+
+**Goal.** Place at the top of the DrivenData *Geologic Enhanced Mapping System (GEMS) Prize Challenge* by
+producing a single-band float32 GeoTIFF of fault probabilities. Source: [official problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/),
+[leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), [reference solution](https://github.com/drivendataorg/gems-prize-reference-solution), [DOE/NLR submission rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf).
+
+**Official rules (verified 29 Oct 2026 from the problem page).** EPSG:32611, 100 m, same bounds; one float32 layer; values in
+[0, 1]; outside bounds null or NaN. Score is a distance-weighted Tversky index, α=0.2, β=0.8, 300 m triangular kernel.
+The competition states its purpose: predictions for what you believe are faults, not optimization against existing labels.
+
+**Core values.** *Maximize P(Win)* and *Own the Outcome*: prefer reproducible, sourced evidence; report negative results and blocked gates honestly; never invent a score.
+
+**Non-negotiables.**
+1. **Every number is labelled** HOLDOUT-DTI (evaluator, withheld positives, 95% CI) or ORGANIZER-CONFIRMED (copied from a receipt), or USER-REPORTED / UNVERIFIED. A projection is never written as a score.
+2. **A file is downloadable for submission only when every gate passes**: format, unique versus listed sites, lattice rule, holdout, lane, and a separate weekly-slot selector. The site shows the status on its first screen.
+3. **Parallel-run protocol:** one assigned lane; literal 70% registry overlap and |rank| > 0.90 checks; reuse the shared evaluator and writer; leakage canary (AUC > 0.90 is leakage); budget of 3 experiments or 2 hours; a JSON run card with each run.
+4. **Verify line by line** against official sources, link each source, flag irregularities. No manual input is expected.
+
+**Current decision (29 Oct 2026): NO FILE IS OK TO DOWNLOAD AND SUBMIT.**
+- The nine focus sites: best reported file is GEMSDOE32 at 0.2778 (USER-REPORTED / UNVERIFIED). It is third-party and must not be resubmitted. All nine overlap a sibling by ≥ 97.6%. See the table at the top of the [executive summary](docs/executive-summary.html).
+- The saved-byte audit marks all 12 audited local TIFs as failing the literal lattice rule (minimum overlap 98.53%). This includes the GSE pair (`karage1-gse-geothermal-surface-24000dots-…`), which measures **99.9125%** within 3 px of the pinned 13GEMSDOE lattice. An earlier "unique" label compared only against 11 other registry rasters and is superseded; see [audit](evidence/local_downloads_audit_20261029.json). The rule is highly saturated: random dots fail it too ([null evidence](evidence/lattice_saturation_null_20261029.json)). That limitation is recorded, but the active user protocol still requires the literal stop; do not relax or evade it.
+- Session review: [`knowledge/session-review-arena-20261029.md`](knowledge/session-review-arena-20261029.md) · run card: [`evidence/session_20261029_run_card.json`](evidence/session_20261029_run_card.json) · new hypotheses: [`docs/research/hypotheses-20261029.md`](docs/research/hypotheses-20261029.md).
+
+**Remaining owner input (not a request to waive any gate):** (1) provide the exact assigned method paragraph/lane (currently `null`); (2) provide organizer-authenticated inputs and authorized holdout data; (3) retain any portal rejection receipt needed to diagnose the unresolved range error. The internal 70% / 3-px and |Spearman| > 0.90 checks remain binding under the user's protocol; the official rules do not state them, and no exception or alternate witness is inferred. **Deadline:** 3 Dec 2026, 11:59 p.m. UTC; three submissions per week; original work only.
+
+---
+> **Latest review `arena/547a9b56` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** New this session: core inputs (`training_features`, `labels`, `sample_submission`) were restored from pinned GitHub mirrors and every SHA-256 matched ([evidence](evidence/core_data_verification_20261029.json)); the restored sample raster is a label copy (60,988 positives coincide with known faults), contrary to the DrivenData page's "total fault absence" wording; the feature and label footprints disagree on 4,601 pixels; the "[0, 1]" portal error still cannot be reproduced (no local TIF has out-of-range values). Test suite: **373 passed**. No candidate, holdout result or slot. See [session review](knowledge/session-review-arena-547a9b56.md) and [run card](evidence/session_547a9b56_run_card.json).
+>
+> **Current review `arena/4711a029` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** No new TIF, geological experiment, score estimate, or upload slot was produced. The nine-site comparison and four ranked research candidates are in [the current review](knowledge/session-review-arena-4711a029.md); the required session run card is [here](evidence/session_4711a029_run_card.json). The pinned template/data preflight is blocked (lane and canonical assignment absent, required cache/data missing, two vendored hash mismatches); all 365 software tests pass but do not measure model performance.
+
+> **Session `arena/be012103` (2026-10-29): NEGATIVE / DO NOT SUBMIT — no file is cleared.** No new TIF was generated: the competition data is login-walled and unreachable from the sandbox, and no method lane is assigned, so there is nothing to holdout-test or score. Live leaderboard (fetched 2026-10-29): **#1 = 0.4544** (xiaofanhu), #2 = 0.3916; 0.4413 not found; 0.3195 near rank #47. The GEMSDOE32 **0.2778 is an owner-report with no submission receipt** on its own page, which also says "already submitted - do not resubmit". Test suite: **365 passed**. Details: [session review](knowledge/session-review-arena-be012103.md), [run card](evidence/session_be012103_run_card.json). Manual steps needed from the owner are listed in the review.
+
+> **Latest review (`arena/bd75aa22`, 2026-10-29): NEGATIVE / DO NOT SUBMIT.** Repository review only; no new TIF, geological experiment, HOLDOUT-DTI, score estimate, or slot selection. Test suite: **365 passed** (software verification only). No lane assignment or canonical shared template is recorded, authenticated inputs/cache and complete registry are unavailable, so experiments and a cleared unique submission remain blocked. See [session review](knowledge/session-review-arena-bd75aa22.md) and [JSON run card](evidence/session_bd75aa22_run_card.json).
+
+> **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
+
+> **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
+> "CLEARED FOR SUBMISSION" page and its `promote` card were on `main`; both are retracted. The
+> flagged TIF has 99.90% lattice overlap (stop > 70%) and is quarantined in
+> [`archive/quarantined-20261029/`](archive/quarantined-20261029/). 8 failing tests fixed; **357 pass**.
+> Read [the session review](knowledge/session-review-arena-a409acfe.md) and [run card](evidence/session_a409acfe_run_card.json).
+> **Session `arena/b0714e6b` (2026-10-29), reconciled with `a409acfe`: NEGATIVE / DO NOT SUBMIT.** No new TIF.
+> - **Official facts verified** from DrivenData and the NLR rules PDF: metric (α=0.2, β=0.8, R=300 m); float32 GeoTIFF, values in [0, 1], EPSG:32611, NaN or null outside bounds; 3 submissions per week; close **2026-12-03 23:59 UTC**. The 70%/3-px duplicate gate is **not** in the official rules; it is an internal protocol.
+> - **Leaderboard correction:** public #1 is **0.4544**; **0.3195 is rank #47**; **0.4413** does not appear on the snapshot; no GEMSDOE score is visible in the top 50.
+> - **Blockers:** no assigned method lane (the protocol's "method paragraph" is missing); the literal lattice gate blocks dotted rasters; organizer data is login-walled.
+> - Read [session review](knowledge/session-review-2026-10-29.md), [verified sources register](knowledge/official-sources-verified-2026-10-29.md), and [run card](evidence/session_b0714e6b_run_card.json).
+
+**Prior mainline session (`arena/968c17f0-gemsdoekarage1`, 29 Oct 2026): NEGATIVE / DO NOT SUBMIT.** It generated `docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif` (SHA-256 `f6307da8…`, 4,146,936 bytes), with a local format-validation claim in its run card. The earlier phrase “structurally unique versus all nine dot-field focus-site submissions” is not a registry uniqueness result. No registry/lattice comparison or HOLDOUT-DTI was recorded, and no method lane was assigned. The HALO file remains an unverified research artifact, not cleared for download or submission. Run card: `evidence/run_card_karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json`.
+
+**Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
+> **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.
+>
+> **DO NOT SUBMIT — no candidate has been cleared for competition upload.**
+> **New this session (`147b0f11`): a unique, format-valid DIPDUAL GeoTIFF was generated**
+> (`karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif`, discrete-unique vs 24 audited rasters)
+> **but failed its preregistered holdout gates — research download only, do not submit it.**
+> The separately generated BB-STEP research GeoTIFF is unique versus the nine focus-site rasters but fails the literal 3-pixel lattice-overlap rule (98.5253%). Do not submit it. The older CDA1 archive is a synthetic demonstrator whose holdout routine returned hard-coded numbers; its reported DTI is invalid and is not a measurement. All 21 primary and secondary focus-site files audited in this repository also fail the literal lattice gate. Format validation is necessary but not submission approval.
 
 ## Standing prompt (read at the start of every session)
 
@@ -35,15 +104,32 @@ All prior session entries below describe their own dates and evidence. They are 
 5. Autonomous validation (no human inspector): values in [0, 1], no NaN inside the footprint — addresses the earlier "Predicted values must be in range [0, 1]" rejection.
 6. PhD-level explanation of how `GEMSDOE32 h33-h33-2-b2` reported 0.2778 and whether it can be beaten; use that to generate the unique TIF.
 7. Propose 3–5 new geological hypotheses (layers, physical signature, why off-catalogue, how it differs), ranked by expected DTI gain and cost; validate the top candidate on a spatially-blocked hide-and-recover holdout before any slot; free official sources only.
-8. **PARALLEL-RUN PROTOCOL:** stay in the exact assigned method paragraph (currently absent—do not invent it); use the authoritative shared feature stack, `evaluate_holdout.py`, and `submission_writer.py`, repairing shared tools only in their owner's template (never a private fork); hold out whole fault segments with a buffer, recompute catalogue features from visible faults only, and mask visible faults pixel-exactly; use pooled DTI α=0.2, β=0.8, 300 m triangular kernel; test each feature alone and treat AUC >0.90 as leakage until resolved; compare continuous surfaces against registry rasters before placement and compare final dots afterward; stop on absolute rank correlation >0.90 or >70% of dots within 3 px, log the duplicate, and do not evade the gate by jittering, renaming, changing representation, or exempting a witness; label every number; stop after at most 3 experiments or 2 hours; never select a live submission slot (a separate selector checks the weekly cap); end any actual run with JSON for hypothesis/mechanism/non-fault mimic, holdout DTI+CI, registry correlation/overlap, raster SHA-256, validator output, filename/note ≤140 chars, and promote/negative verdict.
+8. **PARALLEL-RUN PROTOCOL:** one assigned lane; registry duplicate check (|Spearman| > 0.90 or > 70% of dots within 3 px → log and stop); reuse shared `evaluate_holdout.py` / `submission_writer.py` (fix once, never private-fork); label every number; leakage canary (single feature AUC > 0.90 → leakage); budget ≤ 3 experiments or 2 hours; no slot selection (separate selector, weekly cap); end with a JSON run card and promote/negative verdict.
 9. No hallucinations: verify line by line from official sources; collect data/knowledge into auditable tables; state limitations and access needs (no DrivenData login; the data tab is login-walled).
 10. Clean GitHub Pages site under `docs/`; three passes then a PR merged to `main`, listing remaining work and limitations.
 
-Prior forensic records, retained for audit rather than current authorization: [9-site/B2 audit](knowledge/session-review-arena-9ca08e2e.md) · [secondary 9-site raster audit](evidence/nine_sites_secondary_audit_20261028.json) · [current dashboard](docs/index.html) · [submission guide](docs/executive-summary.html) · [historical candidate-byte audit](evidence/candidate_audit_20261028.json) · [prior source register](knowledge/sources-2026-10-28.md).
+## Current session review (`arena/accf3693-gemsdoekarage1`)
 
-## Historical experiment record (`arena/147b0f11`) — not current or cleared
+**DO NOT SUBMIT — no new candidate generated or cleared.**
+[Three-pass review and next steps](knowledge/session-accf3693-review.md) ·
+[Current shared preflight](evidence/session_accf3693_shared_preflight.json) ·
+[Session run card](evidence/session_accf3693_run_card.json).
+The fresh checkout has no restored shared cache and no assigned method lane or
+canonical-template assignment. Historical evidence below is not a fresh model run.
+This session hardened report input preservation and strict JSON handling;
+**314 software tests pass** (not a performance score). The existing nine-site
+summary and four ranked research proposals remain below; no leaderboard estimate
+or new uniqueness certificate is asserted.
 
-A prior session produced a DIPDUAL research raster and reported a HOLDOUT-DTI result. That raster was only compared against a limited set of references and was later measured at approximately **99.89% within 3 px of the pinned lattice**, so it fails the literal project duplicate gate. It is **DO NOT SUBMIT**; its filename or uniqueness claim against a partial set is not clearance. The old “lattice resolved by role separation,” selector-shortlist, and “next lane” language in that historical session does not override the user's no-exemption rule or assign a lane. See the [historical review](knowledge/session-review-arena-147b0f11.md), [historical run card](evidence/run_card_dipdual_20261028.json), and [current review](knowledge/session-review-arena-09bbfea3.md).
+[Latest forensic & 9-site review (`9ca08e2e`)](knowledge/session-review-arena-9ca08e2e.md) · [Latest session run card (`9ca08e2e`)](evidence/session_9ca08e2e_run_card.json) · [19-band `training_features.tif` audit](evidence/training_features_band_audit_20261028.json) · [Secondary 9-site audit (12 files)](evidence/nine_sites_secondary_audit_20261028.json) · [Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Independent repository and BB-STEP/CDA1 saved-byte review](knowledge/repository-review-2026-10-28.md) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
+
+## Latest session (`arena/147b0f11-gemsdoekarage1`): NEW unique DIPDUAL TIF — preregistered, holdout-negative
+
+- **Verdict remains `NEGATIVE / DO NOT SUBMIT`** ([session review](knowledge/session-review-arena-147b0f11.md) · [run card](evidence/run_card_dipdual_20261028.json) · [preregistration](docs/research/preregistration-dipdual-20261028.md) · [executive summary](docs/dipdual-20261028/index.html) · [how to submit](docs/dipdual-20261028/how-to-submit.html)): 0 slots spent; promotion remains the separate selector step.
+- **New unique TIF generated** (urgency item): `karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif` in [docs/downloads/](docs/downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif) (+ single-TIF ZIP + writer receipt), SHA-256 `7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae`, 37,654 dots — **not copied from any prior submission** (new exposed/buried surfaces; worst discrete forward overlap 23.75%, vs B2 11.96%, pre-placement |Spearman| ≤0.058) and **format-valid** (shared writer + two independent saved-byte re-reads: finite [0,1] everywhere, EPSG:32611/shape/transform match, 0 on-catalogue). It is **NOT cleared**: blocked `HOLDOUT-DTI 0.040056 [0.034544, 0.046131]` (`gemsk-hide-recover-v1`, 60,988 withheld) < GPC control `0.073394` and BB-STEP control `0.046742`; `SGMC-DIAGNOSTIC-DTI 0.090244 [0.077331, 0.102597]` < GPC `0.126149`. Suggested note (`76` chars): `DIPDUAL dual-regime dip-shifted research raster; gates failed; DO NOT SUBMIT`.
+- **Diagnosis:** contour-obliquity gate is anti-signal (AUC 0.42 — catalogue range fronts *are* contour-parallel; `IR-DIPDUAL-OBLIQUE-01`, not sign-flipped post-hoc); buried-basin allocation is unvalidatable on either local truth (catalogue + SGMC are surface compilations) and dilutes precision on both; dip-projection effect ≈0 at 100 m/300 m scales. **Positive control result:** label-free GPC physics beats static B2 on off-catalogue SGMC (`+0.0308 [+0.0082, +0.0519]`) and is the repo's best label-free blocked surface — next preregistered lane: exposed-only GPC refinement (+ LOO damage-zone prior, LiDAR polarity, no obliquity, no buried quota).
+- **Lattice resolved by role separation** (`registry/registry_roles.json`, `IR-DIPDUAL-LATTICE-01`): lattice covers 99.8713% of footprint within 3 px (lower bound 82.34% at N=37,654; B2: 99.915% fwd / 15.06% rev). Duplicate gate now applies to `discrete_submission` rasters; literal lattice overlap (DIPDUAL 99.89%) is published in the card and needs selector acknowledgment.
+- **Local candidates re-scored on SGMC** ([evidence/local_candidates_sgmc_audit_20261028.json](evidence/local_candidates_sgmc_audit_20261028.json)): HMAS `0.112595` > DIPDUAL `0.090244` > GPC-Z `0.077928` — HMAS stays selector-shortlist **only**, needs end-to-end re-validation; the older `karage1-unique-alteration` TIF **fails current format re-read** (`SGMC 0.003446`) — do not use.
 
 ## Earlier session (`arena/1668dda0-gemsdoekarage1`): 9-file local download audit, PR #42 retraction, validator hardening & 22-repo peer ecosystem review
 
@@ -221,4 +307,34 @@ The original, very long user message is available in the conversation replay but
 6. **Prior BB-STEP holdout is not a leaderboard result.** The previous session reports `HOLDOUT-DTI 0.031790` (evaluator `gemsk-hide-recover-v1`, 60,988 withheld positives, 95% CI `[0.027138, 0.036271]`), but the saved raster fails the literal lattice stop. This session did not rerun it, produce another TIFF, estimate leaderboard performance, or select a slot.
 7. **Three-pass follow-up order:** obtain an assigned lane and authoritative template; authenticate organizer data and template geometry; resolve the lattice interpretation without evasion; establish a complete inventory and comparable baseline; only then preregister and run at most three properly buffered, fold-local experiments and the automated validator. A separate selector checks a live weekly allowance only after every gate passes.
 
-The current active session is [`knowledge/session-review-arena-09bbfea3.md`](knowledge/session-review-arena-09bbfea3.md), with its [session card](evidence/session_09bbfea3_run_card.json), [official-source register](knowledge/official-sources-verified-2026-10-29.md), and [hypothesis slate](knowledge/hypotheses-20261029.md). Prior records, including [`knowledge/session-review-arena-1668dda0.md`](knowledge/session-review-arena-1668dda0.md), [`knowledge/session-review-arena-a1ef4ce0.md`](knowledge/session-review-arena-a1ef4ce0.md), and [`knowledge/session-review-arena-8ffb6de1.md`](knowledge/session-review-arena-8ffb6de1.md), remain historical evidence—not certificates of current validity.
+The `arena/1668dda0` session review is a historical saved-byte audit, not the current active review: [`knowledge/session-review-arena-1668dda0.md`](knowledge/session-review-arena-1668dda0.md), its run card at [`evidence/session_1668dda0_run_card.json`](evidence/session_1668dda0_run_card.json), and the saved-byte ecosystem receipt at [`evidence/local_downloads_and_peer_audit_20261028.json`](evidence/local_downloads_and_peer_audit_20261028.json). Prior records, including [`knowledge/session-review-arena-a1ef4ce0.md`](knowledge/session-review-arena-a1ef4ce0.md) and [`knowledge/session-review-arena-8ffb6de1.md`](knowledge/session-review-arena-8ffb6de1.md), are historical evidence to inspect—not certificates of current validity.
+
+## Latest Session — GEMSDOEkarage1 Experiment 1 (GSE) — 29 OCT 2026
+
+### What was done
+- **Prior-session inputs and build:** the earlier GSE run card says it restored data from pinned GitHub mirrors and built `karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif` (24,000 dots). Those mirror bytes are not present in the current checkout, are not organizer-authenticated, and do not authorize a new run.
+- **Prior format receipt:** the saved sidecar records a single-band float32 raster on the mirrored EPSG:32611 grid, with its listed range/footprint checks. Treat this as the historical local validator result only; portal acceptance is unknown.
+- **Uniqueness correction:** the earlier `PASS` compared 11 rasters and excluded the lattice witness. The later saved-byte audit measures **99.9125%** of the GSE dots within 3 px of the pinned lattice—well above the binding 70% stop. The earlier uniqueness label is superseded; the GSE file is a literal duplicate under the user's gate. See [`evidence/local_downloads_audit_20261029.json`](evidence/local_downloads_audit_20261029.json).
+- The prior run card reports a canary result, but it does not supply a holdout DTI, CI, or organizer score. No method lane was assigned, and no slot was selected or spent. Verdict remains **NEGATIVE / DO NOT SUBMIT**.
+
+### Files
+| File | Description |
+|------|-------------|
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif` | Prior GSE research TIF; 99.9125% lattice overlap, NOT cleared |
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.zip` | One-TIFF ZIP of the same |
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.json` | Validator receipt |
+| `evidence/run_card_gse_exp1.json` | Experiment 1 run card (negative verdict) |
+| `evidence/uniqueness_gse_exp1.json` | Uniqueness vs registry results |
+| `scripts/build_gse_submission.py` | Build script (Experiment 1) |
+| `index.html` | Current fail-closed decision page; no approved download is offered |
+| `docs/executive-summary.html` | Regenerated nine-site summary with research-only GSE/HALO audit cards |
+| `docs/how-to-submit.html` | Step-by-step submission guide |
+
+### Blocker before any slot is spent
+1. Assign a method lane in `registry/template.json` (currently `null`).
+2. Authenticate organizer data and template geometry.
+3. Run the full registry uniqueness check against all 9 focus-site rasters.
+4. Run a buffered hide-and-recover holdout (pooled DTI, alpha 0.2, beta 0.8, 300 m triangular kernel).
+5. Only then may the selector choose a weekly slot.
+
+No competition slot was selected or spent in this session.

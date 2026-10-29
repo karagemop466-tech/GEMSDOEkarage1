@@ -192,18 +192,25 @@ def test_pr42_sidecars_and_all_repo_jsons_remain_fail_closed():
             assert not hits, f"{json_path} contains true authorization flags: {hits}"
 
 
-def test_local_and_peer_evidence_verifies_all_9_local_tifs():
+def test_local_and_peer_evidence_and_later_records_cover_local_tifs():
     data = render_site.local_and_peer_evidence()
     assert data["local_downloads_count"] == 9
     assert data["peer_rasters_count"] == 9
     actual_tifs = {f"docs/downloads/{p.name}" for p in (ROOT / "docs/downloads").glob("*.tif")}
     audited_tifs = {r["file"] for r in data["local_downloads"]}
     # Session 1668dda0's receipt is historical and must not be rewritten.
-    # Any TIF added afterwards must be covered by a later session audit:
-    # 147b0f11's SGMC re-audit covers the new DIPDUAL raster (run card
-    # evidence/run_card_dipdual_20261028.json, verdict negative).
+    # 147b0f11's SGMC re-audit covers the DIPDUAL raster; the 2026-10-29
+    # saved-byte audit covers its 12 listed local rasters including GSE.
     later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
     later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
+    fleet = json.loads((ROOT / "evidence/local_downloads_audit_20261029.json").read_text())
+    later_tifs |= {r["file"] for r in fleet["local_downloads"]}
+    # HALO is represented only by a prior blocked run card; its registry
+    # comparison is explicitly null, so this is inventory coverage, not clearance.
+    halo = json.loads((ROOT / "evidence/run_card_karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json").read_text())
+    assert halo["ok_to_submit"] is False
+    assert halo["correlation_overlap_vs_registry"]["final_dot_overlap"] is None
+    later_tifs.add(f"docs/downloads/{halo['submission_name']}")
     uncovered = actual_tifs - audited_tifs - later_tifs
     assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
     assert audited_tifs <= actual_tifs
