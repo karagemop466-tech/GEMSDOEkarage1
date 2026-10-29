@@ -1,0 +1,50 @@
+{
+  "schema": "karage1-metric-threshold-check-v1",
+  "session": "arena/23ef16f9",
+  "note": "Synthetic posteriors only. Not a holdout result and not a leaderboard estimate.",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "runs": [
+    {
+      "seed": 0,
+      "best_threshold": 0.06,
+      "best_dti": 0.28816,
+      "rule_threshold_alpha_x_dti": 0.05763,
+      "abs_gap": 0.00237,
+      "n_selected_at_best": 39951
+    },
+    {
+      "seed": 1,
+      "best_threshold": 0.06,
+      "best_dti": 0.29862,
+      "rule_threshold_alpha_x_dti": 0.05972,
+      "abs_gap": 0.00028,
+      "n_selected_at_best": 39765
+    },
+    {
+      "seed": 2,
+      "best_threshold": 0.06,
+      "best_dti": 0.29372,
+      "rule_threshold_alpha_x_dti": 0.05874,
+      "abs_gap": 0.00126,
+      "n_selected_at_best": 39780
+    },
+    {
+      "seed": 3,
+      "best_threshold": 0.06,
+      "best_dti": 0.28981,
+      "rule_threshold_alpha_x_dti": 0.05796,
+      "abs_gap": 0.00204,
+      "n_selected_at_best": 39679
+    },
+    {
+      "seed": 4,
+      "best_threshold": 0.06,
+      "best_dti": 0.30286,
+      "rule_threshold_alpha_x_dti": 0.06057,
+      "abs_gap": 0.00057,
+      "n_selected_at_best": 40210
+    }
+  ],
+  "max_abs_gap": 0.00237
+}

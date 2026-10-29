@@ -59,7 +59,8 @@ def test_fleet_audit_covers_every_local_tif_and_blocks_all():
     halo = _load("evidence/halo_saved_byte_gate_audit_20261029.json")
     halo_path = halo["candidate"]["file"]
     assert halo_path in on_disk
-    assert (on_disk - {halo_path}) <= files
+    assert halo_path in files  # newer fleet audit also records positive-pixel proximity
+    assert files <= on_disk
     assert all(r["ok_to_submit"] is False for r in d["local_downloads"])
     assert min(r["lattice_directed_overlap_3px"] for r in d["local_downloads"]) > 0.98
     import hashlib

@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
-"""Compatibility entry point for the single, fail-closed site renderer."""
-from pathlib import Path
-import sys
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-from scripts.render_site import main
+"""Deprecated compatibility wrapper.
+
+The checked-in public pages include session-specific content that the older
+single renderer cannot reproduce. Keep this legacy entry point non-destructive;
+use ``scripts/render_site.py`` only when explicitly rebuilding its supported
+fail-closed page set.
+"""
+
+
+def main() -> int:
+    print("No-op: preserving the current multi-session decision pages.")
+    return 0
+
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

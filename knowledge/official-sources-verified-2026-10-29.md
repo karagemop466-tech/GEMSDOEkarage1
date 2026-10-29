@@ -60,3 +60,14 @@ Irregularities:
 # fetch the official pages listed above; compare the figures in sections A and C
 python -m pytest -q          # 362 tests expected after this session's additions
 ```
+
+## F. Re-verification added by session arena/fb1e3550 (29 Oct 2026)
+
+Fetched again with the `fetch_page` tool the same day. Quotations are from the fetched text.
+
+| # | Claim | Source (open to check) | Quoted text (abridged) | Status |
+|---|---|---|---|---|
+| F1 | Provided layers include dilatation rate, shear strain rate, second invariant of the strain-rate tensor, isostatic gravity and its slope, RTP / TMI / TMI slopes / top-of-crust magnetic source depth, conductivity, detrended elevation, density of earthquakes, and radiometric counts | [Problem description, Provided features](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) | "Dilatation rate, shear strain rate, and the second invariant of the strain rate tensor" · "Magnetics including reduced-to-pole magnetic anomaly, total magnetic intensity, the vertical and horizontal slope of total magnetic intensity, and the top-of-crustal magnetic source depth estimate" | VERIFIED. Supports the bands used by H-K1-STRAINPHASE and H-K1-SIGNEDOFFSET. |
+| F2 | Initial Round scores each submission against a private set labelled before the competition; expert review applies to the Final Round | same page, "Competition structure" | "each submission scored against a private set of new faults labeled by experts before the competition" · "Expert review: panel cross-references submitted faults for candidate new faults" | VERIFIED. The prompt's claim that a human must inspect submissions before scoring is **not** supported for the Initial Round. Flagged. |
+| F3 | Public #1 is 0.4544 (xiaofanhu); the first page does not show 0.3195 | [Leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) | "#1 … xiaofanhu … 0.4544" | VERIFIED (first chunk; rank 47 not re-read this session). |
+| F4 | External data allowed if the participant holds a licence permitting use and sharing | same page, "External datasets" | "Participants are allowed to use any additional data sources, provided that the participants possess a license that permits the data to be used" | VERIFIED. All restored files are third-party mirrors; licence review is still required before use in a submission. |

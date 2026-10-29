@@ -34,11 +34,11 @@
   "geological_experiments_run": 0,
   "software_tests": {
     "command": "/tmp/gems-review-venv/bin/python -m pytest -q",
-    "passed": 383,
+    "passed": 407,
     "failed": 0,
     "skipped": 0,
-    "warnings": 119,
-    "meaning": "Final suite after syncing the latest origin/main, independently auditing the upstream halo artifact, quarantining the GSE CLI, and rendering the 32-page site; software verification only."
+    "warnings": 124,
+    "meaning": "Final suite after syncing latest origin/main (b9daedf), preserving main-owned static pages, adding fail-closed GSE/halo audit regressions, and confirming legacy build wrapper does not overwrite session pages; software verification only."
   },
   "blocked_entrypoints": {
     "scripts/run_karage1_experiments.py --stage all": "exit 2; BLOCKED, no experiment or raster produced",
@@ -86,5 +86,17 @@
     "uniqueness": "Not measured against complete registry; structural difference is not clearance.",
     "holdout_dti": null,
     "ok_to_submit": false
+  },
+  "observed_later_mainline_reviews": {
+    "hgridge_candidate": {
+      "run_card": "evidence/hgridge_run_card_20261029T181321Z.json",
+      "status": "upstream negative; holdout approximately random; literal lattice failure; not produced in this session"
+    },
+    "tested_hypotheses": [
+      "evidence/exp2_signedoffset_holdout.json",
+      "evidence/exp2_strainphase_holdout.json"
+    ],
+    "status": "Upstream report records tested-negative holdouts with evaluator, withheld-positive count and 95% CI. Third-party mirror provenance is not organizer-authenticated; not organizer scores or leaderboard projections.",
+    "no_additional_experiment_or_slot_action_in_this_session": true
   }
 }
