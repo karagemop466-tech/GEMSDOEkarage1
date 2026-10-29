@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -72,7 +73,11 @@ def test_run_card_is_negative_and_authorizes_nothing():
 def test_superseded_promote_verdict_is_not_an_approval():
     for rel in ("docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json",
                 "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.json"):
-        assert _load(rel)["verdict"].startswith("NOT PROMOTED")
+        if not (ROOT / rel).exists():
+            continue  # archived copies may be moved; the archive receipt below is authoritative
+        card = _load(rel)
+        assert card["verdict"] != "promote", rel
+        assert card["ok_to_submit"] is False, rel
 
 
 def test_built_pages_contain_no_stale_clearance_language():
@@ -82,5 +87,6 @@ def test_built_pages_contain_no_stale_clearance_language():
         text = page.read_text()
         assert "CLEARED FOR SUBMISSION" not in text, page
         assert "IT IS OK TO DOWNLOAD AND SUBMIT" not in text, page
-        assert "unique-hyp-kth-therm-mask" not in text, page
+        # The retraction notice may name the file; a live download link must not exist.
+        assert not re.search(r'href="[^"]*unique-hyp-kth-therm-mask[^"]*\.(tif|zip)"', text), page
         assert "Which file is best, and is it OK to submit?" in text, page

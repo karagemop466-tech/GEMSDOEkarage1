@@ -112,7 +112,7 @@
       "commit": "86874b72302197a78eb8ad5edbf413acf1c02efe"
     }
   ],
-  "local_downloads_count": 11,
+  "local_downloads_count": 10,
   "all_local_downloads_blocked": true,
   "local_downloads": [
     {
@@ -303,25 +303,6 @@
       "literal_lattice_duplicate": true,
       "worst_focus_site_3px": "GEMSDOE27",
       "worst_focus_site_overlap_3px": 0.14563806777217014,
-      "ok_to_submit": false
-    },
-    {
-      "file": "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
-      "bytes": 147139,
-      "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
-      "is_binary_inside": true,
-      "positive_pixels_in_footprint": 37654,
-      "outside_unmasked_positive_pixels": 0,
-      "outside_any_positive_pixels": 0,
-      "grid_and_inside_pass": true,
-      "nan_outside_variant_pass": false,
-      "strict_whole_array_variant_pass": true,
-      "outside_encoding_accepted": true,
-      "lattice_dots_within_3px": 37617,
-      "lattice_directed_overlap_3px": 0.999017368672651,
-      "literal_lattice_duplicate": true,
-      "worst_focus_site_3px": "GEMSDOE27",
-      "worst_focus_site_overlap_3px": 0.2653635735911191,
       "ok_to_submit": false
     }
   ],

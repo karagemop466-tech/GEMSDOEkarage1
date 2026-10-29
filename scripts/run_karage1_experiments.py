@@ -52,7 +52,7 @@ def _require_protocol_repair() -> None:
     selector; changing a flag here is not sufficient.
     """
     raise RuntimeError(
-        "BLOCKED: Historical H-K1-1 runner disabled: duplicate lattice witness and missing "
+        "Historical H-K1-1 runner disabled: duplicate lattice witness and missing "
         "pre-placement literal registry gate. No experiment or TIFF was produced."
     )
 

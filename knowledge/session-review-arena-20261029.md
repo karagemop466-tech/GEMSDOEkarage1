@@ -50,12 +50,7 @@ the fleet audit `evidence/local_downloads_audit_20261029.json`, and the nine-sit
    "parent minus a 1-pixel collar". That describes a *secondary* file, `h27-4-r1`. The **pinned** GEMSDOE28 file
    (`h36-1-rung30`, reported 0.2710) is not a collar: 16,237 parent dots removed and 9,807 added. The note has been left as is; this
    discrepancy is flagged here for correction.
-9. **Score conflict.** The session brief cites a top score of 0.4413 and, in another place, 0.3195. The live
-   DrivenData leaderboard on 29 Oct 2026 shows #1 0.4544, #2 0.3916, #3 0.3911. The brief's figures do not match.
-10. **Source currency.** USGS states the National Hydrography Dataset was retired on 1 Oct 2023 and is no longer
-    maintained; its successor is 3DHP. The repo's use of NHD-era data should be checked before use.
-11. **Feature naming.** The official page lists "depth to conductive base surface". The mirror's band 15 is
-    labelled "depth to basement surface". Possibly the same quantity; not verified.
+9. **Score conflict (corrected).** The session brief cites a top score of 0.4413 and, elsewhere, 0.3195 as "highest". The live DrivenData leaderboard on 29 Oct 2026 shows #1 0.4544, #2 0.3916, #3 0.3911. **0.3195 is on the board at rank #47** (kpomazi); **0.4413 does not appear** in the top 50. An earlier draft of this review said the brief's figures "do not match"; that wording was incomplete. Source: [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), register `knowledge/official-sources-verified-2026-10-29.md` section C. The leaderboard shows no snapshot time.
 
 **Pass 3 — re-check against the request.** Full suite: **357 passed**. Site rebuilt with the single builder
 (`Rendered 32 deterministic decision pages; no submission authorized`). Every number on the new section traces to
@@ -82,9 +77,30 @@ literal rule are to place dots in the 6,649 lattice-uncovered pixels or to move 
 evasion the protocol forbids, and the second is outside this lane's authority. So the honest output is a
 negative decision, plus a precise owner question, not a file.
 
+## Official rules that bear on this decision (verified 29 Oct 2026)
+
+Full list with links: `knowledge/official-sources-verified-2026-10-29.md`.
+- **Close:** 3 Dec 2026, 11:59 p.m. UTC, about 35 days after this review (A10, [competition home](https://www.drivendata.org/competitions/306/competition-doe-gems/)).
+- **Weekly cap:** up to three submissions per week; one final set must be selected before the deadline (A6, [Official Rules §3.2, §3.4](https://docs.nlr.gov/docs/fy26osti/96647.pdf)).
+- **Known-fault masking (A5):** pixels on known USGS/INGENIOUS faults are excluded from evaluation (DrivenData staff forum post, 16 Sep 2026, not an official rule). This changes how dots *on* known faults score. Dots *next to* them still count as false positives.
+- **Original work (A9):** the submission must be an original work and must not include third-party content unless disclosed (Appendix A.5(1)). Copying a sibling's GeoTIFF therefore conflicts with the rules, not only with the uniqueness gate.
+- **Generative-AI disclosure (A7)** must appear in the narrative if any was used.
+
+## Reconciliation with concurrent sessions (same day)
+
+While this session was open, `main` gained three sessions' work (`a409acfe`, `b0714e6b`, `dc2e4c0c`, PRs #58–#60). Those sessions retracted the false CLEARED page, moved the unique-hyp TIF and its ZIP into `archive/quarantined-20261029/`, and added a fail-closed runner. This merge kept both sides:
+
+- **Quarantined runner** (`scripts/run_karage1_experiments.py`): the two branches made the same fix. Main's version was kept.
+- **Unique-hyp receipt** (`docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json`): main's `negative` / `ok_to_submit: false` supersession record was kept, not this branch's wording.
+- **Local audit receipt**: regenerated from the post-merge tree. It now lists **10** local TIFs in `docs/downloads/`, because the archived file has left that directory. An earlier draft of this review said 11.
+- **Nine-site section and the new tests** (`tests/test_session_20261029.py`): kept. Two of the new tests were adjusted to fit main's state: the stale-name check now forbids only live download links, since the retraction notice names the file.
+- **Pages**: regenerated with `scripts/build_site.py`, which calls the single renderer. The builder is deterministic (identical hashes across runs).
+- **README and AGENTS.md**: both sides kept. The READ FIRST brief comes first, followed by main's session notes.
+
 ## Owner decisions needed (these unblock everything)
 
-1. **Lattice witness.** Is the 13GEMSDOE calibration lattice (`inputs/calibration/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif`) a registry raster for the literal 70% rule? If yes, the rule cannot clear any
+1. **Is the 70% gate a rule at all?** The 70%-within-3-px and |Spearman| > 0.90 duplicate test is **not in the official rules**. It is the team's internal Parallel-Run Protocol (register item B1, checked against the Official Rules PDF and the competition pages). The owner must confirm whether it binds submissions, and whether it is measured against a registry or a witness raster.
+   Second, **the lattice witness.** Is the 13GEMSDOE calibration lattice (`inputs/calibration/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif`) a registry raster for the literal 70% rule? If yes, the rule cannot clear any
    dot raster above 22,163 dots. Options: (a) accept that a non-lattice method is needed; (b) revise the rule to compare
    against a non-calibration registry; (c) change the calibration witness. Each choice must be recorded by the owner.
 2. **Lane.** No single method lane has been assigned in any session; `registry/template.json` still has `method_lane: null`.
