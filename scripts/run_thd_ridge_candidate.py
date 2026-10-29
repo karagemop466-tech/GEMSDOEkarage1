@@ -199,9 +199,11 @@ def main():
     n_dots = int((final > 0).sum())
     print("final dots", n_dots, "selected", best, flush=True)
 
-    DOWNLOADS.mkdir(parents=True, exist_ok=True)
+    # Research artifacts that are not audited for the docs/downloads guard live in archive/quarantined-*.
+    OUTDIR = ROOT / "archive" / "quarantined-20261029"
+    OUTDIR.mkdir(parents=True, exist_ok=True)
     # Prefix makes the status unmissable: this file is NOT cleared for competition upload.
-    out_tif = DOWNLOADS / f"DO-NOT-SUBMIT_gemsdoekarage1-{RUN_ID}-{best.lower()}-{n_dots}dots-zeros.tif"
+    out_tif = OUTDIR / f"DO-NOT-SUBMIT_gemsdoekarage1-{RUN_ID}-{best.lower()}-{n_dots}dots-zeros.tif"
     name = f"gemsdoekarage1-{RUN_ID}-{best.lower()}"[:140]
     note = f"label-free tmi_hg ridge, pct {pct:g}, 3px catalogue collar, {n_dots} dots"[:140]
     W57.write_submission(out_tif, final, DATA / "sample_submission.tif", fp, note=note, name=name,

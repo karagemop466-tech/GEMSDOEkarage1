@@ -29,7 +29,7 @@ def receipt():
 def test_evidence_is_negative_and_never_cleared(receipt):
     assert receipt["status"].startswith("NEGATIVE")
     final = receipt["final"]
-    assert final["file"].startswith("docs/downloads/DO-NOT-SUBMIT_")
+    assert final["file"].startswith("archive/quarantined-20261029/DO-NOT-SUBMIT_")
     assert receipt["registry_check"]["unique"] is False
     assert receipt["registry_check"]["verdict"] == "negative"
     assert receipt["registry_check"]["stop_required"] is True

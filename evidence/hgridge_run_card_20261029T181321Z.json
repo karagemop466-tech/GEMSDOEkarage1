@@ -1,0 +1,118 @@
+{
+  "schema": "karage1-run-card-v1",
+  "lane": "K1-HGRID-STRAIN",
+  "session_branch": "arena/1d15747e-gemsdoekarage1",
+  "created_utc": "2026-10-29T18:14:03.877291+00:00",
+  "hypothesis": "Magnetic horizontal-gradient crests (Blakely & Simpson 1986 edge estimator on TMI) that also sit in above-median geodetic second-invariant strain rate mark buried or unmapped fault traces that are absent from the USGS/INGENIOUS catalogue.",
+  "mechanism": "A fault with vertical or steep offset juxtaposes magnetically contrasting blocks, producing a narrow horizontal-gradient crest; active slip concentrates geodetic strain in the same corridor.",
+  "named_non_fault_mimic": "Lithologic or intrusive contacts (magnetic crests without slip) and GPS/InSAR network-geometry strain artefacts near survey edges.",
+  "holdout": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "evaluator_implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    },
+    "deliverable_catalogue_pruned": {
+      "pooled_dti": 0.03642491950923427,
+      "ci95": [
+        0.029508749993386797,
+        0.041800023697930636
+      ],
+      "withheld_positives": 22641,
+      "note": "Dots on the full mapped catalogue removed before scoring; conservative, because removal also drops withheld truth."
+    },
+    "label_blind_same_K": {
+      "pooled_dti": 0.0480909308123173,
+      "ci95": [
+        0.03805932522279848,
+        0.05575265179150788
+      ],
+      "withheld_positives": 22641
+    },
+    "random_control_same_K": {
+      "pooled_dti": 0.044867887048244924,
+      "ci95": [
+        0.03843749839041684,
+        0.05024556916362554
+      ]
+    },
+    "paired_gate_minus_random_note": "CIs overlap; no measurable skill over random placement at this K."
+  },
+  "correlation_and_overlap_vs_registry": {
+    "registry_rasters_checked": 15,
+    "worst_focus_site_file": "GEMS19_h19-5-powerlaw-budget-multiline-corroborated_nan.tif",
+    "worst_focus_forward_3px_overlap": 0.22138418229139004,
+    "worst_focus_abs_spearman": 0.0014453872443883824,
+    "lattice_forward_3px_overlap": 0.9987783502416742,
+    "lattice_floor_forward_overlap": 0.8234184947150369,
+    "lattice_uncovered_footprint_cells": 6649
+  },
+  "raster_sha256": "15f330343236f41cb4db1bd1b87f0fd6ae3b6bb4d0e179082761fe7694385d98",
+  "validator": {
+    "reread": {
+      "finite_everywhere": true,
+      "min": 0.0,
+      "max": 1.0,
+      "in_unit_interval": true,
+      "positive_outside_footprint": 0,
+      "positive_on_mapped_catalogue": 0,
+      "positive_count": 37654,
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ]
+      },
+      "crs_match": true,
+      "shape_match": true,
+      "transform_match": true
+    },
+    "gates": {
+      "format_valid": true,
+      "no_positives_outside_footprint": true,
+      "no_positives_on_mapped_catalogue": true,
+      "canary_no_leakage": true,
+      "registry_focus_forward_overlap_le_0_70": true,
+      "registry_focus_abs_spearman_le_0_90": true,
+      "lattice_literal_forward_overlap_le_0_70": false,
+      "literal_protocol_all_pass": false
+    },
+    "sample_check": {
+      "sample_nan_count_outside": 7111787,
+      "submission_outside_is_zero": true
+    }
+  },
+  "submission_name": "karage1-hgridge-strain-K37654-20261029T181321Z",
+  "submission_note": "K1-HGRID-STRAIN label-blind TMI-crest x strain, 37654 dots. Format-valid; holdout ~ random. NOT CLEARED.",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "selector_required": true,
+  "slot_selected_or_spent": false,
+  "experiments_used": {
+    "E1_runs": 3,
+    "E2": 1,
+    "E3": 1,
+    "budget": 3,
+    "disclosure": "E1 was re-run after two crest-threshold changes (80th pct -> median -> 0) because the 80th-percentile pool (17,751) could not fill K=37,654. Both changes are recorded in the file header and the E1 JSON."
+  },
+  "disclosures": [
+    "Shared writer emits zero-filled outside cells (all-finite export); organizer sample uses NaN outside. Flagged for review.",
+    "Literal 13GEMSDOE lattice rule cannot be passed by any raster with N > 22,163 dots: floor (N-6649)/N.",
+    "Holdout truth is the mapped catalogue; organizer scoring truth is a new-fault set. HOLDOUT-DTI is a proxy only."
+  ]
+}

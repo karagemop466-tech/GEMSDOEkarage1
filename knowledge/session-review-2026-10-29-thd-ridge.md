@@ -1,7 +1,7 @@
 # Session review — `arena/c65129cb-gemsdoekarage1` — 29 October 2026
 
 **Verdict: NEGATIVE / DO NOT SUBMIT.** One unique, format-valid GeoTIFF was generated
-(`docs/downloads/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif`).
+(`archive/quarantined-20261029/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif`).
 It is **not** cleared: it fails the literal 70%/3-px registry gate, and its holdout DTI is far
 below the repository's best recorded holdout value. No weekly slot was selected or spent. No
 leaderboard score is estimated.
@@ -124,6 +124,9 @@ strain analysis, which needs data we do not have (see §7).
 - **Gate design** (§4): a literal rule that fails pure noise.
 - **Leaderboard figure 0.4413** in the request is not on the official top-50 page.
 - **User-reported scores** (0.2778, 0.2750, 0.2710, 0.2708, 0.2632, 0.2600, 0.2477, 0.2449) are not in the official leaderboard view; they remain unverified.
+
+- **Placement:** the candidate lives in `archive/quarantined-20261029/`, not `docs/downloads/`. Files in `docs/downloads/` require a saved-byte audit row (`evidence/local_downloads_audit_20261029.json`), and that row must be produced by `scripts/audit_local_tif.py` with the full restored registry. The registry restore script on `main` could not run from this sandbox (its `gh api` fetch failed), so no such row was added by hand.
+- **Inherited test failures from `origin/main`:** `karage1-convect-cell-upflow-20261029-zeros.tif` is in `main`'s `docs/downloads/` without a fleet audit row. `tests/test_session_1668dda0_hardening.py::test_local_and_peer_evidence_verifies_all_9_local_tifs` and `tests/test_session_20261029.py::test_fleet_audit_covers_every_local_tif_and_blocks_all` fail on a clean `origin/main` checkout as well (verified in a temporary worktree). This is not caused by this session. Its owner needs to run the audit tool on that file with the full registry.
 
 ## 9. Next steps (ordered)
 

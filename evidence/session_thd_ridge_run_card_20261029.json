@@ -61,7 +61,7 @@
     "scope": "25 local registry rasters (data/scored + docs/downloads). Not every listed GEMSDOE submission had a file available; uniqueness vs those is NOT established."
   },
   "raster": {
-    "file": "docs/downloads/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+    "file": "archive/quarantined-20261029/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
     "sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
     "zip_sha256": "a447b62ffa0b519b13e5149459e5286099fd30ade480688eb7559ca81667f68d",
     "dots": 5734
