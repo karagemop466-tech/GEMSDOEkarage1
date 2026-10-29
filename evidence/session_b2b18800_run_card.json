@@ -1,0 +1,55 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc": "2026-10-29T18:21:50Z",
+  "session": "arena/b2b18800-gemsdoekarage1",
+  "hypothesis": "No hypothesis selected: the required assigned method lane is absent, and prior proposal/experiment records prevent an auditable claim that a new method is untried.",
+  "mechanism": "Repository review only. No candidate surface, placement, feature computation, experiment, holdout, or GeoTIFF generation occurred.",
+  "named_non_fault_mimic": "Not applicable; no candidate geological mechanism was tested.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "Not run. No score estimate or organizer score is claimed."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "registry_coverage": "No new candidate. Existing audits are partial and based on pinned mirrors, not a complete authenticated registry.",
+    "status": "Not computed in this session."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "Not run; no raster generated."
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "software_tests": {
+    "command": "/tmp/gems-review-venv/bin/python -m pytest -q",
+    "passed": 365,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 119,
+    "meaning": "Software verification only; not geological performance or score evidence."
+  },
+  "blocked_entrypoints": {
+    "scripts/run_karage1_experiments.py --stage all": "exit 2; BLOCKED, no experiment or raster produced",
+    "scripts/my_unique_experiment2.py": "exit 2; BLOCKED, no raster or card written"
+  },
+  "blockers": [
+    "No assigned method paragraph / method_lane and no canonical shared-template assignment in registry/template.json.",
+    "Competition data and cached feature stack absent from the checkout; no authenticated organizer payload access verified.",
+    "Complete authenticated submission registry unavailable; internal 70% / 3-pixel lattice stop remains unresolved.",
+    "No fresh retrieval of official DrivenData, USGS, NLR or GDR sources in this session.",
+    "No organizer submission receipt or live weekly-slot allowance checked."
+  ],
+  "verdict": "negative"
+}
