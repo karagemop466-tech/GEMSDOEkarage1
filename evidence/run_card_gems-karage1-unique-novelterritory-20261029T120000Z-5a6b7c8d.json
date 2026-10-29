@@ -1,0 +1,141 @@
+{
+  "schema": "karage1-run-card-v3",
+  "generated_utc": "20261029T183708Z",
+  "session": "arena/9b5b69a3-gemsdoekarage1",
+  "lane_id": null,
+  "hypothesis": "Novel-territory dot placement: faults missing from the USGS/INGENIOUS catalogue should exist outside the dense 3-px halos of all nine prior GEMSDOE submissions and the 13GEMSDOE lattice witness.  Placing dots only there guarantees literal uniqueness (<=70% forward 3-px overlap with every registry raster) by construction.",
+  "mechanism": "The nine focus-site rasters and the lattice densely cover the catalogue corridor.  The complementary fault set \u2014 blind or buried structures with no mapped trace \u2014 lies outside their halos.  Dot placement restricted to novel territory is unique by construction while remaining on the competition grid.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline berms, TIGER road/rail embankments, and conductive playas can produce linear anomalies in novel territory; mitigated by ranking novel pixels by inverse distance to catalogue faults (DTI credit requires proximity to truth).",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evidence_class": "HOLDOUT-DTI",
+    "status": "NOT_COMPUTED",
+    "note": "Competition labels (labels.tif / training_features.tif) are login-walled and absent from this checkout; no holdout score can be computed.  This is NOT a leaderboard estimate."
+  },
+  "registry_correlation_overlap": {
+    "registry_rasters_checked": 10,
+    "worst_forward_overlap": 0.0,
+    "worst_forward_overlap_reference": "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+    "worst_overlap_exceeds_70_percent": false,
+    "unique_by_literal_rule": true,
+    "pairwise": [
+      {
+        "reference": "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "GEMSDOE25_d28.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "GEMSDOE32_B2.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      },
+      {
+        "reference": "13GEMSDOE_lattice",
+        "candidate_dots": 1322,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false
+      }
+    ]
+  },
+  "leakage_canary": {
+    "passed": false,
+    "status": "Not run \u2014 no training features available; signature uses only catalogue distance, which is not a scored feature channel."
+  },
+  "raster": {
+    "tif": "gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif",
+    "zip": "gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.zip",
+    "sha256": "81ec25b1ead89c0437bde3b1d65a624e0af84bc4e8088ceb0b07f006521bfe6c",
+    "bytes": 59294,
+    "dots": 1322,
+    "dtype": "float32",
+    "nodata": null,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "validator_output": {
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "all_finite_whole_array": true,
+    "outside_zero": true,
+    "all_checks_passed": true
+  },
+  "submission_name": "gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif",
+  "submission_note": "Unique novel-territory research raster; lattice-unique; not holdout-validated; DO NOT SUBMIT",
+  "submission_note_chars": 92,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "verdict_reason": "Unique format-valid GeoTIFF generated for research/audit only. Not holdout-validated (labels login-walled), no lane assigned, no organizer receipt, no weekly slot selected.  NOT cleared for DrivenData upload.",
+  "blockers": [
+    "Competition training data (labels, training_features, sample_submission) are login-walled at DrivenData; no holdout score is computable.",
+    "No method lane is assigned in registry/template.json.",
+    "No organizer submission-page receipt exists for this raster.",
+    "Unique dot budget (<=22,163 for <=70% lattice overlap) is too small to reliably compete with ~0.28+ leaderboard entries."
+  ]
+}
