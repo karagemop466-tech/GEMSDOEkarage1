@@ -18,6 +18,10 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs'
+import sys as _sys
+if str(ROOT) not in _sys.path:
+    _sys.path.insert(0, str(ROOT))
+from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
 esc = html.escape
 
@@ -309,7 +313,8 @@ def nine_site_summary(p: str) -> str:
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
     p = '../' * depth
     doc = p + 'docs/'
-    links = [('Overview', p + 'index.html'), ('Executive summary', doc + 'executive-summary.html'),
+    links = [('Overview', p + 'index.html'), ('Submit now', doc + 'submission-hub.html'),
+             ('Executive summary', doc + 'executive-summary.html'),
              ('Research', doc + 'research.html')]
     nav = ''.join(f'<a {"class=active aria-current=page " if n == active else ""}href="{href}">{n}</a>' for n, href in links)
     return f'''<!doctype html>
@@ -616,11 +621,13 @@ def main():
     evidence()
     secondary_evidence()
     local_and_peer_evidence()
+    hub = submission_hub.build_facts()
     pages = {
-        ROOT / 'index.html': shell('Submission overview', home(0), 0),
+        ROOT / 'index.html': shell('Submission overview', submission_hub.summary_strip(0) + home(0), 0),
+        DOCS / 'submission-hub.html': shell('Submit now: executive summary and download', submission_hub.body(hub, 1), 1, 'Submit now'),
         ROOT / 'legacy-overview.html': shell('Submission overview', home(0), 0),
         ROOT / 'executive-summary.html': shell('Submission guide', nine_site_section('') + guide(0), 0, 'Executive summary'),
-        DOCS / 'index.html': shell('Submission overview', home(1), 1),
+        DOCS / 'index.html': shell('Submission overview', submission_hub.summary_strip(1) + home(1), 1),
         DOCS / 'executive-summary.html': shell('Executive summary', nine_site_section('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'legacy-executive-summary.html': shell('Executive summary', guide(1), 1, 'Executive summary'),
         DOCS / 'how-to-submit.html': shell('Submission guide', guide(1), 1, 'Executive summary'),

@@ -204,6 +204,9 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     # evidence/run_card_dipdual_20261028.json, verdict negative).
     later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
     later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
+    # 2026-10-29 H-TILTGRAV final TIF: saved-byte audit by scripts/audit_tiltgrav_bytes.py.
+    tilt = json.loads((ROOT / "evidence/local_candidates_tiltgrav_audit_20261029.json").read_text())
+    later_tifs |= {f"docs/downloads/{r['file']}" for r in tilt["candidates"]}
     # Session 1d15747e's K1-HGRID-STRAIN build receipts cover its own TIF (validator, reread,
     # uniqueness and run card are all written by the same stage; see evidence/hgridge_e3_build_*.json).
     for receipt in sorted((ROOT / "evidence").glob("hgridge_e3_build_*.json")):

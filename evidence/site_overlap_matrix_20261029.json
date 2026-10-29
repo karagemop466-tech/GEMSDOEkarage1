@@ -1,0 +1,242 @@
+{
+  "schema": "karage1-site-overlap-matrix-v1",
+  "date": "2026-10-29",
+  "measure": "forward: share of ROW dots within 3 px (300 m) of COLUMN dots (gems57.uniqueness.dot_overlap)",
+  "limit_literal": 0.7,
+  "items": [
+    {
+      "label": "GEMSDOE24",
+      "file": "h25-1-dotted-h19-5-d1-5",
+      "reported": 0.2477,
+      "path": "registry/GEMSDOE24_h25-1-dotted-h19-5-d1-5_allfinite.tif",
+      "sha256": "3e0730e8d4f7db095dd80246a98cba3bc0fc9a28f436b91db27ca34df4d0d1ce",
+      "dots": 60069
+    },
+    {
+      "label": "GEMSDOE25",
+      "file": "dotted-h19-5-d2-8",
+      "reported": 0.26,
+      "path": "registry/GEMSDOE25_dotted-h19-5-d2-8_zeros.tif",
+      "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "dots": 44090
+    },
+    {
+      "label": "GEMSDOE27",
+      "file": "topo-gap-closure-t-v2-on-d1-5",
+      "reported": 0.2449,
+      "path": "registry/GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif",
+      "sha256": "a9bf76b57453a5b3af74c8eef837df53c29a0931162aa540b8763220b36ba3bb",
+      "dots": 61328
+    },
+    {
+      "label": "GEMSDOE28",
+      "file": "h36-1-rung30-blind-r1",
+      "reported": 0.271,
+      "path": "registry/GEMSDOE28_h36-1-rung30-blind-r1_allfinite.tif",
+      "sha256": "7c74270ad48fa0b865163853046a6d3815967c5bf37bbda5b74ca7fa22583a32",
+      "dots": 37660
+    },
+    {
+      "label": "GEMSDOE30",
+      "file": "d28-poisson300m-offcat-44090",
+      "reported": 0.26,
+      "path": "registry/GEMSDOE30_d28-poisson300m-offcat-44090.tif",
+      "sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+      "dots": 44090
+    },
+    {
+      "label": "GEMSDOE31",
+      "file": "h27-4-solo-d28",
+      "reported": 0.2708,
+      "path": "registry/GEMSDOE31_h27-4-solo-d28_allfinite.tif",
+      "sha256": "acd853936e5a7170b207f23411b1844caa0e7cfdfc303c600e520ccfe75159e6",
+      "dots": 40199
+    },
+    {
+      "label": "GEMSDOE32",
+      "file": "h33-h33-2-b2",
+      "reported": 0.2778,
+      "path": "registry/GEMSDOE32_h33-h33-2-b2_e5eb6e7e_zeros.tif",
+      "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "dots": 37654
+    },
+    {
+      "label": "GEMSDOE33",
+      "file": "h33d-analog-tip-stepover-r30",
+      "reported": 0.2632,
+      "path": "registry/GEMSDOE33_h33d-analog-tip-stepover-r30.tif",
+      "sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+      "dots": 41865
+    },
+    {
+      "label": "GEMSDOE36",
+      "file": "anderson-geothermal-pinn-38854",
+      "reported": 0.275,
+      "path": "registry/GEMSDOE36_anderson-geothermal-pinn-38854_zeros.tif",
+      "sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+      "dots": 38854
+    },
+    {
+      "label": "13GEMSDOE lattice (calibration)",
+      "file": "13GEMSDOE_r13-lattice-s5_v2_nan-outside.tif",
+      "reported": 0.0904,
+      "path": "registry/13GEMSDOE_r13-lattice-s5_v2_nan-outside.tif",
+      "sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+      "dots": 206895
+    },
+    {
+      "label": "NEW candidate (H-TILTGRAV)",
+      "file": "karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
+      "reported": null,
+      "path": "docs/downloads/karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
+      "sha256": "f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5",
+      "dots": 37654
+    }
+  ],
+  "matrix": [
+    [
+      1.0,
+      1.0,
+      1.0,
+      0.934792,
+      1.0,
+      0.940785,
+      0.884766,
+      0.962393,
+      0.885615,
+      0.999218,
+      0.143934
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      0.931821,
+      1.0,
+      0.937151,
+      0.881719,
+      0.960581,
+      0.882649,
+      0.999161,
+      0.143933
+    ],
+    [
+      0.980188,
+      0.980156,
+      1.0,
+      0.916156,
+      0.980156,
+      0.922091,
+      0.86719,
+      0.943289,
+      0.868037,
+      0.999234,
+      0.14473
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.997557,
+      0.954727,
+      0.998407,
+      0.955204,
+      0.999097,
+      0.15223
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      0.931821,
+      1.0,
+      0.937151,
+      0.881719,
+      0.960581,
+      0.882649,
+      0.999161,
+      0.143933
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      0.995622,
+      1.0,
+      1.0,
+      0.953904,
+      0.999055,
+      0.954402,
+      0.999179,
+      0.152516
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      0.998752,
+      1.0,
+      1.0,
+      1.0,
+      0.999841,
+      1.0,
+      0.99915,
+      0.156265
+    ],
+    [
+      0.997062,
+      0.997038,
+      0.997086,
+      0.9705,
+      0.997038,
+      0.9748,
+      0.92643,
+      1.0,
+      0.927123,
+      0.99914,
+      0.150388
+    ],
+    [
+      0.975678,
+      0.974983,
+      0.975781,
+      0.97313,
+      0.974983,
+      0.974571,
+      0.974031,
+      0.975035,
+      1.0,
+      0.999176,
+      0.155685
+    ],
+    [
+      0.180667,
+      0.171788,
+      0.185108,
+      0.157665,
+      0.171788,
+      0.159873,
+      0.150598,
+      0.166084,
+      0.154402,
+      1.0,
+      0.208922
+    ],
+    [
+      0.125405,
+      0.118394,
+      0.129389,
+      0.113003,
+      0.118394,
+      0.115419,
+      0.112259,
+      0.11842,
+      0.114888,
+      0.996229,
+      1.0
+    ]
+  ],
+  "evaluator_note": "Lattice row/column are calibration-probe context; see knowledge/ for the gate question."
+}

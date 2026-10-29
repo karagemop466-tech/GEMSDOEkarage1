@@ -112,7 +112,7 @@
       "commit": "86874b72302197a78eb8ad5edbf413acf1c02efe"
     }
   ],
-  "local_downloads_count": 14,
+  "local_downloads_count": 16,
   "all_local_downloads_blocked": true,
   "local_downloads": [
     {
@@ -383,6 +383,48 @@
       "worst_focus_site_overlap_3px": 0.18245236111260707,
       "ok_to_submit": false,
       "audit_receipt": "evidence/audit_halo_damagezone_d2p0_20261029.json",
+      "note": "Row appended by scripts/audit_local_tif.py (session 1d15747e). Research audit only; not cleared."
+    },
+    {
+      "file": "docs/downloads/karage1-convect-cell-upflow-20261029-zeros.tif",
+      "bytes": 73684,
+      "sha256": "423f22d97056f61346fc2427e0f7c4843d14ecde6ef57b798ac9d59bff6162f7",
+      "is_binary_inside": true,
+      "positive_pixels_in_footprint": 6000,
+      "outside_unmasked_positive_pixels": 65,
+      "outside_any_positive_pixels": 65,
+      "grid_and_inside_pass": false,
+      "nan_outside_variant_pass": false,
+      "strict_whole_array_variant_pass": false,
+      "outside_encoding_accepted": false,
+      "lattice_dots_within_3px": 5944,
+      "lattice_directed_overlap_3px": 0.9906666666666667,
+      "literal_lattice_duplicate": true,
+      "worst_focus_site_3px": "GEMSDOE27",
+      "worst_focus_site_overlap_3px": 0.175,
+      "ok_to_submit": false,
+      "audit_receipt": "evidence/audit_convect_cell_upflow_20261029.json",
+      "note": "Row appended by scripts/audit_local_tif.py (session 1d15747e). Research audit only; not cleared."
+    },
+    {
+      "file": "docs/downloads/karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
+      "bytes": 216424,
+      "sha256": "f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5",
+      "is_binary_inside": true,
+      "positive_pixels_in_footprint": 37654,
+      "outside_unmasked_positive_pixels": 0,
+      "outside_any_positive_pixels": 0,
+      "grid_and_inside_pass": false,
+      "nan_outside_variant_pass": false,
+      "strict_whole_array_variant_pass": false,
+      "outside_encoding_accepted": false,
+      "lattice_dots_within_3px": 37512,
+      "lattice_directed_overlap_3px": 0.9962288203112551,
+      "literal_lattice_duplicate": true,
+      "worst_focus_site_3px": "GEMSDOE27",
+      "worst_focus_site_overlap_3px": 0.13555000796728103,
+      "ok_to_submit": false,
+      "audit_receipt": "evidence/audit_tiltgrav_ridge_sp6_20261029.json",
       "note": "Row appended by scripts/audit_local_tif.py (session 1d15747e). Research audit only; not cleared."
     }
   ],

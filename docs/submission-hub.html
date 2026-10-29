@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Auditable submission decisions and research for the DOE GEMS fault-mapping prize.">
+<meta name="theme-color" content="#f6f8f5"><title>Submit now: executive summary and download · GEMS Field Intelligence</title>
+<link rel="stylesheet" href="../docs/assets/styles.css"><link rel="stylesheet" href="../docs/assets/decision.css"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner container">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
+<nav class="main-nav" aria-label="Main navigation"><a href="../index.html">Overview</a><a class=active aria-current=page href="../docs/submission-hub.html">Submit now</a><a href="../docs/executive-summary.html">Executive summary</a><a href="../docs/research.html">Research</a></nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
+<div class="container"><p class="global-hold"><strong>DO NOT SUBMIT</strong> · NOT CLEARED · Newest file <a href="../docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif">karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif</a> · SHA-256 <code>15f330343236f41c…</code> · download for audit only · literal lattice gate fails (pigeonhole floor 82.3%) · holdout not above random placement · no slot spent.</p></div></header>
+<main id="main"><div class="container">
+<section class="hub-decision" id="download" aria-labelledby="hub-title">
+  <p class="eyebrow">SUBMISSION DECISION · 29 OCT 2026</p>
+  <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-no">NO — NOT CLEARED: DO NOT SUBMIT</span></h1>
+  <p><strong>No file on this site is cleared for DrivenData upload.</strong> The new GeoTIFF below is valid in
+  format and passes the rank and dot-overlap checks against the nine focus files. It fails the literal 3-px lattice gate, and its holdout is negative. It must not be submitted.</p>
+  <ul class="why">
+    <li><strong>Holdout is negative.</strong> HOLDOUT-DTI 0.0498
+    [0.0461, 0.0538] versus a spacing-matched random
+    null at 0.0526 (paired Δ -0.0028,
+    95% CI [-0.0064, +0.0010] — includes zero).</li>
+    <li><strong>Lattice gate fails.</strong> 99.62% of its dots lie within 3 px of the
+    13GEMSDOE calibration lattice; the literal stop is &gt; 70%.</li>
+    <li><strong>No organizer receipt.</strong> No submission-page score, organizer acceptance, or live slot
+    allowance was verifiable from this sandbox (DrivenData login-walled).</li>
+  </ul>
+  <article class="audit-card download-card">
+    <p class="eyebrow">NEW FILE · research only · NOT CLEARED: DO NOT SUBMIT</p>
+    <h2><a class="download-link" href="downloads/karage1-tiltgrav-ridge-sp6-37654-20261029.tif" download>Download karage1-tiltgrav-ridge-sp6-37654-20261029.tif</a></h2>
+    <p><small>Single-band float32 GeoTIFF · EPSG:32611 · 100 m · 3292×3730 · values 0–1 inside the footprint ·
+    NaN outside the footprint (official text: null or NaN). SHA-256 <code class="wrap">f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5</code>.
+    Name: <code>karage1-tiltgrav-ridge-sp6-37654-20261029</code> · Note (110 chars): <code>tc-ridge x abs gravity-hgrad, label-free, 6px spacing, 37654 dots. NEGATIVE: below random null. DO NOT SUBMIT.</code></small></p>
+    <p><span class="tag-no">DO NOT SUBMIT</span> Reason: negative holdout and lattice duplicate (see above).
+    If the protocol owner rules the lattice gate out of scope, this file still has to clear the holdout test to be
+    worth a slot — it does not.</p>
+  </article>
+</section>
+
+<section class="hub-table" aria-labelledby="sites-title">
+  <p class="eyebrow">EXECUTIVE SUMMARY · NINE FOCUS SITES</p>
+  <h2 id="sites-title">Best file per site, its score, estimate, and uniqueness</h2>
+  <p>Scores are <strong>USER-REPORTED / UNVERIFIED</strong> from the brief. None is ORGANIZER-CONFIRMED. The overlap
+  columns are measured on the restored, SHA-pinned mirror rasters (REGISTRY-MEASUREMENT). Duplicate =
+  &gt; 70% of a file's dots within 3 px of another file's dots (the project's literal gate).
+  A file is only "unique" if it clears the gate against all focus files <em>and</em> the lattice.</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Site</th><th>File to download</th><th>Score (user-reported)</th>
+    <th>Estimated score</th><th>Unique vs the other GEMSDOE files?</th><th>OK to submit?</th></tr></thead>
+    <tbody><tr><td><strong>GEMSDOE24</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE24/">site page ↗</a></td><td><code class="wrap">h25-1-dotted-h19-5-d1-5</code><br><small>60,069 dots · registry copy <code>registry/GEMSDOE24_h25-1-dotted-h19-5-d1-5_allfinite.tif</code></small></td><td><strong>0.2477</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.92% · dot-overlap duplicates among focus files: GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36<br>rank duplicates (rho &gt; 0.90): GEMSDOE27</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr><tr><td><strong>GEMSDOE25</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE25/">site page ↗</a></td><td><code class="wrap">dotted-h19-5-d2-8</code><br><small>44,090 dots · registry copy <code>registry/GEMSDOE25_dotted-h19-5-d2-8_zeros.tif</code></small></td><td><strong>0.2600</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.92% · dot-overlap duplicates among focus files: GEMSDOE24, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36<br>rank duplicates (rho &gt; 0.90): GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE36</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr><tr><td><strong>GEMSDOE27</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE27/">site page ↗</a></td><td><code class="wrap">topo-gap-closure-t-v2-on-d1-5</code><br><small>61,328 dots · registry copy <code>registry/GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif</code></small></td><td><strong>0.2449</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.92% · dot-overlap duplicates among focus files: GEMSDOE24, GEMSDOE25, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36<br>rank duplicates (rho &gt; 0.90): GEMSDOE24</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr><tr><td><strong>GEMSDOE28</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE28/">site page ↗</a></td><td><code class="wrap">h36-1-rung30-blind-r1</code><br><small>37,660 dots · registry copy <code>registry/GEMSDOE28_h36-1-rung30-blind-r1_allfinite.tif</code></small></td><td><strong>0.2710</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.91% · dot-overlap duplicates among focus files: GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36<br>rank duplicates (rho &gt; 0.90): none</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr><tr><td><strong>GEMSDOE30</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE30/">site page ↗</a></td><td><code class="wrap">d28-poisson300m-offcat-44090</code><br><small>44,090 dots · registry copy <code>registry/GEMSDOE30_d28-poisson300m-offcat-44090.tif</code></small></td><td><strong>0.2600</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.92% · dot-overlap duplicates among focus files: GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36<br>rank duplicates (rho &gt; 0.90): GEMSDOE25, GEMSDOE31, GEMSDOE32, GEMSDOE36</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr><tr><td><strong>GEMSDOE31</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE31/docs/">site page ↗</a></td><td><code class="wrap">h27-4-solo-d28</code><br><small>40,199 dots · registry copy <code>registry/GEMSDOE31_h27-4-solo-d28_allfinite.tif</code></small></td><td><strong>0.2708</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.92% · dot-overlap duplicates among focus files: GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE32, GEMSDOE33, GEMSDOE36<br>rank duplicates (rho &gt; 0.90): GEMSDOE25, GEMSDOE30, GEMSDOE32, GEMSDOE36</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr><tr><td><strong>GEMSDOE32</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html">site page ↗</a></td><td><code class="wrap">h33-h33-2-b2</code><br><small>37,654 dots · registry copy <code>registry/GEMSDOE32_h33-h33-2-b2_e5eb6e7e_zeros.tif</code></small></td><td><strong>0.2778</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.91% · dot-overlap duplicates among focus files: GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE33, GEMSDOE36<br>rank duplicates (rho &gt; 0.90): GEMSDOE25, GEMSDOE30, GEMSDOE31, GEMSDOE36</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr><tr><td><strong>GEMSDOE33</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE33/">site page ↗</a></td><td><code class="wrap">h33d-analog-tip-stepover-r30</code><br><small>41,865 dots · registry copy <code>registry/GEMSDOE33_h33d-analog-tip-stepover-r30.tif</code></small></td><td><strong>0.2632</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.91% · dot-overlap duplicates among focus files: GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE36<br>rank duplicates (rho &gt; 0.90): none</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr><tr><td><strong>GEMSDOE36</strong><br><a href="https://buffedlizard55-lab.github.io/GEMSDOE36/docs/">site page ↗</a></td><td><code class="wrap">anderson-geothermal-pinn-38854</code><br><small>38,854 dots · registry copy <code>registry/GEMSDOE36_anderson-geothermal-pinn-38854_zeros.tif</code></small></td><td><strong>0.2750</strong><br><small>USER-REPORTED · UNVERIFIED (no organizer receipt)</small></td><td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td><td>NO<br><small>lattice 99.92% · dot-overlap duplicates among focus files: GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33<br>rank duplicates (rho &gt; 0.90): GEMSDOE25, GEMSDOE30, GEMSDOE31, GEMSDOE32</small></td><td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); re-upload is a copy, and it fails the lattice gate</small></td></tr></tbody></table></div>
+  <p><small>Most focus files duplicate one another under the literal rule (for example, GEMSDOE24, 25, 27 and 30 each
+  have forward overlap 1.0000 with the others in the measured matrix). Full matrix:
+  <a href="../evidence/site_overlap_matrix_20261029.json">evidence/site_overlap_matrix_20261029.json</a>.</small></p>
+</section>
+
+<section class="hub-table" aria-labelledby="estimate-title">
+  <p class="eyebrow">HOW WE ESTIMATE A SCORE</p>
+  <h2 id="estimate-title">Estimates: what we can and cannot say</h2>
+  <p>We have one shared evaluator (<code>gems57-pooled-hide-v2</code>, α=0.2, β=0.8, 300 m kernel) and a
+  hide-and-recover holdout over the mapped faults. On that holdout, a uniform random placement at the same budget
+  scores about 0.05, while the user-reported (unverified) values for the nine files sit at 0.22–0.28.
+  <strong>The holdout is therefore not calibrated to the leaderboard and cannot produce a leaderboard estimate.</strong>
+  Holdout values below are HOLDOUT-DTI only.</p>
+  <p>Why GEMSDOE32 <code>h33-h33-2-b2</code> (user-reported 0.2778) scored highest among the listed sites, and whether a higher score is achievable: <a href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/main/knowledge/02_why_gemsdoe32_b2_scored_0.2778.md">explanation in the repository</a> (the link opens on main after the merge).</p>
+  <table><thead><tr><th>Arm (same budget 37,654 dots/fold)</th><th>HOLDOUT-DTI [95% CI]</th><th>Notes</th></tr></thead><tbody>
+  <tr><td>NEW candidate, spacing 6 px (file above)</td><td>0.0498 [0.0461, 0.0538]</td><td>EXP-3, withheld positives 60,988</td></tr>
+  <tr><td>Random null, spacing 6 px</td><td>0.0526 [0.0499, 0.0557]</td><td>best comparable control</td></tr>
+  <tr><td>NEW candidate, no spacing</td><td>0.0365 [0.0311, 0.0424]</td><td>EXP-2</td></tr>
+  <tr><td>Random null, no spacing</td><td>0.0535 [0.0504, 0.0564]</td><td>EXP-2; candidate minus this is significantly negative</td></tr>
+  <tr><td>Proximity shell (3–6 px from visible faults)</td><td>0.0022 [0.0008, 0.0038]</td><td>EXP-2</td></tr>
+  </tbody></table>
+  <p><small>Leakage canary (EXP-1): 19 feature layers tested alone; highest holdout AUC
+  0.6022 (ieq_n100a15); alarm threshold 0.90; alarms: False.</small></p>
+</section>
+
+<section class="hub-table" id="how-to-submit" aria-labelledby="how-title">
+  <p class="eyebrow">HOW TO SUBMIT (WHEN A FILE IS CLEARED)</p>
+  <h2 id="how-title">Step-by-step for the upload form</h2>
+  <ol class="steps">
+    <li>Confirm the file's status on this page says <strong>CLEARED FOR UPLOAD</strong>. Right now every file says NOT CLEARED.</li>
+    <li>Download the single <code>.tif</code> (or the one-TIFF <code>.zip</code>). Do not download from the
+    registry copies; they are third-party copies, not this team's output.</li>
+    <li>Check on your machine: one band, float32, EPSG:32611, shape 3730×3292, 100 m, identical transform to
+    the sample, values in [0, 1] inside the footprint, NaN outside (public spec: "data outside the bounds is null or nan").</li>
+    <li>Give it a unique name (≤ 140 characters) and a short note (≤ 140 characters) on the form, for example
+    the name and note above.</li>
+    <li>Use the official page for the rules: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">submission format</a> and the
+    <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official rules PDF</a>. Three submissions per week; one final submission is selected before the
+    deadline. The data tab is login-walled from this sandbox, and no upload was attempted.</li>
+  </ol>
+  <details><summary>Local validator results for the file above (all checks)</summary>
+  <ul class="checks"><li><code>single_band</code>: PASS</li><li><code>dtype_float32</code>: PASS</li><li><code>crs_epsg_32611</code>: PASS</li><li><code>shape_matches_sample</code>: PASS</li><li><code>transform_matches_sample</code>: PASS</li><li><code>bounds_match_sample</code>: PASS</li><li><code>cell_100m</code>: PASS</li><li><code>no_inf_anywhere</code>: PASS</li><li><code>in_footprint_all_finite</code>: PASS</li><li><code>outside_footprint_all_nan</code>: PASS</li><li><code>range_0_1_inside_footprint</code>: PASS</li><li><code>no_sentinel_values_inside</code>: PASS</li><li><code>nodata_is_nan</code>: PASS</li><li><code>zero_dots_on_mapped_catalogue</code>: PASS</li></ul></details>
+  <p class="shared-check"><strong>Shared template validator: FAILS on this file.</strong> <code>scripts/audit_local_tif.py</code>
+  (receipt <code>evidence/audit_tiltgrav_ridge_sp6_20261029.json</code>) reports <code>format_report_ok: false</code>:
+  7111787 NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN); nodata tag outside all-finite [0,1] export policy. The shared policy requires zeros outside the footprint; the official spec allows null or NaN.
+  This is the unresolved NaN-versus-zeros conflict and is one more reason the file is not cleared.</p>
+</section>
+
+<section class="hub-table" id="irregularities" aria-labelledby="irr-title">
+  <p class="eyebrow">IRREGULARITIES FLAGGED FOR MANUAL REVIEW</p>
+  <h2 id="irr-title">What does not match, and why it matters</h2>
+  <ul class="why">
+    <li>The brief cites 0.4413 and 0.3195. The repo README places 0.3195 at rank #47. The live leaderboard page (page 1 of 3 read this session) shows #1 at <strong>0.4544</strong> (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a>, fetched 2026-10-29). Neither 0.4413 nor 0.3195 was confirmed on the page read; pages 2–3 were not read.</li>
+    <li>The organizer's sample description says the sample "predicts total fault absence" (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem page</a>).
+    The mirrored <code>sample_submission.tif</code> has 60,988 positive cells, exactly equal to the label raster. The mirror does not match the description.</li>
+    <li>The mirrored <code>labels.tif</code> and <code>existing_faults.tif</code> are byte-identical (same SHA-256).</li>
+    <li>The problem page lists a "top-of-crustal magnetic source depth estimate" layer; none of the 19 bands in the mirrored
+    <code>training_features.tif</code> carries that name.</li>
+    <li>Two holdout evaluators exist: the protocol's shared <code>gems57-pooled-hide-v2</code> and an older
+    <code>gemsk-hide-recover-v1</code> used by earlier experiments. Their numbers are not comparable.</li>
+    <li>The vendored shared writer and validator write zeros outside the footprint and reject NaN. The official page and
+    the organizer sample use null or NaN outside. This session used a separate NaN-outside adapter and did not edit the pinned shared template.</li>
+    <li>The 13GEMSDOE lattice overlap gate blocks every dotted file (measured 99.62% for the new file; all
+    15 restored registry rasters with dots were measured in the registry audit). The literal gate has no
+    passing dotted candidate, which the protocol owner must decide.</li>
+    <li>Another team's TIF on <code>main</code>, <code>karage1-convect-cell-upflow-20261029-zeros.tif</code>, is not covered by the fleet audit that <code>main</code> ships with. The shared validator (receipt <code>evidence/audit_convect_cell_upflow_20261029.json</code>) reports 65 emitted pixels outside the footprint and dots on the mapped catalogue. It was appended to the fleet audit with <code>ok_to_submit: false</code>. Flagged for review; not modified here.</li>
+    <li>Also on <code>main</code> (PR #81): <code>gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif</code> has 46 dots on the mapped catalogue (its own check <code>zero_dots_on_mapped_catalogue</code> fails), and 0.0 lattice overlap. Its saved-byte receipt is <code>evidence/audit_novelterritory_20261029.json</code>. It is not a fleet row, because a non-lattice file would break the fleet test's lattice invariant. Flagged; not modified here.</li>
+    <li>The method lane paragraph the parallel-run protocol refers to is absent from the brief; the registry records
+    <code>method_lane: null</code>.</li>
+  </ul>
+</section>
+
+<section class="hub-table" id="decision-needed" aria-labelledby="decision-title">
+  <p class="eyebrow">DECISION NEEDED FROM THE PROTOCOL OWNER</p>
+  <h2 id="decision-title">Which gate applies to the lattice?</h2>
+  <p>(a) Keep the literal rule: no dotted file can be cleared, and the team stops uploading dotted candidates.
+  (b) Treat the 13GEMSDOE lattice as a calibration probe, as <code>registry/registry_roles.json</code> already
+  describes it, and apply the 70% gate only to team registry entries. (c) Something else. Until this is decided,
+  no file on this site is OK to submit.</p>
+</section>
+</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="../docs/data/latest-run-card.json">Latest run card</a><a href="../docs/research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>
