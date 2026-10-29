@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **Latest review (`arena/bd75aa22`, 2026-10-29): NEGATIVE / DO NOT SUBMIT.** Repository review only; no new TIF, geological experiment, HOLDOUT-DTI, score estimate, or slot selection. Test suite: **365 passed** (software verification only). No lane assignment or canonical shared template is recorded, authenticated inputs/cache and complete registry are unavailable, so experiments and a cleared unique submission remain blocked. See [session review](knowledge/session-review-arena-bd75aa22.md) and [JSON run card](evidence/session_bd75aa22_run_card.json).
+
 > **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
 
 > **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
