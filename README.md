@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **Current review `arena/4711a029` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** No new TIF, geological experiment, score estimate, or upload slot was produced. The nine-site comparison and four ranked research candidates are in [the current review](knowledge/session-review-arena-4711a029.md); the required session run card is [here](evidence/session_4711a029_run_card.json). The pinned template/data preflight is blocked (lane and canonical assignment absent, required cache/data missing, two vendored hash mismatches); all 365 software tests pass but do not measure model performance.
+
 > **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
 
 > **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
