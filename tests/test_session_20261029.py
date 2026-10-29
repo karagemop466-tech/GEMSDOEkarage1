@@ -90,3 +90,19 @@ def test_built_pages_contain_no_stale_clearance_language():
         # The retraction notice may name the file; a live download link must not exist.
         assert not re.search(r'href="[^"]*unique-hyp-kth-therm-mask[^"]*\.(tif|zip)"', text), page
         assert "Which file is best, and is it OK to submit?" in text, page
+
+
+def test_local_rasters_finite_values_in_unit_interval():
+    """Portal error 'Predicted values must be in range [0, 1]': no local raster may hold a finite value outside [0, 1]."""
+    import numpy as np
+    import rasterio
+
+    files = sorted((ROOT / "docs/downloads").glob("*.tif"))
+    assert len(files) >= 9
+    for f in files:
+        with rasterio.open(f) as ds:
+            assert ds.count == 1 and ds.dtypes[0] == "float32", f.name
+            a = ds.read(1)
+        finite = a[np.isfinite(a)]
+        assert finite.size > 0, f.name
+        assert float(finite.min()) >= 0.0 and float(finite.max()) <= 1.0, f.name

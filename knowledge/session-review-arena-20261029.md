@@ -77,6 +77,18 @@ literal rule are to place dots in the 6,649 lattice-uncovered pixels or to move 
 evasion the protocol forbids, and the second is outside this lane's authority. So the honest output is a
 negative decision, plus a precise owner question, not a file.
 
+## Portal error: "Predicted values must be in range [0, 1]"
+
+The user reported this error repeatedly. Checks run on 29 Oct 2026 (automated in `tests/test_session_20261029.py::test_local_rasters_finite_values_in_unit_interval`):
+
+- All 10 local rasters in `docs/downloads/` are single-band float32. Every finite value lies in [0, 1]. None has a value above 1 or below 0.
+- The NaN variants differ from the zeros variants only in their outside-footprint cells (7,111,787 NaN, which the official spec permits: "null or nan").
+- So **the error is not reproduced by any file in the repo.** The sandbox cannot reach the submission form, so its cause is unknown. Candidate causes, each of which needs a live-portal test: the portal rejecting NaN as out of range; a different raster being uploaded; or a nodata or sentinel convention on the portal side. Do not patch the files to chase this without a reproduced failure.
+
+## GEMSDOE32 0.2778 label
+
+The GEMSDOE32 page (`buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html`) labels the file as "0.2778 OWNER-REPORT (owner-provided submission-log claim; no submission-page receipt…)". This agrees with the registry label USER-REPORTED / UNVERIFIED. The same page says the file must not be resubmitted. The organizer's public board does not show a GEMSDOE score in the top 50 (see `knowledge/official-sources-verified-2026-10-29.md`, section C). Concurrent session `be012103` (merged to main) reached the same conclusion: the 0.2778 value cannot be explained from primary evidence.
+
 ## Official rules that bear on this decision (verified 29 Oct 2026)
 
 Full list with links: `knowledge/official-sources-verified-2026-10-29.md`.
