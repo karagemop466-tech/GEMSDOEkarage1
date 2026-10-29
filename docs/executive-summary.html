@@ -1,139 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Executive summary · GEMS Field Intelligence</title>
-<link rel="stylesheet" href="../docs/assets/styles.css">
-<style>
-  body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.5; padding: 2rem; max-width: 1200px; margin: 0 auto; color: #333; }
-  h1 { font-size: 2.5rem; }
-  .status-tag { padding: 0.5rem 1rem; background: #28a745; color: white; border-radius: 4px; font-weight: bold; }
-  .table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
-  .table th, .table td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
-  .table th { background: #f8f9fa; }
-  .download-btn { display: inline-block; padding: 0.5rem 1rem; background: #007bff; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; }
-  .card { border: 1px solid #ddd; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; background: #fdfdfd; }
-  .ok-to-submit { font-size: 1.5rem; color: #28a745; font-weight: bold; }
-</style>
-</head>
-<body>
-<header>
-  <h1>Executive Summary - Best Submission</h1>
-  <p><span class="status-tag">CLEARED FOR SUBMISSION</span></p>
-</header>
-<main>
-  <div class="card">
-    <h2 class="ok-to-submit">✓ IT IS OK TO DOWNLOAD AND SUBMIT THIS FILE</h2>
-    <p>We have successfully passed all uniqueness gates against the historical lattice and prior sites. The submission leverages a unique geological hypothesis intersecting structural elements with geochemical/thermal anomalies.</p>
-    <h3>How to submit:</h3>
-    <ol>
-      <li>Click the blue download button below to get the single-band GeoTIFF.</li>
-      <li>Go to the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/" target="_blank">Competition Submission Page</a>.</li>
-      <li>Upload the <code>.tif</code> file.</li>
-      <li>Add the recommended note so you can track it: <code>Unique Hypothesis: K/Th + Thermal + M_Full dualcover masked against proxy.</code></li>
-    </ol>
-  </div>
+<link rel="stylesheet" href="../docs/assets/styles.css"><link rel="stylesheet" href="../docs/assets/decision.css"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner container">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
+<nav class="main-nav" aria-label="Main navigation"><a href="../index.html">Overview</a><a class=active aria-current=page href="executive-summary.html">Executive summary</a><a href="how-to-submit.html">How to submit</a><a href="research.html">Research</a></nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
+<div class="container"><p class="global-hold"><strong>NOT OK TO SUBMIT</strong> · Format-valid unique TIF generated · research download only · no lane assigned · registry and holdout gates not yet cleared.</p></div></header>
+<main id="main"><div class="container"><div class="page-top"><span>EXECUTIVE SUMMARY <span class="separator">/</span> NINE FOCUS SITES</span><span class="page-date">29 OCT 2026 · GSE EXPERIMENT 1</span></div>
 
-  <h2>Submission Files and Estimates</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Site</th>
-        <th>File to Download</th>
-        <th>Estimated Score (Holdout DTI)</th>
-        <th>Unique?</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="background-color: #f0f8ff;">
-        <td><strong>GEMSDOEkarage1 (Current)</strong></td>
-        <td>
-          <a class="download-btn" href="downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif" download>Download unique-hyp-kth-therm-mask-20261028-zeros.tif</a>
-        </td>
-        <td><strong>0.1713</strong> (95% CI [0.1528, 0.1912])</td>
-        <td><strong>YES</strong> (Masked >3px)</td>
-        <td><strong style="color: #28a745;">SUBMIT THIS FILE</strong></td>
-      </tr>
-      <tr>
-        <td>GEMSDOE32</td>
-        <td>gemsdoe32-h33-h33-2-b2...</td>
-        <td>0.2778</td>
-        <td>NO (Lattice Duplicate)</td>
-        <td>DO NOT SUBMIT</td>
-      </tr>
-      <tr>
-        <td>GEMSDOE36</td>
-        <td>gemsdoe36-anderson-geothermal...</td>
-        <td>0.2750</td>
-        <td>NO</td>
-        <td>DO NOT SUBMIT</td>
-      </tr>
-      <tr>
-        <td>GEMSDOE28</td>
-        <td>gems28-h36-1-rung30...</td>
-        <td>0.2710</td>
-        <td>NO</td>
-        <td>DO NOT SUBMIT</td>
-      </tr>
-      <tr>
-        <td>GEMSDOE31</td>
-        <td>gemsdoe31-h27-4-solo...</td>
-        <td>0.2708</td>
-        <td>NO</td>
-        <td>DO NOT SUBMIT</td>
-      </tr>
-      <tr>
-        <td>GEMSDOE25</td>
-        <td>gems25-dotted-h19-5...</td>
-        <td>0.2600</td>
-        <td>NO</td>
-        <td>DO NOT SUBMIT</td>
-      </tr>
-      <tr>
-        <td>GEMSDOE30</td>
-        <td>gemsdoe30-d28-poisson...</td>
-        <td>0.2600</td>
-        <td>NO</td>
-        <td>DO NOT SUBMIT</td>
-      </tr>
-      <tr>
-        <td>GEMSDOE24</td>
-        <td>gems24-h25-1-dotted...</td>
-        <td>0.2477</td>
-        <td>NO</td>
-        <td>DO NOT SUBMIT</td>
-      </tr>
-      <tr>
-        <td>GEMSDOE27</td>
-        <td>gems27-topo-gap-closure...</td>
-        <td>0.2449</td>
-        <td>NO</td>
-        <td>DO NOT SUBMIT</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <h2 style="margin-top:2rem;">Hypothesis Run Card</h2>
-  <pre id="run-card" style="background:#f4f4f4; padding:1rem; overflow-x:auto;">
-{
-  "hypothesis": "K/Th Radiometric-Geothermal Submodular Intersection (Masked)",
-  "mechanism": "Hydrothermal alteration halos + thermal anomalies boosted on top of LiDAR structural scarps. Strict spatial masking ensures unique dots.",
-  "named_non_fault_process_mimic": "Erosional scarp with superficial alluvial mineralization.",
-  "holdout_DTI": "0.1713",
-  "holdout_version": "GEMSDOE32-HIDE-RECOVER-v3.0",
-  "withheld_positives": 27735,
-  "CI_95": "[0.1528, 0.1912]",
-  "correlation_vs_registry": {},
-  "overlap_vs_registry": {},
-  "raster_sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
-  "validator_output": "NaNs: 0, Range: [0,1], CRS: EPSG:32611",
-  "submission_name": "unique-hyp-kth-therm-mask-20261028-zeros",
-  "submission_note": "Unique Hypothesis: K/Th + Thermal + M_Full dualcover masked against proxy.",
-  "verdict": "promote"
-}
-  </pre>
-</main>
-</body>
-</html>
+<section class="subpage-hero"><div class="hero-copy"><p class="eyebrow"><span class="eyebrow-line"></span> EXECUTIVE SUMMARY — GEMSDOE NINE FOCUS SITES</p><h1>Which file to download,<br><em>which number, which is unique.</em></h1><p class="hero-description">Every focus-site value below is USER-REPORTED / UNVERIFIED — no organizer receipt was accessed. No projection is written as a score. The GSE TIF (Experiment 1) is format-valid and unique versus all registry rasters checked, but is NOT cleared for submission: no lane assigned, no holdout DTI produced.</p></div></section>
+
+<section class="section"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> DOWNLOAD TABLE — NINE FOCUS SITES + GSE</p><h2>File to download · score · uniqueness · action</h2><p>All focus-site rasters overlap 99.17%–100.00% within 3 px of the pinned 13GEMSDOE calibration lattice and are literal protocol duplicates. Do not resubmit them. The GSE TIF is unique but not cleared.</p></div></div>
+<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>File to download</th><th>Reported / estimated score</th><th>Evidence class</th><th>Uniqueness vs peer sites &amp; lattice</th><th>Recommended action</th></tr></thead><tbody>
+<tr><th scope="row"><strong>GEMSDOE32</strong> <span style="font-size:9px;color:#709c7f;font-weight:800;margin-left:4px;">BEST OF NINE</span></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE32/blob/73485f27cf230af770167397c2b72cb9ce3b3f25/docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif">gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2778</strong><span class="cell-sub">USER-REPORTED · UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.92% vs lattice; d2.8 minus 6,436 dots within 2 px of catalogue</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOE36</strong></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE36/blob/7edcc9b58e6ad0f88c6e6f5ee9218761a391769d/docs/downloads/gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif">gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2750</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.92% vs lattice; B2 superset +1,200 dots</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOE28</strong></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE28/blob/4955e29c7b66503ba2178b25d356d713dc1bc534/docs/downloads/gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif">gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2710</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.91% vs lattice</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOE31</strong></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE31/blob/88ec212955353f7590e94b8ef2a9763ffa035d45/docs/downloads/gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif">gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2708</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.92% vs lattice; mask identical to GEMSDOE28 h27-4-r1</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOE33</strong></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE33/blob/844f514819041c7be9efd345a24cf5cd70263f00/docs/downloads/GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif">GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2632</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.91% vs lattice</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOE25</strong></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE25/blob/b13ccabae15d4951854d47cb35e17322e7537b64/docs/downloads/gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif">gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2600</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.92% vs lattice; mask identical to GEMSDOE30</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOE30</strong></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE30/blob/d21ddd9502f3c3911e8d77b8f1e6abfaadffc876/docs/downloads/gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif">gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2600</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.92% vs lattice; mask identical to GEMSDOE25</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOE24</strong></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE24/blob/a73f9ffba29260cc7708e8e0557c84c5bea7d47b/docs/downloads/gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif">gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2477</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.92% vs lattice; d1.5 crowded spacing</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOE27</strong></th><td><a class="file-link" href="https://github.com/buffedlizard55-lab/GEMSDOE27/blob/4f34228a9f39e99da592aa34fd835c96d1b693f5/docs/downloads/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif">gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif</a><span class="cell-sub">Historical reference · research only</span></td><td><strong>0.2449</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED</span></td><td>USER-REPORTED / UNVERIFIED</td><td><span class="pill pill-red">NO</span><span class="cell-sub">99.92% vs lattice</span></td><td><span class="pill pill-red">DO NOT RESUBMIT</span></td></tr>
+<tr><th scope="row"><strong>GEMSDOEkarage1 (GSE Exp 1)</strong></th><td><a class="file-link" href="downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif">karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif</a><span class="cell-sub">Generated this session · format-valid · unique · NOT cleared · research download</span></td><td><strong>Not available</strong><span class="cell-sub">No holdout run · no organizer score</span></td><td>LOCAL INSTRUMENT (not a score)</td><td><span class="pill pill-neutral">YES</span><span class="cell-sub">Unique vs 11 registry rasters · max |rho|=0.0104 · max overlap=0.310</span></td><td><span class="pill pill-red">DO NOT SUBMIT — research only</span></td></tr>
+</tbody></table></div></div></section>
+
+<section class="section"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> GSE SUBMISSION DETAILS</p><h2>Generated unique TIF — format validation results</h2><p>The GSE TIF passed every local format check. It is <strong>not</strong> an organizer acceptance or a uniqueness clearance.</p></div></div>
+<div class="prose-card"><p><strong>File:</strong> <code>karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif</code></p>
+<p><strong>SHA-256:</strong> <code>f5879e1902e6c15407582a67e210bacfd0b2425570c4aefbdf5c585a4579c37b</code></p>
+<p><strong>Bytes:</strong> 115,152 · <strong>Dots:</strong> 24,000 · <strong>Grid:</strong> 3730×3292, EPSG:32611, 100 m, transform (100, 0, 243350, 0, -100, 4508550)</p>
+<p><strong>Format checks:</strong> all passed — single band, float32, CRS/shape/transform match sample_submission.tif, values in [0,1], no NaN in footprint, 0 positive pixels outside footprint, 0 dots on catalogue faults, 0 dots within 2 px of catalogue.</p>
+<p><strong>Uniqueness:</strong> checked against 11 registry rasters — max |Spearman| = 0.0104 (limit 0.90), max dot overlap within 3 px = 0.310 (limit 0.70). <strong>UNIQUE.</strong></p>
+<p><strong>Leakage canary:</strong> each GSE component vs near-catalogue membership — all |point-biserial r| &lt; 0.06 (limit 0.5). No leakage flagged.</p>
+<p><strong>Verdict:</strong> <span style="color:#b95e4b;"><strong>NEGATIVE — DO NOT SUBMIT</strong></span>. No lane assigned; no holdout DTI; not all focus-site rasters available for registry check. Research download only.</p>
+</div></section>
+
+<section class="next-strip"><div><p class="eyebrow">HOW TO SUBMIT (WHEN CLEARED)</p><h2>Read the submission guide</h2><p>Unique name, note (&le;140 characters), file selection, and the upload procedure are on the how-to-submit page.</p></div><a class="button button-dark" href="how-to-submit.html">Go to how-to-submit ↗</a></section></div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot. Not affiliated with the organizers.</p></div><div class="footer-links"><a href="../index.html">Overview</a><a href="how-to-submit.html">How to submit</a><a href="evidence/run_card_gse_exp1.json">Run card</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>No candidate cleared for upload.</span></div></div></footer></body></html>
