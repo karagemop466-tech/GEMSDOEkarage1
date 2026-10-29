@@ -1,6 +1,12 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-**Current review (`arena/dc2e4c0c-gemsdoekarage1`, 29 Oct 2026): NEGATIVE / DO NOT SUBMIT.** This checkout review fixed a syntax error in the quarantined experiment runner and removed an un-audited, formerly promoted TIFF from the public download directory. Full review: [session report](knowledge/session-review-arena-dc2e4c0c.md) · [run card](evidence/session_dc2e4c0c_run_card.json) · [quarantined artifact record](docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json). No new TIFF, holdout, leaderboard estimate, or slot selection was produced. Current full-suite result is recorded in the linked report; these are software checks, not geological performance.
+> **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
+
+> **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
+> "CLEARED FOR SUBMISSION" page and its `promote` card were on `main`; both are retracted. The
+> flagged TIF has 99.90% lattice overlap (stop > 70%) and is quarantined in
+> [`archive/quarantined-20261029/`](archive/quarantined-20261029/). 8 failing tests fixed; **357 pass**.
+> Read [the session review](knowledge/session-review-arena-a409acfe.md) and [run card](evidence/session_a409acfe_run_card.json).
 
 **Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
 > **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.

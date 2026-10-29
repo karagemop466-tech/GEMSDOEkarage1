@@ -19,6 +19,15 @@
     "registry_coverage": "No new raster; current checkout records only partial mirror-based historical audits, not a complete authenticated registry.",
     "status": "not computed for this session"
   },
+  "inherited_historical_candidate_audit": {
+    "file": "archive/quarantined-20261029/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+    "source_receipt": "evidence/unique_hyp_kth_therm_mask_retraction_20261029.json",
+    "raster_sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+    "lattice_directed_3px_overlap": 0.999017368672651,
+    "duplicate_by_literal_rule": true,
+    "scope": "Inherited pinned-mirror audit from concurrent PR #58; not rerun in this session and not a complete authenticated registry.",
+    "historical_holdout_claim": "not reproduced; not HOLDOUT-DTI"
+  },
   "raster_sha256": null,
   "validator_output": {
     "no_nan_inside_footprint": null,
