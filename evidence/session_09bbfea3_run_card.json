@@ -1,0 +1,145 @@
+{
+  "schema": "karage1-session-review-run-card-v1",
+  "session_id": "09bbfea3",
+  "date_utc": "2026-10-29",
+  "verdict": "negative",
+  "verdict_detail": "No candidate was promoted. Experiment execution is blocked by the absent assigned method lane, missing canonical template assignment, shared-template hash mismatches, and missing organizer-authenticated inputs.",
+  "organizer_confirmed_score": null,
+  "leaderboard_estimate": null,
+  "candidate": {
+    "status": "not_generated",
+    "selected_hypothesis": null,
+    "experiment_count": 0,
+    "weekly_slot_selected_or_spent": false
+  },
+  "proposed_top_hypothesis_not_run": {
+    "id": "H1-completeness-conditioned-seismic-shadow",
+    "status": "proposal_only_not_assigned_or_tested",
+    "layers": [
+      "geod_shearrate",
+      "geod_dilaterate",
+      "geod_2ndinv",
+      "deq_n100a15",
+      "ieq_n100a15"
+    ],
+    "mechanism": "A locked or slowly slipping buried segment could accommodate geodetic strain while producing a local seismic-density deficit, conditional on authoritative band metadata and event-catalogue completeness.",
+    "non_fault_mimics": [
+      "uneven seismic-network detection and catalogue completeness",
+      "geodetic interpolation or smoothing",
+      "aseismic creep",
+      "geothermal production or induced seismicity",
+      "lithologic variation"
+    ],
+    "novelty_scope": "The negative seismic-deficit contrast was not found as an executed method in the checked local and nine-site source records; broader fleet novelty is unverified."
+  },
+  "holdout": {
+    "status": "NOT_RUN",
+    "label": null,
+    "evaluator_version": null,
+    "withheld_positive_count": null,
+    "value": null,
+    "ci95": null,
+    "reason": "No assigned lane, canonical shared-template assignment, or authenticated organizer inputs."
+  },
+  "registry_check": {
+    "status": "NOT_RUN_NO_CANDIDATE",
+    "registry_rasters_checked": 0,
+    "preplacement_surface_correlation": null,
+    "final_dot_overlap": null,
+    "thresholds": {
+      "absolute_rank_correlation_stop_gt": 0.9,
+      "candidate_dots_within_3px_duplicate_stop_gt": 0.7
+    },
+    "reason": "No candidate surface or dot raster was produced."
+  },
+  "raster": {
+    "filename": null,
+    "sha256": null,
+    "validator_output": {
+      "status": "NOT_RUN",
+      "reason": "No candidate GeoTIFF exists in this session."
+    }
+  },
+  "submission": {
+    "status": "NOT_APPLICABLE",
+    "filename": null,
+    "note": null,
+    "note_character_count": null,
+    "slot_selected_or_spent": false
+  },
+  "preflight": {
+    "method_lane": null,
+    "canonical_template_assignment_recorded": false,
+    "execution_authorized": false,
+    "vendor_integrity": {
+      "file_pins_match": false,
+      "mismatched_files": [
+        "vendor/gems57/submission_writer.py",
+        "vendor/gems57/uniqueness.py"
+      ],
+      "owner_repair_or_pin_approval_required": true
+    },
+    "missing_inputs": [
+      ".cache/gems_work/feature_stack.npy",
+      ".cache/gems_data/existing_faults.tif",
+      ".cache/gems_data/training_features.tif",
+      ".cache/gems_data/sample_submission.tif",
+      ".cache/gems_data/labels.tif"
+    ],
+    "data_directory_file_count": 0
+  },
+  "safety_regression": {
+    "legacy_prepare_data_before_fix": {
+      "blocked_marker_printed": true,
+      "return_code": 1,
+      "temporary_cache_created_before_failure": true
+    },
+    "current_prepare_data": {
+      "blocked_before_writes": true,
+      "regression_test": "tests/test_quarantined_runners.py::test_prepare_data_quarantine_returns_before_cache_or_canary_writes"
+    },
+    "mirror_verify_only": {
+      "scope": "Third-party pinned mirrors only; not organizer authentication.",
+      "result": "BLOCKED",
+      "missing": "training_features.tif",
+      "no_data_restored": true
+    }
+  },
+  "public_leaderboard_feed": {
+    "snapshot_file": "docs/data/official-leaderboard.json",
+    "observed_on_utc": "2026-10-29",
+    "partial_snapshot": true,
+    "rank_1_public_score": 0.4544,
+    "rank_47_public_score": 0.3195,
+    "classification": "Official public-board snapshot; not a file-linked submission receipt, private score, or project estimate.",
+    "scheduled_refresh_implemented": true,
+    "live_workflow_run_verified": false
+  },
+  "software_verification": {
+    "baseline_before_this_session_changes": {
+      "passed": 365,
+      "warnings": 119
+    },
+    "final_full_suite": {
+      "status": "PASSED",
+      "passed": 373,
+      "warnings": 119,
+      "duration_seconds": 20.77
+    }
+  },
+  "limitations": [
+    "DrivenData data tab is login-walled; organizer-authenticated features, labels, sample, and submission receipt were not available.",
+    "The wrapper scripts/ download_competition_data.sh restores owner mirrors, not official competition data.",
+    "No candidate raster, spatially blocked holdout result, 95% CI, registry surface comparison, portal test, or score estimate was produced.",
+    "The local public-board scraper has fixture tests but has not yet parsed the live leaderboard HTML; the scheduled workflow must succeed before the feed automation is called live-verified.",
+    "External GDR chemistry payload returned HTTP 500; no schema or study-area coverage was verified.",
+    "USGS Water Data API documentation was reviewed, but no footprint coverage query or time-series data was obtained.",
+    "Local GeoTIFF format validation would not establish organizer portal acceptance."
+  ],
+  "next_steps": [
+    "Obtain the exact assigned single-method paragraph; do not infer it.",
+    "Have the template owner resolve vendor/source hash mismatches and establish a canonical shared-template assignment.",
+    "Obtain organizer-authenticated input bytes and complete registry inventory; do not treat mirrors as organizer data.",
+    "Only after all gates pass, follow the preregistered whole-segment buffered holdout, leakage, uniqueness, writer, and validator protocol."
+  ]
+}

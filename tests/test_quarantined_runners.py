@@ -23,7 +23,26 @@ def test_old_experiment_entrypoints_fail_closed(command):
     assert 'BLOCKED' in result.stderr
 
 
+def test_prepare_data_quarantine_returns_before_cache_or_canary_writes(tmp_path):
+    import os
+
+    data_dir = tmp_path / 'data'
+    cache_dir = tmp_path / 'cache'
+    env = dict(os.environ, GEMS_DATA_DIR=str(data_dir), GEMS_CACHE_DIR=str(cache_dir))
+    before_evidence = {p.relative_to(ROOT): p.read_bytes() for p in (ROOT / 'evidence').glob('leakage_canary_58ch.json')}
+    result = subprocess.run([sys.executable, 'scripts/prepare_data.py', '--force'], cwd=ROOT,
+                            env=env, capture_output=True, text=True)
+    assert result.returncode == 2
+    assert 'BLOCKED' in result.stderr
+    assert 'No cache, features, or canary receipts were written' in result.stderr
+    assert not data_dir.exists()
+    assert not cache_dir.exists()
+    after_evidence = {p.relative_to(ROOT): p.read_bytes() for p in (ROOT / 'evidence').glob('leakage_canary_58ch.json')}
+    assert after_evidence == before_evidence
+
+
 @pytest.mark.parametrize('command', [
+
     ['scripts/build_unique_submission.py'],
     ['scripts/generate_unique_submission.py'],
     ['scripts/run_bbstep_experiments.py'],

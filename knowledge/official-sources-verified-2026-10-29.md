@@ -58,5 +58,32 @@ Irregularities:
 
 ```sh
 # fetch the official pages listed above; compare the figures in sections A and C
-python -m pytest -q          # 362 tests expected after this session's additions
+python -m pytest -q          # see the current session card for the final test count
 ```
+
+## F. Additional official-source checks and automation design — 2026-10-29
+
+| Source | What the official page says | What was and was not obtained |
+|---|---|---|
+| [GDR INGENIOUS, DOI 10.15121/1881483](https://gdr.openei.org/submissions/1391) | The page marks the collection publicly accessible under CC BY 4.0, lists nine resources (116.98 MB), and explicitly describes spring/well temperature and aqueous-geochemistry analyses. | The page was fetched and its listing checked. Direct fetch of [`wellspringdata.gdb.zip`](https://gdr.openei.org/files/1391/wellspringdata.gdb.zip) returned HTTP 500. No archive, schema, analyte fields, local coverage, or derived raster was verified/downloaded. |
+| [USGS Water Data API collections](https://api.waterdata.usgs.gov/ogcapi/v0/collections) and [migration guide](https://api.waterdata.usgs.gov/docs/ogcapi/migration/) | Official API documentation lists monitoring locations, time-series metadata, daily/continuous values, and field measurements (including discharge and groundwater-level measurements). | Documentation only was checked. No study-area site query, parameter coverage, time series, or spatial coverage was obtained. |
+| [DrivenData reference-solution README at pinned commit](https://github.com/drivendataorg/gems-prize-reference-solution/blob/aebe92f7c8a990f0e3443451b7a825d9afd6336b/README.md) | The official reference implementation supports CPU-only and GPU execution; GPU is optional acceleration. | Repository README was inspected; no competition data or score was obtained. A GPU is not an established prerequisite for data restoration or basic validation. |
+| [DrivenData data tab](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) | Redirects to login in this environment. | No authenticated organizer data or submission receipt was fetched. |
+
+The public feed implementation is `scripts/refresh_official_leaderboard.py`,
+`docs/data/official-leaderboard.json`, and `.github/workflows/official-leaderboard.yml`.
+It is designed to fetch only the public leaderboard once per day, parse a rank +
+public-Tversky table, and atomically replace the snapshot only after validation.
+A parser/layout/network failure must leave the previous snapshot untouched; a
+successful workflow run is still required to verify the live HTML parser. The
+checked-in snapshot was captured through the page-fetch tool on 2026-10-29 and
+contains selected ranks only; its exact capture time is not exposed.
+
+Local preflight is separate from the official-source checks: it reported no
+assigned lane, no canonical assignment, two vendored SHA mismatches
+(`submission_writer.py` and `uniqueness.py`), and missing organizer-input/cache
+files. The owner mirror `--verify-only` check is blocked on missing
+`training_features.tif`. No official or third-party data were restored in this
+session. The legacy preparation runner was tested with temporary paths before
+being changed to exit without writing; this is a software regression check, not
+an input download.
