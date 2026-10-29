@@ -2,6 +2,8 @@
 
 **Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
 
+> **Current factual correction — 29 Oct 2026:** the public DrivenData leaderboard fetch shows #1 at 0.4544 and 0.3195 at rank #47; 0.4413 is absent from the fetched top 50. GEMSDOE32 B2 0.2778 remains USER-REPORTED / UNVERIFIED; its third-party page says no receipt links the report to the raster hash. The official contest data route redirects to login. This checkout has no assigned method lane, canonical-template assignment, or required data cache, so no current TIFF is cleared. For current decisions, use the [README feed](../README.md), [session review](../knowledge/session-review-arena-f40ee5b6.md), and [current source register](../knowledge/official-sources-verified-2026-10-29.md).
+
 ## Arena Core Values (keep as focus)
 
 - **Maximize P(Win).** Favor reproducible evidence that can raise the probability of a higher organizer-confirmed score. The prior GEMSDOE32 0.2778 is user-reported, without a verified receipt here; the owner cited multiple leaderboard benchmarks that may be stale.

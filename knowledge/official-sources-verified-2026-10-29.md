@@ -57,6 +57,27 @@ Irregularities:
 ## E. Reproduction
 
 ```sh
-# fetch the official pages listed above; compare the figures in sections A and C
-python -m pytest -q          # 362 tests expected after this session's additions
+# Run from the repository root after restoring the ignored local environment
+./.venv/bin/python -m pytest -q  # 380 passed, 119 warnings on 2026-10-29; software checks only
 ```
+
+## F. Current source refresh and availability checks (29 Oct 2026)
+
+These observations supplement sections A–D. Pages were retrieved with the `fetch_page` tool; no source payload was downloaded into the repository.
+
+| Source | Current finding | What this does not establish |
+|---|---|---|
+| [DrivenData contest data page](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) | The route redirects to `https://www.drivendata.org/accounts/login/?next=/competitions/306/competition-doe-gems/data/`. | No access to the contest feature/label/sample files or the exact organizer-provided DEM links; no bytes or data roles authenticated. |
+| [USGS GeoDAWN ScienceBase record](https://doi.org/10.5066/P93LGLVQ) | Official catalog record describes the 2024 USGS/DOE airborne magnetic and radiometric release and lists downloadable TIFF bundles: `22103_area1_tiffs.zip` (43.57 MB) and `22103_area2_tiffs.zip` (230.54 MB), among other products. The catalog says included products contain GeoTIFF images. USGS's [data-release page](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and) describes CC0 1.0 rights. | Catalog attachment availability is not a successful local download. No TIFF bytes, band descriptions, CRS, exact focus-site overlap, coverage, resampling, or feature-independence analysis was performed. |
+| [USGS 3DEP products and services](https://www.usgs.gov/3d-elevation-program/about-3dep-products-services) | Page describes seamless 1/3-arc-second DEM coverage across the conterminous U.S. and approximately 10 m north/south ground spacing; it distinguishes the 1 m seamless product as still in progress, with tiles added over time. The 1 m project-based dataset has limited U.S. coverage. | No area-specific tile was fetched, no local coverage checked, and no grid/resampling suitability established. “Free/use restrictions” does not imply every product has identical resolution or availability. |
+| [Official DOE/NLR rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf), chunks 1–2 | Further text reviewed: one single-band GeoTIFF at 100 m; up to three submissions per week subject to the site; final selection is separate; public leaderboard may differ from private final results; generative-AI use must be disclosed in the narrative when applicable. | This does not grant access to the login-only submission page or authorize any specific raster. |
+| [DrivenData public leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) | Fetched top-50 snapshot remains #1 0.4544, #2 0.3916, #3 0.3911, #47 0.3195, #50 0.3167. The page has relative timestamps only; no exact snapshot time is shown. | No private/final score, no receipt-to-raster link, and no confirmation of the nine peer-owner reports. |
+| [GEMSDOE32 peer page](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) | Its page calls 0.2778 an `OWNER-REPORT`, says no submission-page receipt links that score to the raster hash, and says no new file is cleared. | Third-party/peer assertion only; not an organizer receipt or proof of causal score improvement. |
+
+### Hypothesis-source status
+
+- **CP-DPCS and BERB-STC:** proposed layers are from the competition feature stack. This review could not inspect/authenticate those layer files because the official data page requires login and the local cache is absent.
+- **WD-KRMT:** GeoDAWN is an official, catalog-listed public source, so its *catalog-level obtainability* is confirmed. Payload retrieval, candidate-area intersection, metadata, projection and local usefulness remain unverified.
+- **CF-DIKA:** USGS documents a public 1/3-arc-second product covering the contiguous U.S.; no target-area tile or grid alignment was downloaded or tested. Treat as a source pointer, not a validated feature dataset.
+
+Do not label any of these source checks as a holdout result or score. The active shared-tool preflight and all scientific gates remain blocked.

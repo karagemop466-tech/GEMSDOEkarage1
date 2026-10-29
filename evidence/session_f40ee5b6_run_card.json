@@ -1,0 +1,53 @@
+{
+  "schema": "karage1-run-card-v1",
+  "generated_utc": "2026-10-29",
+  "session": "arena/f40ee5b6-gemsdoekarage1",
+  "hypothesis": "No experiment run. Qualitative queue top only: CP-DPCS tests scale-consistent signed RTP magnetic phase and isostatic-gravity-gradient co-location beneath low-relief cover; it is not an assigned lane.",
+  "mechanism": "Proposed only: a concealed normal-fault basement step may juxtapose magnetic basement and lower-density basin fill, leaving a coherent paired potential-field signature under subdued topography.",
+  "named_non_fault_process_that_could_mimic_it": "Plutonic or metasedimentary contacts, buried caldera margins, basalt-flow edges, paleochannels, or potential-field survey seams/leveling artifacts.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "value": null,
+    "ci95": null,
+    "status": "NOT RUN: no assigned method lane, canonical-template assignment, authenticated feature stack, or authorized shared evaluator."
+  },
+  "organizer_confirmed_score": null,
+  "peer_reported_score_context": {
+    "value": 0.2778,
+    "label": "USER-REPORTED / UNVERIFIED",
+    "site": "GEMSDOE32 B2",
+    "receipt_linked_to_raster_sha256": false,
+    "source_note": "Third-party GEMSDOE32 page labels this OWNER-REPORT and says no submission-page receipt links the score to the raster hash; not organizer confirmation."
+  },
+  "correlation_overlap_vs_registry": {
+    "continuous_surface_rank_correlation_abs": null,
+    "final_dot_overlap_within_3px": null,
+    "registry_complete": false,
+    "preplacement_check": "NOT RUN: no candidate surface exists.",
+    "postplacement_check": "NOT RUN: no candidate dots exist.",
+    "historical_context": "Existing nine-site mirror rasters trigger the internal 70% directional dot-overlap stop; that is a historical peer comparison, not a new candidate result or official rule."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "outside_footprint_null_or_nan": null,
+    "status": "NOT APPLICABLE: no TIFF was generated."
+  },
+  "submission_name": null,
+  "submission_note": "No TIFF generated; no submission authorized.",
+  "submission_note_characters": 44,
+  "experiments_this_session": 0,
+  "slot_selected_or_spent": false,
+  "promotion_eligible": false,
+  "verdict": "negative",
+  "verdict_reason": "Execution and submission gates remain blocked: method lane and canonical assignment absent, five required data/cache inputs missing, two vendored files fail recorded hashes, shared-template provenance is unresolved, and no candidate can be evaluated or cleared.",
+  "data_source_checks": {
+    "drivendata_training_data": "LOGIN REQUIRED; official page redirected to sign-in; no data bytes inspected.",
+    "usgs_geodawn": "Official catalog lists GeoTIFF bundle downloads; payload not downloaded or locally validated.",
+    "usgs_3dep": "Official page documents public products and 1/3-arc-second contiguous-U.S. coverage; no tile downloaded or aligned."
+  }
+}

@@ -1,82 +1,27 @@
-# New hypotheses — 2026-10-29 (status: proposed, NOT validated, NOT submitted)
+# Geological hypothesis slate — 29 October 2026
 
-**Status of every item below:** proposed. No holdout run was performed in this session, so
-no DTI, CI, or score is claimed for any idea. Ranking is a scientific prioritization,
-not a projection of leaderboard gain. Nothing here authorizes a submission.
+**Status: proposals only.** Four ideas are ranked as a qualitative research queue by plausible mechanism relative to cost. This is not a score forecast or expected DTI-gain ranking. No candidate was implemented, assigned as the method lane, or validated on a holdout in the current review. No TIFF or submission slot was produced.
 
-Before writing this list, every candidate was checked by keyword search across
-`src/`, `scripts/`, `vendor/`, `knowledge/` and `docs/research/` (commands reproducible from
-the repo root). Five of the seven candidate ideas considered were already implemented or
-tested, so they are excluded.
+Before any experiment: record the single assigned lane and authoritative canonical-template assignment; obtain permitted organizer data; use the shared feature stack, whole-buffered-segment spatial holdout evaluator and writer; derive catalogue features from fold-visible faults only; mask visible-fault pixels exactly; use pooled DTI with α=0.2, β=0.8 and a 300 m triangular kernel; test every feature alone for leakage (AUC >0.90 is a stop); compare the continuous surface and final dots against the complete registry; stop at 3 experiments or 2 hours; end with a complete JSON run card. The existing shared preflight is blocked, so none of the ideas below is presently runnable.
 
-## Ideas excluded because the repo already implements or tested them
+## Ranked proposals
 
-| Idea considered | Where it already exists (verified by grep) |
-| --- | --- |
-| Strain-rate (2nd invariant, shear rate, dilatation) with seismicity lineation | Walker-transtension hypothesis, `docs/research/hypotheses-preregistration-2026-10-27.md` (bands 4, 7, 8, 16) |
-| Depth-to-base (basement) step / buried basement step | `src/gemskarage1/bbstep.py`, BB-STEP run (`evidence/bbstep_receipt.json`) |
-| Conductivity / clay-cap conductivity boundary | `cond_claycap_gradient`, `src/gemskarage1/features.py` (feature 42) |
-| Thermal springs / 2 m temperature probes | INGENIOUS layers in `src/gemskarage1/features.py`; H4 in `hypotheses-20261028.md` |
-| Soft (probabilistic) output surfaces versus binary dots | `src/gemsk/emission.py`, `src/gemskarage1/emitter.py` |
+| Rank / cost | Candidate and named inputs | Mechanism / off-catalogue rationale | Named non-fault mimics | Difference / data readiness |
+|---|---|---|---|---|
+| **1 · medium** | **Cross-Potential Dip-Polarity Co-Gradient Step (CP-DPCS).** RTP, total-field magnetic horizontal/vertical gradients, isostatic-gravity anomaly and gradients; condition on low `det_elev_slope`. | Test signed magnetic phase relative to the gravity-gradient direction across several upward-continuation heights, then require along-strike persistence of the joint relation. Concealed normal faults may juxtapose magnetic basement and lower-density basin fill beneath subdued basin cover. | Plutonic/metasedimentary contacts; buried caldera margins; basalt-flow edges; paleochannels; survey stitching or leveling seams. | Differs from a single-band ridge, unsigned NMS, analytic-signal trough or persistence score by requiring a **joint signed, scale-consistent field relation**. Feature names are proposed from the contest stack, but official rasters are login-gated and absent. A related concept appears in older repo notes; the particular paired test is not established as novel across the fleet and is unrun. |
+| **2 · medium–high** | **Biharmonic Elastic Relay-Bridge Stress-Transfer Corridor (BERB-STC).** `geod_shearrate`, `geod_dilaterate`, `geod_2ndinv`, `deq_n100a15`, `ieq_n100a15`, `cond_surf`, `iso_grav_anom_hg`, and only fold-visible fault-segment endpoints. | Within each fold, estimate tip-pair stress transfer and test whether conductivity/gravity discontinuities corroborate a relay-ramp corridor. Distributed deformation at en-echelon tips may connect surface traces that taper beneath young fans. | Mining/geothermal induced seismicity; conductive playa brines; coarse strain-grid interpolation bullseyes. | Differs from static endpoint cones by requiring a fold-local visible-fault graph and an independent geophysical contrast. A related planning note exists; no valid paired holdout, local data, or assigned lane is available. |
+| **3 · medium–high** | **Wavelet-Destriped Potassium-Residual Magnetics Trough (WD-KRMT).** GeoDAWN K, eTh, eU and magnetic grids, plus flight-block/flight-line metadata. | Remove acquisition-line structure with within-block robust/wavelet residualization, then test co-location of a radiometric boundary and magnetite-destruction trough. Alteration may persist where erosion or burial has removed a visible scarp. | Potassic intrusions; soil/weathering contrasts; volcanic units; playa evaporites; flight-height and leveling stripes. | Differs from raw K/Th ratios or broad plumes by explicitly controlling line artifacts and testing a paired residual. The [official USGS GeoDAWN ScienceBase record](https://doi.org/10.5066/P93LGLVQ) lists Area 1 and Area 2 GeoTIFF bundles (43.57 MB and 230.54 MB); USGS describes CC0 rights. **Catalog availability was checked, but no payload was downloaded, exact footprint/projection was inspected, and overlap with contest features is unknown.** |
+| **4 · high** | **Cross-Fan Drainage-Incision Knickzone Alignment (CF-DIKA).** USGS 3DEP 1/3-arc-second DEM, contest elevation/slope and gravity gradient. Require channel-deflection/knickzone alignment through at least three adjacent catchments at a gravity step. | Repeated drainage perturbations may preserve evidence of degraded or low-relief fault throw where an individual scarp or channel bend is ambiguous. | Lake Lahontan shoreline benches; alluvial-fan avulsion; stream piracy; lithologic ledges or caprock. | Differs from pixel-level scarp scores by demanding replicated catchment geometry and independent subsurface corroboration. USGS documents seamless 1/3-arc-second coverage across the conterminous U.S.; the [3DEP product page](https://www.usgs.gov/3d-elevation-program/about-3dep-products-services) notes resolution/product coverage differences. No local tile, grid alignment, or useful-resolution check was performed. |
 
-## Candidate N1 — Lake Lahontan shoreline datum offset (RANK 1, NEW)
+## Data-source checks and limits
 
-- **Layers:** Pleistocene lake-shoreline elevation polygons from USGS MF-2323 (Reheis 1999), with the
-  1,400 m Lahontan shoreline and the lower late-Pleistocene highstand; plus a high-resolution DEM
-  (USGS 3DEP, to be confirmed against the competition's `1m_DEM_links.csv`, which is behind DrivenData login).
-- **Physical signature:** A shoreline was horizontal when it formed. A vertical separation of
-  one shoreline level across a linear trace, or a relative offset between two levels that changes sign across that
-  trace, indicates post-highstand displacement. Two datums (for example the ~1,330 m and ~1,262 m levels named
-  in the GSA source) separate a step from a smooth regional tilt, because a fault gives a constant offset while
-  tilt varies linearly with elevation.
-- **Why it could find a fault missing from the catalogue:** Offset Lahontan shorelines have been reported on mapped
-  faults (see sources), so the same mechanism can expose trace segments that are short, low-relief or partly
-  buried, and that the catalogue omitted. The datum does not depend on fault scarps being visible.
-- **Named non-fault mimics:** (1) regional uplift or tilt, which MF-2323 itself offers as an explanation for its
-  stair-step shorelines; (2) viscous or non-tectonic loading by lake water (see the Pyramid Lake abstract below);
-  (3) wave-cut or deltaic reworking of the shoreline; (4) alluvial fan progradation that mantles a shoreline.
-- **How it differs from the repo:** The repo uses Lahontan shorelines only as **false-positive vetoes**
-  (`lahontan_road_confound_score`, feature 49; `lidar_tectonic_asymm_chain`, feature 56; H-K1-4 in
-  `docs/research/hypotheses-preregistration-2026-10-27.md`). No file under `src/` or `scripts/` uses a shoreline as a datum to
-  measure vertical offset (keyword search for "shoreline" returned veto or mimic uses only).
-- **Cost / data status:** Medium. MF-2323 is free and official. The shapefile link
-  (`http://pubs.usgs.gov/mf/1999/mf-2323/mf2323_shp.zip`) is listed in the official metadata but
-  **was not downloaded here** because the sandbox allow-list excludes `pubs.usgs.gov`. The 1:250,000 source DEM
-  gives a coarse shoreline height precision; this is a serious limitation to test before any claim.
+- [DrivenData data page](https://www.drivendata.org/competitions/306/competition-doe-gems/data/) redirected to the account-login page in this review. Training features, labels, sample TIFF and organizer-provided DEM links were not obtained.
+- [USGS GeoDAWN DOI 10.5066/P93LGLVQ](https://doi.org/10.5066/P93LGLVQ) resolves to an official ScienceBase catalog entry with attached GeoTIFF bundles listed. This verifies public catalog-level availability only—not local access, payload hash, projection, candidate coverage, feature independence or scientific utility.
+- [USGS 3DEP product/service page](https://www.usgs.gov/3d-elevation-program/about-3dep-products-services) describes full seamless 1/3-arc-second coverage over the contiguous U.S.; 1 m products have limited/expanding coverage. No specific tile was downloaded or aligned to the contest grid.
+- Existing third-party mirrored layers are not organizer-authenticated. No new source was added to the execution cache; no downloaded data or score is claimed.
 
-**Sources (verified this session):**
-- USGS MF-2323 metadata, abstract (1,400 m shoreline; stair-step shorelines; uplift discussion):
-  https://geo-nsdi.er.usgs.gov/metadata/map-mf/2323/metadata.faq.html
-- GSA *Geosphere* — "Strike-slip faulting along the Wassuk Range of the northern Walker Lane, Nevada":
-  Lahontan recessional shorelines (highstand ca. 15,475 cal yr BP, ~1,330 m) displaced ~14 m:
-  https://pubs.geoscienceworld.org/gsa/geosphere/article/10/1/40/132152/Strike-slip-faulting-along-the-Wassuk-Range-of-the
-- USGS Quaternary Fault and Fold Database report 22 (text excerpt: Lahontan high-stand shorelines ~12.5 ka offset along the front of the Diamond Mountains):
-  https://earthquake.usgs.gov/static/lfs/nshm/qfaults/Reports/22.pdf
-- Pyramid Lake subbasin abstract (non-tectonic Lahontan loading as a confound for vertical displacement rates):
-  https://www.researchgate.net/publication/228488135_Late_Pleistocene_and_Late_Holocene_Lake_Highstands_in_the_Pyramid_Lake_Subbasin_of_Lake_Lahontan_Nevada_USA
+## Queue decision
 
-**Irregularity flagged:** The Wassuk and Diamond Mountains examples are *published* offsets on
-known faults. They show the physical mechanism, but do not show that N1 recovers unmapped faults.
+CP-DPCS is the **qualitative first research question only**. It is not a selected lane, is not validated, and has no HOLDOUT-DTI, withheld-positive count, CI, leaderboard estimate or predicted gain. Do not begin it until lane/template authorization, authenticated data, repaired upstream shared-tool provenance, a complete registry and the prescribed holdout gates are all available.
 
-## Candidate N2 — Quaternary fan/terrace-riser vertical separation (RANK 2, NEW USE)
-
-- **Layers:** the same high-resolution DEM as N1, plus alluvial/terrace surface age polygons from USGS maps (source
-  not yet identified and verified; this is an open item).
-- **Signature:** a consistent riser-height step across a trace, measured on one correlated surface
-  (not a single riser), with the sign oriented along the trace.
-- **Mimics:** fan avulsion, channel incision, and cut-and-fill against a grade break.
-- **Repo status:** terrace risers appear in the repo only as mimics (`src/gemsk/features.py`, shoreline/terrace
-  comment). No feature measures riser separation across a trace.
-- **Cost / data status:** Medium–high. Needs a verified age-polygon source before any test. Not validated.
-
-## What was not found
-
-No candidate was found that meets the "new layer" bar using only the 19 official feature bands. The fresh ideas
-depend on external, free, official geomorphic data, which must be verified before use.
-
-## Recommended order
-
-1. Verify the MF-2323 shapefile hash and CRS against its metadata (requires internet access outside the sandbox).
-2. Build N1 with **two** datums and a regional-tilt term. Run a leakage canary (single-feature AUC > 0.90 means leakage).
-3. Hold out with buffered whole segments, as the protocol requires. Only then decide whether N1 beats the current holdout best.
-4. Do **not** spend a weekly slot on N1 or N2 until a holdout result exists and a separate selector approves it.
+Earlier repository notes also proposed Lake Lahontan shoreline-datum offsets and fan/terrace-riser separation. They are **deferred** here: their source layers and candidate-area coverage were not verified for this checkout. See the [prior review](../../knowledge/session-review-arena-4711a029.md) for its earlier slate and blockers, and the [current review](../../knowledge/session-review-arena-f40ee5b6.md) for the latest preflight.

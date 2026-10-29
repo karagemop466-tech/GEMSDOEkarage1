@@ -43,8 +43,8 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
         parser = Tags(); parser.feed(text)
         assert parser.disabled_downloads >= 1
         assert "DO NOT SUBMIT" in text and "not cleared for upload" in text
-        assert "No approved .tif to download" in text
-        assert "99.93%" in text and "99.89%" in text
+        assert "No cleared TIFF available" in text
+        assert "99.91%" in text and "99.92%" in text
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())
     assert card["verdict"] == "negative" and card["ok_to_submit"] is False
     assert card["slot_selected_or_spent"] is False
@@ -181,6 +181,6 @@ def test_newer_conduitcrest_candidate_is_lattice_duplicate_and_not_download_clea
     assert latest['verdict'] == 'negative' and latest['ok_to_submit'] is False
     assert hashlib.sha256(raster.read_bytes()).hexdigest() == audit['candidate']['sha256']
     page = (ROOT / 'docs/executive-summary.html').read_text()
-    assert '99.3454%' in page and 'no 95% CI' in page
+    assert '99.3454%' in page and '95% CI is missing' in page
     assert 'DO NOT SUBMIT' in page
 

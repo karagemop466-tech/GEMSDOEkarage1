@@ -28,7 +28,7 @@ def test_site_links_and_negative_banner():
             if not url.scheme and url.path:
                 assert (path.parent/unquote(url.path)).exists(), (path,link)
     assert 'DO NOT SUBMIT' in (ROOT/'docs/index.html').read_text()
-    assert 'No approved .tif to download' in (ROOT/'docs/index.html').read_text()
+    assert 'No cleared TIFF available' in (ROOT/'docs/index.html').read_text()
     assert 'No defensible forecast' in (ROOT/'docs/executive-summary.html').read_text()
 
 

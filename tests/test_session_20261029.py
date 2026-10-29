@@ -89,7 +89,7 @@ def test_built_pages_contain_no_stale_clearance_language():
         assert "IT IS OK TO DOWNLOAD AND SUBMIT" not in text, page
         # The retraction notice may name the file; a live download link must not exist.
         assert not re.search(r'href="[^"]*unique-hyp-kth-therm-mask[^"]*\.(tif|zip)"', text), page
-        assert "Which file is best, and is it OK to submit?" in text, page
+        assert "Highest reported file, peer overlap, and download decision" in text, page
 
 
 def test_local_rasters_finite_values_in_unit_interval():
