@@ -1,5 +1,11 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
+> "CLEARED FOR SUBMISSION" page and its `promote` card were on `main`; both are retracted. The
+> flagged TIF has 99.90% lattice overlap (stop > 70%) and is quarantined in
+> [`archive/quarantined-20261029/`](archive/quarantined-20261029/). 8 failing tests fixed; **357 pass**.
+> Read [the session review](knowledge/session-review-arena-a409acfe.md) and [run card](evidence/session_a409acfe_run_card.json).
+
 **Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
 > **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.
 >

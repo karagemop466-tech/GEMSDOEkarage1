@@ -30,6 +30,13 @@ SUBMISSION_NAME = "unique-hyp-kth-therm-mask-20261028-zeros"
 SUBMISSION_NOTE = "Unique Hypothesis: K/Th + Thermal + M_Full dualcover masked against proxy."
 
 def main():
+    # QUARANTINED 2026-10-29: this runner wrote a "promote" card with empty
+    # registry-overlap fields. The file it produced has 99.90% directed lattice
+    # overlap (> 70% stop). Do not re-enable without the registry gate.
+    print("BLOCKED: quarantined unique-submission runner; no TIFF or card written.", file=sys.stderr)
+    return 2
+
+def _legacy_main():
     ddir = data_dir()
     cdir = cache_dir()
     
