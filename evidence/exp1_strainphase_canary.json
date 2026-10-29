@@ -1,0 +1,68 @@
+{
+  "experiment": 1,
+  "lane": "H-K1-STRAINPHASE",
+  "evaluator_version": "gemsk-hide-recover-v1",
+  "scheme": "blocked",
+  "canary_rows": [
+    {
+      "feature": "ridge",
+      "fold_auc": [
+        0.5282672199470007,
+        0.5281791625631722,
+        0.5213007782697547,
+        0.5341893673170731
+      ],
+      "max_direction_invariant_auc": 0.5341893673170731,
+      "finite_in_footprint": true,
+      "constant": false,
+      "declared_label_free_by_code_review": true,
+      "alarm": false
+    },
+    {
+      "feature": "dominance",
+      "fold_auc": [
+        0.5148367992652374,
+        0.5488968629324867,
+        0.5339802327429609,
+        0.5588452770731707
+      ],
+      "max_direction_invariant_auc": 0.5588452770731707,
+      "finite_in_footprint": true,
+      "constant": false,
+      "declared_label_free_by_code_review": true,
+      "alarm": false
+    },
+    {
+      "feature": "strainphase",
+      "fold_auc": [
+        0.5047193201939291,
+        0.5039779992224958,
+        0.5003917777399334,
+        0.5003975557723577
+      ],
+      "max_direction_invariant_auc": 0.5047193201939291,
+      "finite_in_footprint": true,
+      "constant": false,
+      "declared_label_free_by_code_review": true,
+      "alarm": false
+    },
+    {
+      "feature": "GPC_control",
+      "fold_auc": [
+        0.51205262406649,
+        0.505730157768563,
+        0.509816522479564,
+        0.5108886588617886
+      ],
+      "max_direction_invariant_auc": 0.51205262406649,
+      "finite_in_footprint": true,
+      "constant": false,
+      "declared_label_free_by_code_review": true,
+      "alarm": false
+    }
+  ],
+  "any_alarm": false,
+  "pass": true,
+  "withheld_positives": 60988,
+  "created_utc": "2026-10-29T18:33:19.195218+00:00"
+}

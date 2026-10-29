@@ -1,5 +1,33 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## START HERE — what can I download today?
+
+> **NOTHING IS CLEARED.** No TIF is approved to download or submit. Read the **[executive summary](docs/executive-summary.html)** (the first panel shows this session's result). It has one table: per-site file, reported score (labelled), uniqueness, and a verdict. Any file marked *cleared* must pass every gate; a file that merely looks valid is not cleared.
+
+**Session `arena/fb1e3550` (29 Oct 2026): NEGATIVE.** Two new geological hypotheses were tested on the shared, spatially-blocked hide-and-recover holdout, against a reproduced control (GPC, HOLDOUT-DTI 0.073394, 95% CI [0.064520, 0.082481], 60,988 withheld positives, `gemsk-hide-recover-v1`):
+
+| Lane | HOLDOUT-DTI | 95% CI | Verdict |
+|---|---|---|---|
+| H-K1-STRAINPHASE (shear-dominant strain ridges) | 0.055931 | [0.042938, 0.067869] | negative |
+| H-K1-SIGNEDOFFSET (signed magnetic/gravity step) | 0.056536 | [0.050257, 0.062695] | negative |
+
+Both pass the leakage canary (max AUC 0.574) and the pre-placement surface check (|Spearman| ≤ 0.011; ≤ 10.2% dot overlap), so they are unique but weaker. **No submission slot was spent.** Details: [session review](knowledge/session-review-arena-fb1e3550.md) · [ranked hypotheses](knowledge/hypotheses-20261029.md) · [run card](evidence/session_fb1e3550_run_card.json) · [official-source register](knowledge/official-sources-verified-2026-10-29.md).
+
+**Public leaderboard (fetched 29 Oct 2026):** #1 is **0.4544**; 0.3195 is rank #47 ([leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)). The prompt's "0.4413" and "0.3195 is highest" are not supported by the board; flagged.
+
+### Requirements from the 29 Oct 2026 prompt (summary; read every session)
+
+1. **Core values:** Maximize P(Win); Own the Outcome. Verify everything from official sources, provide links, flag irregularities, no hallucinations.
+2. **Download-ready TIF:** one obvious download with a clear OK / NOT-OK status at the top of the site. A file is "OK to download" only when it passes the holdout, pre-placement, registry-uniqueness and validator gates (none currently passes).
+3. **Scoring facts:** the official metric is distance-weighted Tversky (α 0.2, β 0.8, R 300 m); values in [0, 1]; float32; EPSG:32611; NaN or null outside the bounds. The Initial Round scores each submission against a private, pre-labelled set; expert review applies only in the Final Round ([problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)).
+4. **Labels:** every number is HOLDOUT-DTI (evaluator, withheld positives, 95% CI) or ORGANIZER-CONFIRMED (from a submission receipt). Projections are never written as scores.
+5. **Uniqueness:** not a duplicate of any GEMSDOE submission listed in the prompt. The 70%/3-px lattice gate is an internal protocol, not an organizer rule.
+6. **Parallel-run protocol:** one assigned lane (the method paragraph is missing from the prompt; flagged), shared holdout and writer (no private forks), leakage canary (AUC > 0.90 means leakage), ≤ 3 experiments or 2 hours, a JSON run card, and a promote or negative verdict. Slot selection is separate.
+7. **Hypotheses:** 3–5 ranked, each naming layers, physical signature, why off-catalogue, the non-fault mimic and novelty vs the repo; validate the top one before any slot.
+8. **Deliverables:** an executive-summary page, a how-to-submit page (file, unique name, note ≤ 140 characters), a clean GitHub Pages site, three review passes, then a PR merged to `main` with remaining work and limitations.
+
+Verbatim prompt: the full prompt repeats itself heavily, so this file keeps the requirements rather than a full transcript. The complete text can be pasted into `docs/standing-prompt.md` on request.
+
 > **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
 
 > **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
