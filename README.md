@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+**Current review (`arena/dc2e4c0c-gemsdoekarage1`, 29 Oct 2026): NEGATIVE / DO NOT SUBMIT.** This checkout review fixed a syntax error in the quarantined experiment runner and removed an un-audited, formerly promoted TIFF from the public download directory. Full review: [session report](knowledge/session-review-arena-dc2e4c0c.md) · [run card](evidence/session_dc2e4c0c_run_card.json) · [quarantined artifact record](docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json). No new TIFF, holdout, leaderboard estimate, or slot selection was produced. Current full-suite result is recorded in the linked report; these are software checks, not geological performance.
+
 **Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
 > **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.
 >

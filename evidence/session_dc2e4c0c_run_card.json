@@ -1,0 +1,50 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc": "2026-10-29T00:00:00Z",
+  "session": "arena/dc2e4c0c-gemsdoekarage1",
+  "hypothesis": "No active hypothesis selected: the prompt contains no assigned lane paragraph and this checkout has no authoritative lane/template assignment. Existing ranked proposals remain proposals only.",
+  "mechanism": "No candidate mechanism executed. The protocol requires an assigned lane, shared authoritative template/cache, a pre-placement registry check, and leakage canaries before experiments.",
+  "named_non_fault_mimic": "Not applicable to this review-only run; no candidate surface was computed.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run in this session; no score estimate or organizer score is claimed"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "registry_coverage": "No new raster; current checkout records only partial mirror-based historical audits, not a complete authenticated registry.",
+    "status": "not computed for this session"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run; no raster generated"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "software_tests": {
+    "suite": "python -m pytest -q",
+    "passed": 360,
+    "failed": 0,
+    "skipped": 0,
+    "meaning": "software verification only; not geological performance"
+  },
+  "blockers": [
+    "No assigned method-lane paragraph or canonical shared-template assignment.",
+    "The required cached feature stack and competition inputs are absent in this checkout.",
+    "Template provenance integrity check fails: vendor submission_writer.py and uniqueness.py bytes differ from recorded pins.",
+    "No complete authenticated current registry; the literal lattice rule remains binding and prior champion-sized rasters fail its overlap threshold.",
+    "DrivenData authentication and organizer-linked data/receipt are unavailable here; no portal acceptance or live slot capacity verified."
+  ],
+  "verdict": "negative"
+}
