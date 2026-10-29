@@ -1,0 +1,51 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc": "2026-10-29T18:22:22Z",
+  "session": "arena/07823dcc-gemsdoekarage1",
+  "hypothesis": "No hypothesis selected: the method lane is unassigned in the prompt and registry/template.json, and earlier sessions already proposed or explored adjacent candidate families.",
+  "mechanism": "Repository review only. No surface generation, placement, geological experiment, or GeoTIFF generation occurred.",
+  "named_non_fault_mimic": "Not applicable because no candidate was tested; the proposal-only slate lists mimics per hypothesis in the session review.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run; no score estimate or organizer score claimed"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "registry_coverage": "No new candidate was produced. Historical audits are partial and mirror-based, not a complete authenticated current registry.",
+    "status": "not computed in this session"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run; no raster generated"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "software_tests": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 366,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 119,
+    "meaning": "software verification only; not geological performance"
+  },
+  "blockers": [
+    "No assigned method paragraph or canonical shared-template assignment; registry/template.json has method_lane and canonical_template_assignment null.",
+    "Competition data and cached feature stack are absent; no authenticated organizer data access in this session.",
+    "Complete authenticated registry and frozen comparable holdout baseline unavailable.",
+    "Candidate novelty across parallel sites is not certifiable from this checkout; earlier candidate slates and adjacent local implementations exist.",
+    "No fresh verification of external data payload availability, organizer submission receipt, or live weekly allowance."
+  ],
+  "verdict": "negative"
+}

@@ -46,6 +46,24 @@ def test_evidence_strict_json():
     assert card['slot_selected_or_spent'] is False
 
 
+def test_current_session_is_visible_and_fails_closed():
+    card = json.loads((ROOT / "evidence/session_07823dcc_run_card.json").read_text())
+    assert card["verdict"] == "negative"
+    assert card["ok_to_submit"] is False
+    assert card["download_available"] is False
+    assert card["slot_selected_or_spent"] is False
+    assert card["geological_experiments_run"] == 0
+    assert card["holdout_dti"]["value"] is None
+    assert card["raster_sha256"] is None
+    assert card["validator_output"]["status"] == "not run; no raster generated"
+    for page in (ROOT / "index.html", ROOT / "docs/index.html", ROOT / "docs/executive-summary.html"):
+        text = page.read_text()
+        assert "DO NOT SUBMIT" in text
+        assert "No approved .tif to download" in text
+        assert "session-review-arena-07823dcc-2026-10-29.md" in text
+        assert "session_07823dcc_run_card.json" in text
+
+
 def test_all_legacy_page_builders_delegate_to_fail_closed_renderer():
     paths = [ROOT / 'index.html', ROOT / 'executive-summary.html', *sorted((ROOT / 'docs').glob('**/*.html'))]
     before = {path: path.read_bytes() for path in paths}
