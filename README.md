@@ -132,34 +132,6 @@ The competition states its purpose: predictions for what you believe are faults,
 
 > **Latest review (`arena/bd75aa22`, 2026-10-29): NEGATIVE / DO NOT SUBMIT.** Repository review only; no new TIF, geological experiment, HOLDOUT-DTI, score estimate, or slot selection. Test suite: **365 passed** (software verification only). No lane assignment or canonical shared template is recorded, authenticated inputs/cache and complete registry are unavailable, so experiments and a cleared unique submission remain blocked. See [session review](knowledge/session-review-arena-bd75aa22.md) and [JSON run card](evidence/session_bd75aa22_run_card.json).
 
-## START HERE — what can I download today?
-
-> **NOTHING IS CLEARED.** No TIF is approved to download or submit. Read the **[executive summary](docs/executive-summary.html)** (the first panel shows this session's result). It has one table: per-site file, reported score (labelled), uniqueness, and a verdict. Any file marked *cleared* must pass every gate; a file that merely looks valid is not cleared.
-
-**Session `arena/fb1e3550` (29 Oct 2026): NEGATIVE.** Two new geological hypotheses were tested on the shared, spatially-blocked hide-and-recover holdout, against a reproduced control (GPC, HOLDOUT-DTI 0.073394, 95% CI [0.064520, 0.082481], 60,988 withheld positives, `gemsk-hide-recover-v1`):
-
-| Lane | HOLDOUT-DTI | 95% CI | Verdict |
-|---|---|---|---|
-| H-K1-STRAINPHASE (shear-dominant strain ridges) | 0.055931 | [0.042938, 0.067869] | negative |
-| H-K1-SIGNEDOFFSET (signed magnetic/gravity step) | 0.056536 | [0.050257, 0.062695] | negative |
-
-Both pass the leakage canary (max AUC 0.574) and the pre-placement surface check (|Spearman| ≤ 0.011; ≤ 10.2% dot overlap), so they are unique but weaker. **No submission slot was spent.** Details: [session review](knowledge/session-review-arena-fb1e3550.md) · [ranked hypotheses](knowledge/hypotheses-20261029.md) · [run card](evidence/session_fb1e3550_run_card.json) · [official-source register](knowledge/official-sources-verified-2026-10-29.md).
-
-**Public leaderboard (fetched 29 Oct 2026):** #1 is **0.4544**; 0.3195 is rank #47 ([leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)). The prompt's "0.4413" and "0.3195 is highest" are not supported by the board; flagged.
-
-### Requirements from the 29 Oct 2026 prompt (summary; read every session)
-
-1. **Core values:** Maximize P(Win); Own the Outcome. Verify everything from official sources, provide links, flag irregularities, no hallucinations.
-2. **Download-ready TIF:** one obvious download with a clear OK / NOT-OK status at the top of the site. A file is "OK to download" only when it passes the holdout, pre-placement, registry-uniqueness and validator gates (none currently passes).
-3. **Scoring facts:** the official metric is distance-weighted Tversky (α 0.2, β 0.8, R 300 m); values in [0, 1]; float32; EPSG:32611; NaN or null outside the bounds. The Initial Round scores each submission against a private, pre-labelled set; expert review applies only in the Final Round ([problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)).
-4. **Labels:** every number is HOLDOUT-DTI (evaluator, withheld positives, 95% CI) or ORGANIZER-CONFIRMED (from a submission receipt). Projections are never written as scores.
-5. **Uniqueness:** not a duplicate of any GEMSDOE submission listed in the prompt. The 70%/3-px lattice gate is an internal protocol, not an organizer rule.
-6. **Parallel-run protocol:** one assigned lane (the method paragraph is missing from the prompt; flagged), shared holdout and writer (no private forks), leakage canary (AUC > 0.90 means leakage), ≤ 3 experiments or 2 hours, a JSON run card, and a promote or negative verdict. Slot selection is separate.
-7. **Hypotheses:** 3–5 ranked, each naming layers, physical signature, why off-catalogue, the non-fault mimic and novelty vs the repo; validate the top one before any slot.
-8. **Deliverables:** an executive-summary page, a how-to-submit page (file, unique name, note ≤ 140 characters), a clean GitHub Pages site, three review passes, then a PR merged to `main` with remaining work and limitations.
-
-Verbatim prompt: the full prompt repeats itself heavily, so this file keeps the requirements rather than a full transcript. The complete text can be pasted into `docs/standing-prompt.md` on request.
-
 > **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
 
 > **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
@@ -434,3 +406,67 @@ The current active session review is [`knowledge/session-review-arena-1668dda0.m
 5. Only then may the selector choose a weekly slot.
 
 No competition slot was selected or spent in this session.
+
+---
+
+# SESSION PROMPT — FULL TEXT (read at start of every session)
+
+## Core Mission
+
+Place at the top of the DrivenData Geologic Enhanced Mapping System (GEMS) Prize Challenge by producing a single-band float32 GeoTIFF of fault probabilities. Competition: https://www.drivendata.org/competitions/306/competition-doe-gems/
+
+Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one float32 layer; values in [0, 1]; outside bounds null or NaN. Score is distance-weighted Tversky index, α=0.2, β=0.8, 300 m triangular kernel. Three submissions per week; close 2026-12-03 23:59 UTC. Original work only.
+
+## Highest-Urgency Requirements
+
+1. **MUST GENERATE A UNIQUE TIF SUBMISSION.** Do not copy a previous submission unless for learning/education. A unique TIF must be generated. It must be obvious whether it is OK to download and submit the generated TIF.
+
+2. **Executive summary on every focus site** (GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36): clear and obvious which is the best submission to obtain a high score on the leaderboard. Unique, not an exact duplicate of any previous submission.
+
+3. **Table in the executive summary** listing: what file to download, what the estimated score is, whether it is a unique submission unlike any of the other GEMSDOE sites.
+
+4. **Easy-to-download submission TIF** — obvious when visiting the site, with file, unique name, and note ≤ 140 characters.
+
+5. **Submission must pass validation gates** before confirming whether a file is unique and submittable. Values must be in [0, 1] (fixes earlier "Predicted values must be in range [0, 1]" error).
+
+6. **PhD-level analysis of GEMSDOE32 B2 (0.2778):** why and how it got the highest score, and whether a submission scoring higher than 0.2778 can be generated. Use the answer to generate a unique TIF.
+
+7. **3–5 new geological hypotheses** not yet tried: layers, physical signature, why off-catalogue, how it differs from repo implementations, ranked by expected DTI improvement and cost. Validate top candidate on spatially-blocked holdout before any weekly slot.
+
+8. **PARALLEL-RUN PROTOCOL:** one assigned lane; registry duplicate check (|Spearman| > 0.90 or > 70% of dots within 3 px → log duplicate and stop); reuse shared evaluate_holdout.py and submission_writer.py (fix once, never private-fork); label every number (HOLDOUT-DTI or ORGANIZER-CONFIRMED); leakage canary (AUC > 0.90 = leakage); budget ≤ 3 experiments or 2 hours; no slot selection (separate selector, weekly cap); end with JSON run card (promote/negative verdict).
+
+9. **No hallucinations:** verify line by line from official sources; collect data/knowledge into auditable tables; state limitations and access needs (no DrivenData login; data tab is login-walled).
+
+10. **Clean GitHub Pages site** under docs/; three passes then PR merged to main, listing remaining work and limitations.
+
+## Current Competition State
+
+- Public leaderboard #1: 0.4544 (DrivenData, checked 29 Oct 2026)
+- Best nine focus-site reported score: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED)
+- All nine focus-site rasters are lattice duplicates (>97.6% dots within 3 px of pinned 13GEMSDOE lattice)
+- No file currently cleared for submission (lane = null, labels login-walled, no organizer receipt)
+- Unique TIF generated: `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif` (1,322 dots, format-valid, lattice-unique, 0.0000 worst overlap, NOT cleared for submission)
+
+## Source Links (Official, Verified)
+
+- Competition problem: https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
+- Competition about: https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/
+- Competition data (login-walled): https://www.drivendata.org/competitions/306/competition-doe-gems/data/
+- Leaderboard: https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/
+- Reference solution: https://github.com/drivendataorg/gems-prize-reference-solution
+- Official rules PDF: https://docs.nlr.gov/docs/fy26osti/96647.pdf
+- USGS GeoDAWN: https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and
+- GDR INGENIOUS: https://gdr.openei.org/submissions/1391
+- EPSG:32611: https://epsg.io/32611
+- Tversky index: https://en.wikipedia.org/wiki/Tversky_index
+- DrivenData staff clarification (masking): https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516
+
+## Core Values
+
+**Maximize P(Win):** weigh tradeoffs, assess risk, choose the path maximizing probability of success.
+**Own the Outcome:** own results end to end; treat failure and success as signals; stay accountable to the final outcome.
+
+## Verification Standard
+
+Work line by line, verifying from official verified trusted sources. Provide links for manual review. No manual input — work autonomously. Flag irregularities. No hallucinations. Verify line by line.
+
