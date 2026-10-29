@@ -1,0 +1,33 @@
+{
+  "schema": "karage1-false-clearance-retraction-v1",
+  "date_utc": "2026-10-29",
+  "file": "archive/quarantined-20261029/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+  "former_public_path": "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+  "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+  "status": "NOT CLEARED - retracted false clearance",
+  "what_was_wrong": [
+    "docs/executive-summary.html (not produced by scripts/render_site.py) said CLEARED FOR SUBMISSION and 'Unique? YES (Masked >3px)'.",
+    "The card docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json had verdict 'promote' with empty correlation_vs_registry and overlap_vs_registry, i.e. no registry duplicate check was recorded.",
+    "Its holdout figure 0.1713 has no reproducible evaluation receipt in this repository and is not used here."
+  ],
+  "measured_by_this_session": {
+    "method": "scripts/audit_references.py reference cache (12 SHA-pinned assets, verified) + scripts/audit_rasters.py overlap(): candidate dots within closed Euclidean 3 px of reference dots, inside the mirror footprint",
+    "grid_match_template": true,
+    "candidate_dots": 37654,
+    "outside_footprint_positive": 0,
+    "values_in_footprint": [0.0, 1.0],
+    "lattice_directed_overlap": 0.999017368672651,
+    "nine_site_directed_overlap_forward": {
+      "GEMSDOE24": 0.2607, "GEMSDOE25": 0.2502, "GEMSDOE27": 0.2654,
+      "GEMSDOE28": 0.2422, "GEMSDOE30": 0.2502, "GEMSDOE31": 0.2453,
+      "GEMSDOE32": 0.239, "GEMSDOE33": 0.2487, "GEMSDOE36": 0.241
+    },
+    "nine_site_directed_overlap_reverse": {
+      "GEMSDOE24": 0.2457, "GEMSDOE25": 0.2475, "GEMSDOE27": 0.2448,
+      "GEMSDOE28": 0.2658, "GEMSDOE30": 0.2475, "GEMSDOE31": 0.2639,
+      "GEMSDOE32": 0.2709, "GEMSDOE33": 0.2578, "GEMSDOE36": 0.2659
+    }
+  },
+  "conclusion": "Literal lattice duplicate (99.90% > 70%). Unique versus the nine focus sites only (<= 27% overlap), which is not sufficient. Do not download or submit.",
+  "submit_authorized": false
+}

@@ -53,15 +53,21 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
 
 def test_current_session_status_and_expanded_saved_byte_audit_are_visible():
     audit = render_site.current_local_audit()
-    assert audit["local_downloads_count"] == 11
+    assert audit["local_downloads_count"] == 10
     assert audit["peer_rasters_count"] == 9
     assert audit["submit_authorized"] is False
-    unique_hyp = next(row for row in audit["local_downloads"] if "unique-hyp-kth" in row["file"])
+    assert all("unique-hyp-kth" not in row["file"] for row in audit["local_downloads"])
+    prior = json.loads((ROOT / "evidence/local_and_peer_audit_f43e6441.json").read_text())
+    unique_hyp = next(row for row in prior["local_downloads"] if "unique-hyp-kth" in row["file"])
     assert unique_hyp["literal_lattice_duplicate"] is True
     assert unique_hyp["nan_outside_variant_pass"] is False
     retracted = json.loads((ROOT / "docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json").read_text())
     assert retracted["verdict"] == "negative" and retracted["ok_to_submit"] is False
-    assert retracted["superseded_holdout_claim"]["label"] == "RETRACTED_UNVERIFIED_HOLDOUT_CLAIM"
+    assert retracted["historical_holdout_claim"]["value"] is None
+    assert "unreproduced" in retracted["historical_holdout_claim"]["status"]
+    archived = ROOT / "archive/quarantined-20261029/unique-hyp-kth-therm-mask-20261028-zeros.tif"
+    assert archived.is_file()
+    assert "f43e6441" in (ROOT / "evidence/session_f43e6441_run_card.json").read_text()
     for path in (ROOT / "index.html", ROOT / "docs/index.html", ROOT / "docs/executive-summary.html"):
         text = path.read_text()
         assert "f43e6441" in text

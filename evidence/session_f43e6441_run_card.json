@@ -7,7 +7,7 @@
   "named_non_fault_process_that_could_mimic_it": "Seismic catalog/station completeness gaps, seasonal hydrologic loading, geodetic interpolation artifacts, or an unfaulted lithologic boundary.",
   "holdout_dti": {
     "label": "HOLDOUT-DTI",
-    "status": "NOT RUN — blocked by preflight; no candidate result",
+    "status": "NOT RUN \u2014 blocked by preflight; no candidate result",
     "evaluator_version": null,
     "withheld_positives": null,
     "value": null,
@@ -16,8 +16,8 @@
   "correlation_overlap_vs_registry": {
     "candidate_preplacement_surface_spearman": null,
     "candidate_final_dot_overlap": null,
-    "candidate_checks_status": "NOT RUN — no candidate surface or dots",
-    "registry_scope": "Current saved-byte audit covers 11 local TIFFs and 9 pinned peer rasters against selected mirror references and a lattice witness; it is not a complete organizer registry.",
+    "candidate_checks_status": "NOT RUN \u2014 no candidate surface or dots",
+    "registry_scope": "Pre-quarantine snapshot: 11 local TIFFs + 9 pinned peers. Current post-quarantine saved-byte audit: 10 local TIFFs + the same 9 peers. Neither is a complete organizer registry.",
     "saved_byte_audit_receipt": "evidence/local_and_peer_audit_f43e6441.json",
     "all_audited_local_artifacts_ok_to_submit": false,
     "unique_hyp_artifact": {
@@ -30,7 +30,10 @@
     "lattice_audit_geometry_fraction_within_3px": 0.9987132726822701,
     "lattice_footprint_coverage_fraction_within_3px": 0.9987132726822701,
     "historical_37654_dot_budget_minimum_overlap_fraction": 0.8234184947150369,
-    "interpretation": "Audit geometry only, not a model score; historical-budget lower bound exceeds the literal 0.70 overlap stop threshold."
+    "interpretation": "Audit geometry only, not a model score; historical-budget lower bound exceeds the literal 0.70 overlap stop threshold.",
+    "saved_byte_audit_receipt_post_quarantine": "evidence/local_and_peer_audit_f43e6441_postmerge.json",
+    "post_quarantine_current_local_raster_count": 10,
+    "historical_tiff_location_after_quarantine": "archive/quarantined-20261029/unique-hyp-kth-therm-mask-20261028-zeros.tif"
   },
   "raster_sha256": null,
   "validator_output": {
@@ -39,7 +42,7 @@
     "values_in_0_1_inside_footprint": null,
     "outside_is_null_or_nan": null,
     "crs_shape_transform_match": null,
-    "status": "NOT RUN — no candidate raster; official format requirements were checked from the public competition specification, not validated against output bytes"
+    "status": "NOT RUN \u2014 no candidate raster; official format requirements were checked from the public competition specification, not validated against output bytes"
   },
   "submission_name": "NONE-DO-NOT-SUBMIT-20261029",
   "submission_note": "DO NOT SUBMIT: no assigned lane, authenticated data, valid holdout, or cleared raster.",
