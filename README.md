@@ -244,3 +244,35 @@ The original, very long user message is available in the conversation replay but
 7. **Three-pass follow-up order:** obtain an assigned lane and authoritative template; authenticate organizer data and template geometry; resolve the lattice interpretation without evasion; establish a complete inventory and comparable baseline; only then preregister and run at most three properly buffered, fold-local experiments and the automated validator. A separate selector checks a live weekly allowance only after every gate passes.
 
 The current active session review is [`knowledge/session-review-arena-1668dda0.md`](knowledge/session-review-arena-1668dda0.md), with its exact session card at [`evidence/session_1668dda0_run_card.json`](evidence/session_1668dda0_run_card.json) and saved-byte ecosystem receipt at [`evidence/local_downloads_and_peer_audit_20261028.json`](evidence/local_downloads_and_peer_audit_20261028.json). Prior session records, including [`knowledge/session-review-arena-a1ef4ce0.md`](knowledge/session-review-arena-a1ef4ce0.md) and [`knowledge/session-review-arena-8ffb6de1.md`](knowledge/session-review-arena-8ffb6de1.md), are historical evidence to inspect—not certificates of current validity.
+
+## Latest Session — GEMSDOEkarage1 Experiment 1 (GSE) — 29 OCT 2026
+
+### What was done
+- **Restored pinned competition data** from GitHub mirrors: `data/bridge/sample_submission.tif` (sha256 `2176d08e…`), `existing_faults.tif` / `labels.tif` (sha256 `7ba308cc…`), plus external GeoDAWN radiometrics, LiDAR scarp features, GeoDAWN extensions, INGENIOUS temperature probes, paleo-geothermal features, and volcanic vents from `buffedlizard55-lab/GEMSDOE24` at commit `07345ea0…`. All SHA-256 hashes verified against `registry/data_manifest.json`.
+- **Built a UNIQUE GeoTIFF** (Experiment 1): `karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif` — a Geothermal Surface Expression index targeting radiometric (U/K/Th), LiDAR scarp, INGENIOUS thermal, paleo-geothermal, and volcanic-vent anomalies. 24,000 dots, 300 m hard apron from all catalogue faults, off-catalogue by design.
+- **Format validation: PASS** (validator exit 0) — single-band float32, EPSG:32611, 3730×3292, 100 m, values in [0,1], no NaN in footprint, 0 positive pixels outside footprint, 0 dots on catalogue faults.
+- **Uniqueness: PASS** vs 11 registry rasters — max |Spearman| = 0.0104 (limit 0.90), max dot overlap within 3 px = 0.310 (limit 0.70). Unique vs GEMSDOE32 B2 (rho=0.0056, 17.2% overlap) and GEMSDOE25 (rho=0.0048, 17.6% overlap).
+- **Leakage canary: PASS** — all component vs near-catalogue |point-biserial r| < 0.06 (limit 0.5).
+- **Verdict: NEGATIVE — DO NOT SUBMIT.** No lane assigned (`registry/template.json` records `method_lane: null`), no holdout DTI produced, not all 9 focus-site rasters available for registry check. Research download only. No slot selected or spent.
+
+### Files
+| File | Description |
+|------|-------------|
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif` | Format-valid unique GSE TIF (research download, NOT cleared) |
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.zip` | One-TIFF ZIP of the same |
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.json` | Validator receipt |
+| `evidence/run_card_gse_exp1.json` | Experiment 1 run card (negative verdict) |
+| `evidence/uniqueness_gse_exp1.json` | Uniqueness vs registry results |
+| `scripts/build_gse_submission.py` | Build script (Experiment 1) |
+| `index.html` | Homepage — GSE download + NOT-OK status at top |
+| `docs/executive-summary.html` | Nine-site table + GSE details |
+| `docs/how-to-submit.html` | Step-by-step submission guide |
+
+### Blocker before any slot is spent
+1. Assign a method lane in `registry/template.json` (currently `null`).
+2. Authenticate organizer data and template geometry.
+3. Run the full registry uniqueness check against all 9 focus-site rasters.
+4. Run a buffered hide-and-recover holdout (pooled DTI, alpha 0.2, beta 0.8, 300 m triangular kernel).
+5. Only then may the selector choose a weekly slot.
+
+No competition slot was selected or spent in this session.
