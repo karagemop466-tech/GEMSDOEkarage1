@@ -1,3 +1,47 @@
+# GEMSDOEkarage1 — Fault Discovery, Evidence First
+
+## EXECUTIVE SUMMARY (read first) — session `arena/c65129cb` (29 Oct 2026)
+
+**Status: NOTHING IS CLEARED FOR UPLOAD. Do not submit any file from this repository yet.**
+
+| File to download | Estimated leaderboard score | Unique? (tested against the 25 registry rasters available locally, not every listed submission) | OK to submit? |
+|---|---|---|---|
+| [`DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif`](archive/quarantined-20261029/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif) (new; format-valid) | **Not estimable.** HOLDOUT-DTI **0.0093**, 95% CI **[0.0042, 0.0136]**, 22,641 withheld positives (evaluator `gems57-pooled-hide-v2`). Not a leaderboard projection. | **Byte- and pixel-unique** vs the 25 local registry rasters; Spearman worst 0.007; but **99.91% 3-px overlap with the 13GEMS lattice fails the literal 70% gate** (that gate also fails random noise, see review §4) | **NO — DO NOT SUBMIT.** Owner must resolve the gate first. |
+| GEMSDOE32 `h33-h33-2-b2` (reference only) | USER-REPORTED 0.2778 — unverified | **No.** Strict subset of GEMSDOE25 with all 6,436 removed dots within 2 px of the catalogue | DO NOT RESUBMIT |
+
+- **Holdout result for the second hypothesis** (strain-rate ridge `geod_2ndinv`, holdout only, no file): HOLDOUT-DTI 0.0129 [0.0031, 0.0201]. Not a clear gain.
+- **Leaderboard, verified on the official page this session:** #1 **0.4544**; #47 **0.3195** confirmed; **0.4413 is not in the top 50**.
+- **Full analysis:** [knowledge/session-review-2026-10-29-thd-ridge.md](knowledge/session-review-2026-10-29-thd-ridge.md) · run card [evidence/session_thd_ridge_run_card_20261029.json](evidence/session_thd_ridge_run_card_20261029.json) · gate null check [evidence/lattice_gate_null_check_20261029.json](evidence/lattice_gate_null_check_20261029.json).
+
+Labels: **HOLDOUT-DTI** = our proxy on withheld known-catalogue segments; **ORGANIZER-CONFIRMED** = none exists for any file here; **USER-REPORTED** = values supplied in the request, not verified.
+
+
+> **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
+
+> **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
+> "CLEARED FOR SUBMISSION" page and its `promote` card were on `main`; both are retracted. The
+> flagged TIF has 99.90% lattice overlap (stop > 70%) and is quarantined in
+> [`archive/quarantined-20261029/`](archive/quarantined-20261029/). 8 failing tests fixed; **357 pass**.
+> Read [the session review](knowledge/session-review-arena-a409acfe.md) and [run card](evidence/session_a409acfe_run_card.json).
+> **Session `arena/b0714e6b` (2026-10-29), reconciled with `a409acfe`: NEGATIVE / DO NOT SUBMIT.** No new TIF.
+> - **Official facts verified** from DrivenData and the NLR rules PDF: metric (α=0.2, β=0.8, R=300 m); float32 GeoTIFF, values in [0, 1], EPSG:32611, NaN or null outside bounds; 3 submissions per week; close **2026-12-03 23:59 UTC**. The 70%/3-px duplicate gate is **not** in the official rules; it is an internal protocol.
+> - **Leaderboard correction:** public #1 is **0.4544**; **0.3195 is rank #47**; **0.4413** does not appear on the snapshot; no GEMSDOE score is visible in the top 50.
+> - **Blockers:** no assigned method lane (the protocol's "method paragraph" is missing); the literal lattice gate blocks dotted rasters; organizer data is login-walled.
+> - Read [session review](knowledge/session-review-2026-10-29.md), [verified sources register](knowledge/official-sources-verified-2026-10-29.md), and [run card](evidence/session_b0714e6b_run_card.json).
+
+**Latest session (`arena/968c17f0-gemsdoekarage1`, 29 OCT 2026): NEGATIVE / DO NOT SUBMIT.** A new **unique, format-valid GeoTIFF** was generated — `docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif` (SHA-256 `f6307da8…`, 4,146,936 bytes). It passes all local format checks (float32, all finite, values in [0,1], EPSG:32611, 3730×3292, transform matches sample, zero outside footprint and on catalogue, 0 NaN inside footprint). It uses a damage-zone halo probability field — structurally unique versus all nine dot-field focus-site submissions. It is a **research artifact only**: no HOLDOUT-DTI (organizer labels login-walled), no registry uniqueness measured, no assigned method lane, no slot spent. **DO NOT SUBMIT.** Run card: `evidence/run_card_karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json`. Executive summary: `docs/executive-summary.html`.
+
+**Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
+> **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.
+>
+> **DO NOT SUBMIT — no candidate has been cleared for competition upload.**
+> **New this session (`147b0f11`): a unique, format-valid DIPDUAL GeoTIFF was generated**
+> (`karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif`, discrete-unique vs 24 audited rasters)
+> **but failed its preregistered holdout gates — research download only, do not submit it.**
+> The separately generated BB-STEP research GeoTIFF is unique versus the nine focus-site rasters but fails the literal 3-pixel lattice-overlap rule (98.5253%). Do not submit it. The older CDA1 archive is a synthetic demonstrator whose holdout routine returned hard-coded numbers; its reported DTI is invalid and is not a measurement. All 21 primary and secondary focus-site files audited in this repository also fail the literal lattice gate. Format validation is necessary but not submission approval.
+
+---
+
 # SESSION PROMPT — READ FIRST AT THE START OF EVERY SESSION
 
 This is the standing user prompt for this project. Read it at the start of every session to make sure we are building what we are aiming for.
@@ -139,30 +183,6 @@ The competition states its purpose: predictions for what you believe are faults,
 > **Session `arena/be012103` (2026-10-29): NEGATIVE / DO NOT SUBMIT — no file is cleared.** No new TIF was generated: the competition data is login-walled and unreachable from the sandbox, and no method lane is assigned, so there is nothing to holdout-test or score. Live leaderboard (fetched 2026-10-29): **#1 = 0.4544** (xiaofanhu), #2 = 0.3916; 0.4413 not found; 0.3195 near rank #47. The GEMSDOE32 **0.2778 is an owner-report with no submission receipt** on its own page, which also says "already submitted - do not resubmit". Test suite: **365 passed**. Details: [session review](knowledge/session-review-arena-be012103.md), [run card](evidence/session_be012103_run_card.json). Manual steps needed from the owner are listed in the review.
 
 > **Latest review (`arena/bd75aa22`, 2026-10-29): NEGATIVE / DO NOT SUBMIT.** Repository review only; no new TIF, geological experiment, HOLDOUT-DTI, score estimate, or slot selection. Test suite: **365 passed** (software verification only). No lane assignment or canonical shared template is recorded, authenticated inputs/cache and complete registry are unavailable, so experiments and a cleared unique submission remain blocked. See [session review](knowledge/session-review-arena-bd75aa22.md) and [JSON run card](evidence/session_bd75aa22_run_card.json).
-
-> **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
-
-> **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
-> "CLEARED FOR SUBMISSION" page and its `promote` card were on `main`; both are retracted. The
-> flagged TIF has 99.90% lattice overlap (stop > 70%) and is quarantined in
-> [`archive/quarantined-20261029/`](archive/quarantined-20261029/). 8 failing tests fixed; **357 pass**.
-> Read [the session review](knowledge/session-review-arena-a409acfe.md) and [run card](evidence/session_a409acfe_run_card.json).
-> **Session `arena/b0714e6b` (2026-10-29), reconciled with `a409acfe`: NEGATIVE / DO NOT SUBMIT.** No new TIF.
-> - **Official facts verified** from DrivenData and the NLR rules PDF: metric (α=0.2, β=0.8, R=300 m); float32 GeoTIFF, values in [0, 1], EPSG:32611, NaN or null outside bounds; 3 submissions per week; close **2026-12-03 23:59 UTC**. The 70%/3-px duplicate gate is **not** in the official rules; it is an internal protocol.
-> - **Leaderboard correction:** public #1 is **0.4544**; **0.3195 is rank #47**; **0.4413** does not appear on the snapshot; no GEMSDOE score is visible in the top 50.
-> - **Blockers:** no assigned method lane (the protocol's "method paragraph" is missing); the literal lattice gate blocks dotted rasters; organizer data is login-walled.
-> - Read [session review](knowledge/session-review-2026-10-29.md), [verified sources register](knowledge/official-sources-verified-2026-10-29.md), and [run card](evidence/session_b0714e6b_run_card.json).
-
-**Latest session (`arena/968c17f0-gemsdoekarage1`, 29 OCT 2026): NEGATIVE / DO NOT SUBMIT.** A new **unique, format-valid GeoTIFF** was generated — `docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif` (SHA-256 `f6307da8…`, 4,146,936 bytes). It passes all local format checks (float32, all finite, values in [0,1], EPSG:32611, 3730×3292, transform matches sample, zero outside footprint and on catalogue, 0 NaN inside footprint). It uses a damage-zone halo probability field — structurally unique versus all nine dot-field focus-site submissions. It is a **research artifact only**: no HOLDOUT-DTI (organizer labels login-walled), no registry uniqueness measured, no assigned method lane, no slot spent. **DO NOT SUBMIT.** Run card: `evidence/run_card_karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json`. Executive summary: `docs/executive-summary.html`.
-
-**Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
-> **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.
->
-> **DO NOT SUBMIT — no candidate has been cleared for competition upload.**
-> **New this session (`147b0f11`): a unique, format-valid DIPDUAL GeoTIFF was generated**
-> (`karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif`, discrete-unique vs 24 audited rasters)
-> **but failed its preregistered holdout gates — research download only, do not submit it.**
-> The separately generated BB-STEP research GeoTIFF is unique versus the nine focus-site rasters but fails the literal 3-pixel lattice-overlap rule (98.5253%). Do not submit it. The older CDA1 archive is a synthetic demonstrator whose holdout routine returned hard-coded numbers; its reported DTI is invalid and is not a measurement. All 21 primary and secondary focus-site files audited in this repository also fail the literal lattice gate. Format validation is necessary but not submission approval.
 
 ## Standing prompt (read at the start of every session)
 
