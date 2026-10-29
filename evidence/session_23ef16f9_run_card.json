@@ -1,0 +1,81 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/23ef16f9",
+  "date_utc": "2026-10-29",
+  "experiments_run": 0,
+  "budget": "0 holdout experiments; 2 software checks (registry pair, metric threshold); budget cap 3 experiments / 2 hours not reached",
+  "hypothesis": "No new file is cleared. Two proposed candidates (not validated): H1 survey-resolution mask on magnetic lineaments; H2 Euler depth-clustered contacts.",
+  "mechanism": "H1: GeoDAWN flight spacing (200 m Area 1, 400 m Area 2) limits resolvable ridge wavelengths; a mask on the ridge map removes unresolved ridges. H2: contacts whose depths cluster at reservoir scale are kept.",
+  "named_non_fault_process": "H1: flight-line striping and leveling residuals along the 90-degree flight azimuth, and the Area 1/Area 2 seam. H2: basalt flows and intrusive lithologic contacts.",
+  "holdout_dti": {
+    "value": null,
+    "ci95": null,
+    "evaluator": null,
+    "withheld_positives": null,
+    "label": "NOT MEASURED. Official data is login-walled. Mirror-restored copies exist on main (session 547a9b56) but are not organizer-authenticated, and the lane is unassigned."
+  },
+  "reference_scores": {
+    "GEMSDOE32_h33-h33-2-b2_0.2778": "USER-REPORTED / UNVERIFIED (no organizer receipt)",
+    "live_leaderboard_top1_0.4544": "ORGANIZER-CONFIRMED (DrivenData leaderboard fetched 2026-10-29)",
+    "live_leaderboard_rank47_0.3195": "ORGANIZER-CONFIRMED (same page)",
+    "0.4413": "NOT FOUND in the top 50 rows shown"
+  },
+  "correlation_overlap_vs_registry": {
+    "source": "evidence/registry_pair_check_23ef16f9.json",
+    "GEMSDOE32_B2_dots_within_3px_of_GEMSDOE25": 1.0,
+    "GEMSDOE25_dots_within_3px_of_GEMSDOE32_B2": 0.881719,
+    "GEMSDOE32_is_strict_subset_of_GEMSDOE25": true,
+    "lattice_gate_max_dots_satisfiable": 22163,
+    "spearman": "not computed in this session"
+  },
+  "raster_sha256": {
+    "registry/GEMSDOE25_d28.tif": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+    "registry/GEMSDOE32_B2.tif": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+    "new_raster": null
+  },
+  "validator_output": {
+    "source": "scripts/registry_pair_check.py",
+    "note": "Applied to the two registry rasters only, not to a new candidate.",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "res": [
+      100.0,
+      100.0
+    ],
+    "dtype": "float32",
+    "nonfinite": 0,
+    "outside_0_1": 0,
+    "grid_matches_template": true
+  },
+  "submission_name": null,
+  "submission_note": "",
+  "submission_note_chars": 0,
+  "verdict": "negative",
+  "decision": "DO NOT SUBMIT. No file was generated for upload. No weekly slot was spent. Promotion is a separate selector step.",
+  "tests": "After merging origin/main: 372 passed, 7 failed. Identical to origin/main baseline (pre-existing failures).",
+  "irregularities": [
+    "Renderer text said 0.3195 did not match the live page; it is at rank 47. Corrected.",
+    "The alpha*DTI inclusion rule was first presented as new; it is already in src/gemsk/metric.py. Corrected.",
+    "README says 365 tests; the current count is 373.",
+    "Stale 0.4437 leaderboard figure in evidence/sources/GEMSDOE32.md and knowledge/geothermal-fault-knowledge.md.",
+    "The 70%/3-px gate is not in the official rules sections read; it is internal and is unsatisfiable above 22,163 dots against the recorded witness.",
+    "Eligibility and generative-AI disclosure must be confirmed by the owner before any final submission.",
+    "main has 7 failing tests (fleet/TIF audits) before and after this merge.",
+    "Hand-restored docs/executive-summary.html on main disagrees with scripts/build_site.py output.",
+    "Mirror-restored competition data: owner to confirm terms compliance.",
+    "Mirrored sample_submission.tif equals the label-fault pixels (60,988)."
+  ],
+  "sources": [
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/data/ (redirects to login)",
+    "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+    "https://github.com/drivendataorg/gems-prize-reference-solution",
+    "https://doi.org/10.5066/P93LGLVQ",
+    "https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7",
+    "https://www.usgs.gov/programs/earthquake-hazards/faults"
+  ]
+}

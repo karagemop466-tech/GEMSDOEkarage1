@@ -329,6 +329,63 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{doc}data/latest-run-card.json">Latest run card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
 
 
+def session_evidence():
+    """Fail-closed loader for the 2026-10-29 StrainPhase / SignedOffset holdout runs."""
+    def load(name):
+        return json.loads((ROOT / 'evidence' / name).read_text())
+    lanes = []
+    for lane, prefix in (('strainphase', 'strainphase'), ('signedoffset', 'signedoffset')):
+        e1 = load(f'exp1_{prefix}_canary.json')
+        e2 = load(f'exp2_{prefix}_holdout.json')
+        if (e1.get('any_alarm') is not False or e2.get('evaluator_version') != 'gemsk-hide-recover-v1'
+                or e2.get('withheld_positives') != 60988 or e2.get('beats_gpc_control') is not False
+                or e2['control_reproduction_vs_exp2_dipdual']['abs_difference'] > 1e-9):
+            raise ValueError(f'{lane} holdout evidence incomplete or control not reproduced')
+        lanes.append((lane, e2))
+    overlap = load('surface_registry_overlap_20261029.json')
+    if overlap.get('registry_files_checked', 0) < 15:
+        raise ValueError('surface registry overlap evidence incomplete')
+    return lanes, overlap
+
+
+def session_panel(prefix: str):
+    lanes, overlap = session_evidence()
+    e2 = lanes[0][1]
+    gpc = e2['arms']['GPC_control']['dti']
+    gpc_ci = e2['bootstrap']['GPC_control']['ci95']
+    rows = []
+    for lane, d in lanes:
+        dti = d['arms'][lane]['dti']
+        ci = d['bootstrap'][lane]['ci95']
+        delta = d['bootstrap'][lane]['paired_delta_vs_GPC_control']
+        rows.append(
+            f'<tr><th scope="row">{esc(lane.upper())}<span class="cell-sub">lane H-K1-{esc(lane.upper())}</span></th>'
+            f'<td><strong>{dti:.6f}</strong><span class="cell-sub">HOLDOUT-DTI · {esc(d["evaluator_version"])} · n={d["withheld_positives"]:,} withheld positives · 95% CI [{ci[0]:.6f}, {ci[1]:.6f}]</span></td>'
+            f'<td>{delta["mean"]:+.6f} [{delta["ci95"][0]:+.6f}, {delta["ci95"][1]:+.6f}]<span class="cell-sub">paired vs GPC control</span></td>'
+            '<td><span class="pill pill-red">NEGATIVE</span><span class="cell-sub">below holdout best; no slot spent</span></td></tr>'
+        )
+    worst = overlap['worst_abs_spearman_by_surface']
+    worst_overlap = max(r['share_registry_dots_within_3px_of_top_budget'] for r in overlap['rows'])
+    return f'''<section class="decision-panel" aria-labelledby="session-title"><div class="decision-main">
+<div class="status-line"><span class="status-dot"></span> SESSION arena/fb1e3550 · 29 OCT 2026 <span class="status-tag">NOTHING CLEARED</span></div>
+<h2 id="session-title">No TIF is cleared to download or submit. Both new candidates lose to the holdout baseline.</h2>
+<p><strong>Download answer:</strong> there is no approved file. The two new candidates (STRAINPHASE, SIGNEDOFFSET) were built and tested on the shared hide-and-recover holdout, and both score below the reproduced GPC control. Following the protocol, neither was rasterised for placement and no weekly slot was spent.</p>
+<div class="table-shell"><div class="table-scroll" tabindex="0" role="region" aria-label="Session holdout results"><table><thead><tr><th scope="col">Candidate</th><th scope="col">Holdout result (not a leaderboard estimate)</th><th scope="col">Paired difference</th><th scope="col">Verdict</th></tr></thead><tbody>
+<tr><th scope="row">GPC control (reproduced)<span class="cell-sub">gemskarage1.dipdual gpc_physics control</span></th><td><strong>{gpc:.6f}</strong><span class="cell-sub">HOLDOUT-DTI · gemsk-hide-recover-v1 · n=60,988 · 95% CI [{gpc_ci[0]:.6f}, {gpc_ci[1]:.6f}] · matches recorded value exactly</span></td><td>reference</td><td><span class="pill">BASELINE</span></td></tr>
+{''.join(rows)}
+</tbody></table></div></div>
+<p>Leakage canary (each feature alone, blocked folds): maximum direction-invariant AUC {max(r["max_direction_invariant_auc"] for r in json.loads((ROOT / "evidence/exp1_strainphase_canary.json").read_text())["canary_rows"]):.3f} and {max(r["max_direction_invariant_auc"] for r in json.loads((ROOT / "evidence/exp1_signedoffset_canary.json").read_text())["canary_rows"]):.3f}; both below the 0.90 alarm.</p>
+<p>Pre-placement surface check against 15 restored registry rasters: worst |Spearman| {worst["strainphase"]["spearman_rho"]:+.4f} (STRAINPHASE) and {worst["signedoffset"]["spearman_rho"]:+.4f} (SIGNEDOFFSET); worst share of registry dots within 3 px of the surface's top-budget pixels {worst_overlap:.1%}. Neither surface is a duplicate. Their weakness is detection skill, not uniqueness.</p>
+<p>Public leaderboard (organizer, 28–29 Oct 2026): #1 is 0.4544; 0.3195 is rank #47 (see <a href="{prefix}knowledge/official-sources-verified-2026-10-29.md">official-sources register</a>). None of the nine GEMSDOE scores appears in the top 50 and they remain USER-REPORTED / UNVERIFIED.</p>
+<div class="decision-actions"><button class="button button-disabled" disabled>No cleared TIF to download</button>
+<a class="button button-light" href="{prefix}evidence/exp2_strainphase_holdout.json">STRAINPHASE holdout JSON ↗</a>
+<a class="button button-light" href="{prefix}evidence/exp2_signedoffset_holdout.json">SIGNEDOFFSET holdout JSON ↗</a>
+<a class="button button-light" href="{prefix}evidence/surface_registry_overlap_20261029.json">Surface overlap JSON ↗</a>
+<a class="button button-light" href="{prefix}knowledge/session-review-arena-fb1e3550.md">Session review ↗</a></div>
+</div>
+<div class="decision-side"><div><span>VERDICT</span><strong>Negative · no file cleared</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Not produced</strong></div><div><span>BEST NEW HOLDOUT</span><strong>0.056536 &lt; 0.073394</strong></div><div><span>SLOTS SPENT</span><strong>0</strong></div></div></section>'''
+
+
 def decision(prefix: str):
     _, _, _, audit, card = evidence()
     a, b = audit['candidates']
@@ -339,7 +396,7 @@ def decision(prefix: str):
     conduit_audit, conduit_original, latest, conduit_path = conduitcrest_evidence()
     clat = conduit_audit['lattice_witness']
     chdt = conduit_audit['previous_holdout_claim']
-    return f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
+    return session_panel(prefix) + f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> CURRENT SUBMISSION DECISION <span class="status-tag">DO NOT SUBMIT</span></div>
 <h2 id="decision-title">No eligible submission file yet. Two research rasters fail the literal lattice gate.</h2><p><strong>not cleared for upload.</strong> No approved .tif to download.</p>
 <p>The prior BB-STEP file <code class="wrap">{esc(card['submission_name'])}</code> is unique versus the nine focus sites (worst overlap {nine:.1%}) but has {lat:.2%} lattice overlap; it is a duplicate. Its prior-session <strong>HOLDOUT-DTI {dti['value']:.5f}</strong> [{dti['ci95'][0]:.5f}, {dti['ci95'][1]:.5f}] used evaluator {esc(dti['evaluator_version'])} with {dti['withheld_positives']:,} withheld positives. This is not an organizer score and does not override the duplicate stop.</p>
@@ -454,7 +511,8 @@ def nine_site_section(prefix: str) -> str:
         'No estimate for any of our files is possible without a holdout run and an organizer receipt.</p>'
         '<p class="cell-sub">Live public leaderboard checked 29 Oct 2026: #1 0.4544, #2 0.3916, #3 0.3911 '
         '(<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData ↗</a>). '
-        'The 0.4413 and 0.3195 figures in the session brief do not match that page.</p>'
+        'Correction (session arena/23ef16f9): 0.3195 IS on that page at rank #47 (verified by fetch 29 Oct 2026); '
+        '0.4413 does not appear in the top 50 rows shown there.</p>'
         '</section>')
 
 

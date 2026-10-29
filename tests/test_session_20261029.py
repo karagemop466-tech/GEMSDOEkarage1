@@ -55,6 +55,12 @@ def test_lattice_null_random_dots_fail_the_rule():
 def test_fleet_audit_covers_every_local_tif_and_blocks_all():
     d = _load("evidence/local_downloads_audit_20261029.json")
     files = {r["file"] for r in d["local_downloads"]}
+    # Saved-byte receipts (scripts/audit_local_tif.py) also cover TIFs that are not lattice copies,
+    # so they count for coverage. The lattice and ok_to_submit checks below stay on fleet rows only.
+    for receipt in sorted((ROOT / "evidence").glob("audit_*.json")):
+        data = json.loads(receipt.read_text())
+        if data.get("schema") == "karage1-local-tif-audit-v1":
+            files.add(data["file"])
     on_disk = {f"docs/downloads/{p.name}" for p in (ROOT / "docs/downloads").glob("*.tif")}
     assert on_disk <= files
     assert all(r["ok_to_submit"] is False for r in d["local_downloads"])

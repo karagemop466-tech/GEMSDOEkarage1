@@ -37,6 +37,13 @@ the stylesheet and the test file kept both sides' additions.
 Both TIFs were appended with the shared tool (`scripts/audit_local_tif.py --append-fleet`), which sets `ok_to_submit: false`.
 The shared validator fails the new TIF only on its NaN-outside policy, and fails the convect TIF on 65 outside-footprint pixels and dots on the mapped catalogue. Both facts are disclosed on the hub.
 
+## Merge with `main`, second round (pass 5)
+
+`main` advanced again (PR #81), adding `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif` without a fleet row.
+Its receipt (`evidence/audit_novelterritory_20261029.json`) shows format OK, 46 dots on the mapped catalogue, and 0.0 lattice overlap.
+It was not appended to the fleet audit, because the fleet test asserts every fleet row is a lattice copy (> 0.98), which this file is not.
+Instead, the fleet-coverage test now also accepts saved-byte receipts (`evidence/audit_*.json`, schema `karage1-local-tif-audit-v1`), following the convention of the older hardening test. Its lattice and `ok_to_submit` assertions are unchanged and still apply to fleet rows only. Full suite: **407 passed**.
+
 ## Decisions needed (not made here)
 
 - **Lattice gate ruling** from the protocol owner: (a) keep the literal 70%/3-px rule (no dotted file can be cleared); (b) treat 13GEMSDOE as a calibration probe per `registry/registry_roles.json`; (c) other. Not jittered, renamed or exempted.

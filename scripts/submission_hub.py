@@ -278,6 +278,7 @@ def body(f: dict, depth: int) -> str:
     {f['registry_checked']} restored registry rasters with dots were measured in the registry audit). The literal gate has no
     passing dotted candidate, which the protocol owner must decide.</li>
     <li>Another team's TIF on <code>main</code>, <code>karage1-convect-cell-upflow-20261029-zeros.tif</code>, is not covered by the fleet audit that <code>main</code> ships with. The shared validator (receipt <code>evidence/audit_convect_cell_upflow_20261029.json</code>) reports 65 emitted pixels outside the footprint and dots on the mapped catalogue. It was appended to the fleet audit with <code>ok_to_submit: false</code>. Flagged for review; not modified here.</li>
+    <li>Also on <code>main</code> (PR #81): <code>gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif</code> has 46 dots on the mapped catalogue (its own check <code>zero_dots_on_mapped_catalogue</code> fails), and 0.0 lattice overlap. Its saved-byte receipt is <code>evidence/audit_novelterritory_20261029.json</code>. It is not a fleet row, because a non-lattice file would break the fleet test's lattice invariant. Flagged; not modified here.</li>
     <li>The method lane paragraph the parallel-run protocol refers to is absent from the brief; the registry records
     <code>method_lane: null</code>.</li>
   </ul>
