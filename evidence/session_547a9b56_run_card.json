@@ -1,0 +1,40 @@
+{
+  "schema": "karage1-run-card-v1",
+  "generated_utc": "2026-10-29",
+  "session": "arena/547a9b56-gemsdoekarage1",
+  "hypothesis": "None tested. Question addressed: why 0.2778 scored high, and whether a unique submission can beat it. Not answerable without a validated holdout and an assigned lane.",
+  "mechanism": "Not applicable: no candidate surface was generated.",
+  "named_non_fault_process_that_could_mimic_it": "Not applicable: no candidate surface was generated. (Named mimics for future candidates are in the README research brief.)",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "value": null,
+    "ci95": null,
+    "status": "Not run: no assigned method lane; no frozen comparable holdout best."
+  },
+  "organizer_confirmed_score": null,
+  "correlation_overlap_vs_registry": {
+    "preplacement_rank_correlation": null,
+    "final_dot_overlap_within_3px": null,
+    "registry_complete": false,
+    "status": "No new candidate; the preflight's pinned lattice witness gives champion-sized minimum overlap 0.8234 (preflight card)."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "Not applicable: no new GeoTIFF. Existing local TIFs: all values inside [0,1] (evidence/core_data_verification_20261029.json)."
+  },
+  "submission_name": null,
+  "submission_note": "No TIFF generated; no submission authorized.",
+  "submission_note_characters": 44,
+  "experiments_this_session": 0,
+  "slot_selected_or_spent": false,
+  "core_inputs_restored_from_mirror": true,
+  "core_inputs_organizer_authenticated": false,
+  "test_suite": "373 passed",
+  "verdict": "negative",
+  "verdict_reason": "No candidate can be cleared: no assigned method lane, internal lattice gate unresolved, registry incomplete, no holdout run. Core inputs restored and hash-verified, but mirror provenance is not organizer-authenticated. Sample-submission mirror is label-derived (irregularity)."
+}
