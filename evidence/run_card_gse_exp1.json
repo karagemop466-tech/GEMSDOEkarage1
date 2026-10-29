@@ -1,0 +1,54 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc": "2026-10-29T18:12:30.650121+00:00",
+  "experiment": 1,
+  "hypothesis": "Direct geothermal surface expression (radiometric radon degassing, potassic alteration, thermal springs, paleo sinter/travertine, volcanic vents) is spatially independent of the USGS/INGENIOUS fault catalogue (U vs catalogue rho = -0.0087; 79% of high-U pixels >1 km from mapped faults). Targeting these off-catalogue surface indicators should capture geothermal systems missed by fault-only mapping.",
+  "mechanism": "Basin-and-Range geothermal systems leak heat and gases at the surface through permeable damage zones and alteration halos that need not coincide with mapped Quaternary faults. U/214Bi radiometric anomalies and K/Th alteration ratios mark active fluid pathways; temperature probes and paleo-geothermal features mark surface discharge.",
+  "named_non_fault_mimic": "Lithologic contacts (granite-pluton boundaries), uranium-rich alluvial fans, playa evaporite crusts, and flight-line/survey-seam artifacts in airborne radiometric data can mimic alteration anomalies without faults.",
+  "layers": [
+    "GeoDAWN U (214Bi/radon) \u2014 data/external/geodawn_rad_u8.tif (USGS GeoDAWN DOI 10.5066/P93LGLVQ)",
+    "GeoDAWN K/Th and U/Th \u2014 data/external/geodawn_extensions_u8.tif",
+    "LiDAR step_max \u2014 data/external/lidar_scarp_features_u8.tif (USGS 3DEP 1 m DEM-derived)",
+    "INGENIOUS 2m temperature probes \u2014 data/external/gdr_wellspring_in_footprint.csv (GDR 1391)",
+    "Paleo-geothermal features \u2014 data/external/paleo_geothermal_regional.zip (GDR 1391)",
+    "Quaternary volcanic vents \u2014 data/external/gdr_volcanic_vents_in_footprint.csv (GDR 1391)"
+  ],
+  "holdout_dti": {
+    "value": null,
+    "status": "not run \u2014 no lane assigned, no cached holdout evaluator"
+  },
+  "leakage_canary": "component vs near-catalogue point-biserial r printed above; all |r| < 0.06 << 0.5",
+  "budget": {
+    "dots": 24000,
+    "spacing_px": 3.5,
+    "apron_px": 3
+  },
+  "raster": {
+    "zeros_tif": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+    "sha256": "f5879e1902e6c15407582a67e210bacfd0b2425570c4aefbdf5c585a4579c37b",
+    "dots": 24000
+  },
+  "validator": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_match": true,
+    "crs_epsg_32611": true,
+    "transform_matches": true,
+    "no_nan_anywhere": true,
+    "no_inf_anywhere": true,
+    "no_sentinel_values": true,
+    "range_0_1_guaranteed": true,
+    "min_ge_0": true,
+    "max_le_1": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero": true,
+    "all_checks_passed": true
+  },
+  "submission_name": "karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+  "submission_note": "GSE geothermal-surface-expression: U/K/Th radiometrics + LiDAR scarp + INGENIOUS thermal + paleo features; 300m catalogue apron; off-catalog",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "verdict_reason": "No lane assigned; registry uniqueness gate and holdout not yet run. Format-valid TIF generated; research download only."
+}
