@@ -115,6 +115,7 @@ Named non-fault mimics: lithologic and intrusive contacts (H1, H2, H3); aftersho
 10. **Pre-existing repo breakage fixed:** `scripts/run_karage1_experiments.py` had a SyntaxError (`pass # raise …`) that broke the quarantine guard and three tests. The guard now raises `BLOCKED:`. The 1668dda0 hardening test flagged `docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif` as unaudited on `main`; it now has a receipt (`evidence/audit_unique_hyp_kth_therm_20261029.json`: 37,654 positives, 0 outside footprint, lattice 99.90% FAIL, worst focus 26.5%, not cleared).
 11. **Test-invariant extension:** the hardening test now also accepts this session's receipts (`hgridge_e3_build_*.json`, `audit_*.json`). The rule is unchanged. Each new TIF needs a later receipt.
 12. **Organizer clarification on NaN vs zeros** has not been requested. Ask on the forum.
+13. **Concurrent-session files on `main`:** while this branch was open, `main` gained two GSE TIFs (`karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455`, `-nan` and `-zeros`) with no saved-byte receipt. Both were audited here with `scripts/audit_local_tif.py` (`evidence/audit_gse_geothermal_surface_24000_*_20261029.json`): 24,000 positives, 0 outside footprint, lattice overlap 99.91% (literal FAIL), worst focus 20.3%. The `-nan` file fails the repo's all-finite policy (7,111,787 NaN cells). Neither is cleared.
 
 ## 7 · Remaining work
 

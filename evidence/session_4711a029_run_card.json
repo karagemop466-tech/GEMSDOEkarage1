@@ -1,0 +1,37 @@
+{
+  "schema": "karage1-run-card-v1",
+  "generated_utc": "2026-10-29",
+  "session": "arena/4711a029-gemsdoekarage1",
+  "hypothesis": "No new hypothesis was run. Top queued research question: test scale-consistent, signed magnetic phase and gravity-gradient co-location under low-relief cover using the approved shared workflow.",
+  "mechanism": "Proposed only: concealed basin-margin structures may preserve coherent magnetic and density gradients beneath alluvium across continuation scales.",
+  "named_non_fault_process_that_could_mimic_it": "Plutonic or metasedimentary contacts, volcanic flow edges, buried caldera margins, and potential-field survey leveling seams.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "value": null,
+    "ci95": null,
+    "status": "Not run; no authorized lane/template assignment, no required data/cache, and vendored shared-tool integrity is false."
+  },
+  "organizer_confirmed_score": null,
+  "correlation_overlap_vs_registry": {
+    "preplacement_rank_correlation": null,
+    "final_dot_overlap_within_3px": null,
+    "registry_complete": false,
+    "status": "No new candidate surface or dots were generated; no new comparison was performed. Historical audits are linked from the session review."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "Not applicable: no new GeoTIFF was generated."
+  },
+  "submission_name": null,
+  "submission_note": "No TIFF generated; no submission authorized.",
+  "submission_note_characters": 44,
+  "experiments_this_session": 0,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "verdict_reason": "No submission can be cleared: assigned method lane and canonical template are null, required data/cache are missing, shared vendor integrity has two mismatches, and the literal internal lattice gate blocks champion-sized dot maps."
+}
