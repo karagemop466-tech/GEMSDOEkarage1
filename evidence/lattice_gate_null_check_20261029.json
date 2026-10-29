@@ -1,0 +1,43 @@
+{
+  "check": "lattice_gate_null_model",
+  "status": "DIAGNOSTIC \u2014 the literal gate is non-informative: uniform random dots also fail it",
+  "lattice_file": "data/scored/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+  "lattice_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+  "footprint_pixels": 5167373,
+  "lattice_support_pixels_in_footprint": 206895,
+  "footprint_fraction_within_3px_of_lattice": 0.9987132726822701,
+  "footprint_pixels_beyond_3px": 6649,
+  "random_dot_null": {
+    "1000": {
+      "mean": 0.9986400000000001,
+      "min": 0.995,
+      "max": 1.0,
+      "draws": 200,
+      "rule_threshold": 0.7,
+      "fails_gate_in_all_draws": true
+    },
+    "37654": {
+      "mean": 0.9987140808413448,
+      "min": 0.9980878525521857,
+      "max": 0.9991501566898603,
+      "draws": 200,
+      "rule_threshold": 0.7,
+      "fails_gate_in_all_draws": true
+    },
+    "60988": {
+      "mean": 0.9987092542795304,
+      "min": 0.9983603331802977,
+      "max": 0.9991965632583459,
+      "draws": 200,
+      "rule_threshold": 0.7,
+      "fails_gate_in_all_draws": true
+    }
+  },
+  "training_features_sentinel_pixels_in_footprint_band1": 3061,
+  "training_features_sentinel_distinct_pixels_in_footprint_any_band": 3073,
+  "training_features_sentinel_sum_over_bands_in_footprint": 58171,
+  "labels_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+  "existing_faults_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+  "labels_and_existing_faults_byte_identical": true,
+  "organizer_authenticated": false
+}
