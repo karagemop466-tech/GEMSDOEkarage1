@@ -1,120 +1,45 @@
 {
+  "schema": "karage1-research-artifact-audit-v2",
   "file": "unique-hyp-kth-therm-mask-20261028-zeros.tif",
   "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
   "bytes": 147139,
-  "submission_name": "unique-hyp-kth-therm-mask-20261028-zeros",
-  "note": "Unique Hypothesis: K/Th + Thermal + M_Full dualcover masked against proxy.",
-  "note_chars": 74,
-  "validator": {
-    "file": "/home/user/GEMSDOEkarage1/docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
-    "bytes": 147139,
-    "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
-    "meta": {
-      "crs": "EPSG:32611",
-      "shape": [
-        3730,
-        3292
-      ],
-      "dtype": "float32",
-      "count": 1,
-      "nodata": null,
-      "transform": [
-        100.0,
-        0.0,
-        243350.0,
-        0.0,
-        -100.0,
-        4508550.0
-      ],
-      "profile_compress": "deflate"
-    },
-    "band_description": [
-      null
-    ],
-    "n_finite": 12279160,
-    "n_nan": 0,
-    "n_infinite": 0,
-    "min": 0.0,
-    "max": 1.0,
-    "mean": 0.0030664964579045773,
-    "emitted_positive_pixels": 37654,
-    "checks": {
-      "single_band": true,
-      "dtype_float32": true,
-      "dimensions_3730x3292": true,
-      "crs_epsg_32611": true,
-      "transform_matches_sample_submission": true,
-      "no_nan_anywhere": true,
-      "no_inf_anywhere": true,
-      "no_sentinel_values": true,
-      "range_0_1_guaranteed": true,
-      "min_ge_0": true,
-      "max_le_1": true,
-      "in_footprint_all_finite": true,
-      "in_footprint_range_0_1": true,
-      "outside_footprint_zero": true,
-      "zero_dots_on_mapped_catalogue": true
-    },
-    "all_checks_passed": true,
-    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
-    "on_catalogue_positive_pixels": 0,
-    "in_footprint_positive_pixels": 37654,
-    "footprint_fraction": 0.007286874781441169
-  },
-  "template_report": {
-    "path": "/home/user/GEMSDOEkarage1/docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
-    "bytes": 147139,
-    "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
-    "bands": 1,
-    "dtype": "float32",
-    "crs": "EPSG:32611",
-    "width": 3292,
-    "height": 3730,
-    "bounds": [
-      243350.0,
-      4135550.0,
-      572550.0,
-      4508550.0
-    ],
-    "ref_bounds": [
-      243350.0,
-      4135550.0,
-      572550.0,
-      4508550.0
-    ],
-    "transform": [
-      100.0,
-      0.0,
-      243350.0,
-      0.0,
-      -100.0,
-      4508550.0
-    ],
-    "nodata": null,
-    "blocksize": [
-      256,
-      256
-    ],
-    "fixture_grid": false,
-    "has_validity_mask": false,
-    "nan_pixels": 0,
-    "infinity_pixels": 0,
-    "n_nan": 0,
-    "min": 0.0,
-    "max": 1.0,
-    "mean": 0.0030664964579045773,
-    "n_nonzero": 37654,
-    "mass": 37654.0,
-    "mass_outside_footprint": 0,
-    "problems": [],
-    "ok": true,
-    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
-  },
-  "zip_file": "unique-hyp-kth-therm-mask-20261028-zeros.zip",
-  "zip_sha256": "30946e3c3d894ac81312d1c350099a21d0e28cbb4fa4ec8650a54e1db056a2c6",
-  "approved_for_weekly_slot": false,
-  "promoted": false,
+  "historical_submission_name": "unique-hyp-kth-therm-mask-20261028-zeros",
+  "historical_note": "Unique Hypothesis: K/Th + Thermal + M_Full dualcover masked against proxy.",
+  "decision": "NEGATIVE / RESEARCH-ONLY / DO NOT SUBMIT",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "submission_authorized": false,
   "submission_slots_used": 0,
-  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
-  "metadata": {}
+  "current_saved_byte_audit": {
+    "receipt": "evidence/local_and_peer_audit_f43e6441.json",
+    "scope": "Pinned third-party mirror template, lattice, labels and focus-site rasters; incomplete organizer registry and not organizer-authenticated.",
+    "positive_pixels_in_footprint": 37654,
+    "lattice_dots_within_3px": 37617,
+    "lattice_directed_overlap_3px": 0.999017368672651,
+    "literal_lattice_duplicate": true,
+    "outside_unmasked_positive_pixels": 0,
+    "nan_outside_variant_pass": false,
+    "strict_whole_array_variant_pass": true,
+    "outside_encoding_accepted_for_this_local_diagnostic": true,
+    "interpretation": "The zero-outside representation fails the official submission-format requirement that data outside bounds be null or NaN. The artifact also exceeds the literal 70% lattice overlap stop."
+  },
+  "legacy_validator": {
+    "status": "RETRACTED AS SUBMISSION CLEARANCE",
+    "single_band_float32": true,
+    "shape": [3730, 3292],
+    "crs": "EPSG:32611",
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "inside_range_0_1": true,
+    "zero_outside": true,
+    "portal_acceptance": "not tested"
+  },
+  "historical_holdout_claim": {
+    "label": "RETRACTED_UNVERIFIED_CLAIM",
+    "reported_value": "0.1713",
+    "reported_evaluator": "GEMSDOE32-HIDE-RECOVER-v3.0",
+    "reported_withheld_positives": 27735,
+    "reported_ci95": "[0.1528, 0.1912]",
+    "caveat": "No verified evaluator receipt or independently reproduced run card is present. Do not call this a valid HOLDOUT-DTI, ORGANIZER-CONFIRMED score, or forecast."
+  },
+  "submission_note": "DO NOT SUBMIT: research artifact; fails lattice uniqueness and outside-footprint format gates."
 }

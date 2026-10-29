@@ -51,6 +51,26 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
     assert "not authorization" in card["download_available_meaning"].lower()
 
 
+def test_current_session_status_and_expanded_saved_byte_audit_are_visible():
+    audit = render_site.current_local_audit()
+    assert audit["local_downloads_count"] == 11
+    assert audit["peer_rasters_count"] == 9
+    assert audit["submit_authorized"] is False
+    unique_hyp = next(row for row in audit["local_downloads"] if "unique-hyp-kth" in row["file"])
+    assert unique_hyp["literal_lattice_duplicate"] is True
+    assert unique_hyp["nan_outside_variant_pass"] is False
+    retracted = json.loads((ROOT / "docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json").read_text())
+    assert retracted["verdict"] == "negative" and retracted["ok_to_submit"] is False
+    assert retracted["superseded_holdout_claim"]["label"] == "RETRACTED_UNVERIFIED_HOLDOUT_CLAIM"
+    for path in (ROOT / "index.html", ROOT / "docs/index.html", ROOT / "docs/executive-summary.html"):
+        text = path.read_text()
+        assert "f43e6441" in text
+        assert "DO NOT SUBMIT" in text
+        assert "No approved .tif to download" in text
+        assert "CLEARED FOR SUBMISSION" not in text
+        assert "IT IS OK TO DOWNLOAD AND SUBMIT THIS FILE" not in text
+
+
 def test_all_local_links_and_fragments_work():
     paths = [ROOT / "index.html", ROOT / "executive-summary.html", *ROOT.glob("docs/**/*.html")]
     for page in paths:

@@ -192,18 +192,20 @@ def test_pr42_sidecars_and_all_repo_jsons_remain_fail_closed():
             assert not hits, f"{json_path} contains true authorization flags: {hits}"
 
 
-def test_local_and_peer_evidence_verifies_all_9_local_tifs():
+def test_local_and_peer_evidence_verifies_all_saved_local_tifs():
     data = render_site.local_and_peer_evidence()
     assert data["local_downloads_count"] == 9
     assert data["peer_rasters_count"] == 9
     actual_tifs = {f"docs/downloads/{p.name}" for p in (ROOT / "docs/downloads").glob("*.tif")}
     audited_tifs = {r["file"] for r in data["local_downloads"]}
-    # Session 1668dda0's receipt is historical and must not be rewritten.
-    # Any TIF added afterwards must be covered by a later session audit:
-    # 147b0f11's SGMC re-audit covers the new DIPDUAL raster (run card
-    # evidence/run_card_dipdual_20261028.json, verdict negative).
-    later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
-    later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
-    uncovered = actual_tifs - audited_tifs - later_tifs
+    # Historical receipts remain immutable. Later TIFFs must be covered by a
+    # subsequent saved-byte audit; neither audit may claim upload authorization.
+    prior = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
+    prior_tifs = {f"docs/downloads/{r['file']}" for r in prior["candidates"]}
+    current = json.loads((ROOT / "evidence/local_and_peer_audit_f43e6441.json").read_text())
+    current_tifs = {r["file"] for r in current["local_downloads"]}
+    assert current["submit_authorized"] is False
+    assert all(r["ok_to_submit"] is False for r in current["local_downloads"])
+    uncovered = actual_tifs - audited_tifs - prior_tifs - current_tifs
     assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
     assert audited_tifs <= actual_tifs

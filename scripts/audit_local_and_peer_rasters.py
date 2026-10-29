@@ -239,7 +239,7 @@ def run_audit(
 
     return {
         "schema": "karage1-local-and-peer-audit-v1",
-        "scope": "All 9 committed local docs/downloads/*.tif artifacts plus 9 SHA-pinned sibling/peer GeoTIFFs across 22 commit-pinned ecosystem repositories.",
+        "scope": f"All {len(local_rows)} committed local docs/downloads/*.tif artifacts plus {len(peer_rows)} SHA-pinned sibling/peer GeoTIFFs across {len(pins['immutable_repos'])} commit-pinned ecosystem repositories.",
         "source_authentication": "GitHub mirror pins verified by full SHA-256; NOT authenticated organizer files or a complete competition registry.",
         "template_sha256": template_sha,
         "lattice_sha256": ref_index["lattice"]["sha256"],

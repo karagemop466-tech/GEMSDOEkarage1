@@ -1,16 +1,37 @@
 {
-  "hypothesis": "K/Th Radiometric-Geothermal Submodular Intersection (Masked)",
-  "mechanism": "Hydrothermal alteration halos + thermal anomalies boosted on top of LiDAR structural scarps. Strict spatial masking ensures unique dots.",
-  "named_non_fault_process_mimic": "Erosional scarp with superficial alluvial mineralization.",
-  "holdout_DTI": "0.1713",
-  "holdout_version": "GEMSDOE32-HIDE-RECOVER-v3.0",
-  "withheld_positives": 27735,
-  "CI_95": "[0.1528, 0.1912]",
-  "correlation_vs_registry": {},
-  "overlap_vs_registry": {},
-  "raster_sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
-  "validator_output": "NaNs: 0, Range: [0,1], CRS: EPSG:32611",
+  "schema": "karage1-retracted-artifact-decision-v1",
   "submission_name": "unique-hyp-kth-therm-mask-20261028-zeros",
-  "submission_note": "Unique Hypothesis: K/Th + Thermal + M_Full dualcover masked against proxy.",
-  "verdict": "promote"
+  "file": "unique-hyp-kth-therm-mask-20261028-zeros.tif",
+  "raster_sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+  "status": "RETRACTED / RESEARCH-ONLY / DO NOT SUBMIT",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "superseded_holdout_claim": {
+    "label": "RETRACTED_UNVERIFIED_HOLDOUT_CLAIM",
+    "reported_value": "0.1713",
+    "reported_evaluator": "GEMSDOE32-HIDE-RECOVER-v3.0",
+    "reported_withheld_positives": 27735,
+    "reported_ci95": "[0.1528, 0.1912]",
+    "reason": "No verified evaluator receipt or saved 95% CI provenance was available; the artifact is a 99.9017% duplicate under the pinned lattice gate and its zero-outside encoding fails the official null/NaN-outside requirement. Do not treat this as a valid HOLDOUT-DTI, organizer score, or estimate."
+  },
+  "current_saved_byte_audit": {
+    "receipt": "evidence/local_and_peer_audit_f43e6441.json",
+    "positive_pixels": 37654,
+    "lattice_dots_within_3px": 37617,
+    "lattice_overlap_fraction": 0.999017368672651,
+    "literal_duplicate": true,
+    "null_or_nan_outside_check": false,
+    "ok_to_submit": false
+  },
+  "legacy_format_checks": {
+    "single_band_float32": true,
+    "inside_values_range_0_1": true,
+    "crs_epsg_32611": true,
+    "template_shape_transform_match": true,
+    "outside_zero": true,
+    "official_null_or_nan_outside": false,
+    "validation_scope": "Prior local mirror-template diagnostic only; not organizer authentication or portal acceptance."
+  },
+  "submission_note": "DO NOT SUBMIT: research artifact; fails lattice uniqueness and outside-footprint format gates.",
+  "submission_slots_used": 0
 }

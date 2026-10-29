@@ -1,0 +1,74 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "created_utc": "2026-10-29T18:00:00Z",
+  "session_branch": "arena/f43e6441-gemsdoekarage1",
+  "hypothesis": "Rank 1 preregistration only: a strain-loaded seismicity-deficit corridor, testing signed geodetic dilatation/shear geometry and low earthquake-density support along gravity/depth-to-basement boundaries.",
+  "mechanism": "A buried locked or creeping fault could localize geodetic strain while showing low local earthquake density and no clear surface scarp; this is speculative and must be tested against matched rotated/off-structure profiles.",
+  "named_non_fault_process_that_could_mimic_it": "Seismic catalog/station completeness gaps, seasonal hydrologic loading, geodetic interpolation artifacts, or an unfaulted lithologic boundary.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "status": "NOT RUN — blocked by preflight; no candidate result",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "value": null,
+    "ci95": null
+  },
+  "correlation_overlap_vs_registry": {
+    "candidate_preplacement_surface_spearman": null,
+    "candidate_final_dot_overlap": null,
+    "candidate_checks_status": "NOT RUN — no candidate surface or dots",
+    "registry_scope": "Current saved-byte audit covers 11 local TIFFs and 9 pinned peer rasters against selected mirror references and a lattice witness; it is not a complete organizer registry.",
+    "saved_byte_audit_receipt": "evidence/local_and_peer_audit_f43e6441.json",
+    "all_audited_local_artifacts_ok_to_submit": false,
+    "unique_hyp_artifact": {
+      "file": "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+      "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+      "lattice_3px_overlap_fraction": 0.999017368672651,
+      "nan_outside_variant_pass": false,
+      "ok_to_submit": false
+    },
+    "lattice_audit_geometry_fraction_within_3px": 0.9987132726822701,
+    "lattice_footprint_coverage_fraction_within_3px": 0.9987132726822701,
+    "historical_37654_dot_budget_minimum_overlap_fraction": 0.8234184947150369,
+    "interpretation": "Audit geometry only, not a model score; historical-budget lower bound exceeds the literal 0.70 overlap stop threshold."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "candidate_generated": false,
+    "no_nan_inside_footprint": null,
+    "values_in_0_1_inside_footprint": null,
+    "outside_is_null_or_nan": null,
+    "crs_shape_transform_match": null,
+    "status": "NOT RUN — no candidate raster; official format requirements were checked from the public competition specification, not validated against output bytes"
+  },
+  "submission_name": "NONE-DO-NOT-SUBMIT-20261029",
+  "submission_note": "DO NOT SUBMIT: no assigned lane, authenticated data, valid holdout, or cleared raster.",
+  "submission_note_characters": 86,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "download_available": false,
+  "slot_selected_or_spent": false,
+  "experiments_run": 0,
+  "preflight": {
+    "scripts_preflight_exit": 1,
+    "shared_tools_preflight_exit": 1,
+    "template_integrity_execution_authorized": false,
+    "blocked_reasons": [
+      "No method lane assigned in the prompt or registry/template.json.",
+      "No canonical shared-template assignment.",
+      "Missing .cache/gems_work/feature_stack.npy.",
+      "Missing competition inputs existing_faults.tif, training_features.tif, sample_submission.tif, and labels.tif from the approved execution path.",
+      "Vendored submission_writer.py and uniqueness.py SHA-256 values differ from recorded provenance.",
+      "Pinned lattice witness violates the literal 70% overlap gate at historical champion-sized dot budgets."
+    ]
+  },
+  "official_sources_checked": [
+    "DrivenData problem page: https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "DrivenData data page redirected unauthenticated request to login: https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+    "DrivenData public leaderboard page fetched 2026-10-29 UTC: https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "USGS GeoDAWN official release: https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+    "USGS 3DEP official page: https://www.usgs.gov/3d-elevation-program"
+  ],
+  "verdict_reason": "No authorized experiment or valid holdout can run in this checkout. Existing artifacts are not promoted and none is cleared for download-and-submit.",
+  "scores_are_projections": false
+}

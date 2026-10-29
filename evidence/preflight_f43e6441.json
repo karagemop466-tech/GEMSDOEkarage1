@@ -1,0 +1,43 @@
+{
+  "schema": "karage1-session-preflight-v1",
+  "session_branch": "arena/f43e6441-gemsdoekarage1",
+  "created_utc": "2026-10-29T18:01:22Z",
+  "source": "scripts/preflight.py; scripts/shared_tools.py preflight; scripts/audit_template_integrity.py",
+  "candidate": null,
+  "candidate_raster_sha256": null,
+  "method_lane": null,
+  "canonical_template_assignment": null,
+  "feature_stack_present": false,
+  "missing_shared_inputs": [
+    ".cache/gems_work/feature_stack.npy",
+    ".cache/gems_data/existing_faults.tif",
+    ".cache/gems_data/training_features.tif",
+    ".cache/gems_data/sample_submission.tif",
+    ".cache/gems_data/labels.tif"
+  ],
+  "template_integrity_execution_authorized": false,
+  "template_integrity_problems": [
+    "Vendored bytes differ from recorded immutable provenance; do not repin without upstream review.",
+    "Vendored source and execution-template pin identify different repositories or commits.",
+    "Assigned method lane is absent.",
+    "Authoritative shared-template assignment and upstream repair approval are not established by this audit."
+  ],
+  "registry": {
+    "complete": false,
+    "known_witness": "13GEMSDOE lattice pinned in local audit evidence",
+    "footprint_coverage_fraction_within_3px": 0.9987132726822701,
+    "minimum_overlap_fraction_for_37654_distinct_dots": 0.8234184947150369,
+    "literal_stop_threshold_fraction": 0.7,
+    "candidate_test": "NOT RUN"
+  },
+  "leakage_canaries": "NOT RUN",
+  "holdout_dti": "NOT RUN",
+  "validator": "NOT RUN; no candidate raster",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "exit_codes": {
+    "scripts_preflight.py": 1,
+    "scripts/shared_tools.py preflight": 1,
+    "scripts/audit_template_integrity.py": 1
+  }
+}

@@ -2,6 +2,8 @@
 
 **Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
 
+**Active branch status (29 October 2026 UTC):** [`arena/f43e6441-gemsdoekarage1`](../knowledge/session-review-arena-f43e6441.md) is NEGATIVE / DO NOT SUBMIT. No lane/template assignment, authenticated inputs, or cached feature stack is present. The official public leaderboard, competition data page, problem page, USGS GeoDAWN release, and USGS 3DEP program page were checked; see the active review for exact claims and qualifications. No candidate HOLDOUT-DTI or score projection was produced.
+
 ## Arena Core Values (keep as focus)
 
 - **Maximize P(Win).** Favor reproducible evidence that can raise the probability of a higher organizer-confirmed score. The prior GEMSDOE32 0.2778 is user-reported, without a verified receipt here; the owner cited multiple leaderboard benchmarks that may be stale.

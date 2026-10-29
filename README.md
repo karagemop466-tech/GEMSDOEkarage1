@@ -1,5 +1,19 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## Active session (`arena/f43e6441-gemsdoekarage1`) — 29 October 2026 UTC
+
+**Decision: NEGATIVE / DO NOT SUBMIT.** No new GeoTIFF was generated or cleared, no weekly slot was used, and no score estimate is available. The prompt does not assign a method lane; `registry/template.json` also has no lane or canonical shared-template assignment. Shared preflight and template integrity fail closed; required official inputs and cached feature stack are absent. Do not use any inherited TIFF as a recommendation.
+
+- [Current three-pass repository review](knowledge/session-review-arena-f43e6441.md)
+- [Current JSON run card](evidence/session_f43e6441_run_card.json)
+- [Preflight receipt](evidence/preflight_f43e6441.json)
+- [Three ranked candidate hypotheses](knowledge/hypotheses-20261029.md)
+- [Nine-site executive summary and B2 analysis](knowledge/session-review-arena-f43e6441.md#nine-site-executive-summary)
+
+The latest official public leaderboard was fetched on 29 October 2026 UTC. Its visible public top entry is a dated leaderboard observation, not an artifact-linked submission-page receipt and not a forecast for this project. The user-reported GEMSDOE32 B2 value remains **USER-REPORTED / UNVERIFIED**. See the source review before interpreting any number.
+
+**Starting rule:** read this README, [`docs/standing-prompt.md`](docs/standing-prompt.md), [`AGENTS.md`](AGENTS.md), and the current session review above before every project session. The full original prompt was not preserved verbatim in the repository; the standing prompt is explicitly a normalized reconstruction, not a transcript.
+
 **Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
 > **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.
 >
@@ -27,18 +41,21 @@
 9. No hallucinations: verify line by line from official sources; collect data/knowledge into auditable tables; state limitations and access needs (no DrivenData login; the data tab is login-walled).
 10. Clean GitHub Pages site under `docs/`; three passes then a PR merged to `main`, listing remaining work and limitations.
 
-## Current session review (`arena/accf3693-gemsdoekarage1`)
+## Current session review (`arena/f43e6441-gemsdoekarage1`)
 
 **DO NOT SUBMIT — no new candidate generated or cleared.**
-[Three-pass review and next steps](knowledge/session-accf3693-review.md) ·
-[Current shared preflight](evidence/session_accf3693_shared_preflight.json) ·
-[Session run card](evidence/session_accf3693_run_card.json).
-The fresh checkout has no restored shared cache and no assigned method lane or
-canonical-template assignment. Historical evidence below is not a fresh model run.
-This session hardened report input preservation and strict JSON handling;
-**314 software tests pass** (not a performance score). The existing nine-site
-summary and four ranked research proposals remain below; no leaderboard estimate
-or new uniqueness certificate is asserted.
+[Three-pass review and next steps](knowledge/session-review-arena-f43e6441.md) ·
+[Preflight receipt](evidence/preflight_f43e6441.json) ·
+[Session run card](evidence/session_f43e6441_run_card.json) ·
+[New hypothesis slate](knowledge/hypotheses-20261029.md).
+No lane, canonical template assignment, approved feature cache or official
+competition input is present in this checkout. A fresh SHA-pinned saved-byte audit
+covers 11 local TIFFs plus 9 peer rasters and found the old `unique-hyp-kth-therm-mask`
+artifact is a 99.9017% lattice duplicate and fails null/NaN-outside formatting;
+its prior summary's approval language was false and has been removed. The nine-site
+table, B2 analysis, official source checks and limitations are in the review.
+The full software suite passes (**358 tests; not a performance score**); it is
+separate from geological validation and cannot substitute for a holdout.
 
 [Latest forensic & 9-site review (`9ca08e2e`)](knowledge/session-review-arena-9ca08e2e.md) · [Latest session run card (`9ca08e2e`)](evidence/session_9ca08e2e_run_card.json) · [19-band `training_features.tif` audit](evidence/training_features_band_audit_20261028.json) · [Secondary 9-site audit (12 files)](evidence/nine_sites_secondary_audit_20261028.json) · [Decision Dashboard](docs/index.html) · [Executive Summary & Submission Guide](docs/executive-summary.html) · [Nine-Site Audit Data](docs/data/reference-audit.json) · [Two-Candidate Saved-Byte Audit](evidence/candidate_audit_20261028.json) · [Independent repository and BB-STEP/CDA1 saved-byte review](knowledge/repository-review-2026-10-28.md) · [Session Review (`0a62cb67`)](knowledge/session-0a62cb67-review.md) · [Session Review (`8ffb6de1`)](knowledge/session-review-arena-8ffb6de1.md) · [Research Hypotheses](docs/research.html) · [Official Source Register](knowledge/sources-2026-10-28.md)
 
