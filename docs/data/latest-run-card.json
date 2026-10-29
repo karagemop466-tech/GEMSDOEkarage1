@@ -7,37 +7,13 @@
   "mechanism": "Basin-and-Range normal/transtensional fault damage zones localise gravity-gradient and radiometric alteration crests on piedmonts.  Existing submissions densely cover the catalogue/lattice corridor; the complementary fault set lies outside their 3 px halos. Placing dots only there guarantees literal uniqueness (<70% forward overlap vs any registry raster) while the hide-and-recover holdout measures recovery of withheld catalogue segments on that same novel territory.",
   "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline berms, TIGER road/rail embankments, and flat conductive playas can mimic linear gravity/radiometric crests; mitigated by the 100 m DEM relief factor and by requiring novel-territory placement (shorelines/roads are already dense in prior submissions and thus excluded by the halo gate).",
   "holdout_dti": {
-    "label": "HOLDOUT-DTI",
-    "evidence_class": "HOLDOUT-DTI",
-    "evaluator_version": "gems57-pooled-hide-v2",
-    "evaluator_implementation_sha256": {
-      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
-      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
-      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
-      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
-    },
-    "alpha": 0.2,
-    "beta": 0.8,
-    "triangular_radius_m": 300.0,
-    "pooled_dti_all_modes": 0.017415,
-    "withheld_positive_pixels_total": 45260,
-    "emitted_pixels": 17415,
-    "on_visible_catalogue_pixels": 0,
-    "per_mode": {
-      "all": {
-        "dti": 0.01885,
-        "withheld_positive_pixels": 22641,
-        "emitted_pixels": 17415
-      },
-      "detached": {
-        "dti": 0.015978,
-        "withheld_positive_pixels": 22619,
-        "emitted_pixels": 17415
-      }
-    },
-    "note": "Catalogue-truth hide-and-recover holdout; NOT a leaderboard estimate or projection.",
+    "label": "NOT REPORTABLE \u2014 legacy claim retracted",
+    "dti": null,
+    "evaluator_version": null,
+    "withheld_positive_count": null,
     "ci95": null,
-    "status": "Prior run card reports this HOLDOUT-DTI, but no 95% CI is present; not independently rerun in the saved-byte audit and not an organizer score."
+    "status": "No valid HOLDOUT-DTI score is reported. The legacy scalar lacked a 95% CI and was not independently reproduced against the saved TIFF bytes.",
+    "superseded_legacy_run_card": "evidence/run_card_gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4.json"
   },
   "registry_correlation_overlap": {
     "registry_rasters_checked": 10,
@@ -113,7 +89,7 @@
   "slot_selected_or_spent": false,
   "geological_experiments_run_this_session": 1,
   "verdict": "negative",
-  "verdict_reason": "Superseding saved-byte audit found 99.3454% 3-px overlap with the pinned lattice. Original card omitted this registry witness, has no pre-placement lattice check, incomplete single-feature canaries, and no HOLDOUT-DTI 95% CI.",
+  "verdict_reason": "Lattice duplicate; no score claim is reportable; missing lane and pre-placement surface audit.",
   "blockers": [
     "Literal 3-px directed overlap with the pinned 13GEMSDOE lattice is 99.3454% (>70%): duplicate/stop.",
     "Original run card compared only nine focus-site rasters and omitted the lattice from the uniqueness inventory.",

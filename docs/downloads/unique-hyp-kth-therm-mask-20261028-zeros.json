@@ -3,8 +3,8 @@
   "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
   "bytes": 147139,
   "submission_name": "unique-hyp-kth-therm-mask-20261028-zeros",
-  "note": "Unique Hypothesis: K/Th + Thermal + M_Full dualcover masked against proxy.",
-  "note_chars": 74,
+  "note": "DO NOT SUBMIT \u2014 historical audit only; no score or slot clearance.",
+  "note_chars": 66,
   "validator": {
     "file": "/home/user/GEMSDOEkarage1/docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
     "bytes": 147139,
@@ -115,6 +115,20 @@
   "approved_for_weekly_slot": false,
   "promoted": false,
   "submission_slots_used": 0,
-  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
-  "metadata": {}
+  "status": "Historical audit-only file; negative uniqueness result; no current HOLDOUT-DTI result; organizer acceptance not tested.",
+  "metadata": {},
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "upload_authorized": false,
+  "slot_selected_or_spent": false,
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "dti": null,
+    "evaluator_version": null,
+    "withheld_positive_count": null,
+    "ci95": null,
+    "status": "NOT RUN this session; legacy assertion retracted."
+  },
+  "current_assessment": "evidence/run_card_arena_2b7c50b3.json",
+  "superseded_public_summary": "docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json"
 }

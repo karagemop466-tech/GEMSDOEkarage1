@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Audit all local docs/downloads/*.tif and pinned sibling/peer GeoTIFFs.
+"""Audit local downloads and pinned sibling/peer GeoTIFFs, reconciling all tracked TIFFs.
 
 This read-only audit checks saved GeoTIFF bytes against the SHA-256-pinned
 reference template, catalogue labels, 13GEMSDOE lattice, and nine focus-site
-leaders. It never selects a weekly slot or authorizes a competition upload.
+leaders. Git-tracked archive TIFF paths are reconciled against exact current bytes
+or the quarantined archive audit. It never selects a weekly slot or authorizes an upload.
 """
 from __future__ import annotations
 
@@ -17,6 +18,7 @@ import re
 import subprocess
 import sys
 import tempfile
+from datetime import datetime, timezone
 from urllib.parse import quote
 
 import numpy as np
@@ -179,6 +181,78 @@ def inspect_candidate(
     }
 
 
+def tracked_tiff_inventory(local_rows: list[dict]) -> dict:
+    """Reconcile every Git-tracked TIFF path with current or quarantined audits."""
+    listed = subprocess.run(
+        ["git", "ls-files", "--", "*.tif", "*.tiff"],
+        cwd=ROOT, check=True, capture_output=True, text=True,
+    ).stdout.splitlines()
+    paths = sorted(set(listed))
+    if not paths:
+        raise ValueError("Git reports no tracked TIFF paths")
+
+    current_by_path = {row["file"]: row["sha256"] for row in local_rows}
+    current_hashes = set(current_by_path.values())
+    archive_path = ROOT / "docs/data/archive-review.json"
+    archive_report = json.loads(archive_path.read_text(encoding="utf-8"))
+    if archive_report.get("schema") != "karage1-quarantined-archive-audit-v1" or archive_report.get("submission_authorized") is not False:
+        raise ValueError("quarantined archive audit is missing or not fail-closed")
+    archived_hashes: set[str] = set()
+    verified_archive_assets = []
+    for asset in archive_report.get("assets", {}).values():
+        diag = asset.get("format_diagnostic", {})
+        rel = diag.get("candidate")
+        digest = asset.get("sha256")
+        if not _safe_rel(rel) or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+            raise ValueError("malformed quarantined archive asset reference")
+        tif_path = ROOT / rel
+        if not tif_path.is_file() or sha256(tif_path) != digest or diag.get("candidate_sha256") != digest:
+            raise ValueError(f"quarantined archive asset hash mismatch: {rel}")
+        archived_hashes.add(digest)
+        verified_archive_assets.append({"file": rel, "sha256": digest})
+
+    rows = []
+    unique_hashes = set()
+    for rel in paths:
+        if not _safe_rel(rel):
+            raise ValueError(f"unsafe tracked TIFF path: {rel}")
+        p = ROOT / rel
+        if not p.is_file():
+            raise ValueError(f"tracked TIFF missing from workspace: {rel}")
+        digest = sha256(p)
+        unique_hashes.add(digest)
+        if rel in current_by_path:
+            if current_by_path[rel] != digest:
+                raise ValueError(f"current audit hash mismatch: {rel}")
+            coverage = "current-download-audit"
+        elif digest in current_hashes:
+            coverage = "same-bytes-as-current-download-audit"
+        elif digest in archived_hashes:
+            coverage = "verified-quarantined-archive-audit"
+        else:
+            coverage = "UNACCOUNTED"
+        rows.append({"file": rel, "sha256": digest, "audit_coverage": coverage})
+    unaccounted = [r["file"] for r in rows if r["audit_coverage"] == "UNACCOUNTED"]
+    archive_bytes = sha256(archive_path)
+    return {
+        "tracked_tiff_paths_count": len(paths),
+        "unique_tracked_tiff_sha256_count": len(unique_hashes),
+        "tracked_download_directory_paths_count": sum(p.startswith("docs/downloads/") for p in paths),
+        "tracked_quarantined_archive_paths_count": sum(p.startswith("archive/") for p in paths),
+        "quarantined_archive_audit": {
+            "file": "docs/data/archive-review.json",
+            "sha256": archive_bytes,
+            "schema": archive_report["schema"],
+            "submission_authorized": False,
+            "verified_asset_count": len(verified_archive_assets),
+            "verified_assets": verified_archive_assets,
+        },
+        "all_tracked_tiff_bytes_accounted": not unaccounted,
+        "unaccounted_paths": unaccounted,
+        "tracked_tiffs": rows,
+    }
+
+
 def run_audit(
     ref_manifest_path: Path,
     ref_cache: Path,
@@ -237,9 +311,14 @@ def run_audit(
             **info,
         })
 
+    tracked_inventory = tracked_tiff_inventory(local_rows)
     return {
         "schema": "karage1-local-and-peer-audit-v1",
-        "scope": "All 9 committed local docs/downloads/*.tif artifacts plus 9 SHA-pinned sibling/peer GeoTIFFs across 22 commit-pinned ecosystem repositories.",
+        "scope": (f"All {len(local_rows)} local docs/downloads/*.tif files present at audit time, "
+                  f"plus {len(peer_rows)} SHA-pinned sibling/peer GeoTIFFs across "
+                  f"{len(pins['immutable_repos'])} commit-pinned ecosystem repositories; "
+                  f"all {tracked_inventory['tracked_tiff_paths_count']} Git-tracked TIFF paths also "
+                  "reconciled by exact SHA-256 against the current or quarantined-archive audits."),
         "source_authentication": "GitHub mirror pins verified by full SHA-256; NOT authenticated organizer files or a complete competition registry.",
         "template_sha256": template_sha,
         "lattice_sha256": ref_index["lattice"]["sha256"],
@@ -250,6 +329,7 @@ def run_audit(
         "local_downloads_count": len(local_rows),
         "all_local_downloads_blocked": all((not r["ok_to_submit"]) and r["literal_lattice_duplicate"] for r in local_rows),
         "local_downloads": local_rows,
+        "tracked_tiff_inventory": tracked_inventory,
         "peer_rasters_count": len(peer_rows),
         "all_audited_peer_rasters_exceed_70pct_lattice": all(r["literal_lattice_duplicate"] for r in peer_rows),
         "peer_rasters": peer_rows,
@@ -265,7 +345,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--peer-cache", type=Path, default=ROOT / ".cache/peer_audit")
     ap.add_argument("--downloads-dir", type=Path, default=ROOT / "docs/downloads")
     ap.add_argument("--fetch-peers", action="store_true", help="Fetch missing pinned peer GeoTIFFs via gh api")
-    ap.add_argument("--out", type=Path, default=ROOT / "evidence/local_downloads_and_peer_audit_20261028.json")
+    dated_default = ROOT / f"evidence/local_downloads_and_peer_audit_{datetime.now(timezone.utc):%Y%m%d}.json"
+    ap.add_argument("--out", type=Path, default=dated_default)
     args = ap.parse_args(argv)
     try:
         if args.out.suffix.lower() in (".tif", ".tiff"):

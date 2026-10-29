@@ -33,6 +33,7 @@ class Tags(HTMLParser):
 
 
 def test_site_tables_are_rendered_from_evidence_and_never_approve():
+    render_site.main()
     rows, _ = render_site.build()
     assert rows.count("DO NOT RESUBMIT") == 9
     assert rows.count("USER-REPORTED · UNVERIFIED") == 9
@@ -42,7 +43,7 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
         assert render_site.rows_for(prefix) in text
         parser = Tags(); parser.feed(text)
         assert parser.disabled_downloads >= 1
-        assert "DO NOT SUBMIT" in text and "not cleared for upload" in text
+        assert "DO NOT SUBMIT" in text and "Nothing is cleared for upload" in text
         assert "No approved .tif to download" in text
         assert "99.93%" in text and "99.89%" in text
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())
@@ -93,6 +94,22 @@ def test_archives_are_quarantined_and_invalid_claims_are_not_promoted():
         page = (ROOT / "archive/cda1-demonstrator/docs" / filename).read_text()
         assert "QUARANTINED SYNTHETIC DEMONSTRATOR" in page
         assert "not measured" in page
+
+
+def test_dipdual_archive_obeys_literal_lattice_stop_without_role_exemption():
+    summary = (ROOT / "docs/dipdual-20261028/index.html").read_text()
+    guide = (ROOT / "docs/dipdual-20261028/how-to-submit.html").read_text()
+    assert "99.8885%" in summary and "37,612 / 37,654" in summary
+    assert "literal duplicate; stop" in summary
+    assert "Safe to download for audit/research only: yes. Safe to submit: no." in summary
+    assert "DO NOT SUBMIT" in summary
+    assert "<span>UPLOAD AUTHORIZED</span><strong>No</strong>" in summary
+    assert "YES vs discrete registry" not in summary
+    assert "selector acknowledgment" in summary
+    assert "do not override this result" in summary
+    assert "There is no cleared file to submit from this archive." in guide
+    assert "no cleared file to submit" in guide.lower()
+    assert "Make new submission" not in guide
 
 
 def test_legacy_builder_does_not_overwrite_current_pages():
@@ -173,14 +190,19 @@ def test_secondary_site_evidence_renders_and_fails_closed(tmp_path, monkeypatch)
 
 def test_newer_conduitcrest_candidate_is_lattice_duplicate_and_not_download_cleared():
     import hashlib
+    render_site.main()
     audit, original, latest, raster = render_site.conduitcrest_evidence()
     lattice = audit['lattice_witness']
     assert lattice['candidate_dots_within_closed_3px_disk'] == 17301
     assert lattice['candidate_dots'] == 17415
     assert lattice['exceeds_overlap_threshold'] is True
     assert latest['verdict'] == 'negative' and latest['ok_to_submit'] is False
+    assert latest['holdout_dti']['dti'] is None
+    assert audit['previous_holdout_claim']['reported_value'] is None
     assert hashlib.sha256(raster.read_bytes()).hexdigest() == audit['candidate']['sha256']
     page = (ROOT / 'docs/executive-summary.html').read_text()
     assert '99.3454%' in page and 'no 95% CI' in page
+    assert 'No HOLDOUT-DTI result is reportable for Conduitcrest.' in page
+    assert '0.017415' not in page
     assert 'DO NOT SUBMIT' in page
 

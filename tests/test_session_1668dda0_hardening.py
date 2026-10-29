@@ -192,18 +192,52 @@ def test_pr42_sidecars_and_all_repo_jsons_remain_fail_closed():
             assert not hits, f"{json_path} contains true authorization flags: {hits}"
 
 
-def test_local_and_peer_evidence_verifies_all_9_local_tifs():
+def test_local_and_peer_evidence_verifies_all_current_local_tifs():
     data = render_site.local_and_peer_evidence()
-    assert data["local_downloads_count"] == 9
-    assert data["peer_rasters_count"] == 9
     actual_tifs = {f"docs/downloads/{p.name}" for p in (ROOT / "docs/downloads").glob("*.tif")}
     audited_tifs = {r["file"] for r in data["local_downloads"]}
-    # Session 1668dda0's receipt is historical and must not be rewritten.
-    # Any TIF added afterwards must be covered by a later session audit:
-    # 147b0f11's SGMC re-audit covers the new DIPDUAL raster (run card
-    # evidence/run_card_dipdual_20261028.json, verdict negative).
-    later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
-    later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
-    uncovered = actual_tifs - audited_tifs - later_tifs
-    assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
-    assert audited_tifs <= actual_tifs
+    assert data["local_downloads_count"] == len(actual_tifs) == 11
+    assert data["peer_rasters_count"] == 9
+    assert audited_tifs == actual_tifs
+    assert data["all_local_downloads_blocked"] is True
+    assert all(r["literal_lattice_duplicate"] and not r["ok_to_submit"] for r in data["local_downloads"])
+    tracked = data["tracked_tiff_inventory"]
+    assert tracked["tracked_tiff_paths_count"] == 15
+    assert tracked["unique_tracked_tiff_sha256_count"] == 13
+    assert tracked["tracked_download_directory_paths_count"] == 11
+    assert tracked["tracked_quarantined_archive_paths_count"] == 4
+    assert tracked["all_tracked_tiff_bytes_accounted"] is True
+    assert tracked["unaccounted_paths"] == []
+    assert all(row["audit_coverage"] != "UNACCOUNTED" for row in tracked["tracked_tiffs"])
+
+    # Keep the earlier nine-local audit immutable and explicitly historical.
+    old = json.loads((ROOT / "evidence/local_downloads_and_peer_audit_20261028.json").read_text())
+    assert old["local_downloads_count"] == 9 and old["peer_rasters_count"] == 9
+    assert len(render_site.secondary_evidence()['rows']) == 12
+
+
+def test_unique_hyp_legacy_promotion_and_score_claim_are_superseded():
+    card = render_site.unique_hyp_evidence()
+    assert card['verdict'] == 'negative' and card['ok_to_submit'] is False
+    assert card['holdout_dti']['label'] == 'HOLDOUT-DTI'
+    assert card['holdout_dti']['dti'] is None and card['holdout_dti']['ci95'] is None
+    assert card['holdout_dti']['evaluator_version'] is None
+    assert card['holdout_dti']['withheld_positive_count'] is None
+    assert card['legacy_claim_retraction']['reportable_holdout_result'] is None
+    assert card['validator_output']['inside_values_finite_and_in_0_1'] is True
+    assert card['validator_output']['organizer_acceptance'] == 'not tested'
+    assert len(card['submission_note']) <= 140 and card['submission_note_chars'] == len(card['submission_note'])
+    assert card['registry_correlation_overlap']['lattice']['directed_overlap'] > .70
+    assert card['registry_correlation_overlap']['nine_focus_sites']['distinct_from_each_under_audited_thresholds'] is True
+    assert card['registry_correlation_overlap']['complete_registry_checked'] is False
+    assert card['slot_selected_or_spent'] is False
+    assert card['leakage_canary']['status'] == 'NOT RUN'
+    assert card['leakage_canary']['single_feature_auc_leakage_threshold'] == 0.90
+    assert card['protocol_holdout_spec']['status'] == 'NOT RUN'
+    assert card['protocol_holdout_spec']['alpha'] == 0.2 and card['protocol_holdout_spec']['beta'] == 0.8
+    assert card['protocol_holdout_spec']['triangular_kernel_radius_m'] == 300
+    assert card['experiment_budget']['geological_experiments_this_session'] == 0
+    assert card['tracked_tiff_inventory']['tracked_tiff_paths_count'] == 15
+    assert card['tracked_tiff_inventory']['unique_tracked_tiff_sha256_count'] == 13
+    assert card['tracked_tiff_inventory']['all_tracked_tiff_bytes_accounted'] is True
+    assert card['tracked_tiff_inventory']['unaccounted_paths'] == []

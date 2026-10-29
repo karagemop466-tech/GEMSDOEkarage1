@@ -1,5 +1,7 @@
 # Session Review — `arena/147b0f11-gemsdoekarage1` (DIPDUAL lane, 2026-10-28)
 
+> **Superseded uniqueness/status notice (29 October 2026):** this historical report’s “YES vs discrete registry,” lattice role classification, and selector-acknowledgment wording do not satisfy the current literal rule. The dated saved-byte audit finds 37,612/37,654 DIPDUAL dots (99.8885%) within 3 px of the pinned lattice: **literal duplicate, stop, DO NOT SUBMIT**. See [`evidence/local_downloads_and_peer_audit_20261029.json`](../evidence/local_downloads_and_peer_audit_20261029.json) and the current [negative run card](../evidence/run_card_arena_2b7c50b3.json). The experiment history below is retained as historical provenance only.
+
 **Decision: `NEGATIVE / DO NOT SUBMIT`** (`ok_to_submit: false`, 0 slots spent,
 3 geological experiments). A **new, discrete-unique, format-valid GeoTIFF was
 generated** and is downloadable for research; it **failed the preregistered

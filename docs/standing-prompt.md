@@ -2,6 +2,22 @@
 
 **Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
 
+## Controlling addendum from the latest user direction (29 October 2026)
+
+Where an older item below conflicts with this addendum, this addendum controls. The original full prompt is reconstructed, not a verbatim transcript.
+
+- Keep **Maximize P(Win)** and **Own the Outcome**. Report negative results, blockers, uncertainty, and irregularities; never invent score projections.
+- Do not copy any prior submission. Any generated TIFF must be unique under the literal registry rule and must clearly say whether it is safe to download and submit. No human-inspector fallback.
+- Stay in one assigned lane. Before placement, compare the continuous surface and final dots with the complete authorized registry; stop/log when absolute Spearman exceeds 0.90 or more than 70% of candidate dots lie within 3 px. Do not exempt the lattice or evade either threshold.
+- Reuse the assigned template's cached feature stack, `evaluate_holdout.py`, and `submission_writer.py`. Fix shared tools in their owning template, not in a private fork.
+- The whole-segment buffered hide-and-recover holdout must derive catalogue features from visible faults only, mask visible faults pixel-exactly, and report pooled DTI with α=0.2, β=0.8, and a 300 m triangular kernel. A valid score needs the evaluator, withheld-positive count, and 95% CI; organizer results require a receipt. An incomplete or unverified legacy scalar is not a score.
+- Run a single-feature leakage canary; AUC >0.90 is leakage until disproved. Stop after three experiments or two hours. Do not select or spend a weekly slot; selector and cap are separate.
+- Before implementation, propose and rank 3–5 geological hypotheses. For each, name relevant layers, physical signature, off-catalogue rationale, named non-fault mimic, difference from repository methods, qualitative expected DTI potential, cost, and official/free data source. If required external data cannot be verified as obtainable, mark the idea not viable—not data-ready. Validate the top candidate on the authorized blocked holdout when prerequisites exist.
+- End with a JSON run card for the actual audited or generated artifact: hypothesis, mechanism, named mimic, HOLDOUT-DTI and CI or explicit not-run nulls, registry correlation/overlap, SHA-256, validator results, submission name and note ≤140 characters, and promote/negative verdict.
+- Explain the reported GEMSDOE32 B2 result from saved-mask evidence, but label any user-provided value **USER-REPORTED / UNVERIFIED** and do not present it as a validated HOLDOUT-DTI or organizer score without the required evidence.
+- Keep a clean GitHub Pages site for the nine focus sites, explain the [0,1] rejection with automated validation, and keep download-versus-submit status unmistakable. Read README and this brief at session start.
+- Perform three implementation/review/recheck passes, verify tests/build/links, create a PR and merge it to `main` only if the environment and gates allow, and list remaining blockers/next work. Do not run a holdout, generate a TIFF, choose a slot, or upload while lane/template authorization or shared data are missing.
+
 ## Arena Core Values (keep as focus)
 
 - **Maximize P(Win).** Favor reproducible evidence that can raise the probability of a higher organizer-confirmed score. The prior GEMSDOE32 0.2778 is user-reported, without a verified receipt here; the owner cited multiple leaderboard benchmarks that may be stale.

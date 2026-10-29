@@ -1,107 +1,21 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DIPDUAL 2026-10-28 — Executive Summary · GEMSDOEkarage1</title>
-<link rel="stylesheet" href="../style.css"></head>
-<body>
-<header><a href="../index.html">GEMSDOEkarage1</a>
-<nav><a href="./index.html">Executive summary</a><a href="./how-to-submit.html">How to submit</a>
-<a href="../data/run-card-dipdual-20261028.json">Run card (JSON)</a>
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition ↗</a></nav></header>
-<main>
-<p class="eyebrow">SESSION arena/147b0f11 · LANE H-K1-DIPDUAL · 2026-10-28</p>
-
-<div class="alert"><h2>🔴 DO NOT SUBMIT — new unique TIF generated, holdout gates FAILED</h2>
-<p><strong>Download for research: YES · Submit to DrivenData: NO.</strong>
-A brand-new GeoTIFF was generated this session (not copied from any prior
-submission), is discrete-unique and format-valid — but it scored
-<em>below</em> the repo controls on the preregistered holdout, so this
-project does <strong>not</strong> clear it, or any other file, for upload.
-Spending a weekly slot remains a separate selector decision.</p>
-<p>
-<a class="button" href="../downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif" download>⬇ Download new TIF (research only)</a>
-<a class="button" href="../downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.zip" download>⬇ ZIP (single TIF)</a>
-<a class="button" href="../downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.json" download>Writer receipt</a>
-</p>
-<p><code>karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif</code><br>
-SHA-256 <code>7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae</code> ·
-37,654 dots (24,475 exposed + 13,179 buried) · float32, EPSG:32611, whole-array finite [0,1] ·
-Suggested portal name = filename · Note (76 chars):
-<code>DIPDUAL dual-regime dip-shifted research raster; gates failed; DO NOT SUBMIT</code></p></div>
-
-<h2>Score estimates — read the labels (no live projection exists)</h2>
-<p>Every number below is labelled. <strong>HOLDOUT-DTI and SGMC-DIAGNOSTIC-DTI
-are local instruments, not leaderboard estimates.</strong> Historical site
-scores are <strong>USER-REPORTED / UNVERIFIED</strong> (no organizer receipt
-in this workspace). The static B2 raster scores 0.004845 on the catalogue
-holdout purely because its apron used the full catalogue (censored) — proof
-that holdout numbers cannot be converted into live scores.</p>
-
-<div class="cards">
-<section><span>New DIPDUAL — blocked holdout</span><h2>0.040056</h2>
-<p>HOLDOUT-DTI [0.034544, 0.046131]<br><small>gemsk-hide-recover-v1 · 60,988 withheld positives · fold-local emission</small></p></section>
-<section><span>Best control (GPC physics)</span><h2>0.073394</h2>
-<p>HOLDOUT-DTI [0.064838, 0.082202]<br><small>same evaluator/folds/budget · DIPDUAL Δ −0.0333 [−0.0411, −0.0256] → gate failed</small></p></section>
-<section><span>New DIPDUAL — SGMC diagnostic</span><h2>0.090244</h2>
-<p>SGMC-DIAGNOSTIC-DTI [0.077331, 0.102597]<br><small>off-catalogue SGMC n=62,122 · GPC 0.126149 · B2 static 0.095386</small></p></section>
-</div>
-
-<h2>Executive table — which file, what score, is it unique?</h2>
-<div class="table-scroll"><table>
-<thead><tr><th>Site</th><th>File to download (research)</th><th>Score (labelled)</th><th>Unique vs other GEMSDOE?</th><th>Action</th></tr></thead>
-<tbody>
-<tr><td><strong>GEMSDOE32</strong></td><td><code>gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code></td><td>0.2778<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — D2.8 parent minus 2 px collar (measured exact)</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>GEMSDOE36</strong></td><td><code>gemsdoe36-anderson-geothermal-pinn-38854-…-zeros.tif</code></td><td>0.2750<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — B2 plus exactly 1,200 dots</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>GEMSDOE28</strong></td><td><code>gems28-h36-1-rung30-blind-r1-…-nan.tif</code></td><td>0.2710<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — r1 sibling mask identical to GEMSDOE31</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>GEMSDOE31</strong></td><td><code>gemsdoe31-h27-4-solo-d28-…-nan.tif</code></td><td>0.2708<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — identical mask to GEMSDOE28-r1 (= parent −1 px collar)</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>GEMSDOE33</strong></td><td><code>GEMSDOE33-h33d-analog-tip-stepover-r30-….tif</code></td><td>0.2632<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — D2.8-family derivative</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>GEMSDOE25</strong></td><td><code>gems25-dotted-h19-5-d2-8-…-nan.tif</code></td><td>0.2600<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — mask identical to GEMSDOE30; B2's parent</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>GEMSDOE30</strong></td><td><code>gemsdoe30-d28-poisson300m-offcat-44090-….tif</code></td><td>0.2600<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — mask identical to GEMSDOE25</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>GEMSDOE24</strong></td><td><code>gems24-h25-1-dotted-h19-5-d1-5-…-nan.tif</code></td><td>0.2477<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — crowded 1.5 px-spacing variant of same mask</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>GEMSDOE27</strong></td><td><code>gems27-topo-gap-closure-t-v2-on-d1-5-…-nan.tif</code></td><td>0.2449<br><small>USER-REPORTED / UNVERIFIED</small></td><td>NO — D1.5 derivative</td><td><strong>DO NOT RESUBMIT</strong></td></tr>
-<tr><td><strong>karage1 DIPDUAL (NEW)</strong></td><td><code>karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif</code></td><td>HOLDOUT-DTI 0.040056 [0.034544, 0.046131]<br><small>live score: unknown — no projection</small></td><td><strong>YES vs discrete registry</strong> (worst fwd 23.75%; vs B2 11.96%); lattice literal 99.89%*</td><td><strong>DO NOT SUBMIT</strong> (holdout gates failed)</td></tr>
-<tr><td>karage1 HMAS (prior)</td><td><code>karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif</code></td><td>SGMC-DIAGNOSTIC 0.112595 (our re-score)<br><small>prior HOLDOUT claims not rerun</small></td><td>YES vs 318-raster fleet audit (max discrete 60.39%); lattice literal fails*</td><td><strong>NOT CLEARED</strong> — selector shortlist, needs re-validation</td></tr>
-</tbody></table></div>
-<p><small>*Lattice: the 13GEMSDOE s5 calibration lattice lies within 3 px of
-99.8713% of footprint cells, so any 37,654-dot raster has forward overlap
-≥82.34% (B2 itself: 99.915% forward, 15.06% reverse). Role-classified as
-<code>calibration_probe</code> in <code>registry/registry_roles.json</code>;
-literal value published in the run card. Selector must acknowledge.</small></p>
-
-<h2>Why B2 reported the highest nine-site score</h2>
-<p>Measured ladder (pixel-exact): H19-5 thick mask 121,131 px (0.1922) →
-2.8 px dotted subset 44,090 (0.2600) → minus ≤1 px catalogue collar 40,199
-(0.2708) → <strong>minus ≤2 px collar 37,654 = B2 (0.2778)</strong> → plus
-1,200 dots (0.2750). Under DTI (α=0.2, β=0.8, 300 m kernel; known pixels
-masked), dotting removes kernel redundancy and the collar deletes
-near-catalogue dots whose realised credit was below the marginal bar
-≈α·DTI. That is emission hygiene, not superior geology — which is why
-changing the surface (incl. this session's DIPDUAL) keeps scoring below
-the dotted family until a surface demonstrably ranks off-catalogue traces
-better at equal hygiene.</p>
-<p><img src="../assets/dipdual_vs_b2_spatial.png" alt="Catalogue vs B2 vs DIPDUAL dot maps" style="max-width:100%">
-<img src="../assets/dipdual_holdout_bars.png" alt="Holdout and SGMC bar charts" style="max-width:100%"></p>
-
-<h2>Autonomous validation gates (no human inspector)</h2>
-<div class="table-scroll"><table>
-<thead><tr><th>Gate</th><th>Tool</th><th>Result</th></tr></thead><tbody>
-<tr><td>Leakage canary (15 features)</td><td>EXP1 AUC/fold</td><td>✅ PASS — max direction-invariant AUC 0.609 ≤ 0.90</td></tr>
-<tr><td>Blocked holdout vs controls</td><td>gemsk-hide-recover-v1</td><td>❌ FAIL — below GPC and BB-STEP (paired CIs exclude 0)</td></tr>
-<tr><td>SGMC off-catalogue diagnostic</td><td>SGMC n=62,122</td><td>❌ FAIL — 0.090244 vs GPC 0.126149</td></tr>
-<tr><td>Format / [0,1] range</td><td>shared submission_writer + 2 re-reads</td><td>✅ PASS — finite [0,1] everywhere; EPSG:32611/shape/transform match; 0 on-catalogue</td></tr>
-<tr><td>Discrete uniqueness (24 rasters)</td><td>spearman + 3 px fwd/rev/Jaccard</td><td>✅ PASS — worst fwd 23.75%, worst |ρ| 0.058 (pre-placement)</td></tr>
-<tr><td>Lattice literal</td><td>13GEMSDOE s5</td><td>⚠️ 99.89% forward — mathematically unavoidable ≥82.34% at this N; published, selector acknowledgment required</td></tr>
-</tbody></table></div>
-
-<h2>What to do next</h2>
-<ol>
-<li>Next preregistered lane: exposed-only GPC refinement (+ LOO damage-zone prior, LiDAR polarity, no obliquity gate, no buried quota) — GPC beat B2 on SGMC (+0.0308 [+0.0082, +0.0519]) and is the repo's best label-free blocked surface.</li>
-<li>Re-validate HMAS saved bytes end-to-end before any selector use.</li>
-<li>Confirm weekly cap + outside-encoding on the live DrivenData page with organizer-authenticated data; see <a href="./how-to-submit.html">How to submit</a>.</li>
-</ol>
-<p>Full audit trail: <code>knowledge/session-review-arena-147b0f11.md</code> ·
-<code>docs/research/preregistration-dipdual-20261028.md</code> ·
-<code>evidence/exp{1,2,3}_dipdual_*.json</code></p>
-</main>
-<footer>MAXIMIZE P(WIN) / OWN THE OUTCOME · Not affiliated with the organizers. Mirrored data are hash-pinned, not organizer-authenticated; portal acceptance untested.</footer>
-</body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Historical DIPDUAL artifact review. DO NOT SUBMIT.">
+<title>Archived DIPDUAL review · GEMS Field Intelligence</title>
+<link rel="stylesheet" href="../assets/styles.css"><link rel="stylesheet" href="../assets/decision.css"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner container">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">G</span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
+<nav class="main-nav" aria-label="Main navigation"><a href="../index.html">Overview</a><a href="../executive-summary.html">Executive summary</a><a href="../research.html">Research</a></nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
+<div class="container"><p class="global-hold"><strong>DO NOT SUBMIT</strong> · No candidate has been cleared.</p></div></header>
+<main id="main"><div class="container"><div class="page-top"><span>ARCHIVE <span class="separator">/</span> DIPDUAL · 28 OCT 2026</span><span class="page-date">SUPERSEDED BY 29 OCT SAVED-BYTE AUDIT</span></div>
+<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> HISTORICAL RESEARCH ARTIFACT</p><h1>DIPDUAL. <em>Not for submission.</em></h1><p>This archive supersedes its earlier “unique vs discrete registry” wording. The literal lattice threshold applies; no lattice exception or selector acknowledgment can clear it.</p></section>
+<section class="decision-panel"><div class="decision-main"><div class="status-line">CURRENT ARTIFACT STATUS <span class="status-tag">DO NOT SUBMIT</span></div><h2>Duplicate under the literal lattice gate.</h2>
+<p><strong>Safe to download for audit/research only: yes. Safe to submit: no.</strong> No download here is a submission recommendation.</p>
+<p>Archived TIFF: <code class="wrap">karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif</code><br>SHA-256 <code class="wrap">7b2a58eb1c3fb49cdd65f317c57d5552fe019c9be215aa2864533c2a50873cae</code>.</p>
+<p>The current saved-byte audit finds <strong>37,612 / 37,654 (99.8885%)</strong> candidate dots within 3 px of the pinned lattice. This exceeds the strict 70% stop threshold: <strong>literal duplicate; stop</strong>. The earlier discrete-only comparison and “selector acknowledgment” wording do not override this result. Complete registry and pre-placement-surface checks are still absent.</p>
+<p>Historical local result: <strong>HOLDOUT-DTI 0.040056</strong> · evaluator <code>gemsk-hide-recover-v1</code> · 60,988 withheld positives · 95% CI [0.034544, 0.046131]. This is a prior local holdout measurement, not an organizer score or current submission clearance; the lattice duplicate stop is decisive.</p>
+<p>Local format validation is necessary but does not establish organizer acceptance. No current portal receipt is recorded, no weekly slot was selected, and no holdout was run in the current review.</p>
+<div class="decision-actions"><a class="button button-light" href="../downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif">Download archived TIFF for audit only ↗</a><a class="button button-light" href="../downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.zip">Download archived ZIP for audit only ↗</a><a class="button button-light" href="../../evidence/local_downloads_and_peer_audit_20261029.json">Inspect current saved-byte audit ↗</a></div>
+<p class="download-help"><strong>DO NOT SUBMIT.</strong> This is a historic research artifact. The current executive summary has the latest status for all local TIFFs.</p></div><div class="decision-side"><div><span>VERDICT</span><strong>Negative · lattice duplicate</strong></div><div><span>3-PX LATTICE OVERLAP</span><strong>99.8885% · duplicate</strong></div><div><span>UPLOAD AUTHORIZED</span><strong>No</strong></div><a href="../executive-summary.html">Current executive summary ↗</a></div></section>
+<section class="next-strip"><div><p class="eyebrow">CURRENT PROJECT STATUS</p><h2>No TIFF is cleared.</h2><p>Read the current negative audit and blockers before any future experiment.</p></div><a class="button button-dark" href="../executive-summary.html">Current decision ↗</a></section>
+</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="../data/current-session-run-card.json">Current review card</a><a href="../research.html">Research</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>

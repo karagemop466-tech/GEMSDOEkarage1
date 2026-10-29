@@ -1,69 +1,17 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How to submit (exactly) · GEMSDOEkarage1</title>
-<link rel="stylesheet" href="../style.css"></head>
-<body>
-<header><a href="../index.html">GEMSDOEkarage1</a>
-<nav><a href="./index.html">Executive summary</a><a href="./how-to-submit.html">How to submit</a>
-<a href="../data/run-card-dipdual-20261028.json">Run card (JSON)</a>
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition ↗</a></nav></header>
-<main>
-<p class="eyebrow">SUBMISSION GUIDE · READ THE RED BOX FIRST</p>
-<div class="alert"><h2>🔴 No file on this site is currently cleared for upload</h2>
-<p>The newest file (<code>karage1-dipdual-…-zeros.tif</code>) is
-<strong>DO NOT SUBMIT</strong>: unique + format-valid, but it failed the
-preregistered holdout gates. The nine focus-site best files are duplicates
-of already-submitted dots. This page exists so that <em>when</em> a future
-candidate passes every gate and the selector confirms the weekly cap, the
-upload takes two minutes with zero ambiguity. Submitting anything today
-spends a slot against this project's documented advice.</p></div>
-
-<h2>Exact upload steps (for a future cleared candidate)</h2>
-<ol>
-<li><strong>Download the cleared file</strong> from the executive-summary top
-banner (use the <code>-zeros.tif</code> or its single-TIF <code>.zip</code>;
-verify SHA-256 against the run card before uploading).</li>
-<li>Open the competition <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">Submissions page</a> → <strong>Submit</strong> / New submission.</li>
-<li><strong>File to submit:</strong> choose the downloaded <code>.tif</code>
-(single-band GeoTIFF) or the <code>.zip</code> containing exactly that one
-GeoTIFF. It already matches the required CRS (EPSG:32611), shape
-(3730×3292), geotransform and float32 [0,1] range — do not resave it in
-another tool.</li>
-<li><strong>Note (optional field):</strong> paste the run-card
-<code>submission_note</code> verbatim (≤140 characters; e.g. the DIPDUAL
-research note is <code>DIPDUAL dual-regime dip-shifted research raster;
-gates failed; DO NOT SUBMIT</code> — a cleared candidate will carry its own
-promote note). Keep the unique filename as your submission identifier.</li>
-<li>Submit once. <strong>Save the submission-page receipt</strong> (score +
-timestamp + filename) into <code>evidence/</code> — only a receipt-backed
-number may ever be labelled ORGANIZER-CONFIRMED here.</li>
-<li>Remember the prize structure: you must eventually choose a <strong>single</strong>
-submission scored in both Initial and Final rounds; Final labels expand with
-expert-verified discoveries from all submissions.</li>
-</ol>
-
-<h2>Why you previously got “Predicted values must be in range [0, 1]”</h2>
-<p><code>training_features.tif</code> contains raw float32 nodata sentinels
-(<code>-3.4028235e+38</code>) at <strong>3,073 pixels inside the scored
-footprint</strong> (measured band-by-band). Any model that does arithmetic
-over those pixels without masking can write ±inf/NaN or out-of-range values.
-Files produced by this project's shared writer are rejected at write-time
-unless the <em>saved bytes</em> re-read as finite [0,1] on the exact
-competition grid — DIPDUAL re-read: min 0.0, max 1.0, 0 NaN, 0 inf.
-Outside-footprint encoding here is 0.0 (<code>-zeros</code>); the reported
-0.2778 B2 score is for a <code>-zeros</code> file, indicating zeros was
-accepted in that instance (unverified — confirm on the live page if unsure;
-the written spec says null or NaN outside bounds).</p>
-
-<h2>Pre-upload checklist (selector)</h2>
-<ul>
-<li>☐ Run-card verdict is <code>promote</code> (currently: none)</li>
-<li>☐ Weekly cap checked on the live submission page</li>
-<li>☐ SHA-256 of downloaded file == run-card <code>raster_sha256</code></li>
-<li>☐ Lattice-deviation (IR-DIPDUAL-LATTICE-01) acknowledged</li>
-<li>☐ Receipt archiving planned (step 5 above)</li>
-</ul>
-</main>
-<footer>MAXIMIZE P(WIN) / OWN THE OUTCOME · Format validity is local preflight, not organizer acceptance.</footer>
-</body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DIPDUAL archive: no file is cleared to submit.">
+<title>Submission status · Archived DIPDUAL · GEMS</title>
+<link rel="stylesheet" href="../assets/styles.css"><link rel="stylesheet" href="../assets/decision.css"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner container">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">G</span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
+<nav class="main-nav" aria-label="Main navigation"><a href="../index.html">Overview</a><a href="../executive-summary.html">Executive summary</a><a href="../research.html">Research</a></nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
+<div class="container"><p class="global-hold"><strong>DO NOT SUBMIT</strong> · This archived file is a lattice duplicate.</p></div></header>
+<main id="main"><div class="container"><div class="page-top"><span>ARCHIVE <span class="separator">/</span> SUBMISSION STATUS</span><span class="page-date">NO CLEARANCE</span></div>
+<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> NO UPLOAD INSTRUCTIONS FOR THIS ARTIFACT</p><h1>Do not upload.<br><em>No slot is authorized.</em></h1><p>This page is retained for historical audit only. The current project status is on the main executive summary.</p></section>
+<section class="decision-panel"><div class="decision-main"><div class="status-line">SUBMISSION STATUS <span class="status-tag">DO NOT SUBMIT</span></div><h2>There is no cleared file to submit from this archive.</h2>
+<p>The archived DIPDUAL TIFF is safe to download only for audit/research, not for competition upload. Its 3-px overlap with the pinned lattice is 99.8885%, so the literal duplicate stop applies regardless of its prior discrete-only comparison or format check.</p>
+<p>Do not treat a prior holdout measurement, local validator pass, historical run-card verdict, or filename as an organizer receipt or upload authorization. No weekly selector or cap check was performed in the current review.</p>
+<p>For a future eligible file, use the current project checklist only after the assigned lane, authoritative shared template, complete registry, and valid HOLDOUT-DTI gates are in place.</p>
+<div class="decision-actions"><a class="button button-light" href="../executive-summary.html">Current executive summary ↗</a><a class="button button-light" href="../index.html">Current decision dashboard ↗</a></div></div><div class="decision-side"><div><span>DOWNLOAD</span><strong>Audit only</strong></div><div><span>SUBMIT</span><strong>No</strong></div><div><span>WEEKLY SLOT</span><strong>Not selected or spent</strong></div></div></section>
+</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="../data/current-session-run-card.json">Current review card</a><a href="../research.html">Research</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>

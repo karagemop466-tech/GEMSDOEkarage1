@@ -62,12 +62,13 @@
     "notes": "The original card reports nine focus-site rasters, not the pinned lattice; says a per-channel canary remains to be run; omits a 95% CI; and records a lane_id without the active template manifest containing an assigned lane."
   },
   "previous_holdout_claim": {
-    "label": "HOLDOUT-DTI",
-    "reported_value": 0.017415,
-    "evaluator_version": "gems57-pooled-hide-v2",
-    "withheld_positives": 45260,
+    "label": "RETRACTED / NOT REPORTABLE AS HOLDOUT-DTI",
+    "reported_value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
     "ci95": null,
-    "status": "Copied from the prior run card; no 95% CI is recorded and it was not independently rerun in this lattice audit. Not an organizer score or release clearance."
+    "legacy_source": "evidence/run_card_gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4.json",
+    "status": "The prior scalar is suppressed from current reporting because the source run card has no 95% CI and the result was not independently reproduced against the saved TIFF bytes. Not an organizer score."
   },
   "submission_name": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
   "submission_note": "Novel-territory gravity+radiometric+topo crest; research only; DO NOT SUBMIT",
@@ -139,5 +140,6 @@
       "directed_overlap": 0.0,
       "binary_support_spearman": -0.005061529580689964
     }
-  ]
+  ],
+  "score_reporting_status": "No HOLDOUT-DTI result is currently reportable for this candidate."
 }

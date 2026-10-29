@@ -1,0 +1,257 @@
+{
+  "schema": "karage1-historical-raster-reassessment-v1",
+  "generated_utc": "2026-10-29T18:46:21Z",
+  "assessment_scope": "Saved-byte audit of one historical local GeoTIFF, alongside a complete current checkout inventory audit. No geological experiment or holdout was run.",
+  "hypothesis": "Legacy proposal: K/Th radiometric alteration and thermal evidence, masked against a proxy, may highlight blind geothermal-conduit faults. The current session did not test this mechanism; rank-1 untested proposal is cross-spectral phase-coherent potential-field junctions (see knowledge/hypotheses-20261029.md).",
+  "mechanism": "The legacy sidecar described hydrothermal alteration/thermal anomalies near structure; that causal association is not established by the saved TIFF or this geometric audit.",
+  "named_non_fault_mimic": "Erosional scarp with superficial alluvial mineralization (legacy named mimic); also unrelated near-surface alteration or thermal gradients.",
+  "artifact": {
+    "file": "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+    "bytes": 147139,
+    "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+    "positive_pixels_in_footprint": 37654,
+    "status": "Historical audit artifact only; not cleared for competition upload."
+  },
+  "legacy_claim_retraction": {
+    "superseded_file": "docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json",
+    "superseded_sha256": "5e278696b783e800579c3eb46a8000aa1e7fc71e73be1e6ac2a80b95286c18e5",
+    "superseded_verdict": "promote",
+    "reported_numeric_score_suppressed": true,
+    "reportable_holdout_result": null,
+    "status": "RETRACTED / NOT A VALID RELEASE-GRADE HOLDOUT-DTI RESULT",
+    "reason": "A scalar, evaluator label, withheld-positive count and CI appear in the superseded sidecar, but the committed evidence contains no hash-bound evaluator output, metric-term file, or bootstrap artifact that reproduces the claim for these saved TIFF bytes. This reassessment did not execute a holdout. Do not use the legacy scalar as HOLDOUT-DTI."
+  },
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "dti": null,
+    "evaluator_version": null,
+    "withheld_positive_count": null,
+    "ci95": null,
+    "status": "NOT RUN this session; legacy assertion retracted and not independently reproducible from committed run evidence.",
+    "required_evaluator_if_authorized": "gems57-pooled-hide-v2"
+  },
+  "registry_correlation_overlap": {
+    "scope": "Pinned 13GEMSDOE lattice plus the nine pinned focus-site rasters; this is not a complete organizer/peer registry.",
+    "reference_count": 10,
+    "lattice": {
+      "reference_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+      "candidate_dots_within_closed_3px_disk": 37617,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.999017368672651,
+      "spearman": 0.0002597648661715286,
+      "literal_duplicate": true
+    },
+    "nine_focus_sites": {
+      "site_count": 9,
+      "worst_directed_3px_overlap_site": "GEMSDOE27",
+      "worst_directed_3px_overlap": 0.2653635735911191,
+      "maximum_absolute_spearman_site": "GEMSDOE32",
+      "maximum_absolute_spearman": 0.009888276467543412,
+      "distinct_from_each_under_audited_thresholds": true
+    },
+    "preplacement_surface_checked": false,
+    "complete_registry_checked": false,
+    "verdict": "duplicate versus lattice; stop."
+  },
+  "validator_output": {
+    "source": "saved-byte local diagnostics in evidence/local_downloads_and_peer_audit_20261029.json; mirrored reference template is SHA-pinned but not independently organizer-authenticated",
+    "single_band_float32_and_grid_match": true,
+    "inside_values_finite_and_in_0_1": true,
+    "outside_unmasked_positive_pixels": 0,
+    "outside_null_or_nan_variant_pass": false,
+    "whole_array_finite_0_1_variant_pass": true,
+    "local_outside_encoding_diagnostic": true,
+    "organizer_acceptance": "not tested"
+  },
+  "submission_name": "unique-hyp-kth-therm-mask-20261028-zeros",
+  "submission_note": "DO NOT SUBMIT \u2014 historical audit only; no score or slot clearance.",
+  "submission_note_chars": 66,
+  "download_status": "Audit/research only; not authorized to submit.",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "upload_authorized": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 0,
+  "sources": {
+    "local_peer_audit": "evidence/local_downloads_and_peer_audit_20261029.json",
+    "local_peer_audit_sha256": "de90687fc118bdf8d7fd4a18498ed73a0e65ad44ede54f24dfa5294a38c85cbb",
+    "full_reference_comparison": "embedded below in reference_comparisons",
+    "complete_registry_or_portal_acceptance": "not checked",
+    "quarantined_archive_audit": "docs/data/archive-review.json",
+    "quarantined_archive_audit_sha256": "7fadc1b4063a1dbdd678c90a78800be95c70e276b3f92e02767ac692eccaf83f"
+  },
+  "reference_comparisons": [
+    {
+      "reference": "lattice",
+      "reference_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2",
+      "candidate_dots_within_3px": 37617,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.999017368672651,
+      "binary_dot_spearman": 0.0002597648661715286,
+      "overlap_exceeds_70_percent": true,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE24",
+      "reference_sha256": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+      "candidate_dots_within_3px": 9818,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.26074255059223456,
+      "binary_dot_spearman": 0.009091362781436204,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE25",
+      "reference_sha256": "91eae1ca42ec845eaa8c2ba32da49806e24751743459b8a10017c479bbe639b8",
+      "candidate_dots_within_3px": 9420,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.25017262442237215,
+      "binary_dot_spearman": 0.007983648330460287,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE27",
+      "reference_sha256": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+      "candidate_dots_within_3px": 9992,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.2653635735911191,
+      "binary_dot_spearman": 0.008973999418864537,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE28",
+      "reference_sha256": "5556aa1438fd67376b60d5ffc99228ec09dcc11a8408298a743ccb88d6163641",
+      "candidate_dots_within_3px": 9118,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.24215222818292878,
+      "binary_dot_spearman": 0.008976810323526289,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE30",
+      "reference_sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+      "candidate_dots_within_3px": 9420,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.25017262442237215,
+      "binary_dot_spearman": 0.007983648330460287,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE31",
+      "reference_sha256": "07b6db440535404bb41ec8ddc797713e200d308e3da35937393efde5eb84bc40",
+      "candidate_dots_within_3px": 9238,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.24533914059595263,
+      "binary_dot_spearman": 0.0090922342896723,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE32",
+      "reference_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "candidate_dots_within_3px": 9000,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.23901843097678865,
+      "binary_dot_spearman": 0.009888276467543412,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE33",
+      "reference_sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+      "candidate_dots_within_3px": 9363,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.2486588410261858,
+      "binary_dot_spearman": 0.009211965349152387,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    },
+    {
+      "reference": "GEMSDOE36",
+      "reference_sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+      "candidate_dots_within_3px": 9076,
+      "candidate_dots": 37654,
+      "directed_overlap": 0.24103680883837042,
+      "binary_dot_spearman": 0.00958421939132395,
+      "overlap_exceeds_70_percent": false,
+      "rank_abs_exceeds_0_90": false,
+      "exact_dot_mask_match": false
+    }
+  ],
+  "proposed_next_hypothesis": {
+    "rank": 1,
+    "name": "Cross-spectral phase-coherent potential-field edge junctions",
+    "status": "proposal only; not assigned to a method lane and not executed",
+    "details": "knowledge/hypotheses-20261029.md"
+  },
+  "leakage_canary": {
+    "status": "NOT RUN",
+    "single_feature_auc_leakage_threshold": 0.9,
+    "reason": "No assigned lane, authorized shared stack, labels, or canonical evaluator inputs are available."
+  },
+  "protocol_holdout_spec": {
+    "status": "NOT RUN",
+    "required_evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_kernel_radius_m": 300,
+    "reason": "Lane/template/data gates failed; this review was a saved-byte artifact audit only."
+  },
+  "experiment_budget": {
+    "max_experiments": 3,
+    "max_hours": 2,
+    "geological_experiments_this_session": 0,
+    "selector_or_slot_used": false
+  },
+  "blockers": [
+    "method_lane and canonical_template_assignment are null",
+    "required organizer feature stack and data files are missing",
+    "shared-template vendor/source/execution pins are unresolved",
+    "complete authenticated registry and pre-placement surfaces are unavailable",
+    "no same-evaluator frozen baseline is authorized"
+  ],
+  "tracked_tiff_inventory": {
+    "tracked_tiff_paths_count": 15,
+    "unique_tracked_tiff_sha256_count": 13,
+    "current_download_directory_paths_count": 11,
+    "quarantined_archive_paths_count": 4,
+    "all_tracked_tiff_bytes_accounted": true,
+    "unaccounted_paths": [],
+    "quarantined_archive_audit": {
+      "file": "docs/data/archive-review.json",
+      "sha256": "7fadc1b4063a1dbdd678c90a78800be95c70e276b3f92e02767ac692eccaf83f",
+      "schema": "karage1-quarantined-archive-audit-v1",
+      "submission_authorized": false,
+      "verified_asset_count": 3,
+      "verified_assets": [
+        {
+          "file": "archive/cda1-demonstrator/docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+          "sha256": "753b8d47f951894240a80826e8100216c5e84613caf3d2596272d26a1b85c120"
+        },
+        {
+          "file": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-dots.tif",
+          "sha256": "8fc2f9e1f17f57bf09432433446550a8d02aa2c8ddad35e6db4dd5cf925dd23c"
+        },
+        {
+          "file": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+          "sha256": "642a6369a3a7e9a5c5761983e110c60a6abbc196abd339985e11da351d3e5c4b"
+        }
+      ]
+    },
+    "coverage_summary": "All tracked TIFF paths match exact SHA-256 bytes in the current 11-download audit or the verified fail-closed quarantined archive audit; this does not confer submission clearance."
+  }
+}
