@@ -12,5 +12,6 @@
   "validator_output": "NaNs: 0, Range: [0,1], CRS: EPSG:32611",
   "submission_name": "unique-hyp-kth-therm-mask-20261028-zeros",
   "submission_note": "Unique Hypothesis: K/Th + Thermal + M_Full dualcover masked against proxy.",
-  "verdict": "promote"
+  "verdict": "NOT PROMOTED - superseded 2026-10-29",
+  "superseded_note": "The earlier verdict \"promote\" was a self-report with empty registry fields (correlation_vs_registry and overlap_vs_registry are {}). The 2026-10-29 shared audit evidence/local_downloads_audit_20261029.json records lattice overlap 99.90% (literal duplicate, ok_to_submit=false)."
 }

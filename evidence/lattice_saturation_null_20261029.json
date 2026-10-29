@@ -1,0 +1,30 @@
+{
+  "schema": "karage1-lattice-saturation-null-v1",
+  "footprint_pixels": 5167373,
+  "lattice_positive_pixels": 206895,
+  "footprint_covered_by_3px_disk_fraction": 0.998713,
+  "random_dot_trials": {
+    "1000": {
+      "random_dots": 1000,
+      "share_within_3px_of_lattice": 0.999,
+      "fails_70pct_rule": true
+    },
+    "5000": {
+      "random_dots": 5000,
+      "share_within_3px_of_lattice": 0.999,
+      "fails_70pct_rule": true
+    },
+    "22163": {
+      "random_dots": 22163,
+      "share_within_3px_of_lattice": 0.999098,
+      "fails_70pct_rule": true
+    },
+    "37654": {
+      "random_dots": 37654,
+      "share_within_3px_of_lattice": 0.999177,
+      "fails_70pct_rule": true
+    }
+  },
+  "interpretation": "Random dots with no fault information fail the literal rule. The rule is saturated, not a uniqueness test.",
+  "submit_authorized": false
+}
