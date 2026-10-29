@@ -1,11 +1,15 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-> **Session `arena/b0714e6b` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** No new TIF was generated.
-> - **Safety fix:** `main` displayed a green "IT IS OK TO DOWNLOAD AND SUBMIT" banner for `unique-hyp-kth-therm-mask-20261028-zeros.tif`. Its card had `verdict: promote` with empty overlap fields and no audit. The banner is removed, the file is quarantined in `archive/quarantine/`, and two private-fork scripts now fail closed (exit 2, `BLOCKED`).
-> - **Official facts verified** from DrivenData and the NLR rules PDF: metric (α=0.2, β=0.8, R=300 m), float32 GeoTIFF with values in [0, 1], EPSG:32611, NaN or null outside bounds, 3 submissions per week, and a close of **2026-12-03 23:59 UTC**. The official rules do **not** contain the 70%/3-px duplicate gate; it is an internal protocol.
-> - **Leaderboard correction:** the public top score is **0.4544** (#1). **0.3195 is rank #47**, and **0.4413** does not appear on the snapshot. None of the nine GEMSDOE scores is visible in the top 50.
-> - **Blockers:** no assigned method lane (the protocol's "method paragraph" is missing), the literal lattice gate blocks any dotted raster, and organizer data is login-walled.
-> - Read [session review](knowledge/session-review-2026-10-29.md), [verified sources register](knowledge/official-sources-verified-2026-10-29.md), and [run card](evidence/session_b0714e6b_run_card.json). Tests: 362 pass on three consecutive full runs (baseline on first run: 8 failed; order-dependent).
+> **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
+> "CLEARED FOR SUBMISSION" page and its `promote` card were on `main`; both are retracted. The
+> flagged TIF has 99.90% lattice overlap (stop > 70%) and is quarantined in
+> [`archive/quarantined-20261029/`](archive/quarantined-20261029/). 8 failing tests fixed; **357 pass**.
+> Read [the session review](knowledge/session-review-arena-a409acfe.md) and [run card](evidence/session_a409acfe_run_card.json).
+> **Session `arena/b0714e6b` (2026-10-29), reconciled with `a409acfe`: NEGATIVE / DO NOT SUBMIT.** No new TIF.
+> - **Official facts verified** from DrivenData and the NLR rules PDF: metric (α=0.2, β=0.8, R=300 m); float32 GeoTIFF, values in [0, 1], EPSG:32611, NaN or null outside bounds; 3 submissions per week; close **2026-12-03 23:59 UTC**. The 70%/3-px duplicate gate is **not** in the official rules; it is an internal protocol.
+> - **Leaderboard correction:** public #1 is **0.4544**; **0.3195 is rank #47**; **0.4413** does not appear on the snapshot; no GEMSDOE score is visible in the top 50.
+> - **Blockers:** no assigned method lane (the protocol's "method paragraph" is missing); the literal lattice gate blocks dotted rasters; organizer data is login-walled.
+> - Read [session review](knowledge/session-review-2026-10-29.md), [verified sources register](knowledge/official-sources-verified-2026-10-29.md), and [run card](evidence/session_b0714e6b_run_card.json).
 
 **Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
 > **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.

@@ -31,7 +31,7 @@
   },
   "quarantined_artifacts": [
     {
-      "file": "archive/quarantine/unique-hyp-kth-therm-mask-20261028/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+      "file": "archive/quarantined-20261029/unique-hyp-kth-therm-mask-20261028-zeros.tif",
       "sha256_as_recorded": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
       "reason": "Was displayed as CLEARED FOR SUBMISSION on main; its card says verdict promote with empty overlap/correlation; no saved-byte audit; written by a private-fork script. Withdrawn from public downloads."
     }

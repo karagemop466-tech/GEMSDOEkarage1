@@ -35,8 +35,9 @@ def test_no_published_page_claims_clearance(phrase):
 def test_unaudited_unique_hyp_raster_is_not_in_public_downloads():
     public = list((ROOT / "docs" / "downloads").glob("unique-hyp-kth-therm-mask-*"))
     assert public == [], "quarantined raster must not be publicly downloadable"
-    quarantine = ROOT / "archive" / "quarantine" / "unique-hyp-kth-therm-mask-20261028"
-    assert (quarantine / "QUARANTINE.md").is_file()
+    quarantine = ROOT / "archive" / "quarantined-20261029"
+    assert (quarantine / "unique-hyp-kth-therm-mask-20261028-zeros.tif").is_file()
+    assert (ROOT / "evidence" / "unique_hyp_kth_therm_mask_retraction_20261029.json").is_file()
 
 
 @pytest.mark.parametrize("command", [
