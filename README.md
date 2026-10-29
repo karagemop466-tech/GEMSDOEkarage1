@@ -40,6 +40,17 @@
 9. No hallucinations: verify line by line from official sources; collect data/knowledge into auditable tables; state limitations and access needs (no DrivenData login; the data tab is login-walled).
 10. Clean GitHub Pages site under `docs/`; three passes then a PR merged to `main`, listing remaining work and limitations.
 
+## Latest session (`arena/c26ad154-gemsdoekarage1`): NOT CLEARED — focus-site summary, unique research TIF, holdout-negative
+
+- **Verdict: NEGATIVE · NOT CLEARED · DO NOT SUBMIT.** `ok_to_submit: false`, `submission_slots_used: 0`, `slot_selected_or_spent: false`, experiments used 3 of 3.
+- **Executive summary:** [`docs/focus-sites.html`](docs/focus-sites.html) (linked from the decision panel on the home page). It covers the nine focus sites (owner-reported scores, file, uniqueness), the holdout table, the GEMSDOE32 0.2778 analysis, ranked hypotheses, how to submit, irregularities and limitations.
+- **Research TIF (unique, format-valid, not cleared):** `docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029.tif`, SHA-256 `8e5269c6…941e`, 37,654 dots, closest dot to the catalogue 3.16 px. No download is offered. It fails the literal lattice gate (99.16%, against a 99.87% chance level), and it is not unique under the literal rule only because of that gate.
+- **Holdout (HOLDOUT-DTI, 95% CI):** candidate arm 0.0619 (all) and 0.0588 (detached). Proximity control 0.0698 and 0.0626. Holdout best is the random-in-ring control at 0.0924 and 0.0904. H3 (model ranking inside the 1 px ring vs random tie-break) is rejected in both modes.
+- **Run card:** `evidence/run_card_probcollar_20261029.json`, identical copy at `docs/data/run-card-probcollar-20261029.json`. The pinned card paths (`evidence/run_card.json`, `docs/data/run-card.json`, `docs/data/run_card.json`) still hold the prior BB-STEP card, because three tests pin them to it.
+- **Code:** `scripts/run_probcollar_holdout.py`, `scripts/run_ring_tiebreak_holdout.py` (holdout experiments); `scripts/build_candidate_submission.py` (writes the TIF through the shared `vendor/gems57/submission_writer.py`); `scripts/audit_candidate_uniqueness.py`, `scripts/focus_site_table.py` (independent read-back and nine-site audit); `scripts/write_run_card_probcollar.py`; `scripts/build_focus_summary.py`.
+- **Tests:** `tests/test_official_dti_formula.py` and `tests/test_focus_sites_20261029.py`. The full suite (`pytest -q`) passes.
+- **Remaining work:** H4 (dispersion-constrained selection) is the top untested hypothesis and needs a spatially blocked holdout before any slot is considered. Its holdout budget is spent. See the page's section 8.
+
 ## Current session review (`arena/accf3693-gemsdoekarage1`)
 
 **DO NOT SUBMIT — no new candidate generated or cleared.**

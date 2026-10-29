@@ -269,7 +269,7 @@ def decision(prefix: str):
 <div class="decision-actions"><button class="button button-disabled" disabled>No approved .tif to download</button>
 <a class="button button-light" href="{prefix}docs/executive-summary.html#audit">Review research-only downloads ↗</a>
 <a class="button button-light" href="{prefix}evidence/conduitcrest_lattice_reaudit_20261028.json">Inspect latest lattice audit ↗</a>
-<a class="button button-light" href="{prefix}evidence/bbstep_uniqueness.json">Inspect BB-STEP uniqueness ↗</a></div>
+<a class="button button-dark" href="{prefix}docs/focus-sites.html">Focus sites · NOT CLEARED ↗</a><a class="button button-light" href="{prefix}evidence/bbstep_uniqueness.json">Inspect BB-STEP uniqueness ↗</a></div>
 <p class="download-help">Conduitcrest research file (research only): <a href="{prefix}docs/downloads/{quote(conduit_path.name)}">{esc(conduit_path.name)}</a> · SHA-256 <code>{conduit_audit['candidate']['sha256']}</code>. Download is for audit only, not submission. No weekly slot was selected or spent.</p></div>
 <div class="decision-side"><div><span>VERDICT</span><strong>Negative · lattice duplicates</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Unavailable</strong></div><div><span>BB-STEP LATTICE</span><strong>{lat:.2%} · duplicate</strong></div><div><span>CONDUITCREST LATTICE</span><strong>{clat['directed_overlap']:.2%} · duplicate</strong></div><a href="{prefix}docs/data/latest-run-card.json">Latest superseding run card ↗</a></div></section>'''
 
