@@ -1,0 +1,78 @@
+{
+  "file": "karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
+  "zip_file": "karage1-tiltgrav-ridge-sp6-37654-20261029.zip",
+  "receipt_file": "karage1-tiltgrav-ridge-sp6-37654-20261029.json",
+  "sha256": "f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5",
+  "bytes": 216424,
+  "zip_sha256": "44db4cca002ec341444c91a1d3972cd679c9045ba09a664be7e89a0d865ea000",
+  "submission_name": "karage1-tiltgrav-ridge-sp6-37654-20261029",
+  "submission_note": "tc-ridge x abs gravity-hgrad, label-free, 6px spacing, 37654 dots. NEGATIVE: below random null. DO NOT SUBMIT.",
+  "submission_note_chars": 110,
+  "outside_encoding": "nan",
+  "validator": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/.karage1-tiltgrav-ridge-sp6-37654-20261029.63vva1e5.tif",
+    "sha256": "f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5",
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "crs_epsg_32611": true,
+      "shape_matches_sample": true,
+      "transform_matches_sample": true,
+      "bounds_match_sample": true,
+      "cell_100m": true,
+      "no_inf_anywhere": true,
+      "in_footprint_all_finite": true,
+      "outside_footprint_all_nan": true,
+      "range_0_1_inside_footprint": true,
+      "no_sentinel_values_inside": true,
+      "nodata_is_nan": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "in_footprint_positive": 37654,
+    "in_footprint_min": 0.0,
+    "in_footprint_max": 1.0,
+    "outside_nan_cells": 7111787,
+    "outside_finite_cells": 0,
+    "catalogue_positive_hits": 0,
+    "meta": {
+      "count": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "res": [
+        100.0,
+        100.0
+      ],
+      "nodata": "nan"
+    },
+    "validation_class": "local official-format preflight on the bytes on disk; not organizer acceptance, uniqueness clearance or slot selection"
+  },
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated on the bytes on disk; NOT uniqueness-cleared; NOT organizer acceptance",
+  "metadata": {
+    "hypothesis": "H-TILTGRAV",
+    "n_dots": 37654,
+    "spacing_px": 6,
+    "verdict": "NEGATIVE / DO NOT SUBMIT"
+  }
+}

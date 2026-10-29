@@ -1,0 +1,297 @@
+{
+  "schema": "karage1-submission-hub-v1",
+  "date": "2026-10-29",
+  "decision": "NOT CLEARED: DO NOT SUBMIT - no file is cleared",
+  "new_file": {
+    "name": "karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
+    "sha256": "f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5",
+    "dots": 37654,
+    "validator_all_checks_passed": true,
+    "holdout_spaced": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.04984749896993814,
+      "ci95": [
+        0.04614282481191581,
+        0.053806426493544085
+      ],
+      "withheld_positive_pixels": 60988,
+      "tpw": 3958.511321934394,
+      "fpw": 149151.66870054562,
+      "fnw": 57029.48867806562
+    },
+    "random_null_spaced": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.052615041437892016,
+      "ci95": [
+        0.049910878436376996,
+        0.05569127919679091
+      ],
+      "withheld_positive_pixels": 60988,
+      "tpw": 4179.65059328983,
+      "fpw": 149059.9584092026,
+      "fnw": 56808.34940671019
+    },
+    "spacing_delta": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": -0.002767542467953875,
+      "ci95": [
+        -0.006439481135915222,
+        0.0009535035046594048
+      ],
+      "withheld_positive_pixels": 60988
+    },
+    "lattice_forward_overlap": 0.996229,
+    "max_focus_forward_overlap": 0.136931,
+    "max_focus_abs_spearman": 0.00533366652383788
+  },
+  "sites": [
+    {
+      "site": "GEMSDOE24",
+      "file": "h25-1-dotted-h19-5-d1-5",
+      "registry_path": "registry/GEMSDOE24_h25-1-dotted-h19-5-d1-5_allfinite.tif",
+      "dots": 60069,
+      "sha256": "3e0730e8d4f7db095dd80246a98cba3bc0fc9a28f436b91db27ca34df4d0d1ce",
+      "reported": 0.2477,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE24/",
+      "dup_focus": [
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "dup_rho": [
+        "GEMSDOE27"
+      ],
+      "lattice_fwd": 0.999218,
+      "cand_fwd": 0.125405,
+      "unique": false
+    },
+    {
+      "site": "GEMSDOE25",
+      "file": "dotted-h19-5-d2-8",
+      "registry_path": "registry/GEMSDOE25_dotted-h19-5-d2-8_zeros.tif",
+      "dots": 44090,
+      "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "reported": 0.26,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE25/",
+      "dup_focus": [
+        "GEMSDOE24",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "dup_rho": [
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE36"
+      ],
+      "lattice_fwd": 0.999161,
+      "cand_fwd": 0.118394,
+      "unique": false
+    },
+    {
+      "site": "GEMSDOE27",
+      "file": "topo-gap-closure-t-v2-on-d1-5",
+      "registry_path": "registry/GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif",
+      "dots": 61328,
+      "sha256": "a9bf76b57453a5b3af74c8eef837df53c29a0931162aa540b8763220b36ba3bb",
+      "reported": 0.2449,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE27/",
+      "dup_focus": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "dup_rho": [
+        "GEMSDOE24"
+      ],
+      "lattice_fwd": 0.999234,
+      "cand_fwd": 0.129389,
+      "unique": false
+    },
+    {
+      "site": "GEMSDOE28",
+      "file": "h36-1-rung30-blind-r1",
+      "registry_path": "registry/GEMSDOE28_h36-1-rung30-blind-r1_allfinite.tif",
+      "dots": 37660,
+      "sha256": "7c74270ad48fa0b865163853046a6d3815967c5bf37bbda5b74ca7fa22583a32",
+      "reported": 0.271,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE28/",
+      "dup_focus": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "dup_rho": [],
+      "lattice_fwd": 0.999097,
+      "cand_fwd": 0.113003,
+      "unique": false
+    },
+    {
+      "site": "GEMSDOE30",
+      "file": "d28-poisson300m-offcat-44090",
+      "registry_path": "registry/GEMSDOE30_d28-poisson300m-offcat-44090.tif",
+      "dots": 44090,
+      "sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+      "reported": 0.26,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE30/",
+      "dup_focus": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "dup_rho": [
+        "GEMSDOE25",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE36"
+      ],
+      "lattice_fwd": 0.999161,
+      "cand_fwd": 0.118394,
+      "unique": false
+    },
+    {
+      "site": "GEMSDOE31",
+      "file": "h27-4-solo-d28",
+      "registry_path": "registry/GEMSDOE31_h27-4-solo-d28_allfinite.tif",
+      "dots": 40199,
+      "sha256": "acd853936e5a7170b207f23411b1844caa0e7cfdfc303c600e520ccfe75159e6",
+      "reported": 0.2708,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE31/docs/",
+      "dup_focus": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "dup_rho": [
+        "GEMSDOE25",
+        "GEMSDOE30",
+        "GEMSDOE32",
+        "GEMSDOE36"
+      ],
+      "lattice_fwd": 0.999179,
+      "cand_fwd": 0.115419,
+      "unique": false
+    },
+    {
+      "site": "GEMSDOE32",
+      "file": "h33-h33-2-b2",
+      "registry_path": "registry/GEMSDOE32_h33-h33-2-b2_e5eb6e7e_zeros.tif",
+      "dots": 37654,
+      "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "reported": 0.2778,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+      "dup_focus": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "dup_rho": [
+        "GEMSDOE25",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE36"
+      ],
+      "lattice_fwd": 0.99915,
+      "cand_fwd": 0.112259,
+      "unique": false
+    },
+    {
+      "site": "GEMSDOE33",
+      "file": "h33d-analog-tip-stepover-r30",
+      "registry_path": "registry/GEMSDOE33_h33d-analog-tip-stepover-r30.tif",
+      "dots": 41865,
+      "sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+      "reported": 0.2632,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE33/",
+      "dup_focus": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE36"
+      ],
+      "dup_rho": [],
+      "lattice_fwd": 0.99914,
+      "cand_fwd": 0.11842,
+      "unique": false
+    },
+    {
+      "site": "GEMSDOE36",
+      "file": "anderson-geothermal-pinn-38854",
+      "registry_path": "registry/GEMSDOE36_anderson-geothermal-pinn-38854_zeros.tif",
+      "dots": 38854,
+      "sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+      "reported": 0.275,
+      "page": "https://buffedlizard55-lab.github.io/GEMSDOE36/docs/",
+      "dup_focus": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33"
+      ],
+      "dup_rho": [
+        "GEMSDOE25",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32"
+      ],
+      "lattice_fwd": 0.999176,
+      "cand_fwd": 0.114888,
+      "unique": false
+    }
+  ],
+  "labels": {
+    "USER_REPORTED": "USER-REPORTED / UNVERIFIED",
+    "HOLDOUT_DTI": "HOLDOUT-DTI",
+    "REGISTRY_MEASUREMENT": "REGISTRY-MEASUREMENT"
+  },
+  "limits": {
+    "lattice_gate": 0.7,
+    "rho_gate": 0.9
+  }
+}

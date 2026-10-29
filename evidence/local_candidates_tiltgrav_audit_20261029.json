@@ -1,0 +1,33 @@
+{
+  "candidates": [
+    {
+      "approved_for_weekly_slot": false,
+      "bytes": 216424,
+      "catalogue_positive_hits": 0,
+      "dots": 37654,
+      "file": "karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
+      "focus_forward_overlap_range": [
+        0.112259,
+        0.129389
+      ],
+      "format_all_checks_passed": true,
+      "in_footprint_positive": 37654,
+      "lattice_forward_overlap": 0.996229,
+      "lattice_forward_overlap_literal_gate": 0.7,
+      "outside_nan_cells": 7111787,
+      "sha256": "f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5",
+      "submit_authorized": false,
+      "uniqueness_cleared": false,
+      "verdict": "NEGATIVE / DO NOT SUBMIT",
+      "worst_nine_forward_overlap": {
+        "frac": 0.129389,
+        "site": "GEMSDOE27"
+      },
+      "zip_file": "karage1-tiltgrav-ridge-sp6-37654-20261029.zip",
+      "zip_sha256": "44db4cca002ec341444c91a1d3972cd679c9045ba09a664be7e89a0d865ea000"
+    }
+  ],
+  "date": "2026-10-29",
+  "instrument": "H-TILTGRAV final candidate; hashes recomputed from disk; overlaps from site_overlap_matrix_20261029.json",
+  "schema": "local-candidate-saved-byte-audit/v1"
+}

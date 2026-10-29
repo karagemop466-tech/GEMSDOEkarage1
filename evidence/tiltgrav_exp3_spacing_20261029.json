@@ -1,0 +1,123 @@
+{
+  "hypothesis": "H-TILTGRAV",
+  "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py)",
+  "evaluator_implementation_sha256": {
+    "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+  },
+  "candidate_meta": {
+    "tc_ridge_pixels": 134504,
+    "valid_hg": 5164312
+  },
+  "fault_segments": 3199,
+  "protocol": "whole-segment fold assignment by centroid quadrant; candidate label-free; fold-local apron = visible faults (pixel-exact mask, 2 px dot exclusion); truth = withheld segments only",
+  "budget_per_fold": 37654,
+  "exp3_spacing_sweep": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate_spaced": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.04984749896993814,
+        "ci95": [
+          0.04614282481191581,
+          0.053806426493544085
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 3958.511321934394,
+        "fpw": 149151.66870054562,
+        "fnw": 57029.48867806562
+      },
+      "random_spaced_null": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.052615041437892016,
+        "ci95": [
+          0.049910878436376996,
+          0.05569127919679091
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 4179.65059328983,
+        "fpw": 149059.9584092026,
+        "fnw": 56808.34940671019
+      }
+    },
+    "best_comparable_control": "random_spaced_null",
+    "paired_differences": {
+      "random_spaced_null": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.002767542467953875,
+        "ci95": [
+          -0.006439481135915222,
+          0.0009535035046594048
+        ],
+        "withheld_positive_pixels": 60988
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 161,
+      "draws": 1000,
+      "seed": 520810,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    },
+    "folds": {
+      "0": {
+        "candidate_spaced": {
+          "n_dots": 37654,
+          "dti_fold": 0.057188809641489355
+        },
+        "random_spaced_null": {
+          "n_dots": 37654,
+          "dti_fold": 0.06595832268257087
+        }
+      },
+      "1": {
+        "candidate_spaced": {
+          "n_dots": 37654,
+          "dti_fold": 0.043674462251034496
+        },
+        "random_spaced_null": {
+          "n_dots": 37654,
+          "dti_fold": 0.04616275190811499
+        }
+      },
+      "2": {
+        "candidate_spaced": {
+          "n_dots": 37654,
+          "dti_fold": 0.047403620231736096
+        },
+        "random_spaced_null": {
+          "n_dots": 37654,
+          "dti_fold": 0.04264866623742989
+        }
+      },
+      "3": {
+        "candidate_spaced": {
+          "n_dots": 37654,
+          "dti_fold": 0.04443846753927282
+        },
+        "random_spaced_null": {
+          "n_dots": 37654,
+          "dti_fold": 0.042707428713513344
+        }
+      }
+    },
+    "spacing_px": 6
+  }
+}

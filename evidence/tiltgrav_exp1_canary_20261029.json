@@ -1,0 +1,239 @@
+{
+  "hypothesis": "H-TILTGRAV",
+  "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py)",
+  "evaluator_implementation_sha256": {
+    "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+  },
+  "candidate_meta": {
+    "tc_ridge_pixels": 134504,
+    "valid_hg": 5164312
+  },
+  "fault_segments": 3199,
+  "protocol": "whole-segment fold assignment by centroid quadrant; candidate label-free; fold-local apron = visible faults (pixel-exact mask, 2 px dot exclusion); truth = withheld segments only",
+  "budget_per_fold": 37654,
+  "exp1_canary": {
+    "mag_anom": {
+      "auc_mean_over_folds": 0.4955964081547707,
+      "auc_per_fold": [
+        0.4688746723855652,
+        0.5751614712327676,
+        0.4560051468546406,
+        0.48234434214610933
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "rtp": {
+      "auc_mean_over_folds": 0.4879003456039571,
+      "auc_per_fold": [
+        0.5028599826045432,
+        0.5883748326559886,
+        0.41022360461390583,
+        0.45014296254139075
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "tmi_hg": {
+      "auc_mean_over_folds": 0.510079682347663,
+      "auc_per_fold": [
+        0.5873280829183437,
+        0.3581107281456689,
+        0.6232385322546192,
+        0.4716413860720199
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "geod_2ndinv": {
+      "auc_mean_over_folds": 0.5852246651106989,
+      "auc_per_fold": [
+        0.6017014806603451,
+        0.17565168539325843,
+        0.8952127002563282,
+        0.6683327941328643
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "iso_grav_anom_slope": {
+      "auc_mean_over_folds": 0.5350353563061045,
+      "auc_per_fold": [
+        0.5234670405552904,
+        0.5751819921906128,
+        0.4349013817686639,
+        0.606591010709851
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "tc": {
+      "auc_mean_over_folds": 0.48209189322541895,
+      "auc_per_fold": [
+        0.3853340159628897,
+        0.4318675719180811,
+        0.5842040174089501,
+        0.526961967611755
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "geod_shearrate": {
+      "auc_mean_over_folds": 0.5728244071698816,
+      "auc_per_fold": [
+        0.6247522219285081,
+        0.154010230695673,
+        0.8121576292320838,
+        0.7003775468232616
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "geod_dilaterate": {
+      "auc_mean_over_folds": 0.536178622859067,
+      "auc_per_fold": [
+        0.5257662509379903,
+        0.403052695035461,
+        0.763417595856029,
+        0.45247794960678805
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "tmi_vg": {
+      "auc_mean_over_folds": 0.48476447256430855,
+      "auc_per_fold": [
+        0.48898490466607547,
+        0.49837344190772176,
+        0.46699164503898327,
+        0.4847078986444536
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "deq_n100a15": {
+      "auc_mean_over_folds": 0.586544249257955,
+      "auc_per_fold": [
+        0.5241054033358347,
+        0.27948198163200255,
+        0.8588870132436185,
+        0.6837025988203642
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "iso_grav_anom_vg": {
+      "auc_mean_over_folds": 0.5296272998705651,
+      "auc_per_fold": [
+        0.5199923586192783,
+        0.5255290704438601,
+        0.499376539303642,
+        0.5736112311154801
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "det_elev": {
+      "auc_mean_over_folds": 0.4689031651044553,
+      "auc_per_fold": [
+        0.5190108838426905,
+        0.44688732209737825,
+        0.4599902261561465,
+        0.44972422832160597
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "iso_grav_anom": {
+      "auc_mean_over_folds": 0.4359089485299798,
+      "auc_per_fold": [
+        0.49083594975782796,
+        0.5464843742529286,
+        0.3593482911460002,
+        0.34696717896316226
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "tmi": {
+      "auc_mean_over_folds": 0.4965433456761812,
+      "auc_per_fold": [
+        0.4604929449484958,
+        0.5747831293330146,
+        0.45498354186692297,
+        0.4959137665562914
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "depth_to_base_surf": {
+      "auc_mean_over_folds": 0.5009644697950283,
+      "auc_per_fold": [
+        0.536040162357596,
+        0.4855393979599968,
+        0.4915935747089608,
+        0.4906847441535596
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "ieq_n100a15": {
+      "auc_mean_over_folds": 0.602162609639852,
+      "auc_per_fold": [
+        0.5475517464526912,
+        0.2963056247509762,
+        0.886132634305244,
+        0.6786604330504966
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "cond_surf": {
+      "auc_mean_over_folds": 0.46932503136559256,
+      "auc_per_fold": [
+        0.4968594013063647,
+        0.5486599151326799,
+        0.31388537674890526,
+        0.5178954322744206
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "iso_grav_anom_hg": {
+      "auc_mean_over_folds": 0.5092155626169468,
+      "auc_per_fold": [
+        0.4735453131182209,
+        0.5547650701251096,
+        0.48434865401046673,
+        0.52420321321399
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "det_elev_slope": {
+      "auc_mean_over_folds": 0.5737741707361826,
+      "auc_per_fold": [
+        0.520392029555222,
+        0.5826977273089489,
+        0.6054803775499306,
+        0.5865265485306291
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    },
+    "CANDIDATE_SCORE": {
+      "auc_mean_over_folds": 0.5001844752333576,
+      "auc_per_fold": [
+        0.5003551059986366,
+        0.49820466138787195,
+        0.5007654514516644,
+        0.5014126820952577
+      ],
+      "single_feature_alone": true,
+      "leakage_alarm": false
+    }
+  }
+}
