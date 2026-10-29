@@ -1,0 +1,31 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/e9ec6a9e-gemsdoekarage1",
+  "date_utc": "2026-10-29",
+  "hypothesis": "N1: a Lake Lahontan shoreline elevation datum, read at two levels with a regional-tilt term, reveals vertical offsets that mark unmapped fault traces.",
+  "mechanism": "Lahontan shorelines were near-horizontal when they formed; a step between datums across a trace indicates post-highstand displacement.",
+  "named_non_fault_mimic": "Regional uplift/tilt (named by USGS MF-2323 for its stair-step shorelines), viscous/non-tectonic lake loading, wave-cut reworking, fan progradation.",
+  "experiments_run": 0,
+  "experiment_budget": "3 experiments or 2 hours",
+  "holdout_DTI": null,
+  "holdout_status": "NOT RUN. No feature stack was built and no evaluator run was performed. Any score would be a projection, which this card does not state.",
+  "withheld_positives": null,
+  "CI_95": null,
+  "leakage_canary": "NOT RUN for N1 (no feature built).",
+  "correlation_overlap_vs_registry": {
+    "scope": "Nine focus-site rasters plus 9 peer rasters, pinned by SHA-256; 13GEMSDOE lattice witness. Full listed registry NOT available.",
+    "lattice_gate_result": "All 12 local TIFs in docs/downloads fail the literal 70% lattice rule (min directional overlap 98.53%; GSE pair from cd6f891 at 99.91%). The GSE raster's 'unique' label was measured only against 11 registry rasters and excludes the 13GEMSDOE lattice witness.",
+    "nine_site_max_sibling_share": "Every focus site has >= 97.6% of its dots within 3 px of one sibling.",
+    "evidence": "evidence/local_downloads_audit_20261029.json; evidence/site_lineage_verification_20261029.json"
+  },
+  "raster_sha256": null,
+  "raster_generated": false,
+  "validator_output": "Not applicable: no new raster was generated in this session.",
+  "submission_name": null,
+  "submission_note": null,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "verdict_reason": "No candidate clears the lattice gate, which is mathematically unsatisfiable for submissions above 22,163 dots (evidence/reference-audit). N1 is proposed, not validated.",
+  "decision_required_from_owner": "Confirm whether the 13GEMSDOE lattice witness is a registry raster for the literal 70% rule, or revise the rule. Until then no file can be cleared."
+}
