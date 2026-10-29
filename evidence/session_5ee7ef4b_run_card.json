@@ -1,0 +1,116 @@
+{
+  "correlation_overlap_vs_registry": {
+    "exact_duplicate_any_local_tif": false,
+    "literal_70pct_rule_vs_13gems_witness": {
+      "literal_duplicate": true,
+      "mine_within_3px": 0.9996515772828388,
+      "note": "Rule is saturated: random 37,654-dot placements also fail (evidence/lattice_saturation_null_20261029.json).",
+      "witness": "13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+      "witness_sha256": "b4570b406efec198eb2f4d142ad8d0d6184b14b66f2f52b5c4d697f0647dc9b2"
+    },
+    "max_mine_within_3px_any_local_tif": 1.0,
+    "max_mine_within_3px_excluding_dense_archive_mask": 0.19535793733751441,
+    "scope": "local repo TIFs only; focus-site and pinned peer rasters not re-audited this session",
+    "worst_local_match": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+    "worst_local_match_dots": 3943064
+  },
+  "date_utc": "2026-10-29",
+  "experiment_budget": "3 experiments or 2 hours",
+  "experiments_used": 2,
+  "holdout": {
+    "arm_as_submitted_ci95": [
+      0.001887050179183849,
+      0.0024319556190352943
+    ],
+    "arm_as_submitted_dti": 0.0022505223434409983,
+    "arm_holdout_faithful_ci95_cell_bootstrap": [
+      0.03795016859372161,
+      0.04608250594909422
+    ],
+    "arm_holdout_faithful_dti": 0.04317885365482763,
+    "champion_GEMSDOE32_B2_dti": 0.004729038412082699,
+    "champion_ci95": [
+      0.004322647691461206,
+      0.005152739049520465
+    ],
+    "ci_note": "Percentile bootstrap over the 16 cells; not a model-level CI.",
+    "evaluator": "vendor/gems57 holdout.score_cell/evaluate (unmodified), alpha 0.2 beta 0.8 R 3px",
+    "gemsdoe25_d28_local_ci95": [
+      0.09295764839386227,
+      0.11430863129258578
+    ],
+    "gemsdoe25_d28_local_dti": 0.10226689004897589,
+    "label": "HOLDOUT-DTI",
+    "random_null_matched_count": 0.04459503747166907,
+    "random_null_seeds": [
+      0.04637962180734201,
+      0.04198778013425738,
+      0.045417710473407806
+    ],
+    "verdict_vs_floor": "H-S1 holdout-faithful DTI is at or below the matched random floor; no evidence of skill.",
+    "withheld_truth_note": "Summed over 16 cells (2 draws x 4 folds x 2 modes); modes overlap, so this is not a unique pixel count.",
+    "withheld_truth_pixels_summed_over_cells": 45260
+  },
+  "hypothesis": "H-S1: horizontal-gradient crest of total magnetic intensity (tmi_hg), off-catalogue, marks unmapped magnetic contacts that a fault can produce.",
+  "labels_note": "Holdout numbers are HOLDOUT-DTI. Leaderboard numbers are ORGANIZER-PUBLIC (leaderboard page), not organizer receipts. Focus-site scores are USER-REPORTED / UNVERIFIED.",
+  "leakage_canary": {
+    "auc_max": 0.5855048701650086,
+    "auc_min": 0.4431295143540136,
+    "ceiling": 0.9,
+    "feature": "tmi_hg alone",
+    "pass_below_ceiling": true
+  },
+  "mechanism": "Magnetic horizontal-gradient maxima sit on steep lateral susceptibility or density contrasts; a fault juxtaposing units of different magnetisation should produce such a maximum.",
+  "named_non_fault_mimic": "Lithologic/intrusive contacts and magnetite-rich unit boundaries; cultural magnetic noise.",
+  "ok_to_submit": false,
+  "promoted": false,
+  "raster_bytes": 152919,
+  "raster_sha256": "5eccad685f3afc3a9092115ae85b9b4daecdb9e354fbd188f4a43dd9f5bad8bd",
+  "schema": "karage1-run-card-v1",
+  "session": "arena/5ee7ef4b-gemsdoekarage1",
+  "slot_selected_or_spent": false,
+  "submission_name": "karage1-s1-tmihg-ridge-offcat-20261029",
+  "submission_note": "H-S1 tmi_hg crest dots, off-catalogue, 2.8px spacing; all-finite zeros; format-valid",
+  "validator_ok": true,
+  "validator_output": {
+    "count": 1,
+    "crs_epsg": 32611,
+    "crs_is_32611": true,
+    "crs_matches_sample": true,
+    "dtype": "float32",
+    "in_0_1": true,
+    "inf_cells": 0,
+    "max": 1.0,
+    "min": 0.0,
+    "nan_cells": 0,
+    "nodata": null,
+    "positive_cells": 37311,
+    "positive_outside_sample_footprint": 0,
+    "res": [
+      100.0,
+      100.0
+    ],
+    "sample_grid_used": "/tmp/gems_data/sample_submission.tif",
+    "shape": [
+      3730,
+      3292
+    ],
+    "shape_matches_sample": true,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "transform_matches_sample": true,
+    "zip_members": [
+      "karage1-s1-tmihg-ridge-offcat-20261029-zeros.tif"
+    ],
+    "zip_single_member_identical": true
+  },
+  "verdict": "negative",
+  "verdict_reason": "Format-valid and not an exact duplicate, but the holdout-faithful DTI is no better than a matched random placement, and the internal lattice rule is failed (saturated rule).",
+  "zip_sha256": "3af622f643449592e6de2cc9f2a853a842d285fe87a5a9a9d686a6b0d79b4038"
+}

@@ -1,0 +1,179 @@
+{
+  "arms": {
+    "GEMSDOE25_d28_local": {
+      "ci95_cell_bootstrap": [
+        0.09295764839386227,
+        0.11430863129258578
+      ],
+      "crs": "EPSG:32611",
+      "dots_in_footprint": 44090,
+      "dtype": "float32",
+      "emitted_pixels": 44090,
+      "max": 1.0,
+      "mean_fold_dti": 0.10341952044655373,
+      "min": 0.0,
+      "nan_cells": 0,
+      "nodata": null,
+      "on_visible_catalogue": 0,
+      "path": "registry/GEMSDOE25_d28.tif",
+      "per_cell_dti": {
+        "draw20_foldNE_all": 0.12281886118868907,
+        "draw20_foldNE_detached": 0.11167923029964794,
+        "draw20_foldNW_all": 0.0889482474631701,
+        "draw20_foldNW_detached": 0.10032826281191845,
+        "draw20_foldSE_all": 0.12705192585475872,
+        "draw20_foldSE_detached": 0.13548205867379007,
+        "draw20_foldSW_all": 0.07689800003328057,
+        "draw20_foldSW_detached": 0.07241230494894021,
+        "draw21_foldNE_all": 0.11125174150980213,
+        "draw21_foldNE_detached": 0.12130433936471481,
+        "draw21_foldNW_all": 0.09516442277797395,
+        "draw21_foldNW_detached": 0.08439323193485096,
+        "draw21_foldSE_all": 0.12439624914749467,
+        "draw21_foldSE_detached": 0.13321411171699157,
+        "draw21_foldSW_all": 0.07153545040061975,
+        "draw21_foldSW_detached": 0.07783388901821672
+      },
+      "pooled_dti": 0.10226689004897589,
+      "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "shape": [
+        3730,
+        3292
+      ],
+      "unique_values": 2,
+      "withheld_positives": 45260
+    },
+    "champion_GEMSDOE32_B2": {
+      "ci95_cell_bootstrap": [
+        0.004322647691461206,
+        0.005152739049520465
+      ],
+      "crs": "EPSG:32611",
+      "dots_in_footprint": 37654,
+      "dtype": "float32",
+      "emitted_pixels": 37654,
+      "max": 1.0,
+      "mean_fold_dti": 0.004759943244862512,
+      "min": 0.0,
+      "nan_cells": 0,
+      "nodata": null,
+      "on_visible_catalogue": 0,
+      "path": "registry/GEMSDOE32_B2.tif",
+      "per_cell_dti": {
+        "draw20_foldNE_all": 0.005721849025628992,
+        "draw20_foldNE_detached": 0.004978923243562035,
+        "draw20_foldNW_all": 0.005119234300348168,
+        "draw20_foldNW_detached": 0.005014688193299874,
+        "draw20_foldSE_all": 0.0034797123829621137,
+        "draw20_foldSE_detached": 0.005083238459760853,
+        "draw20_foldSW_all": 0.0036614968254688987,
+        "draw20_foldSW_detached": 0.004205780460762832,
+        "draw21_foldNE_all": 0.0058060526566376,
+        "draw21_foldNE_detached": 0.006190248529220478,
+        "draw21_foldNW_all": 0.0031000233064623294,
+        "draw21_foldNW_detached": 0.005410020062761232,
+        "draw21_foldSE_all": 0.004289063617143429,
+        "draw21_foldSE_detached": 0.004430084565265658,
+        "draw21_foldSW_all": 0.004172962032270323,
+        "draw21_foldSW_detached": 0.005495714256245373
+      },
+      "pooled_dti": 0.004729038412082699,
+      "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "shape": [
+        3730,
+        3292
+      ],
+      "unique_values": 2,
+      "withheld_positives": 45260
+    },
+    "random_null_matched_count": {
+      "dots": 37654,
+      "mean": 0.04459503747166907,
+      "note": "floor of this evaluator for a matched-count random placement",
+      "pooled_dti_per_seed": [
+        0.04637962180734201,
+        0.04198778013425738,
+        0.045417710473407806
+      ],
+      "seeds": [
+        101,
+        202,
+        303
+      ]
+    }
+  },
+  "cells": [
+    {
+      "key": "draw20_foldNW_all",
+      "n_truth": 1925
+    },
+    {
+      "key": "draw20_foldNW_detached",
+      "n_truth": 1919
+    },
+    {
+      "key": "draw20_foldNE_all",
+      "n_truth": 2360
+    },
+    {
+      "key": "draw20_foldNE_detached",
+      "n_truth": 2361
+    },
+    {
+      "key": "draw20_foldSW_all",
+      "n_truth": 3780
+    },
+    {
+      "key": "draw20_foldSW_detached",
+      "n_truth": 3778
+    },
+    {
+      "key": "draw20_foldSE_all",
+      "n_truth": 3253
+    },
+    {
+      "key": "draw20_foldSE_detached",
+      "n_truth": 3249
+    },
+    {
+      "key": "draw21_foldNW_all",
+      "n_truth": 1919
+    },
+    {
+      "key": "draw21_foldNW_detached",
+      "n_truth": 1924
+    },
+    {
+      "key": "draw21_foldNE_all",
+      "n_truth": 2365
+    },
+    {
+      "key": "draw21_foldNE_detached",
+      "n_truth": 2358
+    },
+    {
+      "key": "draw21_foldSW_all",
+      "n_truth": 3786
+    },
+    {
+      "key": "draw21_foldSW_detached",
+      "n_truth": 3781
+    },
+    {
+      "key": "draw21_foldSE_all",
+      "n_truth": 3253
+    },
+    {
+      "key": "draw21_foldSE_detached",
+      "n_truth": 3249
+    }
+  ],
+  "data_dir": "/tmp/gems_data",
+  "data_status": "pinned third-party mirrors; organizer authenticity NOT established",
+  "date_utc": "2026-10-29",
+  "evaluator": "vendor/gems57 holdout.evaluate (unmodified)",
+  "evaluator_label": "HOLDOUT-DTI gems57 alpha=0.2 beta=0.8 R=3px; cells=16",
+  "leaderboard_note": "Internal holdout DTI is NOT the organizer score. Owner-reported 0.2778 (GEMSDOE32) is USER-REPORTED / UNVERIFIED and is not reproduced here.",
+  "schema": "karage1-exp1-shared-holdout-v1",
+  "session": "arena/5ee7ef4b-gemsdoekarage1"
+}

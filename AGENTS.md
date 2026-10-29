@@ -1,5 +1,7 @@
 # Starting point for every session
 
+**Latest session first:** read `knowledge/session-review-arena-5ee7ef4b.md` and `evidence/session_5ee7ef4b_run_card.json`. Result: NEGATIVE, no file cleared. The shared holdout cannot rank off-catalogue candidates (the champion scores below random); the owner must decide the lattice rule and the holdout design before any slot.
+
 **Latest session (2026-10-29, `arena/c65129cb`): read first** `knowledge/session-review-2026-10-29-thd-ridge.md` and `evidence/session_thd_ridge_run_card_20261029.json`. Verdict NEGATIVE / DO NOT SUBMIT. It records that the literal 70%/3-px gate fails uniform random dot sets (`evidence/lattice_gate_null_check_20261029.json`), so the gate needs an owner decision before any candidate can be cleared.
 
 **Newest session (`arena/6275e37e`, 29 Oct 2026): read `knowledge/session-review-arena-6275e37e.md` and `evidence/session_6275e37e_run_card.json` first.** Verdict: negative, no file cleared. It adds the line-level official reference record (`knowledge/official-reference-verification-20261029.md`, including the float64 irregularity), the owner portal-error diagnostic (`scripts/portal_range_check.py`), and the verified marginal inclusion rule (`tests/test_marginal_rule.py`).

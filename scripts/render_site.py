@@ -407,6 +407,7 @@ def decision(prefix: str):
 <p><strong>Prior session · a1ef4ce0:</strong> The nine-site audit was independently reproduced from pinned bytes; missing baseline-positive counts or pixel-mask evidence fail the automated promotion gate. <a href="{prefix}knowledge/session-review-arena-a1ef4ce0.md">Session a1ef4ce0 review ↗</a> · <a href="{prefix}evidence/session_a1ef4ce0_run_card.json">Session a1ef4ce0 card ↗</a></p>
 <div class="decision-actions"><button class="button button-disabled" disabled>No approved .tif to download</button>
 <a class="button button-light" href="{prefix}docs/executive-summary.html#audit">Review research-only downloads ↗</a>
+<a class="button button-light" href="{prefix}docs/session-5ee7ef4b.html">Focus-site executive summary (session 5ee7ef4b) ↗</a>
 <a class="button button-light" href="{prefix}evidence/conduitcrest_lattice_reaudit_20261028.json">Inspect latest lattice audit ↗</a>
 <a class="button button-light" href="{prefix}evidence/bbstep_uniqueness.json">Inspect BB-STEP uniqueness ↗</a></div>
 <p class="download-help">Conduitcrest research file (research only): <a href="{prefix}docs/downloads/{quote(conduit_path.name)}">{esc(conduit_path.name)}</a> · SHA-256 <code>{conduit_audit['candidate']['sha256']}</code>. Download is for audit only, not submission. No weekly slot was selected or spent.</p></div>
