@@ -27,7 +27,20 @@ SUBMISSION_STEM = "unique-hyp-kth-therm-20261028-zeros"
 SUBMISSION_NAME = "unique-hyp-kth-therm-20261028-zeros"
 SUBMISSION_NOTE = "Unique Hypothesis: K/Th + Thermal + M_Full dualcover intersecting structural scarp."
 
+
+def _quarantined() -> None:
+    """Quarantined 2026-10-29 (arena/ session review).
+
+    This script was a private fork of the shared evaluator/writer path and wrote a
+    self-declared "promote" verdict from an empty overlap audit. It must not run
+    until an assigned lane, a complete pre-placement registry gate and a separate
+    selector exist. Fail closed with exit code 2; nothing is written.
+    """
+    print("BLOCKED: quarantined private-fork experiment; no TIFF or card written.", file=sys.stderr)
+    raise SystemExit(2)
+
 def main():
+    _quarantined()
     t0 = time.time()
     ddir = data_dir()
     cdir = cache_dir()
