@@ -116,5 +116,7 @@
   "promoted": false,
   "submission_slots_used": 0,
   "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
-  "metadata": {}
+  "metadata": {},
+  "verdict": "NOT PROMOTED - superseded 2026-10-29",
+  "superseded_note": "The earlier verdict \"promote\" was a self-report with empty registry fields (correlation_vs_registry and overlap_vs_registry are {}). The 2026-10-29 shared audit evidence/local_downloads_audit_20261029.json records lattice overlap 99.90% (literal duplicate, ok_to_submit=false)."
 }

@@ -1,0 +1,98 @@
+{
+  "candidate": "karage1-gse-geothermal-surface-24000dots-20261029T181134Z-798b0455-zeros.tif",
+  "candidate_sha256": "f5879e1902e6c15407582a67e210bacfd0b2425570c4aefbdf5c585a4579c37b",
+  "n_dots": 24000,
+  "max_abs_spearman": 0.010418309775507908,
+  "max_overlap_frac": 0.3104166666666667,
+  "unique": true,
+  "results": [
+    {
+      "file": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+      "spearman": 0.008131560715596169,
+      "frac_my_dots_within_3px": 0.1505,
+      "frac_my_dots_within_1px": 0.044,
+      "frac_reg_dots_within_3px": 0.2951478610393339,
+      "duplicate": false
+    },
+    {
+      "file": "gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-nan.tif",
+      "spearman": 0.0006396792378902737,
+      "frac_my_dots_within_3px": 0.13345833333333335,
+      "frac_my_dots_within_1px": 0.03920833333333333,
+      "frac_reg_dots_within_3px": 0.12752961172783767,
+      "duplicate": false
+    },
+    {
+      "file": "gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+      "spearman": 0.004015335023283637,
+      "frac_my_dots_within_3px": 0.13345833333333335,
+      "frac_my_dots_within_1px": 0.03920833333333333,
+      "frac_reg_dots_within_3px": 0.12752961172783767,
+      "duplicate": false
+    },
+    {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-nan.tif",
+      "spearman": 0.004783768451272888,
+      "frac_my_dots_within_3px": 0.17329166666666668,
+      "frac_my_dots_within_1px": 0.051916666666666667,
+      "frac_reg_dots_within_3px": 0.15033333333333335,
+      "duplicate": false
+    },
+    {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+      "spearman": 0.008070268120407516,
+      "frac_my_dots_within_3px": 0.17329166666666668,
+      "frac_my_dots_within_1px": 0.051916666666666667,
+      "frac_reg_dots_within_3px": 0.15033333333333335,
+      "duplicate": false
+    },
+    {
+      "file": "karage1-bbstep-buried-basement-20261028T180000Z-nan.tif",
+      "spearman": 0.0024548425216712943,
+      "frac_my_dots_within_3px": 0.15033333333333335,
+      "frac_my_dots_within_1px": 0.029125,
+      "frac_reg_dots_within_3px": 0.19846898570302826,
+      "duplicate": false
+    },
+    {
+      "file": "karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif",
+      "spearman": 0.0047674416066728975,
+      "frac_my_dots_within_3px": 0.15033333333333335,
+      "frac_my_dots_within_1px": 0.029125,
+      "frac_reg_dots_within_3px": 0.19846898570302826,
+      "duplicate": false
+    },
+    {
+      "file": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+      "spearman": 0.010418309775507908,
+      "frac_my_dots_within_3px": 0.3104166666666667,
+      "frac_my_dots_within_1px": 0.07275,
+      "frac_reg_dots_within_3px": 0.22730652785892602,
+      "duplicate": false
+    },
+    {
+      "file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+      "spearman": 0.006202795764900875,
+      "frac_my_dots_within_3px": 0.168375,
+      "frac_my_dots_within_1px": 0.049041666666666664,
+      "frac_reg_dots_within_3px": 0.13277486910994765,
+      "duplicate": false
+    },
+    {
+      "file": "karage1-unique-alteration-dots-20261028-zeros.tif",
+      "spearman": -0.0005287930010659117,
+      "frac_my_dots_within_3px": 0.0035,
+      "frac_my_dots_within_1px": 0.0005833333333333334,
+      "frac_reg_dots_within_3px": 0.034,
+      "duplicate": false
+    },
+    {
+      "file": "unique-hyp-kth-therm-mask-20261028-zeros.tif",
+      "spearman": 0.005782822845512007,
+      "frac_my_dots_within_3px": 0.20120833333333332,
+      "frac_my_dots_within_1px": 0.0465,
+      "frac_reg_dots_within_3px": 0.13685133053593243,
+      "duplicate": false
+    }
+  ]
+}
