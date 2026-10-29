@@ -18,9 +18,22 @@ The saved [shared preflight](../evidence/session_f40ee5b6_shared_preflight.json)
 - Missing inputs: `.cache/gems_work/feature_stack.npy`, `.cache/gems_data/existing_faults.tif`, `training_features.tif`, `sample_submission.tif`, and `labels.tif`.
 - The local immutable-pin audit finds mismatches in `vendor/gems57/submission_writer.py` and `vendor/gems57/uniqueness.py`; it also reports that the vendored source and template pin differ. See [template integrity JSON](../evidence/session_f40ee5b6_template_integrity.json). Hash consistency alone would not establish owner authorization.
 - The shared evaluator/writer are therefore not authorized. The historical private runner was invoked only to verify its gate and refused before producing output (`BLOCKED: Historical H-K1-1 runner disabled...`). No experiment was executed and no TIFF was created.
-- No candidate exists for continuous-surface correlation, final-dot registry overlap, format validation, SHA-256 or HOLDOUT-DTI. The complete organizer registry is not present.
+- This review generated no candidate, so its own continuous-surface correlation, final-dot overlap, validator, candidate hash and HOLDOUT-DTI are not applicable. The merge from main adds earlier research candidates with separate evidence; they were not rerun or revalidated by this review. The complete organizer registry is not present.
 
 The one registered run-card deliverable is [here](../evidence/session_f40ee5b6_run_card.json). It records the proposed top queue item, physical mechanism, named mimics, all HOLDOUT-DTI fields as not run, both uniqueness checks as not run, no raster/hash, no validator result, a ≤140-character no-submission note, zero experiments and a negative verdict.
+
+## Preserved mainline research artifacts
+
+The PR mainline sync added existing research TIFFs and their session-specific receipts. They remain distinct from this review’s no-run result. Their negative status and file hashes were checked against their run cards while rebuilding the site; this is a byte-identity check, not a new scientific audit or upload approval.
+
+- **Novel-territory dot field:** [TIFF](../docs/downloads/gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif) · [run card](../evidence/run_card_gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d.json). The card reports a literal dot scan over its available references but no HOLDOUT-DTI, no assigned lane, no pre-placement continuous-surface check, and no complete organizer registry.
+- **HGRID strain:** [TIFF](../docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif) · [run card](../evidence/hgridge_run_card_20261029T181321Z.json). The `HOLDOUT-DTI` confidence intervals overlap the random control under `gems57-pooled-hide-v2`; the card reports no measurable skill over random and a literal lattice-overlap stop. The TIFF remains negative.
+- **Damage-zone halo:** [TIFF](../docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif) · [run card](../evidence/run_card_karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json). Format checks pass; HOLDOUT-DTI and measured registry uniqueness are absent. Its “structurally unique by design” wording is not a measured clearance.
+- **Convection-cell upflow:** [TIFF](../docs/downloads/karage1-convect-cell-upflow-20261029-zeros.tif) · [run card](../evidence/session_convect_20261029_run_card.json). Format-valid, but no HOLDOUT-DTI, assigned lane or registry-clearance result.
+- **GSE geothermal surface:** [TIFF](../docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif) · [run card](../evidence/run_card_gse_exp1.json). No HOLDOUT-DTI, assigned lane or completed uniqueness gate.
+- **Conduitcrest:** [TIFF](../docs/downloads/gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif) · [run card](../evidence/run_card_gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4.json) · [saved-byte lattice reaudit](../evidence/conduitcrest_lattice_reaudit_20261028.json). The superseding audit finds a literal lattice duplicate; the previous HOLDOUT-DTI claim has no 95% CI.
+
+These are selected recent examples, not the full `docs/downloads/` archive. All remain **DO NOT SUBMIT**. The current review produced no TIFF and did not change any of their run-card verdicts.
 
 ## Current official-source findings
 
@@ -52,7 +65,9 @@ Earlier Lahontan shoreline-datum and terrace-riser ideas are deferred; their req
 
 ## Tests and deliverables
 
-The post-edit full suite passed: **380 passed, 119 warnings** (`./.venv/bin/python -m pytest -q`). The pre-edit baseline was **373 passed, 119 warnings**. The seven added feed/regression checks account for the increase; these are software checks only, not model-performance evidence or a geological score. The site build also completed deterministically: `Rendered 32 deterministic decision pages; no submission authorized.`
+After the mainline sync and conflict resolution, the full suite passed: **399 passed, 119 warnings** (`./.venv/bin/python -m pytest -q`). The earlier pre-sync result of 380 passed is historical and does not verify the merged tree. These are software/regression checks only, not model-performance evidence or a geological score. The site build completed deterministically: `Rendered 32 deterministic decision pages; no submission authorized.` `git diff --check` passed, and no merge-conflict paths remain.
+
+**Renderer date audit:** the required exact label `INDEPENDENT REVIEW · 29 OCT 2026` appears on all eight generated executive-summary/submission-guide variants; no stale “REVIEWED 28 OCT” or “INDEPENDENT AUDIT · 28 OCT” current-page label remains. The renderer’s `20261028` references and its `28–29 Oct 2026` leaderboard window identify historical audit files/prior-session evidence and were intentionally retained.
 
 - [README project brief](../README.md)
 - [Generated executive summary and submission guide](../docs/executive-summary.html)

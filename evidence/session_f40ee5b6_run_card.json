@@ -25,9 +25,9 @@
     "continuous_surface_rank_correlation_abs": null,
     "final_dot_overlap_within_3px": null,
     "registry_complete": false,
-    "preplacement_check": "NOT RUN: no candidate surface exists.",
-    "postplacement_check": "NOT RUN: no candidate dots exist.",
-    "historical_context": "Existing nine-site mirror rasters trigger the internal 70% directional dot-overlap stop; that is a historical peer comparison, not a new candidate result or official rule."
+    "preplacement_check": "NOT RUN IN THIS REVIEW: no candidate surface was generated. Existing mainline research artifacts retain their separate run cards and were not revalidated here.",
+    "postplacement_check": "NOT RUN IN THIS REVIEW: no candidate dots were generated. Existing mainline research artifacts retain their separate run cards and were not revalidated here.",
+    "historical_context": "The merged repository contains prior mainline research TIFFs, including novel-territory, HGRID, damage-zone halo, convection-cell, GSE, and Conduitcrest examples. Their cards are negative and none is cleared by this review. The nine-site mirror overlaps are historical peer comparisons, not a new candidate result or an organizer rule."
   },
   "raster_sha256": null,
   "validator_output": {
@@ -44,7 +44,7 @@
   "slot_selected_or_spent": false,
   "promotion_eligible": false,
   "verdict": "negative",
-  "verdict_reason": "Execution and submission gates remain blocked: method lane and canonical assignment absent, five required data/cache inputs missing, two vendored files fail recorded hashes, shared-template provenance is unresolved, and no candidate can be evaluated or cleared.",
+  "verdict_reason": "This review produced no candidate. Execution gates remain blocked: the method lane and canonical assignment are absent, five required data/cache inputs are missing, two vendored files fail recorded hashes, and shared-template provenance is unresolved. Prior mainline research TIFFs have separate negative run cards, were not rerun here, and are not cleared for upload.",
   "data_source_checks": {
     "drivendata_training_data": "LOGIN REQUIRED; official page redirected to sign-in; no data bytes inspected.",
     "usgs_geodawn": "Official catalog lists GeoTIFF bundle downloads; payload not downloaded or locally validated.",

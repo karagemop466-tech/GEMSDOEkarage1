@@ -1,0 +1,115 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/fb1e3550-gemsdoekarage1",
+  "date_utc": "2026-10-29",
+  "lane_assignment": "Self-assigned from knowledge/hypotheses-20261028.md (H1) and a new strain-polarity idea; method paragraph absent from the prompt (flagged).",
+  "experiments_used": 2,
+  "experiment_budget": 3,
+  "time_budget_hours": 2,
+  "hypotheses": [
+    {
+      "id": "H-K1-SIGNEDOFFSET",
+      "hypothesis": "A buried fault offsets magnetic and gravity fields with the same signed step at two scales.",
+      "mechanism": "Signed magnetic/gravity step at 4 px and 12 px scales; score where both fields step the same sign.",
+      "named_non_fault_mimic": "Lithologic contacts and volcanic-flow edges.",
+      "holdout_dti": 0.056536,
+      "holdout_ci95": [
+        0.050257,
+        0.062695
+      ],
+      "holdout_label": "HOLDOUT-DTI",
+      "evaluator_version": "gemsk-hide-recover-v1",
+      "withheld_positives": 60988,
+      "control_dti": 0.073394,
+      "paired_delta_vs_control": {
+        "mean": -0.017001,
+        "ci95": [
+          -0.028237,
+          -0.006394
+        ]
+      },
+      "leakage_canary_max_auc": 0.5735,
+      "verdict": "negative"
+    },
+    {
+      "id": "H-K1-STRAINPHASE",
+      "hypothesis": "Active strike-slip or oblique faults localise shear strain-rate with little dilatation; ridges weighted by shear dominance mark unmapped faults.",
+      "mechanism": "Multi-scale Hessian ridge on geod_shearrate times rank-normalised shear dominance over |geod_dilaterate|.",
+      "named_non_fault_mimic": "Interpolation seams in the geodetic strain field; ductile shear fabric.",
+      "holdout_dti": 0.055931,
+      "holdout_ci95": [
+        0.042938,
+        0.067869
+      ],
+      "holdout_label": "HOLDOUT-DTI",
+      "evaluator_version": "gemsk-hide-recover-v1",
+      "withheld_positives": 60988,
+      "control_dti": 0.073394,
+      "paired_delta_vs_control": {
+        "mean": -0.017929,
+        "ci95": [
+          -0.031426,
+          -0.004555
+        ]
+      },
+      "leakage_canary_max_auc": 0.5588,
+      "verdict": "negative"
+    }
+  ],
+  "control": {
+    "name": "GPC control (gemskarage1.dipdual gpc_physics)",
+    "holdout_dti": 0.073394,
+    "holdout_ci95": [
+      0.06452,
+      0.082481
+    ],
+    "reproduced_recorded_value_abs_difference": 0.0
+  },
+  "correlation_overlap_vs_registry": {
+    "registry_files_checked": 15,
+    "registry_partial": true,
+    "worst_abs_spearman": {
+      "strainphase": 0.006689,
+      "signedoffset": 0.010158
+    },
+    "worst_share_registry_dots_within_3px_of_top_budget": 0.102021,
+    "duplicate_by_protocol": false,
+    "note": "Surface-level check only; no final dots exist."
+  },
+  "raster_sha256": null,
+  "raster_status": "No GeoTIFF rasterised. Holdout gate not passed; protocol forbids placement.",
+  "validator_output": null,
+  "validator_status": "Not run: no raster produced.",
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "leaderboard_estimate": null,
+  "organizer_confirmed_scores": [],
+  "evidence_files": {
+    "exp1_strainphase_canary.json": {
+      "sha256": "4665b1c87e21cd985cb3c3a3702a2e7ad7ab41d78fc6bd65989374543c67c210"
+    },
+    "exp2_strainphase_holdout.json": {
+      "sha256": "1d7bf544c85dd8eb70c4997806698278b972db716463e009c41ff2a778627e51"
+    },
+    "exp1_signedoffset_canary.json": {
+      "sha256": "929623f55a2d1fee0d48414f70a7967d202a7514faf7f2f9c98080b42b56b5ab"
+    },
+    "exp2_signedoffset_holdout.json": {
+      "sha256": "f354be641743b27e12b268741d963633add84287fea69ce528d079608b3d8489"
+    },
+    "surface_registry_overlap_20261029.json": {
+      "sha256": "f788f071191fb349672586ad7bc4cd4091fb081f9fd57fc90b483a0c9bf5f443"
+    }
+  },
+  "irregularities": [
+    "Public leaderboard top is 0.4544 (#1), 0.3195 is rank #47; prompt values 0.4413 and 0.3195 as top are not supported.",
+    "Prompt says human inspection is needed; official Initial Round scoring is automatic, expert review only in Final Round.",
+    "Method lane paragraph missing; lanes self-assigned.",
+    "70%/3-px lattice gate is internal protocol, not an official rule.",
+    "Registry comparison used 15 of 31 pinned rasters (partial).",
+    "STRAINPHASE holdout re-run with final script for key consistency; DTI identical."
+  ]
+}

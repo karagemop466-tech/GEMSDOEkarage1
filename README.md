@@ -83,6 +83,19 @@ The current shared preflight reports `ready_for_shared_tools: false` and `ok_to_
 
 The submission subpage is [`docs/how-to-submit.html`](docs/how-to-submit.html). It is for future use only: do not upload a historical or research raster, do not spend a weekly slot, and do not call a local format check organizer acceptance.
 
+## Preserved mainline research TIFFs — not submission approvals
+
+The mainline sync added several prior-session research rasters and their receipts. They are **not** products of this review, and this review did not rerun or promote them. The renderer verifies each selected file’s SHA-256 against its linked run card; that byte match is not scientific validation or permission to upload. All linked cards are negative / `ok_to_submit: false`.
+
+- **Novel-territory dots:** [research TIFF](docs/downloads/gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif) · [run card](evidence/run_card_gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d.json). Its literal dot-overlap scan is limited to the references in that card; no HOLDOUT-DTI or pre-placement continuous-surface check was run, no method lane was assigned, and the scan is not a complete organizer registry.
+- **HGRID strain:** [research TIFF](docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif) · [run card](evidence/hgridge_run_card_20261029T181321Z.json). The `HOLDOUT-DTI` intervals from `gems57-pooled-hide-v2` overlap the random control; no measurable skill over random is reported. The same card records a literal lattice-overlap stop. See the card for both arms, withheld-positive count and 95% CIs; these are not organizer scores.
+- **Damage-zone halo:** [research TIFF](docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif) · [run card](evidence/run_card_karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json). Format checks pass, but HOLDOUT-DTI and measured registry uniqueness are absent; “structurally unique by design” is not a measured clearance.
+- **Convection-cell upflow:** [research TIFF](docs/downloads/karage1-convect-cell-upflow-20261029-zeros.tif) · [run card](evidence/session_convect_20261029_run_card.json). Format-valid; no HOLDOUT-DTI, assigned lane or registry-clearance result.
+- **Geothermal surface (GSE):** [research TIFF](docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif) · [run card](evidence/run_card_gse_exp1.json). No HOLDOUT-DTI, assigned lane or completed uniqueness gate.
+- **Conduitcrest:** [research TIFF](docs/downloads/gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif) · [run card](evidence/run_card_gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4.json) · [superseding lattice audit](evidence/conduitcrest_lattice_reaudit_20261028.json). The saved-byte audit finds a lattice duplicate; the earlier HOLDOUT-DTI claim has no 95% CI and is not release-grade.
+
+These are selected recent examples, not an exhaustive inventory. Other historical TIFFs remain under [`docs/downloads/`](docs/downloads/). **DO NOT SUBMIT any of them.** A research download is not a submission-ready file, an organizer receipt, or a slot decision.
+
 ## Recent review history
 
 - **Current:** [29 Oct 2026 review `arena/f40ee5b6`](knowledge/session-review-arena-f40ee5b6.md) and [run card](evidence/session_f40ee5b6_run_card.json).

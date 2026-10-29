@@ -1,0 +1,10 @@
+{
+  "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+  "sha256": "f6307da88c20fef477a7dfc13b45891f680e4d2abb680497e36cee1a492452ad",
+  "bytes": 4146936,
+  "name": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+  "note": "Damage-zone halo probability field; research artifact; DO NOT SUBMIT",
+  "format_valid": true,
+  "ok_to_submit": false,
+  "verdict": "negative \u2014 research artifact only; format-valid and structurally unique by design, but not holdout-validated and not registry-cleared"
+}

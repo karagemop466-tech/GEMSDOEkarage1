@@ -52,14 +52,33 @@ def test_lattice_null_random_dots_fail_the_rule():
     assert d["submit_authorized"] is False
 
 
-def test_fleet_audit_covers_every_local_tif_and_blocks_all():
+def test_fleet_audit_and_separate_mainline_cards_cover_local_tifs_and_block_all():
+    import hashlib
+
     d = _load("evidence/local_downloads_audit_20261029.json")
     files = {r["file"] for r in d["local_downloads"]}
     on_disk = {f"docs/downloads/{p.name}" for p in (ROOT / "docs/downloads").glob("*.tif")}
-    assert on_disk <= files
+    separate_cards = {
+        "docs/downloads/gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif":
+            "evidence/run_card_gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d.json",
+        "docs/downloads/karage1-convect-cell-upflow-20261029-zeros.tif":
+            "evidence/session_convect_20261029_run_card.json",
+    }
+    assert on_disk - files == set(separate_cards)
     assert all(r["ok_to_submit"] is False for r in d["local_downloads"])
     assert min(r["lattice_directed_overlap_3px"] for r in d["local_downloads"]) > 0.98
-
+    for tif, card_path in separate_cards.items():
+        card = _load(card_path)
+        expected = card.get("raster_sha256") or card["raster"]["sha256"]
+        assert hashlib.sha256((ROOT / tif).read_bytes()).hexdigest() == expected
+        assert card["ok_to_submit"] is False and "negative" in card["verdict"].lower()
+        assert card.get("slot_selected_or_spent") in (False, None)
+    novel = _load(separate_cards[next(k for k in separate_cards if "novelterritory" in k)])
+    assert novel["holdout_dti"]["status"] == "NOT_COMPUTED"
+    assert novel["registry_correlation_overlap"]["unique_by_literal_rule"] is True
+    convect = _load(separate_cards[next(k for k in separate_cards if "convect-cell" in k)])
+    assert convect["validator_output"]["format_valid"] is True
+    assert convect["holdout_dti"]["label"] == "NOT RUN"
 
 def test_run_card_is_negative_and_authorizes_nothing():
     card = _load("evidence/session_20261029_run_card.json")

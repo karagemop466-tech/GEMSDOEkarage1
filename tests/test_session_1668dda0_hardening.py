@@ -192,7 +192,7 @@ def test_pr42_sidecars_and_all_repo_jsons_remain_fail_closed():
             assert not hits, f"{json_path} contains true authorization flags: {hits}"
 
 
-def test_local_and_peer_evidence_verifies_all_9_local_tifs():
+def test_local_and_peer_evidence_verifies_original_receipt_and_later_tif_cards():
     data = render_site.local_and_peer_evidence()
     assert data["local_downloads_count"] == 9
     assert data["peer_rasters_count"] == 9
@@ -204,10 +204,35 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     # evidence/run_card_dipdual_20261028.json, verdict negative).
     later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
     later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
+    # Session 1d15747e's K1-HGRID-STRAIN build receipts cover its own TIF (validator, reread,
+    # uniqueness and run card are all written by the same stage; see evidence/hgridge_e3_build_*.json).
+    for receipt in sorted((ROOT / "evidence").glob("hgridge_e3_build_*.json")):
+        later_tifs.add(json.loads(receipt.read_text())["file"])
+    # Saved-byte receipts written by scripts/audit_local_tif.py (session 1d15747e) cover
+    # TIFs that predate any audit, e.g. docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif.
+    for receipt in sorted((ROOT / "evidence").glob("audit_*.json")):
+        data = json.loads(receipt.read_text())
+        if data.get("schema") == "karage1-local-tif-audit-v1":
+            later_tifs.add(data["file"])
     # Session 2026-10-29 re-audited every local TIF (including unique-hyp-kth-therm-mask)
     # with the shared audit script; see evidence/local_downloads_audit_20261029.json.
     fleet = json.loads((ROOT / "evidence/local_downloads_audit_20261029.json").read_text())
     later_tifs |= {r["file"] for r in fleet["local_downloads"]}
+    # Two additional mainline files were committed after the fleet receipt. Their
+    # own negative run cards bind the saved TIFF bytes; neither is a clearance.
+    import hashlib
+    separate_cards = {
+        "docs/downloads/gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif":
+            "evidence/run_card_gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d.json",
+        "docs/downloads/karage1-convect-cell-upflow-20261029-zeros.tif":
+            "evidence/session_convect_20261029_run_card.json",
+    }
+    for tif, card_path in separate_cards.items():
+        card = json.loads((ROOT / card_path).read_text())
+        expected = card.get("raster_sha256") or card["raster"]["sha256"]
+        assert hashlib.sha256((ROOT / tif).read_bytes()).hexdigest() == expected
+        assert card["ok_to_submit"] is False and "negative" in card["verdict"].lower()
+        later_tifs.add(tif)
     uncovered = actual_tifs - audited_tifs - later_tifs
     assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
     assert audited_tifs <= actual_tifs
