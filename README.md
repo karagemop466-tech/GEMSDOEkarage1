@@ -1,6 +1,6 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-**Latest review (29 October 2026):** [repository review, three-pass verification, and run card](knowledge/review-arena-291ca728-2026-10-29.md). No candidate is cleared; this review fixed a syntax error in a quarantined runner, but the assigned lane/template, authenticated data, and duplicate gates remain blockers. Full pytest was unavailable because pytest is not installed.
+**Latest review (29 October 2026):** [repository review, three-pass verification, and run card](knowledge/review-arena-291ca728-2026-10-29.md). No candidate is cleared; this review fixed a syntax error in a quarantined runner, but the assigned lane/template, authenticated data, and duplicate gates remain blockers. Local pytest: 352 passed, 5 failed; CI checks failed. See review for exact failures.
 
 **Latest mainline session:** [Three-pass review and release-gate hardening](knowledge/session-review-arena-400355af.md). No new submission is cleared; the assigned lane, authoritative template, data and complete registry remain unresolved.
 > **Session `arena/cf677bd7`: NEGATIVE / DO NOT SUBMIT** — see [session review](knowledge/session-review-arena-cf677bd7.md) and [run card](evidence/session_cf677bd7_run_card.json). 305 tests pass; no new TIF (lane unassigned, lattice gate blocks champion-sized rasters); nine-site table in the review.
