@@ -36,9 +36,15 @@
   "submission_slots_used": 0,
   "submission_note": "GBM top-37654 pixels, 3px catalogue collar, 19 organiser bands; research candidate, not cleared",
   "candidate": {
-    "file": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029.tif",
+    "file": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.tif",
     "name": "karage1-probcollar-gbm-K37654-collar3-20261029",
-    "sha256": "8e5269c6312135409ae609ecfbb8df929d32cda8b9d608e393ca62c20869941e",
+    "sha256": "07ec7292695aceb77306db7fc6e2ef5425ab7f64da0415e072cd14cb7b7797d5",
+    "encoding": "NaN outside footprint (official format)",
+    "zeros_twin": {
+      "file": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-zeros.tif",
+      "sha256": "8e5269c6312135409ae609ecfbb8df929d32cda8b9d608e393ca62c20869941e",
+      "encoding": "zeros outside (shared all-finite policy)"
+    },
     "status": "research-only; NOT CLEARED; DO NOT SUBMIT",
     "download_offered": false,
     "dots": 37654,
@@ -49,9 +55,10 @@
       "shape_ok": true,
       "transform_ok": true,
       "single_band_float32": true,
-      "all_finite": true,
+      "inside_finite": true,
       "values_in_0_1": true,
-      "outside_footprint_positive": 0
+      "outside_footprint_positive": 0,
+      "outside_encoding": "nan"
     }
   },
   "holdout": {
@@ -413,6 +420,7 @@
   "irregularities": [
     "The 13GEMSDOE lattice covers ~99.9% of the footprint; the literal 70% gate is at chance and effectively unsatisfiable for any footprint-spread submission.",
     "The holdout's withheld units are catalogue segments, so proximity to visible faults is rewarded by construction; it does not measure hidden new-fault discovery (see evidence caveats).",
+    "The shared validator (gems57.gates) rejects NaN outside the footprint under its local all-finite export policy, while the official spec permits NaN outside. The NaN-outside primary is written by scripts/build_candidate_submission.py; the refusal reasons are recorded in docs/candidates/\u2026-nan.json. Conflict flagged for the owner, not waived.",
     "Owner-reported scores (0.2600-0.2778) are unverified; no organiser receipt ties them to the audited hashes.",
     "Organiser leaderboard top is 0.4544 (live check); owner quotes of 0.4413 do not match the live page.",
     "GEMSDOE25 and GEMSDOE30 have identical positive sets (XOR 0); GEMSDOE28 (h27-4 r1) and GEMSDOE31 have identical positive sets.",
@@ -437,6 +445,8 @@
     "ring_all": "evidence/holdout_ring_tiebreak_all_20261029.json",
     "ring_detached": "evidence/holdout_ring_tiebreak_detached_20261029.json",
     "uniqueness": "evidence/candidate_uniqueness_probcollar_20261029.json",
-    "focus_sites": "evidence/focus_site_table_20261029.json"
+    "focus_sites": "evidence/focus_site_table_20261029.json",
+    "uniqueness_zeros_twin": "evidence/candidate_uniqueness_probcollar-zeros_20261029.json",
+    "candidate_nan_receipt": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.json"
   }
 }

@@ -22,14 +22,16 @@ EV = ROOT / "evidence"
 DOCS = ROOT / "docs"
 RECEIPTS = [
     "focus_site_table_20261029.json",
-    "candidate_uniqueness_probcollar_20261029.json",
+    "candidate_uniqueness_probcollar-nan_20261029.json",
+    "candidate_uniqueness_probcollar-zeros_20261029.json",
     "holdout_probcollar_20261029.json",
     "holdout_probcollar_detached_20261029.json",
     "holdout_ring_tiebreak_all_20261029.json",
     "holdout_ring_tiebreak_detached_20261029.json",
 ]
-CAND_REL = "candidates/karage1-probcollar-gbm-K37654-collar3-20261029.tif"
-CAND_JSON = "candidates/karage1-probcollar-gbm-K37654-collar3-20261029.json"
+CAND_REL = "candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.tif"
+ZEROS_REL = "candidates/karage1-probcollar-gbm-K37654-collar3-20261029-zeros.tif"
+CAND_JSON = "candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.json"
 SITE_ORDER = ["GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30",
               "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"]
 ALPHA = 0.2
@@ -128,7 +130,7 @@ def holdout_table(all_: dict, det: dict, ring_all: dict, ring_det: dict) -> str:
 
 def build() -> str:
     focus = load("focus_site_table_20261029.json")
-    uniq = load("candidate_uniqueness_probcollar_20261029.json")
+    uniq = load("candidate_uniqueness_probcollar-nan_20261029.json")
     all_ = load("holdout_probcollar_20261029.json")
     det = load("holdout_probcollar_detached_20261029.json")
     ring_all = load("holdout_ring_tiebreak_all_20261029.json")
@@ -175,13 +177,14 @@ def build() -> str:
 <h2>A unique, format-valid file that is NOT cleared.</h2>
 <p>The file is written through the shared <code>vendor/gems57/submission_writer.py</code> and re-read from disk. It is <strong>not offered for download</strong>. The path is shown as text only.</p></div></div>
 <div class="prose-card"><ul>
-<li><strong>Path:</strong> <code class="wrap">{esc(CAND_REL)}</code> (not in <code>docs/downloads/</code>)</li>
+<li><strong>Path (primary, NaN outside):</strong> <code class="wrap">{esc(CAND_REL)}</code> (not in <code>docs/downloads/</code>)</li>
+<li><strong>Twin (zeros outside, same dots):</strong> <code class="wrap">{esc(ZEROS_REL)}</code></li>
 <li><strong>SHA-256:</strong> <code class="wrap">{esc(cand_sha)}</code></li>
-<li><strong>Recipe:</strong> GBM probability on the 19 organiser bands, all mapped catalogue pixels as positives; top-37,654 pixels after a 3 px catalogue collar; binary 1.0 on the footprint, NaN-free, zeros outside.</li>
-<li><strong>Format (re-read):</strong> single band · float32 · {esc(uniq['format']['crs'])} · {uniq['format']['shape'][0]} × {uniq['format']['shape'][1]} · transform matches · all finite · values in [0, 1] · outside-footprint positives: {outside_pos}. Dots: {cc['dots']:,}; closest dot to the catalogue {cc['min_distance_to_catalogue_px']:.2f} px; within 3 px: {cc['dots_within_3px_of_catalogue']}.</li>
+<li><strong>Recipe:</strong> GBM probability on the 19 organiser bands, all mapped catalogue pixels as positives; top-37,654 pixels after a 3 px catalogue collar; binary 1.0 on the footprint and NaN outside it (official format). A zeros-outside twin carries the same dots for the repo's all-finite gate.</li>
+<li><strong>Format (re-read):</strong> single band · float32 · {esc(uniq['format']['crs'])} · {uniq['format']['shape'][0]} × {uniq['format']['shape'][1]} · transform matches · inside finite, values in [0, 1] · outside: {esc(uniq['format']['outside_encoding'])} · outside-footprint positives: {outside_pos}. Dots: {cc['dots']:,}; closest dot to the catalogue {cc['min_distance_to_catalogue_px']:.2f} px; within 3 px: {cc['dots_within_3px_of_catalogue']}.</li>
 <li><strong>Uniqueness (literal):</strong> worst 3-px overlap with a focus site {pct(wf['value'])} ({esc(Path(wf['file']).name)}); max |ρ| {rf['value']:.3f}. The 13GEMSDOE lattice is flagged at {pct2(lat['my_dots_within_3px_of_lattice'])}, which is a literal duplicate. Chance for uniform random dots in the candidate's region is {pct2(lat['chance_for_uniform_random_dots_in_candidate_region'])}, so the flag is at chance.</li>
 <li><strong>Status:</strong> research-only · NOT CLEARED · DO NOT SUBMIT · <code>submission_slots_used: 0</code>.</li>
-<li><strong>Receipts:</strong> <a href="{CAND_JSON}">writer receipt JSON</a> · <a href="data/candidate_uniqueness_probcollar_20261029.json">uniqueness audit JSON</a> · <a href="data/run-card-probcollar-20261029.json">run card JSON</a></li>
+<li><strong>Receipts:</strong> <a href="{CAND_JSON}">writer receipt JSON</a> · <a href="data/candidate_uniqueness_probcollar-nan_20261029.json">uniqueness audit JSON (NaN twin)</a> · <a href="data/run-card-probcollar-20261029.json">run card JSON</a></li>
 </ul></div></section>'''
 
     phd = f'''<section class="section" id="why-0.2778"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 4 · GEMSDOE32 AT 0.2778</p>
@@ -224,6 +227,7 @@ def build() -> str:
 <div class="prose-card"><ul>
 <li>The 13GEMSDOE lattice covers ≈99.9% of the footprint. Its literal 70% gate is at chance and effectively unsatisfiable for any footprint-spread submission.</li>
 <li>The holdout's withheld units are catalogue segments, so proximity to visible faults is rewarded by construction (see the holdout caveats in evidence).</li>
+<li>The shared validator (<code>gems57.gates</code>) rejects NaN outside the footprint under its local all-finite policy, but the official spec permits it. The NaN-outside primary is written by <code>scripts/build_candidate_submission.py</code>; its refusal reasons are in the candidate receipt JSON. Flagged for the owner, not waived.</li>
 <li>0.2778 and the other scores are owner-reported. They are not tied to audited hashes or organiser receipts.</li>
 <li>An owner-quoted 0.4413 leader does not match the live leaderboard (#1 0.4544).</li>
 <li>GEMSDOE25 and GEMSDOE30 have identical positive sets; GEMSDOE28 (h27-4 r1) and GEMSDOE31 have identical positive sets.</li>

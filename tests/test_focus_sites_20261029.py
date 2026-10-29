@@ -16,13 +16,15 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "vendor"))
 
-CAND = ROOT / "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029.tif"
+CAND = ROOT / "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.tif"
+ZEROS = ROOT / "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-zeros.tif"
 CARD_A = ROOT / "evidence/run_card_probcollar_20261029.json"
 CARD_B = ROOT / "docs/data/run-card-probcollar-20261029.json"
 PAGE = ROOT / "docs/focus-sites.html"
 RECEIPTS = [
     "focus_site_table_20261029.json",
-    "candidate_uniqueness_probcollar_20261029.json",
+    "candidate_uniqueness_probcollar-nan_20261029.json",
+    "candidate_uniqueness_probcollar-zeros_20261029.json",
     "holdout_probcollar_20261029.json",
     "holdout_probcollar_detached_20261029.json",
     "holdout_ring_tiebreak_all_20261029.json",
@@ -35,22 +37,26 @@ def _sha(p: Path) -> str:
 
 
 def test_candidate_is_research_only_and_format_valid():
+    """Primary = NaN outside the footprint (official format); zeros twin carries the same dots."""
     from gems57.grid import DATA_DIR, EPSG, HEIGHT, WIDTH, TRANSFORM, load_grid
+    from scipy import ndimage as ndi
     grid = load_grid(DATA_DIR)
     fp = grid.footprint
     with rasterio.open(CAND) as src:
         assert src.count == 1 and src.dtypes[0] == "float32"
         assert src.crs.to_epsg() == EPSG
         assert (src.height, src.width) == (HEIGHT, WIDTH)
-        assert src.transform == TRANSFORM
-        arr = src.read(1)
-    assert np.isfinite(arr).all()
-    assert arr.min() >= 0 and arr.max() <= 1
-    assert int(((arr > 0) & ~fp).sum()) == 0
-    assert int((arr > 0).sum()) == 37654
-    # no dot on or within 3 px of the mapped catalogue
-    from scipy import ndimage as ndi
-    d = ndi.distance_transform_edt(~grid.catalogue)[arr > 0]
+        assert tuple(src.transform)[:6] == tuple(TRANSFORM)[:6]
+        nan_arr = src.read(1)
+    assert np.isnan(nan_arr[~fp]).all()
+    assert np.isfinite(nan_arr[fp]).all()
+    assert nan_arr[fp].min() >= 0 and nan_arr[fp].max() <= 1
+    with rasterio.open(ZEROS) as src:
+        zarr = src.read(1)
+    assert np.isfinite(zarr).all() and (zarr[~fp] == 0).all()
+    assert np.array_equal(np.nan_to_num(nan_arr, nan=0.0), zarr)
+    assert int((zarr > 0).sum()) == 37654
+    d = ndi.distance_transform_edt(~grid.catalogue)[zarr > 0]
     assert d.min() > 3.0
 
 
@@ -68,6 +74,7 @@ def test_run_card_is_negative_and_identical_copies():
     assert a["lane"]["experiments_used"] <= a["lane"]["experiment_budget"] == 3
     assert len(a["submission_note"]) <= 140
     assert a["candidate"]["sha256"] == _sha(CAND)
+    assert a["candidate"]["zeros_twin"]["sha256"] == _sha(ZEROS)
     assert a["candidate"]["download_offered"] is False
     assert a["holdout"]["label"] == "HOLDOUT-DTI"
 

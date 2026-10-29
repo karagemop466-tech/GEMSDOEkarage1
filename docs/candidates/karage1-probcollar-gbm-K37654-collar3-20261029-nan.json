@@ -1,0 +1,23 @@
+{
+  "schema": "karage1-candidate-nan-twin-v1",
+  "name": "karage1-probcollar-gbm-K37654-collar3-20261029",
+  "file": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.tif",
+  "sha256": "07ec7292695aceb77306db7fc6e2ef5425ab7f64da0415e072cd14cb7b7797d5",
+  "bytes": 126376,
+  "note": "GBM top-37654 pixels, 3px catalogue collar, 19 organiser bands; research candidate, not cleared",
+  "note_chars": 95,
+  "encoding": "NaN outside footprint (official format); values in [0,1] inside",
+  "outside_nan_cells": 7111787,
+  "inside_finite": true,
+  "dots": 37654,
+  "same_dots_as_zeros_twin": true,
+  "shared_gate_refusals": [
+    "7111787 NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)",
+    "nodata tag outside all-finite [0,1] export policy"
+  ],
+  "shared_gate_note": "gems57.gates.format_report refuses NaN outside by its local all-finite export policy; the official spec permits NaN outside. Conflict recorded, not waived.",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "research-only; NOT CLEARED; DO NOT SUBMIT"
+}
