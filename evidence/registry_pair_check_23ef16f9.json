@@ -1,0 +1,98 @@
+{
+  "schema": "karage1-registry-pair-check-v1",
+  "session": "arena/23ef16f9",
+  "template_grid": {
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "res": [
+      100.0,
+      100.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "rasters": {
+    "GEMSDOE25_d28": {
+      "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "res": [
+        100.0,
+        100.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "nonfinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "outside_0_1": 0,
+      "positive_px": 44090,
+      "grid_matches_template": true
+    },
+    "GEMSDOE32_B2": {
+      "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "res": [
+        100.0,
+        100.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "nonfinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "outside_0_1": 0,
+      "positive_px": 37654,
+      "grid_matches_template": true
+    }
+  },
+  "pair": {
+    "b_dots_within_3px_of_a": 1.0,
+    "a_dots_within_3px_of_b": 0.881719,
+    "b_subset_of_a": true,
+    "a_minus_b": 6436,
+    "b_minus_a": 0,
+    "both": 37654
+  },
+  "lattice_gate": {
+    "footprint_beyond_3px_of_lattice": 6649,
+    "gate_share": 0.7,
+    "max_dots_satisfiable": 22163,
+    "note": "Above this many dots every raster exceeds 70% within-3px overlap with the witness, whatever the placement. The gate is a count-driven saturation, not a uniqueness test."
+  },
+  "submit_authorized": false
+}

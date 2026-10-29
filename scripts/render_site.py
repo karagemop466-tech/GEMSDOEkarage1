@@ -372,7 +372,8 @@ def nine_site_section(prefix: str) -> str:
         'No estimate for any of our files is possible without a holdout run and an organizer receipt.</p>'
         '<p class="cell-sub">Live public leaderboard checked 29 Oct 2026: #1 0.4544, #2 0.3916, #3 0.3911 '
         '(<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData ↗</a>). '
-        'The 0.4413 and 0.3195 figures in the session brief do not match that page.</p>'
+        'Correction (session arena/23ef16f9): 0.3195 IS on that page at rank #47 (verified by fetch 29 Oct 2026); '
+        '0.4413 does not appear in the top 50 rows shown there.</p>'
         '</section>')
 
 
