@@ -56,12 +56,21 @@ def test_current_session_is_visible_and_fails_closed():
     assert card["holdout_dti"]["value"] is None
     assert card["raster_sha256"] is None
     assert card["validator_output"]["status"] == "not run; no raster generated"
+    gse = json.loads((ROOT / "evidence/gse_concurrent_artifact_reaudit_20261029.json").read_text())
+    candidate = ROOT / gse["candidate_file"]
+    assert gse["decision"] == "negative" and gse["submit_authorized"] is False
+    assert gse["holdout"]["value"] is None
+    assert gse["inherited_uniqueness_receipt_irregularity"]["receipt_compared_rows"] == 11
+    assert gse["inherited_uniqueness_receipt_irregularity"]["receipt_candidate_name"] != candidate.name
     for page in (ROOT / "index.html", ROOT / "docs/index.html", ROOT / "docs/executive-summary.html"):
         text = page.read_text()
         assert "DO NOT SUBMIT" in text
         assert "No approved .tif to download" in text
         assert "session-review-arena-07823dcc-2026-10-29.md" in text
         assert "session_07823dcc_run_card.json" in text
+        assert "karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif" in text
+        assert "gse_concurrent_artifact_reaudit_20261029.json" in text
+        assert "UNPROVEN" in text
 
 
 def test_all_legacy_page_builders_delegate_to_fail_closed_renderer():

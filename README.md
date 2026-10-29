@@ -1,8 +1,12 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-> **Current review (`arena/07823dcc`, 2026-10-29): NEGATIVE / DO NOT SUBMIT.** No TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection was produced. `.venv/bin/python -m pytest -q`: **366 passed** (software verification only). The method lane and canonical shared template are unassigned; authenticated inputs/cache and a complete registry are unavailable. The public decision site now links this review and clearly says there is no approved TIF. See [current session review](knowledge/session-review-arena-07823dcc-2026-10-29.md), [JSON run card](evidence/session_07823dcc_run_card.json), and [current executive summary](docs/executive-summary.html).
+> **Current review (`arena/07823dcc`, 2026-10-29): NEGATIVE / DO NOT SUBMIT.** This review produced no TIF, experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection; 366 tests pass (software verification only). A separate mainline GSE TIF now exists as a research artifact, but its inherited uniqueness receipt omits all nine focus sites and the lattice, has a filename discrepancy, and supplies no holdout or pre-placement correlation. It is **NOT CLEARED**. See [current review](knowledge/session-review-arena-07823dcc-2026-10-29.md), [current run card](evidence/session_07823dcc_run_card.json), [GSE byte re-audit](evidence/gse_concurrent_artifact_reaudit_20261029.json), and [executive summary](docs/executive-summary.html).
 
-> **Prior review (`arena/bd75aa22`, 2026-10-29): NEGATIVE / DO NOT SUBMIT.** Repository review only; no new TIF, geological experiment, HOLDOUT-DTI, score estimate, or slot selection. See [session review](knowledge/session-review-arena-bd75aa22.md) and [JSON run card](evidence/session_bd75aa22_run_card.json).
+> **Prior mainline review `arena/4711a029` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** No new TIF, geological experiment, score estimate, or upload slot was produced. The nine-site comparison and four ranked research candidates are in [the current review](knowledge/session-review-arena-4711a029.md); the required session run card is [here](evidence/session_4711a029_run_card.json). The pinned template/data preflight is blocked (lane and canonical assignment absent, required cache/data missing, two vendored hash mismatches); all 365 software tests pass but do not measure model performance.
+
+> **Session `arena/be012103` (2026-10-29): NEGATIVE / DO NOT SUBMIT — no file is cleared.** No new TIF was generated: the competition data is login-walled and unreachable from the sandbox, and no method lane is assigned, so there is nothing to holdout-test or score. Live leaderboard (fetched 2026-10-29): **#1 = 0.4544** (xiaofanhu), #2 = 0.3916; 0.4413 not found; 0.3195 near rank #47. The GEMSDOE32 **0.2778 is an owner-report with no submission receipt** on its own page, which also says "already submitted - do not resubmit". Test suite: **365 passed**. Details: [session review](knowledge/session-review-arena-be012103.md), [run card](evidence/session_be012103_run_card.json). Manual steps needed from the owner are listed in the review.
+
+> **Latest review (`arena/bd75aa22`, 2026-10-29): NEGATIVE / DO NOT SUBMIT.** Repository review only; no new TIF, geological experiment, HOLDOUT-DTI, score estimate, or slot selection. Test suite: **365 passed** (software verification only). No lane assignment or canonical shared template is recorded, authenticated inputs/cache and complete registry are unavailable, so experiments and a cleared unique submission remain blocked. See [session review](knowledge/session-review-arena-bd75aa22.md) and [JSON run card](evidence/session_bd75aa22_run_card.json).
 
 > **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
 
@@ -244,3 +248,35 @@ The original, very long user message is available in the conversation replay but
 7. **Three-pass follow-up order:** obtain an assigned lane and authoritative template; authenticate organizer data and template geometry; resolve the lattice interpretation without evasion; establish a complete inventory and comparable baseline; only then preregister and run at most three properly buffered, fold-local experiments and the automated validator. A separate selector checks a live weekly allowance only after every gate passes.
 
 The current active session review is [`knowledge/session-review-arena-1668dda0.md`](knowledge/session-review-arena-1668dda0.md), with its exact session card at [`evidence/session_1668dda0_run_card.json`](evidence/session_1668dda0_run_card.json) and saved-byte ecosystem receipt at [`evidence/local_downloads_and_peer_audit_20261028.json`](evidence/local_downloads_and_peer_audit_20261028.json). Prior session records, including [`knowledge/session-review-arena-a1ef4ce0.md`](knowledge/session-review-arena-a1ef4ce0.md) and [`knowledge/session-review-arena-8ffb6de1.md`](knowledge/session-review-arena-8ffb6de1.md), are historical evidence to inspect—not certificates of current validity.
+
+## Latest Session — GEMSDOEkarage1 Experiment 1 (GSE) — 29 OCT 2026
+
+### What was done
+- **Restored pinned competition data** from GitHub mirrors: `data/bridge/sample_submission.tif` (sha256 `2176d08e…`), `existing_faults.tif` / `labels.tif` (sha256 `7ba308cc…`), plus external GeoDAWN radiometrics, LiDAR scarp features, GeoDAWN extensions, INGENIOUS temperature probes, paleo-geothermal features, and volcanic vents from `buffedlizard55-lab/GEMSDOE24` at commit `07345ea0…`. All SHA-256 hashes verified against `registry/data_manifest.json`.
+- **Built a UNIQUE GeoTIFF** (Experiment 1): `karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif` — a Geothermal Surface Expression index targeting radiometric (U/K/Th), LiDAR scarp, INGENIOUS thermal, paleo-geothermal, and volcanic-vent anomalies. 24,000 dots, 300 m hard apron from all catalogue faults, off-catalogue by design.
+- **Format validation: PASS** (validator exit 0) — single-band float32, EPSG:32611, 3730×3292, 100 m, values in [0,1], no NaN in footprint, 0 positive pixels outside footprint, 0 dots on catalogue faults.
+- **Uniqueness: PASS** vs 11 registry rasters — max |Spearman| = 0.0104 (limit 0.90), max dot overlap within 3 px = 0.310 (limit 0.70). Unique vs GEMSDOE32 B2 (rho=0.0056, 17.2% overlap) and GEMSDOE25 (rho=0.0048, 17.6% overlap).
+- **Leakage canary: PASS** — all component vs near-catalogue |point-biserial r| < 0.06 (limit 0.5).
+- **Verdict: NEGATIVE — DO NOT SUBMIT.** No lane assigned (`registry/template.json` records `method_lane: null`), no holdout DTI produced, not all 9 focus-site rasters available for registry check. Research download only. No slot selected or spent.
+
+### Files
+| File | Description |
+|------|-------------|
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif` | Format-valid unique GSE TIF (research download, NOT cleared) |
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.zip` | One-TIFF ZIP of the same |
+| `docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.json` | Validator receipt |
+| `evidence/run_card_gse_exp1.json` | Experiment 1 run card (negative verdict) |
+| `evidence/uniqueness_gse_exp1.json` | Uniqueness vs registry results |
+| `scripts/build_gse_submission.py` | Build script (Experiment 1) |
+| `index.html` | Homepage — GSE download + NOT-OK status at top |
+| `docs/executive-summary.html` | Nine-site table + GSE details |
+| `docs/how-to-submit.html` | Step-by-step submission guide |
+
+### Blocker before any slot is spent
+1. Assign a method lane in `registry/template.json` (currently `null`).
+2. Authenticate organizer data and template geometry.
+3. Run the full registry uniqueness check against all 9 focus-site rasters.
+4. Run a buffered hide-and-recover holdout (pooled DTI, alpha 0.2, beta 0.8, 300 m triangular kernel).
+5. Only then may the selector choose a weekly slot.
+
+No competition slot was selected or spent in this session.

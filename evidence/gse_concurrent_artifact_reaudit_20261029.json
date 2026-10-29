@@ -1,0 +1,73 @@
+{
+  "schema": "karage1-gse-concurrent-artifact-reaudit-v1",
+  "date_utc": "2026-10-29",
+  "candidate_file": "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+  "candidate_sha256": "f5879e1902e6c15407582a67e210bacfd0b2425570c4aefbdf5c585a4579c37b",
+  "independent_saved_byte_inspection": {
+    "driver": "GTiff",
+    "bands": 1,
+    "dtype": "float32",
+    "shape": [3730, 3292],
+    "crs": "EPSG:32611",
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "all_pixels_finite": true,
+    "whole_array_range": [0.0, 1.0],
+    "positive_pixels": 24000,
+    "nodata": null,
+    "outside_encoding": "all-finite zero encoding reported by sidecar; cannot identify footprint without authenticated sample_submission.tif; official page describes outside as null/NaN"
+  },
+  "alternate_nan_variant": {
+    "file": "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-nan.tif",
+    "sha256": "34982d816fc1922ef5b7c445e351c77457d3a55ec766c774b34d420a26f893f7",
+    "bands": 1,
+    "dtype": "float32",
+    "shape": [3730, 3292],
+    "crs": "EPSG:32611",
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "nodata_is_nan": true,
+    "nan_pixels": 7111787,
+    "finite_pixels": 5167373,
+    "finite_range": [0.0, 1.0],
+    "positive_pixels": 24000,
+    "footprint_check": "not possible without authenticated sample_submission.tif; NaN placement relative to footprint unverified"
+  },
+  "measured_comparisons": [
+    {
+      "reference_file": "registry/GEMSDOE25_d28.tif",
+      "reference_sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "candidate_dots_within_closed_3px_disk": 4224,
+      "candidate_dots": 24000,
+      "directed_overlap": 0.176,
+      "binary_support_spearman": 0.00480359775130936
+    },
+    {
+      "reference_file": "registry/GEMSDOE32_B2.tif",
+      "reference_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "candidate_dots_within_closed_3px_disk": 4116,
+      "candidate_dots": 24000,
+      "directed_overlap": 0.1715,
+      "binary_support_spearman": 0.005616078711343732
+    }
+  ],
+  "inherited_uniqueness_receipt_irregularity": {
+    "receipt_file": "evidence/uniqueness_gse_exp1.json",
+    "receipt_candidate_name": "karage1-gse-geothermal-surface-24000dots-20261029T181134Z-798b0455-zeros.tif",
+    "saved_candidate_name": "karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+    "receipt_candidate_sha256_matches_saved_bytes": true,
+    "receipt_compared_rows": 11,
+    "receipt_scope": "local GEMSDOEkarage1 historical candidates only; no focus-site GEMSDOE24/25/27/28/30/31/32/33/36 or pinned lattice appears in its rows",
+    "preplacement_surface_correlation": "not present"
+  },
+  "holdout": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run; no holdout evidence in inherited experiment card"
+  },
+  "source_and_provenance": "Inherited sidecar/run card claims GeoDAWN, LiDAR, GDR and INGENIOUS-derived inputs. Source payloads are absent from this checkout; generation could not be reproduced. These claims are not independently authenticated here.",
+  "decision": "negative",
+  "submit_authorized": false,
+  "reason": "No holdout, no complete focus-site/lattice registry check, no pre-placement correlation, no authenticated sample footprint, outside-footprint encoding unresolved, and the experiment/session records conflict about whether a raster was generated. The two locally tracked GEMSDOE25/B2 comparisons do not trigger the internal threshold but cannot establish fleet uniqueness."
+}

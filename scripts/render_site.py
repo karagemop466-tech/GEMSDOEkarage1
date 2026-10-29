@@ -198,6 +198,44 @@ def local_and_peer_evidence():
     return data
 
 
+def concurrent_gse_evidence():
+    """Validate the saved-byte audit for a separate, non-cleared mainline artifact."""
+    def reject_constant(value: str):
+        raise ValueError(f'non-standard JSON constant: {value}')
+
+    audit = json.loads((ROOT / 'evidence/gse_concurrent_artifact_reaudit_20261029.json').read_text(),
+                       parse_constant=reject_constant)
+    candidate = ROOT / audit.get('candidate_file', '')
+    sidecar_path = candidate.with_suffix('.json')
+    if (audit.get('schema') != 'karage1-gse-concurrent-artifact-reaudit-v1'
+            or not candidate.is_file() or not sidecar_path.is_file()
+            or hashlib.sha256(candidate.read_bytes()).hexdigest() != audit.get('candidate_sha256')
+            or audit.get('submit_authorized') is not False
+            or audit.get('decision') != 'negative'
+            or audit.get('holdout', {}).get('value') is not None
+            or audit.get('inherited_uniqueness_receipt_irregularity', {}).get('receipt_compared_rows') != 11
+            or audit.get('inherited_uniqueness_receipt_irregularity', {}).get('preplacement_surface_correlation') != 'not present'):
+        raise ValueError('concurrent GSE artifact audit missing, altered, or not fail-closed')
+    sidecar = json.loads(sidecar_path.read_text(), parse_constant=reject_constant)
+    if (sidecar.get('sha256') != audit['candidate_sha256']
+            or sidecar.get('approved_for_weekly_slot') is not False):
+        raise ValueError('concurrent GSE sidecar does not bind the audited bytes and negative decision')
+    alternate = audit.get('alternate_nan_variant', {})
+    alternate_path = ROOT / alternate.get('file', '')
+    if (not alternate_path.is_file()
+            or hashlib.sha256(alternate_path.read_bytes()).hexdigest() != alternate.get('sha256')
+            or alternate.get('positive_pixels') != 24000
+            or 'not possible' not in alternate.get('footprint_check', '')):
+        raise ValueError('concurrent GSE NaN-variant receipt does not match saved bytes or remains incomplete')
+    for row in audit.get('measured_comparisons', []):
+        ref = ROOT / row['reference_file']
+        if (not ref.is_file()
+                or hashlib.sha256(ref.read_bytes()).hexdigest() != row['reference_sha256']
+                or not 0 <= row['directed_overlap'] <= 1):
+            raise ValueError('concurrent GSE comparison receipt does not match tracked reference bytes')
+    return audit, candidate
+
+
 def artifact_url(entry):
     return ('https://github.com/' + entry['repo'] + '/blob/' + entry['ref'] + '/'
             + quote(entry['path'], safe='/'))
@@ -257,10 +295,13 @@ def decision(prefix: str):
     conduit_audit, conduit_original, latest, conduit_path = conduitcrest_evidence()
     clat = conduit_audit['lattice_witness']
     chdt = conduit_audit['previous_holdout_claim']
+    gse_audit, gse_path = concurrent_gse_evidence()
+    gse_name = gse_path.name
     return f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> CURRENT SUBMISSION DECISION <span class="status-tag">DO NOT SUBMIT</span></div>
 <h2 id="decision-title">No eligible submission file. Every reviewed candidate remains blocked.</h2><p><strong>DO NOT SUBMIT.</strong> No approved .tif to download; the current state is not cleared for upload. The latest repository review found no assigned method lane, no cached feature stack or authenticated competition data, and no basis to run a compliant experiment.</p>
-<p><strong>Latest repository review · 29 Oct 2026:</strong> review-only; no new TIF, experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. <a href="{prefix}knowledge/session-review-arena-07823dcc-2026-10-29.md">Read the current review ↗</a> · <a href="{prefix}evidence/session_07823dcc_run_card.json">Current JSON run card ↗</a>.</p>
+<p><strong>Latest repository review · 29 Oct 2026:</strong> review-only; this review generated no new TIF, experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. <a href="{prefix}knowledge/session-review-arena-07823dcc-2026-10-29.md">Read the current review ↗</a> · <a href="{prefix}evidence/session_07823dcc_run_card.json">Current JSON run card ↗</a>.</p>
+<p><strong>Separate mainline research artifact — DO NOT SUBMIT:</strong> <a href="{prefix}docs/downloads/{quote(gse_name)}">{esc(gse_name)}</a>. Saved bytes are float32, one band, finite and in [0,1], but no authenticated sample footprint, buffered holdout, pre-placement comparison, or complete registry audit is available. The inherited uniqueness receipt has a filename mismatch and omits all nine focus-site rasters and the lattice. <a href="{prefix}evidence/gse_concurrent_artifact_reaudit_20261029.json">Inspect re-audit ↗</a>.</p>
 <p>The prior BB-STEP file <code class="wrap">{esc(card['submission_name'])}</code> is unique versus the nine focus sites (worst overlap {nine:.1%}) but has {lat:.2%} lattice overlap; it is a duplicate. Its prior-session <strong>HOLDOUT-DTI {dti['value']:.5f}</strong> [{dti['ci95'][0]:.5f}, {dti['ci95'][1]:.5f}] used evaluator {esc(dti['evaluator_version'])} with {dti['withheld_positives']:,} withheld positives. This is not an organizer score and does not override the duplicate stop.</p>
 <p>The newer Conduitcrest research file has {clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) are within 3 px of the pinned lattice, exceeding the 70% threshold. Its prior run card's incomplete <strong>HOLDOUT-DTI {chdt['reported_value']:.6f}</strong> claim names evaluator {esc(chdt['evaluator_version'])} and {chdt['withheld_positives']:,} withheld positives but provides <strong>no 95% CI</strong>; it is not a release-grade result.</p>
 <p>Original Conduitcrest uniqueness compared only the nine focus-site rasters, not the lattice or complete fleet. Its pre-placement lattice comparison and per-feature canary are absent. Both candidates are research/audit files only; neither is cleared for upload.</p>
@@ -283,6 +324,17 @@ def comparison(prefix: str):
     conduit_audit, conduit_original, latest, conduit_path = conduitcrest_evidence()
     chdt = conduit_audit['previous_holdout_claim']
     clat = conduit_audit['lattice_witness']
+    gse_audit, gse_path = concurrent_gse_evidence()
+    gse_compare_25, gse_compare_32 = gse_audit['measured_comparisons']
+    gse_row = (
+        '<tr><th scope="row">GEMSDOEkarage1 (concurrent GSE artifact)</th>'
+        f'<td><a class="file-link" href="{prefix}docs/downloads/{quote(gse_path.name)}">{esc(gse_path.name)}</a>'
+        '<span class="cell-sub">Separate mainline research artifact · audit only</span></td>'
+        '<td><strong>No HOLDOUT-DTI</strong><span class="cell-sub">Not run · no organizer score receipt</span></td>'
+        '<td>Unavailable<span class="cell-sub">No defensible estimate</span></td>'
+        f'<td><span class="pill pill-red">UNPROVEN</span><span class="cell-sub">Only 11 local candidates in inherited receipt; direct overlap vs GEMSDOE25 {gse_compare_25["directed_overlap"]:.2%}, GEMSDOE32 {gse_compare_32["directed_overlap"]:.2%}; lattice / full fleet absent</span></td>'
+        '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>'
+    )
     conduit_row = (
         f'<tr><th scope="row">GEMSDOEkarage1 (Conduitcrest)</th>'
         f'<td><a class="file-link" href="{prefix}docs/downloads/{quote(conduit_path.name)}">{esc(conduit_path.name)}</a>'
@@ -303,7 +355,7 @@ def comparison(prefix: str):
         '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>'
     )
     return f'''<section class="section comparison" id="comparison"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> DOWNLOAD TABLE</p><h2>Which file, which number, unique or not.</h2><p>Only HOLDOUT-DTI or USER-REPORTED / UNVERIFIED numbers appear. No projection is written as a score. The generated BB-STEP file is unique versus the nine listed GEMSDOE sites and is still a lattice duplicate under the parallel-run rule.</p></div></div>
-<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>File to download</th><th>Labeled number</th><th>New organizer estimate</th><th>Unique?</th><th>Action</th></tr></thead><tbody>{ours}{conduit_row}
+<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>File to download</th><th>Labeled number</th><th>New organizer estimate</th><th>Unique?</th><th>Action</th></tr></thead><tbody>{gse_row}{ours}{conduit_row}
 {rows_for(prefix)}</tbody></table></div></div></section>'''
 
 
