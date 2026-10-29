@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **Review `arena/dc2e4c0c` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** Fixed the quarantined runner's malformed fail-closed block and added regressions; merged concurrent PR #58's saved-byte retraction audit for the stale K/Th TIFF. Final local suite: **360 passed**. No new raster, geological experiment, HOLDOUT-DTI result, or score estimate. See [this review](knowledge/session-review-arena-dc2e4c0c.md) and [run card](evidence/session_dc2e4c0c_run_card.json).
+
 > **Session `arena/a409acfe` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** A false
 > "CLEARED FOR SUBMISSION" page and its `promote` card were on `main`; both are retracted. The
 > flagged TIF has 99.90% lattice overlap (stop > 70%) and is quarantined in
