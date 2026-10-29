@@ -1,0 +1,47 @@
+{
+  "schema": "karage1-run-card-v3",
+  "session": "arena/be012103-gemsdoekarage1",
+  "date_utc": "2026-10-29",
+  "lane_id": null,
+  "hypothesis": "None tested. No method lane is assigned and competition data is not reachable from the sandbox.",
+  "mechanism": null,
+  "named_non_fault_process": null,
+  "holdout_dti": {
+    "label": "NOT RUN",
+    "value": null,
+    "withheld_positives": null,
+    "ci95": null
+  },
+  "score_estimate": {
+    "label": "NOT ESTIMABLE",
+    "value": null,
+    "note": "No holdout, no organizer receipt. Not a projection."
+  },
+  "correlation_overlap_vs_registry": "NOT RUN (no candidate raster)",
+  "raster_sha256": null,
+  "validator_output": "NOT RUN (no candidate raster)",
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "submit_ok": false,
+  "slot_spent": false,
+  "checks": {
+    "pytest": "365 passed, 0 failed (software verification only)",
+    "leaderboard_top": {"rank": 1, "participant": "xiaofanhu", "score": "0.4544", "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/", "fetched": "2026-10-29"},
+    "leaderboard_0_3195": "rank #47 (kpomazi) per prior session; score cell not re-read this session",
+    "leaderboard_0_4413": "not found in ranks 1-47",
+    "gemsdoe32_0_2778": "OWNER-REPORT, no submission-page receipt on the site (https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html)",
+    "competition_data_reachable": false,
+    "dropbox_links_reachable": false,
+    "gdr_openei_reachable": false,
+    "nlr_rules_pdf_reachable": false,
+    "drivendata_data_tab_reachable": false,
+    "github_reference_solution_reachable": true
+  },
+  "blockers": [
+    "Official competition data must be placed in data/ by the owner (DrivenData login).",
+    "No method lane assigned (registry/template.json method_lane is null).",
+    "Lattice gate (70%/3 px/|rho|<=0.90) is an internal protocol rule, not an official rule; owner must decide.",
+    "Portal error 'Predicted values must be in range [0, 1]' is not explained by any artifact in the repo."
+  ]
+}
