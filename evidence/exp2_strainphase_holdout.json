@@ -1,0 +1,78 @@
+{
+  "experiment": 2,
+  "lane": "H-K1-STRAINPHASE",
+  "evaluator_version": "gemsk-hide-recover-v1",
+  "scheme": "blocked",
+  "budget_per_fold": 37654,
+  "withheld_positives": 60988,
+  "arms": {
+    "GPC_control": {
+      "tp": 5748.581812982103,
+      "fp": 143376.73597691284,
+      "fn": 54876.4181870179,
+      "n_truth": 60625,
+      "dti": 0.07339389911540638,
+      "per_fold_dti": [
+        0.07474054217802066,
+        0.0771893536325967,
+        0.06334081500469212,
+        0.07731513525171443
+      ],
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ]
+    },
+    "strainphase": {
+      "tp": 4371.80428806231,
+      "fp": 143952.26323010653,
+      "fn": 56253.1957119377,
+      "n_truth": 60625,
+      "dti": 0.055930591939032395,
+      "per_fold_dti": [
+        0.04599968420078349,
+        0.06557801996806725,
+        0.054741718464678936,
+        0.05773885951815489
+      ],
+      "n_dots_per_fold": [
+        37654,
+        37654,
+        37654,
+        37654
+      ]
+    }
+  },
+  "bootstrap": {
+    "GPC_control": {
+      "ci95": [
+        0.06452049587143821,
+        0.08248119201339953
+      ]
+    },
+    "strainphase": {
+      "ci95": [
+        0.04293800256730927,
+        0.0678687786637401
+      ],
+      "paired_delta_vs_GPC_control": {
+        "mean": -0.01792869847884126,
+        "ci95": [
+          -0.031425747059039694,
+          -0.004554504726455499
+        ],
+        "frac_positive": 0.006
+      }
+    }
+  },
+  "control_reproduction_vs_exp2_dipdual": {
+    "reproduced_gpc_dti": 0.07339389911540638,
+    "recorded_gpc_dti_exp2_dipdual": 0.07339389911540638,
+    "abs_difference": 0.0
+  },
+  "promote_rule": "strainphase pooled DTI must exceed the GPC control and its paired CI must exclude 0",
+  "created_utc": "2026-10-29T18:31:39.337204+00:00",
+  "beats_gpc_control": false
+}

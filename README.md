@@ -168,6 +168,14 @@ The competition states its purpose: predictions for what you believe are faults,
 **Owner decisions required:** (1) whether the internal 70% / 3-px / Spearman gate binds submissions at all: it is **not** in the official rules ([register B1](knowledge/official-sources-verified-2026-10-29.md)), and if it does, whether the 13GEMSDOE calibration lattice is the witness; (2) the method lane (still `null`); (3) authorized holdout data; (4) the portal's "must be in range [0, 1]" error: no local raster reproduces it, see [review](knowledge/session-review-arena-20261029.md). **Deadline:** 3 Dec 2026, 11:59 p.m. UTC; three submissions per week; original work only.
 
 ---
+> **Session `arena/6275e37e` (2026-10-29): NEGATIVE / DO NOT SUBMIT — no file is cleared, no new TIF produced.** Read [the session review](knowledge/session-review-arena-6275e37e.md) and [run card](evidence/session_6275e37e_run_card.json). New, verified this session:
+> - **Official reference checked line by line** at pinned commit `aebe92f` (notebook SHA-256 `1a762273…`): `alpha = 0.2` is the false-positive weight, `beta = 0.8` the false-negative weight, the writer emits sigmoid values in [0, 1] with no NaN masking, and its buffer is float64 by NumPy default (the brief says float32: a flagged irregularity). Source table: [`knowledge/official-reference-verification-20261029.md`](knowledge/official-reference-verification-20261029.md).
+> - **Marginal rule (algebra, tested):** because α + β = 1, a non-redundant dot improves DTI iff its expected credit exceeds α·DTI (0.0556 at the reported 0.2778). This is the quantitative form of the question "why thinning helped" — a testable prediction, not a result. Test: [`tests/test_marginal_rule.py`](tests/test_marginal_rule.py).
+> - **Portal-error diagnostic:** [`scripts/portal_range_check.py`](scripts/portal_range_check.py) shows that NaN-outside files fail a naive whole-array range test. The portal's own rule is still unknown. Run it on the exact file that failed upload.
+> - **Not established:** a holdout DTI for any new candidate (no authorised official data in the sandbox; the only restorable copy is a third-party mirror), and the leaderboard figures (the brief's 0.4413 and 0.3195 conflict with the earlier-fetched 0.4544).
+> - Tests: **384 passed** (software checks only).
+
+> **Session `arena/23ef16f9` (2026-10-29): NEGATIVE / DO NOT SUBMIT. No TIF generated for upload.** Three blockers, verified: (1) the DrivenData data tab is login-walled; mirror-restored copies on `main` are not organizer-authenticated and were not used for any holdout here; (2) the internal 70% / 3-px gate is unsatisfiable for any raster above **22,163 dots** against the recorded 13GEMSDOE witness (`evidence/registry_pair_check_23ef16f9.json`) — an owner decision, not a file; (3) no method lane is assigned. Verified facts: the GEMSDOE32 0.2778 file is GEMSDOE25 minus 6,436 dots (strict subset); live #1 = **0.4544**; **0.3195 is rank #47** (the previous note said otherwise — corrected). Review: [knowledge/session-review-arena-23ef16f9.md](knowledge/session-review-arena-23ef16f9.md) · run card: [evidence/session_23ef16f9_run_card.json](evidence/session_23ef16f9_run_card.json). Tests on this branch after merging `main`: 372 pass, 7 fail, identically to `main` (pre-existing, see review §7).
 > **Latest review `arena/547a9b56` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** New this session: core inputs (`training_features`, `labels`, `sample_submission`) were restored from pinned GitHub mirrors and every SHA-256 matched ([evidence](evidence/core_data_verification_20261029.json)); the restored sample raster is a label copy (60,988 positives coincide with known faults), contrary to the DrivenData page's "total fault absence" wording; the feature and label footprints disagree on 4,601 pixels; the "[0, 1]" portal error still cannot be reproduced (no local TIF has out-of-range values). Test suite: **373 passed**. No candidate, holdout result or slot. See [session review](knowledge/session-review-arena-547a9b56.md) and [run card](evidence/session_547a9b56_run_card.json).
 >
 > **Current review `arena/4711a029` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** No new TIF, geological experiment, score estimate, or upload slot was produced. The nine-site comparison and four ranked research candidates are in [the current review](knowledge/session-review-arena-4711a029.md); the required session run card is [here](evidence/session_4711a029_run_card.json). The pinned template/data preflight is blocked (lane and canonical assignment absent, required cache/data missing, two vendored hash mismatches); all 365 software tests pass but do not measure model performance.
@@ -426,3 +434,67 @@ The current active session review is [`knowledge/session-review-arena-1668dda0.m
 5. Only then may the selector choose a weekly slot.
 
 No competition slot was selected or spent in this session.
+
+---
+
+# SESSION PROMPT — FULL TEXT (read at start of every session)
+
+## Core Mission
+
+Place at the top of the DrivenData Geologic Enhanced Mapping System (GEMS) Prize Challenge by producing a single-band float32 GeoTIFF of fault probabilities. Competition: https://www.drivendata.org/competitions/306/competition-doe-gems/
+
+Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one float32 layer; values in [0, 1]; outside bounds null or NaN. Score is distance-weighted Tversky index, α=0.2, β=0.8, 300 m triangular kernel. Three submissions per week; close 2026-12-03 23:59 UTC. Original work only.
+
+## Highest-Urgency Requirements
+
+1. **MUST GENERATE A UNIQUE TIF SUBMISSION.** Do not copy a previous submission unless for learning/education. A unique TIF must be generated. It must be obvious whether it is OK to download and submit the generated TIF.
+
+2. **Executive summary on every focus site** (GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36): clear and obvious which is the best submission to obtain a high score on the leaderboard. Unique, not an exact duplicate of any previous submission.
+
+3. **Table in the executive summary** listing: what file to download, what the estimated score is, whether it is a unique submission unlike any of the other GEMSDOE sites.
+
+4. **Easy-to-download submission TIF** — obvious when visiting the site, with file, unique name, and note ≤ 140 characters.
+
+5. **Submission must pass validation gates** before confirming whether a file is unique and submittable. Values must be in [0, 1] (fixes earlier "Predicted values must be in range [0, 1]" error).
+
+6. **PhD-level analysis of GEMSDOE32 B2 (0.2778):** why and how it got the highest score, and whether a submission scoring higher than 0.2778 can be generated. Use the answer to generate a unique TIF.
+
+7. **3–5 new geological hypotheses** not yet tried: layers, physical signature, why off-catalogue, how it differs from repo implementations, ranked by expected DTI improvement and cost. Validate top candidate on spatially-blocked holdout before any weekly slot.
+
+8. **PARALLEL-RUN PROTOCOL:** one assigned lane; registry duplicate check (|Spearman| > 0.90 or > 70% of dots within 3 px → log duplicate and stop); reuse shared evaluate_holdout.py and submission_writer.py (fix once, never private-fork); label every number (HOLDOUT-DTI or ORGANIZER-CONFIRMED); leakage canary (AUC > 0.90 = leakage); budget ≤ 3 experiments or 2 hours; no slot selection (separate selector, weekly cap); end with JSON run card (promote/negative verdict).
+
+9. **No hallucinations:** verify line by line from official sources; collect data/knowledge into auditable tables; state limitations and access needs (no DrivenData login; data tab is login-walled).
+
+10. **Clean GitHub Pages site** under docs/; three passes then PR merged to main, listing remaining work and limitations.
+
+## Current Competition State
+
+- Public leaderboard #1: 0.4544 (DrivenData, checked 29 Oct 2026)
+- Best nine focus-site reported score: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED)
+- All nine focus-site rasters are lattice duplicates (>97.6% dots within 3 px of pinned 13GEMSDOE lattice)
+- No file currently cleared for submission (lane = null, labels login-walled, no organizer receipt)
+- Unique TIF generated: `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif` (1,322 dots, format-valid, lattice-unique, 0.0000 worst overlap, NOT cleared for submission)
+
+## Source Links (Official, Verified)
+
+- Competition problem: https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
+- Competition about: https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/
+- Competition data (login-walled): https://www.drivendata.org/competitions/306/competition-doe-gems/data/
+- Leaderboard: https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/
+- Reference solution: https://github.com/drivendataorg/gems-prize-reference-solution
+- Official rules PDF: https://docs.nlr.gov/docs/fy26osti/96647.pdf
+- USGS GeoDAWN: https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and
+- GDR INGENIOUS: https://gdr.openei.org/submissions/1391
+- EPSG:32611: https://epsg.io/32611
+- Tversky index: https://en.wikipedia.org/wiki/Tversky_index
+- DrivenData staff clarification (masking): https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516
+
+## Core Values
+
+**Maximize P(Win):** weigh tradeoffs, assess risk, choose the path maximizing probability of success.
+**Own the Outcome:** own results end to end; treat failure and success as signals; stay accountable to the final outcome.
+
+## Verification Standard
+
+Work line by line, verifying from official verified trusted sources. Provide links for manual review. No manual input — work autonomously. Flag irregularities. No hallucinations. Verify line by line.
+

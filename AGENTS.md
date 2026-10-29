@@ -2,6 +2,9 @@
 
 **Latest session (2026-10-29, `arena/c65129cb`): read first** `knowledge/session-review-2026-10-29-thd-ridge.md` and `evidence/session_thd_ridge_run_card_20261029.json`. Verdict NEGATIVE / DO NOT SUBMIT. It records that the literal 70%/3-px gate fails uniform random dot sets (`evidence/lattice_gate_null_check_20261029.json`), so the gate needs an owner decision before any candidate can be cleared.
 
+**Newest session (`arena/6275e37e`, 29 Oct 2026): read `knowledge/session-review-arena-6275e37e.md` and `evidence/session_6275e37e_run_card.json` first.** Verdict: negative, no file cleared. It adds the line-level official reference record (`knowledge/official-reference-verification-20261029.md`, including the float64 irregularity), the owner portal-error diagnostic (`scripts/portal_range_check.py`), and the verified marginal inclusion rule (`tests/test_marginal_rule.py`).
+**Latest (29 Oct 2026, `arena/fb1e3550`): read first `knowledge/session-review-arena-fb1e3550.md`, `knowledge/hypotheses-20261029.md`, and `evidence/session_fb1e3550_run_card.json`.** Verdict: NOTHING CLEARED. Two lanes (H-K1-STRAINPHASE, H-K1-SIGNEDOFFSET) lost to the reproduced GPC holdout control (0.073394). The site's first panel is the session summary. Shared tools used: `gemsk.holdout`, `gemsk.emission`, `gemskarage1.dipdual.build_surfaces`, `scripts/run_strainphase_experiment.py`, `scripts/surface_registry_overlap.py`. Restore data with `python scripts/restore_karage1_data.py --group core|external|scored`, then `ln -sfn "$PWD/data" .cache/gems_data` (git-ignored).
+
 **Latest session: read `knowledge/session-review-arena-ca9c4488.md` and `evidence/session_ca9c4488_run_card.json` first.** It holds the nine-site duplicate table, the lattice-coverage bound (≤ 22,163 dots can pass the 70 % rule), the identical-mask groups, and the decision the owner must make on the gate.
 
 
