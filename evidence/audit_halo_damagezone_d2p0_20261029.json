@@ -1,0 +1,115 @@
+{
+  "schema": "karage1-local-tif-audit-v1",
+  "file": "docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+  "sha256": "f6307da88c20fef477a7dfc13b45891f680e4d2abb680497e36cee1a492452ad",
+  "bytes": 4146936,
+  "audited_utc": "2026-10-29T18:34:21.153021+00:00",
+  "format_report_ok": true,
+  "format_report_problems": [],
+  "validator_checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_matches_sample_submission": true,
+    "no_nan_anywhere": true,
+    "no_inf_anywhere": true,
+    "no_sentinel_values": true,
+    "range_0_1_guaranteed": true,
+    "min_ge_0": true,
+    "max_le_1": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero": true,
+    "zero_dots_on_mapped_catalogue": true
+  },
+  "positives": 5106385,
+  "positives_outside_footprint": 0,
+  "positives_on_mapped_catalogue": 0,
+  "value_min": 0.0,
+  "value_max": 0.6000000238418579,
+  "nan_count": 0,
+  "lattice_forward_3px_overlap": 0.9987243421716145,
+  "worst_focus_file": "GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif",
+  "worst_focus_forward_3px_overlap": 0.18245236111260707,
+  "registry_rasters_checked": 15,
+  "ok_to_submit": false,
+  "verdict": "research audit only; not cleared (literal lattice gate and holdout not run)",
+  "comparisons": {
+    "13GEMSDOE_r13-lattice-s5_v2_nan-outside.tif": {
+      "forward_3px_overlap": 0.9987243421716145,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 206895
+    },
+    "GEMS19_h19-5-powerlaw-budget-multiline-corroborated_nan.tif": {
+      "forward_3px_overlap": 0.1932073276887661,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 121131
+    },
+    "GEMSDOE24_h25-1-dotted-h19-5-d1-5_allfinite.tif": {
+      "forward_3px_overlap": 0.17804435035744465,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 60069
+    },
+    "GEMSDOE25_dotted-h19-5-d2-8_zeros.tif": {
+      "forward_3px_overlap": 0.16926005383456202,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 44090
+    },
+    "GEMSDOE27_h31-drcg-wl-celf28_allfinite.tif": {
+      "forward_3px_overlap": 0.16963350785340314,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 37654
+    },
+    "GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif": {
+      "forward_3px_overlap": 0.18245236111260707,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 61328
+    },
+    "GEMSDOE28_h27-4-r1-solo-d2-8_allfinite.tif": {
+      "forward_3px_overlap": 0.15957179100283272,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 40199
+    },
+    "GEMSDOE28_h32-1-prethin-tip-euler-d2-8_allfinite.tif": {
+      "forward_3px_overlap": 0.16506021383033204,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 42294
+    },
+    "GEMSDOE28_h36-1-rung30-blind-r1_allfinite.tif": {
+      "forward_3px_overlap": 0.1571078169781558,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 37660
+    },
+    "GEMSDOE28_h38-1-hf-euler-r30-r1_allfinite.tif": {
+      "forward_3px_overlap": 0.15794324164746684,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 37860
+    },
+    "GEMSDOE30_d28-poisson300m-offcat-44090.tif": {
+      "forward_3px_overlap": 0.16926005383456202,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 44090
+    },
+    "GEMSDOE31_h27-4-solo-d28_allfinite.tif": {
+      "forward_3px_overlap": 0.15957179100283272,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 40199
+    },
+    "GEMSDOE32_h33-h33-2-b2_e5eb6e7e_zeros.tif": {
+      "forward_3px_overlap": 0.15188024404740338,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 37654
+    },
+    "GEMSDOE33_h33d-analog-tip-stepover-r30.tif": {
+      "forward_3px_overlap": 0.16498462219358706,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 41865
+    },
+    "GEMSDOE36_anderson-geothermal-pinn-38854_zeros.tif": {
+      "forward_3px_overlap": 0.15562966756325658,
+      "reverse_3px_overlap": 1.0,
+      "their_dots": 38854
+    }
+  }
+}

@@ -59,6 +59,21 @@ Create a GitHub Page for this repo with clean UI, user-friendly, simple and easy
 
 ---
 
+## READ FIRST · session `arena/1d15747e` (2026-10-29)
+
+**DO NOT SUBMIT — NOT CLEARED.** Newest file, download for audit only: [`karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif`](docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif) · SHA-256 `15f330343236f41c…` · 37,654 dots.
+- Format-valid: EPSG:32611, 3730 × 3292, float32, values in [0, 1], zero outside footprint, 0 on the mapped catalogue.
+- Unique versus the 14 pinned non-lattice rasters: worst 22.1% overlap (GEMS19 parent mask), |ρ| ≤ 0.0015.
+- **Holdout ≈ random:** HOLDOUT-DTI 0.0481 [0.0381, 0.0558] (label-blind, 22,641 withheld positives, `gems57-pooled-hide-v2`) vs random placement 0.0449 [0.0384, 0.0502].
+- **Fails the literal 13GEMSDOE lattice rule** at 99.88%. The rule's floor for 37,654 dots is 82.3%, so no raster this size can pass it. This is a protocol decision for the owner.
+
+**Upload packet (blocked):** file = the `.tif` above · unique name `karage1-hgridge-strain-K37654-20261029T181321Z` · note (108 characters): "K1-HGRID-STRAIN label-blind TMI-crest x strain, 37654 dots. Format-valid; holdout ~ random. NOT CLEARED." Full packet: [how-to-submit](docs/how-to-submit.html).
+
+- **Nine-site executive summary:** [`docs/executive-summary.html`](docs/executive-summary.html) · data [`evidence/nine_site_executive_20261029.json`](evidence/nine_site_executive_20261029.json). Estimated score is UNAVAILABLE for every row. The best listed file, GEMSDOE32 `h33-h33-2-b2` (0.2778, USER-REPORTED), is not unique against the other focus files.
+- **Session review** (0.2778 analysis, 5 ranked hypotheses, 12 irregularities, remaining work): [`knowledge/session-review-arena-1d15747e.md`](knowledge/session-review-arena-1d15747e.md)
+- **Run card:** [`evidence/hgridge_run_card_20261029T181321Z.json`](evidence/hgridge_run_card_20261029T181321Z.json) · experiments: [E1 canary](evidence/hgridge_e1_canary.json), [E2 holdout](evidence/hgridge_e2_holdout.json), [E3 build](evidence/hgridge_e3_build_20261029T181321Z.json)
+- **Standing prompt (read every session):** [`knowledge/user-standing-prompt-20261029.md`](knowledge/user-standing-prompt-20261029.md)
+- **Official leaderboard, read 29 Oct 2026:** #1 0.4544 (`xiaofanhu`). The 0.4413 and 0.3195 figures in the prompt are not matched by name on the board. Flagged in the review.
 ## ▶ Can I download and submit a file? — **NO. Nothing in this repository is cleared.**
 
 Session `arena/ca9c4488` (2026-10-29): **NEGATIVE / DO NOT SUBMIT.** No new GeoTIFF was generated. Full review: [knowledge/session-review-arena-ca9c4488.md](knowledge/session-review-arena-ca9c4488.md) · run card: [evidence/session_ca9c4488_run_card.json](evidence/session_ca9c4488_run_card.json).
