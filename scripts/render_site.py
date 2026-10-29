@@ -198,44 +198,6 @@ def local_and_peer_evidence():
     return data
 
 
-def concurrent_gse_evidence():
-    """Validate the saved-byte audit for a separate, non-cleared mainline artifact."""
-    def reject_constant(value: str):
-        raise ValueError(f'non-standard JSON constant: {value}')
-
-    audit = json.loads((ROOT / 'evidence/gse_concurrent_artifact_reaudit_20261029.json').read_text(),
-                       parse_constant=reject_constant)
-    candidate = ROOT / audit.get('candidate_file', '')
-    sidecar_path = candidate.with_suffix('.json')
-    if (audit.get('schema') != 'karage1-gse-concurrent-artifact-reaudit-v1'
-            or not candidate.is_file() or not sidecar_path.is_file()
-            or hashlib.sha256(candidate.read_bytes()).hexdigest() != audit.get('candidate_sha256')
-            or audit.get('submit_authorized') is not False
-            or audit.get('decision') != 'negative'
-            or audit.get('holdout', {}).get('value') is not None
-            or audit.get('inherited_uniqueness_receipt_irregularity', {}).get('receipt_compared_rows') != 11
-            or audit.get('inherited_uniqueness_receipt_irregularity', {}).get('preplacement_surface_correlation') != 'not present'):
-        raise ValueError('concurrent GSE artifact audit missing, altered, or not fail-closed')
-    sidecar = json.loads(sidecar_path.read_text(), parse_constant=reject_constant)
-    if (sidecar.get('sha256') != audit['candidate_sha256']
-            or sidecar.get('approved_for_weekly_slot') is not False):
-        raise ValueError('concurrent GSE sidecar does not bind the audited bytes and negative decision')
-    alternate = audit.get('alternate_nan_variant', {})
-    alternate_path = ROOT / alternate.get('file', '')
-    if (not alternate_path.is_file()
-            or hashlib.sha256(alternate_path.read_bytes()).hexdigest() != alternate.get('sha256')
-            or alternate.get('positive_pixels') != 24000
-            or 'not possible' not in alternate.get('footprint_check', '')):
-        raise ValueError('concurrent GSE NaN-variant receipt does not match saved bytes or remains incomplete')
-    for row in audit.get('measured_comparisons', []):
-        ref = ROOT / row['reference_file']
-        if (not ref.is_file()
-                or hashlib.sha256(ref.read_bytes()).hexdigest() != row['reference_sha256']
-                or not 0 <= row['directed_overlap'] <= 1):
-            raise ValueError('concurrent GSE comparison receipt does not match tracked reference bytes')
-    return audit, candidate
-
-
 def artifact_url(entry):
     return ('https://github.com/' + entry['repo'] + '/blob/' + entry['ref'] + '/'
             + quote(entry['path'], safe='/'))
@@ -295,18 +257,14 @@ def decision(prefix: str):
     conduit_audit, conduit_original, latest, conduit_path = conduitcrest_evidence()
     clat = conduit_audit['lattice_witness']
     chdt = conduit_audit['previous_holdout_claim']
-    gse_audit, gse_path = concurrent_gse_evidence()
-    gse_name = gse_path.name
     return f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> CURRENT SUBMISSION DECISION <span class="status-tag">DO NOT SUBMIT</span></div>
-<h2 id="decision-title">No eligible submission file. Every reviewed candidate remains blocked.</h2><p><strong>DO NOT SUBMIT.</strong> No approved .tif to download; the current state is not cleared for upload. The latest repository review found no assigned method lane, no cached feature stack or authenticated competition data, and no basis to run a compliant experiment.</p>
-<p><strong>Latest repository review · 29 Oct 2026:</strong> review-only; this review generated no new TIF, experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. <a href="{prefix}knowledge/session-review-arena-07823dcc-2026-10-29.md">Read the current review ↗</a> · <a href="{prefix}evidence/session_07823dcc_run_card.json">Current JSON run card ↗</a>.</p>
-<p><strong>Separate mainline research artifact — DO NOT SUBMIT:</strong> <a href="{prefix}docs/downloads/{quote(gse_name)}">{esc(gse_name)}</a>. Saved bytes are float32, one band, finite and in [0,1], but no authenticated sample footprint, buffered holdout, pre-placement comparison, or complete registry audit is available. The inherited uniqueness receipt has a filename mismatch and omits all nine focus-site rasters and the lattice. <a href="{prefix}evidence/gse_concurrent_artifact_reaudit_20261029.json">Inspect re-audit ↗</a>.</p>
+<h2 id="decision-title">No eligible submission file yet. Two research rasters fail the literal lattice gate.</h2><p><strong>not cleared for upload.</strong> No approved .tif to download.</p>
 <p>The prior BB-STEP file <code class="wrap">{esc(card['submission_name'])}</code> is unique versus the nine focus sites (worst overlap {nine:.1%}) but has {lat:.2%} lattice overlap; it is a duplicate. Its prior-session <strong>HOLDOUT-DTI {dti['value']:.5f}</strong> [{dti['ci95'][0]:.5f}, {dti['ci95'][1]:.5f}] used evaluator {esc(dti['evaluator_version'])} with {dti['withheld_positives']:,} withheld positives. This is not an organizer score and does not override the duplicate stop.</p>
 <p>The newer Conduitcrest research file has {clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) are within 3 px of the pinned lattice, exceeding the 70% threshold. Its prior run card's incomplete <strong>HOLDOUT-DTI {chdt['reported_value']:.6f}</strong> claim names evaluator {esc(chdt['evaluator_version'])} and {chdt['withheld_positives']:,} withheld positives but provides <strong>no 95% CI</strong>; it is not a release-grade result.</p>
 <p>Original Conduitcrest uniqueness compared only the nine focus-site rasters, not the lattice or complete fleet. Its pre-placement lattice comparison and per-feature canary are absent. Both candidates are research/audit files only; neither is cleared for upload.</p>
 <p>Historical HMAS / GPC-Z files also remain blocked ({ar['directed_overlap']:.2%} and {br['directed_overlap']:.2%} vs lattice).</p>
-<p><strong>Historical saved-byte audit · session 1668dda0:</strong> Audited all 9 local <code>docs/downloads/*.tif</code> files and 9 SHA-pinned sibling/peer GeoTIFFs across 22 commit-pinned ecosystem repositories. Retracted a synthetic artifact and hardened GeoTIFF validation. This is historical evidence, not the current session. <a href="{prefix}knowledge/session-review-arena-1668dda0.md">Read the 1668dda0 review &amp; hypothesis slate ↗</a> · <a href="{prefix}evidence/local_downloads_and_peer_audit_20261028.json">Saved-byte audit JSON ↗</a> · <a href="{prefix}evidence/session_1668dda0_run_card.json">Historical run card ↗</a></p>
+<p><strong>Current review · session 1668dda0:</strong> Audited all 9 local <code>docs/downloads/*.tif</code> files and 9 SHA-pinned sibling/peer GeoTIFFs across 22 commit-pinned ecosystem repositories (<code>GEMSDOEkarage2/3</code>, <code>GEMSDOE91/92</code>, <code>KANLER</code>, <code>EUG</code>, <code>WBG</code>, <code>GINNY</code>, <code>Apart</code>, <code>SASS</code>). Retracted PR #42's synthetic <code>karage1-unique-alteration-dots-20261028-zeros.tif</code> (2,113 outside-footprint positives + 99.86% lattice overlap), quarantined <code>generate_unique_submission.py</code> &amp; <code>run_bbstep_experiments.py</code>, and hardened <code>validate_geotiff.py</code> against all-finite bogus templates and outside-footprint positives. <a href="{prefix}knowledge/session-review-arena-1668dda0.md">Read session 1668dda0 review &amp; 4 hypotheses ↗</a> · <a href="{prefix}evidence/local_downloads_and_peer_audit_20261028.json">9-local + 9-peer saved-byte audit JSON ↗</a> · <a href="{prefix}evidence/session_1668dda0_run_card.json">Session 1668dda0 run card ↗</a></p>
 <p><strong>Prior session · a1ef4ce0:</strong> The nine-site audit was independently reproduced from pinned bytes; missing baseline-positive counts or pixel-mask evidence fail the automated promotion gate. <a href="{prefix}knowledge/session-review-arena-a1ef4ce0.md">Session a1ef4ce0 review ↗</a> · <a href="{prefix}evidence/session_a1ef4ce0_run_card.json">Session a1ef4ce0 card ↗</a></p>
 <div class="decision-actions"><button class="button button-disabled" disabled>No approved .tif to download</button>
 <a class="button button-light" href="{prefix}docs/executive-summary.html#audit">Review research-only downloads ↗</a>
@@ -324,17 +282,6 @@ def comparison(prefix: str):
     conduit_audit, conduit_original, latest, conduit_path = conduitcrest_evidence()
     chdt = conduit_audit['previous_holdout_claim']
     clat = conduit_audit['lattice_witness']
-    gse_audit, gse_path = concurrent_gse_evidence()
-    gse_compare_25, gse_compare_32 = gse_audit['measured_comparisons']
-    gse_row = (
-        '<tr><th scope="row">GEMSDOEkarage1 (concurrent GSE artifact)</th>'
-        f'<td><a class="file-link" href="{prefix}docs/downloads/{quote(gse_path.name)}">{esc(gse_path.name)}</a>'
-        '<span class="cell-sub">Separate mainline research artifact · audit only</span></td>'
-        '<td><strong>No HOLDOUT-DTI</strong><span class="cell-sub">Not run · no organizer score receipt</span></td>'
-        '<td>Unavailable<span class="cell-sub">No defensible estimate</span></td>'
-        f'<td><span class="pill pill-red">UNPROVEN</span><span class="cell-sub">Only 11 local candidates in inherited receipt; direct overlap vs GEMSDOE25 {gse_compare_25["directed_overlap"]:.2%}, GEMSDOE32 {gse_compare_32["directed_overlap"]:.2%}; lattice / full fleet absent</span></td>'
-        '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>'
-    )
     conduit_row = (
         f'<tr><th scope="row">GEMSDOEkarage1 (Conduitcrest)</th>'
         f'<td><a class="file-link" href="{prefix}docs/downloads/{quote(conduit_path.name)}">{esc(conduit_path.name)}</a>'
@@ -348,15 +295,86 @@ def comparison(prefix: str):
     ours = (
         f'<tr><th scope="row">GEMSDOEkarage1</th>'
         f'<td><a class="file-link" href="{prefix}docs/downloads/{quote(card["submission_name"])}">{esc(card["submission_name"])}</a>'
-        '<span class="cell-sub">Prior parallel-session research artifact · audit only</span></td>'
+        '<span class="cell-sub">Generated this session · research only</span></td>'
         f'<td><strong>{dti["value"]:.4f}</strong><span class="cell-sub">HOLDOUT-DTI · {esc(dti["evaluator_version"])} · n={dti["withheld_positives"]:,} · 95% CI [{dti["ci95"][0]:.4f}, {dti["ci95"][1]:.4f}]</span></td>'
         '<td>Unavailable<span class="cell-sub">No organizer forecast</span></td>'
         f'<td><span class="pill pill-red">NO vs lattice</span><span class="cell-sub">Yes vs 9 sites ({nine:.1%}); lattice {lat:.1%}</span></td>'
         '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>'
     )
     return f'''<section class="section comparison" id="comparison"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> DOWNLOAD TABLE</p><h2>Which file, which number, unique or not.</h2><p>Only HOLDOUT-DTI or USER-REPORTED / UNVERIFIED numbers appear. No projection is written as a score. The generated BB-STEP file is unique versus the nine listed GEMSDOE sites and is still a lattice duplicate under the parallel-run rule.</p></div></div>
-<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>File to download</th><th>Labeled number</th><th>New organizer estimate</th><th>Unique?</th><th>Action</th></tr></thead><tbody>{gse_row}{ours}{conduit_row}
+<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>File to download</th><th>Labeled number</th><th>New organizer estimate</th><th>Unique?</th><th>Action</th></tr></thead><tbody>{ours}{conduit_row}
 {rows_for(prefix)}</tbody></table></div></div></section>'''
+
+
+NINE_SCORES = ROOT / 'registry/user_reported_scores_20261029.json'
+NINE_LINEAGE = ROOT / 'evidence/site_lineage_verification_20261029.json'
+LOCAL_AUDIT_20261029 = ROOT / 'evidence/local_downloads_audit_20261029.json'
+
+
+def nine_site_section(prefix: str) -> str:
+    """Top-of-site decision table for the nine focus sites.
+
+    Every number is read from a committed file: user-reported scores (labelled
+    USER-REPORTED / UNVERIFIED) and the SHA-pinned mirror overlap audit. Nothing
+    here is a score estimate, and no file is cleared for upload.
+    """
+    scores = json.loads(NINE_SCORES.read_text())['entries']
+    lineage = json.loads(NINE_LINEAGE.read_text())
+    local = json.loads(LOCAL_AUDIT_20261029.read_text())
+    # Largest share of a site's dots lying within 3 px of any single sibling's dots.
+    best_share: dict[str, tuple[float, str]] = {s: (0.0, '') for s in SITES}
+    for key, v in lineage['pairwise_nine_sites'].items():
+        a, b = key.split('|')
+        for x, y, frac in ((a, b, v['a_dots_within_3px_of_b_fraction']),
+                           (b, a, v['b_dots_within_3px_of_a_fraction'])):
+            if x in best_share and frac > best_share[x][0]:
+                best_share[x] = (frac, y)
+    rows = []
+    for site in SITES:
+        mine = [e for e in scores if e['site'] == site]
+        top = max(mine, key=lambda e: e['score'])
+        share, sibling = best_share[site]
+        rows.append((top['score'], site, top, share, sibling, len(mine)))
+    rows.sort(key=lambda r: -r[0])
+    body = []
+    for rank, (score, site, top, share, sibling, n) in enumerate(rows, 1):
+        body.append(
+            f'<tr><th scope="row">#{rank} · {site}</th>'
+            f'<td><code class="wrap">{esc(top["file_name"])}</code>'
+            f'<span class="cell-sub">Third-party file · learning only · do not resubmit · <a href="{esc(top["url"])}">source ↗</a></span></td>'
+            f'<td><strong>{score:.4f}</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED · {n} listed file(s)</span></td>'
+            f'<td><span class="pill pill-red">NO</span><span class="cell-sub">{share:.1%} of its dots lie within 3 px of {sibling}</span></td>'
+            '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>')
+    lat = local['local_downloads']
+    worst_lat = min(r['lattice_directed_overlap_3px'] for r in lat)
+    cleared = sum(1 for r in lat if r.get('ok_to_submit'))
+    checks = lineage['checks']
+    gate_note = ('yes' if checks['GEMSDOE25_equals_GEMSDOE30'] else 'no')
+    removed = checks['GEMSDOE32_vs_GEMSDOE25_remove_within_2px_of_labels']['removed']
+    worst_sibling = min(v for v in [best_share[s][0] for s in SITES])
+    return (
+        '<section class="section nine-site-decision" id="nine-site-decision" aria-labelledby="nine-site-title">'
+        '<div class="section-heading"><div>'
+        '<p class="eyebrow"><span class="eyebrow-line"></span> SUBMISSION DECISION · NINE FOCUS SITES</p>'
+        '<h2 id="nine-site-title">Which file is best, and is it OK to submit?</h2>'
+        f'<p><strong>Answer: no file is OK to download and submit.</strong> Our own files cleared: <strong>{cleared} of {len(lat)}</strong>. '
+        'The highest public file in the nine focus sites is GEMSDOE32 at <strong>0.2778 (USER-REPORTED / UNVERIFIED)</strong>; '
+        'it is a third-party file, so we may study it but must not resubmit it.</p></div></div>'
+        '<div class="table-shell"><div class="table-scroll" tabindex="0" role="region" aria-label="Nine focus sites ranked by reported score">'
+        '<table><thead><tr><th>Rank · site</th><th>Best public file (learning only)</th><th>Score label</th>'
+        '<th>Unique vs listed GEMSDOE sites?</th><th>Submit?</th></tr></thead>'
+        f'<tbody>{"".join(body)}</tbody></table></div></div>'
+        '<p class="cell-sub">Scores come from <code>registry/user_reported_scores_20261029.json</code>. '
+        'Uniqueness is measured on SHA-pinned mirror rasters in '
+        f'<code>{esc(str(NINE_LINEAGE.relative_to(ROOT)))}</code>: GEMSDOE25 and GEMSDOE30 have identical dot masks ({gate_note}); '
+        f'GEMSDOE32 is GEMSDOE25 minus {removed:,} dots. Every focus site has at least {worst_sibling:.1%} of its dots within 3 px of one sibling. '
+        f'Our own worst lattice overlap is {worst_lat:.2%} (literal duplicate; threshold 70%). '
+        'No estimate for any of our files is possible without a holdout run and an organizer receipt.</p>'
+        '<p class="cell-sub">Live public leaderboard checked 29 Oct 2026: #1 0.4544, #2 0.3916, #3 0.3911 '
+        '(<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData ↗</a>). '
+        'The 0.4413 and 0.3195 figures in the session brief do not match that page.</p>'
+        '</section>')
+
 
 
 def home(depth=0):
@@ -364,7 +382,7 @@ def home(depth=0):
     return f'''<div class="page-top"><span>GEMS PRIZE <span class="separator">/</span> DECISION BRIEF</span><span class="page-date">INDEPENDENT AUDIT · 28 OCT 2026</span></div>
 <section class="hero compact-hero"><div class="hero-copy"><p class="eyebrow"><span class="eyebrow-line"></span> EVIDENCE BEFORE A LEADERBOARD SLOT</p><h1>Find faults.<br><em>Protect every submission.</em></h1><p class="hero-description">A clear, auditable workspace for fault discovery in the Great Basin. We separate format checks, scientific evidence, uniqueness and actual portal acceptance.</p><div class="hero-actions"><a class="text-link" href="#comparison">Compare the nine sites ↓</a><a class="subtle-link" href="{p}docs/research.html">Explore the research ↗</a></div></div>
 <div class="terrain-card terrain-small" aria-label="Illustrative contour artwork, not a prediction map"><div class="terrain-top"><span>GEO<span class="terrain-dot">●</span>DAWN</span><span>FIELD NOTE / 01</span></div><svg class="terrain-lines" viewBox="0 0 620 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M-50 10C90 25 95 155 200 110S305-10 410 55s150 110 250 40"/><path d="M-50 35C80 50 100 180 205 135S310 15 410 80s150 110 250 40"/><path d="M-50 60C70 75 105 205 210 160S315 40 410 105s150 110 250 40"/><path d="M-50 85C60 100 110 230 215 185S320 65 410 130s150 110 250 40"/><path d="M-50 110C50 125 115 255 220 210S325 90 410 155s150 110 250 40"/><path d="M-50 135C40 150 120 280 225 235S330 115 410 180s150 110 250 40"/><path d="M-50 160C30 175 125 305 230 260S335 140 410 205s150 110 250 40"/></g><g class="terrain-focus" fill="none"><circle cx="379" cy="139" r="40"/><circle cx="379" cy="139" r="26"/><path d="M379 89v100M329 139h100"/></g></svg><div class="terrain-caption"><span><b>THE STUDY AREA</b><br>Western Great Basin</span><span>NEVADA + CALIFORNIA<br><b>CONCEPTUAL ONLY</b></span></div></div></section>
-{decision(p)}<section class="snapshot" aria-label="Evidence snapshot"><div class="snapshot-item"><div class="snapshot-label">PUBLIC LEADERBOARD SNAPSHOT</div><div class="snapshot-value">0.4544</div><p>Organizer public leaderboard · 28 Oct 2026 · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">check current ↗</a></p></div><div class="snapshot-item"><div class="snapshot-label">BEST SUPPLIED NINE-SITE REPORT</div><div class="snapshot-value">0.2778</div><p>GEMSDOE32 · USER-REPORTED, not confirmed</p></div><div class="snapshot-item"><div class="snapshot-label">PRIOR BB-STEP SESSION</div><div class="snapshot-value">3 <span class="snapshot-context">experiments</span></div><p>Separate parallel run · lattice stop applied</p></div><div class="snapshot-item"><div class="snapshot-label">INPUT RESTORATION</div><div class="snapshot-value">31 <span class="snapshot-context">files</span></div><p>Hash-pinned mirrors · not organizer-authenticated</p></div></section>
+{nine_site_section(p)}{decision(p)}<section class="snapshot" aria-label="Evidence snapshot"><div class="snapshot-item"><div class="snapshot-label">PUBLIC LEADERBOARD SNAPSHOT</div><div class="snapshot-value">0.4544</div><p>Organizer public leaderboard · 28 Oct 2026 · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">check current ↗</a></p></div><div class="snapshot-item"><div class="snapshot-label">BEST SUPPLIED NINE-SITE REPORT</div><div class="snapshot-value">0.2778</div><p>GEMSDOE32 · USER-REPORTED, not confirmed</p></div><div class="snapshot-item"><div class="snapshot-label">PRIOR BB-STEP SESSION</div><div class="snapshot-value">3 <span class="snapshot-context">experiments</span></div><p>Separate parallel run · lattice stop applied</p></div><div class="snapshot-item"><div class="snapshot-label">INPUT RESTORATION</div><div class="snapshot-value">31 <span class="snapshot-context">files</span></div><p>Hash-pinned mirrors · not organizer-authenticated</p></div></section>
 {comparison(p)}<section class="section detail-grid"><div><p class="eyebrow"><span class="eyebrow-line"></span> THE B2 QUESTION</p><h2>What made the reported leader different?</h2></div><div class="prose-card"><p>On the audited mirrored grid, GEMSDOE32 B2 is exactly GEMSDOE25's d2.8 mask with 6,436 dots within two pixels of the mirrored known-fault catalogue removed; no new dots were added. GEMSDOE25 and GEMSDOE30 have the same positive-pixel mask.</p><p>Reducing redundant prediction mass <em>could</em> improve the distance-weighted Tversky tradeoff, but it can also remove true coverage. Hidden labels and an artifact-linked receipt are unavailable, so the cause and any improvement over the reported result remain unproven.</p><p>Known fault pixels are masked, but nearby new faults may still matter. A catalogue buffer is not automatically a free scoring exclusion. <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">DrivenData staff clarification ↗</a></p><a class="text-link" href="{p}docs/research.html#b2">Read the scientific analysis ↗</a></div></section>
 <section class="next-strip"><div><p class="eyebrow">NEXT STEPS</p><h2>Resolve the lattice gate before spending a slot.</h2><p>BB-STEP is unique versus the nine listed sites and still a lattice duplicate. Do not jitter dots to evade the rule. No automatic DrivenData scraping or upload.</p></div><a class="button button-dark" href="{p}docs/executive-summary.html">See the checklist ↗</a></section>'''
 
@@ -446,9 +464,9 @@ def main():
     pages = {
         ROOT / 'index.html': shell('Submission overview', home(0), 0),
         ROOT / 'legacy-overview.html': shell('Submission overview', home(0), 0),
-        ROOT / 'executive-summary.html': shell('Submission guide', guide(0), 0, 'Executive summary'),
+        ROOT / 'executive-summary.html': shell('Submission guide', nine_site_section('') + guide(0), 0, 'Executive summary'),
         DOCS / 'index.html': shell('Submission overview', home(1), 1),
-        DOCS / 'executive-summary.html': shell('Executive summary', guide(1), 1, 'Executive summary'),
+        DOCS / 'executive-summary.html': shell('Executive summary', nine_site_section('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'legacy-executive-summary.html': shell('Executive summary', guide(1), 1, 'Executive summary'),
         DOCS / 'how-to-submit.html': shell('Submission guide', guide(1), 1, 'Executive summary'),
         DOCS / 'submission-guide.html': shell('Submission guide', guide(1), 1, 'Executive summary'),

@@ -1,6 +1,6 @@
 {
   "schema": "karage1-run-card-v1",
-  "created_utc": "2026-10-29T18:22:22Z",
+  "created_utc": "2026-10-29T18:33:31Z",
   "session": "arena/07823dcc-gemsdoekarage1",
   "hypothesis": "No hypothesis selected: the method lane is unassigned in the prompt and registry/template.json, and earlier sessions already proposed or explored adjacent candidate families.",
   "mechanism": "Repository review only. No surface generation, placement, geological experiment, or GeoTIFF generation occurred.",
@@ -27,7 +27,9 @@
     "holdout_dti": null,
     "complete_registry_unique": null,
     "preplacement_surface_correlation": null,
-    "format_gate": "one-band float32, finite [0,1] verified on bytes; official footprint and outside null/NaN semantics unresolved"
+    "lattice_directed_overlap_on_pinned_mirror": 0.999125,
+    "lattice_overlap_evidence": "evidence/local_downloads_audit_20261029.json; 23,979/24,000 dots within 3 px; mirror is not organizer-authenticated",
+    "format_gate": "one-band float32, finite [0,1] verified on bytes; later audit reports NaN-outside variant pass and zeros strict-finite variant pass on pinned mirror, not organizer-authenticated"
   },
   "validator_output": {
     "no_nan_inside_footprint": null,
@@ -43,7 +45,7 @@
   "geological_experiments_run": 0,
   "software_tests": {
     "command": ".venv/bin/python -m pytest -q",
-    "passed": 366,
+    "passed": 373,
     "failed": 0,
     "skipped": 0,
     "warnings": 119,

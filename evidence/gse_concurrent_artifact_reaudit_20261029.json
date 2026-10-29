@@ -14,7 +14,7 @@
     "whole_array_range": [0.0, 1.0],
     "positive_pixels": 24000,
     "nodata": null,
-    "outside_encoding": "all-finite zero encoding reported by sidecar; cannot identify footprint without authenticated sample_submission.tif; official page describes outside as null/NaN"
+    "scope": "saved bytes only; grid values also match the two tracked third-party GEMSDOE rasters, but no official organizer template is present"
   },
   "alternate_nan_variant": {
     "file": "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-nan.tif",
@@ -29,7 +29,7 @@
     "finite_pixels": 5167373,
     "finite_range": [0.0, 1.0],
     "positive_pixels": 24000,
-    "footprint_check": "not possible without authenticated sample_submission.tif; NaN placement relative to footprint unverified"
+    "footprint_scope": "pinned third-party mirror footprint only; not organizer-authenticated"
   },
   "measured_comparisons": [
     {
@@ -55,8 +55,21 @@
     "saved_candidate_name": "karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
     "receipt_candidate_sha256_matches_saved_bytes": true,
     "receipt_compared_rows": 11,
-    "receipt_scope": "local GEMSDOEkarage1 historical candidates only; no focus-site GEMSDOE24/25/27/28/30/31/32/33/36 or pinned lattice appears in its rows",
+    "receipt_scope": "local GEMSDOEkarage1 candidates only; no focus-site GEMSDOE24/25/27/28/30/31/32/33/36 or pinned lattice",
     "preplacement_surface_correlation": "not present"
+  },
+  "subsequent_full_mirror_audit": {
+    "receipt_file": "evidence/local_downloads_audit_20261029.json",
+    "footprint_source": "pinned third-party mirror sample; not organizer-authenticated",
+    "candidate_positive_pixels": 24000,
+    "dots_within_3px_of_lattice": 23979,
+    "lattice_directed_overlap": 0.999125,
+    "worst_focus_site": "GEMSDOE27",
+    "worst_focus_site_directed_overlap": 0.18875,
+    "nan_variant_outside_encoding_pass": true,
+    "zeros_variant_strict_finite_pass": true,
+    "literal_lattice_duplicate": true,
+    "submit_authorized": false
   },
   "holdout": {
     "label": "HOLDOUT-DTI",
@@ -69,5 +82,5 @@
   "source_and_provenance": "Inherited sidecar/run card claims GeoDAWN, LiDAR, GDR and INGENIOUS-derived inputs. Source payloads are absent from this checkout; generation could not be reproduced. These claims are not independently authenticated here.",
   "decision": "negative",
   "submit_authorized": false,
-  "reason": "No holdout, no complete focus-site/lattice registry check, no pre-placement correlation, no authenticated sample footprint, outside-footprint encoding unresolved, and the experiment/session records conflict about whether a raster was generated. The two locally tracked GEMSDOE25/B2 comparisons do not trigger the internal threshold but cannot establish fleet uniqueness."
+  "reason": "The later full pinned-mirror audit establishes 99.9125% directed 3-px overlap with the lattice, so the candidate is a literal duplicate under the internal rule. No HOLDOUT-DTI or pre-placement surface correlation exists; the full organizer registry and authenticated data are unavailable. The inherited uniqueness receipt still has a filename mismatch, but its SHA-256 matches the saved candidate."
 }

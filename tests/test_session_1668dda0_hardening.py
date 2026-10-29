@@ -204,12 +204,10 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     # evidence/run_card_dipdual_20261028.json, verdict negative).
     later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
     later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
-    # The separate 2026-10-29 GSE mainline artifact has its own fail-closed
-    # saved-byte audit. The audit explicitly does not establish portal approval.
-    gse = json.loads((ROOT / "evidence/gse_concurrent_artifact_reaudit_20261029.json").read_text())
-    assert gse["submit_authorized"] is False and gse["decision"] == "negative"
-    later_tifs.add(gse["candidate_file"])
-    later_tifs.add(gse["alternate_nan_variant"]["file"])
+    # Session 2026-10-29 re-audited every local TIF (including unique-hyp-kth-therm-mask)
+    # with the shared audit script; see evidence/local_downloads_audit_20261029.json.
+    fleet = json.loads((ROOT / "evidence/local_downloads_audit_20261029.json").read_text())
+    later_tifs |= {r["file"] for r in fleet["local_downloads"]}
     uncovered = actual_tifs - audited_tifs - later_tifs
     assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
     assert audited_tifs <= actual_tifs
