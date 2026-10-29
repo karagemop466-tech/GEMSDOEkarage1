@@ -112,7 +112,7 @@
       "commit": "86874b72302197a78eb8ad5edbf413acf1c02efe"
     }
   ],
-  "local_downloads_count": 12,
+  "local_downloads_count": 14,
   "all_local_downloads_blocked": true,
   "local_downloads": [
     {
@@ -342,6 +342,48 @@
       "worst_focus_site_3px": "GEMSDOE27",
       "worst_focus_site_overlap_3px": 0.14563806777217014,
       "ok_to_submit": false
+    },
+    {
+      "file": "docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif",
+      "bytes": 153316,
+      "sha256": "15f330343236f41cb4db1bd1b87f0fd6ae3b6bb4d0e179082761fe7694385d98",
+      "is_binary_inside": true,
+      "positive_pixels_in_footprint": 37654,
+      "outside_unmasked_positive_pixels": 0,
+      "outside_any_positive_pixels": 0,
+      "grid_and_inside_pass": true,
+      "nan_outside_variant_pass": false,
+      "strict_whole_array_variant_pass": true,
+      "outside_encoding_accepted": true,
+      "lattice_dots_within_3px": 37608,
+      "lattice_directed_overlap_3px": 0.9987783502416742,
+      "literal_lattice_duplicate": true,
+      "worst_focus_site_3px": "GEMSDOE27",
+      "worst_focus_site_overlap_3px": 0.206591597174271,
+      "ok_to_submit": false,
+      "audit_receipt": "evidence/audit_hgridge_k37654_20261029.json",
+      "note": "Row appended by scripts/audit_local_tif.py (session 1d15747e). Research audit only; not cleared."
+    },
+    {
+      "file": "docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+      "bytes": 4146936,
+      "sha256": "f6307da88c20fef477a7dfc13b45891f680e4d2abb680497e36cee1a492452ad",
+      "is_binary_inside": false,
+      "positive_pixels_in_footprint": 5106385,
+      "outside_unmasked_positive_pixels": 0,
+      "outside_any_positive_pixels": 0,
+      "grid_and_inside_pass": true,
+      "nan_outside_variant_pass": false,
+      "strict_whole_array_variant_pass": true,
+      "outside_encoding_accepted": true,
+      "lattice_dots_within_3px": 5099871,
+      "lattice_directed_overlap_3px": 0.9987243421716145,
+      "literal_lattice_duplicate": true,
+      "worst_focus_site_3px": "GEMSDOE27",
+      "worst_focus_site_overlap_3px": 0.18245236111260707,
+      "ok_to_submit": false,
+      "audit_receipt": "evidence/audit_halo_damagezone_d2p0_20261029.json",
+      "note": "Row appended by scripts/audit_local_tif.py (session 1d15747e). Research audit only; not cleared."
     }
   ],
   "peer_rasters_count": 9,

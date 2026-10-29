@@ -1,0 +1,62 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc": "2026-10-29T18:33:31Z",
+  "session": "arena/07823dcc-gemsdoekarage1",
+  "hypothesis": "No hypothesis selected: the method lane is unassigned in the prompt and registry/template.json, and earlier sessions already proposed or explored adjacent candidate families.",
+  "mechanism": "Repository review only. No surface generation, placement, geological experiment, or GeoTIFF generation occurred.",
+  "named_non_fault_mimic": "Not applicable because no candidate was tested; the proposal-only slate lists mimics per hypothesis in the session review.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run; no score estimate or organizer score claimed"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "registry_coverage": "No new candidate was produced. Historical audits are partial and mirror-based, not a complete authenticated current registry.",
+    "status": "not computed in this session"
+  },
+  "raster_sha256": null,
+  "concurrent_mainline_artifact": {
+    "file": "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+    "sha256": "f5879e1902e6c15407582a67e210bacfd0b2425570c4aefbdf5c585a4579c37b",
+    "status": "separate inherited research artifact; audited locally; NOT CLEARED",
+    "holdout_dti": null,
+    "complete_registry_unique": null,
+    "preplacement_surface_correlation": null,
+    "lattice_directed_overlap_on_pinned_mirror": 0.999125,
+    "lattice_overlap_evidence": "evidence/local_downloads_audit_20261029.json; 23,979/24,000 dots within 3 px; mirror is not organizer-authenticated",
+    "format_gate": "one-band float32, finite [0,1] verified on bytes; later audit reports NaN-outside variant pass and zeros strict-finite variant pass on pinned mirror, not organizer-authenticated"
+  },
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run; no raster generated"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "software_tests": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 373,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 119,
+    "meaning": "software verification only; not geological performance"
+  },
+  "blockers": [
+    "No assigned method paragraph or canonical shared-template assignment; registry/template.json has method_lane and canonical_template_assignment null.",
+    "Competition data and cached feature stack are absent; no authenticated organizer data access in this session.",
+    "Complete authenticated registry and frozen comparable holdout baseline unavailable.",
+    "Candidate novelty across parallel sites is not certifiable from this checkout; earlier candidate slates and adjacent local implementations exist.",
+    "No fresh verification of external data payload availability, organizer submission receipt, or live weekly allowance."
+  ],
+  "verdict": "negative"
+}
