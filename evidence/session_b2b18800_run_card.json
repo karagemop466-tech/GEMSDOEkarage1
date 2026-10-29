@@ -1,6 +1,6 @@
 {
   "schema": "karage1-run-card-v1",
-  "created_utc": "2026-10-29T18:21:50Z",
+  "created_utc": "2026-10-29T18:30:48Z",
   "session": "arena/b2b18800-gemsdoekarage1",
   "hypothesis": "No hypothesis selected: the required assigned method lane is absent, and prior proposal/experiment records prevent an auditable claim that a new method is untried.",
   "mechanism": "Repository review only. No candidate surface, placement, feature computation, experiment, holdout, or GeoTIFF generation occurred.",
@@ -34,22 +34,44 @@
   "geological_experiments_run": 0,
   "software_tests": {
     "command": "/tmp/gems-review-venv/bin/python -m pytest -q",
-    "passed": 365,
+    "passed": 368,
     "failed": 0,
     "skipped": 0,
     "warnings": 119,
-    "meaning": "Software verification only; not geological performance or score evidence."
+    "meaning": "Final suite after merging origin/main, adding saved-byte GSE guard tests, and quarantining its CLI; software verification only."
   },
   "blocked_entrypoints": {
     "scripts/run_karage1_experiments.py --stage all": "exit 2; BLOCKED, no experiment or raster produced",
-    "scripts/my_unique_experiment2.py": "exit 2; BLOCKED, no raster or card written"
+    "scripts/my_unique_experiment2.py": "exit 2; BLOCKED, no raster or card written",
+    "scripts/build_gse_submission.py": "exit 2; BLOCKED and verified not to rewrite the two TIFF variants or prior run card."
   },
   "blockers": [
     "No assigned method paragraph / method_lane and no canonical shared-template assignment in registry/template.json.",
     "Competition data and cached feature stack absent from the checkout; no authenticated organizer payload access verified.",
     "Complete authenticated submission registry unavailable; internal 70% / 3-pixel lattice stop remains unresolved.",
     "No fresh retrieval of official DrivenData, USGS, NLR or GDR sources in this session.",
-    "No organizer submission receipt or live weekly-slot allowance checked."
+    "No organizer submission receipt or live weekly-slot allowance checked.",
+    "Separate mainline GSE research artifact was discovered after this session began; independent saved-byte audit measured 23,979/24,000 (99.9125%) within 3 px of the pinned lattice, above the internal 70% stop. It has no HOLDOUT-DTI or pre-placement surface audit."
   ],
-  "verdict": "negative"
+  "verdict": "negative",
+  "observed_concurrent_candidate_review": {
+    "file": "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+    "sha256": "f5879e1902e6c15407582a67e210bacfd0b2425570c4aefbdf5c585a4579c37b",
+    "origin": "Separate parallel mainline experiment; not generated in this session.",
+    "holdout_dti": null,
+    "initial_uniqueness_scope": "11 raster comparisons; the pinned lattice and complete nine-site set were not established as included.",
+    "independent_saved_byte_audit": "evidence/gse_saved_byte_audit_20261029.json",
+    "lattice_comparison": {
+      "dots_within_3px": 23979,
+      "candidate_dots": 24000,
+      "directed_overlap": 0.999125,
+      "binary_dot_spearman": -4.252691070535134e-05,
+      "duplicate": true
+    },
+    "comparison_scope": "Pinned lattice plus all nine focus-site owner mirrors; not a complete authenticated organizer registry.",
+    "preplacement_surface_check": "not available / not checked",
+    "canary": "Recorded point-biserial correlation against near-catalogue membership, not the required per-feature AUC on withheld truth.",
+    "validator": "Zeros-outside TIF: strict finite [0,1] local check passes; outside_all_null_or_nan fails. The -nan diagnostic twin passes outside-null/NaN check. Neither result is portal acceptance.",
+    "status": "DO NOT SUBMIT; separate research artifact."
+  }
 }

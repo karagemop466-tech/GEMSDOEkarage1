@@ -74,6 +74,43 @@ def evidence():
     return claims, assets, ref, audit, card
 
 
+def gse_research_evidence():
+    """Bind the concurrent GSE artifact to its saved bytes and full nine-site/lattice audit."""
+    card_path = ROOT / 'evidence/run_card_gse_exp1.json'
+    if not card_path.is_file():
+        return None
+    def reject_constant(value: str):
+        raise ValueError(f"non-standard JSON constant: {value}")
+    card = json.loads(card_path.read_text(), parse_constant=reject_constant)
+    raster = card.get('raster', {})
+    name = Path(raster.get('zeros_tif', '')).name
+    path = DOCS / 'downloads' / name
+    digest = raster.get('sha256')
+    if (not name.endswith('.tif') or not path.is_file()
+            or not isinstance(digest, str) or hashlib.sha256(path.read_bytes()).hexdigest() != digest
+            or card.get('verdict') != 'negative' or card.get('ok_to_submit') is not False
+            or card.get('holdout_dti', {}).get('value') is not None):
+        raise ValueError('GSE artifact is not bound to a fail-closed research-only run card')
+    uniqueness = json.loads((ROOT / 'evidence/uniqueness_gse_exp1.json').read_text(), parse_constant=reject_constant)
+    if uniqueness.get('candidate_sha256') != digest or uniqueness.get('unique') is not True:
+        raise ValueError('GSE historical comparison receipt does not bind the candidate bytes')
+    saved = json.loads((ROOT / 'evidence/gse_saved_byte_audit_20261029.json').read_text(), parse_constant=reject_constant)
+    candidates = saved.get('candidates', [])
+    by_name = {row.get('file'): row for row in candidates}
+    gse_row = by_name.get(name)
+    if (saved.get('schema') != 'karage1-existing-candidate-audit-v1'
+            or saved.get('upload_authorized') is not False or saved.get('registry_complete') is not False
+            or saved.get('preplacement_surfaces_checked') is not False or len(candidates) != 2
+            or gse_row is None or gse_row.get('sha256') != digest
+            or len(gse_row.get('comparisons', [])) != 10
+            or not any(row.get('reference') == 'lattice' and row.get('overlap_exceeds_70_percent') is True
+                       for row in gse_row['comparisons'])
+            or gse_row.get('verdict') != 'duplicate' or gse_row.get('ok_to_submit') is not False
+            or any(row.get('verdict') != 'duplicate' for row in candidates)):
+        raise ValueError('GSE saved-byte audit is incomplete or does not fail closed')
+    return card, path, uniqueness, saved, gse_row
+
+
 def secondary_evidence():
     """Load and independently fail closed on the 12 secondary focus-site artifacts."""
     path = ROOT / 'evidence/nine_sites_secondary_audit_20261028.json'
@@ -255,6 +292,22 @@ def decision(prefix: str):
     lat = card['correlation_overlap_vs_registry']['lattice_overlap']
     nine = card['correlation_overlap_vs_registry']['final_dot_overlap_worst_nine']['frac_our_dots_within_3px']
     conduit_audit, conduit_original, latest, conduit_path = conduitcrest_evidence()
+    gse = gse_research_evidence()
+    gse_notice = ''
+    if gse:
+        gse_card, gse_path, gse_audit, saved_gse, gse_row_data = gse
+        lattice_row = next(row for row in gse_row_data['comparisons'] if row['reference'] == 'lattice')
+        gse_notice = (
+            f'<p><strong>Separate mainline research artifact · DO NOT SUBMIT:</strong> '
+            f'<a class="wrap" href="{prefix}docs/downloads/{quote(gse_path.name)}">{esc(gse_path.name)}</a> '
+            f'(SHA-256 <code>{esc(gse_card["raster"]["sha256"])}</code>). The exact saved-byte audit finds '
+            f'{lattice_row["candidate_dots_within_3px"]:,}/{lattice_row["candidate_dots"]:,} dots '
+            f'({lattice_row["directed_overlap"]:.4%}) within 3 px of the pinned lattice. '
+            f'The original {len(gse_audit["results"])}-raster receipt omitted the lattice. The saved-byte audit '
+            f'covers this TIFF plus the lattice and nine pinned site mirrors only, not a complete organizer registry; '
+            f'pre-placement surfaces were unavailable. Its run card reports no HOLDOUT-DTI. This internal stop '
+            f'is not an official competition rule.</p>'
+        )
     clat = conduit_audit['lattice_witness']
     chdt = conduit_audit['previous_holdout_claim']
     return f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
@@ -264,6 +317,7 @@ def decision(prefix: str):
 <p>The newer Conduitcrest research file has {clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) are within 3 px of the pinned lattice, exceeding the 70% threshold. Its prior run card's incomplete <strong>HOLDOUT-DTI {chdt['reported_value']:.6f}</strong> claim names evaluator {esc(chdt['evaluator_version'])} and {chdt['withheld_positives']:,} withheld positives but provides <strong>no 95% CI</strong>; it is not a release-grade result.</p>
 <p>Original Conduitcrest uniqueness compared only the nine focus-site rasters, not the lattice or complete fleet. Its pre-placement lattice comparison and per-feature canary are absent. Both candidates are research/audit files only; neither is cleared for upload.</p>
 <p>Historical HMAS / GPC-Z files also remain blocked ({ar['directed_overlap']:.2%} and {br['directed_overlap']:.2%} vs lattice).</p>
+{gse_notice}
 <p><strong>Current repository review · session b2b18800 (2026-10-29):</strong> no geological experiment, holdout, score estimate, new TIF, or slot selection; the method lane, authenticated data/cache and complete registry remain unresolved. Software tests pass, but that is not model evidence. <a href="{prefix}knowledge/session-review-arena-b2b18800-2026-10-29.md">Read this session's review ↗</a> · <a href="{prefix}evidence/session_b2b18800_run_card.json">Run card ↗</a></p>
 <p><strong>Prior saved-byte audit · session 1668dda0:</strong> Audited all 9 local <code>docs/downloads/*.tif</code> files and 9 SHA-pinned sibling/peer GeoTIFFs across 22 commit-pinned ecosystem repositories (<code>GEMSDOEkarage2/3</code>, <code>GEMSDOE91/92</code>, <code>KANLER</code>, <code>EUG</code>, <code>WBG</code>, <code>GINNY</code>, <code>Apart</code>, <code>SASS</code>). Retracted PR #42's synthetic <code>karage1-unique-alteration-dots-20261028-zeros.tif</code> (2,113 outside-footprint positives + 99.86% lattice overlap), quarantined <code>generate_unique_submission.py</code> &amp; <code>run_bbstep_experiments.py</code>, and hardened <code>validate_geotiff.py</code> against all-finite bogus templates and outside-footprint positives. <a href="{prefix}knowledge/session-review-arena-1668dda0.md">Read session 1668dda0 review &amp; 4 hypotheses ↗</a> · <a href="{prefix}evidence/local_downloads_and_peer_audit_20261028.json">9-local + 9-peer saved-byte audit JSON ↗</a> · <a href="{prefix}evidence/session_1668dda0_run_card.json">Session 1668dda0 run card ↗</a></p>
 <p><strong>Prior session · a1ef4ce0:</strong> The nine-site audit was independently reproduced from pinned bytes; missing baseline-positive counts or pixel-mask evidence fail the automated promotion gate. <a href="{prefix}knowledge/session-review-arena-a1ef4ce0.md">Session a1ef4ce0 review ↗</a> · <a href="{prefix}evidence/session_a1ef4ce0_run_card.json">Session a1ef4ce0 card ↗</a></p>
@@ -281,8 +335,22 @@ def comparison(prefix: str):
     nine = card['correlation_overlap_vs_registry']['final_dot_overlap_worst_nine']['frac_our_dots_within_3px']
     lat = card['correlation_overlap_vs_registry']['lattice_overlap']
     conduit_audit, conduit_original, latest, conduit_path = conduitcrest_evidence()
+    gse = gse_research_evidence()
     chdt = conduit_audit['previous_holdout_claim']
     clat = conduit_audit['lattice_witness']
+    gse_row = ''
+    if gse:
+        gse_card, gse_path, gse_audit, saved_gse, gse_row_data = gse
+        lattice_row = next(row for row in gse_row_data['comparisons'] if row['reference'] == 'lattice')
+        gse_row = (
+            f'<tr><th scope="row">GEMSDOEkarage1 (prior GSE research)</th>'
+            f'<td><a class="file-link" href="{prefix}docs/downloads/{quote(gse_path.name)}">{esc(gse_path.name)}</a>'
+            '<span class="cell-sub">Separate mainline artifact · research only</span></td>'
+            '<td><strong>HOLDOUT-DTI not run</strong><span class="cell-sub">No evaluator, withheld-positive count or CI</span></td>'
+            '<td>Unavailable<span class="cell-sub">No organizer estimate</span></td>'
+            f'<td><span class="pill pill-red">NO vs lattice</span><span class="cell-sub">{lattice_row["candidate_dots_within_3px"]:,}/{lattice_row["candidate_dots"]:,} = {lattice_row["directed_overlap"]:.2%}; registry incomplete</span></td>'
+            '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>'
+        )
     conduit_row = (
         f'<tr><th scope="row">GEMSDOEkarage1 (Conduitcrest)</th>'
         f'<td><a class="file-link" href="{prefix}docs/downloads/{quote(conduit_path.name)}">{esc(conduit_path.name)}</a>'
@@ -303,7 +371,7 @@ def comparison(prefix: str):
         '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>'
     )
     return f'''<section class="section comparison" id="comparison"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> DOWNLOAD TABLE</p><h2>Which file, which number, unique or not.</h2><p>Only HOLDOUT-DTI or USER-REPORTED / UNVERIFIED numbers appear. No projection is written as a score. The generated BB-STEP file is unique versus the nine listed GEMSDOE sites and is still a lattice duplicate under the parallel-run rule.</p></div></div>
-<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>File to download</th><th>Labeled number</th><th>New organizer estimate</th><th>Unique?</th><th>Action</th></tr></thead><tbody>{ours}{conduit_row}
+<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site comparison"><table><thead><tr><th>Site</th><th>File to download</th><th>Labeled number</th><th>New organizer estimate</th><th>Unique?</th><th>Action</th></tr></thead><tbody>{ours}{conduit_row}{gse_row}
 {rows_for(prefix)}</tbody></table></div></div></section>'''
 
 
@@ -327,6 +395,12 @@ def guide(depth=1):
     clat = conduit_audit['lattice_witness']
     chdt = conduit_audit['previous_holdout_claim']
     cards.append(f'''<article class="audit-card"><p class="eyebrow">LATER MAINLINE ARTIFACT · CONDUITCREST</p><h3>DO NOT SUBMIT · LATTICE DUPLICATE</h3><p><strong>Research only; not a submission recommendation.</strong></p><p><code class="wrap">{esc(conduit_path.name)}</code></p><p>SHA-256 <code class="wrap">{conduit_audit['candidate']['sha256']}</code></p><p>{clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) within 3 px of the pinned lattice. This exceeds the literal 70% stop rule. It was unique only versus the nine focus-site files; its prior run card omitted the lattice and a pre-placement lattice check.</p><p>The prior card contains an incomplete HOLDOUT-DTI claim of {chdt['reported_value']:.6f} (evaluator {esc(chdt['evaluator_version'])}, {chdt['withheld_positives']:,} withheld positives); the 95% CI is missing and the result was not independently rerun here.</p><a class="text-link" href="{p}docs/downloads/{quote(conduit_path.name)}" download>Download for audit only ↗</a> · <a class="text-link" href="{p}evidence/conduitcrest_lattice_reaudit_20261028.json">Reaudit JSON ↗</a></article>''')
+    gse = gse_research_evidence()
+    if gse:
+        gse_card, gse_path, gse_audit, saved_gse, gse_row_data = gse
+        gse_dots = int(gse_card['raster']['dots'])
+        lattice_row = next(row for row in gse_row_data['comparisons'] if row['reference'] == 'lattice')
+        cards.append(f'''<article class="audit-card"><p class="eyebrow">SEPARATE MAINLINE RESEARCH ARTIFACT · GSE</p><h3>DO NOT SUBMIT</h3><p><strong>Research only: download for audit; no holdout evidence or submission authorization.</strong></p><p><code class="wrap">{esc(gse_path.name)}</code></p><p>SHA-256 <code class="wrap">{esc(gse_card['raster']['sha256'])}</code></p><p>Exact saved-byte comparison: {lattice_row['candidate_dots_within_3px']:,}/{gse_dots:,} dots ({lattice_row['directed_overlap']:.4%}) within 3 px of the pinned lattice. The original {len(gse_audit['results'])}-raster receipt omitted the lattice. This later audit covers nine focus-site mirrors plus the lattice, not a complete organizer registry; pre-placement surfaces were not available. No HOLDOUT-DTI was run. Outside-footprint pixels are zero; the null/NaN-outside check fails, although the strict whole-array [0,1] check passes locally.</p><p>Suggested name: <code>{esc(gse_card['submission_name'])}</code><br>Prior note: <code>{esc(gse_card['submission_note'])}</code></p><a class="text-link" href="{p}docs/downloads/{quote(gse_path.name)}" download>Download research raster only ↗</a></article>''')
     for label, c in zip(('HMAS-SINTER', 'GPC-Z'), cand):
         row = c['comparisons'][0]
         cards.append(f'''<article class="audit-card"><p class="eyebrow">HISTORICAL ARTIFACT · {label}</p><h3>DO NOT SUBMIT</h3><p><code class="wrap">{esc(c['file'])}</code></p><p>SHA-256 <code class="wrap">{c['sha256']}</code></p><p>{row['candidate_dots_within_3px']:,} / {row['candidate_dots']:,} dots within 3 px of lattice ({row['directed_overlap']:.2%}) · duplicate. Mirror-grid and inside [0,1] checks pass; null/NaN-outside check fails. Portal acceptance is untested.</p><a class="text-link" href="{p}docs/downloads/{quote(c['file'])}" download>Download for research only ↗</a></article>''')
