@@ -1,0 +1,35 @@
+{
+  "session": "arena/a409acfe-gemsdoekarage1",
+  "date_utc": "2026-10-29",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "submit_authorized": false,
+  "hypothesis": "None generated this session; repo carries five pre-registered hypotheses (knowledge/hypotheses-20261028.md), none validated.",
+  "mechanism": "not applicable",
+  "named_non_fault_process_mimic": "not applicable",
+  "holdout_dti": "UNAVAILABLE - no holdout run; no HOLDOUT-DTI claimed",
+  "withheld_positives": null,
+  "ci_95": null,
+  "registry_overlap": {
+    "method": "audit_references.py pinned 12 assets + audit_rasters.overlap",
+    "lattice_directed_overlap_quarantined_file": 0.999017368672651,
+    "nine_site_max_forward_overlap_quarantined_file": 0.2654,
+    "stop_rule": "> 0.70 within 3 px"
+  },
+  "quarantined_raster_sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+  "validator_output": "grid match True; EPSG:32611; shape [3730,3292]; transform [100,0,243350,0,-100,4508550]; float32; values {0,1}; finite; 0 outside-footprint positives",
+  "submission_name": null,
+  "submission_note": "NO SUBMISSION: no candidate cleared; false clearance retracted and quarantined 20261029",
+  "leaderboard_claims": {
+    "drivendata_leaderboard_top_fetched_2026_10_29": 0.4544,
+    "user_reported_0_4413_and_0_3195": "conflict with fetched #1; unverified",
+    "GEMSDOE32_0_2778": "OWNER-REPORT, no receipt"
+  },
+  "tests": {
+    "command": "python -m pytest -q",
+    "passed": 357,
+    "failed": 0,
+    "before_session_failed": 8
+  },
+  "remaining_work": "see knowledge/session-review-arena-a409acfe.md section 7"
+}
