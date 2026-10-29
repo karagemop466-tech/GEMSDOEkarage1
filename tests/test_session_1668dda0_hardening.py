@@ -214,6 +214,10 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
         data = json.loads(receipt.read_text())
         if data.get("schema") == "karage1-local-tif-audit-v1":
             later_tifs.add(data["file"])
+    # Session 2026-10-29 re-audited every local TIF (including unique-hyp-kth-therm-mask)
+    # with the shared audit script; see evidence/local_downloads_audit_20261029.json.
+    fleet = json.loads((ROOT / "evidence/local_downloads_audit_20261029.json").read_text())
+    later_tifs |= {r["file"] for r in fleet["local_downloads"]}
     uncovered = actual_tifs - audited_tifs - later_tifs
     assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
     assert audited_tifs <= actual_tifs
