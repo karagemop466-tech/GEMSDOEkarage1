@@ -1,0 +1,115 @@
+{
+  "schema": "karage1-local-tif-audit-v1",
+  "file": "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+  "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+  "bytes": 147139,
+  "audited_utc": "2026-10-29T18:19:30.942906+00:00",
+  "format_report_ok": true,
+  "format_report_problems": [],
+  "validator_checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_matches_sample_submission": true,
+    "no_nan_anywhere": true,
+    "no_inf_anywhere": true,
+    "no_sentinel_values": true,
+    "range_0_1_guaranteed": true,
+    "min_ge_0": true,
+    "max_le_1": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero": true,
+    "zero_dots_on_mapped_catalogue": true
+  },
+  "positives": 37654,
+  "positives_outside_footprint": 0,
+  "positives_on_mapped_catalogue": 0,
+  "value_min": 0.0,
+  "value_max": 1.0,
+  "nan_count": 0,
+  "lattice_forward_3px_overlap": 0.999017368672651,
+  "worst_focus_file": "GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif",
+  "worst_focus_forward_3px_overlap": 0.2653635735911191,
+  "registry_rasters_checked": 15,
+  "ok_to_submit": false,
+  "verdict": "research audit only; not cleared (literal lattice gate and holdout not run)",
+  "comparisons": {
+    "13GEMSDOE_r13-lattice-s5_v2_nan-outside.tif": {
+      "forward_3px_overlap": 0.999017368672651,
+      "reverse_3px_overlap": 0.17316513207182388,
+      "their_dots": 206895
+    },
+    "GEMS19_h19-5-powerlaw-budget-multiline-corroborated_nan.tif": {
+      "forward_3px_overlap": 0.27922664258777286,
+      "reverse_3px_overlap": 0.24413238559906217,
+      "their_dots": 121131
+    },
+    "GEMSDOE24_h25-1-dotted-h19-5-d1-5_allfinite.tif": {
+      "forward_3px_overlap": 0.26074255059223456,
+      "reverse_3px_overlap": 0.24570077743927815,
+      "their_dots": 60069
+    },
+    "GEMSDOE25_dotted-h19-5-d2-8_zeros.tif": {
+      "forward_3px_overlap": 0.25017262442237215,
+      "reverse_3px_overlap": 0.2475391245180313,
+      "their_dots": 44090
+    },
+    "GEMSDOE27_h31-drcg-wl-celf28_allfinite.tif": {
+      "forward_3px_overlap": 0.26050353216125777,
+      "reverse_3px_overlap": 0.25630743081744306,
+      "their_dots": 37654
+    },
+    "GEMSDOE27_topo-gap-closure-t-v2-on-d1-5_allfinite.tif": {
+      "forward_3px_overlap": 0.2653635735911191,
+      "reverse_3px_overlap": 0.24479846073571615,
+      "their_dots": 61328
+    },
+    "GEMSDOE28_h27-4-r1-solo-d2-8_allfinite.tif": {
+      "forward_3px_overlap": 0.24533914059595263,
+      "reverse_3px_overlap": 0.26388716137217344,
+      "their_dots": 40199
+    },
+    "GEMSDOE28_h32-1-prethin-tip-euler-d2-8_allfinite.tif": {
+      "forward_3px_overlap": 0.24868539862962766,
+      "reverse_3px_overlap": 0.2553553695559654,
+      "their_dots": 42294
+    },
+    "GEMSDOE28_h36-1-rung30-blind-r1_allfinite.tif": {
+      "forward_3px_overlap": 0.24215222818292878,
+      "reverse_3px_overlap": 0.2658258098778545,
+      "their_dots": 37660
+    },
+    "GEMSDOE28_h38-1-hf-euler-r30-r1_allfinite.tif": {
+      "forward_3px_overlap": 0.2425771498379986,
+      "reverse_3px_overlap": 0.2648177496038035,
+      "their_dots": 37860
+    },
+    "GEMSDOE30_d28-poisson300m-offcat-44090.tif": {
+      "forward_3px_overlap": 0.25017262442237215,
+      "reverse_3px_overlap": 0.2475391245180313,
+      "their_dots": 44090
+    },
+    "GEMSDOE31_h27-4-solo-d28_allfinite.tif": {
+      "forward_3px_overlap": 0.24533914059595263,
+      "reverse_3px_overlap": 0.26388716137217344,
+      "their_dots": 40199
+    },
+    "GEMSDOE32_h33-h33-2-b2_e5eb6e7e_zeros.tif": {
+      "forward_3px_overlap": 0.23901843097678865,
+      "reverse_3px_overlap": 0.27088755510702717,
+      "their_dots": 37654
+    },
+    "GEMSDOE33_h33d-analog-tip-stepover-r30.tif": {
+      "forward_3px_overlap": 0.2486588410261858,
+      "reverse_3px_overlap": 0.25780484891914485,
+      "their_dots": 41865
+    },
+    "GEMSDOE36_anderson-geothermal-pinn-38854_zeros.tif": {
+      "forward_3px_overlap": 0.24103680883837042,
+      "reverse_3px_overlap": 0.26589282956709737,
+      "their_dots": 38854
+    }
+  }
+}

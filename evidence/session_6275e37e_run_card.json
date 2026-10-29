@@ -1,0 +1,66 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/6275e37e-gemsdoekarage1",
+  "date_utc": "2026-10-29",
+  "verdict": "negative",
+  "submission_name": null,
+  "submission_note": "NEGATIVE: no unique raster built; no lane assigned; no authorized holdout data; nothing cleared for upload.",
+  "submission_note_chars": 107,
+  "hypothesis": null,
+  "hypothesis_status": "no hypothesis implemented or tested this session; candidates remain those in docs/research/hypotheses-20261029.md (proposed, unvalidated)",
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "holdout_dti": null,
+  "holdout_dti_ci95": null,
+  "holdout_status": "NOT RUN: no authorized official training data in the sandbox (DrivenData login-walled; the only restorable copy is a third-party mirror, flagged for owner decision)",
+  "label_classes_used": [
+    "ORGANIZER-CONFIRMED: none",
+    "HOLDOUT-DTI: none new this session",
+    "USER-REPORTED/UNVERIFIED: 0.2778 (GEMSDOE32 B2), 0.2750, 0.2710, 0.2708, 0.2632, 0.2600, 0.2477, 0.2449"
+  ],
+  "correlation_overlap_vs_registry": null,
+  "correlation_overlap_status": "NOT RUN: no new raster; the registry lattice saturates the footprint (see evidence/lattice_saturation_null_20261029.json)",
+  "raster_sha256": null,
+  "validator_output": {
+    "tool": "scripts/portal_range_check.py",
+    "evidence": "evidence/portal_range_check_20261029.json",
+    "files_checked": 14,
+    "finite_out_of_range_pixels_total": 0,
+    "files_failing_naive_whole_array_check": [
+      "gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-nan.tif",
+      "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-nan.tif",
+      "karage1-bbstep-buried-basement-20261028T180000Z-nan.tif",
+      "karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-nan.tif"
+    ],
+    "no_nan_inside_footprint_check": "not applicable: no new raster",
+    "crs_shape_transform_check": "not applicable: no new raster; reference grid is 3730 x 3292, EPSG:32611 (from local TIF headers)"
+  },
+  "independent_source_checks": {
+    "official_reference_commit": "aebe92f7c8a990f0e3443451b7a825d9afd6336b",
+    "official_reference_notebook_sha256": "1a7622732ba00f67237058bc0efe79b45ba4e87c449fc9c1e5d6ea659de92ca0",
+    "reference_facts_file": "knowledge/official-reference-verification-20261029.md",
+    "drivendata_reachable": false,
+    "nlr_pdf_reachable": false
+  },
+  "experiments_used": 0,
+  "experiment_budget": 3,
+  "time_budget_hours": 2,
+  "tests": "pytest -q: 384 passed (373 pre-existing + 11 new: tests/test_portal_range_check.py, tests/test_marginal_rule.py). Software checks only; they do not measure model performance.",
+  "promotion_selector": "not invoked; no slot spent; a promotion requires a separate selector and an unblocked holdout",
+  "irregularities_flagged": [
+    "third-party mirror used for training data in earlier sessions (not official)",
+    "labels.tif and existing_faults.tif share one SHA-256 in the mirror manifest",
+    "reference notebook filename numeric_features.tif differs from brief's gems-geodawn-numerical-features.tif",
+    "holdout champion-control DTI 0.00452 vs leaderboard 0.2778 (scales not calibrated)",
+    "leaderboard figures conflict (0.4413 vs 0.3195 vs earlier-fetched 0.4544)",
+    "portal error 'Predicted values must be in range [0, 1]' not reproduced by any local file; cause unknown",
+    "official reference writes float64 (np.zeros default, no cast) while the brief says float32",
+    "main had 7 pre-existing pytest failures and red CI (two TIFs without saved-byte audits; generated docs out of sync with build_site.py) before and after PR #81"
+  ],
+  "merge": {
+    "pr": 81,
+    "merged_into": "main",
+    "merge_commit": "b9daedf92ad2244bb97a2cf694e74ecc5e078b28",
+    "checks_at_merge": "failing before and after (pre-existing; see review section 10)"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "session": "arena/c65129cb-gemsdoekarage1",
+  "date": "2026-10-29",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "experiments_used": 3,
+  "budget": "3 experiments; ~2 h wall clock",
+  "lane": "UNASSIGNED \u2014 registry/template.json method_lane is null; this run is a research artifact, not a lane result",
+  "hypothesis": "H-THD: 3x3 local maxima of the label-free horizontal magnetic gradient (tmi_hg), percentile-thresholded, minus a 3-px collar around mapped faults, is a usable off-catalogue fault candidate set.",
+  "mechanism": "Horizontal gradient maxima of total magnetic intensity sit over lateral susceptibility contrasts; fault-bounded blocks produce such contrasts.",
+  "named_non_fault_mimic": "Lithologic/intrusive susceptibility contrasts (magnetite-bearing units, dykes, contacts) and cultural magnetic noise (fences, rail, pipelines) produce the same gradient maxima without faulting.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator": "gems57-pooled-hide-v2",
+    "arm": "B_pct98",
+    "value": 0.009292,
+    "ci95": [
+      0.004166,
+      0.013629
+    ],
+    "ci_method": "bootstrap over the 8 fold cells (mode 'all'), 10,000 draws",
+    "withheld_positives": 22641,
+    "selection_caveat": "arm chosen on holdout DTI between two arms: optimistic"
+  },
+  "hypothesis_H1_strain_ridge": {
+    "label": "HOLDOUT-DTI",
+    "value": 0.01285,
+    "ci95": [
+      0.003098,
+      0.020145
+    ],
+    "withheld_positives": 22641,
+    "verdict": "negative",
+    "note": "CIs overlap the THD arm; no significant gain; reference 0.0318 is a different holdout"
+  },
+  "leakage_canary": {
+    "features_tested": 19,
+    "max_direction_invariant_auc": 0.5654,
+    "passed_all": true,
+    "threshold": 0.9,
+    "interpretation": "no single band separates withheld faults from background (AUC ~0.5); the holdout has low single-feature dynamic range"
+  },
+  "registry_overlap": {
+    "rasters_checked": 25,
+    "complete_accessible_scan": false,
+    "worst_spearman": 0.0072,
+    "worst_overlap_3px": 0.9991,
+    "worst_overlap_submission": "13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+    "byte_unique": true,
+    "pixel_unique": true,
+    "literal_gate_result": "FAIL (13GEMS lattice 99.91%); rho and Jaccard pass",
+    "gate_informativeness": {
+      "mean": 0.9987140808413448,
+      "min": 0.9980878525521857,
+      "max": 0.9991501566898603,
+      "draws": 200,
+      "rule_threshold": 0.7,
+      "fails_gate_in_all_draws": true
+    },
+    "scope": "25 local registry rasters (data/scored + docs/downloads). Not every listed GEMSDOE submission had a file available; uniqueness vs those is NOT established."
+  },
+  "raster": {
+    "file": "archive/quarantined-20261029/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+    "sha256": "8e128ed4ca87308ad9bb4bf671a7c37a1f657f280d8df6e6b386e4b914c84206",
+    "zip_sha256": "a447b62ffa0b519b13e5149459e5286099fd30ade480688eb7559ca81667f68d",
+    "dots": 5734
+  },
+  "validator_output": {
+    "all_checks_passed": true
+  },
+  "submission_name": "gemsdoekarage1-thd-ridge-collar-20261029-b_pct98",
+  "submission_note": "label-free tmi_hg ridge, pct 98, 3px catalogue collar, 5734 dots",
+  "submission_note_chars": 64,
+  "promotion": "verdict negative: no selector step, no weekly slot, not uploaded",
+  "gate_informativeness": null
+}
