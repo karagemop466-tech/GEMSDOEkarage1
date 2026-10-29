@@ -1,0 +1,54 @@
+{
+  "schema": "karage1-run-card-v2",
+  "session": "arena/b0714e6b-gemsdoekarage1",
+  "date_utc": "2026-10-29",
+  "lane": null,
+  "lane_status": "NOT ASSIGNED. The parallel-run protocol's 'single method paragraph' is absent from the prompt; registry/template.json method_lane is null. No lane was invented.",
+  "hypothesis": null,
+  "mechanism": null,
+  "named_non_fault_process_mimic": null,
+  "experiments_run": 0,
+  "budget": {"max_experiments": 3, "max_hours": 2, "used_experiments": 0},
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "note": "No holdout was run this session. No new candidate was produced."
+  },
+  "organizer_confirmed_score": {"label": "ORGANIZER-CONFIRMED", "value": null, "note": "No organizer receipt exists for any candidate in this repository."},
+  "leaderboard_estimate": null,
+  "correlation_overlap_vs_registry": {
+    "status": "NOT_RUN_NO_NEW_RASTER",
+    "lattice_overlap_reference": "Prior measured (not re-measured this session): 13GEMSDOE lattice covers 99.8713% of footprint within 3 px (evidence/conduitcrest_lattice_reaudit_20261028.json, registry/registry_roles.json)."
+  },
+  "raster": null,
+  "raster_sha256": null,
+  "validator_output": {
+    "status": "NOT_RUN_NO_NEW_RASTER",
+    "required_checks": ["no NaN inside footprint", "values in [0,1]", "CRS EPSG:32611", "shape/transform match training grid"]
+  },
+  "quarantined_artifacts": [
+    {
+      "file": "archive/quarantined-20261029/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+      "sha256_as_recorded": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+      "reason": "Was displayed as CLEARED FOR SUBMISSION on main; its card says verdict promote with empty overlap/correlation; no saved-byte audit; written by a private-fork script. Withdrawn from public downloads."
+    }
+  ],
+  "fixed_defects": [
+    "docs/executive-summary.html (committed) claimed clearance; rebuilt via scripts/render_site.py (DO NOT SUBMIT).",
+    "scripts/run_karage1_experiments.py: quarantine raise was commented out (IndentationError); restored.",
+    "scripts/my_unique_experiment.py and my_unique_experiment2.py: private forks now fail closed with BLOCKED, exit 2.",
+    "Unique-hyp artifacts moved out of docs/downloads to archive/quarantine (git mv, history kept)."
+  ],
+  "tests": {"baseline_on_main": "first run 8 failed, 349 passed; later reruns 4 failed (order/state-dependent, see session review D6)", "after_fixes": "362 passed on three consecutive full runs (357 existing + 5 new in tests/test_no_false_clearance.py)"},
+  "official_sources": "knowledge/official-sources-verified-2026-10-29.md",
+  "leaderboard_snapshot_top": {"rank1_public_dw_tversky": 0.4544, "rank47": 0.3195, "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/"},
+  "submission_name": null,
+  "submission_note": null,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "verdict_reason": "No unique TIF can be cleared: no assigned lane, the literal 70%/3-px lattice gate blocks dotted rasters, no authenticated organizer data, and the only previously cleared-looking file was defective."
+}
