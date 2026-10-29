@@ -1,5 +1,33 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## READ FIRST — Standing brief (updated 29 Oct 2026)
+
+> **Condensed rewrite of the session brief, not the verbatim prompt.** Newer explicit instructions take precedence.
+
+**Goal.** Place at the top of the DrivenData *Geologic Enhanced Mapping System (GEMS) Prize Challenge* by
+producing a single-band float32 GeoTIFF of fault probabilities. Source: [official problem page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/),
+[leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), [reference solution](https://github.com/drivendataorg/gems-prize-reference-solution), [DOE/NLR submission rules](https://docs.nlr.gov/docs/fy26osti/96647.pdf).
+
+**Official rules (verified 29 Oct 2026 from the problem page).** EPSG:32611, 100 m, same bounds; one float32 layer; values in
+[0, 1]; outside bounds null or NaN. Score is a distance-weighted Tversky index, α=0.2, β=0.8, 300 m triangular kernel.
+The competition states its purpose: predictions for what you believe are faults, not optimization against existing labels.
+
+**Core values.** *Maximize P(Win)* and *Own the Outcome*: prefer reproducible, sourced evidence; report negative results and blocked gates honestly; never invent a score.
+
+**Non-negotiables.**
+1. **Every number is labelled** HOLDOUT-DTI (evaluator, withheld positives, 95% CI) or ORGANIZER-CONFIRMED (copied from a receipt), or USER-REPORTED / UNVERIFIED. A projection is never written as a score.
+2. **A file is downloadable for submission only when every gate passes**: format, unique versus listed sites, lattice rule, holdout, lane, and a separate weekly-slot selector. The site shows the status on its first screen.
+3. **Parallel-run protocol:** one assigned lane; literal 70% registry overlap and |rank| > 0.90 checks; reuse the shared evaluator and writer; leakage canary (AUC > 0.90 is leakage); budget of 3 experiments or 2 hours; a JSON run card with each run.
+4. **Verify line by line** against official sources, link each source, flag irregularities. No manual input is expected.
+
+**Current decision (29 Oct 2026): NO FILE IS OK TO DOWNLOAD AND SUBMIT.**
+- The nine focus sites: best reported file is GEMSDOE32 at 0.2778 (USER-REPORTED / UNVERIFIED). It is third-party and must not be resubmitted. All nine overlap a sibling by ≥ 97.6%. See the table at the top of the [executive summary](docs/executive-summary.html).
+- Our own 12 local TIFs all fail the literal lattice rule (min overlap 98.53%). This includes the GSE pair (`karage1-gse-geothermal-surface-24000dots-…`) added to `main` by commit `cd6f891`. Its "unique" label holds only against the 11 registry rasters it checked. Against the 13GEMSDOE lattice witness it is a **literal duplicate at 99.91%** ([audit](evidence/local_downloads_audit_20261029.json)). The rule is saturated: random dots fail it too ([evidence](evidence/lattice_saturation_null_20261029.json)). The owner must decide how the rule applies before any file can clear.
+- Session review: [`knowledge/session-review-arena-20261029.md`](knowledge/session-review-arena-20261029.md) · run card: [`evidence/session_20261029_run_card.json`](evidence/session_20261029_run_card.json) · new hypotheses: [`docs/research/hypotheses-20261029.md`](docs/research/hypotheses-20261029.md).
+
+**Owner decisions required:** (1) whether the internal 70% / 3-px / Spearman gate binds submissions at all: it is **not** in the official rules ([register B1](knowledge/official-sources-verified-2026-10-29.md)), and if it does, whether the 13GEMSDOE calibration lattice is the witness; (2) the method lane (still `null`); (3) authorized holdout data; (4) the portal's "must be in range [0, 1]" error: no local raster reproduces it, see [review](knowledge/session-review-arena-20261029.md). **Deadline:** 3 Dec 2026, 11:59 p.m. UTC; three submissions per week; original work only.
+
+---
 > **Current review `arena/4711a029` (2026-10-29): NEGATIVE / DO NOT SUBMIT.** No new TIF, geological experiment, score estimate, or upload slot was produced. The nine-site comparison and four ranked research candidates are in [the current review](knowledge/session-review-arena-4711a029.md); the required session run card is [here](evidence/session_4711a029_run_card.json). The pinned template/data preflight is blocked (lane and canonical assignment absent, required cache/data missing, two vendored hash mismatches); all 365 software tests pass but do not measure model performance.
 
 > **Session `arena/be012103` (2026-10-29): NEGATIVE / DO NOT SUBMIT — no file is cleared.** No new TIF was generated: the competition data is login-walled and unreachable from the sandbox, and no method lane is assigned, so there is nothing to holdout-test or score. Live leaderboard (fetched 2026-10-29): **#1 = 0.4544** (xiaofanhu), #2 = 0.3916; 0.4413 not found; 0.3195 near rank #47. The GEMSDOE32 **0.2778 is an owner-report with no submission receipt** on its own page, which also says "already submitted - do not resubmit". Test suite: **365 passed**. Details: [session review](knowledge/session-review-arena-be012103.md), [run card](evidence/session_be012103_run_card.json). Manual steps needed from the owner are listed in the review.

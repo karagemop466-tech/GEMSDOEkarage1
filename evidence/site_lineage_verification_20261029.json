@@ -1,0 +1,219 @@
+{
+  "checks": {
+    "GEMSDOE25_dots": 44090,
+    "GEMSDOE25_equals_GEMSDOE30": true,
+    "GEMSDOE28_vs_GEMSDOE25_remove_within_1px_of_labels": {
+      "added": 9807,
+      "child_dots": 37660,
+      "parent_dots": 44090,
+      "removed": 16237,
+      "removed_all_within_r_of_known_labels": false,
+      "removed_within_r_of_known_labels": 3891
+    },
+    "GEMSDOE30_dots": 44090,
+    "GEMSDOE31_vs_GEMSDOE25_remove_within_1px_of_labels": {
+      "added": 0,
+      "child_dots": 40199,
+      "parent_dots": 44090,
+      "removed": 3891,
+      "removed_all_within_r_of_known_labels": true,
+      "removed_within_r_of_known_labels": 3891
+    },
+    "GEMSDOE32_vs_GEMSDOE25_remove_within_2px_of_labels": {
+      "added": 0,
+      "child_dots": 37654,
+      "parent_dots": 44090,
+      "removed": 6436,
+      "removed_all_within_r_of_known_labels": true,
+      "removed_within_r_of_known_labels": 6436
+    },
+    "GEMSDOE36_contains_GEMSDOE32": true,
+    "GEMSDOE36_extra_dots_vs_GEMSDOE32": 1200
+  },
+  "label_positive_pixels": 60988,
+  "pairwise_nine_sites": {
+    "GEMSDOE24|GEMSDOE25": {
+      "a_dots_within_3px_of_b_fraction": 1.0,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE24|GEMSDOE27": {
+      "a_dots_within_3px_of_b_fraction": 1.0,
+      "b_dots_within_3px_of_a_fraction": 0.980188,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE24|GEMSDOE28": {
+      "a_dots_within_3px_of_b_fraction": 0.934792,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE24|GEMSDOE30": {
+      "a_dots_within_3px_of_b_fraction": 1.0,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE24|GEMSDOE31": {
+      "a_dots_within_3px_of_b_fraction": 0.940785,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE24|GEMSDOE32": {
+      "a_dots_within_3px_of_b_fraction": 0.884766,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE24|GEMSDOE33": {
+      "a_dots_within_3px_of_b_fraction": 0.962393,
+      "b_dots_within_3px_of_a_fraction": 0.997062,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE24|GEMSDOE36": {
+      "a_dots_within_3px_of_b_fraction": 0.885615,
+      "b_dots_within_3px_of_a_fraction": 0.975678,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE25|GEMSDOE27": {
+      "a_dots_within_3px_of_b_fraction": 1.0,
+      "b_dots_within_3px_of_a_fraction": 0.980156,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE25|GEMSDOE28": {
+      "a_dots_within_3px_of_b_fraction": 0.931821,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE25|GEMSDOE30": {
+      "a_dots_within_3px_of_b_fraction": 1.0,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": true
+    },
+    "GEMSDOE25|GEMSDOE31": {
+      "a_dots_within_3px_of_b_fraction": 0.937151,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE25|GEMSDOE32": {
+      "a_dots_within_3px_of_b_fraction": 0.881719,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE25|GEMSDOE33": {
+      "a_dots_within_3px_of_b_fraction": 0.960581,
+      "b_dots_within_3px_of_a_fraction": 0.997038,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE25|GEMSDOE36": {
+      "a_dots_within_3px_of_b_fraction": 0.882649,
+      "b_dots_within_3px_of_a_fraction": 0.974983,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE27|GEMSDOE28": {
+      "a_dots_within_3px_of_b_fraction": 0.916156,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE27|GEMSDOE30": {
+      "a_dots_within_3px_of_b_fraction": 0.980156,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE27|GEMSDOE31": {
+      "a_dots_within_3px_of_b_fraction": 0.922091,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE27|GEMSDOE32": {
+      "a_dots_within_3px_of_b_fraction": 0.86719,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE27|GEMSDOE33": {
+      "a_dots_within_3px_of_b_fraction": 0.943289,
+      "b_dots_within_3px_of_a_fraction": 0.997086,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE27|GEMSDOE36": {
+      "a_dots_within_3px_of_b_fraction": 0.868037,
+      "b_dots_within_3px_of_a_fraction": 0.975781,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE28|GEMSDOE30": {
+      "a_dots_within_3px_of_b_fraction": 1.0,
+      "b_dots_within_3px_of_a_fraction": 0.931821,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE28|GEMSDOE31": {
+      "a_dots_within_3px_of_b_fraction": 0.997557,
+      "b_dots_within_3px_of_a_fraction": 0.995622,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE28|GEMSDOE32": {
+      "a_dots_within_3px_of_b_fraction": 0.954727,
+      "b_dots_within_3px_of_a_fraction": 0.998752,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE28|GEMSDOE33": {
+      "a_dots_within_3px_of_b_fraction": 0.998407,
+      "b_dots_within_3px_of_a_fraction": 0.9705,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE28|GEMSDOE36": {
+      "a_dots_within_3px_of_b_fraction": 0.955204,
+      "b_dots_within_3px_of_a_fraction": 0.97313,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE30|GEMSDOE31": {
+      "a_dots_within_3px_of_b_fraction": 0.937151,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE30|GEMSDOE32": {
+      "a_dots_within_3px_of_b_fraction": 0.881719,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE30|GEMSDOE33": {
+      "a_dots_within_3px_of_b_fraction": 0.960581,
+      "b_dots_within_3px_of_a_fraction": 0.997038,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE30|GEMSDOE36": {
+      "a_dots_within_3px_of_b_fraction": 0.882649,
+      "b_dots_within_3px_of_a_fraction": 0.974983,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE31|GEMSDOE32": {
+      "a_dots_within_3px_of_b_fraction": 0.953904,
+      "b_dots_within_3px_of_a_fraction": 1.0,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE31|GEMSDOE33": {
+      "a_dots_within_3px_of_b_fraction": 0.999055,
+      "b_dots_within_3px_of_a_fraction": 0.9748,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE31|GEMSDOE36": {
+      "a_dots_within_3px_of_b_fraction": 0.954402,
+      "b_dots_within_3px_of_a_fraction": 0.974571,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE32|GEMSDOE33": {
+      "a_dots_within_3px_of_b_fraction": 0.999841,
+      "b_dots_within_3px_of_a_fraction": 0.92643,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE32|GEMSDOE36": {
+      "a_dots_within_3px_of_b_fraction": 1.0,
+      "b_dots_within_3px_of_a_fraction": 0.974031,
+      "identical_dot_masks": false
+    },
+    "GEMSDOE33|GEMSDOE36": {
+      "a_dots_within_3px_of_b_fraction": 0.927123,
+      "b_dots_within_3px_of_a_fraction": 0.975035,
+      "identical_dot_masks": false
+    }
+  },
+  "schema": "karage1-site-lineage-verification-v1",
+  "scope": "Binary dot-mask geometry on SHA-pinned owner mirrors. Not a holdout, score, or authorization.",
+  "submit_authorized": false
+}
