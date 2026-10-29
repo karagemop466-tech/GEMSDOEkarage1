@@ -28,7 +28,7 @@ def main() -> int:
         "No features or canary receipts were overwritten.",
         file=sys.stderr,
     )
-    # return 0
+    return 2
 
     ddir = data_dir()
     cdir = cache_dir()

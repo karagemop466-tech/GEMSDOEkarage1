@@ -38,6 +38,16 @@ def _safe_rel(value: str) -> bool:
     return not p.is_absolute() and all(part not in ("", ".", "..") for part in value.split("/"))
 
 
+def scope_description(local_count: int, peer_count: int, repository_count: int) -> str:
+    """Build a receipt scope from actual row counts, never historical constants."""
+    counts = (local_count, peer_count, repository_count)
+    if any(type(count) is not int or count < 0 for count in counts):
+        raise ValueError("audit scope counts must be non-negative integers")
+    return (f"All {local_count} local docs/downloads/*.tif artifacts plus "
+            f"{peer_count} SHA-pinned sibling/peer GeoTIFFs across "
+            f"{repository_count} commit-pinned ecosystem repositories.")
+
+
 def _unique_object(pairs):
     out = {}
     for k, v in pairs:
@@ -239,7 +249,7 @@ def run_audit(
 
     return {
         "schema": "karage1-local-and-peer-audit-v1",
-        "scope": "All 9 committed local docs/downloads/*.tif artifacts plus 9 SHA-pinned sibling/peer GeoTIFFs across 22 commit-pinned ecosystem repositories.",
+        "scope": scope_description(len(local_rows), len(peer_rows), len(pins['immutable_repos'])),
         "source_authentication": "GitHub mirror pins verified by full SHA-256; NOT authenticated organizer files or a complete competition registry.",
         "template_sha256": template_sha,
         "lattice_sha256": ref_index["lattice"]["sha256"],

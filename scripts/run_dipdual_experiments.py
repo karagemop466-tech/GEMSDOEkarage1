@@ -20,6 +20,20 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+# This historical runner was valid only for a prior parallel-session lane. The
+# active registry has no assigned lane/template, and the old final gate treated
+# the dense lattice as a calibration role instead of applying the literal stop.
+# Block before importing geospatial code, reading data, or creating any output.
+if __name__ == "__main__":
+    print(
+        "BLOCKED: historical DIPDUAL runner is not authorized in this session: "
+        "no active lane or canonical-template assignment; its prior lattice "
+        "role exemption cannot satisfy the literal registry gate. No experiment "
+        "or TIFF was produced.",
+        file=sys.stderr,
+    )
+    raise SystemExit(2)
+
 import numpy as np
 import rasterio
 from scipy import ndimage

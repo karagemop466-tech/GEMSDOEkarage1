@@ -1,0 +1,83 @@
+{
+  "schema": "karage1-kth-legacy-candidate-audit-v1",
+  "review_date_utc": "2026-10-29",
+  "candidate": "unique-hyp-kth-therm-mask-20261028-zeros.tif",
+  "candidate_sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+  "candidate_size_bytes": 147139,
+  "hypothesis": "Legacy K/Th radiometric alteration and INGENIOUS thermal-probe feature boost intersected with an existing structural model; this is a forensic review of an already-generated artifact, not a new experiment.",
+  "mechanism": "The legacy card proposed that alteration/thermal anomalies amplify a structural fault-propensity surface; no causal or predictive conclusion is endorsed by this audit.",
+  "named_non_fault_process_mimic": "Potassium-rich intrusive lithology, soil/weathering variation, non-fault erosional scarps, access-biased thermal sampling, and groundwater/solar-heating effects.",
+  "legacy_holdout_claim": {
+    "holdout_DTI": "0.1713",
+    "holdout_version": "GEMSDOE32-HIDE-RECOVER-v3.0",
+    "withheld_positives": 27735,
+    "CI_95": "[0.1528, 0.1912]",
+    "verdict": "promote",
+    "correlation_vs_registry": {},
+    "overlap_vs_registry": {},
+    "raster_sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb"
+  },
+  "legacy_claim_classification": "LEGACY-UNVERIFIED CLAIM; not accepted as a HOLDOUT-DTI result",
+  "holdout_DTI": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "NOT ACCEPTED / NOT REPLAYED. The superseded card claim is preserved separately as LEGACY-UNVERIFIED and is not a valid measured holdout for this review."
+  },
+  "registry_audit": {
+    "preplacement_surface_available": false,
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap_rule": "candidate positive dots within closed Euclidean 3-pixel radius of reference positive dots; stop when >70%",
+    "reference_witness": "13GEMSDOE lattice from commit-pinned GitHub mirror, not a complete or organizer-authenticated registry",
+    "candidate_positive_pixels_in_footprint": 37654,
+    "lattice_dots_within_3px": 37617,
+    "lattice_directed_overlap_3px": 0.999017368672651,
+    "lattice_threshold_exceeded": true,
+    "worst_focus_site_3px_overlap": 0.2653635735911191,
+    "worst_focus_site": "GEMSDOE27",
+    "focus_site_rank_correlation": "not computed for this saved-byte audit; uniqueness cannot be certified under both rules",
+    "registry_complete": false
+  },
+  "validator_output": {
+    "reference": "Hash-pinned GitHub mirror; not organizer-authenticated",
+    "reference_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "mirror_grid_match": true,
+    "metadata": {
+      "driver": "GTiff",
+      "count": 1,
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "crs": "EPSG:32611",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "mask_all_valid": true
+    },
+    "no_nan_inside_footprint": true,
+    "inside_values_in_0_1": true,
+    "outside_all_zero": true,
+    "outside_all_nan": false,
+    "portal_acceptance": "not tested",
+    "note": "Mirror-grid/range validation is not upload approval; official outside-footprint interpretation is not tested here.",
+    "no_masked_inside_footprint": true,
+    "crs_shape_transform_match": true
+  },
+  "submission_name": "NONE \u2014 historical research artifact only",
+  "submission_note": "DO NOT SUBMIT: 99.9017% 3-px lattice overlap; legacy holdout claim unverified.",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "weekly_slot_selected_or_spent": false,
+  "audit_source": "evidence/local_downloads_and_peer_audit_20261029.json",
+  "legacy_card_quarantine": "evidence/legacy_kth_claim_quarantine_20261029.json"
+}

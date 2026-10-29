@@ -51,10 +51,13 @@ def _require_protocol_repair() -> None:
     assigned lane, a complete literal pre-placement registry check and a separate
     selector; changing a flag here is not sufficient.
     """
-    pass # raise RuntimeError(
-        "Historical H-K1-1 runner disabled: duplicate lattice witness and missing "
-        "pre-placement literal registry gate. No experiment or TIFF was produced."
+    print(
+        "BLOCKED: historical H-K1-1 runner disabled: duplicate lattice witness, "
+        "missing pre-placement literal registry gate, no assigned lane, and no "
+        "authorized shared-template execution. No experiment or TIFF was produced.",
+        file=sys.stderr,
     )
+    raise SystemExit(2)
 
 
 def run_stage_fit(force: bool = False) -> None:

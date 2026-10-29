@@ -35,14 +35,14 @@ class Tags(HTMLParser):
 def test_site_tables_are_rendered_from_evidence_and_never_approve():
     rows, _ = render_site.build()
     assert rows.count("DO NOT RESUBMIT") == 9
-    assert rows.count("USER-REPORTED · UNVERIFIED") == 9
+    assert rows.count("USER-REPORTED / UNVERIFIED") == 9
     assert rows.count("Unavailable") == 9
     for path, prefix in ((ROOT / "index.html", ""), (ROOT / "docs/executive-summary.html", "../")):
         text = path.read_text()
         assert render_site.rows_for(prefix) in text
         parser = Tags(); parser.feed(text)
         assert parser.disabled_downloads >= 1
-        assert "DO NOT SUBMIT" in text and "not cleared for upload" in text
+        assert "DO NOT SUBMIT" in text and "No GeoTIFF is cleared for upload" in text
         assert "No approved .tif to download" in text
         assert "99.93%" in text and "99.89%" in text
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())

@@ -116,5 +116,16 @@
   "promoted": false,
   "submission_slots_used": 0,
   "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
-  "metadata": {}
+  "metadata": {},
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "superseded": true,
+  "quarantine_reason": "Saved-byte audit finds 37,617/37,654 candidate dots within 3 px of the pinned lattice (>70%); pre-placement surface and complete registry proof are absent; legacy holdout claim is unverified.",
+  "lattice_overlap_3px": 0.999017368672651,
+  "lattice_dots_within_3px": 37617,
+  "candidate_positive_pixels_in_footprint": 37654,
+  "preplacement_surface_available": false,
+  "holdout_claim_status": "LEGACY-UNVERIFIED; not a valid HOLDOUT-DTI measurement",
+  "audit": "../../evidence/kth_candidate_audit_20261029.json",
+  "legacy_claim_quarantine": "../../evidence/legacy_kth_claim_quarantine_20261029.json"
 }

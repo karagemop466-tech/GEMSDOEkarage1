@@ -192,18 +192,95 @@ def test_pr42_sidecars_and_all_repo_jsons_remain_fail_closed():
             assert not hits, f"{json_path} contains true authorization flags: {hits}"
 
 
-def test_local_and_peer_evidence_verifies_all_9_local_tifs():
+def test_current_local_and_peer_evidence_verifies_all_11_local_tifs():
     data = render_site.local_and_peer_evidence()
-    assert data["local_downloads_count"] == 9
+    assert data["local_downloads_count"] == 11
     assert data["peer_rasters_count"] == 9
+    assert data["submit_authorized"] is False
+    assert "All 11 local docs/downloads/*.tif artifacts" in data["scope"]
     actual_tifs = {f"docs/downloads/{p.name}" for p in (ROOT / "docs/downloads").glob("*.tif")}
     audited_tifs = {r["file"] for r in data["local_downloads"]}
-    # Session 1668dda0's receipt is historical and must not be rewritten.
-    # Any TIF added afterwards must be covered by a later session audit:
-    # 147b0f11's SGMC re-audit covers the new DIPDUAL raster (run card
-    # evidence/run_card_dipdual_20261028.json, verdict negative).
-    later = json.loads((ROOT / "evidence/local_candidates_sgmc_audit_20261028.json").read_text())
-    later_tifs = {f"docs/downloads/{r['file']}" for r in later["candidates"]}
-    uncovered = actual_tifs - audited_tifs - later_tifs
-    assert not uncovered, f"local TIFs with no saved-byte audit: {sorted(uncovered)}"
-    assert audited_tifs <= actual_tifs
+    assert audited_tifs == actual_tifs
+    assert all(r["ok_to_submit"] is False and r["literal_lattice_duplicate"] is True
+               for r in (*data["local_downloads"], *data["peer_rasters"]))
+    # The 2026-10-28 receipt is historical and remains byte-for-byte intact.
+    import hashlib
+    historical_path = ROOT / "evidence/local_downloads_and_peer_audit_20261028.json"
+    old = json.loads(historical_path.read_text())
+    assert hashlib.sha256(historical_path.read_bytes()).hexdigest() == "8586a93277b85ef5d860e5a5568072e8ecd19491190880f3137dcd2936e50fe0"
+    assert old["local_downloads_count"] == 9 and old["peer_rasters_count"] == 9
+    assert len(old["local_downloads"]) == 9 and len(old["peer_rasters"]) == 9
+    kth = next(r for r in data["local_downloads"] if r["file"].endswith("unique-hyp-kth-therm-mask-20261028-zeros.tif"))
+    assert kth["positive_pixels_in_footprint"] == 37654
+    assert kth["lattice_dots_within_3px"] == 37617
+    assert kth["lattice_directed_overlap_3px"] == pytest.approx(37617 / 37654)
+
+
+def test_audit_scope_uses_current_row_counts_not_historical_constants():
+    assert peer_audit.scope_description(2, 3, 4) == (
+        "All 2 local docs/downloads/*.tif artifacts plus 3 SHA-pinned "
+        "sibling/peer GeoTIFFs across 4 commit-pinned ecosystem repositories."
+    )
+    for bad in ((-1, 0, 0), (1.0, 0, 0), (True, 0, 0)):
+        with pytest.raises(ValueError, match="non-negative integers"):
+            peer_audit.scope_description(*bad)
+
+
+def test_kth_legacy_holdout_claim_is_quarantined_and_never_promoted():
+    summary = json.loads((ROOT / "docs/data/unique-hyp-kth-therm-mask-20261028-zeros.json").read_text())
+    card = json.loads((ROOT / "evidence/kth_candidate_audit_20261029.json").read_text())
+    legacy = json.loads((ROOT / "evidence/legacy_kth_claim_quarantine_20261029.json").read_text())
+    assert summary["verdict"] == "negative" and summary["ok_to_submit"] is False
+    assert summary["holdout_DTI"] is None
+    assert card["verdict"] == "negative" and card["ok_to_submit"] is False
+    assert card["registry_audit"]["preplacement_surface_available"] is False
+    assert card["registry_audit"]["lattice_threshold_exceeded"] is True
+    assert card["holdout_DTI"]["value"] is None
+    fmt = card["validator_output"]
+    assert fmt["mirror_grid_match"] is True
+    assert fmt["metadata"]["count"] == 1 and fmt["metadata"]["dtype"] == "float32"
+    assert fmt["metadata"]["crs"] == "EPSG:32611" and fmt["metadata"]["shape"] == [3730, 3292]
+    assert fmt["crs_shape_transform_match"] is True
+    assert fmt["metadata"]["transform"] == [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]
+    assert fmt["no_nan_inside_footprint"] is True and fmt["no_masked_inside_footprint"] is True
+    assert fmt["inside_values_in_0_1"] is True
+    assert fmt["outside_all_zero"] is True and fmt["portal_acceptance"] == "not tested"
+    assert card["legacy_claim_classification"] == "LEGACY-UNVERIFIED CLAIM; not accepted as a HOLDOUT-DTI result"
+    assert legacy["classification"] == card["legacy_claim_classification"]
+    assert legacy["fields_preserved_from_superseded_card"]["holdout_DTI"] == "0.1713"
+    assert legacy["fields_preserved_from_superseded_card"]["verdict"] == "promote"
+    for script in ("scripts/my_unique_experiment.py", "scripts/my_unique_experiment2.py"):
+        before = (ROOT / "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif").read_bytes()
+        result = subprocess.run([sys.executable, script], cwd=ROOT, capture_output=True, text=True)
+        assert result.returncode == 2 and "BLOCKED" in result.stderr
+        assert (ROOT / "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif").read_bytes() == before
+
+
+def test_public_site_shows_nine_sites_current_status_and_novelty_screen():
+    rows, _ = render_site.build()
+    for site in ("GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30",
+                 "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"):
+        assert site in rows
+    assert rows.count("<tr>") == 9
+    assert "USER-REPORTED / UNVERIFIED" in rows
+    assert "No organizer-confirmed score or projection" in rows
+    assert "worst focus pair" in rows and "lattice" in rows
+
+    overview = render_site.home(0)
+    assert "DO NOT SUBMIT" in overview and "No eligible submission file" in overview
+    assert "0.3195" in overview and "0.4413" in overview and "0.4544" in overview
+    assert "not authenticated" in overview.lower()
+    assert "11 + 9" in overview and "No approved .tif" in overview
+    assert "evidence/session_73de02e3_run_card.json" in overview
+
+    guide = render_site.guide(1)
+    assert "All 11 local download GeoTIFFs and 9 audited peer GeoTIFFs" in guide
+    assert "99.9017%" in guide and "LEGACY-UNVERIFIED" in guide
+    assert "No approved .tif" in guide
+
+    research = render_site.research(1)
+    for hypothesis in ("Multi-catchment bedrock-incision coherence",
+                       "Focal-mechanism-consistent microseismic lineaments",
+                       "Persistent InSAR deformation discontinuities"):
+        assert hypothesis in research
+    assert "None tested" in research and "score projections" in research

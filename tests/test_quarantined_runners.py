@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
     ['scripts/prepare_data.py'],
     ['scripts/run_karage1_experiments.py', '--stage', 'fit'],
     ['scripts/run_karage1_experiments.py', '--stage', 'eval'],
+    ['scripts/run_dipdual_experiments.py'],
     ['scripts/run_experiment1_screen.py'],
     ['scripts/run_experiment2_gpcz.py'],
     ['scripts/run_experiment3_build.py'],
@@ -21,6 +22,18 @@ def test_old_experiment_entrypoints_fail_closed(command):
     result = subprocess.run([sys.executable, *command], cwd=ROOT, capture_output=True, text=True)
     assert result.returncode != 0
     assert 'BLOCKED' in result.stderr
+
+
+def test_historical_dipdual_runner_blocks_without_modifying_saved_tifs():
+    import hashlib
+    downloads = ROOT / 'docs/downloads'
+    before = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in downloads.glob('*.tif')}
+    result = subprocess.run([sys.executable, 'scripts/run_dipdual_experiments.py'],
+                            cwd=ROOT, capture_output=True, text=True)
+    after = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in downloads.glob('*.tif')}
+    assert result.returncode == 2 and 'BLOCKED' in result.stderr
+    assert 'no active lane' in result.stderr.lower()
+    assert after == before
 
 
 @pytest.mark.parametrize('command', [

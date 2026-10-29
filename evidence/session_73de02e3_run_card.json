@@ -1,0 +1,182 @@
+{
+  "schema": "karage1-session-review-run-card-v1",
+  "session": "arena/73de02e3-gemsdoekarage1",
+  "review_date_utc": "2026-10-29",
+  "review_type": "repository/site/release-safety review; no geological experiment",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "submission_name": "NONE \u2014 no eligible candidate",
+  "submission_note": "DO NOT SUBMIT: no saved candidate passes the complete protocol.",
+  "submission_note_chars": 63,
+  "raster_sha256": null,
+  "new_geotiff_generated": false,
+  "geological_experiments_run": 0,
+  "holdout_DTI": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not measured in this review; no experiment or shared holdout run"
+  },
+  "assigned_method_lane": {
+    "active_assignment": false,
+    "value": null
+  },
+  "canonical_template_assignment": {
+    "active_assignment": false,
+    "value": null
+  },
+  "official_data_authenticated": false,
+  "registry_complete": false,
+  "slot_selected_or_spent": false,
+  "experiment_budget": {
+    "used": 0,
+    "max_experiments": 3,
+    "max_hours": 2,
+    "selection_status": "not selected"
+  },
+  "score_context": {
+    "focus_site_best_report": {
+      "value": 0.2778,
+      "site": "GEMSDOE32",
+      "evidence_class": "USER-REPORTED / UNVERIFIED"
+    },
+    "leaderboard_snapshots": [
+      {
+        "value": 0.3195,
+        "origin": "user prompt passage",
+        "evidence_class": "USER-REPORTED / UNVERIFIED",
+        "current_status": "not authenticated"
+      },
+      {
+        "value": 0.4413,
+        "origin": "conflicting user prompt passage",
+        "evidence_class": "USER-REPORTED / UNVERIFIED",
+        "current_status": "not authenticated"
+      },
+      {
+        "value": 0.4544,
+        "origin": "older repository snapshot",
+        "evidence_class": "STALE / UNVERIFIED REPOSITORY CONTEXT",
+        "current_status": "not authenticated"
+      }
+    ],
+    "organizer_confirmed_current_score": null,
+    "projection": "none"
+  },
+  "local_peer_audit": {
+    "path": "evidence/local_downloads_and_peer_audit_20261029.json",
+    "schema": "karage1-local-and-peer-audit-v1",
+    "scope": "All 11 local docs/downloads/*.tif artifacts plus 9 SHA-pinned sibling/peer GeoTIFFs across 22 commit-pinned ecosystem repositories.",
+    "local_count": 11,
+    "peer_count": 9,
+    "commit_pinned_repository_count": 22,
+    "all_local_downloads_blocked": true,
+    "all_audited_peer_rasters_exceed_70pct_lattice": true,
+    "submit_authorized": false,
+    "source_authentication": "GitHub mirror pins verified by full SHA-256; NOT authenticated organizer files or a complete competition registry.",
+    "historical_receipt_preserved": "evidence/local_downloads_and_peer_audit_20261028.json (9 local + 9 peer)"
+  },
+  "kth_legacy_artifact": {
+    "path": "docs/downloads/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+    "sha256": "a18e8fea158c2c53357b2d9651a6ce874b6329f1fdff690b4e17e8b0bb6a75eb",
+    "positive_pixels_in_footprint": 37654,
+    "lattice_dots_within_3px": 37617,
+    "lattice_overlap_3px": 0.999017368672651,
+    "literal_lattice_duplicate": true,
+    "preplacement_surface_available": false,
+    "rank_correlation": "not computed; uniqueness not certified",
+    "legacy_claim_classification": "LEGACY-UNVERIFIED CLAIM; not accepted as a HOLDOUT-DTI result",
+    "legacy_claim_quarantine": "evidence/legacy_kth_claim_quarantine_20261029.json",
+    "current_card": "evidence/kth_candidate_audit_20261029.json",
+    "verdict": "negative",
+    "ok_to_submit": false
+  },
+  "format_validation": {
+    "reference": "Hash-pinned GitHub mirror; not organizer-authenticated",
+    "reference_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "mirror_grid_match": true,
+    "metadata": {
+      "driver": "GTiff",
+      "count": 1,
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "crs": "EPSG:32611",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "mask_all_valid": true
+    },
+    "no_nan_inside_footprint": true,
+    "inside_values_in_0_1": true,
+    "outside_all_zero": true,
+    "outside_all_nan": false,
+    "portal_acceptance": "not tested",
+    "note": "Mirror-grid/range validation is not upload approval; official outside-footprint interpretation is not tested here.",
+    "no_masked_inside_footprint": true,
+    "crs_shape_transform_match": true
+  },
+  "b2_geometric_forensics": {
+    "path": "docs/data/b2_forensics.json",
+    "finding": "GEMSDOE32 is GEMSDOE25 minus 6,436 dots within 2 pixels of the pinned mirrored catalogue; no additions; this does not prove a score cause.",
+    "reported_value": 0.2778,
+    "score_evidence_class": "USER-REPORTED / UNVERIFIED"
+  },
+  "novelty_screen": {
+    "path": "knowledge/hypothesis-screen-2026-10-29.md",
+    "tested": false,
+    "proposals": [
+      {
+        "rank": 1,
+        "name": "Multi-catchment bedrock-incision coherence",
+        "expected_dti_benefit": "medium, uncertain",
+        "implementation_cost": "medium"
+      },
+      {
+        "rank": 2,
+        "name": "Focal-mechanism-consistent microseismic lineaments",
+        "expected_dti_benefit": "low-medium, spatially limited",
+        "implementation_cost": "high"
+      },
+      {
+        "rank": 3,
+        "name": "Persistent InSAR deformation discontinuities",
+        "expected_dti_benefit": "low/narrow",
+        "implementation_cost": "very high"
+      }
+    ],
+    "ranking_is_projection": false,
+    "official_payloads_fetched": false
+  },
+  "protocol": {
+    "preplacement_full_registry_comparison": "not available for KTH; no candidate surface created in this review",
+    "final_dot_rule": "all 11 local candidates and 9 peers are blocked by >70% lattice overlap",
+    "method_lane_respected": "no lane assigned; no experiment run",
+    "shared_holdout_or_writer_used": false,
+    "selector_or_weekly_cap_checked": false,
+    "historical_DIPDUAL_runner": "blocked before geospatial imports; its previous calibration-lattice role exemption conflicts with the literal gate and no current lane is assigned"
+  },
+  "review_passes": {
+    "pass_1_implement_verify": "complete; dynamic scope with synthetic-count regression, KTH audit/quarantine, all unsafe unassigned entry points fail closed, README/site and regressions implemented",
+    "pass_2_adversarial_review_fix": "complete; saved-byte claims, old gate override, lattice exemption, score labels, runner guards, page links and history preservation reviewed and corrected",
+    "pass_3_requirements_recheck": "complete; nine sites, score classes/conflict, no-TIF status, format/uniqueness gates, novelty screen, protocol blockers, README/site and handoff rechecked"
+  },
+  "tests": {
+    "targeted": "37 passed, 1 Rasterio PendingDeprecationWarning",
+    "full_suite": "362 passed, 119 Rasterio PendingDeprecationWarnings",
+    "site_build": "32 deterministic pages rendered; no submission authorized",
+    "local_links": "all site-local links passed regression checks",
+    "git_diff_check": "passed"
+  },
+  "next_steps": "Obtain authorized lane/template and official source provenance; resolve lattice interpretation without weakening gates; authenticate a complete registry; preregister and evaluate only if all gates permit."
+}
