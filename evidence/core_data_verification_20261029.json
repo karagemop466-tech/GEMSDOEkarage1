@@ -1,0 +1,251 @@
+{
+  "schema": "karage1-core-data-verification-v1",
+  "generated_utc": "2026-10-29",
+  "label": "DATA-INTEGRITY CHECK (not a model score; no HOLDOUT-DTI, no ORGANIZER-CONFIRMED value)",
+  "restored_core_pins": [
+    {
+      "id": "training_features",
+      "present": true,
+      "sha256_matches_pin": true,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "bytes": 418912844
+    },
+    {
+      "id": "labels",
+      "present": true,
+      "sha256_matches_pin": true,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830
+    },
+    {
+      "id": "existing_faults",
+      "present": true,
+      "sha256_matches_pin": true,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830
+    },
+    {
+      "id": "sample_submission",
+      "present": true,
+      "sha256_matches_pin": true,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "bytes": 1599597
+    }
+  ],
+  "label_and_template_semantics": {
+    "labels_values": {
+      "-1": 7111787,
+      "0": 5106385,
+      "1": 60988
+    },
+    "labels_nodata": -1.0,
+    "labels_outside_minus1_count": 7111787,
+    "sample_nan_count": 7111787,
+    "sample_ones": 60988,
+    "sample_ones_on_label_fault": 60988,
+    "sample_ones_on_label_background": 0,
+    "sample_is_label_copy_on_positives": true,
+    "training_features_nodata": -3.4028234663852886e+38,
+    "footprint_disagreement_label_vs_feature_band1": 4601
+  },
+  "local_tifs": [
+    {
+      "file": "gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 17415
+    },
+    {
+      "file": "gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-nan.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 7111787,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 37654
+    },
+    {
+      "file": "gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 37654
+    },
+    {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-nan.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": "nan",
+      "nan_count": 7111787,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 36000
+    },
+    {
+      "file": "gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 36000
+    },
+    {
+      "file": "karage1-bbstep-buried-basement-20261028T180000Z-nan.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": "nan",
+      "nan_count": 7111787,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 17766
+    },
+    {
+      "file": "karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 17766
+    },
+    {
+      "file": "karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 37654
+    },
+    {
+      "file": "karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-nan.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": "nan",
+      "nan_count": 7111787,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 24000
+    },
+    {
+      "file": "karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 24000
+    },
+    {
+      "file": "karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 38200
+    },
+    {
+      "file": "karage1-unique-alteration-dots-20261028-zeros.tif",
+      "dtype": "float32",
+      "count": 1,
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "nodata": null,
+      "nan_count": 0,
+      "min_finite": 0.0,
+      "max_finite": 1.0,
+      "values_outside_0_1": 0,
+      "positives": 3500
+    }
+  ],
+  "any_local_tif_value_outside_0_1": false,
+  "portal_range_error_reproduced_locally": false,
+  "notes": [
+    "Mirror hashes prove byte consistency with pinned mirrors, not DrivenData authenticity.",
+    "The mirrored sample_submission.tif equals the label positives; the DrivenData page calls the sample 'total fault absence'. Treat as an irregularity for owner review; do not use it as a submission."
+  ]
+}
