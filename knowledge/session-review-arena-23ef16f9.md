@@ -28,6 +28,8 @@ Generating a raster now would produce an unvalidated file with an unknown score.
 a negative result, and a downloadable file would invite an accidental slot spend. So no file was
 created.
 
+**Update after merging `main` (29 Oct 2026).** `main` now contains core inputs restored from pinned GitHub mirrors (session `547a9b56`, [`evidence/core_data_verification_20261029.json`](../evidence/core_data_verification_20261029.json)). Their SHA-256 values match the pins, but the pins are not organizer authentication. This session did **not** run a holdout on them. Reasons: the lane is unassigned, the mirrors are not organizer-authenticated, and redistribution of login-walled competition data needs owner confirmation (§7.9).
+
 ## 2. Why GEMSDOE32 `h33-h33-2-b2` reported 0.2778, and whether it can be beaten
 
 **Verified facts (checked by me on the registry bytes, not from notes):**
@@ -149,6 +151,11 @@ DrivenData, USGS, and ScienceBase pages as text, but it cannot download the bina
 6. **Eligibility and disclosure.** The rules restrict eligibility (for example, individuals must be U.S. citizens or permanent residents, and private entities must be U.S.-incorporated) and require disclosure of generative-AI use in the narrative (NLR rules §1.3, §3.2). Both must be confirmed by the owner before any final submission.
 7. **Caveat on my own analysis.** The inclusion-threshold check (§2) is a simulation on synthetic posteriors. It is not a result on competition data, and the rule itself was already in the repo.
 8. **Earlier novelty claim corrected.** My first draft listed the α·DTI rule as a new hypothesis. A keyword check found it in `src/gemsk/metric.py`, so it was removed from the new candidates.
+
+9. **Mirror provenance.** The restored `training_features` / `labels` come from third-party mirrors. The owner must confirm that using a copy of login-walled competition data complies with the DrivenData terms before any holdout uses it.
+10. **Sample-submission irregularity (from `main`).** The mirrored `sample_submission.tif` has exactly the 60,988 label-fault pixels. The DrivenData page calls it "total fault absence". Do not submit it.
+11. **`main` has 7 failing tests before and after this merge** (`tests/test_session_1668dda0_hardening.py::test_local_and_peer_evidence_verifies_all_9_local_tifs`, `tests/test_session_20261029.py::test_fleet_audit_covers_every_local_tif_and_blocks_all`, and 5 more). They enumerate local TIFs and do not expect the new halo file. This branch adds no new failures. Not fixed here, because the assertions belong to other sessions.
+12. **Executive summary on `main` is hand-restored.** `scripts/build_site.py` regenerates `docs/executive-summary.html` with different content, so the CI check `git diff --exit-code -- docs` would fail. This branch keeps `main`'s version. The owner should decide which generator is the authority.
 
 ## 8. Next steps (owner or next session)
 

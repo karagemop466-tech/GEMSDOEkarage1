@@ -12,7 +12,7 @@
     "ci95": null,
     "evaluator": null,
     "withheld_positives": null,
-    "label": "NOT MEASURED. Competition data is login-walled and unreachable from the sandbox."
+    "label": "NOT MEASURED. Official data is login-walled. Mirror-restored copies exist on main (session 547a9b56) but are not organizer-authenticated, and the lane is unassigned."
   },
   "reference_scores": {
     "GEMSDOE32_h33-h33-2-b2_0.2778": "USER-REPORTED / UNVERIFIED (no organizer receipt)",
@@ -55,14 +55,18 @@
   "submission_note_chars": 0,
   "verdict": "negative",
   "decision": "DO NOT SUBMIT. No file was generated for upload. No weekly slot was spent. Promotion is a separate selector step.",
-  "tests": "pytest -q: 373 passed (29 Oct 2026)",
+  "tests": "After merging origin/main: 372 passed, 7 failed. Identical to origin/main baseline (pre-existing failures).",
   "irregularities": [
     "Renderer text said 0.3195 did not match the live page; it is at rank 47. Corrected.",
     "The alpha*DTI inclusion rule was first presented as new; it is already in src/gemsk/metric.py. Corrected.",
     "README says 365 tests; the current count is 373.",
     "Stale 0.4437 leaderboard figure in evidence/sources/GEMSDOE32.md and knowledge/geothermal-fault-knowledge.md.",
     "The 70%/3-px gate is not in the official rules sections read; it is internal and is unsatisfiable above 22,163 dots against the recorded witness.",
-    "Eligibility and generative-AI disclosure must be confirmed by the owner before any final submission."
+    "Eligibility and generative-AI disclosure must be confirmed by the owner before any final submission.",
+    "main has 7 failing tests (fleet/TIF audits) before and after this merge.",
+    "Hand-restored docs/executive-summary.html on main disagrees with scripts/build_site.py output.",
+    "Mirror-restored competition data: owner to confirm terms compliance.",
+    "Mirrored sample_submission.tif equals the label-fault pixels (60,988)."
   ],
   "sources": [
     "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
