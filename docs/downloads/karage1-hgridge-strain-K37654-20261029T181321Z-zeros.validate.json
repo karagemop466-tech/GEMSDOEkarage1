@@ -1,0 +1,46 @@
+{
+  "reread": {
+    "finite_everywhere": true,
+    "min": 0.0,
+    "max": 1.0,
+    "in_unit_interval": true,
+    "positive_outside_footprint": 0,
+    "positive_on_mapped_catalogue": 0,
+    "positive_count": 37654,
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    },
+    "crs_match": true,
+    "shape_match": true,
+    "transform_match": true
+  },
+  "gates": {
+    "format_valid": true,
+    "no_positives_outside_footprint": true,
+    "no_positives_on_mapped_catalogue": true,
+    "canary_no_leakage": true,
+    "registry_focus_forward_overlap_le_0_70": true,
+    "registry_focus_abs_spearman_le_0_90": true,
+    "lattice_literal_forward_overlap_le_0_70": false,
+    "literal_protocol_all_pass": false
+  },
+  "sample_check": {
+    "sample_nan_count_outside": 7111787,
+    "submission_outside_is_zero": true
+  }
+}

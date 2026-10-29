@@ -1,0 +1,167 @@
+{
+  "schema": "karage1-user-reported-nine-sites-v1",
+  "as_of_utc": "2026-10-29",
+  "source_authentication": "USER-REPORTED / UNVERIFIED. Transcribed from the 2026-10-29 user prompt (verbatim file labels and scores). No organizer submission-page receipt is linked to any of these numbers.",
+  "estimate_policy": "Estimated leaderboard score is UNAVAILABLE for every file: none of these pipelines is reproduced here, and the organizer scores against a hidden new-fault set. No number in this file is an organizer-confirmed score.",
+  "sites": [
+    {
+      "site": "GEMSDOE24",
+      "files": [
+        {
+          "label": "h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan",
+          "user_reported_score": 0.2477,
+          "registry_id": "reg_gems24_d15_allfinite"
+        },
+        {
+          "label": "gems24-gvc1-negative-geothermal-lineament-submod-20261025-abe8e51c719d-zeros",
+          "user_reported_score": 0.0859,
+          "registry_id": null
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    },
+    {
+      "site": "GEMSDOE25",
+      "files": [
+        {
+          "label": "dotted-h19-5-d2-8-20261002-e56ea318af89-nan",
+          "user_reported_score": 0.26,
+          "registry_id": "reg_gems25_d28_zeros"
+        },
+        {
+          "label": "gems25-h66-mgd-flank-sapd3-0-k3p5-20261025-da617550a0e9-zeros",
+          "user_reported_score": 0.0742,
+          "registry_id": null
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    },
+    {
+      "site": "GEMSDOE27",
+      "files": [
+        {
+          "label": "topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan",
+          "user_reported_score": 0.2449,
+          "registry_id": "reg_gems27_tgc_v2_allfinite"
+        },
+        {
+          "label": "gems27-h29-hydrothermal-piedmont-celf-20261025-511898747886-allfinite",
+          "user_reported_score": 0.219,
+          "registry_id": null
+        },
+        {
+          "label": "gems27-h31-drcg-wl-celf28-20261026-cf8e1bbef244-allfinite",
+          "user_reported_score": 0.225,
+          "registry_id": "reg_gems27_h31_drcg_allfinite"
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    },
+    {
+      "site": "GEMSDOE28",
+      "files": [
+        {
+          "label": "h27-4-r1-solo-d2-8-20261003-8acb75e1f2cc-nan",
+          "user_reported_score": 0.2708,
+          "registry_id": "reg_gems28_h27_4_solo"
+        },
+        {
+          "label": "h32-1-prethin-tip-euler-d2-8-20261003-31e35eee884e-nan",
+          "user_reported_score": 0.2649,
+          "registry_id": "reg_gems28_h32_1_prethin"
+        },
+        {
+          "label": "h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan",
+          "user_reported_score": 0.271,
+          "registry_id": "reg_gems28_h36_rung30"
+        },
+        {
+          "label": "h38-1-hf-euler-r30-r1-20261003-56a9f473edc7-nan",
+          "user_reported_score": 0.2707,
+          "registry_id": "reg_gems28_h38_hf_euler"
+        },
+        {
+          "label": "gems28-s18-mxtp-20261025-3e95505c011a-allfinite",
+          "user_reported_score": 0.0217,
+          "registry_id": null
+        },
+        {
+          "label": "gems28-s21-puhgb-20261026-16bbf281ba9b-allfinite",
+          "user_reported_score": 0.0206,
+          "registry_id": null
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    },
+    {
+      "site": "GEMSDOE30",
+      "files": [
+        {
+          "label": "d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca",
+          "user_reported_score": 0.26,
+          "registry_id": "reg_gems30_d28_poisson"
+        },
+        {
+          "label": "gems30-MSDB1-edge44090-20261025-e7856ec3f14a",
+          "user_reported_score": 0.1462,
+          "registry_id": null
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    },
+    {
+      "site": "GEMSDOE31",
+      "files": [
+        {
+          "label": "h27-4-solo-d28-20261004-8acb75e1-nan",
+          "user_reported_score": 0.2708,
+          "registry_id": "reg_gems31_h27_4_solo_d28"
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    },
+    {
+      "site": "GEMSDOE32",
+      "files": [
+        {
+          "label": "h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros",
+          "user_reported_score": 0.2778,
+          "registry_id": "reg_champion_02778_zeros"
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    },
+    {
+      "site": "GEMSDOE33",
+      "files": [
+        {
+          "label": "h33d-analog-tip-stepover-r30-20261004-cb490425926e",
+          "user_reported_score": 0.2632,
+          "registry_id": "reg_gems33_h33d_tip_stepover"
+        },
+        {
+          "label": "gemsdoe33-s33-seisdil-strain-seismicity-37654-20261026-3463540a7e02-zeros",
+          "user_reported_score": 0.0963,
+          "registry_id": null
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    },
+    {
+      "site": "GEMSDOE36",
+      "files": [
+        {
+          "label": "anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros",
+          "user_reported_score": 0.275,
+          "registry_id": "reg_gems36_anderson_zeros"
+        },
+        {
+          "label": "gemsdoe36-kpl36-exp3-20261026-fc869911e88c-zeros",
+          "user_reported_score": 0.1647,
+          "registry_id": null
+        }
+      ],
+      "note": "repo/pin links come from registry/reference_assets.json; no Pages URL is asserted here"
+    }
+  ]
+}
