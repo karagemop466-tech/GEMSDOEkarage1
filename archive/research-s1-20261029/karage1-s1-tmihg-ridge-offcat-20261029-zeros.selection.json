@@ -1,0 +1,10 @@
+{
+  "local_maxima_off_catalogue": 37868,
+  "dots_kept": 37311,
+  "budget": 37654,
+  "budget_met": false,
+  "budget_shortfall": 343,
+  "smoothing_sigma_px": 1.0,
+  "apron_px": 2.0,
+  "spacing_px": 2.8
+}
