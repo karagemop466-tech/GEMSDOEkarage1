@@ -29,8 +29,10 @@ for sub in ("vendor", "src"):
 from gems57.grid import DATA_DIR, load_grid  # noqa: E402
 
 EV = ROOT / "evidence"
-CAND_REL = "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029.tif"
+CAND_REL = "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.tif"
+ZEROS_REL = "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-zeros.tif"
 CAND = ROOT / CAND_REL
+ZEROS = ROOT / ZEROS_REL
 CAND_NOTE = "GBM top-37654 pixels, 3px catalogue collar, 19 organiser bands; research candidate, not cleared"
 CAND_NAME = "karage1-probcollar-gbm-K37654-collar3-20261029"
 COLLAR_PX = 3
@@ -50,7 +52,8 @@ def main() -> int:
     det = load("holdout_probcollar_detached_20261029.json")
     ring_all = load("holdout_ring_tiebreak_all_20261029.json")
     ring_det = load("holdout_ring_tiebreak_detached_20261029.json")
-    uniq = load("candidate_uniqueness_probcollar_20261029.json")
+    uniq = load("candidate_uniqueness_probcollar-nan_20261029.json")
+    uniq_zeros = load("candidate_uniqueness_probcollar-zeros_20261029.json")
     focus = load("focus_site_table_20261029.json")
 
     # --- holdout arms, one evaluator, both modes -----------------------------------------------
@@ -160,14 +163,15 @@ def main() -> int:
         "submission_slots_used": 0,
         "submission_note": CAND_NOTE,
         "candidate": dict(
-            file=CAND_REL, name=CAND_NAME, sha256=cand_sha,
+            file=CAND_REL, name=CAND_NAME, sha256=cand_sha, encoding="NaN outside footprint (official format)",
+            zeros_twin=dict(file=ZEROS_REL, sha256=sha256(ZEROS), encoding="zeros outside (shared all-finite policy)"),
             status="research-only; NOT CLEARED; DO NOT SUBMIT",
             download_offered=False,
             dots=int(uniq["catalogue_collar"]["dots"]),
             min_distance_to_catalogue_px=uniq["catalogue_collar"]["min_distance_px"],
             dots_within_3px_of_catalogue=uniq["catalogue_collar"]["within_3px"],
             format_checks={k: uniq["format"][k] for k in ("crs_ok", "shape_ok", "transform_ok", "single_band_float32",
-                                                           "all_finite", "values_in_0_1", "outside_footprint_positive")},
+                                                           "inside_finite", "values_in_0_1", "outside_footprint_positive", "outside_encoding")},
         ),
         "holdout": {
             "label": "HOLDOUT-DTI",
@@ -204,6 +208,7 @@ def main() -> int:
         "irregularities": [
             "The 13GEMSDOE lattice covers ~99.9% of the footprint; the literal 70% gate is at chance and effectively unsatisfiable for any footprint-spread submission.",
             "The holdout's withheld units are catalogue segments, so proximity to visible faults is rewarded by construction; it does not measure hidden new-fault discovery (see evidence caveats).",
+            "The shared validator (gems57.gates) rejects NaN outside the footprint under its local all-finite export policy, while the official spec permits NaN outside. The NaN-outside primary is written by scripts/build_candidate_submission.py; the refusal reasons are recorded in docs/candidates/…-nan.json. Conflict flagged for the owner, not waived.",
             "Owner-reported scores (0.2600-0.2778) are unverified; no organiser receipt ties them to the audited hashes.",
             "Organiser leaderboard top is 0.4544 (live check); owner quotes of 0.4413 do not match the live page.",
             "GEMSDOE25 and GEMSDOE30 have identical positive sets (XOR 0); GEMSDOE28 (h27-4 r1) and GEMSDOE31 have identical positive sets.",
@@ -229,6 +234,8 @@ def main() -> int:
             ring_detached="evidence/holdout_ring_tiebreak_detached_20261029.json",
             uniqueness="evidence/candidate_uniqueness_probcollar_20261029.json",
             focus_sites="evidence/focus_site_table_20261029.json",
+            uniqueness_zeros_twin="evidence/candidate_uniqueness_probcollar-zeros_20261029.json",
+            candidate_nan_receipt="docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.json",
         ),
     }
     text = json.dumps(card, indent=2, allow_nan=False, sort_keys=False, default=float) + "\n"

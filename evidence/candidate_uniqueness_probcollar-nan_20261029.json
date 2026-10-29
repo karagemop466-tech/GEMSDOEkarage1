@@ -1,7 +1,7 @@
 {
   "schema": "karage1-candidate-uniqueness-v1",
-  "candidate": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029.tif",
-  "candidate_sha256": "8e5269c6312135409ae609ecfbb8df929d32cda8b9d608e393ca62c20869941e",
+  "candidate": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.tif",
+  "candidate_sha256": "07ec7292695aceb77306db7fc6e2ef5425ab7f64da0415e072cd14cb7b7797d5",
   "format": {
     "driver": "GTiff",
     "count": 1,
@@ -27,7 +27,9 @@
     "shape_ok": true,
     "transform_ok": true,
     "single_band_float32": true,
-    "all_finite": true,
+    "inside_finite": true,
+    "outside_encoding": "nan",
+    "all_finite": false,
     "min": 0.0,
     "max": 1.0,
     "values_in_0_1": true,

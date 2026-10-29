@@ -76,19 +76,24 @@ def main() -> int:
         fmt = dict(
             driver=src.driver, count=src.count, dtype=src.dtypes[0], crs=str(src.crs),
             shape=[src.height, src.width], transform=list(tuple(src.transform)[:6]),
-            nodata=src.nodata, descriptions=list(src.descriptions),
+            nodata=(None if src.nodata is None or src.nodata != src.nodata else float(src.nodata)),
+            descriptions=list(src.descriptions),
         )
         arr = src.read(1)
     fmt["crs_ok"] = fmt["crs"] == f"EPSG:{EPSG}"
     fmt["shape_ok"] = fmt["shape"] == [HEIGHT, WIDTH]
     fmt["transform_ok"] = fmt["transform"] == list(tuple(TRANSFORM)[:6])
     fmt["single_band_float32"] = fmt["count"] == 1 and fmt["dtype"] == "float32"
+    inside = arr[fp]
+    outside = arr[~fp]
+    fmt["inside_finite"] = bool(np.isfinite(inside).all())
+    fmt["outside_encoding"] = ("nan" if np.isnan(outside).all() else ("zeros" if (outside == 0).all() else "mixed"))
     fmt["all_finite"] = bool(np.isfinite(arr).all())
-    fmt["min"] = float(np.nanmin(arr))
-    fmt["max"] = float(np.nanmax(arr))
+    fmt["min"] = float(inside.min())
+    fmt["max"] = float(inside.max())
     fmt["values_in_0_1"] = bool(fmt["min"] >= 0.0 and fmt["max"] <= 1.0)
-    fmt["unique_values"] = [float(x) for x in np.unique(arr)[:5]]
-    fmt["outside_footprint_positive"] = int(((arr > 0) & ~fp).sum())
+    fmt["unique_values"] = [float(x) for x in np.unique(inside)[:5]]
+    fmt["outside_footprint_positive"] = int(((np.nan_to_num(arr, nan=0.0) > 0) & ~fp).sum())
     fmt["inside_footprint_cells"] = int(fp.sum())
 
     pos = (arr > 0) & fp
@@ -104,7 +109,8 @@ def main() -> int:
         min_distance_px=float(d.min()) if n else None,
     )
 
-    comparison = compare_array_to_registry(arr, build_index(), fp, file_sha256=sha256(cand))
+    arr_u = np.nan_to_num(arr, nan=0.0).astype(np.float32)  # dot sets are identical for both twins
+    comparison = compare_array_to_registry(arr_u, build_index(), fp, file_sha256=sha256(cand))
     rows = comparison["rows"]
     checked = [r for r in rows if "error" not in r]
     errors = [r for r in rows if "error" in r]
@@ -142,7 +148,7 @@ def main() -> int:
     print(json.dumps({k: out[k] for k in ("candidate_sha256", "catalogue_collar", "comparator_unique_flag")}, indent=2))
     print("gates:", json.dumps({k: v for k, v in out["gates"].items() if k != "lattice_row"}, default=float))
     print("lattice:", json.dumps(lattice, default=float)[:600])
-    print("format:", json.dumps({k: fmt[k] for k in ("crs_ok", "shape_ok", "transform_ok", "single_band_float32", "all_finite", "values_in_0_1", "outside_footprint_positive")}))
+    print("format:", json.dumps({k: fmt[k] for k in ("crs_ok", "shape_ok", "transform_ok", "single_band_float32", "inside_finite", "outside_encoding", "values_in_0_1", "outside_footprint_positive")}))
     return 0
 
 
