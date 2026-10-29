@@ -44,7 +44,7 @@ Before the next candidate slate can be compliant, the protocol owner must supply
 - Verified no local `data/` or cached feature stack is present. Existing `docs/downloads/*.tif` files are previous research artifacts; no new file was made.
 - Installed the declared requirements into an ephemeral `/tmp` virtual environment (not tracked) and ran `/tmp/gems-review-venv/bin/python -m pytest -q`: **365 passed, 0 failed, 0 skipped**, with 119 Rasterio/Affine pending-deprecation warnings. This is software verification only.
 - Ran the guarded entry points. `scripts/run_karage1_experiments.py --stage all` and `scripts/my_unique_experiment2.py` both exited 2 with `BLOCKED`; no experiment or raster was produced.
-- After remote `main` advanced during PR review, I incorporated its separate GSE research artifact, independently audited its two saved TIFF variants against the pinned lattice and nine focus-site mirrors, added an automated renderer guard, and reran the complete suite: **368 passed, 0 failed, 0 skipped**, 119 Rasterio/Affine warnings. This was a saved-byte uniqueness audit, not a geological experiment or HOLDOUT-DTI.
+- After remote `main` advanced during PR review, I incorporated its separate GSE research artifact, independently audited its two saved TIFF variants against the pinned lattice and nine focus-site mirrors, quarantined its generator CLI, and later audited an upstream halo artifact against the pinned template. Final site build and suite: **383 passed, 0 failed, 0 skipped**, 119 Rasterio/Affine warnings. These were saved-byte/software checks, not a geological experiment or HOLDOUT-DTI.
 
 ### Pass 2 — adversarial review
 
@@ -93,3 +93,7 @@ These are source pointers already recorded in the repository; they were **not fr
 ## Run card
 
 See [`evidence/session_b2b18800_run_card.json`](../evidence/session_b2b18800_run_card.json). Verdict: `negative`.
+
+## Upstream halo artifact discovered during later `main` sync
+
+`main` advanced with a separate halo candidate. This branch did not generate it. Its upstream card calls it format-valid and structurally unique, but the saved-byte audit in `evidence/halo_saved_byte_gate_audit_20261029.json` narrows that claim: the file matches the pinned mirror grid and passes float32/[0,1]/inside-footprint checks, yet stores finite zero values outside the footprint where the mirrored official template uses null/NaN. Full-registry uniqueness and HOLDOUT-DTI remain unmeasured. It is **NEGATIVE / DO NOT SUBMIT**. The source template is a third-party mirror, not organizer-authenticated. No generator or selector was run.

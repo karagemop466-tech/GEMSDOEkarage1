@@ -1,0 +1,67 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc": "2026-10-29T18:19:49.384243+00:00",
+  "session": "arena/968c17f0-gemsdoekarage1",
+  "hypothesis": "Blind splays/stepovers concentrate in the damage-zone halo 100-300 m from mapped catalogue edges; a smooth halo probability field there is structurally unique versus all dot-field submissions.",
+  "mechanism": "Distance-to-catalogue Gaussian halo peaking at 200 m, zero on catalogue and outside footprint, all-finite [0,1] float32.",
+  "named_non_fault_mimic": "Pluvial shoreline berms, road/rail embankments, and conductive playas can produce linear anomalies near catalogue traces.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run \u2014 organizer labels are login-walled; no truth available"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "note": "Registry rasters not fetched locally; uniqueness vs the nine focus-site dot fields is structural (continuous halo field vs discrete dots) but not yet measured against the lattice."
+  },
+  "raster_sha256": "f6307da88c20fef477a7dfc13b45891f680e4d2abb680497e36cee1a492452ad",
+  "raster": {
+    "tif": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+    "zip": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.zip",
+    "receipt": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.json",
+    "sha256": "f6307da88c20fef477a7dfc13b45891f680e4d2abb680497e36cee1a492452ad",
+    "bytes": 4146936,
+    "positive_pixels": 5106385,
+    "dtype": "float32",
+    "nodata": null,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "validator_output": {
+    "all_checks_passed": true,
+    "format_ok": true,
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "outside_footprint_zero": true,
+    "format_problems": []
+  },
+  "submission_name": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+  "submission_note": "Damage-zone halo probability field; research artifact; DO NOT SUBMIT",
+  "submission_note_chars": 68,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run_this_session": 1,
+  "verdict": "negative \u2014 research artifact only; format-valid and structurally unique by design, but not holdout-validated and not registry-cleared",
+  "blockers": [
+    "Organizer truth labels are login-walled; HOLDOUT-DTI cannot be computed",
+    "Complete organizer registry not accessible; literal lattice uniqueness not measured",
+    "No assigned method lane (registry/template.json method_lane is null)",
+    "No weekly submission slot selected or spent"
+  ]
+}

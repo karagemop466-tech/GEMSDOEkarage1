@@ -34,11 +34,11 @@
   "geological_experiments_run": 0,
   "software_tests": {
     "command": "/tmp/gems-review-venv/bin/python -m pytest -q",
-    "passed": 368,
+    "passed": 383,
     "failed": 0,
     "skipped": 0,
     "warnings": 119,
-    "meaning": "Final suite after merging origin/main, adding saved-byte GSE guard tests, and quarantining its CLI; software verification only."
+    "meaning": "Final suite after syncing the latest origin/main, independently auditing the upstream halo artifact, quarantining the GSE CLI, and rendering the 32-page site; software verification only."
   },
   "blocked_entrypoints": {
     "scripts/run_karage1_experiments.py --stage all": "exit 2; BLOCKED, no experiment or raster produced",
@@ -51,7 +51,8 @@
     "Complete authenticated submission registry unavailable; internal 70% / 3-pixel lattice stop remains unresolved.",
     "No fresh retrieval of official DrivenData, USGS, NLR or GDR sources in this session.",
     "No organizer submission receipt or live weekly-slot allowance checked.",
-    "Separate mainline GSE research artifact was discovered after this session began; independent saved-byte audit measured 23,979/24,000 (99.9125%) within 3 px of the pinned lattice, above the internal 70% stop. It has no HOLDOUT-DTI or pre-placement surface audit."
+    "Separate mainline GSE research artifact was discovered after this session began; independent saved-byte audit measured 23,979/24,000 (99.9125%) within 3 px of the pinned lattice, above the internal 70% stop. It has no HOLDOUT-DTI or pre-placement surface audit.",
+    "A separate upstream halo raster fails the saved-byte null/NaN outside-footprint check; its full-registry uniqueness and HOLDOUT-DTI remain unmeasured. See evidence/halo_saved_byte_gate_audit_20261029.json."
   ],
   "verdict": "negative",
   "observed_concurrent_candidate_review": {
@@ -72,6 +73,18 @@
     "preplacement_surface_check": "not available / not checked",
     "canary": "Recorded point-biserial correlation against near-catalogue membership, not the required per-feature AUC on withheld truth.",
     "validator": "Zeros-outside TIF: strict finite [0,1] local check passes; outside_all_null_or_nan fails. The -nan diagnostic twin passes outside-null/NaN check. Neither result is portal acceptance.",
-    "status": "DO NOT SUBMIT; separate research artifact."
+    "status": "DO NOT SUBMIT; separate research artifact.",
+    "cli_quarantine": "scripts/build_gse_submission.py returns exit 2 / BLOCKED without rewriting the two GSE variants or historical run card."
+  },
+  "observed_upstream_halo_review": {
+    "file": "docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+    "sha256": "f6307da88c20fef477a7dfc13b45891f680e4d2abb680497e36cee1a492452ad",
+    "origin": "Separate upstream experiment; not generated in this session.",
+    "audit": "evidence/halo_saved_byte_gate_audit_20261029.json",
+    "grid_range_dtype": "Pass against hash-pinned third-party mirror.",
+    "outside_encoding": "Fail: finite zero outside footprint; official template uses null/NaN.",
+    "uniqueness": "Not measured against complete registry; structural difference is not clearance.",
+    "holdout_dti": null,
+    "ok_to_submit": false
   }
 }

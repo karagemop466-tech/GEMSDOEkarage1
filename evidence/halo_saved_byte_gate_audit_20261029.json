@@ -1,0 +1,84 @@
+{
+  "schema": "halo-saved-byte-gate-audit-v1",
+  "date_utc": "2026-10-29",
+  "candidate": {
+    "file": "docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+    "sha256": "f6307da88c20fef477a7dfc13b45891f680e4d2abb680497e36cee1a492452ad",
+    "bytes": 4146936,
+    "dtype": "float32",
+    "nodata": null,
+    "shape": [
+      3730,
+      3292
+    ],
+    "crs": "EPSG:32611",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "finite_pixels": 12279160,
+    "min": 0.0,
+    "max": 0.6000000238418579,
+    "positive_pixels": 5106385
+  },
+  "reference_template": {
+    "source": "third-party GitHub mirror cached and SHA-pinned; not organizer-authenticated",
+    "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "shape": [
+      3730,
+      3292
+    ],
+    "crs": "EPSG:32611",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "footprint_pixels": 5167373,
+    "outside_pixels": 7111787
+  },
+  "saved_byte_checks": {
+    "shape_crs_transform_match": true,
+    "single_band_float32": true,
+    "finite_inside_footprint": true,
+    "inside_values_in_0_1": true,
+    "outside_all_null_or_nan": false,
+    "outside_all_zero": true,
+    "outside_positive_pixels": 0,
+    "outside_nonzero_pixels": 0
+  },
+  "uniqueness": {
+    "status": "NOT MEASURED; no complete authenticated registry or assigned lane",
+    "against_lattice_spearman": null,
+    "dot_overlap_applicable": false,
+    "reason": "continuous probability surface; structural difference from discrete dot rasters is not a measured duplicate clearance"
+  },
+  "performance": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator": null,
+    "withheld_positive_count": null,
+    "ci95": null,
+    "status": "not run"
+  },
+  "protocol": {
+    "method_lane_assigned": false,
+    "weekly_slot_selected_or_spent": false,
+    "experiment_run_in_this_follow_up": false,
+    "upload_authorized": false
+  },
+  "verdict": "NEGATIVE / DO NOT SUBMIT",
+  "limitations": [
+    "Template is a third-party mirror, not organizer-authenticated.",
+    "No complete registry uniqueness check, Spearman gate, holdout, or portal test.",
+    "The candidate writes finite zeros outside footprint; the official template requires null or NaN outside, so saved bytes fail that outside encoding check.",
+    "An upstream run card calls the artifact format-valid; this independent audit narrows that claim: grid/range checks pass, official outside encoding does not."
+  ]
+}
