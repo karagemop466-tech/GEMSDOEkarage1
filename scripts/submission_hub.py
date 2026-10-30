@@ -110,7 +110,7 @@ def site_rows(f: dict) -> list[dict]:
     M = mat["matrix"]
     focus_idx = [i for i, it in enumerate(items) if it["label"].startswith("GEMSDOE")]
     lattice_idx = next(i for i, it in enumerate(items) if it["label"].startswith("13GEMSDOE"))
-    cand_idx = next(i for i, it in enumerate(items) if it["label"].startswith("NEW"))
+    archived_idx = next(i for i, it in enumerate(items) if it["label"].startswith("NEW"))
     pairs = f["spearman"]["pairs"]
 
     def rho_partners(label):
@@ -132,7 +132,7 @@ def site_rows(f: dict) -> list[dict]:
             sha256=it["sha256"], reported=it["reported"],
             page=SITE_PAGES[it["label"]],
             dup_focus=dup_focus, dup_rho=dup_rho, lattice_fwd=lattice_fwd,
-            cand_fwd=M[cand_idx][i],
+            archived_research_forward_overlap=M[archived_idx][i],
             unique=(not dup_focus and not dup_rho and lattice_fwd <= LATTICE_GATE),
         ))
     return rows
@@ -175,23 +175,22 @@ def body(f: dict, depth: int) -> str:
         f"<li><code>{esc(k)}</code>: {'PASS' if v else 'FAIL'}</li>" for k, v in fl["checks"].items())
     return f"""
 <section class="hub-decision" id="download" aria-labelledby="hub-title">
-  <p class="eyebrow">SUBMISSION DECISION · 29 OCT 2026</p>
-  <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-no">NO — NOT CLEARED: DO NOT SUBMIT</span></h1>
-  <p><strong>No file on this site is cleared for DrivenData upload.</strong> The new GeoTIFF below is valid in
-  format and passes the rank and dot-overlap checks against the nine focus files. It fails the literal 3-px lattice gate, and its holdout is negative. It must not be submitted.</p>
+  <p class="eyebrow">HISTORICAL EXPERIMENT RECORD · 29 OCT 2026</p>
+  <h1 id="hub-title">Current decision: no file is cleared. <span class="tag-no">NO — NOT CLEARED: DO NOT SUBMIT</span></h1>
+  <p><strong>Current review (30 Oct 2026): no current candidate TIFF was generated; no file is cleared; and there is no current submission file to download.</strong> The detailed experiment below is an archived 29 October Tiltgrav research artifact only. It failed its holdout and literal 3-px lattice gate; do not submit it. See the <a href="current-review.html">current review and status card ↗</a>.</p>
   <ul class="why">
     <li><strong>Holdout is negative.</strong> HOLDOUT-DTI {sp['candidate_spaced']['dti']:.4f}
     [{sp['candidate_spaced']['ci95'][0]:.4f}, {sp['candidate_spaced']['ci95'][1]:.4f}] versus a spacing-matched random
     null at {sp['random_spaced_null']['dti']:.4f} (paired Δ {f['spacing_delta']['delta']:+.4f},
     95% CI [{f['spacing_delta']['ci95'][0]:+.4f}, {f['spacing_delta']['ci95'][1]:+.4f}] — includes zero).</li>
-    <li><strong>Lattice gate fails.</strong> {_pct(f['lattice']['fwd'])} of its dots lie within 3 px of the
+    <li><strong>Lattice gate fails for this archived file.</strong> {_pct(f['lattice']['fwd'])} of its dots lie within 3 px of the
     13GEMSDOE calibration lattice; the literal stop is &gt; {int(LATTICE_GATE*100)}%.</li>
     <li><strong>No organizer receipt.</strong> No submission-page score, organizer acceptance, or live slot
     allowance was verifiable from this sandbox (DrivenData login-walled).</li>
   </ul>
   <article class="audit-card download-card">
-    <p class="eyebrow">NEW FILE · research only · NOT CLEARED: DO NOT SUBMIT</p>
-    <h2><a class="download-link" href="{esc(dl, quote=True)}" download>Download {esc(TIF_NAME)}</a></h2>
+    <p class="eyebrow">ARCHIVED FILE · research only · NOT CLEARED: DO NOT SUBMIT</p>
+    <h2><a class="download-link" href="{esc(dl, quote=True)}" download>Download archived research TIFF: {esc(TIF_NAME)}</a></h2>
     <p><small>Single-band float32 GeoTIFF · EPSG:32611 · 100 m · 3292×3730 · values 0–1 inside the footprint ·
     NaN outside the footprint (official text: null or NaN). SHA-256 <code class="wrap">{esc(fl['sha256'])}</code>.
     Name: <code>{esc(fl['name_text'])}</code> · Note ({fl['note_chars']} chars): <code>{esc(fl['note_text'])}</code></small></p>
@@ -218,18 +217,14 @@ def body(f: dict, depth: int) -> str:
 </section>
 
 <section class="hub-table" aria-labelledby="estimate-title">
-  <p class="eyebrow">HOW WE ESTIMATE A SCORE</p>
-  <h2 id="estimate-title">Estimates: what we can and cannot say</h2>
-  <p>We have one shared evaluator (<code>gems57-pooled-hide-v2</code>, α=0.2, β=0.8, 300 m kernel) and a
-  hide-and-recover holdout over the mapped faults. On that holdout, a uniform random placement at the same budget
-  scores about 0.05, while the user-reported (unverified) values for the nine files sit at 0.22–0.28.
-  <strong>The holdout is therefore not calibrated to the leaderboard and cannot produce a leaderboard estimate.</strong>
-  Holdout values below are HOLDOUT-DTI only.</p>
+  <p class="eyebrow">ARCHIVED EXPERIMENT RESULTS · NOT A CURRENT ESTIMATOR</p>
+  <h2 id="estimate-title">What the prior holdout can and cannot say</h2>
+  <p>The 29 October Tiltgrav session recorded a shared evaluator (<code>gems57-pooled-hide-v2</code>, α=0.2, β=0.8, 300 m kernel) and a hide-and-recover holdout over mapped faults. Its archived holdout values below are HOLDOUT-DTI only; they are not results of the 30 October review. The holdout is not calibrated to the leaderboard and cannot produce a leaderboard estimate.</p>
   <p>Why GEMSDOE32 <code>h33-h33-2-b2</code> (user-reported 0.2778) scored highest among the listed sites, and whether a higher score is achievable: <a href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/main/knowledge/02_why_gemsdoe32_b2_scored_0.2778.md">explanation in the repository</a> (the link opens on main after the merge).</p>
   <table><thead><tr><th>Arm (same budget 37,654 dots/fold)</th><th>HOLDOUT-DTI [95% CI]</th><th>Notes</th></tr></thead><tbody>
-  <tr><td>NEW candidate, spacing 6 px (file above)</td><td>{_dti(sp['candidate_spaced'])}</td><td>EXP-3, withheld positives {f['withheld_total']:,}</td></tr>
+  <tr><td>Archived Tiltgrav candidate, spacing 6 px</td><td>{_dti(sp['candidate_spaced'])}</td><td>29 Oct EXP-3, withheld positives {f['withheld_total']:,}</td></tr>
   <tr><td>Random null, spacing 6 px</td><td>{_dti(sp['random_spaced_null'])}</td><td>best comparable control</td></tr>
-  <tr><td>NEW candidate, no spacing</td><td>{_dti(f['holdout_unspaced']['candidate'])}</td><td>EXP-2</td></tr>
+  <tr><td>Archived Tiltgrav candidate, no spacing</td><td>{_dti(f['holdout_unspaced']['candidate'])}</td><td>29 Oct EXP-2</td></tr>
   <tr><td>Random null, no spacing</td><td>{_dti(f['holdout_unspaced']['random_null'])}</td><td>EXP-2; candidate minus this is significantly negative</td></tr>
   <tr><td>Proximity shell (3–6 px from visible faults)</td><td>{_dti(f['holdout_unspaced']['proximity_shell'])}</td><td>EXP-2</td></tr>
   </tbody></table>
@@ -264,7 +259,7 @@ def body(f: dict, depth: int) -> str:
   <p class="eyebrow">IRREGULARITIES FLAGGED FOR MANUAL REVIEW</p>
   <h2 id="irr-title">What does not match, and why it matters</h2>
   <ul class="why">
-    <li>The brief cites 0.4413 and 0.3195. The repo README places 0.3195 at rank #47. The live leaderboard page (page 1 of 3 read this session) shows #1 at <strong>0.4544</strong> (<a href="{LEADER}">leaderboard</a>, fetched 2026-10-29). Neither 0.4413 nor 0.3195 was confirmed on the page read; pages 2–3 were not read.</li>
+    <li>Leaderboard correction: the full visible page was fetched 2026-10-30. The public snapshot shows #1 at <strong>0.4544</strong>, #47 at 0.3217, and 0.3195 at <strong>#48</strong>; 0.4413 is not among the visible top 50 (<a href="{LEADER}">official public leaderboard ↗</a>). Earlier records saying #47 are dated snapshots, not current rank.</li>
     <li>The organizer's sample description says the sample "predicts total fault absence" (<a href="{PAGE}">problem page</a>).
     The mirrored <code>sample_submission.tif</code> has 60,988 positive cells, exactly equal to the label raster. The mirror does not match the description.</li>
     <li>The mirrored <code>labels.tif</code> and <code>existing_faults.tif</code> are byte-identical (same SHA-256).</li>
@@ -274,9 +269,7 @@ def body(f: dict, depth: int) -> str:
     <code>gemsk-hide-recover-v1</code> used by earlier experiments. Their numbers are not comparable.</li>
     <li>The vendored shared writer and validator write zeros outside the footprint and reject NaN. The official page and
     the organizer sample use null or NaN outside. This session used a separate NaN-outside adapter and did not edit the pinned shared template.</li>
-    <li>The 13GEMSDOE lattice overlap gate blocks every dotted file (measured {_pct(f['lattice']['fwd'])} for the new file; all
-    {f['registry_checked']} restored registry rasters with dots were measured in the registry audit). The literal gate has no
-    passing dotted candidate, which the protocol owner must decide.</li>
+    <li>Under the project's literal duplicate rule, the archived Tiltgrav raster has {_pct(f['lattice']['fwd'])} 3-px overlap with the 13GEMSDOE lattice. The audit covered {f['registry_checked']} restored registry rasters; this is a scoped mirror measurement, not a complete organizer registry. The 70% / 3-px rule is internal protocol, not an organizer rule, and remains binding for project decisions.</li>
     <li>Another team's TIF on <code>main</code>, <code>karage1-convect-cell-upflow-20261029-zeros.tif</code>, is not covered by the fleet audit that <code>main</code> ships with. The shared validator (receipt <code>evidence/audit_convect_cell_upflow_20261029.json</code>) reports 65 emitted pixels outside the footprint and dots on the mapped catalogue. It was appended to the fleet audit with <code>ok_to_submit: false</code>. Flagged for review; not modified here.</li>
     <li>Also on <code>main</code> (PR #81): <code>gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif</code> has 46 dots on the mapped catalogue (its own check <code>zero_dots_on_mapped_catalogue</code> fails), and 0.0 lattice overlap. Its saved-byte receipt is <code>evidence/audit_novelterritory_20261029.json</code>. It is not a fleet row, because a non-lattice file would break the fleet test's lattice invariant. Flagged; not modified here.</li>
     <li>The method lane paragraph the parallel-run protocol refers to is absent from the brief; the registry records
@@ -285,40 +278,41 @@ def body(f: dict, depth: int) -> str:
 </section>
 
 <section class="hub-table" id="decision-needed" aria-labelledby="decision-title">
-  <p class="eyebrow">DECISION NEEDED FROM THE PROTOCOL OWNER</p>
-  <h2 id="decision-title">Which gate applies to the lattice?</h2>
-  <p>(a) Keep the literal rule: no dotted file can be cleared, and the team stops uploading dotted candidates.
-  (b) Treat the 13GEMSDOE lattice as a calibration probe, as <code>registry/registry_roles.json</code> already
-  describes it, and apply the 70% gate only to team registry entries. (c) Something else. Until this is decided,
-  no file on this site is OK to submit.</p>
+  <p class="eyebrow">CURRENT EXECUTION BLOCKERS · 30 OCT 2026</p>
+  <h2 id="decision-title">No scientific run is authorized yet.</h2>
+  <p>The method lane and canonical shared template remain unassigned; required challenge rasters and cached feature stack are absent; shared preflight reports two vendored-source hash mismatches. The internal uniqueness rule is binding. Resolve the owner/template/data/provenance blockers upstream before any candidate or slot decision. See <a href="current-review.html">the current review ↗</a>.</p>
 </section>
 """
 
 
 def summary_strip(depth: int) -> str:
-    """Short decision strip for the top of the home page (links to the hub)."""
+    """Current fail-closed decision strip; historical TIFFs are never presented as current."""
     doc = "docs/" if depth == 0 else ""
-    return (f'<section class="hub-strip" aria-label="Submission decision"><p class="eyebrow">DECISION · 29 OCT 2026</p>'
-            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file is cleared.</strong></p>'
-            f'<p>New research file (format-valid, not cleared; research only): <a href="{doc}downloads/{TIF_NAME}">'
-            f'<code>{TIF_NAME}</code></a> · status <strong>NOT CLEARED: DO NOT SUBMIT</strong> · '
-            f'<a href="{doc}submission-hub.html">executive summary and how to submit ↗</a></p></section>')
+    return (f'<section class="hub-strip" aria-label="Current submission decision"><p class="eyebrow">CURRENT REVIEW · 30 OCT 2026</p>'
+            f'<p><strong>NEGATIVE / DO NOT SUBMIT — no current candidate TIFF exists and no file is cleared.</strong></p>'
+            f'<p>Historical research files are audit-only, not submission candidates. '
+            f'<a href="{doc}current-review.html">Current status and blockers ↗</a> · '
+            f'<a href="{doc}submission-hub.html">Historical evidence and how to submit after clearance ↗</a></p></section>')
 
 
 def write_data(f: dict) -> None:
     """Machine-readable copy of the hub (every value traceable to evidence/*.json)."""
     rows = site_rows(f)
     payload = dict(
-        schema="karage1-submission-hub-v1", date="2026-10-29",
-        decision="NOT CLEARED: DO NOT SUBMIT - no file is cleared",
-        new_file=dict(name=TIF_NAME, sha256=f["file"]["sha256"], dots=f["file"]["dots"],
-                      validator_all_checks_passed=f["file"]["all_checks_passed"],
-                      holdout_spaced=f["spacing"]["candidate_spaced"],
-                      random_null_spaced=f["spacing"]["random_spaced_null"],
-                      spacing_delta=f["spacing_delta"],
-                      lattice_forward_overlap=f["lattice"]["fwd"],
-                      max_focus_forward_overlap=f["focus_max_fwd"],
-                      max_focus_abs_spearman=f["focus_max_abs_rho"]),
+        schema="karage1-submission-hub-v2",
+        current_review_date="2026-10-30",
+        current_decision="NEGATIVE / DO NOT SUBMIT - no current candidate TIFF exists; no file is cleared",
+        current_candidate=None,
+        archived_experiment_date="2026-10-29",
+        archived_research_file=dict(name=TIF_NAME, sha256=f["file"]["sha256"], dots=f["file"]["dots"],
+                                    validator_all_checks_passed=f["file"]["all_checks_passed"],
+                                    holdout_spaced=f["spacing"]["candidate_spaced"],
+                                    random_null_spaced=f["spacing"]["random_spaced_null"],
+                                    spacing_delta=f["spacing_delta"],
+                                    lattice_forward_overlap=f["lattice"]["fwd"],
+                                    max_focus_forward_overlap=f["focus_max_fwd"],
+                                    max_focus_abs_spearman=f["focus_max_abs_rho"],
+                                    submit_authorized=False),
         sites=rows,
         labels=dict(USER_REPORTED="USER-REPORTED / UNVERIFIED", HOLDOUT_DTI="HOLDOUT-DTI",
                     REGISTRY_MEASUREMENT="REGISTRY-MEASUREMENT"),

@@ -1,6 +1,16 @@
 # Starting point for every session
 
-**Latest session first:** read `knowledge/session-review-arena-5ee7ef4b.md` and `evidence/session_5ee7ef4b_run_card.json`. Result: NEGATIVE, no file cleared. The shared holdout cannot rank off-catalogue candidates (the champion scores below random); the owner must decide the lattice rule and the holdout design before any slot.
+## Current source of truth — 30 October 2026
+
+Read `README.md` (current summary and consolidated standing prompt), `docs/standing-prompt.md`, `knowledge/repository-review-2026-10-30.md`, `evidence/session_f077a66c_run_card.json`, `knowledge/official-sources-verified-2026-10-30.md`, and `docs/data/current-review.json` first. Current verdict: **NEGATIVE / DO NOT SUBMIT**. No current TIFF, experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection was made in this review. `registry/template.json` has no assigned method lane or canonical template; required data/cache are missing; two vendored source hashes mismatch recorded provenance. Preflight is fail-closed. Do not invent a lane, privately fork shared tools, repin without upstream review, or treat an archived file/card as current.
+
+The public site status is generated from `evidence/session_f077a66c_run_card.json`; the copy lives at `docs/data/current-review.json`. `docs/data/latest-run-card.json` is a historical 28 October Conduitcrest card retained for audit, not the latest current review. Rebuild public pages with `python scripts/build_site.py` after any current-status change.
+
+## Historical session index (dated snapshots; not current status)
+
+Everything below this heading is a preserved historical note. Words such as “latest,” “newest,” or “current” in those dated entries describe the state at that time and are superseded by the 30 October review above.
+
+**Historical session `arena/5ee7ef4b`:** read `knowledge/session-review-arena-5ee7ef4b.md` and `evidence/session_5ee7ef4b_run_card.json` for its dated decision: NEGATIVE, no file cleared. The shared holdout could not rank off-catalogue candidates (the champion scored below random); its unresolved gate/design notes are historical, not a new lane assignment.
 
 **Latest session (2026-10-29, `arena/c65129cb`): read first** `knowledge/session-review-2026-10-29-thd-ridge.md` and `evidence/session_thd_ridge_run_card_20261029.json`. Verdict NEGATIVE / DO NOT SUBMIT. It records that the literal 70%/3-px gate fails uniform random dot sets (`evidence/lattice_gate_null_check_20261029.json`), so the gate needs an owner decision before any candidate can be cleared.
 

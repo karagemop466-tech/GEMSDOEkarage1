@@ -1,0 +1,81 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "session": "arena/f077a66c-gemsdoekarage1",
+  "review_date_utc": "2026-10-30",
+  "activity": "repository review, test hermeticity, and publication-status freshness",
+  "hypothesis": "No geological hypothesis was executed; this session reviewed repository and site reliability.",
+  "mechanism": null,
+  "named_non_fault_mimic": null,
+  "holdout_dti": {
+    "label": "NOT RUN",
+    "evidence_class": "NOT RUN",
+    "evaluator_version": null,
+    "withheld_positive_count": null,
+    "value": null,
+    "ci95": null,
+    "reason": "No geological experiment was authorized or run; shared-tool preflight remains fail-closed."
+  },
+  "correlation_overlap_vs_registry": {
+    "status": "NOT RUN; no new candidate raster",
+    "candidate_sha256": null,
+    "max_abs_spearman": null,
+    "max_3px_dot_overlap_fraction": null,
+    "scope_note": "Historical mirror audits are not a current-candidate uniqueness result or a complete organizer registry."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_tif_generated": false,
+    "new_tif_format_validation": "NOT RUN",
+    "site_build": "PASS — 34 decision pages; 66 HTML/data outputs byte-identical across consecutive builds",
+    "pytest": "PASS — 436 passed, 2 skipped (bridge existing_faults/sample_submission absent; competition sample grid not restored), 126 Rasterio Affine deprecation warnings; no scientific validation"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "verdict_reason": "No file was generated or cleared. Required lane/template assignment, data/cache, and shared-file integrity gates remain unresolved.",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "experiments_run": 0,
+  "experiment_budget_cap": 3,
+  "shared_tool_preflight": {
+    "execution_authorized": false,
+    "ready_for_shared_tools": false,
+    "ok_to_submit": false,
+    "method_lane_assigned": false,
+    "canonical_template_assigned": false,
+    "recorded_template_commit": "73485f27cf230af770167397c2b72cb9ce3b3f25",
+    "missing_inputs": [
+      ".cache/gems_work/feature_stack.npy",
+      ".cache/gems_data/existing_faults.tif",
+      ".cache/gems_data/training_features.tif",
+      ".cache/gems_data/sample_submission.tif",
+      ".cache/gems_data/labels.tif"
+    ],
+    "vendored_pin_mismatches": [
+      {
+        "path": "vendor/gems57/submission_writer.py",
+        "expected_sha256": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
+        "actual_sha256": "73b8d88f4e49f039a70254ce5a22dfe9729a8d0cae607a74c4416ace9e12039d"
+      },
+      {
+        "path": "vendor/gems57/uniqueness.py",
+        "expected_sha256": "1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95",
+        "actual_sha256": "415a90b9fadc8308c9c9f6fd44b57ca73ffc1b32667187bea16b0f30a6b263bc"
+      }
+    ],
+    "provenance_policy": "Do not repin these bytes without upstream review; vendored source and execution-template pins also identify different repositories or commits."
+  },
+  "leaderboard_snapshot": {
+    "evidence_class": "ORGANIZER-PUBLISHED / PUBLIC LEADERBOARD SNAPSHOT",
+    "retrieved_date_utc": "2026-10-30",
+    "public_rank_1_score": 0.4544,
+    "public_rank_48_score": 0.3195,
+    "score_0_4413_in_visible_top_50": false,
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/"
+  },
+  "user_reported_focus_site_scores": {
+    "evidence_class": "USER-REPORTED / UNVERIFIED",
+    "gemsdoe32_b2": 0.2778,
+    "organizer_receipt_available": false
+  }
+}

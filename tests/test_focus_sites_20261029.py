@@ -5,6 +5,7 @@ consistent across the candidate file, the run card, the published page and the r
 """
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -37,27 +38,61 @@ def _sha(p: Path) -> str:
 
 
 def test_candidate_is_research_only_and_format_valid():
-    """Primary = NaN outside the footprint (official format); zeros twin carries the same dots."""
-    from gems57.grid import DATA_DIR, EPSG, HEIGHT, WIDTH, TRANSFORM, load_grid
-    from scipy import ndimage as ndi
-    grid = load_grid(DATA_DIR)
-    fp = grid.footprint
+    """Saved-byte checks need no bridge rasters and never grant submission clearance."""
+    from gems57.grid import EPSG, HEIGHT, WIDTH, TRANSFORM
+
     with rasterio.open(CAND) as src:
         assert src.count == 1 and src.dtypes[0] == "float32"
         assert src.crs.to_epsg() == EPSG
         assert (src.height, src.width) == (HEIGHT, WIDTH)
         assert tuple(src.transform)[:6] == tuple(TRANSFORM)[:6]
         nan_arr = src.read(1)
-    assert np.isnan(nan_arr[~fp]).all()
-    assert np.isfinite(nan_arr[fp]).all()
-    assert nan_arr[fp].min() >= 0 and nan_arr[fp].max() <= 1
+    finite = np.isfinite(nan_arr)
+    assert finite.any() and (~finite).any()
+    assert np.isnan(nan_arr[~finite]).all()
+    assert nan_arr[finite].min() >= 0 and nan_arr[finite].max() <= 1
+
     with rasterio.open(ZEROS) as src:
+        assert src.count == 1 and src.dtypes[0] == "float32"
+        assert src.crs.to_epsg() == EPSG
+        assert (src.height, src.width) == (HEIGHT, WIDTH)
+        assert tuple(src.transform)[:6] == tuple(TRANSFORM)[:6]
         zarr = src.read(1)
-    assert np.isfinite(zarr).all() and (zarr[~fp] == 0).all()
+    assert np.isfinite(zarr).all()
+    assert (zarr >= 0).all() and (zarr <= 1).all()
+    assert (zarr[~finite] == 0).all()
     assert np.array_equal(np.nan_to_num(nan_arr, nan=0.0), zarr)
     assert int((zarr > 0).sum()) == 37654
-    d = ndi.distance_transform_edt(~grid.catalogue)[zarr > 0]
-    assert d.min() > 3.0
+
+
+def test_candidate_stays_more_than_three_pixels_from_catalogue_when_bridge_is_available():
+    """The data-dependent geometry check is explicit when an offline checkout lacks its rasters."""
+    import pytest
+    from scipy import ndimage as ndi
+    from gems57.grid import REPO_ROOT, load_grid
+
+    candidates = []
+    configured = os.environ.get("GEMS_DATA_DIR")
+    if configured:
+        candidates.append(Path(configured))
+    candidates.extend((
+        REPO_ROOT / "data" / "bridge",
+        REPO_ROOT / "data",
+        REPO_ROOT / ".cache" / "gems_data",
+    ))
+    data_dir = next((p for p in candidates
+                     if (p / "existing_faults.tif").is_file()
+                     and (p / "sample_submission.tif").is_file()), None)
+    if data_dir is None:
+        pytest.skip("bridge existing_faults.tif and sample_submission.tif are absent; geometry check needs data")
+
+    grid = load_grid(data_dir)
+    with rasterio.open(ZEROS) as src:
+        dots = src.read(1) > 0
+    assert dots.shape == grid.footprint.shape
+    distances = ndi.distance_transform_edt(~grid.catalogue)[dots]
+    assert distances.size == 37654
+    assert distances.min() > 3.0
 
 
 def test_candidate_is_not_in_public_downloads():

@@ -1,8 +1,10 @@
 {
-  "schema": "karage1-submission-hub-v1",
-  "date": "2026-10-29",
-  "decision": "NOT CLEARED: DO NOT SUBMIT - no file is cleared",
-  "new_file": {
+  "schema": "karage1-submission-hub-v2",
+  "current_review_date": "2026-10-30",
+  "current_decision": "NEGATIVE / DO NOT SUBMIT - no current candidate TIFF exists; no file is cleared",
+  "current_candidate": null,
+  "archived_experiment_date": "2026-10-29",
+  "archived_research_file": {
     "name": "karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
     "sha256": "f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5",
     "dots": 37654,
@@ -45,7 +47,8 @@
     },
     "lattice_forward_overlap": 0.996229,
     "max_focus_forward_overlap": 0.136931,
-    "max_focus_abs_spearman": 0.00533366652383788
+    "max_focus_abs_spearman": 0.00533366652383788,
+    "submit_authorized": false
   },
   "sites": [
     {
@@ -70,7 +73,7 @@
         "GEMSDOE27"
       ],
       "lattice_fwd": 0.999218,
-      "cand_fwd": 0.125405,
+      "archived_research_forward_overlap": 0.125405,
       "unique": false
     },
     {
@@ -98,7 +101,7 @@
         "GEMSDOE36"
       ],
       "lattice_fwd": 0.999161,
-      "cand_fwd": 0.118394,
+      "archived_research_forward_overlap": 0.118394,
       "unique": false
     },
     {
@@ -123,7 +126,7 @@
         "GEMSDOE24"
       ],
       "lattice_fwd": 0.999234,
-      "cand_fwd": 0.129389,
+      "archived_research_forward_overlap": 0.129389,
       "unique": false
     },
     {
@@ -146,7 +149,7 @@
       ],
       "dup_rho": [],
       "lattice_fwd": 0.999097,
-      "cand_fwd": 0.113003,
+      "archived_research_forward_overlap": 0.113003,
       "unique": false
     },
     {
@@ -174,7 +177,7 @@
         "GEMSDOE36"
       ],
       "lattice_fwd": 0.999161,
-      "cand_fwd": 0.118394,
+      "archived_research_forward_overlap": 0.118394,
       "unique": false
     },
     {
@@ -202,7 +205,7 @@
         "GEMSDOE36"
       ],
       "lattice_fwd": 0.999179,
-      "cand_fwd": 0.115419,
+      "archived_research_forward_overlap": 0.115419,
       "unique": false
     },
     {
@@ -230,7 +233,7 @@
         "GEMSDOE36"
       ],
       "lattice_fwd": 0.99915,
-      "cand_fwd": 0.112259,
+      "archived_research_forward_overlap": 0.112259,
       "unique": false
     },
     {
@@ -253,7 +256,7 @@
       ],
       "dup_rho": [],
       "lattice_fwd": 0.99914,
-      "cand_fwd": 0.11842,
+      "archived_research_forward_overlap": 0.11842,
       "unique": false
     },
     {
@@ -281,7 +284,7 @@
         "GEMSDOE32"
       ],
       "lattice_fwd": 0.999176,
-      "cand_fwd": 0.114888,
+      "archived_research_forward_overlap": 0.114888,
       "unique": false
     }
   ],
