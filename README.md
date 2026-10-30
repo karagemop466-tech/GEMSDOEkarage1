@@ -1,5 +1,9 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## Repository review (2026-10-30)
+
+Read [the three-pass repository review](knowledge/repository-review-2026-10-30.md) first: the rendered executive summary is stale, the literal lattice duplicate gate fails random-placement null tests, the catalogue holdout is not an organizer-score proxy, and this checkout could not collect pytest because scientific dependencies are absent. **No submission is cleared by this review.** The standing-prompt document is explicitly a reconstruction, not a verbatim source; preserve the user's exact prompt before claiming otherwise.
+
 ## EXECUTIVE SUMMARY (read first) — session `arena/c65129cb` (29 Oct 2026)
 
 **Status: NOTHING IS CLEARED FOR UPLOAD. Do not submit any file from this repository yet.**
