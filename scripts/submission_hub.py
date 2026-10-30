@@ -296,13 +296,18 @@ def body(f: dict, depth: int) -> str:
 
 
 def summary_strip(depth: int) -> str:
-    """Short decision strip for the top of the home page (links to the hub)."""
+    """Short decision strip for the top of the home page (links to the hub).
+
+    Updated 30 Oct 2026 (session arena/a8e4de2e): points at the newest session's
+    executive summary and its research download, not the 29 Oct file.
+    """
     doc = "docs/" if depth == 0 else ""
-    return (f'<section class="hub-strip" aria-label="Submission decision"><p class="eyebrow">DECISION · 29 OCT 2026</p>'
-            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file is cleared.</strong></p>'
-            f'<p>New research file (format-valid, not cleared; research only): <a href="{doc}downloads/{TIF_NAME}">'
-            f'<code>{TIF_NAME}</code></a> · status <strong>NOT CLEARED: DO NOT SUBMIT</strong> · '
-            f'<a href="{doc}submission-hub.html">executive summary and how to submit ↗</a></p></section>')
+    new_name = "karage1-hr1-kth-magedge-37654-20261030-zeros.tif"
+    return (f'<section class="hub-strip" aria-label="Submission decision"><p class="eyebrow">DECISION · 30 OCT 2026</p>'
+            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file in this repository is cleared for upload.</strong></p>'
+            f'<p>Newest research file (unique versus the nine focus sites; HOLDOUT-DTI 0.0433 is below random placement 0.0446; research only): '
+            f'<code>{new_name}</code> (download on the executive summary page) · status <strong>NOT CLEARED: DO NOT SUBMIT</strong> · '
+            f'<a href="{doc}session-a8e4de2e.html">executive summary and download verdict ↗</a></p></section>')
 
 
 def write_data(f: dict) -> None:

@@ -1,5 +1,20 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## EXECUTIVE SUMMARY (read first) — session `arena/a8e4de2e` (30 Oct 2026)
+
+**Can I download and submit a file from this repository? NO. Nothing is cleared for upload.** Every download is research-only.
+
+| File | Estimated leaderboard score | Unique? | OK to submit? |
+|---|---|---|---|
+| [`karage1-hr1-kth-magedge-37654-20261030-zeros.tif`](archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-zeros.tif) (new, format-valid, 37,654 dots) | **Not estimable.** HOLDOUT-DTI 0.0433 is below random placement 0.0446 (paired CI includes 0). | Unique versus the nine focus sites (max 3 px overlap 16.3%). Fails the literal 70 % dot gate on two dense rasters (density artifact; reverse overlap about 19%). | **NO. Negative.** |
+| GEMSDOE32 `h33-h33-2-b2` (reference only) | USER-REPORTED 0.2778, unverified | **No.** Strict subset of GEMSDOE25 (6,436 catalogue-adjacent dots removed) | DO NOT RESUBMIT |
+
+- **Official leaderboard (read 30 Oct 2026):** #1 = 0.4544. The user-reported 0.4413 is not in the top 50. Rank #48 = 0.3195 (the repo's earlier "#47" is off by one for this snapshot). Source: <https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/>.
+- **Experiments used: 1 of 3.** H-R1 (K/Th alteration × magnetic gradient) is negative under the pre-registered rule. Its leakage canary passes (max single-feature AUC 0.63). Next untested hypothesis: H-E1 (Euler deconvolution, no code in the repo yet).
+- **Target mismatch:** the internal holdout's truth is mapped catalogue segments. The competition's test set is faults not in the USGS catalogue. A holdout gain is a screen only.
+- **Open owner decisions:** NaN-outside versus zeros-outside (official text says "null or nan"); whether the literal 70 % lattice rule should bind; whether the holdout target should change.
+- **Read next:** `docs/session-a8e4de2e.html` (executive summary and per-site table), `knowledge/session-review-arena-a8e4de2e.md` (three passes, irregularities, remaining work), `evidence/run_card_h_r1_20261030.json` (run card), `knowledge/hypotheses-20261030.md` (ranked hypotheses).
+
 ## EXECUTIVE SUMMARY (read first) — session `arena/c65129cb` (29 Oct 2026)
 
 **Status: NOTHING IS CLEARED FOR UPLOAD. Do not submit any file from this repository yet.**
