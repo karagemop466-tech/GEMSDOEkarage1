@@ -1,0 +1,37 @@
+{
+  "session": "arena/89955dc0-gemsdoekarage1",
+  "date": "2026-10-30",
+  "type": "repository review (no experiment, no submission)",
+  "verdict": "negative",
+  "submission_cleared": false,
+  "new_tif_generated": false,
+  "holdout_dti": null,
+  "score_estimate": null,
+  "leaderboard_live_check": {
+    "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "top_score": 0.4544,
+    "top_user": "xiaofanhu",
+    "rank_47": {"user": "like60986", "score": 0.3217},
+    "rank_48": {"user": "kpomazi", "score": 0.3195},
+    "rank_50": {"user": "twang", "score": 0.3169},
+    "score_0_4413_in_top_50": false,
+    "focus_site_scores_in_top_50": false
+  },
+  "corrections": [
+    "0.3195 rank changed #47 -> #48 in README, generators and generated pages",
+    "official-sources register rows #47/#50 corrected to live values; cut-off 0.3167 -> 0.3169"
+  ],
+  "tests": {"before_data_restore": "431 passed, 1 skipped, 1 failed (missing data/bridge)", "final": "433 passed, 1 skipped, 0 failed"},
+  "irregularities": [
+    "labels.tif and existing_faults.tif byte-identical (sha256 7ba308ccdc44...)",
+    "restore layout mismatch: manifest path data/bridge/ vs dest at data root; vendored loader reads data/bridge/",
+    "16 open PRs with overlapping scope",
+    "user-cited 0.4413 and 0.3195-as-top not on live board; gpcz standing-prompt cites unverified #1 Jacker0429 0.4413"
+  ],
+  "sources": [
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "https://docs.nlr.gov/docs/fy26osti/96647.pdf"
+  ]
+}
