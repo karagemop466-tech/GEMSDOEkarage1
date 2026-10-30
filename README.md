@@ -1,6 +1,15 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## EXECUTIVE SUMMARY (read first) — session `arena/c65129cb` (29 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+
+**Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
+
+- **Review / run card:** [three-pass review](knowledge/session-review-arena-cfabff7e.md) · [JSON card](evidence/session_cfabff7e_run_card.json).
+- **Safety fix:** `scripts/prepare_data.py` now exits before the retired private feature stack can run; its regression test covers `--force`. Data-dependent candidate checks are explicitly skipped when their ignored bridge inputs are absent. Full suite: **433 passed, 0 failed, 2 skipped** (software only; one skip needs the absent bridge rasters).
+- **Score policy:** GEMSDOE24/25/27/28/30/31/32/33/36 values remain USER-REPORTED / UNVERIFIED. A leaderboard estimate is unavailable; do not relabel a catalogue holdout as a leaderboard prediction.
+- **Submission decision:** there is no current download that is OK to submit. Existing TIFFs are research/audit artifacts only. No weekly slot was selected or spent.
+
+## Previous-session executive summary — session `arena/c65129cb` (29 Oct 2026)
 
 **Status: NOTHING IS CLEARED FOR UPLOAD. Do not submit any file from this repository yet.**
 

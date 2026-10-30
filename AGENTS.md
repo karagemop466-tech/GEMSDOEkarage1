@@ -1,6 +1,8 @@
 # Starting point for every session
 
-**Latest session first:** read `knowledge/session-review-arena-5ee7ef4b.md` and `evidence/session_5ee7ef4b_run_card.json`. Result: NEGATIVE, no file cleared. The shared holdout cannot rank off-catalogue candidates (the champion scores below random); the owner must decide the lattice rule and the holdout design before any slot.
+**Current review first (2026-10-30, branch `arena/cfabff7e-gemsdoekarage1`): read `knowledge/session-review-arena-cfabff7e.md` and `evidence/session_cfabff7e_run_card.json`. Verdict NEGATIVE / DO NOT SUBMIT; no TIF, score estimate, geological experiment, or slot selection was produced. This review fixes a fail-open legacy `scripts/prepare_data.py` guard and isolates tests that need ignored bridge data. The lane, canonical shared template, authenticated inputs, and complete registry remain unresolved.
+
+**Prior experimental session:** read `knowledge/session-review-arena-5ee7ef4b.md` and `evidence/session_5ee7ef4b_run_card.json`. Result: NEGATIVE, no file cleared. The shared catalogue holdout cannot rank off-catalogue candidates (the champion scores below random); the owner must decide the lattice rule and the holdout design before any slot.
 
 **Latest session (2026-10-29, `arena/c65129cb`): read first** `knowledge/session-review-2026-10-29-thd-ridge.md` and `evidence/session_thd_ridge_run_card_20261029.json`. Verdict NEGATIVE / DO NOT SUBMIT. It records that the literal 70%/3-px gate fails uniform random dot sets (`evidence/lattice_gate_null_check_20261029.json`), so the gate needs an owner decision before any candidate can be cleared.
 

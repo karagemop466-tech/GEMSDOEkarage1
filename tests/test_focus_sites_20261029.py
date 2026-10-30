@@ -37,27 +37,53 @@ def _sha(p: Path) -> str:
 
 
 def test_candidate_is_research_only_and_format_valid():
-    """Primary = NaN outside the footprint (official format); zeros twin carries the same dots."""
-    from gems57.grid import DATA_DIR, EPSG, HEIGHT, WIDTH, TRANSFORM, load_grid
-    from scipy import ndimage as ndi
-    grid = load_grid(DATA_DIR)
-    fp = grid.footprint
-    with rasterio.open(CAND) as src:
-        assert src.count == 1 and src.dtypes[0] == "float32"
-        assert src.crs.to_epsg() == EPSG
-        assert (src.height, src.width) == (HEIGHT, WIDTH)
-        assert tuple(src.transform)[:6] == tuple(TRANSFORM)[:6]
-        nan_arr = src.read(1)
-    assert np.isnan(nan_arr[~fp]).all()
-    assert np.isfinite(nan_arr[fp]).all()
-    assert nan_arr[fp].min() >= 0 and nan_arr[fp].max() <= 1
-    with rasterio.open(ZEROS) as src:
-        zarr = src.read(1)
-    assert np.isfinite(zarr).all() and (zarr[~fp] == 0).all()
+    """Check saved bytes without assuming ignored competition data exist in a clean checkout."""
+    from gems57.grid import EPSG, HEIGHT, WIDTH, TRANSFORM
+
+    arrays = {}
+    for path in (CAND, ZEROS):
+        with rasterio.open(path) as src:
+            assert src.count == 1 and src.dtypes[0] == "float32"
+            assert src.crs.to_epsg() == EPSG
+            assert (src.height, src.width) == (HEIGHT, WIDTH)
+            assert tuple(src.transform)[:6] == tuple(TRANSFORM)[:6]
+            arrays[path] = src.read(1)
+
+    nan_arr = arrays[CAND]
+    zarr = arrays[ZEROS]
+    assert not np.isinf(nan_arr).any()
+    assert np.isnan(nan_arr).any()  # diagnostic NaN-outside artifact, not upload approval
+    finite = np.isfinite(nan_arr)
+    assert finite.any()
+    assert (nan_arr[finite] >= 0).all() and (nan_arr[finite] <= 1).all()
+    assert np.isfinite(zarr).all()
+    assert (zarr >= 0).all() and (zarr <= 1).all()
     assert np.array_equal(np.nan_to_num(nan_arr, nan=0.0), zarr)
     assert int((zarr > 0).sum()) == 37654
+
+
+def test_candidate_respects_footprint_and_catalogue_when_bridge_data_available():
+    """Use the local bridge only when present; it is not an organizer-authenticated fixture."""
+    from gems57.grid import DATA_DIR, load_grid
+    from scipy import ndimage as ndi
+
+    required = (DATA_DIR / "existing_faults.tif", DATA_DIR / "sample_submission.tif")
+    if not all(path.is_file() for path in required):
+        pytest.skip("data-dependent footprint/catalogue checks need ignored bridge rasters")
+
+    grid = load_grid(DATA_DIR)
+    with rasterio.open(CAND) as src:
+        nan_arr = src.read(1)
+    with rasterio.open(ZEROS) as src:
+        zarr = src.read(1)
+
+    fp = grid.footprint
+    assert np.isnan(nan_arr[~fp]).all()
+    assert np.isfinite(nan_arr[fp]).all()
+    assert np.isfinite(zarr).all() and (zarr[~fp] == 0).all()
+    assert int(((zarr > 0) & grid.catalogue).sum()) == 0
     d = ndi.distance_transform_edt(~grid.catalogue)[zarr > 0]
-    assert d.min() > 3.0
+    assert d.size and d.min() > 3.0
 
 
 def test_candidate_is_not_in_public_downloads():
