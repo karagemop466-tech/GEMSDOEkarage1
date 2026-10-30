@@ -1,0 +1,216 @@
+{
+  "schema": "karage1-leaderboard-snapshot-v1",
+  "captured_utc_date": "2026-10-30",
+  "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "method": "fetch_page, three chunks (0-2), read 30 Oct 2026; rank and public score only",
+  "status_label": "ORGANIZER-PUBLIC (public leaderboard row; not a submission receipt for any file here)",
+  "top_score": 0.4544,
+  "rank_48_score": 0.3195,
+  "user_reported_0_4413_in_top_50": false,
+  "user_reported_0_3195_rank": [
+    48
+  ],
+  "rows": [
+    {
+      "rank": 1,
+      "public_score": 0.4544
+    },
+    {
+      "rank": 2,
+      "public_score": 0.3916
+    },
+    {
+      "rank": 3,
+      "public_score": 0.3911
+    },
+    {
+      "rank": 4,
+      "public_score": 0.3841
+    },
+    {
+      "rank": 5,
+      "public_score": 0.3642
+    },
+    {
+      "rank": 6,
+      "public_score": 0.3604
+    },
+    {
+      "rank": 7,
+      "public_score": 0.3447
+    },
+    {
+      "rank": 8,
+      "public_score": 0.3418
+    },
+    {
+      "rank": 9,
+      "public_score": 0.3416
+    },
+    {
+      "rank": 10,
+      "public_score": 0.3405
+    },
+    {
+      "rank": 11,
+      "public_score": 0.3404
+    },
+    {
+      "rank": 12,
+      "public_score": 0.3401
+    },
+    {
+      "rank": 13,
+      "public_score": 0.3399
+    },
+    {
+      "rank": 14,
+      "public_score": 0.3396
+    },
+    {
+      "rank": 15,
+      "public_score": 0.3364
+    },
+    {
+      "rank": 16,
+      "public_score": 0.3363
+    },
+    {
+      "rank": 17,
+      "public_score": 0.3354
+    },
+    {
+      "rank": 18,
+      "public_score": 0.3351
+    },
+    {
+      "rank": 19,
+      "public_score": 0.3349
+    },
+    {
+      "rank": 20,
+      "public_score": 0.3344
+    },
+    {
+      "rank": 21,
+      "public_score": 0.3335
+    },
+    {
+      "rank": 22,
+      "public_score": 0.3334
+    },
+    {
+      "rank": 23,
+      "public_score": 0.3334
+    },
+    {
+      "rank": 24,
+      "public_score": 0.3334
+    },
+    {
+      "rank": 25,
+      "public_score": 0.3333
+    },
+    {
+      "rank": 26,
+      "public_score": 0.333
+    },
+    {
+      "rank": 27,
+      "public_score": 0.3328
+    },
+    {
+      "rank": 28,
+      "public_score": 0.3326
+    },
+    {
+      "rank": 29,
+      "public_score": 0.3326
+    },
+    {
+      "rank": 30,
+      "public_score": 0.3323
+    },
+    {
+      "rank": 31,
+      "public_score": 0.3318
+    },
+    {
+      "rank": 32,
+      "public_score": 0.3314
+    },
+    {
+      "rank": 33,
+      "public_score": 0.3313
+    },
+    {
+      "rank": 34,
+      "public_score": 0.3312
+    },
+    {
+      "rank": 35,
+      "public_score": 0.3312
+    },
+    {
+      "rank": 36,
+      "public_score": 0.3311
+    },
+    {
+      "rank": 37,
+      "public_score": 0.3308
+    },
+    {
+      "rank": 38,
+      "public_score": 0.3306
+    },
+    {
+      "rank": 39,
+      "public_score": 0.3295
+    },
+    {
+      "rank": 40,
+      "public_score": 0.3287
+    },
+    {
+      "rank": 41,
+      "public_score": 0.328
+    },
+    {
+      "rank": 42,
+      "public_score": 0.3273
+    },
+    {
+      "rank": 43,
+      "public_score": 0.3262
+    },
+    {
+      "rank": 44,
+      "public_score": 0.3261
+    },
+    {
+      "rank": 45,
+      "public_score": 0.3244
+    },
+    {
+      "rank": 46,
+      "public_score": 0.3231
+    },
+    {
+      "rank": 47,
+      "public_score": 0.3217
+    },
+    {
+      "rank": 48,
+      "public_score": 0.3195
+    },
+    {
+      "rank": 49,
+      "public_score": 0.318
+    },
+    {
+      "rank": 50,
+      "public_score": 0.3169
+    }
+  ],
+  "note": "The repo's earlier notes place 0.3195 at #47; in this snapshot it is #48 (#47 = 0.3217). Leaderboards change; re-fetch before quoting."
+}
