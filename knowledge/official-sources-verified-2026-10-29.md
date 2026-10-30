@@ -40,12 +40,16 @@ Source: [DrivenData leaderboard](https://www.drivendata.org/competitions/306/com
 | #3 | Batik Shirt Brothers | 0.3911 |
 | #4 | BrandenKMurray | 0.3841 |
 | #5 | op01 | 0.3642 |
-| #47 | kpomazi | **0.3195** |
-| #50 | kinneso_outlook | 0.3167 (last row of the top-50 list) |
+| #47 | like60986 | 0.3217 |
+| #48 | kpomazi | **0.3195** |
+| #49 | drjy | 0.3180 |
+| #50 | twang | 0.3169 (last row of the top-50 list) |
+
+*Correction (session arena/89955dc0, 30 Oct 2026): the rows above for #47 and #50 were transcribed incorrectly in the earlier snapshot. Re-fetched live: #47 like60986 0.3217; #48 kpomazi 0.3195; #49 drjy 0.3180; #50 twang 0.3169. Source: https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/ (chunks 1–2 of 3).*
 
 Irregularities:
-- The prompt says "0.4413" and, elsewhere, "0.3195 is the highest score right now". The fetched board shows the top score is **0.4544**, and **0.3195 is rank #47**. Neither 0.4413 nor 0.3195 is the top score on this snapshot.
-- No top-50 entry carries a name matching the nine GEMSDOE repository owners, and every user-reported GEMSDOE score (0.2449–0.2778) lies below the rank-50 cut-off (0.3167). The reported GEMSDOE numbers therefore **cannot be confirmed on the public board**. They are treated as USER-REPORTED / UNVERIFIED throughout the repository.
+- The prompt says "0.4413" and, elsewhere, "0.3195 is the highest score right now". The fetched board shows the top score is **0.4544**, and **0.3195 is rank #48**. Neither 0.4413 nor 0.3195 is the top score on this snapshot.
+- No top-50 entry carries a name matching the nine GEMSDOE repository owners, and every user-reported GEMSDOE score (0.2449–0.2778) lies below the rank-50 cut-off (0.3169). The reported GEMSDOE numbers therefore **cannot be confirmed on the public board**. They are treated as USER-REPORTED / UNVERIFIED throughout the repository.
 
 ## D. Things this session could not verify (limitations)
 

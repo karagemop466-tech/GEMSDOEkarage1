@@ -10,6 +10,8 @@ The public site status is generated from `evidence/session_f077a66c_run_card.jso
 
 Everything below this heading is a preserved historical note. Words such as “latest,” “newest,” or “current” in those dated entries describe the state at that time and are superseded by the 30 October review above.
 
+**Prior mainline experiment `arena/a8e4de2e` (30 Oct 2026):** one H-R1 K/Th × magnetic-gradient run was performed in that separate session, not in the current `f077a66c` review. It was negative versus matched random (HOLDOUT-DTI 0.04330 vs 0.04460; paired 95% CI includes zero), its file remains archived/research-only, and no slot was spent. See `knowledge/session-review-arena-a8e4de2e.md` and `evidence/run_card_h_r1_20261030.json`; this does not assign a lane or authorize another experiment.
+
 **Historical session `arena/5ee7ef4b`:** read `knowledge/session-review-arena-5ee7ef4b.md` and `evidence/session_5ee7ef4b_run_card.json` for its dated decision: NEGATIVE, no file cleared. The shared holdout could not rank off-catalogue candidates (the champion scored below random); its unresolved gate/design notes are historical, not a new lane assignment.
 
 **Latest session (2026-10-29, `arena/c65129cb`): read first** `knowledge/session-review-2026-10-29-thd-ridge.md` and `evidence/session_thd_ridge_run_card_20261029.json`. Verdict NEGATIVE / DO NOT SUBMIT. It records that the literal 70%/3-px gate fails uniform random dot sets (`evidence/lattice_gate_null_check_20261029.json`), so the gate needs an owner decision before any candidate can be cleared.

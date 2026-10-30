@@ -8,6 +8,10 @@ That is a deliberate fail-closed result, not completion of the user's scientific
 
 **Current source of truth:** [`evidence/session_f077a66c_run_card.json`](../evidence/session_f077a66c_run_card.json), mirrored for the published site at [`docs/data/current-review.json`](../docs/data/current-review.json). Historical cards and TIFFs remain research/audit artifacts. A historical run card named `docs/data/latest-run-card.json` is not this session's latest review and is now labeled as an archived run card in the site.
 
+### Earlier mainline experiment merged during branch synchronization
+
+The branch was based on an earlier `main` snapshot. Before this PR, `main` received the separate `arena/a8e4de2e` H-R1 experiment: **HOLDOUT-DTI 0.043296** (16-cell bootstrap 95% CI `[0.035591, 0.046288]`, evaluator `gems57-pooled-hide-v2`, 45,260 withheld mapped positives) versus a matched-random mean of **0.044595**. The paired difference was `−0.002905` (95% CI `[−0.007068, +0.000947]`), so it failed its preregistered promotion rule. Its raster is retained under `archive/research-hr1-20261030/` as research-only; it trips the literal internal 3-px dot gate on two dense rasters and no weekly slot was spent. The current `f077a66c` review did not rerun, regenerate, or promote that experiment; its `experiments_run: 0` is scoped to this review. See [`docs/session-a8e4de2e.html`](../docs/session-a8e4de2e.html), [`knowledge/session-review-arena-a8e4de2e.md`](session-review-arena-a8e4de2e.md), and [`evidence/run_card_h_r1_20261030.json`](../evidence/run_card_h_r1_20261030.json).
+
 ## Pass 1 — inspect and verify
 
 - Reviewed `AGENTS.md`, the README and standing brief, current session/run-card records, `registry/template.json`, preflight output, relevant site generators, generated home/submission pages, CI, the failing raster test, and the hash-pinned data-restoration policy.
@@ -88,11 +92,27 @@ The ordering is deliberately qualitative. Every candidate needs per-feature leak
 - [USGS ScienceBase electrical-conductance release](https://doi.org/10.5066/P9TWT2LU): public record describes five conductance layers spanning 2–200 km and linked downloadable GeoTIFF/ZIP attachments. It is a candidate source lead, not data retrieved for this session; inspect its metadata/licensing and spatial resolution before use.
 - [EPSG:32611](https://epsg.io/32611): WGS 84 / UTM zone 11N, metres.
 
+### Irregularities flagged
+
+- Historical “latest/newest” panels and a home strip disagreed about which negative run was current. The generated top-level decision is now sourced from the f077a66c card; H-R1 from a separate earlier mainline session is linked and labeled as an archived, negative research result.
+- The full public leaderboard snapshot places 0.3195 at #48, not #47; #47 is 0.3217. The 0.4413 claim is absent from the visible top 50. Older README entries retain their date context.
+- The DrivenData challenge-data page redirected to login. Local mirrors and external source metadata do not establish organizer authentication or raw-raster alignment.
+- The internal 70% / 3-pixel gate is a project protocol, not an official contest rule. Prior H-R1 gate trips involve exceptionally dense rasters; that observation is not an owner-approved exemption.
+- The B2 0.2778 value remains USER-REPORTED / UNVERIFIED. Mirror geometry explains a possible ablation tradeoff, not the hidden-label causal mechanism or a score gain.
+- This review made no experiment, candidate raster, leaderboard projection, or slot selection. Archived files are not current submissions.
+
+### Limitations
+
+- Registry comparisons cover pinned mirrors and known local witnesses, not a complete authenticated organizer registry.
+- No challenge rasters/cache or raw GeoDAWN, GDR, or ScienceBase payloads were authenticated and aligned in this review.
+- The four research hypotheses are qualitatively ranked proposals. Whole-fleet novelty, literature novelty, expected DTI improvement, and cost estimates were not experimentally validated.
+- Passing software/site checks and the historical H-R1 holdout are not evidence of organizer acceptance or performance on the new-fault labels.
+
 ## Test and publication outcome
 
-Final verification after the edits: **436 passed, 2 skipped, 126 warnings**. The warnings are Rasterio `Affine` multiplication pending-deprecation warnings. The catalogue-distance assertion skipped because `data/bridge/existing_faults.tif` and `sample_submission.tif` are absent; a separate ridge-candidate check skipped because the competition sample grid was not restored. Saved-byte checks remain offline and passed. Skips are not scientific validation.
+Final verification after branch synchronization and the edits: **449 passed, 2 skipped, 126 warnings**. The warnings are Rasterio `Affine` multiplication pending-deprecation warnings. The catalogue-distance assertion skipped because `data/bridge/existing_faults.tif` and `sample_submission.tif` are absent; a separate ridge-candidate check skipped because the competition sample grid was not restored. Saved-byte checks remain offline and passed. Skips are not scientific validation.
 
-`python scripts/build_site.py` rendered 34 decision pages. A second consecutive build left **66 generated HTML/data outputs byte-identical**. The suite also checked local HTML links/fragments and current-card/status-copy consistency. This verifies reproducible rendering, not organizer acceptance or scientific validity. Neither a green software suite nor public-source pages authorizes an experiment or competition upload.
+`python scripts/build_site.py` rendered 34 decision pages. A second consecutive build left **67 HTML/data outputs byte-identical**; the separate `scripts/build_session_a8e4de2e.py` also reproduced its archived H-R1 page and run card byte-for-byte. The suite checked local HTML links/fragments and current-card/status-copy consistency. This verifies reproducible rendering, not organizer acceptance or scientific validity. Neither a green software suite nor public-source pages authorizes an experiment or competition upload.
 
 ## Remaining work, dependency order
 

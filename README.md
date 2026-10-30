@@ -13,9 +13,13 @@
 - **Current status page/card:** [docs/current-review.html](docs/current-review.html) · [review report](knowledge/repository-review-2026-10-30.md) · [run card](evidence/session_f077a66c_run_card.json) · [official-source register](knowledge/official-sources-verified-2026-10-30.md).
 - **Leaderboard correction (official public snapshot read 30 Oct):** rank 1 `0.4544`; `0.3195` is rank **48** (not rank 47 on this newer snapshot); `0.4413` is not among the visible top 50. These are ORGANIZER-PUBLISHED public-page values, not a score for this repository.
 - **GEMSDOE32 B2:** `0.2778` remains USER-REPORTED / UNVERIFIED. The pinned-mirror audit supports a geometric collar-ablation lineage, not a causal explanation or a score estimate. [Analysis](knowledge/02_why_gemsdoe32_b2_scored_0.2778.md).
-- **Tests and site:** 436 passed, 2 skipped for missing challenge rasters, and 126 Rasterio `Affine` pending-deprecation warnings. The 34-page site build rendered 66 HTML/data outputs byte-identically on a repeat. These are software/rendering checks only, not geological validation or organizer acceptance.
+- **Tests and site:** 449 passed, 2 skipped for missing challenge rasters, and 126 Rasterio `Affine` pending-deprecation warnings. The 34-page site build rendered deterministically on repeat. These are software/rendering checks only, not geological validation or organizer acceptance.
 
 > **History below is dated, not current status.** Older sessions may say “newest,” report a different leaderboard snapshot, or describe a TIFF as generated that session. They remain preserved as historical evidence; use the 30 October card and current site banner for today's decision.
+
+### Historical upstream experiment — session `arena/a8e4de2e` (30 Oct 2026)
+
+A separate earlier mainline session ran one H-R1 K/Th-alteration × magnetic-gradient experiment; the current `arena/f077a66c-gemsdoekarage1` review did **not** rerun it. Its archived result was **HOLDOUT-DTI 0.04330** (evaluator `gems57-pooled-hide-v2`, 45,260 withheld positives, 95% CI `[0.03559, 0.04629]`) versus a matched-random mean of **0.04460**; paired difference `−0.00291` (95% CI `[−0.00707, +0.00095]`). It did not beat random, and no weekly slot was selected. The archived raster in [`archive/research-hr1-20261030/`](archive/research-hr1-20261030/) is research-only and **NOT CLEARED**; the earlier page, review, run card, and ranked slate are [`docs/session-a8e4de2e.html`](docs/session-a8e4de2e.html), [`knowledge/session-review-arena-a8e4de2e.md`](knowledge/session-review-arena-a8e4de2e.md), [`evidence/run_card_h_r1_20261030.json`](evidence/run_card_h_r1_20261030.json), and [`knowledge/hypotheses-20261030.md`](knowledge/hypotheses-20261030.md). Its literal dot gate also tripped on two extremely dense rasters; this remains a documented internal rule, not a contest rule or an exemption. This archived result does not authorize a new experiment or submission.
 
 ---
 

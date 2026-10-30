@@ -26,8 +26,8 @@
   "validator_output": {
     "new_tif_generated": false,
     "new_tif_format_validation": "NOT RUN",
-    "site_build": "PASS — 34 decision pages; 66 HTML/data outputs byte-identical across consecutive builds",
-    "pytest": "PASS — 436 passed, 2 skipped (bridge existing_faults/sample_submission absent; competition sample grid not restored), 126 Rasterio Affine deprecation warnings; no scientific validation"
+    "site_build": "PASS — 34 decision pages; 67 HTML/data outputs byte-identical across consecutive builds; H-R1 archive page/card deterministic",
+    "pytest": "PASS — 449 passed, 2 skipped (bridge existing_faults/sample_submission absent; competition sample grid not restored), 126 Rasterio Affine deprecation warnings; no scientific validation"
   },
   "submission_name": null,
   "submission_note": null,

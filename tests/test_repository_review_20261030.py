@@ -28,7 +28,7 @@ def test_current_review_card_is_a_negative_non_experiment():
     assert card["leaderboard_snapshot"]["evidence_class"] == "ORGANIZER-PUBLISHED / PUBLIC LEADERBOARD SNAPSHOT"
     assert card["leaderboard_snapshot"]["public_rank_48_score"] == 0.3195
     assert card["user_reported_focus_site_scores"]["evidence_class"] == "USER-REPORTED / UNVERIFIED"
-    assert card["validator_output"]["pytest"].startswith("PASS — 436 passed, 2 skipped")
+    assert card["validator_output"]["pytest"].startswith("PASS — 449 passed, 2 skipped")
     assert card["validator_output"]["site_build"].startswith("PASS — 34 decision pages")
 
 
@@ -43,6 +43,7 @@ def test_public_pages_put_current_status_above_archived_files():
     current = (ROOT / "docs/current-review.html").read_text(encoding="utf-8")
     hub = (ROOT / "docs/submission-hub.html").read_text(encoding="utf-8")
     research = (ROOT / "docs/research.html").read_text(encoding="utf-8")
+    prior_h_r1 = (ROOT / "docs/session-a8e4de2e.html").read_text(encoding="utf-8")
 
     for page in (index, current, hub):
         assert "NEGATIVE / DO NOT SUBMIT" in page
@@ -52,15 +53,21 @@ def test_public_pages_put_current_status_above_archived_files():
         assert "Current review" in page
 
     assert "No current TIFF to download" in current
+    assert "session-a8e4de2e.html" in current
     assert "HISTORICAL EXPERIMENT RECORD · 29 OCT 2026" in hub
     assert "ARCHIVED FILE · research only · NOT CLEARED" in hub
     assert "Download archived research TIFF" in hub
+    assert "Separate earlier 30 Oct result, not this review" in hub
+    assert "session-a8e4de2e.html" in hub
     assert "Latest run card</a>" not in index
     assert "Newest file" not in index
     assert "generated this session" not in index
     assert "Latest forensic &amp; 9-site audit" not in research
     assert "Current verified-source register" in research
     assert "Current repository review" in research
+    assert "CURRENT REVIEW 30 OCT 2026" in prior_h_r1
+    assert "No current candidate TIFF" in prior_h_r1
+    assert "NEGATIVE · DO NOT SUBMIT" in prior_h_r1
 
 
 def test_submission_hub_machine_data_marks_only_an_archive():
@@ -70,3 +77,9 @@ def test_submission_hub_machine_data_marks_only_an_archive():
     assert payload["archived_research_file"]["submit_authorized"] is False
     assert all("cand_fwd" not in row for row in payload["sites"])
     assert all("archived_research_forward_overlap" in row for row in payload["sites"])
+    hr1 = payload["additional_archived_experiments"][0]
+    assert hr1["session"] == "arena/a8e4de2e-gemsdoekarage1"
+    assert hr1["holdout_dti"]["label"] == "HOLDOUT-DTI"
+    assert hr1["holdout_dti"]["value"] < hr1["matched_random_dti"]
+    assert hr1["submit_authorized"] is False
+    assert hr1["slot_selected_or_spent"] is False

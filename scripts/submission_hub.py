@@ -178,6 +178,7 @@ def body(f: dict, depth: int) -> str:
   <p class="eyebrow">HISTORICAL EXPERIMENT RECORD · 29 OCT 2026</p>
   <h1 id="hub-title">Current decision: no file is cleared. <span class="tag-no">NO — NOT CLEARED: DO NOT SUBMIT</span></h1>
   <p><strong>Current review (30 Oct 2026): no current candidate TIFF was generated; no file is cleared; and there is no current submission file to download.</strong> The detailed experiment below is an archived 29 October Tiltgrav research artifact only. It failed its holdout and literal 3-px lattice gate; do not submit it. See the <a href="current-review.html">current review and status card ↗</a>.</p>
+  <p><strong>Separate earlier 30 Oct result, not this review:</strong> H-R1 is archived research only; HOLDOUT-DTI 0.04330 was below the matched-random mean 0.04460 (paired 95% CI includes zero), and no slot was spent. The archived file is not cleared. <a href="session-a8e4de2e.html">Read its result and research-only file status ↗</a>.</p>
   <ul class="why">
     <li><strong>Holdout is negative.</strong> HOLDOUT-DTI {sp['candidate_spaced']['dti']:.4f}
     [{sp['candidate_spaced']['ci95'][0]:.4f}, {sp['candidate_spaced']['ci95'][1]:.4f}] versus a spacing-matched random
@@ -296,8 +297,21 @@ def summary_strip(depth: int) -> str:
 
 
 def write_data(f: dict) -> None:
-    """Machine-readable copy of the hub (every value traceable to evidence/*.json)."""
+    """Machine-readable copy of current status and separately labeled archive evidence."""
     rows = site_rows(f)
+    hr1 = _load("run_card_h_r1_20261030.json")
+    archived_hr1 = dict(
+        session=hr1["session"],
+        date=hr1["date_utc"],
+        name=hr1["submission_name"] + ".tif",
+        path=hr1["receipts"]["file"],
+        sha256=hr1["raster_sha256"]["zeros_primary"],
+        holdout_dti=hr1["holdout_dti"],
+        matched_random_dti=hr1["controls"]["random_null_pooled_mean"],
+        paired_delta_vs_random=hr1["paired_delta_vs_random_null"],
+        submit_authorized=hr1["ok_to_submit"],
+        slot_selected_or_spent=hr1["slot_selected_or_spent"],
+    )
     payload = dict(
         schema="karage1-submission-hub-v2",
         current_review_date="2026-10-30",
@@ -313,6 +327,7 @@ def write_data(f: dict) -> None:
                                     max_focus_forward_overlap=f["focus_max_fwd"],
                                     max_focus_abs_spearman=f["focus_max_abs_rho"],
                                     submit_authorized=False),
+        additional_archived_experiments=[archived_hr1],
         sites=rows,
         labels=dict(USER_REPORTED="USER-REPORTED / UNVERIFIED", HOLDOUT_DTI="HOLDOUT-DTI",
                     REGISTRY_MEASUREMENT="REGISTRY-MEASUREMENT"),

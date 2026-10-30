@@ -50,6 +50,39 @@
     "max_focus_abs_spearman": 0.00533366652383788,
     "submit_authorized": false
   },
+  "additional_archived_experiments": [
+    {
+      "session": "arena/a8e4de2e-gemsdoekarage1",
+      "date": "2026-10-30",
+      "name": "karage1-hr1-kth-magedge-37654-20261030-zeros.tif",
+      "path": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-zeros.tif",
+      "sha256": "55cb00e1a27f2c521e073f9025b960c2948c9d0c3d4975e315b22248f4ae98ed",
+      "holdout_dti": {
+        "cells": 16,
+        "ci95": [
+          0.03559145992796972,
+          0.04628761134462505
+        ],
+        "ci95_method": "percentile bootstrap over the 16 cells of the mean per-cell DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "label": "HOLDOUT-DTI",
+        "truth": "withheld MAPPED catalogue segments; not the competition's new-fault test set",
+        "value": 0.043296403603769344,
+        "withheld_positives": 45260
+      },
+      "matched_random_dti": 0.04459503747166907,
+      "paired_delta_vs_random": {
+        "ci95": [
+          -0.007067838486215482,
+          0.0009473126562884446
+        ],
+        "interpretation": "CI includes 0; candidate does not beat random placement",
+        "mean": -0.002905006492989752
+      },
+      "submit_authorized": false,
+      "slot_selected_or_spent": false
+    }
+  ],
   "sites": [
     {
       "site": "GEMSDOE24",
