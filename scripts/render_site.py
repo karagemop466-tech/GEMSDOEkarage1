@@ -411,7 +411,7 @@ def session_panel(prefix: str):
 </tbody></table></div></div>
 <p>Leakage canary (each feature alone, blocked folds): maximum direction-invariant AUC {max(r["max_direction_invariant_auc"] for r in json.loads((ROOT / "evidence/exp1_strainphase_canary.json").read_text())["canary_rows"]):.3f} and {max(r["max_direction_invariant_auc"] for r in json.loads((ROOT / "evidence/exp1_signedoffset_canary.json").read_text())["canary_rows"]):.3f}; both below the 0.90 alarm.</p>
 <p>Pre-placement surface check against 15 restored registry rasters: worst |Spearman| {worst["strainphase"]["spearman_rho"]:+.4f} (STRAINPHASE) and {worst["signedoffset"]["spearman_rho"]:+.4f} (SIGNEDOFFSET); worst share of registry dots within 3 px of the surface's top-budget pixels {worst_overlap:.1%}. Neither surface is a duplicate. Their weakness is detection skill, not uniqueness.</p>
-<p>Public leaderboard (organizer, 28–29 Oct 2026): #1 is 0.4544; 0.3195 is rank #47 (see <a href="{prefix}knowledge/official-sources-verified-2026-10-29.md">official-sources register</a>). None of the nine GEMSDOE scores appears in the top 50 and they remain USER-REPORTED / UNVERIFIED.</p>
+<p>Public leaderboard (ORGANIZER-PUBLIC; live re-read 30 Oct 2026): #1 is 0.4544 and 0.3195 is rank #48; 0.4413 is not in the top 50 (see <a href="{prefix}knowledge/session-review-arena-89955dc0.md">independent review ↗</a>). None of the nine GEMSDOE scores is confirmed by that public board; their listed values remain USER-REPORTED / UNVERIFIED.</p>
 <div class="decision-actions"><button class="button button-disabled" disabled>No cleared TIF to download</button>
 <a class="button button-light" href="{prefix}evidence/exp2_strainphase_holdout.json">STRAINPHASE holdout JSON ↗</a>
 <a class="button button-light" href="{prefix}evidence/exp2_signedoffset_holdout.json">SIGNEDOFFSET holdout JSON ↗</a>
@@ -545,10 +545,10 @@ def nine_site_section(prefix: str) -> str:
         f'GEMSDOE32 is GEMSDOE25 minus {removed:,} dots. Every focus site has at least {worst_sibling:.1%} of its dots within 3 px of one sibling. '
         f'Our own worst lattice overlap is {worst_lat:.2%} (literal duplicate; threshold 70%). '
         'No estimate for any of our files is possible without a holdout run and an organizer receipt.</p>'
-        '<p class="cell-sub">Live public leaderboard checked 29 Oct 2026: #1 0.4544, #2 0.3916, #3 0.3911 '
-        '(<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData ↗</a>). '
-        'Correction (session arena/23ef16f9): 0.3195 IS on that page at rank #47 (verified by fetch 29 Oct 2026); '
-        '0.4413 does not appear in the top 50 rows shown there.</p>'
+        '<p class="cell-sub">Public leaderboard (ORGANIZER-PUBLIC; live re-read 30 Oct 2026): #1 is 0.4544 and 0.3195 is rank #48; '
+        '0.4413 is not in the top 50 (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData ↗</a>; '
+        f'<a href="{prefix}knowledge/session-review-arena-89955dc0.md">independent repository review ↗</a>). '
+        'This board does not confirm any of the nine user-reported GEMSDOE scores.</p>'
         '</section>')
 
 

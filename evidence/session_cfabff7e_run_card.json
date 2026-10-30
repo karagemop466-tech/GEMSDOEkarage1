@@ -2,7 +2,7 @@
   "schema": "karage1-run-card-v1",
   "session": "arena/cfabff7e-gemsdoekarage1",
   "created_utc": "2026-10-30T01:50:53Z",
-  "software_verification_utc": "2026-10-30T01:59:27Z",
+  "software_verification_utc": "2026-10-30T02:08:23Z",
   "review_date": "2026-10-30",
   "review_path": "knowledge/session-review-arena-cfabff7e.md",
   "run_card_path": "evidence/session_cfabff7e_run_card.json",
@@ -54,17 +54,22 @@
     "provenance_failures": [
       "vendor/gems57/submission_writer.py differs from its recorded SHA-256",
       "vendor/gems57/uniqueness.py differs from its recorded SHA-256",
-      "canonical shared-template assignment is unresolved"
+      "vendored source and execution-template pins identify different repositories or commits",
+      "assigned method lane is absent",
+      "canonical shared-template assignment and upstream repair approval are not established"
     ]
   },
   "software_tests": {
-    "command": ".venv/bin/python -m pytest -q",
+    "command": ".venv/bin/python -m pytest -q -rs",
     "passed": 433,
     "failed": 0,
     "skipped": 2,
     "warnings": 126,
     "meaning": "software verification only; not geological performance or a leaderboard score",
-    "data_dependent_skip": "The candidate footprint/catalogue check was skipped because ignored bridge rasters are absent."
+    "skip_reasons": [
+      "tests/test_focus_sites_20261029.py::test_candidate_respects_footprint_and_catalogue_when_bridge_data_available skipped: ignored bridge rasters are absent.",
+      "tests/test_thd_ridge_candidate_20261029.py::test_bytes_match_receipt_and_are_format_valid skipped: the competition sample grid is not restored."
+    ]
   },
   "verdict": "negative",
   "blockers": [
