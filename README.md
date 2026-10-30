@@ -1,21 +1,20 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## EXECUTIVE SUMMARY (read first) — session `arena/a8e4de2e` (30 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
 
-**Can I download and submit a file from this repository? NO. Nothing is cleared for upload.** Every download is research-only.
+**Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
 
-| File | Estimated leaderboard score | Unique? | OK to submit? |
-|---|---|---|---|
-| [`karage1-hr1-kth-magedge-37654-20261030-zeros.tif`](archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-zeros.tif) (new, format-valid, 37,654 dots) | **Not estimable.** HOLDOUT-DTI 0.0433 is below random placement 0.0446 (paired CI includes 0). | Unique versus the nine focus sites (max 3 px overlap 16.3%). Fails the literal 70 % dot gate on two dense rasters (density artifact; reverse overlap about 19%). | **NO. Negative.** |
-| GEMSDOE32 `h33-h33-2-b2` (reference only) | USER-REPORTED 0.2778, unverified | **No.** Strict subset of GEMSDOE25 (6,436 catalogue-adjacent dots removed) | DO NOT RESUBMIT |
+- **Review / run card:** [three-pass review](knowledge/session-review-arena-cfabff7e.md) · [JSON card](evidence/session_cfabff7e_run_card.json).
+- **Safety fix:** `scripts/prepare_data.py` now exits before the retired private feature stack can run; its regression test covers `--force`. Data-dependent candidate checks are explicitly skipped when their ignored bridge inputs are absent. Full suite after incorporating latest `main`: **446 passed, 0 failed, 2 skipped**; both skips require absent competition rasters/sample data.
+- **Score policy:** GEMSDOE24/25/27/28/30/31/32/33/36 values remain USER-REPORTED / UNVERIFIED. A leaderboard estimate is unavailable; do not relabel a catalogue holdout as a leaderboard prediction.
+- **Public-board context:** the independent 30 Oct re-read records #1 = 0.4544, 0.3195 at rank #48, and 0.4413 absent from the top 50 (ORGANIZER-PUBLIC; not a submission receipt for any focus site).
+- **Submission decision:** there is no current download that is OK to submit. Existing TIFFs are research/audit artifacts only. No weekly slot was selected or spent in this review.
 
-- **Official leaderboard (read 30 Oct 2026):** #1 = 0.4544. The user-reported 0.4413 is not in the top 50. Rank #48 = 0.3195 (the repo's earlier "#47" is off by one for this snapshot). Source: <https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/>.
-- **Experiments used: 1 of 3.** H-R1 (K/Th alteration × magnetic gradient) is negative under the pre-registered rule. Its leakage canary passes (max single-feature AUC 0.63). Next untested hypothesis: H-E1 (Euler deconvolution, no code in the repo yet).
-- **Target mismatch:** the internal holdout's truth is mapped catalogue segments. The competition's test set is faults not in the USGS catalogue. A holdout gain is a screen only.
-- **Open owner decisions:** NaN-outside versus zeros-outside (official text says "null or nan"); whether the literal 70 % lattice rule should bind; whether the holdout target should change.
-- **Read next:** `docs/session-a8e4de2e.html` (executive summary and per-site table), `knowledge/session-review-arena-a8e4de2e.md` (three passes, irregularities, remaining work), `evidence/run_card_h_r1_20261030.json` (run card), `knowledge/hypotheses-20261030.md` (ranked hypotheses).
+## Latest merged mainline experiment — session `arena/a8e4de2e` (30 Oct 2026)
 
-## EXECUTIVE SUMMARY (read first) — session `arena/c65129cb` (29 Oct 2026)
+This separate upstream session used 1 of 3 experiment slots and produced the research-only H-R1 raster `archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-zeros.tif`. It was not produced by the current review and is **not cleared**: **HOLDOUT-DTI 0.04330** (evaluator `gems57-pooled-hide-v2`, 45,260 withheld positives, 95% CI [0.03559, 0.04629]); the preregistered verdict is negative and its 3-px density gate also trips. It is not a leaderboard estimate. See [session review](knowledge/session-review-arena-a8e4de2e.md), [run card](evidence/run_card_h_r1_20261030.json), and [saved-byte receipt](evidence/exp_h_r1_kth_magedge_20261030.json).
+
+## Previous-session executive summary — session `arena/c65129cb` (29 Oct 2026)
 
 **Status: NOTHING IS CLEARED FOR UPLOAD. Do not submit any file from this repository yet.**
 

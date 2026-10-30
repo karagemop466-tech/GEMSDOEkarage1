@@ -1,8 +1,10 @@
 # Starting point for every session
 
-**Latest session (`arena/a8e4de2e`, 30 Oct 2026): read first `knowledge/session-review-arena-a8e4de2e.md`, `knowledge/hypotheses-20261030.md`, and `evidence/run_card_h_r1_20261030.json`.** Verdict: NEGATIVE, nothing cleared, 1 of 3 experiments used. The restore needs `python scripts/restore_karage1_data.py --group core|external|scored --data-dir /tmp/gems_data`, then `ln -sfn /tmp/gems_data data/bridge` (git-ignored) so `vendor/gems57/grid.py` finds the data.
+**Current branch review first (2026-10-30, `arena/cfabff7e-gemsdoekarage1`): read `knowledge/session-review-arena-cfabff7e.md` and `evidence/session_cfabff7e_run_card.json`.** Verdict NEGATIVE / DO NOT SUBMIT; this review generated no TIF, score estimate, geological experiment, or slot selection. The shared lane/template, authenticated inputs, and complete registry remain unresolved.
 
-**Latest session first:** read `knowledge/session-review-arena-5ee7ef4b.md` and `evidence/session_5ee7ef4b_run_card.json`. Result: NEGATIVE, no file cleared. The shared holdout cannot rank off-catalogue candidates (the champion scores below random); the owner must decide the lattice rule and the holdout design before any slot.
+**Latest merged mainline experiment (2026-10-30, `arena/a8e4de2e`): read `knowledge/session-review-arena-a8e4de2e.md`, `knowledge/hypotheses-20261030.md`, `evidence/run_card_h_r1_20261030.json`, and `evidence/exp_h_r1_kth_magedge_20261030.json`.** H-R1 used 1 of 3 experiments and created a research-only TIF; its preregistered verdict is negative, nothing is cleared, and it must not be submitted. This is a separate upstream session, not work from the current review.
+
+**Prior experimental session:** read `knowledge/session-review-arena-5ee7ef4b.md` and `evidence/session_5ee7ef4b_run_card.json`. Result: NEGATIVE, no file cleared. The shared catalogue holdout cannot rank off-catalogue candidates (the champion scores below random); the owner must decide the lattice rule and the holdout design before any slot.
 
 **Latest session (2026-10-29, `arena/c65129cb`): read first** `knowledge/session-review-2026-10-29-thd-ridge.md` and `evidence/session_thd_ridge_run_card_20261029.json`. Verdict NEGATIVE / DO NOT SUBMIT. It records that the literal 70%/3-px gate fails uniform random dot sets (`evidence/lattice_gate_null_check_20261029.json`), so the gate needs an owner decision before any candidate can be cleared.
 

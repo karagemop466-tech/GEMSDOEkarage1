@@ -1,4 +1,5 @@
 """A duplicate STOP cannot be bypassed by an old lane entry point."""
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -10,7 +11,6 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 @pytest.mark.parametrize('command', [
-    ['scripts/prepare_data.py'],
     ['scripts/run_karage1_experiments.py', '--stage', 'fit'],
     ['scripts/run_karage1_experiments.py', '--stage', 'eval'],
     ['scripts/run_experiment1_screen.py'],
@@ -21,6 +21,24 @@ def test_old_experiment_entrypoints_fail_closed(command):
     result = subprocess.run([sys.executable, *command], cwd=ROOT, capture_output=True, text=True)
     assert result.returncode != 0
     assert 'BLOCKED' in result.stderr
+
+
+def test_legacy_prepare_data_fails_closed_without_bootstrapping(tmp_path):
+    """A BLOCKED warning must not fall through into the retired private stack."""
+    cache = tmp_path / 'cache'
+    env = os.environ.copy()
+    env['GEMS_DATA_DIR'] = str(tmp_path / 'data')
+    env['GEMS_CACHE_DIR'] = str(cache)
+    result = subprocess.run(
+        [sys.executable, 'scripts/prepare_data.py', '--force'],
+        cwd=ROOT, env=env, capture_output=True, text=True,
+    )
+
+    assert result.returncode == 2
+    assert result.stderr.startswith('BLOCKED:')
+    assert 'No features or canary receipts were generated or overwritten.' in result.stderr
+    assert 'Traceback' not in result.stderr
+    assert not cache.exists()
 
 
 @pytest.mark.parametrize('command', [

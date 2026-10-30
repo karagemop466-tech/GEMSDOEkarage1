@@ -264,7 +264,7 @@ def body(f: dict, depth: int) -> str:
   <p class="eyebrow">IRREGULARITIES FLAGGED FOR MANUAL REVIEW</p>
   <h2 id="irr-title">What does not match, and why it matters</h2>
   <ul class="why">
-    <li>The brief cites 0.4413 and 0.3195. The repo README places 0.3195 at rank #48. The live leaderboard page (page 1 of 3 read this session) shows #1 at <strong>0.4544</strong> (<a href="{LEADER}">leaderboard</a>, fetched 2026-10-29). Neither 0.4413 nor 0.3195 was confirmed on the page read; pages 2–3 were not read.</li>
+    <li>A 29 Oct partial read recorded #1 at 0.4544 but did not cover pages 2–3. The independent 30 Oct live re-read (<a href="../knowledge/session-review-arena-89955dc0.md">review ↗</a>) confirms the public leaderboard values (ORGANIZER-PUBLIC): #1 0.4544, 0.3195 at rank #48, and 0.4413 not in the top 50. These do not verify any of the nine user-reported GEMSDOE scores.</li>
     <li>The organizer's sample description says the sample "predicts total fault absence" (<a href="{PAGE}">problem page</a>).
     The mirrored <code>sample_submission.tif</code> has 60,988 positive cells, exactly equal to the label raster. The mirror does not match the description.</li>
     <li>The mirrored <code>labels.tif</code> and <code>existing_faults.tif</code> are byte-identical (same SHA-256).</li>
@@ -296,18 +296,40 @@ def body(f: dict, depth: int) -> str:
 
 
 def summary_strip(depth: int) -> str:
-    """Short decision strip for the top of the home page (links to the hub).
-
-    Updated 30 Oct 2026 (session arena/a8e4de2e): points at the newest session's
-    executive summary and its research download, not the 29 Oct file.
-    """
+    """Evidence-backed no-submit strip for the latest merged mainline experiment."""
+    card_path = EVID / "run_card_h_r1_20261030.json"
+    card = json.loads(card_path.read_text(encoding="utf-8"))
+    holdout = card.get("holdout_dti", {})
+    delta = card.get("paired_delta_vs_random_null", {})
+    sites = card.get("correlation_overlap_vs_registry", {}).get("nine_focus_site_rasters", {})
+    if (card.get("schema") != "karage1-run-card-v2"
+            or card.get("session") != "arena/a8e4de2e-gemsdoekarage1"
+            or card.get("verdict") != "negative"
+            or card.get("ok_to_submit") is not False
+            or card.get("slot_selected_or_spent") is not False
+            or holdout.get("label") != "HOLDOUT-DTI"
+            or holdout.get("evaluator_version") != "gems57-pooled-hide-v2"
+            or holdout.get("withheld_positives") != 45260
+            or not isinstance(holdout.get("ci95"), list) or len(holdout["ci95"]) != 2
+            or not isinstance(delta.get("ci95"), list) or len(delta["ci95"]) != 2
+            or not isinstance(card.get("receipts", {}).get("file"), str)):
+        raise ValueError("latest mainline research card is incomplete or not negative")
     doc = "docs/" if depth == 0 else ""
-    new_name = "karage1-hr1-kth-magedge-37654-20261030-zeros.tif"
-    return (f'<section class="hub-strip" aria-label="Submission decision"><p class="eyebrow">DECISION · 30 OCT 2026</p>'
+    evidence = "evidence/" if depth == 0 else "../evidence/"
+    new_name = Path(card["receipts"]["file"]).name
+    estimate = (f"{holdout['label']} {holdout['value']:.5f} "
+                f"[{holdout['ci95'][0]:.5f}, {holdout['ci95'][1]:.5f}] · "
+                f"{holdout['evaluator_version']} · n={holdout['withheld_positives']:,} withheld positives")
+    paired = f"paired Δ vs matched random {delta['mean']:+.5f} [95% CI {delta['ci95'][0]:+.5f}, {delta['ci95'][1]:+.5f}]"
+    max_focus = sites.get("max_my_dots_within_3px")
+    if not isinstance(max_focus, (int, float)):
+        raise ValueError("latest mainline focus-site overlap evidence is missing")
+    return (f'<section class="hub-strip" aria-label="Submission decision"><p class="eyebrow">DECISION · {esc(card["date_utc"])}</p>'
             f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file in this repository is cleared for upload.</strong></p>'
-            f'<p>Newest research file (unique versus the nine focus sites; HOLDOUT-DTI 0.0433 is below random placement 0.0446; research only): '
-            f'<code>{new_name}</code> (download on the executive summary page) · status <strong>NOT CLEARED: DO NOT SUBMIT</strong> · '
-            f'<a href="{doc}session-a8e4de2e.html">executive summary and download verdict ↗</a></p></section>')
+            f'<p>Newest research-only raster <code>{esc(new_name)}</code>: maximum 3-px overlap versus the nine focus-site rasters {100*max_focus:.1f}%; '
+            f'{estimate}; {paired}. The literal 3-px gate also trips on two dense registry rasters. No leaderboard estimate; DO NOT SUBMIT. '
+            f'<a href="{doc}session-a8e4de2e.html">executive summary and download verdict ↗</a> · '
+            f'<a href="{evidence}run_card_h_r1_20261030.json">H-R1 run card ↗</a></p></section>')
 
 
 def write_data(f: dict) -> None:
