@@ -289,7 +289,7 @@ def status_line(p: str) -> str:
     review = current_review()
     return (
         '<strong>DO NOT SUBMIT</strong> · NOT CLEARED · '
-        f'Latest review {esc(review["review_date"])}: no new candidate or score; no approved download · '
+        f'Latest review {esc(review["review_date"])}: no file cleared; this repository-safety review produced no candidate or score estimate · no approved download · '
         f'<a href="{esc(p + review["review_path"], quote=True)}">review</a> · '
         f'<a href="{esc(p + review["run_card_path"], quote=True)}">JSON run card</a>'
     )

@@ -1,0 +1,146 @@
+{
+  "controls": {
+    "champion_GEMSDOE32_B2_pooled": 0.004729038412082699,
+    "champion_ci95": [
+      0.004337256736985389,
+      0.0051625966946329165
+    ],
+    "random_null_per_seed": [
+      0.04637962180734201,
+      0.04198778013425738,
+      0.045417710473407806
+    ],
+    "random_null_pooled_mean": 0.04459503747166907
+  },
+  "correlation_overlap_vs_registry": {
+    "dot_gate_trips_70pct": [
+      {
+        "file": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+        "jaccard": 0.007289083313180524,
+        "my_dots_within_3px": 1.0,
+        "their_dots_within_3px_of_mine": 0.19393367323458768,
+        "their_positive_cells": 5106385
+      },
+      {
+        "file": "13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+        "jaccard": 0.006039139216968829,
+        "my_dots_within_3px": 0.9977691613108833,
+        "their_dots_within_3px_of_mine": 0.1943449575871819,
+        "their_positive_cells": 206895
+      }
+    ],
+    "final_dots_max_overlap_any": 1.0,
+    "nine_focus_site_rasters": {
+      "files": 9,
+      "max_jaccard": 0.0036468581923127376,
+      "max_my_dots_within_3px": 0.1629043395124024,
+      "max_their_dots_within_3px_of_mine": 0.17841148916456478
+    },
+    "reading": "Both gate trips are dense rasters (5.1 M and 0.2 M positive cells). Reverse overlap is about 19%. Jaccard is below 0.01. The literal 70% rule fails on density, not on a copied dot set.",
+    "registry_rasters_scanned": 50,
+    "surface_pre_placement_max_spearman": 0.022216543706740456
+  },
+  "date_utc": "2026-10-30",
+  "decision_rule": {
+    "note": "A promote verdict here would still NOT clear a weekly slot; a separate selector step is required.",
+    "primary_metric": "HOLDOUT-DTI pooled, gems57-pooled-hide-v2, 16 cells",
+    "promote_requires": [
+      "candidate pooled DTI > matched-random-null pooled DTI (mean of 3 seeds)",
+      "paired per-cell bootstrap 95% CI lower bound of (candidate - null) > 0",
+      "leakage canary: every single feature's per-cell direction-invariant AUC < 0.90",
+      "shared validator passes on the zeros-outside primary",
+      "literal registry gate: surface Spearman <= 0.90 AND final-dot 3 px overlap <= 0.70 vs every local TIF"
+    ],
+    "secondary_proxy": "SGMC off-catalogue recall within 3 px; informational only; cannot promote on its own"
+  },
+  "experiment": "1 of 3 (budget: 3 experiments or 2 hours)",
+  "holdout_dti": {
+    "cells": 16,
+    "ci95": [
+      0.03559145992796972,
+      0.04628761134462505
+    ],
+    "ci95_method": "percentile bootstrap over the 16 cells of the mean per-cell DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "label": "HOLDOUT-DTI",
+    "truth": "withheld MAPPED catalogue segments; not the competition's new-fault test set",
+    "value": 0.043296403603769344,
+    "withheld_positives": 45260
+  },
+  "hypothesis": "H-R1: potassic alteration (block-normalised K high, Th low) that coincides with a horizontal total-magnetic-intensity gradient maximum marks a fault-controlled fluid pathway, so it can locate mapped and unmapped structure beneath cover.",
+  "leakage_canary": {
+    "all_features_below_0_90": true,
+    "max_direction_invariant_auc": {
+      "r_plus_KminusTh": 0.5957215431639302,
+      "surface_S": 0.5766628905634588,
+      "tmi_hg_norm": 0.581425053487622,
+      "zK_block": 0.6331237585910986,
+      "zTh_block": 0.6076330513933201
+    }
+  },
+  "mechanism": "Hydrothermal potassic alteration of fault-controlled permeable zones raises K relative to Th, and the same structures produce a magnetic gradient. Co-location of the two is the proposed signature.",
+  "named_non_fault_mimic": "K-rich granite and pluton margins (lithologic contacts); alluvial and playa K variation; acquisition-block seams in the GeoDAWN radiometrics (block z-scores reduce them but do not remove them).",
+  "ok_to_submit": false,
+  "paired_delta_vs_random_null": {
+    "ci95": [
+      -0.007067838486215482,
+      0.0009473126562884446
+    ],
+    "interpretation": "CI includes 0; candidate does not beat random placement",
+    "mean": -0.002905006492989752
+  },
+  "proxy_offcatalogue_recall_within_3px": {
+    "candidate": 0.12826373909404076,
+    "champion": 0.21808699011622293,
+    "label": "PROXY: owner-derived USGS SGMC mirror, > 3 px from mapped catalogue; not the competition truth",
+    "random_null_mean": 0.19220780614489766
+  },
+  "raster_sha256": {
+    "nan_outside_twin": "dcfffba1804b4036572134a1444ee35a4f6ec921a3102496da4c0c097afd5772",
+    "zeros_primary": "55cb00e1a27f2c521e073f9025b960c2948c9d0c3d4975e315b22248f4ae98ed"
+  },
+  "receipts": {
+    "experiment": "evidence/exp_h_r1_kth_magedge_20261030.json",
+    "file": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-zeros.tif",
+    "nan_twin": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-nan.tif",
+    "zip": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-zeros.zip"
+  },
+  "schema": "karage1-run-card-v2",
+  "session": "arena/a8e4de2e-gemsdoekarage1",
+  "slot_selected_or_spent": false,
+  "submission_name": "karage1-hr1-kth-magedge-37654-20261030-zeros",
+  "submission_note": "H-R1 K-Th alteration x tmi_hg co-location, label-free; RESEARCH ONLY; holdout-negative; do not submit",
+  "submission_note_chars": 101,
+  "validator_output": {
+    "conflict": "Official text: outside-bounds cells null or NaN. Shared writer: all-finite zeros only. Both are kept; the owner must resolve.",
+    "nan_outside_twin_checks": {
+      "all_passed": true,
+      "crs_32611": true,
+      "finite_in_footprint_in_0_1": true,
+      "float32": true,
+      "nan_exactly_outside_footprint": true,
+      "shape_3730x3292": true,
+      "single_band": true,
+      "transform_matches": true
+    },
+    "zeros_primary_all_passed": true,
+    "zeros_primary_shared_validator": {
+      "crs_epsg_32611": true,
+      "dimensions_3730x3292": true,
+      "dtype_float32": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "max_le_1": true,
+      "min_ge_0": true,
+      "no_inf_anywhere": true,
+      "no_nan_anywhere": true,
+      "no_sentinel_values": true,
+      "outside_footprint_zero": true,
+      "range_0_1_guaranteed": true,
+      "single_band": true,
+      "transform_matches_sample_submission": true
+    }
+  },
+  "verdict": "negative",
+  "verdict_reason": "Fails the pre-registered rule: pooled HOLDOUT-DTI is below the matched random null, the paired CI includes zero, and the literal dot gate trips on dense rasters. Also below random on the off-catalogue proxy."
+}

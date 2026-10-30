@@ -32,7 +32,9 @@ def test_site_links_and_negative_banner():
     index = (ROOT/'docs/index.html').read_text()
     assert 'DO NOT SUBMIT' in index
     assert 'No approved .tif to download' in index
-    assert 'Latest review 2026-10-30: no new candidate or score' in index
+    assert 'Latest review 2026-10-30: no file cleared; this repository-safety review produced no candidate or score estimate' in index
+    assert 'HOLDOUT-DTI 0.04330 [0.03559, 0.04629] · gems57-pooled-hide-v2 · n=45,260 withheld positives' in index
+    assert 'paired Δ vs matched random -0.00291 [95% CI -0.00707, +0.00095]' in index
     assert 'LATEST REVIEW · 2026-10-30' in index
     assert 'HISTORICAL EXPERIMENT · SESSION arena/fb1e3550 · 29 OCT 2026' in index
     assert 'PRIOR CANDIDATE REVIEW · 29 OCT 2026' in index
@@ -44,7 +46,7 @@ def test_site_links_and_negative_banner():
     assert '0.3195 at rank #48' in hub
     assert 'Neither 0.4413 nor 0.3195 was confirmed' not in hub
     focus = (ROOT/'docs/focus-sites.html').read_text()
-    assert 'Latest review 2026-10-30: no new candidate or score' in focus
+    assert 'Latest review 2026-10-30: no file cleared; this repository-safety review produced no candidate or score estimate' in focus
     assert 'href="../evidence/session_cfabff7e_run_card.json"' in focus
     assert 'href="../knowledge/session-review-arena-cfabff7e.md"' in index
     assert 'href="../evidence/session_cfabff7e_run_card.json"' in index

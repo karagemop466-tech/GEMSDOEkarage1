@@ -2,7 +2,7 @@
   "schema": "karage1-run-card-v1",
   "session": "arena/cfabff7e-gemsdoekarage1",
   "created_utc": "2026-10-30T01:50:53Z",
-  "software_verification_utc": "2026-10-30T02:08:23Z",
+  "software_verification_utc": "2026-10-30T02:16:30Z",
   "review_date": "2026-10-30",
   "review_path": "knowledge/session-review-arena-cfabff7e.md",
   "run_card_path": "evidence/session_cfabff7e_run_card.json",
@@ -61,7 +61,7 @@
   },
   "software_tests": {
     "command": ".venv/bin/python -m pytest -q -rs",
-    "passed": 433,
+    "passed": 446,
     "failed": 0,
     "skipped": 2,
     "warnings": 126,
