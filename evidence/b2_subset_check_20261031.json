@@ -1,0 +1,9 @@
+{
+  "B2_positive_cells": 37654,
+  "G25_positive_cells": 44090,
+  "G30_positive_cells": 44090,
+  "B2_not_in_G25": 0,
+  "G25_not_in_B2": 6436,
+  "B2_not_in_G30": 0,
+  "G25_eq_G30": true
+}

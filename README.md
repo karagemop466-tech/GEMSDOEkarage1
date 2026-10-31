@@ -19,17 +19,21 @@
 
 **Blockers:** no assigned method lane (the request's "method paragraph" is missing); vendored writer and uniqueness modules fail their pins; feature stack absent; data restored from public mirrors, not organizer-authenticated; the catalogue holdout ranks B2 below random, so it cannot select candidates. The protocol's 70%/3-px gate needs an owner decision (see review §9).
 
-Verification: `.venv/bin/python -m pytest -q -rs` → **447 passed, 0 failed, 1 skipped**. Preflight: exit 1 (feature stack missing). Shared-template holdout reproduction receipt: [evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json](evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json).
+Verification: `.venv/bin/python -m pytest -q -rs` → **453 passed, 0 failed, 1 skipped** (after merging `main`). Preflight: exit 1 (feature stack missing). Shared-template holdout reproduction receipt: [evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json](evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json).
 
-## Previous review — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
+## Previous review — session `arena/cd6c8044-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
+**Status: NEGATIVE — DO NOT SUBMIT.** No new TIF was generated or cleared, no leaderboard score estimate is supportable, and no weekly slot was selected or spent. The assigned method lane and canonical shared template are unset; required cached data and organizer inputs are absent; and shared-tool preflight reports writer/uniqueness provenance mismatches. Producing an arbitrary raster would violate the lane, shared-tool, holdout, and uniqueness protocol.
 
-- **Three-pass repository review and focus-site executive table:** [review report](knowledge/review-arena-946f7668-20261031.md) · [JSON run card](evidence/run_card_arena_946f7668_20261031.json).
-- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and absent competition sample grid. This is software verification, not model validation.
-- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; missing shared stack/data and writer/uniqueness provenance mismatch. No experiment was run because the lane and authorized shared inputs are unresolved.
-- **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
-- **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
+- **Current three-pass review / run card:** [review](knowledge/session-review-arena-cd6c8044.md) · [JSON](evidence/session_cd6c8044_run_card.json).
+- **Research slate:** [five hypotheses](knowledge/hypotheses-20261031.md); H-EULER is only a conditional first validation candidate. No canary or holdout ran because prerequisites are unmet.
+- **Nine-site decision:** all nine per-site pages and the executive table are linked from [the summary](docs/executive-summary.html). The reported 0.2477–0.2778 values remain USER-REPORTED / UNVERIFIED; organizer-score estimates are unavailable; no historic raster is cleared for resubmission.
+- **Public leaderboard:** fresh read 31 Oct 2026: #1 = **0.4544**, #48 = **0.3231**, #50 = **0.3195**; 0.4413 was absent from the top 50. ORGANIZER-PUBLIC, not a receipt for any focus-site raster. [Snapshot JSON](evidence/leaderboard_snapshot_20261031.json).
+- **Software checks:** 451 passed, 0 failed, 2 skipped; skips require missing ignored bridge/sample rasters. Software verification is not geological validation.
+- **Submission decision:** no approved download, no TIF generated, and no selector or slot use. Do not submit any repo artifact from this session.
+- **Read this brief every session:** [README prompt section](#session-prompt--full-text-read-at-start-of-every-session) and [standing prompt](docs/standing-prompt.md), followed by this review and the latest run card.
+
+**Previous branch review (`arena/946f7668`, 31 Oct 2026):** [review](knowledge/review-arena-946f7668-20261031.md) and [card](evidence/run_card_arena_946f7668_20261031.json). It also ended negative; this session adds the five-hypothesis slate and live leaderboard correction. The prior result remains historical, not a clearance.
 
 ## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
 
@@ -579,13 +583,13 @@ Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one flo
 
 10. **Clean GitHub Pages site** under docs/; three passes then PR merged to main, listing remaining work and limitations.
 
-## Current Competition State
+## Current Competition State (reviewed 31 Oct 2026; supersedes older snapshots)
 
-- Public leaderboard #1: 0.4544 (DrivenData, checked 29 Oct 2026)
-- Best nine focus-site reported score: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED)
-- All nine focus-site rasters are lattice duplicates (>97.6% dots within 3 px of pinned 13GEMSDOE lattice)
-- No file currently cleared for submission (lane = null, labels login-walled, no organizer receipt)
-- Unique TIF generated: `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif` (1,322 dots, format-valid, lattice-unique, 0.0000 worst overlap, NOT cleared for submission)
+- Live public leaderboard snapshot: rank #1 = 0.4544, rank #48 = 0.3231, and rank #50 = 0.3195 (ORGANIZER-PUBLIC, observed 31 Oct 2026; not a private score or receipt for any GEMSDOE site). See `evidence/leaderboard_snapshot_20261031.json`.
+- Best nine focus-site reported value: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED).
+- All nine focus-site masks fail the recorded internal lattice overlap rule; this rule is not an official competition requirement and has a documented saturation/interpretation concern.
+- No file is cleared for submission. The lane, canonical shared template, authenticated labels, and shared input/cache are unresolved or absent.
+- Earlier TIFs in `docs/downloads/` and `archive/` are historical/research artifacts only, not approved submission downloads. This session generated no TIF.
 
 ## Source Links (Official, Verified)
 

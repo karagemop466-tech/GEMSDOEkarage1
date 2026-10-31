@@ -99,7 +99,7 @@ Rejected: BB-STEP (depth-to-basement step, band 15) — already run in this repo
 
 ## 8. Software checks
 
-- `.venv/bin/python -m pytest -q -rs` → **447 passed, 0 failed, 1 skipped** (the skip needs an ignored bridge raster that is still absent). Before the core data was restored: 446 passed, 2 skipped.
+- `.venv/bin/python -m pytest -q -rs` → **453 passed, 0 failed, 1 skipped** (after merging `main`) (the skip needs an ignored bridge raster that is still absent). Before the core data was restored: 446 passed, 2 skipped.
 - `scripts/shared_tools.py preflight` → exit 1. Core data is linked through `.cache/gems_data`. Still missing: `.cache/gems_work/feature_stack.npy`. Vendored `submission_writer.py` and `uniqueness.py` fail their recorded SHA-256 pins. Lane is null. **Not ready for shared tools; no experiment was authorized.**
 - `scripts/validate_geotiff.py registry/GEMSDOE32_B2.tif --template data/sample_submission.tif` → single band, float32, CRS/shape/transform match the sample, no non-finite value inside the footprint, all inside values in [0, 1], outside NaN count 0. **Portal acceptance not tested.** This checks format only, not the submission's standing.
 

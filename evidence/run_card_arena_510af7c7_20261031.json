@@ -89,7 +89,7 @@
   },
   "software_tests": {
     "command": ".venv/bin/python -m pytest -q -rs",
-    "passed": 447,
+    "passed": 453,
     "failed": 0,
     "skipped": 1,
     "meaning": "Software tests only; not a geological performance metric."
