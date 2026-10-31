@@ -1,6 +1,6 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-> **CURRENT CHECKOUT REVIEW — NEGATIVE / DO NOT SUBMIT.** This repository contains conflicting historical clearance notices. The current branch review did not generate or validate a new candidate, and the checked-in KP1 `promote` record does not establish authorization under the present unassigned-lane, incomplete-registry and fail-closed preflight conditions. No file is cleared by this review. See [repository review](knowledge/repo-review-20261031.md) and rerun required validations before any upload. This notice supersedes older session banners below; those are retained as historical records.
+> **CURRENT CHECKOUT REVIEW — NEGATIVE / DO NOT SUBMIT.** Review `arena/0cc984e5-gemsdoekarage1` found a fail-open KP1 gate: it marked a candidate cleared using only nine focus-site comparisons despite incomplete global registry and unresolved lattice status. The release gate and receipts/tests have been changed to fail closed. No new TIF, experiment, score estimate, or slot selection was made; required tests could not run because scientific dependencies and pytest are absent. See [this branch review](knowledge/review-arena-0cc984e5-20261031.md). This notice supersedes older session banners below; those are retained as historical records.
 
 ## CORE VALUES — focal point for every decision
 

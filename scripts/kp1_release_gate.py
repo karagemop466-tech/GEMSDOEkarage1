@@ -258,15 +258,26 @@ def main(tif: Path) -> dict:
 
     proj = projection(cand, rows)
     fmt_ok = bool(fmt["all_checks_passed"])
-    ok = fmt_ok and uniqueness["passes_rho_rule"] and uniqueness["passes_overlap_rule"] \
-        and cand["d_cat_le_2px_frac"] == 0.0
+    # The comparison set above is only the nine focus-site mirrors. The
+    # parallel-run rule applies to any registry raster, but no authenticated,
+    # complete registry snapshot is present. Do not treat a partial comparison
+    # as release clearance; fail closed until registry and lattice status resolve.
+    registry_complete = False
+    lattice_gate_passes = bool(uniqueness.get("lattice_gate_passes", False))
+    uniqueness_cleared = (registry_complete and lattice_gate_passes
+                          and uniqueness["passes_rho_rule"]
+                          and uniqueness["passes_overlap_rule"])
+    ok = fmt_ok and uniqueness_cleared and cand["d_cat_le_2px_frac"] == 0.0
     decision = dict(
         ok_to_submit=bool(ok),
-        basis=["saved-byte format preflight passed", "literal uniqueness rules passed",
-               "no positive mass inside the mapped-catalogue corridor"],
-        not_basis=["no organizer receipt for this file", "no validated leaderboard estimate",
-                   "the holdout instrument is anti-correlated with the known leaderboard "
-                   "ordering (see evidence/kp1_exp2_holdout.json instrument_calibration)"],
+        registry_complete=registry_complete,
+        lattice_gate_passes=lattice_gate_passes,
+        basis=["saved-byte format preflight passed"],
+        blockers=["registry is not complete/authenticated",
+                  "lattice duplicate gate is unresolved or fails",
+                  "no organizer receipt for this file",
+                  "no validated leaderboard estimate",
+                  "holdout instrument is anti-correlated with known leaderboard ordering"],
         slots_used=0,
     )
     out = dict(gate="kp1-release-gate/v1", tif=str(tif.relative_to(ROOT)) if tif.is_relative_to(ROOT) else str(tif),
