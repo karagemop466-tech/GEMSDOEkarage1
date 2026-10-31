@@ -24,22 +24,18 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 <main>
 
 <p class="eyebrow">How to submit</p>
-<h1>Three steps, no interpretation required</h1>
-<div class="ok"><p class="big">The file on the decision page is cleared.</p>
-<p>If you are reading this page instead of the decision page: the file is
-<code>karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif</code>, SHA-256 <code>30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d</code>. If that digest does not match what you
-downloaded, stop.</p></div>
+<h1>Submission instructions — currently blocked</h1>
+<div class="alert"><p class="big">DO NOT UPLOAD — no selector approval exists</p>
+<p>The file <code>karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif</code> (SHA-256 <code>30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d</code>) passed local format preflight.
+That does not authorize an upload. The selector must approve this exact hash separately; the current
+selector record is absent or negative. Do not use the research download as a submission.</p></div>
 <ol>
-<li><strong>Download</strong> <a href="../downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif" download>karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif</a>
-(0.13 MB) or the <a href="../downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip" download>.zip</a>
-(one GeoTIFF inside, so either form is accepted by the portal).</li>
-<li><strong>Upload it</strong> at the DrivenData submission page for the GEMS competition with:
-<ul>
-<li>name: <code>karage1-kp1-ttca-springalter-far-conduit-32000-20261031</code></li>
-<li>note (≤140 characters): <code>KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, >=2px off catalogue, 4px spacing, 32k dots</code></li>
-</ul></li>
-<li><strong>Record the returned score</strong> next to the SHA-256 in the run card. That receipt is
-the only thing that can replace the projection with a measurement.</li>
+<li><strong>Current action:</strong> do not upload this candidate. The download is available for
+research and audit only.</li>
+<li><strong>After a future explicit selector approval:</strong> verify the approved filename and
+SHA-256, then use the DrivenData submission page and the selected unique note (≤140 characters).</li>
+<li><strong>After an organizer response:</strong> retain the file-linked receipt; only that receipt
+can replace a projection with an ORGANIZER-CONFIRMED score.</li>
 </ol>
 <h2>What the portal will check, and what was already checked here</h2>
 <div class="table-scroll"><table class=""><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>single band, float32, 3730 × 3292, EPSG:32611</td><td>pass</td></tr><tr><td>transform and CRS identical to the sample submission</td><td>pass</td></tr><tr><td>no NaN, no infinities, no sentinels</td><td>pass</td></tr><tr><td>all values in [0, 1]</td><td>pass</td></tr><tr><td>zeros outside the scored footprint</td><td>pass</td></tr><tr><td>zero positive pixels on mapped catalogue cells</td><td>pass</td></tr><tr><td>file is not a byte-copy and not a rank-copy of any of the nine</td><td>pass</td></tr></tbody></table></div>

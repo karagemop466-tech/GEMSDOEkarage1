@@ -523,18 +523,35 @@ KP1_GATE = ROOT / 'evidence' / 'kp1_release_gate.json'
 
 
 def kp1_banner(prefix: str) -> str:
-    """Top-of-page pointer to the current session's cleared file (fail closed).
+    """Top-of-page pointer to a current candidate (fail closed).
 
-    Renders the green call to action only when the release gate for this exact
-    saved file says ``ok_to_submit`` and its SHA-256 matches the bytes on disk.
-    Any inconsistency demotes the block to a red "not cleared" notice, so a stale
-    or hand-edited receipt cannot advertise a file that did not pass.
+    Technical preflight alone never authorizes upload. The green call to action
+    requires a positive release gate, writer receipt, and separate hash-bound
+    selector decision for these exact bytes. Missing or stale evidence is red.
     """
     try:
         gate = json.loads(KP1_GATE.read_text())
         tif = ROOT / gate['tif']
         digest = hashlib.sha256(tif.read_bytes()).hexdigest()
-        ok = bool(gate['decision']['ok_to_submit']) and digest == gate['sha256']
+        receipt_document = json.loads(tif.with_suffix('.receipt.json').read_text())
+        writer_receipt = receipt_document.get('writer_receipt', receipt_document)
+        submission_name = receipt_document.get('name', writer_receipt.get('submission_name'))
+        selector_path = ROOT / 'evidence' / 'kp1_slot_selector_20261031.json'
+        selector = json.loads(selector_path.read_text()) if selector_path.is_file() else {}
+        ok = (
+            bool(gate['decision'].get('technical_preflight_passed', gate['decision'].get('ok_to_submit')))
+            and bool(gate['decision'].get('candidate_validation_passed'))
+            and bool(gate['decision'].get('ok_to_submit'))
+            and digest == gate['sha256']
+            and writer_receipt.get('sha256') == digest
+            and writer_receipt.get('approved_for_weekly_slot') is True
+            and writer_receipt.get('promoted') is True
+            and selector.get('selected') is True
+            and selector.get('approved_for_upload') is True
+            and selector.get('complete_authenticated_registry_audit') is True
+            and selector.get('raster_sha256') == digest
+            and selector.get('submission_name') == submission_name
+        )
         name = Path(gate['tif']).name
         proj = gate['projection']
     except (OSError, KeyError, ValueError, TypeError):
@@ -543,13 +560,15 @@ def kp1_banner(prefix: str) -> str:
                 'No file is advertised here.</p></section>')
     if not ok:
         return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
-                '<p><strong>Current session: no file cleared.</strong> The K-PROXY-DETECT gate did '
-                'not pass for the file on disk.</p></section>')
+                '<p><strong>Current session: no file is authorized for upload.</strong> The candidate '
+                'passed local format checks, but its proxy-improvement gate is inconclusive, the complete '
+                'authenticated registry audit is missing, and no selector approved upload. It remains research-only. '
+                '<a href="' + prefix + 'docs/kp1/index.html">Open the KP1 research-only TIF and full review ↗</a></p></section>')
     return (
         '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
         '<span aria-hidden="true">✅</span><p><strong>NEW · 31 OCT 2026 · '
         '<a href="' + prefix + 'docs/kp1/index.html">OK TO SUBMIT: K-PROXY-DETECT GeoTIFF</a></strong> '
-        '— the only file on this site cleared for upload. '
+        '— no upload is authorized: format checks are not selection. '
         '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + name +
         '" download>Download the .tif</a>'
         '<a href="' + prefix + 'docs/kp1/index.html">Executive summary, projected '
@@ -646,7 +665,7 @@ def decision(prefix: str):
     chdt = conduit_audit['previous_holdout_claim']
     return session_panel(prefix) + f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> PRIOR CANDIDATE REVIEW · 29 OCT 2026 <span class="status-tag">DO NOT SUBMIT</span></div>
-<h2 id="decision-title">No eligible submission file was found. Both reviewed research rasters fail the literal lattice gate.</h2><p><strong>not cleared for upload.</strong> No approved .tif to download from that review — the 31 October K-PROXY-DETECT file in the banner at the top of this page is the cleared one.</p>
+<h2 id="decision-title">No eligible submission file was found. The reviewed research rasters are not authorized for upload.</h2><p><strong>Not cleared for upload.</strong> No approved .tif is available. The 31 October K-PROXY-DETECT raster is a research download only; no hash-bound selector decision exists.</p>
 <p>The prior BB-STEP file <code class="wrap">{esc(card['submission_name'])}</code> is unique versus the nine focus sites (worst overlap {nine:.1%}) but has {lat:.2%} lattice overlap; it is a duplicate. Its prior-session <strong>HOLDOUT-DTI {dti['value']:.5f}</strong> [{dti['ci95'][0]:.5f}, {dti['ci95'][1]:.5f}] used evaluator {esc(dti['evaluator_version'])} with {dti['withheld_positives']:,} withheld positives. This is not an organizer score and does not override the duplicate stop.</p>
 <p>The newer Conduitcrest research file has {clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) are within 3 px of the pinned lattice, exceeding the 70% threshold. Its prior run card's incomplete <strong>HOLDOUT-DTI {chdt['reported_value']:.6f}</strong> claim names evaluator {esc(chdt['evaluator_version'])} and {chdt['withheld_positives']:,} withheld positives but provides <strong>no 95% CI</strong>; it is not a release-grade result.</p>
 <p>Original Conduitcrest uniqueness compared only the nine focus-site rasters, not the lattice or complete fleet. Its pre-placement lattice comparison and per-feature canary are absent. Both candidates are research/audit files only; neither is cleared for upload.</p>

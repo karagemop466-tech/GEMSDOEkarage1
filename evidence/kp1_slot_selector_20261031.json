@@ -1,0 +1,12 @@
+{
+  "schema": "karage1-slot-selector-decision-v1",
+  "created_utc_date": "2026-10-31",
+  "submission_name": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031",
+  "raster_sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "selected": false,
+  "approved_for_upload": false,
+  "complete_authenticated_registry_audit": false,
+  "weekly_slot_selected_or_spent": false,
+  "decision": "NEGATIVE / DO NOT SUBMIT",
+  "reason": "No selector approval exists. The research candidate's off-catalogue paired-difference 95% CI includes zero, the mandated catalogue hide-and-recover instrument is anti-correlated with the reported leaderboard ordering, and the local nine-raster comparison is not a complete authenticated registry. Technical format validation is not authorization."
+}

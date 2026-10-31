@@ -1,0 +1,88 @@
+{
+  "schema": "karage1-run-card-v1",
+  "created_utc_date": "2026-10-31",
+  "session": "arena/4fc6cd83-gemsdoekarage1",
+  "hypothesis": "Uncatalogued permeable structures may be localized by concordant magnetic/gravity/basement edges, geomorphic scarps, fluid indicators, and Th/K\u2013U/K alteration; the existing KP1 candidate tests this consensus.",
+  "mechanism": "A geometric-mean consensus of independent potential-field, basement, LiDAR, spring/well, and alteration terms with 4-pixel dot spacing and a 2-pixel mapped-catalogue exclusion.",
+  "named_non_fault_process_that_could_mimic_it": "Pluton/caldera margins, basin-margin contact springs, metamorphic fabric, landslide headwalls, and fluvial cut banks can produce some or all of the same signatures.",
+  "experiment_budget": {
+    "budget": 3,
+    "used_in_predecessor_kp1_session": 3,
+    "new_experiments_this_review": 0,
+    "weekly_slots_selected_or_spent": 0
+  },
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI (off-catalogue proxy truth; not ORGANIZER-CONFIRMED)",
+    "candidate_value": 0.07640846770050778,
+    "evaluator_version": "gems57-pooled-hide-v2 (quadrant_ids), extended with independent off-catalogue SGMC proxy; leave-one-quadrant-out",
+    "withheld_positive_cells": 62122,
+    "candidate_absolute_95_ci": null,
+    "candidate_absolute_95_ci_note": "An absolute candidate DTI confidence interval is not present in the committed receipt; do not invent one.",
+    "matched_random_value": 0.06403322762094668,
+    "paired_difference_candidate_minus_random": 0.010908546448358092,
+    "paired_difference_ci95": [
+      -0.003366263821131524,
+      0.026038828265624682
+    ],
+    "fraction_bootstrap_draws_positive": 0.9225,
+    "interpretation": "Paired 95% interval includes zero. Evidence is inconclusive and uses an independent state-map proxy, not organizer hidden truth or a leaderboard score.",
+    "raw_candidate_minus_matched_random": 0.0123752400795611,
+    "paired_difference_interpretation": "The candidate and random means are from matched_uniform.dti in evidence/kp1_exp3_comparison.json; the reported CI/mean difference come from the paired 200 m block bootstrap and are not the raw difference of pooled DTI means."
+  },
+  "correlation_overlap_vs_registry": {
+    "scope": "nine named focus-site mirror rasters only; not the complete authenticated registry",
+    "max_abs_spearman": 0.007607,
+    "max_candidate_dot_forward_overlap_within_3px": 0.265281,
+    "limits": {
+      "absolute_spearman": 0.9,
+      "3px_overlap": 0.7
+    },
+    "result": "Passes the stated numerical thresholds against the nine-site subset only; global uniqueness is unproven."
+  },
+  "raster": "docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+  "raster_sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "validator_output": {
+    "local_validator_checks": "15/15 passed in evidence/kp1_release_gate.json",
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match_local_mirror": true,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "outside_footprint_zero": true,
+    "organizer_acceptance": "not tested; no organizer receipt"
+  },
+  "submission_name": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031",
+  "submission_note": "KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, >=2px off catalogue, 4px spacing, 32k dots",
+  "submission_note_characters": 127,
+  "projection": {
+    "label": "PROJECTED, NOT A SCORE",
+    "value": 0.27892044625099494,
+    "leaderboard_estimate": "not estimable"
+  },
+  "selector": {
+    "record": "evidence/kp1_slot_selector_20261031.json",
+    "selected": false,
+    "approved_for_upload": false
+  },
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "reason": "No selector authorization; paired proxy improvement CI includes zero; estimator is uncalibrated; comparison is limited to nine mirrors.",
+  "candidate_validation_passed": false,
+  "candidate_validation_rule": "paired off-catalogue HOLDOUT-DTI block-bootstrap 95% CI lower bound must be >0",
+  "candidate_validation_ci95": [
+    -0.003366263821131524,
+    0.026038828265624682
+  ]
+}

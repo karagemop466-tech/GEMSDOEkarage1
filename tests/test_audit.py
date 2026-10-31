@@ -164,8 +164,8 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
                 target = (self.page.parent / unquote(urlsplit(attrs['href']).path)).resolve()
                 digest = hashlib.sha256(target.read_bytes()).hexdigest()
                 if 'K-PROXY-DETECT' in self.page.read_text() and not self.in_audit:
-                    # The single cleared file is advertised in the session banner; its
-                    # legitimacy is asserted separately below against the release gate.
+                    # The homepage may not advertise a submission download without a
+                    # selector decision. It must currently contain no such link.
                     self.banner_downloads.append(digest)
                 else:
                     assert self.in_audit, 'research file must be inside an audit warning card'
@@ -177,14 +177,11 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
                 assert 'DO NOT SUBMIT' in self.label and 'research only' in self.label.lower()
                 self.downloads.extend(self.article_downloads); self.in_audit = False
     gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
-    assert gate['decision']['ok_to_submit'] is True and gate['decision']['slots_used'] == 0
-    gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
+    assert gate['decision']['technical_preflight_passed'] is True
+    assert gate['decision']['ok_to_submit'] is False and gate['decision']['slots_used'] == 0
     home = Links(root/'index.html'); home.feed((root/'index.html').read_text())
     assert not home.downloads
-    if home.banner_downloads:
-        assert gate['decision']['ok_to_submit'] is True
-        assert home.banner_downloads == [gate['sha256']]
-    assert home.banner_downloads == [gate['sha256']]
+    assert home.banner_downloads == []
     for page in (root/'executive-summary.html', root/'docs/executive-summary.html'):
         parsed = Links(page); parsed.feed(page.read_text())
         assert set(parsed.downloads) == expected

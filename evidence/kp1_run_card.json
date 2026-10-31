@@ -128,11 +128,23 @@
    1.89
   ]
  },
- "verdict": "promote",
+ "verdict": "negative",
  "slot_selected_or_spent": false,
  "slots_used": 0,
  "what_would_change_the_verdict": [
-  "an organizer receipt for this file (replaces the projection with a measurement)",
-  "a cand validation showing the surface is <10 % better than the champion's - then the file should be withdrawn"
+  "a valid selector decision bound to this exact SHA-256 and submission name",
+  "independent validation with a positive paired confidence interval on the off-catalogue target",
+  "a complete, authenticated registry audit",
+  "an organizer receipt, which would replace the projection with a measured score"
+ ],
+ "selector_decision": "evidence/kp1_slot_selector_20261031.json",
+ "ok_to_submit": false,
+ "technical_preflight_passed": true,
+ "blockers": [
+  "The separate slot selector did not select or authorize this candidate; writer receipt confirms approved_for_weekly_slot=false.",
+  "The off-catalogue paired-difference 95% interval [-0.003366, 0.026039] includes zero; the +0.010909 mean is not conclusive evidence of improvement.",
+  "The catalogue hide-and-recover evaluator is anti-correlated with the reported leaderboard ordering (Spearman -1.0); it cannot rank this candidate for the official hidden target.",
+  "The measured uniqueness comparison covers the nine focus-site mirrors, not a complete authenticated registry.",
+  "The 0.278920 projection is an extrapolation from nine user-reported scores, not a score or validation."
  ]
 }

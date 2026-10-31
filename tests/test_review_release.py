@@ -75,14 +75,18 @@ def test_regenerators_keep_all_main_pages_negative():
                  'docs/gpcz/knowledge.html', 'docs/gpcz/sources.html', 'docs/sources.html'):
         raw = (ROOT/name).read_text()
         assert 'DO NOT SUBMIT' in raw, name
+        assert 'K-PROXY-DETECT file in the banner above is the only cleared file' not in raw, name
         text = _strip_kp1_banner(raw)
         assert 'OK TO SUBMIT' not in text and 'READY FOR PORTAL' not in text, name
-        # The one permitted "OK TO SUBMIT" is the session banner, and it may only name
-        # the file for which the release gate receipt says ok_to_submit.
+        # Technical preflight is not selector approval. The current banner must not
+        # advertise any upload until a separate decision is bound to the exact bytes.
         if _kp1_banner_span(raw) is not None:
             gate = json.loads((ROOT/'evidence/kp1_release_gate.json').read_text())
-            assert gate['decision']['ok_to_submit'] is True
-            assert gate['sha256'] in raw or Path(gate['tif']).name in raw
+            assert gate['decision']['technical_preflight_passed'] is True
+            assert gate['decision']['ok_to_submit'] is False
+            assert 'no file is authorized for upload' in raw
+            assert 'Download the .tif' not in raw
+            assert 'K-PROXY-DETECT GeoTIFF' in raw
     stale = subprocess.run([sys.executable, 'scripts/build_dashboard_and_figures.py'], cwd=ROOT, capture_output=True)
     assert stale.returncode != 0
 

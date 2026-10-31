@@ -5,19 +5,18 @@
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
-## CURRENT SESSION — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · **PROMOTE: ONE FILE IS CLEARED**
+## CURRENT REVIEW (read first) — branch `arena/4fc6cd83-gemsdoekarage1` (31 Oct 2026)
 
-**✅ OK TO SUBMIT:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif)
-· [.zip](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip)
-· [receipt](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.receipt.json)
+**VERDICT: NEGATIVE / DO NOT SUBMIT. No file is authorized for upload; no weekly slot was selected or spent.**
 
-32,000 dots, float32, EPSG:32611, values in [0, 1], zeros outside the footprint, **zero** pixels on the
-mapped catalogue. **Format 15/15 · max |ρ| vs the nine 0.0076 · max 3-px overlap 26.5 % · projection
-0.2789 (PROJECTED, not a score) · 0 slots spent.** Older artifacts remain **DO NOT SUBMIT**; the details,
-the tables and the metric arithmetic are in [`docs/kp1/index.html`](docs/kp1/index.html) and in
-“Session detail — K-PROXY-DETECT” at the end of this file.
+- The repository review found a serious conflicting status: an older K-PROXY-DETECT page and receipt advertised a green “OK TO SUBMIT” even though its writer receipt says `approved_for_weekly_slot: false`, `promoted: false`, and there is no separate selector approval. The public site is now fail-closed: technical preflight is explicitly not upload authorization; the file remains downloadable **for research only**.
+- The candidate [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) has a verified SHA-256 in [`evidence/kp1_release_gate.json`](evidence/kp1_release_gate.json), passes the recorded local format/range checks, and is unique versus the nine named focus rasters only (max |ρ| 0.0076; max forward 3-px overlap 26.5%). That is **not** a complete authenticated registry audit and does **not** authorize submission.
+- The off-catalogue candidate-vs-matched-random HOLDOUT-DTI difference is reported as +0.0109 with 95% interval [−0.0034, +0.0260] (62,122 proxy positives; source: [`evidence/kp1_run_card.json`](evidence/kp1_run_card.json)); the interval includes zero. This is not a leaderboard score. The 0.2789 value remains a projection based on nine USER-REPORTED / UNVERIFIED scores—not a score estimate suitable for selection.
+- **Current artifact:** `karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`; format-valid, unique vs the nine focus rasters measured, but **DO NOT SUBMIT**. Download only for research/audit. No new geological experiment or submission slot was spent in this review; the previous KP1 session used its three-experiment budget.
+- **Review and run card:** [`knowledge/review-arena-4fc6cd83-20261031.md`](knowledge/review-arena-4fc6cd83-20261031.md) · [`evidence/run_card_arena_4fc6cd83_20261031.json`](evidence/run_card_arena_4fc6cd83_20261031.json). Selector record: [`evidence/kp1_slot_selector_20261031.json`](evidence/kp1_slot_selector_20261031.json).
+- **Verification status:** `.venv/bin/python -m pytest -q -p no:cacheprovider` → **515 passed, 4 skipped, 0 failed**. Skips are data-dependent; this is software verification, not model validation. `git diff --check` passes.
 
-## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
+## Previous review — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
 
 **Answer: no file is OK to download and submit. Verdict: NEGATIVE / DO NOT SUBMIT. No file is cleared; no weekly slot selected or spent.**
 

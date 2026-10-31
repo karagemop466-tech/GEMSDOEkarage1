@@ -24,15 +24,14 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 <main>
 
 <p class="eyebrow">Executive summary</p>
-<h1>Nine submissions, one explanation, one new file</h1>
-<div class="ok"><p class="big">Bottom line</p>
-<p>The nine focus submissions are not nine ideas. They are nine points on a one-parameter family
-that covers the same 2 %-of-the-map lineament support with different numbers of dots.
-Their scores rise as their dot count falls, and the best of them — GEMSDOE32's
-<code>h33-h33-2-b2-...-zeros</code> at <strong>0.2778</strong> — is the smallest member. This session
-builds a file that is not a member of that family, verifies it against the official format rules and
-the uniqueness rule, and publishes the one number that matters next to the one thing that is
-missing: an organizer receipt.</p></div>
+<h1>Nine reported submissions, one reported leader, one research file</h1>
+<div class="alert"><p class="big">Bottom line: DO NOT SUBMIT</p>
+<p>The nine focus rasters share substantial dot support, and their supplied scores are USER-REPORTED /
+UNVERIFIED. GEMSDOE32's <code>h33-h33-2-b2-...-zeros</code> has the highest supplied value,
+<strong>0.2778</strong>, but is not a unique submission under the stated dot-overlap rule. The KP1
+research raster passes local saved-byte format checks and the nine-file comparison; its matched
+off-catalogue proxy difference has a 95% interval that includes zero. No calibrated leaderboard
+estimate or organizer receipt exists, and no separate selector authorized an upload.</p></div>
 
 <h2>Per-site read</h2>
 <div class="table-scroll"><table class=""><thead><tr><th>Site</th><th>Reported score</th><th>Dots</th><th>Clumped (≥3 within 3 px)</th><th>≤2 px from catalogue</th><th>&gt;15 px from catalogue</th><th>Area covered</th></tr></thead><tbody><tr><td><strong>GEMSDOE32</strong></td><td class="num">0.2778</td><td class="num">37,654</td><td class="num">0.26 %</td><td class="num">0.00 %</td><td class="num">58.4 %</td><td>15.1 %</td></tr><tr><td><strong>GEMSDOE36</strong></td><td class="num">0.2750</td><td class="num">38,854</td><td class="num">0.29 %</td><td class="num">0.00 %</td><td class="num">58.1 %</td><td>15.5 %</td></tr><tr><td><strong>GEMSDOE28</strong></td><td class="num">0.2710</td><td class="num">37,660</td><td class="num">0.19 %</td><td class="num">6.25 %</td><td class="num">54.9 %</td><td>15.8 %</td></tr><tr><td><strong>GEMSDOE31</strong></td><td class="num">0.2708</td><td class="num">40,199</td><td class="num">0.28 %</td><td class="num">6.33 %</td><td class="num">54.7 %</td><td>16.0 %</td></tr><tr><td><strong>GEMSDOE33</strong></td><td class="num">0.2632</td><td class="num">41,865</td><td class="num">0.31 %</td><td class="num">9.30 %</td><td class="num">52.9 %</td><td>16.6 %</td></tr><tr><td><strong>GEMSDOE25</strong></td><td class="num">0.2600</td><td class="num">44,090</td><td class="num">0.34 %</td><td class="num">14.60 %</td><td class="num">49.9 %</td><td>17.2 %</td></tr><tr><td><strong>GEMSDOE30</strong></td><td class="num">0.2600</td><td class="num">44,090</td><td class="num">0.34 %</td><td class="num">14.60 %</td><td class="num">49.9 %</td><td>17.2 %</td></tr><tr><td><strong>GEMSDOE24</strong></td><td class="num">0.2477</td><td class="num">60,069</td><td class="num">1.65 %</td><td class="num">14.60 %</td><td class="num">49.6 %</td><td>18.1 %</td></tr><tr><td><strong>GEMSDOE27</strong></td><td class="num">0.2449</td><td class="num">61,328</td><td class="num">1.67 %</td><td class="num">14.47 %</td><td class="num">48.6 %</td><td>18.5 %</td></tr></tbody></table></div>
@@ -60,14 +59,13 @@ saved-byte checks pass under the shared validator; SHA-256 <code>30a5fc28ff060ad
 re-hashed on every site build.</li>
 <li><strong>Unique:</strong> max |Spearman| 0.0076, max 3-px overlap
 26.5 % against the nine (limits 0.90 and 70 %).</li>
-<li><strong>Better than random on an independent inventory:</strong> on the state-compilation faults
-that are absent from the training catalogue, the candidate covers
-+19.3 % more fault mass than a random
-dot field of the same size (block bootstrap: +0.0109,
-95 % [-0.0034, +0.0260],
-92 % of draws positive). Its
-32,000 dots buy what 40,171
-random dots would.</li>
+<li><strong>HOLDOUT-DTI on the independent state-map proxy (not an organizer score):</strong>
+point DTI 0.0764; matched-uniform random mean
+0.0640; descriptive relative difference
++19.3 %. The paired 200 m block-bootstrap
+mean difference is +0.0109, 95 % CI
+[-0.0034, +0.0260]. The interval includes
+zero, so improvement is not established. This proxy does not calibrate the leaderboard.</li>
 <li><strong>Projected:</strong> 0.2789 (LOO interval
 [0.2762, 0.2816]; parameter bootstrap
 [0.2757, 0.2846]), i.e.
@@ -76,11 +74,12 @@ random dots would.</li>
 
 <h2>What would change the answer</h2>
 <ol>
-<li>An organizer receipt for the upload. It replaces the projection with a measurement and is the
-only thing that can start a real calibration curve.</li>
-<li>A surface whose per-dot truth rate clears 0.0769 (the exact marginal bar at 0.2778). Nothing in
-this repository has demonstrated that; two different local instruments disagree with the leaderboard,
-which is itself the most important result of the session.</li>
+<li>A pre-registered spatially blocked validation on independent off-catalogue fault truth with a
+positive paired 95% confidence interval versus a matched baseline. The current proxy interval includes zero.</li>
+<li>A complete registry comparison, verified reference-grid provenance, and a separate selector decision
+bound to the exact candidate hash. None is currently recorded.</li>
+<li>An organizer receipt, if a future eligible candidate is selected, to replace a projection with a
+measured public score. The current 0.2789 value is a projection only.</li>
 </ol>
 
 </main>

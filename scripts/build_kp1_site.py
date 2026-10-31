@@ -141,19 +141,40 @@ def main() -> None:
     cov = gate["candidate_covariates"]
     uni = gate["uniqueness"]
     proj = gate["projection"]
-    ok = bool(gate["decision"]["ok_to_submit"])
+    # The release gate is only a technical preflight. A separate selector must
+    # approve the exact saved bytes before any page can authorize a competition
+    # upload. Fail closed if the selector receipt is missing, stale, or negative.
+    receipt_path = tif.with_suffix(".receipt.json")
+    receipt_document = json.loads(receipt_path.read_text()) if receipt_path.is_file() else {}
+    receipt = receipt_document.get("writer_receipt", receipt_document)
+    submission_name = receipt_document.get("name", receipt.get("submission_name"))
+    selector_path = ROOT / "evidence" / "kp1_slot_selector_20261031.json"
+    selector = json.loads(selector_path.read_text()) if selector_path.is_file() else {}
+    selector_matches = (
+        selector.get("selected") is True
+        and selector.get("approved_for_upload") is True
+        and selector.get("complete_authenticated_registry_audit") is True
+        and selector.get("raster_sha256") == live_sha
+        and selector.get("submission_name") == submission_name
+    )
+    ok = (
+        bool(gate["decision"].get("technical_preflight_passed", gate["decision"].get("ok_to_submit")))
+        and gate["decision"].get("candidate_validation_passed") is True
+        and receipt.get("sha256") == live_sha
+        and receipt.get("approved_for_weekly_slot") is True
+        and receipt.get("promoted") is True
+        and selector_matches
+    )
     status_class = "ok" if ok else "alert"
-    status_pill = '<span class="pill">OK TO SUBMIT</span>' if ok else '<span class="pill warn">DO NOT SUBMIT</span>'
+    status_pill = '<span class="pill">OK TO SUBMIT</span>' if ok else '<span class="pill warn">DO NOT SUBMIT · RESEARCH ONLY</span>'
 
     # ---------------------------------------------------------------- index
     download_block = f"""<div class="{status_class}">
 <p style="margin:0 0 6px">{status_pill}</p>
-<p class="big">{'OK TO SUBMIT — this file is cleared for upload' if ok else 'DO NOT SUBMIT — this file is not cleared'}</p>
-<p>Download the single-band GeoTIFF, upload it to the DrivenData submission page, and nothing
-else. It is not a copy of any of the nine focus submissions, it is not built from them, and it
-uses no organizer-confirmed receipt because none exists.</p>
-<a class="download" href="../downloads/{TIF}" download>Download the GeoTIFF · {fmt['bytes'] / 1e6:.2f} MB</a>
-<a class="download alt" href="../downloads/{NAME}.zip" download>Download the .zip</a>
+<p class="big">{'OK TO SUBMIT — selected by the separate slot selector' if ok else 'DO NOT SUBMIT — technical checks are not upload authorization'}</p>
+<p>{'The selector approved these exact saved bytes for upload.' if ok else 'This is a research artifact only. Local format checks pass, but the paired proxy improvement interval includes zero, the complete authenticated registry audit is missing, and no separate selector decision authorizes an upload. No organizer-confirmed score exists.'}</p>
+<a class="download" href="../downloads/{TIF}" download>{'Download the approved GeoTIFF' if ok else 'Download research-only GeoTIFF'} · {fmt['bytes'] / 1e6:.2f} MB</a>
+<a class="download alt" href="../downloads/{NAME}.zip" download>{'Download approved .zip' if ok else 'Download research-only .zip'}</a>
 <p style="margin-top:14px"><small>SHA-256 <code>{gate['sha256']}</code> — re-hashed on every build;
 the download links are rendered only while that digest matches.</small></p>
 </div>"""
@@ -189,7 +210,7 @@ the download links are rendered only while that digest matches.</small></p>
         (f"{proj['projected_value']:.4f} <small>PROJECTED</small>", "num"),
         (f"{cov['d_cat_le_2px_frac'] * 100:.2f} / {cov['d_cat_gt_15px_frac'] * 100:.1f} %", "num"),
         (f"{cmp_['candidate']['dti']:.4f}", "num"),
-        "<strong>Yes — this is the only cleared file</strong>",
+        "<strong>No — research only; selector approval is absent</strong>",
     ))
     table_one = table([
         "Site", "File", "Dots", "Leaderboard", "Estimated", "≤2 px / &gt;15 px from catalogue",
@@ -198,7 +219,7 @@ the download links are rendered only while that digest matches.</small></p>
 
     index_body = f"""
 <p class="eyebrow">GEMS Prize · task 1 · fault prediction · decision page</p>
-<h1>One file is cleared. It is unique, format-valid, and it is the only thing to upload.</h1>
+<h1>No file is cleared to upload. One research GeoTIFF passed local format checks.</h1>
 {download_block}
 {kpi_block}
 <h2>Table 1 — the nine focus sites, plus this session</h2>
@@ -270,15 +291,14 @@ repository</strong>, and the page says so with the arithmetic instead of a promi
 
     summary_body = f"""
 <p class="eyebrow">Executive summary</p>
-<h1>Nine submissions, one explanation, one new file</h1>
-<div class="{status_class}"><p class="big">Bottom line</p>
-<p>The nine focus submissions are not nine ideas. They are nine points on a one-parameter family
-that covers the same {100 * 0.02:.0f} %-of-the-map lineament support with different numbers of dots.
-Their scores rise as their dot count falls, and the best of them — GEMSDOE32's
-<code>h33-h33-2-b2-...-zeros</code> at <strong>0.2778</strong> — is the smallest member. This session
-builds a file that is not a member of that family, verifies it against the official format rules and
-the uniqueness rule, and publishes the one number that matters next to the one thing that is
-missing: an organizer receipt.</p></div>
+<h1>Nine reported submissions, one reported leader, one research file</h1>
+<div class="{status_class}"><p class="big">Bottom line: DO NOT SUBMIT</p>
+<p>The nine focus rasters share substantial dot support, and their supplied scores are USER-REPORTED /
+UNVERIFIED. GEMSDOE32's <code>h33-h33-2-b2-...-zeros</code> has the highest supplied value,
+<strong>0.2778</strong>, but is not a unique submission under the stated dot-overlap rule. The KP1
+research raster passes local saved-byte format checks and the nine-file comparison; its matched
+off-catalogue proxy difference has a 95% interval that includes zero. No calibrated leaderboard
+estimate or organizer receipt exists, and no separate selector authorized an upload.</p></div>
 
 <h2>Per-site read</h2>
 {nine_table}
@@ -306,14 +326,13 @@ saved-byte checks pass under the shared validator; SHA-256 <code>{gate['sha256']
 re-hashed on every site build.</li>
 <li><strong>Unique:</strong> max |Spearman| {uni['max_abs_spearman']:.4f}, max 3-px overlap
 {uni['max_dot_overlap'] * 100:.1f} % against the nine (limits 0.90 and 70 %).</li>
-<li><strong>Better than random on an independent inventory:</strong> on the state-compilation faults
-that are absent from the training catalogue, the candidate covers
-{cmp_['matched_uniform']['relative_gain_of_candidate'] * 100:+.1f} % more fault mass than a random
-dot field of the same size (block bootstrap: {cmp_['block_bootstrap']['mean_diff']:+.4f},
-95 % [{cmp_['block_bootstrap']['p2.5']:+.4f}, {cmp_['block_bootstrap']['p97.5']:+.4f}],
-{cmp_['block_bootstrap']['fraction_of_draws_positive'] * 100:.0f} % of draws positive). Its
-{cmp_['candidate']['dots']:,} dots buy what {cmp_['coverage_efficiency']['candidate_equivalent_uniform_dots']:,}
-random dots would.</li>
+<li><strong>HOLDOUT-DTI on the independent state-map proxy (not an organizer score):</strong>
+point DTI {cmp_['candidate']['dti']:.4f}; matched-uniform random mean
+{cmp_['matched_uniform']['mean']['dti']:.4f}; descriptive relative difference
+{cmp_['matched_uniform']['relative_gain_of_candidate'] * 100:+.1f} %. The paired 200 m block-bootstrap
+mean difference is {cmp_['block_bootstrap']['mean_diff']:+.4f}, 95 % CI
+[{cmp_['block_bootstrap']['p2.5']:+.4f}, {cmp_['block_bootstrap']['p97.5']:+.4f}]. The interval includes
+zero, so improvement is not established. This proxy does not calibrate the leaderboard.</li>
 <li><strong>Projected:</strong> {proj['projected_value']:.4f} (LOO interval
 [{proj['loo_interval'][0]:.4f}, {proj['loo_interval'][1]:.4f}]; parameter bootstrap
 [{proj['bootstrap_95_interval'][0]:.4f}, {proj['bootstrap_95_interval'][1]:.4f}]), i.e.
@@ -322,11 +341,12 @@ random dots would.</li>
 
 <h2>What would change the answer</h2>
 <ol>
-<li>An organizer receipt for the upload. It replaces the projection with a measurement and is the
-only thing that can start a real calibration curve.</li>
-<li>A surface whose per-dot truth rate clears 0.0769 (the exact marginal bar at 0.2778). Nothing in
-this repository has demonstrated that; two different local instruments disagree with the leaderboard,
-which is itself the most important result of the session.</li>
+<li>A pre-registered spatially blocked validation on independent off-catalogue fault truth with a
+positive paired 95% confidence interval versus a matched baseline. The current proxy interval includes zero.</li>
+<li>A complete registry comparison, verified reference-grid provenance, and a separate selector decision
+bound to the exact candidate hash. None is currently recorded.</li>
+<li>An organizer receipt, if a future eligible candidate is selected, to replace a projection with a
+measured public score. The current 0.2789 value is a projection only.</li>
 </ol>
 """
     write_atomic(OUT / "executive-summary.html",
@@ -458,32 +478,27 @@ metric rewards, which is why they are shown beside the reported score and not in
 on the literal 3-px rule (median {uni['nine_file_mutual_overlap']['median'] * 100:.1f} %), against a
 chance level of roughly 15 %. They are one covering of one support, sampled differently.</p>
 <h2>Which one to submit</h2>
-<p><strong>None.</strong> Resubmitting any of the nine buys nothing (they are already scored) and
-resubmitting a near-copy risks the duplicate rule. The only file this repository clears is the new
-one on the <a href="index.html">decision page</a>, and its status comes from a gate that re-validates
-the saved bytes every time the site is built.</p>
+<p><strong>None is authorized.</strong> Resubmitting any of the nine buys nothing (they are already scored).
+The new file is research-only: its local format and nine-site uniqueness checks are not upload
+authorization. A separate, hash-bound selector decision is required; none is recorded.</p>
 """
     write_atomic(OUT / "nine-sites.html", page("nine-sites.html", "The nine focus sites", nine_body))
 
     # -------------------------------------------------------- how to submit
     how_body = f"""
 <p class="eyebrow">How to submit</p>
-<h1>Three steps, no interpretation required</h1>
-<div class="{status_class}"><p class="big">The file on the decision page is cleared.</p>
-<p>If you are reading this page instead of the decision page: the file is
-<code>{TIF}</code>, SHA-256 <code>{gate['sha256']}</code>. If that digest does not match what you
-downloaded, stop.</p></div>
+<h1>Submission instructions — currently blocked</h1>
+<div class="{status_class}"><p class="big">{'Selected file: upload permitted' if ok else 'DO NOT UPLOAD — no selector approval exists'}</p>
+<p>The file <code>{TIF}</code> (SHA-256 <code>{gate['sha256']}</code>) passed local format preflight.
+That does not authorize an upload. The selector must approve this exact hash separately; the current
+selector record is absent or negative. Do not use the research download as a submission.</p></div>
 <ol>
-<li><strong>Download</strong> <a href="../downloads/{TIF}" download>{TIF}</a>
-({fmt['bytes'] / 1e6:.2f} MB) or the <a href="../downloads/{NAME}.zip" download>.zip</a>
-(one GeoTIFF inside, so either form is accepted by the portal).</li>
-<li><strong>Upload it</strong> at the DrivenData submission page for the GEMS competition with:
-<ul>
-<li>name: <code>{card['submission_name']}</code></li>
-<li>note (≤140 characters): <code>{card['submission_note']}</code></li>
-</ul></li>
-<li><strong>Record the returned score</strong> next to the SHA-256 in the run card. That receipt is
-the only thing that can replace the projection with a measurement.</li>
+<li><strong>Current action:</strong> do not upload this candidate. The download is available for
+research and audit only.</li>
+<li><strong>After a future explicit selector approval:</strong> verify the approved filename and
+SHA-256, then use the DrivenData submission page and the selected unique note (≤140 characters).</li>
+<li><strong>After an organizer response:</strong> retain the file-linked receipt; only that receipt
+can replace a projection with an ORGANIZER-CONFIRMED score.</li>
 </ol>
 <h2>What the portal will check, and what was already checked here</h2>
 {table(['Check', 'Result'], [
@@ -511,9 +526,9 @@ patching the download.</p>
     research_body = f"""
 <p class="eyebrow">New geological hypotheses</p>
 <h1>Five ideas, ranked by expected gain per unit of cost</h1>
-<p>Ranked by expected DTI gain against the cost of testing, using the only two local instruments
-that exist. Nothing below is a claim of a gain; the ranking says what to try next, not what will
-work.</p>
+<p>Heuristic research priorities by geological rationale and test cost, not calibrated expected DTI:
+the local catalogue holdout reverses the known leaderboard ordering, and the off-catalogue proxy's
+paired confidence interval includes zero. Nothing below is a score forecast or a validated gain.</p>
 <table>
 <thead><tr><th>#</th><th>Hypothesis</th><th>Layers and physical signature</th>
 <th>Why it can find faults the catalogue misses</th><th>Difference from the repo's prior work</th>
@@ -529,7 +544,7 @@ damage zone in radiometrics even where no scarp survives.</td>
 <td>Prior lanes used the catalogue anatomy or a single potential field; this one requires a
 geometric-mean consensus across five independent fields and forbids the catalogue corridor.</td>
 <td>Buried pluton margins and caldera rings (round, not linear; multi-field but no scarp and no
-spring alignment).</td><td>done</td><td>measured: {proj['projected_value']:.4f} projected</td></tr>
+spring alignment).</td><td>tested (3 prior experiments)</td><td>inconclusive proxy contrast; projection {proj['projected_value']:.4f} is not a score</td></tr>
 <tr><td>2</td>
 <td><strong>Along-strike continuation of mapped traces</strong></td>
 <td>Catalogue traces as seeds; curvature, step-over geometry and slip-rate gradient extrapolated
@@ -571,15 +586,18 @@ vegetation may never have been photographed.</td>
 proxy.</td><td>Gravity-driven landslides and fluvial cut banks on steep slopes.</td>
 <td>1–2 experiments</td><td>low — the LiDAR product is already in the candidate</td></tr>
 </tbody></table>
-<h2>What the next session should do, in order</h2>
+<h2>What must happen before another candidate can be considered</h2>
 <ol>
-<li>Get the organizer receipt for the cleared file. Nothing else can calibrate anything.</li>
-<li>If the receipt is within ±0.03 of the projection, hypothesis 3 is the best next spend; if it is
-far below, the covariate model is falsified and the whole geometry-based approach must be dropped
-before another slot is spent.</li>
-<li>Do not re-run the two saturated instruments (literal 3-px uniqueness, catalogue hide-and-recover)
-as promotion gates. Ask the protocol owner for a ruling; they currently reject everything,
-including files the leaderboard scores at 0.2778.</li>
+<li>Do not seek or infer a submission receipt for this research-only artifact: it was not selected,
+its proxy improvement interval includes zero, and no upload is authorized.</li>
+<li>Before any new experiment, resolve the input and writer provenance against official competition
+files and pre-register an off-catalogue, spatially blocked protocol with leakage canaries and matched
+baselines. The KP1 session has already used three experiments.</li>
+<li>Do not treat the catalogue hide-and-recover score as a leaderboard proxy: it ranks the nine known
+scores in reverse order. Use an independent fault inventory only for qualified within-instrument
+comparisons, not as a prediction of organizer score.</li>
+<li>Keep selection separate. A future selector must examine a candidate only after scientific,
+format, and complete-registry gates pass, and must bind any decision to the saved raster SHA-256.</li>
 </ol>
 """
     write_atomic(OUT / "research.html", page("research.html", "New geological hypotheses", research_body))

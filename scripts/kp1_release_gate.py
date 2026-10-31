@@ -22,7 +22,9 @@ re-derives every number from scratch, and writes one machine-readable decision:
                       a score, not a measurement, and it is reported with its LOO
                       error and its n = 9 caveat.
 
-Exit code 0 means ``ok_to_submit`` is true.  The script never edits the TIF.
+Exit code 0 means the exact raster passed technical checks and has a matching
+writer receipt plus an explicit hash-bound selector approval. The script never
+edits the TIF.
 """
 from __future__ import annotations
 
@@ -258,15 +260,63 @@ def main(tif: Path) -> dict:
 
     proj = projection(cand, rows)
     fmt_ok = bool(fmt["all_checks_passed"])
-    ok = fmt_ok and uniqueness["passes_rho_rule"] and uniqueness["passes_overlap_rule"] \
+    technical_ok = fmt_ok and uniqueness["passes_rho_rule"] and uniqueness["passes_overlap_rule"] \
         and cand["d_cat_le_2px_frac"] == 0.0
+
+    # A technical release gate is not a weekly-slot selection. Require a separate
+    # selector record bound to the exact raster bytes and writer submission name.
+    writer_receipt_path = tif.with_suffix(".receipt.json")
+    try:
+        receipt_document = json.loads(writer_receipt_path.read_text())
+        writer_receipt = receipt_document.get("writer_receipt", receipt_document)
+        submission_name = receipt_document.get("name", writer_receipt.get("submission_name"))
+    except (OSError, ValueError):
+        writer_receipt = {}
+        submission_name = None
+    selector_path = ROOT / "evidence" / "kp1_slot_selector_20261031.json"
+    try:
+        selector = json.loads(selector_path.read_text())
+    except (OSError, ValueError):
+        selector = {}
+    comparison = json.loads((ROOT / "evidence" / "kp1_exp3_comparison.json").read_text())
+    paired_ci = comparison["block_bootstrap"]
+    candidate_validation_passed = bool(paired_ci["p2.5"] > 0.0)
+    selector_ok = (
+        selector.get("selected") is True
+        and selector.get("approved_for_upload") is True
+        and selector.get("complete_authenticated_registry_audit") is True
+        and selector.get("raster_sha256") == fmt["sha256"]
+        and selector.get("submission_name") == submission_name
+        and writer_receipt.get("sha256") == fmt["sha256"]
+        and writer_receipt.get("approved_for_weekly_slot") is True
+        and writer_receipt.get("promoted") is True
+    )
+    ok = bool(technical_ok and candidate_validation_passed and selector_ok)
+    not_basis = ["no organizer receipt for this file", "no calibrated leaderboard estimate",
+                 "the holdout instrument is anti-correlated with the known leaderboard "
+                 "ordering (see evidence/kp1_exp2_holdout.json instrument_calibration)"]
+    if not candidate_validation_passed:
+        not_basis.append("the candidate-minus-random paired 95% interval includes zero")
+    if not selector_ok:
+        not_basis.append("no valid hash-bound selector/writer approval with a complete registry audit exists")
     decision = dict(
+        technical_preflight_passed=bool(technical_ok),
+        candidate_validation_passed=candidate_validation_passed,
+        validation_rule="lower bound of paired 95% candidate-minus-matched-random off-catalogue HOLDOUT-DTI block-bootstrap interval must exceed zero",
+        validation_ci95=[paired_ci["p2.5"], paired_ci["p97.5"]],
+        selector_approved=bool(selector_ok),
         ok_to_submit=bool(ok),
-        basis=["saved-byte format preflight passed", "literal uniqueness rules passed",
+        basis=["saved-byte format preflight passed",
+               "literal uniqueness rules passed against the nine named focus mirrors only",
                "no positive mass inside the mapped-catalogue corridor"],
-        not_basis=["no organizer receipt for this file", "no validated leaderboard estimate",
-                   "the holdout instrument is anti-correlated with the known leaderboard "
-                   "ordering (see evidence/kp1_exp2_holdout.json instrument_calibration)"],
+        not_basis=not_basis,
+        blockers=[] if ok else [
+            reason for condition, reason in (
+                (not technical_ok, "saved-byte technical preflight or nine-site uniqueness check failed"),
+                (not candidate_validation_passed, "paired off-catalogue HOLDOUT-DTI 95% interval does not establish a positive gain"),
+                (not selector_ok, "separate hash-bound selector/writer approval is missing"),
+            ) if condition
+        ],
         slots_used=0,
     )
     out = dict(gate="kp1-release-gate/v1", tif=str(tif.relative_to(ROOT)) if tif.is_relative_to(ROOT) else str(tif),

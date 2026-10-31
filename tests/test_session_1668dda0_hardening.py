@@ -186,23 +186,16 @@ def test_pr42_sidecars_and_all_repo_jsons_remain_fail_closed():
                 found.extend(_find_true_flags(item, f"{prefix}[{idx}]"))
         return found
 
-    # One exception is permitted and it is itself checked: the current session's release
-    # gate plus run card may assert authorization for the single cleared artifact, and they
-    # must record that zero submission slots were spent.
-    permitted = {ROOT / "evidence" / "kp1_release_gate.json",
-                 ROOT / "evidence" / "kp1_run_card.json"}
+    # Technical passes and positive projections must never silently authorize an upload.
+    # The current selector record is explicitly negative; no JSON receipt in public artifacts
+    # may assert upload authorization.
     for folder in ("docs", "evidence", "registry"):
         for json_path in sorted((ROOT / folder).rglob("*.json")):
             data = json.loads(json_path.read_text())
             hits = _find_true_flags(data)
-            if json_path in permitted:
-                if not hits:
-                    continue
-                gate = data["decision"] if "decision" in data else data
-                assert gate["ok_to_submit"] is True
-                assert gate["slots_used" if "slots_used" in gate else "slot_selected_or_spent"] in (0, False)
-                continue
             assert not hits, f"{json_path} contains true authorization flags: {hits}"
+    selector = json.loads((ROOT / "evidence/kp1_slot_selector_20261031.json").read_text())
+    assert selector["selected"] is False and selector["approved_for_upload"] is False
 
 
 def test_local_and_peer_evidence_verifies_all_9_local_tifs():
@@ -234,10 +227,11 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     # with the shared audit script; see evidence/local_downloads_audit_20261029.json.
     fleet = json.loads((ROOT / "evidence/local_downloads_audit_20261029.json").read_text())
     later_tifs |= {r["file"] for r in fleet["local_downloads"]}
-    # The current session's cleared artifact is audited by its own release gate, which
-    # re-runs the shared validator on the saved bytes and records the digest on disk.
+    # The current research artifact is audited by its release gate; technical validity
+    # does not authorize upload without the separate selector decision.
     gate = json.loads((ROOT / "evidence" / "kp1_release_gate.json").read_text())
-    assert gate["decision"]["ok_to_submit"] is True and gate["decision"]["slots_used"] == 0
+    assert gate["decision"]["technical_preflight_passed"] is True
+    assert gate["decision"]["ok_to_submit"] is False and gate["decision"]["slots_used"] == 0
     assert gate["format"]["all_checks_passed"] is True
     assert gate["tif"] in actual_tifs
     later_tifs.add(gate["tif"])
