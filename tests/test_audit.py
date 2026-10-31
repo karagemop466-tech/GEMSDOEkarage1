@@ -181,10 +181,11 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
     gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
     home = Links(root/'index.html'); home.feed((root/'index.html').read_text())
     assert not home.downloads
-    if home.banner_downloads:
-        assert gate['decision']['ok_to_submit'] is True
-        assert home.banner_downloads == [gate['sha256']]
-    assert home.banner_downloads == [gate['sha256']]
+    # The lane receipt is historical; the active full-registry/pre-placement gates are not cleared.
+    assert home.banner_downloads == []
+    assert gate['decision']['ok_to_submit'] is True
+    active = json.loads((root/'evidence/active_submission_status.json').read_text())
+    assert active['verdict'] == 'negative' and active['ok_to_submit'] is False
     for page in (root/'executive-summary.html', root/'docs/executive-summary.html'):
         parsed = Links(page); parsed.feed(page.read_text())
         assert set(parsed.downloads) == expected

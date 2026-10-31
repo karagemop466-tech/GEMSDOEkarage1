@@ -5,19 +5,18 @@
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
-## CURRENT SESSION — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · **PROMOTE: ONE FILE IS CLEARED**
+## READ FIRST — ACTIVE SESSION `arena/a79c8595-gemsdoekarage1` (31 Oct 2026) · **NEGATIVE / DO NOT SUBMIT**
 
-**✅ OK TO SUBMIT:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif)
-· [.zip](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip)
-· [receipt](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.receipt.json)
+**No file is currently cleared for submission.** This session generated no TIF, ran no holdout, and spent no submission slot: the referenced single method paragraph is absent; `registry/template.json` has no assigned lane or canonical template; the shared cache/data are missing; and the historical KP1 gate is not a complete current-registry/pre-placement clearance. Do not treat a prior `promote` card as active permission.
 
-32,000 dots, float32, EPSG:32611, values in [0, 1], zeros outside the footprint, **zero** pixels on the
-mapped catalogue. **Format 15/15 · max |ρ| vs the nine 0.0076 · max 3-px overlap 26.5 % · projection
-0.2789 (PROJECTED, not a score) · 0 slots spent.** Older artifacts remain **DO NOT SUBMIT**; the details,
-the tables and the metric arithmetic are in [`docs/kp1/index.html`](docs/kp1/index.html) and in
-“Session detail — K-PROXY-DETECT” at the end of this file.
+- Current review: [knowledge/review-arena-a79c8595-20261031.md](knowledge/review-arena-a79c8595-20261031.md) · [machine-readable run card](evidence/run_card_arena_a79c8595_20261031.json) · [active authorization status](evidence/active_submission_status.json).
+- Executive summary and nine-site table: [docs/executive-summary.html](docs/executive-summary.html). Historical reported scores are not organizer-confirmed; a leaderboard estimate is **not estimable** from the available evidence.
+- The nine-site winner GEMSDOE32 B2 (0.2778, USER-REPORTED / UNVERIFIED) is a strict subset of GEMSDOE25's file after removing 6,436 catalogue-adjacent dots; this is a measured mechanism, not proof of hidden-fault discovery. Details: [knowledge/why-gemsdoe32-b2-20261031.md](knowledge/why-gemsdoe32-b2-20261031.md).
+- Existing hypotheses are proposals only: [five-hypothesis slate](knowledge/hypotheses-20261031.md). No candidate was validly tested this session; do not use a weekly slot.
+- **Historical note:** the K-PROXY-DETECT artifact below was promoted by a prior lane receipt based on checks against the nine focus rasters. Under the active full-registry/pre-placement protocol, it is a research artifact pending re-audit—not cleared. Its old projection 0.2789 remains PROJECTED, not a score.
+- Start every session by reading [docs/standing-prompt.md](docs/standing-prompt.md) and this section. The original prompt text was not preserved verbatim; the file explicitly identifies itself as a reconstruction.
 
-## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
+## HISTORICAL K-PROXY-DETECT REVIEW — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · NOT ACTIVE CLEARANCE
 
 **Answer: no file is OK to download and submit. Verdict: NEGATIVE / DO NOT SUBMIT. No file is cleared; no weekly slot selected or spent.**
 
