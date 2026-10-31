@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Experiment E1 of session arena/9cf124bb-gemsdoekarage1 (31 Oct 2026): hypothesis H-O2.
 
-Pre-registered in knowledge/hypotheses-20261031.md (section 4) BEFORE this file was run.
+Pre-registered in knowledge/hypotheses-9cf124bb-20261031.md (section 4) BEFORE this file was run.
 
 Hypothesis: a label-free USGS 3DEP lidar scarp ridge (step_max) emits dots that the
 mapped-catalogue halo rule can prune without leakage. Pruning dots within 2 px of the

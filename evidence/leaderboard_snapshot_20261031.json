@@ -1,0 +1,13 @@
+{
+  "schema": "karage1-public-leaderboard-snapshot-v1",
+  "observed_utc_date": "2026-10-31",
+  "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "source_class": "ORGANIZER-PUBLIC",
+  "retrieval": "Live public page read via browser; this is a point-in-time public leaderboard snapshot, not a submission receipt or private test result.",
+  "observations": {
+    "rank_1_score": 0.4544,
+    "rank_50_score": 0.3195,
+    "user_cited_0_4413_visible_in_top_50": false
+  },
+  "focus_site_scores": "Not confirmed by this snapshot; listed GEMSDOE values remain USER-REPORTED / UNVERIFIED unless an artifact-linked organizer receipt is provided."
+}

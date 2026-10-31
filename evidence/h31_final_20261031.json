@@ -1,0 +1,105 @@
+{
+  "schema": "karage1-h31-final-candidate-v1",
+  "date_utc": "2026-10-31",
+  "file": "docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+  "zip": "docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.zip",
+  "sha256_tif": "4221236752e703ec035b4d4245d23dbb0cf2b1126f8cb6040e810316be1d738a",
+  "sha256_zip": "93e3a8241e804b640be256efff69cfa64570b3862b75de8da019206a8500b1b8",
+  "bytes_tif": 282359,
+  "dots_requested": 40000,
+  "dots_written": 40000,
+  "validator": {
+    "crs_match": true,
+    "shape_match": true,
+    "transform_match": true,
+    "dtype": "float32",
+    "count": 1,
+    "nan_cells": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "in_0_1": true,
+    "dots": 40000,
+    "dots_outside_footprint": 0,
+    "dots_on_catalogue": 0,
+    "pass": true
+  },
+  "uniqueness_vs_nine_focus": {
+    "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.364325,
+      "phi_spearman_footprint": 0.021857,
+      "registry_dots": 60069,
+      "surface_spearman_vs_registry_raster": 0.068721
+    },
+    "GEMSDOE25_d28.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.348075,
+      "phi_spearman_footprint": 0.018287,
+      "registry_dots": 44090,
+      "surface_spearman_vs_registry_raster": 0.057724
+    },
+    "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.38005,
+      "phi_spearman_footprint": 0.022027,
+      "registry_dots": 61328,
+      "surface_spearman_vs_registry_raster": 0.070559
+    },
+    "GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.264525,
+      "phi_spearman_footprint": 0.007723,
+      "registry_dots": 37660,
+      "surface_spearman_vs_registry_raster": 0.045592
+    },
+    "GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.348075,
+      "phi_spearman_footprint": 0.018287,
+      "registry_dots": 44090,
+      "surface_spearman_vs_registry_raster": 0.057724
+    },
+    "GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.270525,
+      "phi_spearman_footprint": 0.008591,
+      "registry_dots": 40199,
+      "surface_spearman_vs_registry_raster": 0.047549
+    },
+    "GEMSDOE32_B2.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.214575,
+      "phi_spearman_footprint": 0.005388,
+      "registry_dots": 37654,
+      "surface_spearman_vs_registry_raster": 0.040738
+    },
+    "GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.29855,
+      "phi_spearman_footprint": 0.011551,
+      "registry_dots": 41865,
+      "surface_spearman_vs_registry_raster": 0.050974
+    },
+    "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.2188,
+      "phi_spearman_footprint": 0.005297,
+      "registry_dots": 38854,
+      "surface_spearman_vs_registry_raster": 0.041436
+    },
+    "13gems_20261001_r13-lattice-s5_v2_nan-outside.tif": {
+      "exact_positive_mask_equal": false,
+      "fwd3_candidate_dots_within_3px_of_registry": 0.997525,
+      "phi_spearman_footprint": -0.000378,
+      "registry_dots": 206895,
+      "surface_spearman_vs_registry_raster": -5e-05
+    }
+  },
+  "unique_vs_nine_focus_passes": true,
+  "lattice_gate_passes": false,
+  "surface_gate_passes_all_registry": true,
+  "lattice_gate_note": "13GEMS covering probe; every dotted focus raster exceeds 0.70 forward overlap (see evidence/focus_nine_audit_20261031.json).",
+  "holdout_label": "HOLDOUT-DTI only via evidence/h31_holdout_20261031.json; no organizer score",
+  "gate_status": "NOT CLEARED",
+  "submission_status": "DO NOT SUBMIT: NOT CLEARED. Fails the lattice gate (by construction for any dotted raster); owner must resolve the gate before any selector step. No leaderboard estimate exists."
+}

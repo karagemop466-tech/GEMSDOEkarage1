@@ -1,0 +1,801 @@
+{
+  "schema": "karage1-h31-holdout-v1",
+  "date_utc": "2026-10-31",
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "truth_source": "data/labels.tif (mirror catalogue; NOT organizer hidden labels)",
+  "preregistration": "knowledge/preregistration-h31-visgrad-20261031.md",
+  "folds": [
+    {
+      "fold": 0,
+      "withheld_segments": 651,
+      "withheld_positive_pixels_in_region": 10092,
+      "visible_catalogue_pixels": 50723,
+      "n_per_arm_target": 8939,
+      "arms": {
+        "candidate_H_V31": {
+          "dots": 8939,
+          "dti": 0.117956,
+          "tpw": 1178.163,
+          "fpw": 8394.404,
+          "fnw": 8913.837,
+          "n_truth": 10092
+        },
+        "C1_random": {
+          "dots": 8939,
+          "dti": 0.071674,
+          "tpw": 712.959,
+          "fpw": 8655.63,
+          "fnw": 9379.041,
+          "n_truth": 10092
+        },
+        "C2_tmi_hg_top": {
+          "dots": 8939,
+          "dti": 0.073176,
+          "tpw": 727.466,
+          "fpw": 8611.211,
+          "fnw": 9364.534,
+          "n_truth": 10092
+        },
+        "C3_catalogue_proximity": {
+          "dots": 50,
+          "dti": 0.000218,
+          "tpw": 1.762,
+          "fpw": 48.748,
+          "fnw": 10090.238,
+          "n_truth": 10092
+        }
+      }
+    },
+    {
+      "fold": 1,
+      "withheld_segments": 689,
+      "withheld_positive_pixels_in_region": 12477,
+      "visible_catalogue_pixels": 48494,
+      "n_per_arm_target": 11052,
+      "arms": {
+        "candidate_H_V31": {
+          "dots": 11052,
+          "dti": 0.063657,
+          "tpw": 781.332,
+          "fpw": 10680.656,
+          "fnw": 11695.668,
+          "n_truth": 12477
+        },
+        "C1_random": {
+          "dots": 11052,
+          "dti": 0.075935,
+          "tpw": 934.545,
+          "fpw": 10693.539,
+          "fnw": 11542.455,
+          "n_truth": 12477
+        },
+        "C2_tmi_hg_top": {
+          "dots": 11052,
+          "dti": 0.041323,
+          "tpw": 506.058,
+          "fpw": 10818.318,
+          "fnw": 11970.942,
+          "n_truth": 12477
+        },
+        "C3_catalogue_proximity": {
+          "dots": 21,
+          "dti": 0.000379,
+          "tpw": 3.783,
+          "fpw": 19.0,
+          "fnw": 12473.217,
+          "n_truth": 12477
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "withheld_segments": 1116,
+      "withheld_positive_pixels_in_region": 20312,
+      "visible_catalogue_pixels": 40554,
+      "n_per_arm_target": 11059,
+      "arms": {
+        "candidate_H_V31": {
+          "dots": 11059,
+          "dti": 0.102443,
+          "tpw": 1912.391,
+          "fpw": 10178.467,
+          "fnw": 18399.609,
+          "n_truth": 20312
+        },
+        "C1_random": {
+          "dots": 11059,
+          "dti": 0.080243,
+          "tpw": 1496.37,
+          "fpw": 10495.961,
+          "fnw": 18815.63,
+          "n_truth": 20312
+        },
+        "C2_tmi_hg_top": {
+          "dots": 11059,
+          "dti": 0.078706,
+          "tpw": 1466.126,
+          "fpw": 10424.869,
+          "fnw": 18845.874,
+          "n_truth": 20312
+        },
+        "C3_catalogue_proximity": {
+          "dots": 134,
+          "dti": 0.000858,
+          "tpw": 13.968,
+          "fpw": 128.181,
+          "fnw": 20298.032,
+          "n_truth": 20312
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "withheld_segments": 743,
+      "withheld_positive_pixels_in_region": 17712,
+      "visible_catalogue_pixels": 43193,
+      "n_per_arm_target": 8951,
+      "arms": {
+        "candidate_H_V31": {
+          "dots": 8951,
+          "dti": 0.16398,
+          "tpw": 2666.895,
+          "fpw": 7802.586,
+          "fnw": 15045.105,
+          "n_truth": 17712
+        },
+        "C1_random": {
+          "dots": 8951,
+          "dti": 0.078323,
+          "tpw": 1262.724,
+          "fpw": 8498.938,
+          "fnw": 16449.276,
+          "n_truth": 17712
+        },
+        "C2_tmi_hg_top": {
+          "dots": 8951,
+          "dti": 0.067353,
+          "tpw": 1083.112,
+          "fpw": 8474.035,
+          "fnw": 16628.888,
+          "n_truth": 17712
+        },
+        "C3_catalogue_proximity": {
+          "dots": 40,
+          "dti": 0.001055,
+          "tpw": 14.964,
+          "fpw": 34.964,
+          "fnw": 17697.036,
+          "n_truth": 17712
+        }
+      }
+    }
+  ],
+  "pooled": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate_H_V31": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.11432758293685127,
+        "ci95": [
+          0.09179485861337666,
+          0.13644164879249862
+        ],
+        "withheld_positive_pixels": 60593,
+        "tpw": 6538.780749017126,
+        "fpw": 37056.11284956502,
+        "fnw": 54054.21925098288
+      },
+      "C1_random": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.07727546437132883,
+        "ci95": [
+          0.07423333937253783,
+          0.07992573978092958
+        ],
+        "withheld_positive_pixels": 60593,
+        "tpw": 4406.597280178662,
+        "fpw": 38344.068499208166,
+        "fnw": 56186.40271982135
+      },
+      "C2_tmi_hg_top": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.06648480472226344,
+        "ci95": [
+          0.05344155908028591,
+          0.08020519854987795
+        ],
+        "withheld_positive_pixels": 60593,
+        "tpw": 3782.7619442030445,
+        "fpw": 38328.43387815972,
+        "fnw": 56810.23805579697
+      },
+      "C3_catalogue_proximity": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0007104665924325158,
+        "ci95": [
+          0.0001519225855848612,
+          0.001610982549740479
+        ],
+        "withheld_positive_pixels": 60593,
+        "tpw": 34.47714910227292,
+        "fpw": 230.89292222699217,
+        "fnw": 60558.52285089773
+      }
+    },
+    "best_comparable_control": "C1_random",
+    "paired_differences": {
+      "C1_random": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.03705211856552244,
+        "ci95": [
+          0.015444029811649088,
+          0.05899434251879609
+        ],
+        "withheld_positive_pixels": 60593
+      },
+      "C2_tmi_hg_top": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.047842778214587836,
+        "ci95": [
+          0.021960570202727632,
+          0.07535490145222988
+        ],
+        "withheld_positive_pixels": 60593
+      },
+      "C3_catalogue_proximity": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.11361711634441876,
+        "ci95": [
+          0.09138128726205376,
+          0.13549925323980194
+        ],
+        "withheld_positive_pixels": 60593
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 161,
+      "draws": 1000,
+      "seed": 20261031,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "leakage_canary": {
+    "per_fold": [
+      {
+        "fold": 0,
+        "channels": [
+          {
+            "band": 1,
+            "auc": 0.4957,
+            "symmetric_auc": 0.5043,
+            "n_truth": 10081
+          },
+          {
+            "band": 2,
+            "auc": 0.4936,
+            "symmetric_auc": 0.5064,
+            "n_truth": 10081
+          },
+          {
+            "band": 3,
+            "auc": 0.5338,
+            "symmetric_auc": 0.5338,
+            "n_truth": 10081
+          },
+          {
+            "band": 4,
+            "auc": 0.5612,
+            "symmetric_auc": 0.5612,
+            "n_truth": 10081
+          },
+          {
+            "band": 5,
+            "auc": 0.5292,
+            "symmetric_auc": 0.5292,
+            "n_truth": 10081
+          },
+          {
+            "band": 6,
+            "auc": 0.4509,
+            "symmetric_auc": 0.5491,
+            "n_truth": 10081
+          },
+          {
+            "band": 7,
+            "auc": 0.5676,
+            "symmetric_auc": 0.5676,
+            "n_truth": 10081
+          },
+          {
+            "band": 8,
+            "auc": 0.5453,
+            "symmetric_auc": 0.5453,
+            "n_truth": 10081
+          },
+          {
+            "band": 9,
+            "auc": 0.4798,
+            "symmetric_auc": 0.5202,
+            "n_truth": 10081
+          },
+          {
+            "band": 10,
+            "auc": 0.5341,
+            "symmetric_auc": 0.5341,
+            "n_truth": 10081
+          },
+          {
+            "band": 11,
+            "auc": 0.5271,
+            "symmetric_auc": 0.5271,
+            "n_truth": 10081
+          },
+          {
+            "band": 12,
+            "auc": 0.586,
+            "symmetric_auc": 0.586,
+            "n_truth": 10081
+          },
+          {
+            "band": 13,
+            "auc": 0.5249,
+            "symmetric_auc": 0.5249,
+            "n_truth": 10081
+          },
+          {
+            "band": 14,
+            "auc": 0.4943,
+            "symmetric_auc": 0.5057,
+            "n_truth": 10081
+          },
+          {
+            "band": 15,
+            "auc": 0.4722,
+            "symmetric_auc": 0.5278,
+            "n_truth": 10081
+          },
+          {
+            "band": 16,
+            "auc": 0.5472,
+            "symmetric_auc": 0.5472,
+            "n_truth": 10081
+          },
+          {
+            "band": 17,
+            "auc": 0.5461,
+            "symmetric_auc": 0.5461,
+            "n_truth": 10081
+          },
+          {
+            "band": 18,
+            "auc": 0.4829,
+            "symmetric_auc": 0.5171,
+            "n_truth": 10081
+          },
+          {
+            "band": 19,
+            "auc": 0.6233,
+            "symmetric_auc": 0.6233,
+            "n_truth": 10081
+          }
+        ]
+      },
+      {
+        "fold": 1,
+        "channels": [
+          {
+            "band": 1,
+            "auc": 0.5025,
+            "symmetric_auc": 0.5025,
+            "n_truth": 12462
+          },
+          {
+            "band": 2,
+            "auc": 0.4893,
+            "symmetric_auc": 0.5107,
+            "n_truth": 12462
+          },
+          {
+            "band": 3,
+            "auc": 0.4605,
+            "symmetric_auc": 0.5395,
+            "n_truth": 12462
+          },
+          {
+            "band": 4,
+            "auc": 0.5118,
+            "symmetric_auc": 0.5118,
+            "n_truth": 12462
+          },
+          {
+            "band": 5,
+            "auc": 0.604,
+            "symmetric_auc": 0.604,
+            "n_truth": 12462
+          },
+          {
+            "band": 6,
+            "auc": 0.4049,
+            "symmetric_auc": 0.5951,
+            "n_truth": 12462
+          },
+          {
+            "band": 7,
+            "auc": 0.4697,
+            "symmetric_auc": 0.5303,
+            "n_truth": 12462
+          },
+          {
+            "band": 8,
+            "auc": 0.5186,
+            "symmetric_auc": 0.5186,
+            "n_truth": 12462
+          },
+          {
+            "band": 9,
+            "auc": 0.4904,
+            "symmetric_auc": 0.5096,
+            "n_truth": 12462
+          },
+          {
+            "band": 10,
+            "auc": 0.5386,
+            "symmetric_auc": 0.5386,
+            "n_truth": 12462
+          },
+          {
+            "band": 11,
+            "auc": 0.5551,
+            "symmetric_auc": 0.5551,
+            "n_truth": 12462
+          },
+          {
+            "band": 12,
+            "auc": 0.442,
+            "symmetric_auc": 0.558,
+            "n_truth": 12462
+          },
+          {
+            "band": 13,
+            "auc": 0.4805,
+            "symmetric_auc": 0.5195,
+            "n_truth": 12462
+          },
+          {
+            "band": 14,
+            "auc": 0.4957,
+            "symmetric_auc": 0.5043,
+            "n_truth": 12462
+          },
+          {
+            "band": 15,
+            "auc": 0.531,
+            "symmetric_auc": 0.531,
+            "n_truth": 12462
+          },
+          {
+            "band": 16,
+            "auc": 0.514,
+            "symmetric_auc": 0.514,
+            "n_truth": 12462
+          },
+          {
+            "band": 17,
+            "auc": 0.4676,
+            "symmetric_auc": 0.5324,
+            "n_truth": 12462
+          },
+          {
+            "band": 18,
+            "auc": 0.5942,
+            "symmetric_auc": 0.5942,
+            "n_truth": 12462
+          },
+          {
+            "band": 19,
+            "auc": 0.5501,
+            "symmetric_auc": 0.5501,
+            "n_truth": 12462
+          }
+        ]
+      },
+      {
+        "fold": 2,
+        "channels": [
+          {
+            "band": 1,
+            "auc": 0.456,
+            "symmetric_auc": 0.544,
+            "n_truth": 20272
+          },
+          {
+            "band": 2,
+            "auc": 0.5272,
+            "symmetric_auc": 0.5272,
+            "n_truth": 20272
+          },
+          {
+            "band": 3,
+            "auc": 0.5522,
+            "symmetric_auc": 0.5522,
+            "n_truth": 20272
+          },
+          {
+            "band": 4,
+            "auc": 0.5219,
+            "symmetric_auc": 0.5219,
+            "n_truth": 20272
+          },
+          {
+            "band": 5,
+            "auc": 0.4912,
+            "symmetric_auc": 0.5088,
+            "n_truth": 20272
+          },
+          {
+            "band": 6,
+            "auc": 0.4379,
+            "symmetric_auc": 0.5621,
+            "n_truth": 20272
+          },
+          {
+            "band": 7,
+            "auc": 0.5497,
+            "symmetric_auc": 0.5497,
+            "n_truth": 20272
+          },
+          {
+            "band": 8,
+            "auc": 0.5177,
+            "symmetric_auc": 0.5177,
+            "n_truth": 20272
+          },
+          {
+            "band": 9,
+            "auc": 0.4873,
+            "symmetric_auc": 0.5127,
+            "n_truth": 20272
+          },
+          {
+            "band": 10,
+            "auc": 0.4991,
+            "symmetric_auc": 0.5009,
+            "n_truth": 20272
+          },
+          {
+            "band": 11,
+            "auc": 0.5124,
+            "symmetric_auc": 0.5124,
+            "n_truth": 20272
+          },
+          {
+            "band": 12,
+            "auc": 0.5327,
+            "symmetric_auc": 0.5327,
+            "n_truth": 20272
+          },
+          {
+            "band": 13,
+            "auc": 0.4654,
+            "symmetric_auc": 0.5346,
+            "n_truth": 20272
+          },
+          {
+            "band": 14,
+            "auc": 0.4718,
+            "symmetric_auc": 0.5282,
+            "n_truth": 20272
+          },
+          {
+            "band": 15,
+            "auc": 0.4969,
+            "symmetric_auc": 0.5031,
+            "n_truth": 20272
+          },
+          {
+            "band": 16,
+            "auc": 0.5054,
+            "symmetric_auc": 0.5054,
+            "n_truth": 20272
+          },
+          {
+            "band": 17,
+            "auc": 0.4952,
+            "symmetric_auc": 0.5048,
+            "n_truth": 20272
+          },
+          {
+            "band": 18,
+            "auc": 0.4854,
+            "symmetric_auc": 0.5146,
+            "n_truth": 20272
+          },
+          {
+            "band": 19,
+            "auc": 0.5535,
+            "symmetric_auc": 0.5535,
+            "n_truth": 20272
+          }
+        ]
+      },
+      {
+        "fold": 3,
+        "channels": [
+          {
+            "band": 1,
+            "auc": 0.5165,
+            "symmetric_auc": 0.5165,
+            "n_truth": 17684
+          },
+          {
+            "band": 2,
+            "auc": 0.5015,
+            "symmetric_auc": 0.5015,
+            "n_truth": 17684
+          },
+          {
+            "band": 3,
+            "auc": 0.5024,
+            "symmetric_auc": 0.5024,
+            "n_truth": 17684
+          },
+          {
+            "band": 4,
+            "auc": 0.5521,
+            "symmetric_auc": 0.5521,
+            "n_truth": 17684
+          },
+          {
+            "band": 5,
+            "auc": 0.5704,
+            "symmetric_auc": 0.5704,
+            "n_truth": 17684
+          },
+          {
+            "band": 6,
+            "auc": 0.3734,
+            "symmetric_auc": 0.6266,
+            "n_truth": 17684
+          },
+          {
+            "band": 7,
+            "auc": 0.5305,
+            "symmetric_auc": 0.5305,
+            "n_truth": 17684
+          },
+          {
+            "band": 8,
+            "auc": 0.5602,
+            "symmetric_auc": 0.5602,
+            "n_truth": 17684
+          },
+          {
+            "band": 9,
+            "auc": 0.4855,
+            "symmetric_auc": 0.5145,
+            "n_truth": 17684
+          },
+          {
+            "band": 10,
+            "auc": 0.4576,
+            "symmetric_auc": 0.5424,
+            "n_truth": 17684
+          },
+          {
+            "band": 11,
+            "auc": 0.5502,
+            "symmetric_auc": 0.5502,
+            "n_truth": 17684
+          },
+          {
+            "band": 12,
+            "auc": 0.4416,
+            "symmetric_auc": 0.5584,
+            "n_truth": 17684
+          },
+          {
+            "band": 13,
+            "auc": 0.4752,
+            "symmetric_auc": 0.5248,
+            "n_truth": 17684
+          },
+          {
+            "band": 14,
+            "auc": 0.4978,
+            "symmetric_auc": 0.5022,
+            "n_truth": 17684
+          },
+          {
+            "band": 15,
+            "auc": 0.5065,
+            "symmetric_auc": 0.5065,
+            "n_truth": 17684
+          },
+          {
+            "band": 16,
+            "auc": 0.6018,
+            "symmetric_auc": 0.6018,
+            "n_truth": 17684
+          },
+          {
+            "band": 17,
+            "auc": 0.4562,
+            "symmetric_auc": 0.5438,
+            "n_truth": 17684
+          },
+          {
+            "band": 18,
+            "auc": 0.4522,
+            "symmetric_auc": 0.5478,
+            "n_truth": 17684
+          },
+          {
+            "band": 19,
+            "auc": 0.5672,
+            "symmetric_auc": 0.5672,
+            "n_truth": 17684
+          }
+        ]
+      }
+    ],
+    "max_symmetric_auc_per_channel": {
+      "1": 0.544,
+      "2": 0.5272,
+      "3": 0.5522,
+      "4": 0.5612,
+      "5": 0.604,
+      "6": 0.6266,
+      "7": 0.5676,
+      "8": 0.5602,
+      "9": 0.5202,
+      "10": 0.5424,
+      "11": 0.5551,
+      "12": 0.586,
+      "13": 0.5346,
+      "14": 0.5282,
+      "15": 0.531,
+      "16": 0.6018,
+      "17": 0.5461,
+      "18": 0.5942,
+      "19": 0.6233
+    },
+    "limit": 0.9,
+    "channels_over_limit": {}
+  },
+  "verdict_holdout_only": "PASS_HOLDOUT_ONLY",
+  "verdict_note": "Holdout-only result. The uniqueness gate is evaluated in the final mode; the lattice gate is reported there and is not waived.",
+  "config": {
+    "seed": 20261031,
+    "buffer_px": 10,
+    "spacing_px": 3.0,
+    "n_total": 40000,
+    "neg_sample": 200000,
+    "block_side_px": 200,
+    "grid": {
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730
+    }
+  }
+}

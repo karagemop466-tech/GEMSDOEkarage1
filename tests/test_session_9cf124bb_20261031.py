@@ -119,7 +119,7 @@ def test_archived_hunq1_comparison_recorded_with_metric_method():
 
 
 def test_hypothesis_h_o2_is_not_marked_validated():
-    text = (ROOT / "knowledge/hypotheses-20261031.md").read_text(encoding="utf-8")
+    text = (ROOT / "knowledge/hypotheses-9cf124bb-20261031.md").read_text(encoding="utf-8")
     assert "Validated this session (E1)" not in text
     assert "NEGATIVE" in text
 

@@ -1,0 +1,70 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/cd6c8044-gemsdoekarage1",
+  "created_utc": "2026-10-31",
+  "review_date": "2026-10-31",
+  "review_path": "knowledge/session-review-arena-cd6c8044.md",
+  "run_card_path": "evidence/session_cd6c8044_run_card.json",
+  "hypothesis": "No candidate hypothesis was selected for experimental execution because the assigned lane, canonical shared template, shared cache, and organizer-authenticated core inputs are unresolved or absent. Five candidates were preregistered for later selection in knowledge/hypotheses-20261031.md; H-EULER is the first conditional validation candidate.",
+  "mechanism": "No feature surface, placement, evaluator run, or GeoTIFF was generated in this review. This avoided an unassigned private fork and unauditable prediction artifact.",
+  "named_non_fault_mimic": "Not experimentally applicable. For the first queued H-EULER idea, dikes, intrusive contacts, remanent magnetization, and survey-height variation are named confounders.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run; no assigned lane/canonical shared evaluator inputs. No leaderboard estimate is produced."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "complete_registry_scan": false,
+    "status": "not computed; no candidate surface or final dots. Existing local mirror audits are not an authenticated complete registry."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run; no raster generated. There is no new TIF cleared for download or submission."
+  },
+  "submission_name": null,
+  "submission_note": "No candidate generated or cleared; no submission slot selected or spent.",
+  "submission_note_chars": 65,
+  "ok_to_submit": false,
+  "new_candidate_generated": false,
+  "download_available": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "leaderboard_snapshot": {
+    "label": "ORGANIZER-PUBLIC",
+    "observed_utc_date": "2026-10-31",
+    "rank_1_score": 0.4544,
+    "rank_50_score": 0.3195,
+    "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "meaning": "public board only; not a GEMSDOE artifact receipt or private competition score"
+  },
+  "software_tests": {
+    "command": ".venv/bin/python -m pytest -q -rs",
+    "passed": 451,
+    "failed": 0,
+    "skipped": 2,
+    "warnings": 126,
+    "status": "passed; software verification only",
+    "skip_reasons": [
+      "tests/test_focus_sites_20261029.py: data-dependent footprint/catalogue checks need ignored bridge rasters.",
+      "tests/test_thd_ridge_candidate_20261029.py: competition sample grid not restored."
+    ],
+    "meaning": "software tests do not establish geological performance or leaderboard score"
+  },
+  "verdict": "negative",
+  "blockers": [
+    "registry/template.json has no active method lane or canonical shared template assignment.",
+    "shared cache and required competition rasters are absent from this checkout; official data tab is login gated.",
+    "previous preflight reported vendored writer and uniqueness module hash mismatches; shared tools cannot be asserted canonical.",
+    "local registry scope is not a complete organizer-authenticated submission registry; the 3-px duplicate rule has a documented saturation/interpretation concern.",
+    "catalogue hide-and-recover holdout is not calibrated to the competition's expert-labeled off-catalogue test faults.",
+    "No evidence justifies a numeric leaderboard estimate or a new TIF in this session."
+  ]
+}

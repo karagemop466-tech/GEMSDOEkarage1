@@ -33,7 +33,7 @@ Notes:
 
 ## 3. Our new candidate (E1, H-O2)
 
-- **Method:** lidar scarp `step_max` peaks, minus dots within 2 px of the visible catalogue. The halo rule is applied per fold, from visible catalogue only. Pre-registration: `knowledge/hypotheses-20261031.md` §4. Script: `scripts/run_o2_halo_prune_lidar.py`.
+- **Method:** lidar scarp `step_max` peaks, minus dots within 2 px of the visible catalogue. The halo rule is applied per fold, from visible catalogue only. Pre-registration: `knowledge/hypotheses-9cf124bb-20261031.md` §4. Script: `scripts/run_o2_halo_prune_lidar.py`.
 - **Files (research only, `DO-NOT-SUBMIT_` prefix):**
   - Download, zeros variant: [`docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.tif`](docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.tif) (sha256 `a7c24d452097f75808fb798cd42e35c1dc867619e4ddd570cd5aab39d12b0497`)
   - Zip: [`…-zeros.zip`](docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.zip)
