@@ -1,14 +1,14 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/b8fc7593-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
+**Status: NEGATIVE — DO NOT SUBMIT.** No TIF was generated and no geological experiment or holdout ran. No leaderboard estimate is supported. The assigned lane, canonical shared-template assignment, and required cached data are absent; preflight fails closed, and two vendored tool hashes differ from their recorded pins. No file is cleared for download/upload and no weekly slot was selected or spent. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**.
 
-- **Three-pass repository review and focus-site executive table:** [review report](knowledge/review-arena-946f7668-20261031.md) · [JSON run card](evidence/run_card_arena_946f7668_20261031.json).
-- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and absent competition sample grid. This is software verification, not model validation.
-- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; missing shared stack/data and writer/uniqueness provenance mismatch. No experiment was run because the lane and authorized shared inputs are unresolved.
-- **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
-- **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
+- **Three-pass review / run card:** [review](knowledge/review-arena-b8fc7593-20261031.md) · [JSON card](evidence/run_card_arena_b8fc7593_20261031.json).
+- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips are data-dependent; this is software verification only.
+- **User-facing improvement:** the nine-site table on the [site index](docs/index.html) and [executive summary](docs/executive-summary.html) now has a dedicated leaderboard-estimate column. All historical entries say “Not estimable”; user-reported scores are not predictions.
+- **Candidate queue:** four research proposals and named mimics remain unvalidated and not globally novelty-verified. No candidate was selected or tested without an assigned lane and authorized shared tools.
+- **Submission action:** none. Historical/research TIFFs are not upload-cleared. Follow [how to submit](docs/how-to-submit.html) only after a separate selector approves a file.
 
 ## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
 
