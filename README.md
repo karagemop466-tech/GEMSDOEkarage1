@@ -24,6 +24,10 @@
 - **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
 - **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
 
+## Supplemental same-day research slate — session `arena/3184815e` (31 Oct 2026)
+
+This earlier review added [five conditional geological hypotheses](knowledge/hypotheses-20261031.md) and an auditable [run card](evidence/session_3184815e_run_card.json). It produced no TIF, holdout, score estimate, or slot decision. These are previously documented proposal families, not globally novel claims, and the top proposal was not run. The later current review is session `arena/946f7668` above; do not treat this supplemental slate as a newer decision or clearance.
+
 ## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
 
 That separate session verified official format wording and performed a live public-board read; its leaderboard rank claims are time-sensitive and are not an organizer receipt for any focus-site file. Its review and run card are [here](knowledge/session-review-arena-830e1f79.md) and [here](evidence/session_830e1f79_run_card.json). The current session still does not clear a file for submission.
