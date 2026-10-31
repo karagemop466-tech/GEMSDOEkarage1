@@ -1,5 +1,7 @@
 # Standing brief (the user's prompt) — read at the start of every session
 
+**Current addendum (31 Oct 2026):** Start with `knowledge/session-review-arena-cd6c8044.md` and `evidence/session_cd6c8044_run_card.json`. Current verdict is **NEGATIVE / DO NOT SUBMIT**; no TIF was generated, no estimate was made, and no slot was spent. The current live public leaderboard read was #1 = 0.4544 and #50 = 0.3195; this supersedes prior rank snapshots and does not confirm any focus-site score. Current hypothesis queue is `knowledge/hypotheses-20261031.md`. Do not claim validation or promote a TIF until lane/template/data prerequisites are resolved and the shared holdout beats its frozen best.
+
 **Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
 
 ## Arena Core Values (keep as focus)

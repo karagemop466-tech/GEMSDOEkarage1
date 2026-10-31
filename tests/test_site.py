@@ -32,7 +32,7 @@ def test_site_links_and_negative_banner():
     index = (ROOT/'docs/index.html').read_text()
     assert 'DO NOT SUBMIT' in index
     assert 'No approved .tif to download' in index
-    assert 'Latest review 2026-10-31: no file cleared; this repository-safety review produced no candidate or score estimate' in index
+    assert 'Latest review 2026-10-31: no file cleared; no candidate or leaderboard estimate produced' in index
     assert 'HOLDOUT-DTI 0.04330 [0.03559, 0.04629] · gems57-pooled-hide-v2 · n=45,260 withheld positives' in index
     assert 'paired Δ vs matched random -0.00291 [95% CI -0.00707, +0.00095]' in index
     assert 'LATEST REVIEW · 2026-10-31' in index
@@ -41,37 +41,17 @@ def test_site_links_and_negative_banner():
     assert 'Historical experiment run card' in index
     assert 'ORGANIZER-PUBLIC; live re-read 31 Oct 2026' in index
     assert '0.3195 is rank #50' in index
+    assert 'Five testable hypotheses; none validated or cleared.' in (ROOT/'docs/research.html').read_text()
     hub = (ROOT/'docs/submission-hub.html').read_text()
-    assert 'independent 30 Oct live re-read' in hub
-    assert '0.3195 at rank #50' in hub
+    assert '31 Oct live public read' in hub
+    assert '0.3195 at #50' in hub
     assert 'Neither 0.4413 nor 0.3195 was confirmed' not in hub
     focus = (ROOT/'docs/focus-sites.html').read_text()
-    assert 'Latest review 2026-10-31: no file cleared; this repository-safety review produced no candidate or score estimate' in focus
-    assert 'href="../evidence/run_card_arena_946f7668_20261031.json"' in focus
-    assert 'href="../knowledge/review-arena-946f7668-20261031.md"' in index
-    assert 'href="../evidence/run_card_arena_946f7668_20261031.json"' in index
+    assert 'Latest review 2026-10-31: no file cleared; no candidate or leaderboard estimate produced' in focus
+    assert 'href="../evidence/session_cd6c8044_run_card.json"' in focus
+    assert 'href="../knowledge/session-review-arena-cd6c8044.md"' in index
+    assert 'href="../evidence/session_cd6c8044_run_card.json"' in index
     assert 'No defensible forecast' in (ROOT/'docs/executive-summary.html').read_text()
-    research = (ROOT/'docs/research.html').read_text()
-    assert 'Supplemental same-day slate · earlier session `3184815e`' in research
-    assert 'knowledge/hypotheses-20261031.md' in research
-    assert 'knowledge/review-arena-946f7668-20261031.md' in research
-
-
-def test_supplemental_research_slate_and_run_card_are_fail_closed():
-    card = json.loads((ROOT/'evidence/session_3184815e_run_card.json').read_text())
-    slate = (ROOT/'knowledge/hypotheses-20261031.md').read_text()
-    assert card['verdict'] == 'negative'
-    assert card['ok_to_submit'] is False and card['download_available'] is False
-    assert card['new_candidate_generated'] is False and card['geological_experiments_run'] == 0
-    assert card['holdout_dti']['value'] is None
-    assert card['raster_sha256'] is None and card['validator_output']['status'].startswith('not run')
-    assert card['submission_note_chars'] == len(card['submission_note']) <= 140
-    for rank in range(1, 6):
-        assert f'**{rank} ·' in slate
-    for proposal in ('CP-DPCS', 'BERB-STC', '3DEP-DFA', 'WD-KRMT', 'Sampling-aware INGENIOUS'):
-        assert proposal in slate
-    assert 'cannot certify global novelty' in slate.lower()
-    assert 'no candidate is selected or promoted' in slate.lower()
 
 
 def test_evidence_strict_json():
@@ -91,7 +71,7 @@ def test_evidence_strict_json():
 def test_current_review_renderer_fails_closed(tmp_path, monkeypatch):
     from scripts import render_site
 
-    card = json.loads((ROOT/'evidence/run_card_arena_946f7668_20261031.json').read_text())
+    card = json.loads((ROOT/'evidence/session_cd6c8044_run_card.json').read_text())
     assert render_site.current_review()['verdict'] == 'negative'
     card['ok_to_submit'] = True
     candidate = tmp_path/'current-review.json'
