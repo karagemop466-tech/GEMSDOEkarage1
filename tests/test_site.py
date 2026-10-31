@@ -41,6 +41,12 @@ def test_site_links_and_negative_banner():
     assert 'Historical experiment run card' in index
     assert 'ORGANIZER-PUBLIC; live re-read 31 Oct 2026' in index
     assert '0.3195 is rank #50' in index
+    assert '<th>Leaderboard estimate</th>' in index
+    assert index.count('Not estimable</strong>') == 9
+    assert 'No calibrated leaderboard projection' in index
+    executive = (ROOT/'docs/executive-summary.html').read_text()
+    assert '<th>Leaderboard estimate</th>' in executive
+    assert executive.count('Not estimable</strong>') == 9
     assert 'Five testable hypotheses; none validated or cleared.' in (ROOT/'docs/research.html').read_text()
     hub = (ROOT/'docs/submission-hub.html').read_text()
     assert '31 Oct live public read' in hub
