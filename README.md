@@ -10,6 +10,10 @@
 - **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
 - **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
 
+## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
+
+That separate session verified official format wording and performed a live public-board read; its leaderboard rank claims are time-sensitive and are not an organizer receipt for any focus-site file. Its review and run card are [here](knowledge/session-review-arena-830e1f79.md) and [here](evidence/session_830e1f79_run_card.json). The current session still does not clear a file for submission.
+
 ## Previous review — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
