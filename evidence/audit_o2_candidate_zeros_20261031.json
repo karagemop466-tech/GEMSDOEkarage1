@@ -1,0 +1,89 @@
+{
+  "schema": "karage1-local-tif-audit-v1",
+  "file": "docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.tif",
+  "sha256": "a7c24d452097f75808fb798cd42e35c1dc867619e4ddd570cd5aab39d12b0497",
+  "bytes": 151453,
+  "audited_utc": "2026-10-31T01:08:26.017457+00:00",
+  "method": "repo shared validators (gates.format_report, validate.validate, uniqueness.dot_overlap) on the committed bytes; lattice not run",
+  "format_report_ok": true,
+  "format_report_problems": [],
+  "validator_checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_matches_sample_submission": true,
+    "no_nan_anywhere": true,
+    "no_inf_anywhere": true,
+    "no_sentinel_values": true,
+    "range_0_1_guaranteed": true,
+    "min_ge_0": true,
+    "max_le_1": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero": true,
+    "zero_dots_on_mapped_catalogue": true
+  },
+  "positives": 37539,
+  "positives_outside_footprint": 0,
+  "positives_on_mapped_catalogue": 0,
+  "value_min": 0.0,
+  "value_max": 1.0,
+  "nan_count": 0,
+  "lattice_forward_3px_overlap": null,
+  "lattice_status": "13GEMSDOE lattice raster is not present in this checkout (registry/ holds the nine focus rasters only); lattice comparison not run. Its summary numbers are in evidence/lattice_saturation_null_20261029.json.",
+  "worst_focus_file": "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+  "worst_focus_forward_3px_overlap": 0.16343,
+  "worst_any_registry_file": "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+  "worst_any_registry_forward_3px_overlap": 0.16343,
+  "registry_rasters_checked": 9,
+  "ok_to_submit": false,
+  "verdict": "research audit only; not cleared (literal dot-overlap gate fails against a local probability blanket; holdout negative)",
+  "comparisons": {
+    "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif": {
+      "forward_3px_overlap": 0.160153,
+      "reverse_3px_overlap": 0.177995,
+      "their_dots": 60069
+    },
+    "GEMSDOE25_d28.tif": {
+      "forward_3px_overlap": 0.152721,
+      "reverse_3px_overlap": 0.182264,
+      "their_dots": 44090
+    },
+    "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif": {
+      "forward_3px_overlap": 0.16343,
+      "reverse_3px_overlap": 0.177488,
+      "their_dots": 61328
+    },
+    "GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif": {
+      "forward_3px_overlap": 0.149445,
+      "reverse_3px_overlap": 0.196415,
+      "their_dots": 37660
+    },
+    "GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif": {
+      "forward_3px_overlap": 0.152721,
+      "reverse_3px_overlap": 0.182264,
+      "their_dots": 44090
+    },
+    "GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif": {
+      "forward_3px_overlap": 0.150856,
+      "reverse_3px_overlap": 0.196522,
+      "their_dots": 40199
+    },
+    "GEMSDOE32_B2.tif": {
+      "forward_3px_overlap": 0.148565,
+      "reverse_3px_overlap": 0.205662,
+      "their_dots": 37654
+    },
+    "GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif": {
+      "forward_3px_overlap": 0.153654,
+      "reverse_3px_overlap": 0.191496,
+      "their_dots": 41865
+    },
+    "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif": {
+      "forward_3px_overlap": 0.153733,
+      "reverse_3px_overlap": 0.207701,
+      "their_dots": 38854
+    }
+  }
+}

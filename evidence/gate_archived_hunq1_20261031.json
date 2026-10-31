@@ -1,0 +1,34 @@
+{
+  "schema": "karage1-archived-overlap-v1",
+  "session": "arena/9cf124bb-gemsdoekarage1",
+  "date_utc": "2026-10-31",
+  "method": "metric nearest-neighbour: dot overlaps if another set has a dot within 300 m (3 px at 100 m); grids differ by a half-cell offset so index comparison is invalid",
+  "radius_m": 300.0,
+  "candidate": {
+    "file": "DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.tif",
+    "sha256": "a7c24d452097f75808fb798cd42e35c1dc867619e4ddd570cd5aab39d12b0497",
+    "dots": 37539
+  },
+  "compared": [
+    {
+      "file": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-dots.tif",
+      "sha256": "8fc2f9e1f17f57bf09432433446550a8d02aa2c8ddad35e6db4dd5cf925dd23c",
+      "dots": 37654,
+      "candidate_dots_within_3px": 0.0,
+      "their_dots_within_3px_of_candidate": 0.0,
+      "blanket_or_parent_mask": false,
+      "ok_under_0_70_literal_gate": true
+    },
+    {
+      "file": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+      "sha256": "642a6369a3a7e9a5c5761983e110c60a6abbc196abd339985e11da351d3e5c4b",
+      "positive_cells": 9390049,
+      "grid_cells": 12279160,
+      "candidate_dots_within_3px": 0.0,
+      "blanket_or_parent_mask": true,
+      "ok_under_0_70_literal_gate": true
+    }
+  ],
+  "interpretation": "H-UNQ-1 zeros file is a probability blanket (positive cells > 100,000); the literal 70% gate is unsatisfiable against it, as registry/registry_roles.json already records. Report, do not clear.",
+  "ok_to_submit": false
+}
