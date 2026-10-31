@@ -50,7 +50,7 @@
     "Required .cache/gems_work/feature_stack.npy and competition input rasters are missing.",
     "Template integrity fails: vendored submission_writer.py and uniqueness.py do not match recorded pins; no upstream execution authorization is established.",
     "No candidate surface, single-feature leakage canary, candidate holdout, saved-byte validator, or complete registry comparison can be run.",
-    "The old KP1 card's promote state is historical and lacks the current protocol prerequisites; do not treat its raster or projection as cleared or current."
+    "At review start the KP1 artifact had a stale promote state; after merging the upstream fail-closed safety review, current KP1 card and release gate are both negative. Do not treat that raster or projection as current clearance."
   ],
   "software_verification": {
     "command": ".venv/bin/python -m pytest -q -rs",
