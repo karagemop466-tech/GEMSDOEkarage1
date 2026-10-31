@@ -1,5 +1,21 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## EXECUTIVE SUMMARY — how to submit (read first) — session `arena/55dc7b72-gemsdoekarage1` (31 Oct 2026)
+
+**Verdict: NEGATIVE — DO NOT SUBMIT. Nothing is cleared for download or upload. No weekly slot was selected or spent.**
+
+- **Executive summary page (top of every site page, "Summary 31 Oct"):** [`docs/executive-summary-20261031.html`](docs/executive-summary-20261031.html). Per-site table covers GEMSDOE24, 25, 27, 28, 30, 31, 32, 33, 36: highest listed file, USER-REPORTED score, uniqueness, and a download-and-submit verdict (all **NO**). Leaderboard estimate: **not estimable** for every file (no organizer receipt).
+- **Review and run card:** [knowledge/review-arena-55dc7b72-20261031.md](knowledge/review-arena-55dc7b72-20261031.md) · [evidence/run_card_arena_55dc7b72_20261031.json](evidence/run_card_arena_55dc7b72_20261031.json).
+- **New format-valid candidate, not cleared:** [`docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif`](docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif). Format checks pass (float32, EPSG:32611, training grid, values in [0,1]). It is unique against the nine focus files but fails the literal 13GEMS lattice gate, and its holdout DTI (**HOLDOUT-DTI 0.0869**, CI ≈ [0.070, 0.105]) is below a density-matched random control (**0.1902 ± 0.0272**). Do not upload.
+- **GEMSDOE32 B2 (USER-REPORTED 0.2778):** it equals GEMSDOE25 minus the 6,436 dots within 2 px of the catalogue (LOCAL). The organizer masks known faults (ORGANIZER-CONFIRMED, forum topic 11516), so the halo dots are likely false positives, but this is not proven. The holdout proxy cannot test the halo effect. B2 is already submitted; resubmitting it is a copy.
+- **Beating 0.3195 (USER-REPORTED target):** not demonstrated. The catalogue-free model is below random at every tested count ≥ 10,000 dots.
+- **Standing prompt:** read at the start of every session. The normalized brief is [`docs/standing-prompt.md`](docs/standing-prompt.md) and the section "Standing prompt" below; the verbatim original was not saved in this checkout. Newer explicit instructions take precedence.
+- **Verification:** `.venv/bin/python -m pytest -q` → **453 passed, 0 failed, 1 skipped** (skip needs absent competition rasters). This is software verification, not model validation.
+- **Remaining work and limitations:** see the review's §10. Main items: confirm the method lane (`registry/template.json` is unassigned); resolve the non-discriminating lattice gate with the owner; obtain an off-catalogue validation set before testing halo or new-fault claims.
+- **Labels:** HOLDOUT-DTI (our evaluator, withheld catalogue positives, 95% CI); ORGANIZER-CONFIRMED (organizer statement or receipt); ORGANIZER-PUBLIC (public leaderboard, not a receipt); USER-REPORTED (unverified); LOCAL MEASUREMENT (computed here on SHA-pinned mirror bytes).
+
+## Previous review on main — other session
+
 ## READ FIRST · session `arena/8e91c377-gemsdoekarage1` (31 Oct 2026) — NOT CLEARED · DO NOT SUBMIT
 
 **Answer: no file in this repository is OK to download and submit.** The new H-V31 raster is unique against the nine focus files and passes every automated format and uniqueness gate, but it **fails the literal 70% lattice duplicate gate** (forward 3 px overlap 99.75% with the 13GEMS covering lattice). Under the parallel-run protocol that is a stop. Clearing it is an **owner decision**; nothing here makes it. No submission slot was selected or spent.

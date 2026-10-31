@@ -1,0 +1,31 @@
+{
+  "schema": "karage1-local-tif-audit-v1",
+  "file": "docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+  "sha256": "dd5d18d06c9a368d3c1aa5c14ef729547ba110e487d7363ec5717e182c0d3727",
+  "bytes": 3132516,
+  "date_utc": "2026-10-31",
+  "session": "arena/55dc7b72-gemsdoekarage1",
+  "verdict": "DO NOT SUBMIT - not cleared",
+  "ok_to_submit": false,
+  "validator": "scripts/validate_candidate_20261031.py (independent local checks; the shared vendored gems57 validators were NOT run because the shared data stack is absent and vendor provenance pins mismatch)",
+  "format_pass": true,
+  "format_checks": {
+    "single_band": true,
+    "float32": true,
+    "crs_EPSG_32611": true,
+    "shape_matches_training": true,
+    "transform_matches_training": true,
+    "no_nan_anywhere": true,
+    "values_in_unit_interval": true,
+    "zero_outside_footprint": true,
+    "no_nan_inside_footprint": true,
+    "dots_present": true
+  },
+  "max_forward_3px_to_focus_sites": 0.34059192026859464,
+  "max_spearman_to_focus_sites": 0.0427377593626749,
+  "literal_duplicate_vs_focus_sites": [],
+  "literal_duplicate_vs_13gems_lattice": true,
+  "lattice_13gems_forward_3px": 0.9962406082498462,
+  "holdout_HOLDOUT-DTI": "0.0869 (95% CI approx [0.0699, 0.1051]) vs random-matched control 0.1902 +/- 0.0272 (evidence/catexcl_e2_holdout_20261031.json); candidate is built from all labels, so this holdout figure applies to the E2 config, not to the file itself",
+  "label": "LOCAL MEASUREMENT on the file bytes; not organizer-authenticated; not a leaderboard score"
+}
