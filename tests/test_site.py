@@ -32,10 +32,12 @@ def test_site_links_and_negative_banner():
     index = (ROOT/'docs/index.html').read_text()
     assert 'DO NOT SUBMIT' in index
     assert 'No approved .tif to download' in index
-    assert 'Latest review 2026-10-31: one H-E1 file is downloadable for owner review only' in index
+    assert 'Current session: no file is authorized for upload.' in index
     assert 'DO NOT SUBMIT · HOLD' in index
+    assert 'research-only TIF' in index
+    assert 'DO NOT SUBMIT · RESEARCH ONLY' in (ROOT/'docs/kp1/index.html').read_text()
     assert 'Download: yes, one owner-review file (H-E1, last row). Submit: no, hold.' in index
-    assert 'submit-he1-20261031.html' in index
+    assert 'docs/kp1/how-to-submit.html' in index
     assert 'HOLDOUT-DTI 0.04330 [0.03559, 0.04629] · gems57-pooled-hide-v2 · n=45,260 withheld positives' in index
     assert 'paired Δ vs matched random -0.00291 [95% CI -0.00707, +0.00095]' in index
     assert 'LATEST REVIEW · 2026-10-31' in index
@@ -56,10 +58,9 @@ def test_site_links_and_negative_banner():
     assert '0.3195 at #50' in hub
     assert 'Neither 0.4413 nor 0.3195 was confirmed' not in hub
     focus = (ROOT/'docs/focus-sites.html').read_text()
-    assert 'Latest review 2026-10-31: one H-E1 file is downloadable for owner review only' in focus
-    assert 'this session H-O2 file is a research-only download labelled DO NOT SUBMIT' in index
+    assert 'Current session: no file is authorized for upload.' in focus
     assert 'href="../evidence/run_card_arena_9cf124bb_20261031.json"' in focus
-    assert 'href="../knowledge/review-arena-9cf124bb-20261031.md"' in index
+    assert 'href="../knowledge/review-arena-4fc6cd83-20261031.md"' in index
     assert 'href="../evidence/run_card_arena_9cf124bb_20261031.json"' in index
     assert 'No defensible forecast' in (ROOT/'docs/executive-summary.html').read_text()
 

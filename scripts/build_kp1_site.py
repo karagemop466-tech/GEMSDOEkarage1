@@ -19,6 +19,11 @@ import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from scripts.release_authorization import authorization_for
+
 OUT = ROOT / "docs" / "kp1"
 DOWNLOADS = ROOT / "docs" / "downloads"
 
@@ -150,6 +155,7 @@ def main() -> None:
     submission_name = receipt_document.get("name", receipt.get("submission_name"))
     selector_path = ROOT / "evidence" / "kp1_slot_selector_20261031.json"
     selector = json.loads(selector_path.read_text()) if selector_path.is_file() else {}
+    active_authorized, active_authorization_reason = authorization_for(gate)
     selector_matches = (
         selector.get("selected") is True
         and selector.get("approved_for_upload") is True
@@ -160,6 +166,7 @@ def main() -> None:
     ok = (
         bool(gate["decision"].get("technical_preflight_passed", gate["decision"].get("ok_to_submit")))
         and gate["decision"].get("candidate_validation_passed") is True
+        and active_authorized
         and receipt.get("sha256") == live_sha
         and receipt.get("approved_for_weekly_slot") is True
         and receipt.get("promoted") is True
@@ -172,7 +179,7 @@ def main() -> None:
     download_block = f"""<div class="{status_class}">
 <p style="margin:0 0 6px">{status_pill}</p>
 <p class="big">{'OK TO SUBMIT — selected by the separate slot selector' if ok else 'DO NOT SUBMIT — technical checks are not upload authorization'}</p>
-<p>{'The selector approved these exact saved bytes for upload.' if ok else 'This is a research artifact only. Local format checks pass, but the paired proxy improvement interval includes zero, the complete authenticated registry audit is missing, and no separate selector decision authorizes an upload. No organizer-confirmed score exists.'}</p>
+<p>{'The selector approved these exact saved bytes for upload.' if ok else 'This is a research artifact only. Local format checks pass, but the paired proxy improvement interval includes zero, the complete authenticated registry audit is missing, and no separate selector decision authorizes an upload. Active authorization check: ' + html.escape(active_authorization_reason) + '. No organizer-confirmed score exists.'}</p>
 <a class="download" href="../downloads/{TIF}" download>{'Download the approved GeoTIFF' if ok else 'Download research-only GeoTIFF'} · {fmt['bytes'] / 1e6:.2f} MB</a>
 <a class="download alt" href="../downloads/{NAME}.zip" download>{'Download approved .zip' if ok else 'Download research-only .zip'}</a>
 <p style="margin-top:14px"><small>SHA-256 <code>{gate['sha256']}</code> — re-hashed on every build;

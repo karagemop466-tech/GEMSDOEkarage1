@@ -1,0 +1,31 @@
+{
+  "schema": "repository-review-run-card-v1",
+  "date": "2026-10-31",
+  "hypothesis": "No new geological hypothesis tested; review audits the existing KP1 candidate and repository evidence.",
+  "mechanism": "Not applicable; no new candidate or experiment was built.",
+  "named_non_fault_process_that_could_mimic_it": "Not assessed for a new candidate. Prior KP1 card names buried pluton/caldera margins, alluvial contact springs, regional fabric, landslides, and fluvial cut banks as mimics.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI (existing evidence, not rerun)",
+    "value": 0.07640846770050778,
+    "evaluator": "gems57-pooled-hide-v2 extended with SGMC off-catalogue truth",
+    "withheld_positive_cells": 62122,
+    "folds": 4,
+    "ci_95_candidate_minus_random": [-0.003366263821131524, 0.026038828265624682],
+    "raw_candidate_dti_ci": null,
+    "note": "Existing 95% interval is for candidate-minus-random, not raw candidate DTI."
+  },
+  "correlation_overlap_vs_registry": {
+    "label": "MEASURED (existing evidence)",
+    "focus_raster_max_abs_spearman": 0.007607,
+    "focus_raster_max_3px_overlap": 0.265281,
+    "global_registry_gate": "unresolved; the KP1 card marks literal_gate_saturated true"
+  },
+  "raster_sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "validator_output": "Existing evidence reports 15/15 local format checks; not organizer acceptance; not rerun in this review.",
+  "submission_name": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031",
+  "submission_note": "Research artifact; local format checks pass; global uniqueness and organizer score not established. DO NOT SUBMIT.",
+  "verdict": "negative",
+  "experiments_used": 3,
+  "experiment_budget": 3,
+  "submission_slots_selected_or_spent": 0
+}

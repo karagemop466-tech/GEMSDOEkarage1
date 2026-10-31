@@ -176,7 +176,7 @@ def body(f: dict, depth: int) -> str:
     return f"""
 <section class="hub-decision" id="download" aria-labelledby="hub-title">
   <p class="eyebrow">SUBMISSION DECISION · 29 OCT 2026</p>
-  <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-ok">YES — one file: the 31 October K-PROXY-DETECT GeoTIFF in the banner above</span></h1>
+  <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-no">NO — the KP1 GeoTIFF is a research-only download; no file is authorized for upload</span></h1>
   <p class="lead">This page documents the <strong>29-30 October</strong> review. Nothing from that review is
   cleared: <strong>NOT CLEARED: DO NOT SUBMIT</strong> for every artifact listed below. The only file this
   repository clears is the new one named in the banner at the top of this page, whose status is

@@ -22,6 +22,7 @@ import sys as _sys
 if str(ROOT) not in _sys.path:
     _sys.path.insert(0, str(ROOT))
 from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
+from scripts.release_authorization import authorization_for  # noqa: E402
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
 PREVIOUS_REVIEW_CARD_46ED1C8C = ROOT / 'evidence/session_46ed1c8c_run_card.json'
 CURRENT_REVIEW_CARD = ROOT / 'evidence/run_card_arena_9cf124bb_20261031.json'
@@ -538,8 +539,10 @@ def kp1_banner(prefix: str) -> str:
         submission_name = receipt_document.get('name', writer_receipt.get('submission_name'))
         selector_path = ROOT / 'evidence' / 'kp1_slot_selector_20261031.json'
         selector = json.loads(selector_path.read_text()) if selector_path.is_file() else {}
+        active_authorized, active_reason = authorization_for(gate)
         ok = (
-            bool(gate['decision'].get('technical_preflight_passed', gate['decision'].get('ok_to_submit')))
+            active_authorized
+            and bool(gate['decision'].get('technical_preflight_passed', gate['decision'].get('ok_to_submit')))
             and bool(gate['decision'].get('candidate_validation_passed'))
             and bool(gate['decision'].get('ok_to_submit'))
             and digest == gate['sha256']
@@ -563,7 +566,9 @@ def kp1_banner(prefix: str) -> str:
                 '<p><strong>Current session: no file is authorized for upload.</strong> The candidate '
                 'passed local format checks, but its proxy-improvement gate is inconclusive, the complete '
                 'authenticated registry audit is missing, and no selector approved upload. It remains research-only. '
-                '<a href="' + prefix + 'docs/kp1/index.html">Open the KP1 research-only TIF and full review ↗</a></p></section>')
+                '<a href="' + prefix + 'docs/kp1/index.html">Open the KP1 research-only TIF ↗</a> · '
+                '<a href="' + prefix + 'docs/kp1/how-to-submit.html">Submission status and file instructions ↗</a> · '
+                '<a href="' + prefix + 'knowledge/review-arena-4fc6cd83-20261031.md">Full repository review ↗</a></p></section>')
     return (
         '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
         '<span aria-hidden="true">✅</span><p><strong>NEW · 31 OCT 2026 · '

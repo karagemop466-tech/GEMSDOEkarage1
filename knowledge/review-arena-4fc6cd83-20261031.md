@@ -55,7 +55,7 @@ The predecessor's `docs/kp1/research.html` lists five ranked ideas: (1) thermo-t
 ## Code changes made in this review
 
 1. Added an explicit negative selector record, bound to the candidate hash: `evidence/kp1_slot_selector_20261031.json`.
-2. Changed the KP1 subsite and site-wide banner to require a positive technical gate, a positive pre-registered holdout validation, matching writer receipt, and separate positive selector record bound to the same hash/name. Missing or stale selector records render **DO NOT SUBMIT / research only**.
+2. Integrated the strict active authorization contract in `scripts/release_authorization.py` with `evidence/active_submission_status.json`, then made the KP1 subsite and site-wide banner additionally require a positive technical gate, positive pre-registered holdout validation, matching writer receipt, and separate positive selector record bound to the same hash/name. Missing, stale, or negative authorization renders **DO NOT SUBMIT / research only**.
 3. Corrected the KP1 decision and run-card records to distinguish technical preflight from model validation and upload authorization. The candidate is locally format-valid, but its candidate-minus-random proxy 95% interval includes zero; `candidate_validation_passed=false`, `ok_to_submit=false`, `selector_approved=false`, `verdict=negative`, and no slot is spent.
 4. Updated regressions to forbid treating a technical pass as upload approval, and amended README's first section so it does not repeat the old contradictory green status.
 5. Rebuilt the public pages. The actual download remains available with a research-only label; it is not removed or renamed.
@@ -64,7 +64,7 @@ The predecessor's `docs/kp1/research.html` lists five ranked ideas: (1) thermo-t
 
 - **Pass 1 — inspect and correct:** reviewed README/standing prompt, receipt and run-card semantics, nine-site table, publisher, and tests. Found that `decision.ok_to_submit=true` was displayed as approval while the writer receipt explicitly denied weekly-slot approval. Added a fail-closed selector requirement and explicit negative selector record.
 - **Pass 2 — check edge cases:** checked missing selector, mismatched raster hash/name, false technical gate, false writer approval, and absence of an organizer receipt. All missing/stale states remain red. Reviewed direct download links: they remain research artifacts, not a green CTA.
-- **Pass 3 — end-to-end:** regenerated the KP1 subsite and main site. Confirmed the top-level banner says no file is authorized; the KP1 page shows “DO NOT SUBMIT · RESEARCH ONLY”; the executive summary states no file is cleared; and no positive selector record exists. Final software suite: **515 passed, 4 skipped, 0 failed** (`.venv/bin/python -m pytest -q -p no:cacheprovider`). `git diff --check` passed. The skips are data-dependent; these tests do not validate a leaderboard result.
+- **Pass 3 — end-to-end:** regenerated the KP1 subsite and main site. Confirmed the top-level banner says no file is authorized; the KP1 page shows “DO NOT SUBMIT · RESEARCH ONLY”; the executive summary states no file is cleared; and no positive selector record exists. Final integrated software suite after merging current `main`: **522 passed, 4 skipped, 0 failed** (`.venv/bin/python -m pytest -q -p no:cacheprovider`). `git diff --check` passed. The skips are data-dependent; these tests do not validate a leaderboard result.
 
 ## Limitations and next steps
 
