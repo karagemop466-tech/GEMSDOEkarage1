@@ -5,13 +5,21 @@
 **Status: NEGATIVE — DO NOT SUBMIT.** This active-branch review generated no TIF, ran no geological experiment or holdout, and produced no leaderboard estimate. The method lane and canonical shared template remain unassigned; cached inputs are missing; and two vendored tool hashes differ from their recorded pins. No file is cleared for download or upload. GEMSDOE32 B2's 0.2778 is **USER-REPORTED / UNVERIFIED**. No weekly slot was selected or spent.
 
 - **Three-pass review and focus-site decision:** [review](knowledge/review-arena-f645631f-20261031.md) · [run card](evidence/run_card_arena_f645631f_20261031.json).
-- **Verification after merging latest mainline evidence:** `.venv/bin/python -m pytest -q -rs` → **447 passed, 3 skipped, 126 warnings**. Skips require absent ignored bridge rasters, absent core data for the mirror receipt test, and the missing competition sample grid. Tests are software checks, not model validation.
+- **Verification after merging latest mainline evidence:** `.venv/bin/python -m pytest -q -rs` → **451 passed, 3 skipped, 126 warnings**. Skips require absent ignored bridge rasters, absent core data for the mirror receipt test, and the missing competition sample grid. Tests are software checks, not model validation.
 - **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; lane/template assignment is null, five shared-input/cache paths are missing, and writer/uniqueness provenance hashes mismatch. No experiment was run.
 - **Latest checked-in organizer-public context (live read 31 Oct 2026 in upstream session b2a6d9d1):** leaderboard #1 = 0.4544; 0.3195 is rank #50, #48 is 0.3231; 0.4413 is not in the top 50. See the dated [`ORGANIZER-PUBLIC` snapshot](registry/leaderboard_snapshot_20261031.json); it does not confirm any focus-site score and was not freshly fetched by this branch review.
 - **Focus-site format receipt:** [`evidence/nine_site_format_receipt_20261031.json`](evidence/nine_site_format_receipt_20261031.json) audits pinned mirror bytes, not portal acceptance or organizer authenticity. Existing table lists USER-REPORTED scores; no organizer score estimate is available.
 - **Submission action:** none. Historical files are learning/audit-only. No file in this checkout is OK to download and submit.
 
-## Latest upstream evidence available on main — session `arena/b2a6d9d1` (31 Oct 2026)
+## Latest upstream review available on main — session `arena/b8fc7593` (31 Oct 2026)
+
+This review added an explicit “Leaderboard estimate” column to the nine-site executive table; all nine rows say **Not estimable** and all historical files remain **DO NOT SUBMIT**. It also documented five conditional research hypotheses, none validated or selected; no TIF, experiment, score estimate, or slot was produced. See [review](knowledge/review-arena-b8fc7593-20261031.md) and [run card](evidence/run_card_arena_b8fc7593_20261031.json). Its final suite result was 451 passed, 3 skipped, 126 warnings; the active branch reruns this after integration.
+
+## Previous mainline review — session `arena/cd6c8044-gemsdoekarage1` (31 Oct 2026)
+
+This upstream review added a detailed nine-site table with an explicit “Organizer-score estimate” column, marked all rows “Not estimable,” and retained the no-submit verdict. It carried forward five proposal-only hypotheses and made no TIF, experiment, or submission selection. Its live board snapshot was #1 = 0.4544, #48 = 0.3231, and #50 = **0.3195** (ORGANIZER-PUBLIC, not a receipt for any focus file). See [review](knowledge/session-review-arena-cd6c8044.md), [run card](evidence/session_cd6c8044_run_card.json), and [standing-prompt addendum](docs/standing-prompt.md).
+
+## Supporting upstream evidence — session `arena/b2a6d9d1` (31 Oct 2026)
 
 The upstream review corrected the dated live leaderboard snapshot (#1 = 0.4544; 0.3195 is #50) and checked the official problem-page submission wording. A format audit of 31 local/mirrored TIFs found no finite values outside [0, 1], but 19 files encode zero outside the footprint while the official wording specifies null/NaN; the exact file behind the user's range error is unknown. A random-grid software check verifies metric implementation/marginal arithmetic, not a holdout or leaderboard score. See [review](knowledge/review-arena-b2a6d9d1-20261031.md), [format audit](evidence/official_format_check_20261031.json), and [DTI arithmetic check](evidence/dti_threshold_check_20261031.json). No file was cleared.
 

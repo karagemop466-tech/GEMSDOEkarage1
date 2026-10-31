@@ -1,5 +1,7 @@
 # Standing brief (the user's prompt) — read at the start of every session
 
+**Current addendum (31 Oct 2026):** Start with `knowledge/review-arena-f645631f-20261031.md` and `evidence/run_card_arena_f645631f_20261031.json`. Current verdict is **NEGATIVE / DO NOT SUBMIT**; no TIF was generated, no holdout/leaderboard estimate was made, and no slot was spent. Supporting 31 Oct reviews `knowledge/session-review-arena-cd6c8044.md` and `knowledge/review-arena-b8fc7593-20261031.md` document a dated public-board read (#1 = 0.4544, #50 = 0.3195) and the nine-site estimate table; this does not confirm any focus-site score. Current hypothesis queue is `knowledge/hypotheses-20261031.md`. Do not claim validation or promote a TIF until lane/template/data prerequisites are resolved and the shared holdout beats its frozen best.
+
 **Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
 
 ## Arena Core Values (keep as focus)

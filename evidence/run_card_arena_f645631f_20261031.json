@@ -37,7 +37,7 @@
   "geological_experiments_run": 0,
   "software_tests": {
     "command": ".venv/bin/python -m pytest -q -rs",
-    "passed": 447,
+    "passed": 451,
     "failed": 0,
     "skipped": 3,
     "warnings": 126,
@@ -79,6 +79,22 @@
     "leaderboard_estimate": null
   },
   "upstream_records_inherited_after_merge": {
+    "latest_nine_site_review": {
+      "path": "knowledge/review-arena-b8fc7593-20261031.md",
+      "run_card": "evidence/run_card_arena_b8fc7593_20261031.json",
+      "leaderboard_estimate_column": true,
+      "all_nine_estimates": "Not estimable",
+      "research_hypotheses": 5,
+      "hypothesis_status": "proposal-only; none validated or selected",
+      "candidate_tif_generated": false
+    },
+    "prior_mainline_nine_site_review": {
+      "path": "knowledge/session-review-arena-cd6c8044.md",
+      "run_card": "evidence/session_cd6c8044_run_card.json",
+      "score_estimates": "not estimable for all nine sites",
+      "leaderboard_snapshot_label": "ORGANIZER-PUBLIC, not a focus-site receipt",
+      "candidate_tif_generated": false
+    },
     "leaderboard": {
       "path": "registry/leaderboard_snapshot_20261031.json",
       "label": "ORGANIZER-PUBLIC",
