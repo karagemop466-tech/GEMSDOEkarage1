@@ -803,3 +803,57 @@ Work line by line, verifying from official verified trusted sources. Provide lin
 `existing_faults.tif`; the literal 70 %/3-px uniqueness rule is saturated for this raster family;
 the shared holdout anti-correlates with known scores; `vendor/gems57/prepare_data.py` pins external
 files at a commit that does not contain them.
+
+---
+
+# STANDING PROMPT — read at the start of every session
+
+This is the standing prompt for the GEMSDOEkarage1 project. Re-read it before starting work; it defines what we are building and the gates every deliverable must pass.
+
+## Goal
+
+Place top of the leaderboard in the DOE GEMS Prize Challenge (DrivenData competition 306, geothermal fault mapping): https://www.drivendata.org/competitions/306/competition-doe-gems/
+Leaderboard reference in brief: current high score cited in brief 0.4413 (cite the live page for the latest). Best focus-site owner-reported submission: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED — no organizer receipt in this repo).
+
+## What we must produce
+
+1. An **executive summary subpage** (`docs/executive-summary.html`) that:
+   - Opens with an obvious, easy download of a submission TIF (single-band GeoTIFF, or a ZIP containing one GeoTIFF) matched to the submission format's CRS, shape and geotransform.
+   - States clearly whether it is OK to download and OK to submit the generated TIF.
+   - Contains a table listing, for each focus site: what file to download, the estimated score (labeled USER-REPORTED/UNVERIFIED or MEASURED; never a fabricated projection), and whether it is a unique submission unlike any other GEMSDOE site.
+   - Explains exactly how to make a submission into the contest (name <= submission filename, note <= 140 characters, upload via DrivenData form, keep the organizer receipt).
+2. A **unique TIF submission** for the competition:
+   - Must NOT copy a previous submission (except for learning/education). Must be generated uniquely.
+   - Format: single-band GeoTIFF (.tif) or .zip containing one GeoTIFF; values in [0,1] (the portal rejects out-of-range values); matches CRS (EPSG:32611), shape (3730 x 3292), geotransform (100, 0, 243350, 0, -100, 4508550); no NaN inside the footprint.
+   - Unique name + short comment (<=140 chars).
+   - Obvious whether OK to download and OK to submit.
+3. The repo README must contain this prompt and be re-read each session.
+
+## Parallel-run protocol (binding)
+
+1. LANE — stay in your single method paragraph. If raster rank-correlation with any registry raster > 0.90, or > 70 % of dots within 3 px of one registry raster's dots, log as duplicate and stop. Check on surface before placement AND on final dots.
+2. REUSE, DON'T REBUILD — use the template's cached feature stack, evaluate_holdout.py and submission_writer.py. Holdout = hide-and-recover: withhold whole fault segments with a buffer, derive catalogue features only from visible faults, mask visible faults pixel-exactly, score pooled DTI (alpha 0.2, beta 0.8, 300 m triangular kernel). Fix shared tools once in the template; never keep a private fork.
+3. LABEL EVERY NUMBER as HOLDOUT-DTI (evaluator version, withheld positives, 95% CI) or ORGANIZER-CONFIRMED (submission-page receipt). A projection is never written as a score.
+4. LEAKAGE CANARY — test each feature alone on the holdout. AUC > 0.90 means leakage until proven otherwise.
+5. RUN CARD — end with one JSON card: hypothesis, mechanism, named non-fault mimic, holdout DTI + CI, correlation/overlap vs registry, raster sha256, validator output (no NaN inside footprint, values in [0,1], CRS/shape/transform match), submission name + note <= 140 chars, verdict promote/negative. Negatives are deliverables.
+6. BUDGET — stop after 3 experiments or 2 hours. Do not pick submissions; promotion is a separate selector step within the weekly cap.
+
+## Required honest posture
+
+- Competition training data (training_features.tif, labels.tif, sample_submission.tif) are login-walled at DrivenData; this checkout restores SHA-256-pinned public mirrors only. Pins prove byte-consistency, not organizer authentication.
+- The scored truth is not published; no holdout score or local number is a leaderboard estimate or organizer-confirmed score.
+- Never upload a file without an organizer receipt; never mark a file "CLEARED" without registry-overlap receipt, saved-byte audit, and a separate selector decision.
+- Report negatives, blocked gates and irregularities plainly (Own the Outcome / Maximize P(Win)).
+
+## Focus sites (owner-reported, unverified)
+
+GEMSDOE24 0.2477 · GEMSDOE25 0.2600 · GEMSDOE27 0.2449 · GEMSDOE28 0.2710 · GEMSDOE30 0.2600 · GEMSDOE31 0.2708 · GEMSDOE32 0.2778 (best reported) · GEMSDOE33 0.2632 · GEMSDOE36 0.2750. Measured from bytes: all nine are catalogue-proximal dotted fields; none is unique vs the other eight (literal 70%/3-px gate fails everywhere); GEMSDOE32's reported 0.2778 coexists with holdout DTI 0.0047 (below random) — B2 is GEMSDOE25 minus catalogue-adjacent dots, i.e. an off-catalogue shift and a duplicate lane.
+
+## Key evidence files
+
+docs/data/nine_site_eval.json · docs/data/offcat_feature_screen.json · docs/data/offcat_run_card.json · evidence/offcat_uniqueness.json · knowledge/hypotheses-offcat-geophysics.md
+
+## Generated candidate (this session, research-only, NOT organizer-cleared)
+
+docs/downloads/gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif — 37,654 dots, format-valid (all preflight checks passed), values in [0,1], EPSG:32611, 3730x3292, pinned transform, 0 dots on mapped catalogue, 0.0% forward 3-px overlap vs all nine focus-site rasters (unique by construction), holdout DTI 0.0000 (off-catalogue; not a leaderboard estimate). SHA-256: 9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d. Submission name <= 140 chars; note <= 140 chars recorded in the run card. OK to download: yes (research artifact). OK to submit: NOT CLEARED — no organizer receipt, no score. Spend no slot until an organizer receipt confirms acceptance.
+

@@ -1,0 +1,179 @@
+{
+  "schema": "karage1-offcat-feature-screen-v1",
+  "generated_utc": "2026-10-31T04:39:00Z",
+  "n_cells": 16,
+  "n_truth_total": 45260,
+  "bands": [
+    {
+      "band": 1,
+      "name": "mag_anom",
+      "holdout_auc_mean": 0.5083,
+      "holdout_auc_min": 0.4583,
+      "holdout_auc_max": 0.5689,
+      "truth_minus_bg_mean": 0.7236,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 2,
+      "name": "rtp",
+      "holdout_auc_mean": 0.5139,
+      "holdout_auc_min": 0.4807,
+      "holdout_auc_max": 0.5529,
+      "truth_minus_bg_mean": 6.90133,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 3,
+      "name": "tmi_hg",
+      "holdout_auc_mean": 0.5198,
+      "holdout_auc_min": 0.449,
+      "holdout_auc_max": 0.5805,
+      "truth_minus_bg_mean": 1.88421,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 4,
+      "name": "geod_2ndinv",
+      "holdout_auc_mean": 0.5104,
+      "holdout_auc_min": 0.4778,
+      "holdout_auc_max": 0.5751,
+      "truth_minus_bg_mean": 0.45653,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 5,
+      "name": "iso_grav_anom_slope",
+      "holdout_auc_mean": 0.5361,
+      "holdout_auc_min": 0.4788,
+      "holdout_auc_max": 0.6053,
+      "truth_minus_bg_mean": 0.0105,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 6,
+      "name": "tc",
+      "holdout_auc_mean": 0.4199,
+      "holdout_auc_min": 0.3145,
+      "holdout_auc_max": 0.4748,
+      "truth_minus_bg_mean": -1.07834,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 7,
+      "name": "geod_shearrate",
+      "holdout_auc_mean": 0.5065,
+      "holdout_auc_min": 0.4186,
+      "holdout_auc_max": 0.5832,
+      "truth_minus_bg_mean": 0.1267,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 8,
+      "name": "geod_dilaterate",
+      "holdout_auc_mean": 0.5419,
+      "holdout_auc_min": 0.4915,
+      "holdout_auc_max": 0.6852,
+      "truth_minus_bg_mean": 0.67696,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 9,
+      "name": "tmi_vg",
+      "holdout_auc_mean": 0.4845,
+      "holdout_auc_min": 0.4594,
+      "holdout_auc_max": 0.5076,
+      "truth_minus_bg_mean": -0.00521,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 10,
+      "name": "deq_n100a15",
+      "holdout_auc_mean": 0.4946,
+      "holdout_auc_min": 0.4264,
+      "holdout_auc_max": 0.5493,
+      "truth_minus_bg_mean": -6446.79978,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 11,
+      "name": "iso_grav_anom_vg",
+      "holdout_auc_mean": 0.5215,
+      "holdout_auc_min": 0.4945,
+      "holdout_auc_max": 0.5447,
+      "truth_minus_bg_mean": 0.09643,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 12,
+      "name": "det_elev",
+      "holdout_auc_mean": 0.5177,
+      "holdout_auc_min": 0.4436,
+      "holdout_auc_max": 0.5779,
+      "truth_minus_bg_mean": -10.103,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 13,
+      "name": "iso_grav_anom",
+      "holdout_auc_mean": 0.5097,
+      "holdout_auc_min": 0.4715,
+      "holdout_auc_max": 0.5865,
+      "truth_minus_bg_mean": 0.44211,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 14,
+      "name": "tmi",
+      "holdout_auc_mean": 0.5024,
+      "holdout_auc_min": 0.4737,
+      "holdout_auc_max": 0.5382,
+      "truth_minus_bg_mean": -1.44754,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 15,
+      "name": "depth_to_base_surf",
+      "holdout_auc_mean": 0.5033,
+      "holdout_auc_min": 0.4643,
+      "holdout_auc_max": 0.5353,
+      "truth_minus_bg_mean": -58.00251,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 16,
+      "name": "ieq_n100a15",
+      "holdout_auc_mean": 0.5357,
+      "holdout_auc_min": 0.4799,
+      "holdout_auc_max": 0.6623,
+      "truth_minus_bg_mean": 73.59669,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 17,
+      "name": "cond_surf",
+      "holdout_auc_mean": 0.5089,
+      "holdout_auc_min": 0.4595,
+      "holdout_auc_max": 0.5744,
+      "truth_minus_bg_mean": 0.03228,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 18,
+      "name": "iso_grav_anom_hg",
+      "holdout_auc_mean": 0.4998,
+      "holdout_auc_min": 0.4516,
+      "holdout_auc_max": 0.5735,
+      "truth_minus_bg_mean": -0.05015,
+      "leakage_flag_auc_gt_0_90": false
+    },
+    {
+      "band": 19,
+      "name": "det_elev_slope",
+      "holdout_auc_mean": 0.57,
+      "holdout_auc_min": 0.5374,
+      "holdout_auc_max": 0.6105,
+      "truth_minus_bg_mean": 0.68633,
+      "leakage_flag_auc_gt_0_90": false
+    }
+  ]
+}
