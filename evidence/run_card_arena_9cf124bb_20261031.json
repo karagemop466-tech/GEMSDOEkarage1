@@ -1,0 +1,112 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/9cf124bb-gemsdoekarage1",
+  "review_date": "2026-10-31",
+  "review_path": "knowledge/review-arena-9cf124bb-20261031.md",
+  "run_card_path": "evidence/run_card_arena_9cf124bb_20261031.json",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "ok_to_submit_reason": "No file is cleared. The E1 candidate fails the literal 70% dot-overlap gate against one local probability blanket (overlap 1.0), fails the holdout criteria, and its holdout score is below random and below the reference raster. The owner must decide the blanket policy and the holdout alignment (IR-H1) before any file can be considered.",
+  "new_candidate_generated": true,
+  "download_available": true,
+  "download_label": "RESEARCH ONLY \u00b7 DO NOT SUBMIT",
+  "submission_name": "karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros",
+  "submission_note": "H-O2 lidar step_max peaks minus catalogue halo<=2px; research only, not cleared; do not submit",
+  "raster_sha256": "a7c24d452097f75808fb798cd42e35c1dc867619e4ddd570cd5aab39d12b0497",
+  "nan_twin_sha256": "608062de15abac46f994a8628b0d257f2a9284ef2662b215f68333be479cf2b4",
+  "candidate_file": "docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.tif",
+  "candidate_zip": "docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.zip",
+  "candidate_nan_twin": "docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-nan.tif",
+  "candidate_dots": 37539,
+  "candidate_dots_budget": 37654,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 1,
+  "experiment_budget": {
+    "max_experiments": 3,
+    "max_hours": 2,
+    "used_experiments": 1,
+    "hours_used": "not measured"
+  },
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator": "gems57-pooled-hide-v2",
+    "cells": 16,
+    "withheld_positives": 45260,
+    "arm_A_unpruned": 0.044417,
+    "arm_B_halo_pruned_leak_free": 0.038756,
+    "ci95_B_minus_A": [
+      -0.006662,
+      -0.004001
+    ],
+    "random_mean_seeds_101_202_303": 0.045875,
+    "reference_H_R1_raster": 0.043296,
+    "reference_B2_GEMSDOE32": 0.004729,
+    "reference_GEMSDOE25_parent": 0.102267,
+    "value": 0.038756,
+    "value_note": "arm B (the candidate). Not a leaderboard estimate: the holdout scores recovery of withheld mapped-catalogue segments (IR-H1)."
+  },
+  "criteria": {
+    "B_beats_unpruned_A": false,
+    "paired_CI_lower_bound_gt_0": false,
+    "B_beats_matched_random": false,
+    "canary_all_features_below_0_90": false,
+    "canary_max_DI_AUC_lidar_step_max": 0.596,
+    "canary_max_DI_AUC_dist_to_visible_catalogue_px": 0.9085,
+    "validator_passed": true,
+    "nan_twin_passed": true,
+    "surface_spearman_le_0_90": true,
+    "surface_spearman_max": 0.0719,
+    "dot_overlap_le_0_70_literal": false,
+    "dot_overlap_max_vs_local_tifs": 1.0,
+    "dot_overlap_max_excluding_blanket": 0.2539,
+    "dot_overlap_failing_file": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif (probability blanket, 5,106,385 positive cells)",
+    "B_beats_H_R1_reference": false
+  },
+  "validator_output": {
+    "all_checks_passed": true,
+    "range_0_1": true,
+    "no_nan_in_footprint": true,
+    "crs_epsg_32611": true,
+    "shape_3730x3292": true,
+    "transform_matches_registry_grid": true,
+    "zero_dots_within_2px_of_catalogue": true,
+    "classification": "local format/range preflight; not organizer acceptance",
+    "min": 0.0,
+    "max": 1.0,
+    "n_nan_in_file": 0,
+    "in_footprint_positive_pixels": 37539
+  },
+  "gate_archived_comparisons": {
+    "file": "evidence/gate_archived_hunq1_20261031.json",
+    "method": "metric nearest-neighbour within 300 m, because the archived grid has a different origin",
+    "hunq1_dots_overlap": 0.0,
+    "hunq1_zeros_overlap": 0.0
+  },
+  "irregularities": [
+    "IR-H1: the shared holdout scores withheld mapped-catalogue segments, not the off-catalogue target.",
+    "IR-H2: canary dist_to_visible_catalogue_px DI-AUC 0.9085 (fails <0.90); the holdout rewards catalogue continuity; the SGMC-off proxy disagrees on the halo sign.",
+    "IR-B1: literal 70% dot-overlap gate is unsatisfiable against a local probability blanket (registry/registry_roles.json says blankets should be diagnostics, not duplicate stops). Owner decision.",
+    "IR-V1: local vendor/gems57/submission_writer.py and uniqueness.py differ from PROVENANCE pins (see vendor/README.md). Not reconciled.",
+    "IR-S1: restored sample_submission.tif has 60,988 positive cells, equal to the labels' positives, while the official page calls the sample 'total fault absence'.",
+    "IR-L2: cited leaderboard value 0.4413 is absent from the top 50 of the 30 Oct re-read (ORGANIZER-PUBLIC)."
+  ],
+  "sources_for_manual_review": [
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "https://github.com/drivendataorg/gems-prize-reference-solution",
+    "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+    "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+    "https://epsg.io/32611"
+  ],
+  "tests_run": "456 passed, 1 skipped (tests/test_focus_sites_20261029.py:72, data-dependent), 0 failed; run 31 Oct 2026 after all edits",
+  "audit_receipts": {
+    "zeros": "evidence/audit_o2_candidate_zeros_20261031.json",
+    "nan": "evidence/audit_o2_candidate_nan_20261031.json",
+    "writer": "scripts/write_o2_audit_receipts_20261031.py",
+    "note": "Saved-byte receipts from the repo shared validators; lattice comparison not run (13GEMSDOE raster absent from this checkout)."
+  },
+  "nan_variant_policy": {
+    "zeros_variant": "passes every shared local check, including the repo all-finite policy",
+    "nan_variant": "organizer-permitted NaN outside the footprint; fails the repo all-finite policy (no_nan_anywhere, outside_footprint_zero) by design; not the default"
+  }
+}
