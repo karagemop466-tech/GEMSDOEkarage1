@@ -1,17 +1,32 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/3184815e-gemsdoekarage1` (31 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NEGATIVE — DO NOT SUBMIT. No file is cleared; no candidate TIF, holdout, score estimate, or weekly slot decision was produced.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; required data/cache are absent; and vendored writer/uniqueness code fail recorded SHA-256 provenance pins. Generating a raster now would violate the lane/shared-tool/holdout requirements instead of maximizing the probability of winning.
+**Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
 
-- **Three-pass review / run card:** [review](knowledge/session-review-arena-3184815e.md) · [JSON card](evidence/session_3184815e_run_card.json).
-- **Ranked research queue:** [five conditional hypotheses](knowledge/hypotheses-20261031.md). Ranking is qualitative, not a score projection; proposals are not globally novel and remain untested as protocol-compliant experiments. The top candidate cannot run until the blockers are resolved.
-- **Verification:** `.venv/bin/python -m pytest -q -rs`: **447 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent bridge rasters/sample grid; passing tests are software checks, not geological performance.
-- **Preflight:** blocked (`ready_for_shared_tools: false`); no authenticated competition inputs or feature cache. Writer/uniqueness provenance mismatches are recorded in the card.
-- **Score policy:** GEMSDOE24/25/27/28/30/31/32/33/36 scores and the B2 0.2778 remain USER-REPORTED / UNVERIFIED; leaderboard estimates are unavailable. Do not relabel catalogue holdout DTI as leaderboard performance.
-- **Submission decision:** there is no download that is OK to submit. Existing TIFFs are research/audit artifacts only. No weekly slot was selected or spent.
+- **Three-pass repository review and focus-site executive table:** [review report](knowledge/review-arena-946f7668-20261031.md) · [JSON run card](evidence/run_card_arena_946f7668_20261031.json).
+- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and absent competition sample grid. This is software verification, not model validation.
+- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; missing shared stack/data and writer/uniqueness provenance mismatch. No experiment was run because the lane and authorized shared inputs are unresolved.
+- **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
+- **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
 
-**Prior review:** [session `arena/cfabff7e`](knowledge/session-review-arena-cfabff7e.md) · [run card](evidence/session_cfabff7e_run_card.json). It documents the prior nine-site audit and the same data/template/provenance blockers.
+## Supplemental same-day research slate — session `arena/3184815e` (31 Oct 2026)
+
+This earlier review added [five conditional geological hypotheses](knowledge/hypotheses-20261031.md) and an auditable [run card](evidence/session_3184815e_run_card.json). It produced no TIF, holdout, score estimate, or slot decision. These are previously documented proposal families, not globally novel claims, and the top proposal was not run. The later current review is session `arena/946f7668` above; do not treat this supplemental slate as a newer decision or clearance.
+
+## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
+
+That separate session verified official format wording and performed a live public-board read; its leaderboard rank claims are time-sensitive and are not an organizer receipt for any focus-site file. Its review and run card are [here](knowledge/session-review-arena-830e1f79.md) and [here](evidence/session_830e1f79_run_card.json). The current session still does not clear a file for submission.
+
+## Previous review — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+
+**Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
+
+- **Review / run card:** [three-pass review](knowledge/session-review-arena-cfabff7e.md) · [JSON card](evidence/session_cfabff7e_run_card.json).
+- **Safety fix:** `scripts/prepare_data.py` now exits before the retired private feature stack can run; its regression test covers `--force`. Data-dependent candidate checks are explicitly skipped when their ignored bridge inputs are absent. Full suite after incorporating latest `main`: **446 passed, 0 failed, 2 skipped**; both skips require absent competition rasters/sample data.
+- **Score policy:** GEMSDOE24/25/27/28/30/31/32/33/36 values remain USER-REPORTED / UNVERIFIED. A leaderboard estimate is unavailable; do not relabel a catalogue holdout as a leaderboard prediction.
+- **Public-board context:** the independent 30 Oct re-read records #1 = 0.4544, 0.3195 at rank #48, and 0.4413 absent from the top 50 (ORGANIZER-PUBLIC; not a submission receipt for any focus site).
+- **Submission decision:** there is no current download that is OK to submit. Existing TIFFs are research/audit artifacts only. No weekly slot was selected or spent in this review.
 
 ## Latest merged mainline experiment — session `arena/a8e4de2e` (30 Oct 2026)
 
