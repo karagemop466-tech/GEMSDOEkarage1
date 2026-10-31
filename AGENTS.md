@@ -1,6 +1,8 @@
-**Current branch review first (2026-10-31, `arena/b8fc7593-gemsdoekarage1`): read `knowledge/review-arena-b8fc7593-20261031.md` and `evidence/run_card_arena_b8fc7593_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no TIF, experiment, holdout, score estimate, or slot selection. Lane/template assignment and required data are unresolved. Focus-site leaderboard estimates are explicitly unavailable.
-
 # Starting point for every session
+
+**Latest review (2026-10-31, `arena/510af7c7-gemsdoekarage1`): read `knowledge/review-arena-510af7c7-20261031.md` and `evidence/run_card_arena_510af7c7_20261031.json` first.** Verdict NEGATIVE / DO NOT SUBMIT. Mechanism for 0.2778: B2 = GEMSDOE25 minus 6,436 catalogue-adjacent dots. The catalogue holdout ranks B2 below random, so it cannot select candidates. Official sources were fetched on 31 Oct 2026 (see the review's §7). Reproduce the mechanism with `GEMS_DATA_DIR=$PWD/data .venv/bin/python scripts/offcat_mechanism_analysis.py`.
+
+**Previous branch review (2026-10-31, `arena/b8fc7593-gemsdoekarage1`): read `knowledge/review-arena-b8fc7593-20261031.md` and `evidence/run_card_arena_b8fc7593_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no TIF, experiment, holdout, score estimate, or slot selection. Lane/template assignment and required data are unresolved. Focus-site leaderboard estimates are explicitly unavailable.
 
 **Prior mainline review (2026-10-31, `arena/cd6c8044-gemsdoekarage1`): read `knowledge/session-review-arena-cd6c8044.md`, `evidence/session_cd6c8044_run_card.json`, and `knowledge/hypotheses-20261031.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no TIF, experiment, holdout, score estimate, or slot selection. Lane/canonical template, authenticated inputs, and complete registry remain unresolved. Suite: 451 passed, 2 data-dependent skips. Live board snapshot: #1 0.4544, #50 0.3195 (31 Oct, organizer-public only).
 

@@ -54,9 +54,9 @@ def test_site_links_and_negative_banner():
     assert 'Neither 0.4413 nor 0.3195 was confirmed' not in hub
     focus = (ROOT/'docs/focus-sites.html').read_text()
     assert 'Latest review 2026-10-31: no file cleared; no candidate or leaderboard estimate produced' in focus
-    assert 'href="../evidence/run_card_arena_b8fc7593_20261031.json"' in focus
-    assert 'href="../knowledge/review-arena-b8fc7593-20261031.md"' in index
-    assert 'href="../evidence/run_card_arena_b8fc7593_20261031.json"' in index
+    assert 'href="../evidence/run_card_arena_510af7c7_20261031.json"' in focus
+    assert 'href="../knowledge/review-arena-510af7c7-20261031.md"' in index
+    assert 'href="../evidence/run_card_arena_510af7c7_20261031.json"' in index
     assert 'No defensible forecast' in (ROOT/'docs/executive-summary.html').read_text()
 
 
@@ -77,7 +77,7 @@ def test_evidence_strict_json():
 def test_current_review_renderer_fails_closed(tmp_path, monkeypatch):
     from scripts import render_site
 
-    card = json.loads((ROOT/'evidence/run_card_arena_b8fc7593_20261031.json').read_text())
+    card = json.loads((ROOT/'evidence/run_card_arena_510af7c7_20261031.json').read_text())
     assert render_site.current_review()['verdict'] == 'negative'
     card['ok_to_submit'] = True
     candidate = tmp_path/'current-review.json'
