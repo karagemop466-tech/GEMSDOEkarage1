@@ -1,3 +1,5 @@
+**LATEST (31 Oct 2026, `arena/afe07cea-gemsdoekarage1`): read `knowledge/review-arena-afe07cea-20261031.md` first.** No file cleared, no TIF, no slot spent. The homepage 'OK TO SUBMIT' banner for KP1 contradicts the rest of the site; the owner must resolve it. The '`-nan` is permitted' reading is not supported by the literal official text.
+
 # Starting point for every session
 
 **CURRENT SESSION (2026-10-31, `arena/a79c8595-gemsdoekarage1`): read `docs/standing-prompt.md`, `knowledge/review-arena-a79c8595-20261031.md`, and `evidence/run_card_arena_a79c8595_20261031.json` first.** Verdict: **NEGATIVE / DO NOT SUBMIT**. No candidate was generated, no holdout was run, and no slot was selected or spent. The earlier K-PROXY-DETECT `promote` card is a historical lane decision, not current authorization: it lacks an active complete-registry/pre-placement clearance and its old renderer conflicts with the later fail-closed review. The website/builders are being corrected to prevent that stale green status.

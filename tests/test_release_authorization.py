@@ -25,7 +25,8 @@ def test_active_review_is_negative_and_has_no_candidate():
 
 def test_historical_kp1_gate_does_not_override_active_negative_status():
     gate = json.loads((ROOT / "evidence/kp1_release_gate.json").read_text())
-    assert gate["decision"]["ok_to_submit"] is True  # historical receipt, retained unmodified
+    assert gate["decision"]["ok_to_submit"] is False  # mainline review already corrected the legacy receipt
+    gate["decision"]["ok_to_submit"] = True  # simulate the historical positive lane receipt
     authorized, reason = authorization_for(gate)
     assert authorized is False
     assert reason

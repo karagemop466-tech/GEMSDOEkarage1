@@ -1,0 +1,114 @@
+{
+  "schema": "gems-review-receipt-v1",
+  "branch": "arena/afe07cea-gemsdoekarage1",
+  "date": "2026-10-31",
+  "kp1_candidate": {
+    "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+    "meta": {
+      "crs_epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null
+    },
+    "nan_cells": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "positive_cells": 32000,
+    "values_in_0_1": true
+  },
+  "uniqueness_vs_downloaded_focus_files": {
+    "GEMSDOE24 nan (listed 0.2477)": {
+      "sha256": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+      "sha256_matches_public_page": true,
+      "same_grid_as_kp1": true,
+      "nan_cells": 7111787,
+      "positive_cells": 60069,
+      "share_of_kp1_dots_within_3px": 0.2586,
+      "spearman_200k_random_cells": 0.0014
+    },
+    "GEMSDOE25 zeros (listed 0.2600)": {
+      "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "sha256_matches_public_page": true,
+      "same_grid_as_kp1": true,
+      "nan_cells": 0,
+      "positive_cells": 44090,
+      "share_of_kp1_dots_within_3px": 0.2458,
+      "spearman_200k_random_cells": 0.0094
+    },
+    "GEMSDOE32 B2 zeros (listed 0.2778)": {
+      "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "sha256_matches_public_page": true,
+      "same_grid_as_kp1": true,
+      "nan_cells": 0,
+      "positive_cells": 37654,
+      "share_of_kp1_dots_within_3px": 0.2321,
+      "spearman_200k_random_cells": 0.0183
+    }
+  },
+  "b2_vs_d28_subset": {
+    "b2_positive": 37654,
+    "d28_positive": 44090,
+    "b2_inside_d28": 37654,
+    "b2_not_in_d28": 0,
+    "d28_not_in_b2": 6436,
+    "strict_subset": true
+  },
+  "encoding_census_docs_downloads": {
+    "nan_outside": {
+      "count": 7,
+      "files": [
+        "docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-nan.tif",
+        "docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-nan.tif",
+        "docs/downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-nan.tif",
+        "docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-nan.tif",
+        "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-nan.tif",
+        "docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "docs/downloads/karage1-tiltgrav-ridge-sp6-37654-20261029.tif"
+      ]
+    },
+    "zeros_outside": {
+      "count": 19,
+      "files": [
+        "docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+        "docs/downloads/DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.tif",
+        "docs/downloads/gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+        "docs/downloads/gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif",
+        "docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+        "docs/downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+        "docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif",
+        "docs/downloads/karage1-convect-cell-upflow-20261029-zeros.tif",
+        "docs/downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+        "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+        "docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+        "docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+        "docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif",
+        "docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+        "docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+        "docs/downloads/karage1-seisprox-c2-w0.55-20261031T013500Z-zeros.tif",
+        "docs/downloads/karage1-seisprox-c3-w0.55-20261031T012000Z-zeros.tif",
+        "docs/downloads/karage1-unique-alteration-dots-20261028-zeros.tif"
+      ]
+    },
+    "other": {
+      "count": 0,
+      "files": []
+    }
+  },
+  "evidence_labels": {
+    "all_numbers": "MEASURED on the bytes named above; not a leaderboard score",
+    "projection_0_2789": "PROJECTED in evidence/kp1_run_card.json; not checked here"
+  }
+}

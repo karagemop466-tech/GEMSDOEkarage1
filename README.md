@@ -7,7 +7,7 @@
 
 ## READ FIRST — ACTIVE SESSION `arena/a79c8595-gemsdoekarage1` (31 Oct 2026) · **NEGATIVE / DO NOT SUBMIT**
 
-**No file is currently cleared for submission.** This session generated no TIF, ran no holdout, and spent no submission slot: the referenced single method paragraph is absent; `registry/template.json` has no assigned lane or canonical template; the shared cache/data are missing; and the historical KP1 gate is not a complete current-registry/pre-placement clearance. Do not treat a prior `promote` card as active permission.
+**No file is currently cleared for submission.** This session generated no TIF, ran no holdout, and spent no submission slot: the referenced single method paragraph is absent; `registry/template.json` has no assigned lane or canonical template; the shared cache/data are missing; and the historical KP1 receipt, even after its mainline status was corrected, is not a complete current-registry/pre-placement clearance. Do not treat historical promotion records as active permission.
 
 - Current review: [knowledge/review-arena-a79c8595-20261031.md](knowledge/review-arena-a79c8595-20261031.md) · [machine-readable run card](evidence/run_card_arena_a79c8595_20261031.json) · [active authorization status](evidence/active_submission_status.json).
 - Executive summary and nine-site table: [docs/executive-summary.html](docs/executive-summary.html). Historical reported scores are not organizer-confirmed; a leaderboard estimate is **not estimable** from the available evidence.

@@ -177,13 +177,14 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
                 assert 'DO NOT SUBMIT' in self.label and 'research only' in self.label.lower()
                 self.downloads.extend(self.article_downloads); self.in_audit = False
     gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
-    assert gate['decision']['ok_to_submit'] is True and gate['decision']['slots_used'] == 0
+    assert gate['decision']['ok_to_submit'] is False and gate['decision']['slots_used'] == 0
+    assert gate['decision']['registry_complete'] is False
     gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
     home = Links(root/'index.html'); home.feed((root/'index.html').read_text())
     assert not home.downloads
-    # The lane receipt is historical; the active full-registry/pre-placement gates are not cleared.
-    assert home.banner_downloads == []
-    assert gate['decision']['ok_to_submit'] is True
+    # Neither the corrected legacy receipt nor active status grants submission authorization.
+    assert not home.banner_downloads
+    assert gate['decision']['ok_to_submit'] is False
     active = json.loads((root/'evidence/active_submission_status.json').read_text())
     assert active['verdict'] == 'negative' and active['ok_to_submit'] is False
     for page in (root/'executive-summary.html', root/'docs/executive-summary.html'):
