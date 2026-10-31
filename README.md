@@ -1,6 +1,28 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/ce19eeed-gemsdoekarage1` (31 Oct 2026)
+## CORE VALUES — focal point for every decision
+
+- **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
+- **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
+
+## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
+
+**Answer: no file is OK to download and submit. Verdict: NEGATIVE / DO NOT SUBMIT. No file is cleared; no weekly slot selected or spent.**
+
+- **Executive summary (per site table, uniqueness, download verdict):** [`docs/executive-summary.html`](docs/executive-summary.html). Top of the page.
+- **Candidate page with one-click research download, unique name, short comment, and the range-error fix:** [`docs/o2-candidate-20261031.html`](docs/o2-candidate-20261031.html). The file is `DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.tif`.
+- **Best reported file:** GEMSDOE32 at 0.2778 (USER-REPORTED / UNVERIFIED). It is not unique (100% of its dots lie within 3 px of GEMSDOE24's file). Why it scored higher: [`knowledge/why-gemsdoe32-b2-20261031.md`](knowledge/why-gemsdoe32-b2-20261031.md).
+- **New candidate (H-O2, E1):** HOLDOUT-DTI 0.038756 (arm A 0.044417; matched random 0.045875; evaluator `gems57-pooled-hide-v2`, 45,260 withheld positives). Negative under the pre-registered rule (five of six criteria failed).
+- **Uniqueness gate:** the literal 70% dot-overlap rule fails against one local probability blanket (overlap 1.0). Every other local raster is at most 0.2539. This is an owner decision (IR-B1), not a clearance.
+- **Submission error "Predicted values must be in range [0, 1]":** the zeros file passes every local check. The NaN file is organizer-permitted but fails the repo's stricter all-finite policy; it is a fallback only.
+- **Review and run card:** [`knowledge/review-arena-9cf124bb-20261031.md`](knowledge/review-arena-9cf124bb-20261031.md) · [`evidence/run_card_arena_9cf124bb_20261031.json`](evidence/run_card_arena_9cf124bb_20261031.json).
+- **Next steps and limitations:** section 8 and section 9 of the review. The owner must decide the blanket policy and holdout alignment (IR-H1) before any further experiment.
+- **Superseded review:** [`knowledge/review-arena-946f7668-20261031.md`](knowledge/review-arena-946f7668-20261031.md).
+- **Verification:** `.venv/bin/python -m pytest -q -p no:cacheprovider` → 493 passed, 1 skipped, 0 failed (after merging origin/main again). This is software verification, not model validation.
+- **Submission action:** none. Do not upload any file from this checkout.
+
+
+## PARALLEL REVIEW (read first) — session `arena/ce19eeed-gemsdoekarage1` (31 Oct 2026)
 
 **Can I download and submit a file? NO. No file is cleared by this session. No submission slot was selected or spent.**
 
@@ -21,7 +43,7 @@
 - **Pages:** the executive summary (`docs/executive-summary.html`) opens with a generated panel for H-E1b and H-E2, including the cross-session conflict. It is rendered from the evidence JSON by `scripts/render_site.py`.
 - **Details:** [knowledge/hypotheses-20261031-ce19eeed.md](knowledge/hypotheses-20261031-ce19eeed.md) · [evidence/session_ce19eeed_20261031_run_card.json](evidence/session_ce19eeed_20261031_run_card.json) · [evidence/exp_h_e1b_euler_tmi_20261031.json](evidence/exp_h_e1b_euler_tmi_20261031.json) · [evidence/exp_h_e2_euler_gravity_20261031.json](evidence/exp_h_e2_euler_gravity_20261031.json).
 
-## EXECUTIVE SUMMARY — how to submit (read first) — session `arena/55dc7b72-gemsdoekarage1` (31 Oct 2026)
+## Previous review — session `arena/55dc7b72-gemsdoekarage1` — executive summary (31 Oct 2026)
 
 **Verdict: NEGATIVE — DO NOT SUBMIT. Nothing is cleared for download or upload. No weekly slot was selected or spent.**
 
@@ -79,7 +101,7 @@
 
 ---
 
-## CURRENT REVIEW (read first) — session `arena/46ed1c8c-gemsdoekarage1` (31 Oct 2026)
+## Previous review — session `arena/46ed1c8c-gemsdoekarage1` (31 Oct 2026)
 
 **Status: DO NOT SUBMIT (HOLD). One owner-review GeoTIFF is downloadable; nothing is cleared for upload and no weekly slot was selected or spent.**
 
@@ -200,7 +222,7 @@ Labels: **HOLDOUT-DTI** = our proxy on withheld known-catalogue segments; **ORGA
 
 # SESSION PROMPT — READ FIRST AT THE START OF EVERY SESSION
 
-This is the standing user prompt for this project. Read it at the start of every session to make sure we are building what we are aiming for.
+This is the standing user prompt for this project. Note (31 Oct 2026): this section is a normalized copy; the original verbatim text was not saved in this checkout. Read it at the start of every session to make sure we are building what we are aiming for.
 
 ## Primary goal
 Place top of the leaderboard in the DrivenData DOE GEMS Prize Challenge (https://www.drivendata.org/competitions/306/competition-doe-gems/) by producing a single-band float32 GeoTIFF of fault probabilities. Current leaderboard high score: 0.4413 (0.4544 on live public leaderboard per 29 Oct 2026 check).

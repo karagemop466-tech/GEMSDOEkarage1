@@ -1,0 +1,50 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/9cf124bb-gemsdoekarage1",
+  "date": "2026-10-31",
+  "hypothesis": "H-O2: halo-pruned lidar step_max peaks (catalogue halo <= 2 px, per fold, visible only) raise hide-and-recover pooled DTI",
+  "mechanism": "Lidar scarp crests (USGS 3DEP step_max) give dots; dots within 2 px of the visible catalogue are removed per fold, so emitted dots sit where a new (non-catalogue) fault would have to be.",
+  "named_non_fault_mimic": "Multi-strand fault zones: unmapped strands sit within 2 px of mapped ones (the GPC-Z mechanism). Pruning those would delete real strands. Also fan-head and terrace edges mimic step_max.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator": "gems57-pooled-hide-v2",
+    "withheld_positives": 45260,
+    "arm_B_pooled": 0.038755500710187046,
+    "arm_A_pooled": 0.044417273929764904,
+    "random_pooled": 0.04587482056083984,
+    "ci95_B_minus_A": [
+      -0.006661810323375168,
+      -0.004000599502084117
+    ],
+    "ci95_note": "paired bootstrap over the 16 holdout cells (HR1.paired_ci)"
+  },
+  "correlation_overlap_vs_registry": {
+    "surface_max_spearman": 0.07189903660751018,
+    "dot_max_forward_overlap_3px": 1.0,
+    "focus_nine_max_forward_overlap": 0.16343003276592344,
+    "local_tif_count": 35
+  },
+  "raster_sha256": "a7c24d452097f75808fb798cd42e35c1dc867619e4ddd570cd5aab39d12b0497",
+  "validator_output": {
+    "all_checks_passed": true,
+    "catalogue_zero": true,
+    "halo_zero": true,
+    "nan_twin_all_passed": true
+  },
+  "submission_name": "karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros",
+  "submission_note": "H-O2 lidar step_max peaks minus catalogue halo<=2px; research only, not cleared; do not submit",
+  "submission_note_chars": 94,
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "criteria": {
+    "b_beats_unpruned_A": false,
+    "paired_ci_B_minus_A_lower_bound_gt_0": false,
+    "b_beats_matched_random": false,
+    "canary_all_features_below_0_90": false,
+    "validator_passed": true,
+    "nan_twin_passed": true,
+    "registry_surface_rho_le_0_90": true,
+    "registry_dot_overlap_le_0_70": false,
+    "b_beats_h_r1_reference_control": false
+  }
+}
