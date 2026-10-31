@@ -1,0 +1,159 @@
+{
+  "schema": "karage1-run-card-v4",
+  "generated_utc": "20261031T043248Z",
+  "session": "arena/f9fd7d88-gemsdoekarage1",
+  "lane_id": "H-NT",
+  "lane_assigned": false,
+  "lane_note": "No method lane is assigned in registry/template.json (method_lane: null). H-NT is declared here as this session's single lane; no drift check passed because worst 3-px overlap is 0% and worst |Spearman| is 0%.",
+  "hypothesis": "Geothermal systems are commonly hosted on blind or partially-mapped faults absent from the USGS/INGENIOUS catalogue.  The nine prior GEMSDOE submissions form one family on the catalogue corridor (pairwise 86-100% forward 3-px overlap; |Spearman| 0.52-1.00), so the complementary, uncatalogued fault set lies outside their 3-px halos.  Dots restricted to novel territory target that missing fault set and are unique by construction.",
+  "mechanism": "DTI = TP / (TP + 0.2 FP + 0.8 FN) with a 300 m triangular kernel.  Catalogue faults are masked from scored truth, so dots on the catalogue corridor earn little TP and real FP; novel-territory dots target uncatalogued structures.  Binary dots concentrate probability (TP linear in p, FP weighted only 0.2).  Pixels are ranked by distance to the nearest prior dot (farther = less redundant).",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline berms, TIGER road/rail embankments, and conductive playas can produce linear anomalies in novel territory; mitigated by restricting dots to novel territory and a sparse count.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evidence_class": "HOLDOUT-DTI",
+    "status": "NOT_COMPUTED",
+    "note": "Competition labels (labels.tif / training_features.tif) are login-walled at DrivenData and absent from this checkout; no holdout score is computable.  This is NOT a leaderboard estimate."
+  },
+  "leakage_canary": {
+    "passed": false,
+    "status": "Not run \u2014 no training features available; candidate uses only topological placement (outside registry halos), which is not a scored feature channel."
+  },
+  "registry_correlation_overlap": {
+    "registry_rasters_checked": 9,
+    "worst_forward_overlap": 0.0,
+    "worst_forward_overlap_reference": "GEMSDOE24",
+    "worst_overlap_exceeds_70_percent": false,
+    "worst_spearman_abs": 0.002861652979688123,
+    "worst_spearman_reference": "GEMSDOE27",
+    "correlation_exceeds_0_90": false,
+    "lane_unique": true,
+    "pairwise": [
+      {
+        "reference": "GEMSDOE24",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.002831981373972565,
+        "correlation_exceeds_0_90": false
+      },
+      {
+        "reference": "GEMSDOE25",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.002424663425249333,
+        "correlation_exceeds_0_90": false
+      },
+      {
+        "reference": "GEMSDOE27",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.002861652979688123,
+        "correlation_exceeds_0_90": false
+      },
+      {
+        "reference": "GEMSDOE28",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.00224030671484223,
+        "correlation_exceeds_0_90": false
+      },
+      {
+        "reference": "GEMSDOE30",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.002424663425249333,
+        "correlation_exceeds_0_90": false
+      },
+      {
+        "reference": "GEMSDOE31",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.002314834735327369,
+        "correlation_exceeds_0_90": false
+      },
+      {
+        "reference": "GEMSDOE32",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.002240127695654622,
+        "correlation_exceeds_0_90": false
+      },
+      {
+        "reference": "GEMSDOE33",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.0023624763749379722,
+        "correlation_exceeds_0_90": false
+      },
+      {
+        "reference": "GEMSDOE36",
+        "candidate_dots": 20000,
+        "candidate_dots_within_3px": 0,
+        "directed_overlap": 0.0,
+        "overlap_exceeds_70_percent": false,
+        "spearman_abs": 0.0022756547378796274,
+        "correlation_exceeds_0_90": false
+      }
+    ]
+  },
+  "raster": {
+    "tif": "karage1-h-nt-novelterritory-dots-20261031-zeros.tif",
+    "zip": "karage1-h-nt-novelterritory-dots-20261031-zeros.zip",
+    "sha256": "39801a39d8be627327e2f08265f3bf8e77465772324540129f8a4a15300db0a2",
+    "bytes": 84541,
+    "dots": 20000,
+    "dtype": "float32",
+    "nodata": null,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "footprint_px": 5167373
+  },
+  "validator_output": {
+    "no_nan_inside_footprint": true,
+    "no_inf_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "outside_zero": true,
+    "all_finite_whole_array": true,
+    "all_checks_passed": true
+  },
+  "submission_name": "karage1-h-nt-novelterritory-dots-20261031-zeros.tif",
+  "submission_note": "Unique novel-territory dot raster; 0% forward 3-px overlap with all nine focus-site rasters; not holdout-validated; DO NOT SUBMIT",
+  "submission_note_chars": 129,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "verdict_reason": "Unique, format-valid GeoTIFF generated for research/audit only. Not holdout-validated (labels login-walled), no lane assigned, no organizer receipt, no weekly slot selected, no leaderboard estimate.  NOT cleared for DrivenData upload.",
+  "blockers": [
+    "Competition training data (labels, training_features, sample_submission) are login-walled at DrivenData; no holdout score is computable.",
+    "No method lane is assigned in registry/template.json.",
+    "No organizer submission-page receipt exists for this raster.",
+    "Per-dot accuracy vs hidden faults is unmeasured; cannot claim to beat the 0.2778 (GEMSDOE32) or 0.4413 leaderboard marks."
+  ]
+}

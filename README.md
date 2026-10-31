@@ -246,6 +246,11 @@ Labels: **HOLDOUT-DTI** = our proxy on withheld known-catalogue segments; **ORGA
 
 This is the standing user prompt for this project. Note (31 Oct 2026): this section is a normalized copy; the original verbatim text was not saved in this checkout. Read it at the start of every session to make sure we are building what we are aiming for.
 
+## This session's focus (31 Oct 2026, arena/f9fd7d88-gemsdoekarage1)
+Nine focus sites: GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36. Deliverables: (1) the focused nine-site executive summary at `docs/executive-summary.html` with a table of file-to-download / score / uniqueness / OK-to-submit; (2) one new UNIQUE TIF submission generated this session on lane H-NT "Novel Territory" — `docs/downloads/karage1-h-nt-novelterritory-dots-20261031-zeros.tif` (SHA-256 `39801a39…db0a2`, 20,000 dots, format-valid, 0% forward 3-px overlap vs all nine focus rasters) with run card `evidence/run_card_karage1-h-nt-novelterritory-dots-20261031.json`; (3) verdict on the new TIF is **negative — NOT OK to submit** (research only; labels login-walled, no holdout score, no organizer receipt, no lane assigned, no slot spent). The download link and the clear NOT-OK status appear at the very top of `docs/executive-summary.html`.
+
+Irregularity flagged (do not resolve silently): the user prompt cites two different leaderboard highs — 0.4413 ("Current competition leaderboard GEMSDOE high score") and 0.3195 ("is the highest score right now"). This checkout's standing prompt records 0.4413 (organizer-public) and 0.4544 (live public board, 29 Oct 2026 check). Treat both as unverified until an organizer receipt is obtained; write no projection as a score.
+
 ## Primary goal
 Place top of the leaderboard in the DrivenData DOE GEMS Prize Challenge (https://www.drivendata.org/competitions/306/competition-doe-gems/) by producing a single-band float32 GeoTIFF of fault probabilities. Current leaderboard high score: 0.4413 (0.4544 on live public leaderboard per 29 Oct 2026 check).
 
