@@ -2,17 +2,42 @@
 
 ## CURRENT REVIEW (read first) — session `arena/f645631f-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NEGATIVE — DO NOT SUBMIT.** This active-branch review generated no TIF, ran no geological experiment or holdout, and produced no leaderboard estimate. The required method lane and canonical shared template are unassigned; cached inputs are missing; and two vendored tool hashes differ from their recorded pins. No file is cleared for download or upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**. No weekly slot was selected or spent.
+**Status: NEGATIVE — DO NOT SUBMIT.** This active-branch review generated no TIF, ran no geological experiment or holdout, and produced no leaderboard estimate. The method lane and canonical shared template remain unassigned; cached inputs are missing; and two vendored tool hashes differ from their recorded pins. No file is cleared for download or upload. GEMSDOE32 B2's 0.2778 is **USER-REPORTED / UNVERIFIED**. No weekly slot was selected or spent.
 
-- **Three-pass repository review and focus-site decision:** [review report](knowledge/review-arena-f645631f-20261031.md) · [JSON run card](evidence/run_card_arena_f645631f_20261031.json).
-- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and the absent competition sample grid. This is software verification, not model validation.
-- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; five shared inputs/cache paths are missing, lane/template assignment is null, and writer/uniqueness provenance hashes mismatch. No experiment was run.
-- **Candidate queue:** four earlier research proposals and named geological mimics are in [the previous branch review](knowledge/review-arena-946f7668-20261031.md). They are qualitative proposals, not globally novelty-verified or validated; no score is projected.
+- **Three-pass review and focus-site decision:** [review](knowledge/review-arena-f645631f-20261031.md) · [run card](evidence/run_card_arena_f645631f_20261031.json).
+- **Verification after merging latest mainline evidence:** `.venv/bin/python -m pytest -q -rs` → **447 passed, 3 skipped, 126 warnings**. Skips require absent ignored bridge rasters, absent core data for the mirror receipt test, and the missing competition sample grid. Tests are software checks, not model validation.
+- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; lane/template assignment is null, five shared-input/cache paths are missing, and writer/uniqueness provenance hashes mismatch. No experiment was run.
+- **Latest checked-in organizer-public context (read 31 Oct 2026 in upstream session 38b8b045):** leaderboard #1 = 0.4544; 0.3195 is rank #50, #48 is 0.3231; 0.4413 is not in the top 50. See the dated [`ORGANIZER-PUBLIC` snapshot](registry/leaderboard_snapshot_20261031.json); it does not confirm any focus-site score and was not freshly fetched by this branch review.
+- **Focus-site format receipt:** [`evidence/nine_site_format_receipt_20261031.json`](evidence/nine_site_format_receipt_20261031.json) audits pinned mirror bytes, not portal acceptance or organizer authenticity. Existing table lists USER-REPORTED scores; no organizer score estimate is available.
 - **Submission action:** none. Historical files are learning/audit-only. No file in this checkout is OK to download and submit.
 
 ## Previous branch review — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
 
-This preceding branch review recorded the focus-site table, four qualitative geological proposals, and the same blocked no-submit decision. It verified 446 software tests with 2 data-dependent skips; it did not produce a TIF or a leaderboard estimate. See [review](knowledge/review-arena-946f7668-20261031.md) and [run card](evidence/run_card_arena_946f7668_20261031.json).
+This preceding branch review recorded four qualitative hypotheses and the nine-site table. It did not produce a TIF, experiment, or leaderboard estimate. See [review](knowledge/review-arena-946f7668-20261031.md) and [run card](evidence/run_card_arena_946f7668_20261031.json).
+
+## Supplemental same-day research slate — session `arena/3184815e` (31 Oct 2026)
+
+This upstream review added [five conditional geological hypotheses](knowledge/hypotheses-20261031.md) and an auditable [run card](evidence/session_3184815e_run_card.json). It produced no TIF, holdout, score estimate, or slot decision. These are proposal families, not globally novel claims, and the top proposal was not run.
+
+## Previous upstream review — session `arena/38b8b045-gemsdoekarage1` (31 Oct 2026)
+
+That review rechecked the official public leaderboard and audited format properties of the nine pinned site mirrors; it found irregularities in the mirrored sample/labels and could not test portal acceptance. It also records the same blocked no-submit decision. Read its [full review](knowledge/session-review-arena-38b8b045.md), [run card](evidence/session_38b8b045_run_card.json), and [format receipt](evidence/nine_site_format_receipt_20261031.json). Its live-page numbers are dated and should not be assumed current beyond the capture.
+
+## Previous review — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+
+## Previous branch review — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
+
+**Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
+
+- **Three-pass repository review and focus-site executive table:** [review report](knowledge/review-arena-946f7668-20261031.md) · [JSON run card](evidence/run_card_arena_946f7668_20261031.json).
+- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and absent competition sample grid. This is software verification, not model validation.
+- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; missing shared stack/data and writer/uniqueness provenance mismatch. No experiment was run because the lane and authorized shared inputs are unresolved.
+- **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
+- **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
+
+## Supplemental same-day research slate — session `arena/3184815e` (31 Oct 2026)
+
+This earlier review added [five conditional geological hypotheses](knowledge/hypotheses-20261031.md) and an auditable [run card](evidence/session_3184815e_run_card.json). It produced no TIF, holdout, score estimate, or slot decision. These are previously documented proposal families, not globally novel claims, and the top proposal was not run. The later active-branch review is session `arena/f645631f`; do not treat this supplemental slate as a newer decision or clearance.
 
 ## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
 

@@ -1,0 +1,42 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/38b8b045-gemsdoekarage1",
+  "date_utc": "2026-10-31",
+  "hypothesis": "None tested. The request asked for a unique TIF scoring above 0.2778; no validated lane or authorised holdout exists to test a candidate against.",
+  "mechanism": "Not applicable. Analysis of GEMSDOE32 vs GEMSDOE25 explains 0.2778 as pruning 6,436 dots that are probably outside 300 m of any organizer fault (USER-REPORTED scores; inferred from the official formula).",
+  "named_non_fault_process": "Not applicable (no candidate). For the 0.2778 analysis: the removed dots could be off-target dense sampling along non-fault relief, which is the process a pruning gain would mimic.",
+  "holdout_dti": {
+    "status": "NOT RUN",
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "label": "HOLDOUT-DTI not produced in this session"
+  },
+  "correlation_overlap_vs_registry": {
+    "status": "Not measured for a new raster. Existing focus-file overlaps are from prior sessions (executive summary); the verified subset relation is GEMSDOE32 = GEMSDOE25 minus 6,436 dots (checked here)."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "tool": "scripts/validate_geotiff.py (shared) and scripts/nine_site_format_receipt.py",
+    "receipt": "evidence/nine_site_format_receipt_20261031.json",
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match_mirror": true,
+    "portal_acceptance": "not tested",
+    "notes": "Nine focus files pass the shared checks. Four use NaN outside the footprint; five use 0. Both encodings produced portal scores per the user's list."
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "irregularities": [
+    "Live leaderboard: 0.3195 is rank #50 (not #48); #48 is 0.3231.",
+    "0.4413 is not in the top 50; 0.3195 is not the highest score.",
+    "Mirrored sample_submission.tif has 60,988 positives; official description says total fault absence.",
+    "labels.tif contains -1 values; meaning not documented in the sources reviewed.",
+    "Upload error 'Predicted values must be in range [0, 1]' cannot be reproduced from any focus file; rejected file not supplied.",
+    "The 70% / 3 px lattice duplicate gate is internal, not in the official rules."
+  ],
+  "budget": {"experiments_used": 0, "experiments_allowed": 3, "hours_limit": 2},
+  "slot_selection": "None. No weekly submission slot was selected or spent.",
+  "verdict": "negative",
+  "submission_authorized": false
+}

@@ -37,12 +37,13 @@
   "geological_experiments_run": 0,
   "software_tests": {
     "command": ".venv/bin/python -m pytest -q -rs",
-    "passed": 446,
+    "passed": 447,
     "failed": 0,
-    "skipped": 2,
+    "skipped": 3,
     "warnings": 126,
     "skip_reasons": [
       "Absent ignored bridge rasters required for data-dependent footprint/catalogue test.",
+      "Core competition data not restored for the nine-site format-receipt test.",
       "Competition sample grid not restored for data-dependent validator test."
     ],
     "meaning": "Software verification only; it is not a geological performance measurement."
@@ -76,6 +77,27 @@
       "label": "USER-REPORTED / UNVERIFIED"
     },
     "leaderboard_estimate": null
+  },
+  "upstream_records_inherited_after_merge": {
+    "leaderboard": {
+      "path": "registry/leaderboard_snapshot_20261031.json",
+      "label": "ORGANIZER-PUBLIC",
+      "captured_utc_date": "2026-10-31",
+      "top_score": 0.4544,
+      "score_0_3195_rank": 50,
+      "score_0_4413_in_top_50": false,
+      "note": "Dated snapshot from prior upstream session; not freshly fetched in this branch review and not a receipt for a focus-site file."
+    },
+    "mirror_format_receipt": {
+      "path": "evidence/nine_site_format_receipt_20261031.json",
+      "label": "MIRROR_FORMAT_AUDIT",
+      "portal_acceptance": "not tested",
+      "organizer_data_authenticity": "not established",
+      "irregularities": [
+        "Mirrored sample and labels both have 60,988 positives although the official description says the sample predicts total fault absence.",
+        "Mirrored labels contain -1; meaning is not established by the receipt."
+      ]
+    }
   },
   "verdict": "negative",
   "blockers": [

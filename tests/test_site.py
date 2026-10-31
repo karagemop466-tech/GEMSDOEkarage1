@@ -39,11 +39,11 @@ def test_site_links_and_negative_banner():
     assert 'HISTORICAL EXPERIMENT · SESSION arena/fb1e3550 · 29 OCT 2026' in index
     assert 'PRIOR CANDIDATE REVIEW · 29 OCT 2026' in index
     assert 'Historical experiment run card' in index
-    assert 'ORGANIZER-PUBLIC; live re-read 30 Oct 2026' in index
-    assert '0.3195 is rank #48' in index
+    assert 'ORGANIZER-PUBLIC; live re-read 31 Oct 2026' in index
+    assert '0.3195 is rank #50' in index
     hub = (ROOT/'docs/submission-hub.html').read_text()
     assert 'independent 30 Oct live re-read' in hub
-    assert '0.3195 at rank #48' in hub
+    assert '0.3195 at rank #50' in hub
     assert 'Neither 0.4413 nor 0.3195 was confirmed' not in hub
     focus = (ROOT/'docs/focus-sites.html').read_text()
     assert 'Latest review 2026-10-31: no file cleared; this repository-safety review produced no candidate or score estimate' in focus
@@ -51,6 +51,27 @@ def test_site_links_and_negative_banner():
     assert 'href="../knowledge/review-arena-f645631f-20261031.md"' in index
     assert 'href="../evidence/run_card_arena_f645631f_20261031.json"' in index
     assert 'No defensible forecast' in (ROOT/'docs/executive-summary.html').read_text()
+    research = (ROOT/'docs/research.html').read_text()
+    assert 'Supplemental same-day slate · earlier session `3184815e`' in research
+    assert 'knowledge/hypotheses-20261031.md' in research
+    assert 'knowledge/review-arena-f645631f-20261031.md' in research
+
+
+def test_supplemental_research_slate_and_run_card_are_fail_closed():
+    card = json.loads((ROOT/'evidence/session_3184815e_run_card.json').read_text())
+    slate = (ROOT/'knowledge/hypotheses-20261031.md').read_text()
+    assert card['verdict'] == 'negative'
+    assert card['ok_to_submit'] is False and card['download_available'] is False
+    assert card['new_candidate_generated'] is False and card['geological_experiments_run'] == 0
+    assert card['holdout_dti']['value'] is None
+    assert card['raster_sha256'] is None and card['validator_output']['status'].startswith('not run')
+    assert card['submission_note_chars'] == len(card['submission_note']) <= 140
+    for rank in range(1, 6):
+        assert f'**{rank} ·' in slate
+    for proposal in ('CP-DPCS', 'BERB-STC', '3DEP-DFA', 'WD-KRMT', 'Sampling-aware INGENIOUS'):
+        assert proposal in slate
+    assert 'cannot certify global novelty' in slate.lower()
+    assert 'no candidate is selected or promoted' in slate.lower()
 
 
 def test_evidence_strict_json():

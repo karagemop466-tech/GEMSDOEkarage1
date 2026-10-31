@@ -2,9 +2,13 @@
 
 **Current branch review first (2026-10-31, `arena/f645631f-gemsdoekarage1`): read `knowledge/review-arena-f645631f-20261031.md` and `evidence/run_card_arena_f645631f_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, required inputs, and complete authenticated registry remain unresolved. The site renderer and generated decision-page banners point to this review. Older session records are historical evidence, not current clearance.
 
+**Latest upstream review before this branch update (2026-10-31, `arena/38b8b045-gemsdoekarage1`):** read `knowledge/session-review-arena-38b8b045.md` and `evidence/session_38b8b045_run_card.json`. It records the nine-site mirror format audit and a 31 Oct leaderboard snapshot (#50 = 0.3195); neither is a submission receipt for a focus-site score.
+
 **Previous branch review (2026-10-31, `arena/946f7668-gemsdoekarage1`):** read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`. It ranked four research proposals; none was validated or cleared.
 
-**Prior upstream review (31 Oct 2026, `arena/830e1f79`):** read `knowledge/session-review-arena-830e1f79.md` and `evidence/session_830e1f79_run_card.json`. It separately rechecked official format wording and a live leaderboard; those time-sensitive claims are historical and do not supersede this branch review or the internal parallel-run protocol.
+**Supplemental same-day work from `arena/3184815e` (31 Oct 2026):** read `knowledge/hypotheses-20261031.md`, `knowledge/session-review-arena-3184815e.md`, and `evidence/session_3184815e_run_card.json` for five proposal-only hypotheses and their blockers. This proposal-only work precedes the current `f645631f` review; no TIF or experiment was cleared.
+
+**Prior upstream review (31 Oct 2026, `arena/830e1f79`):** read `knowledge/session-review-arena-830e1f79.md` and `evidence/session_830e1f79_run_card.json`. It separately rechecked official format wording and a live leaderboard; those time-sensitive claims are historical and do not supersede the current branch review or the internal parallel-run protocol.
 
 **Previous branch review (2026-10-30, `arena/cfabff7e-gemsdoekarage1`):** read `knowledge/session-review-arena-cfabff7e.md` and `evidence/session_cfabff7e_run_card.json` for the earlier safety review and its upstream merge context.
 
