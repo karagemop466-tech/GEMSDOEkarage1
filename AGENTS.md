@@ -1,5 +1,7 @@
 # Starting point for every session
 
+**CURRENT REVIEW (2026-10-31, `arena/d454d34a-gemsdoekarage1`): supersedes the entries below.** Verdict: **ELIGIBLE TO UPLOAD · NOT VALIDATED** for `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif` (format and literal uniqueness pass; no score is established; 0.2789 is PROJECTED). No slot selected or spent. Corrections: the kp1 metric identity was wrong (ceiling 1.0, not 0.556; marginal bar 0.0588 at 0.2778, not 0.0769; 0.0968 at 0.4413, not 0.158; coverage ratio about 1.6×, not 1.86×). The run-card max |ρ| 0.0076 does not reproduce (0.0115). Read `knowledge/review-arena-d454d34a-20261031.md` and `evidence/run_card_arena_d454d34a_20261031.json`. Older "PROMOTE" and "NEGATIVE" entries below conflict with each other and with this one.
+
 **CURRENT SESSION (2026-10-31, `arena/9a378959-gemsdoekarage1`): read `knowledge/kp1-why-gemsdoe32-scored-02778.md`, `knowledge/kp1-preregistration-20261031.md` and `evidence/kp1_run_card.json` first.** Verdict: **PROMOTE one file** — `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`. Format-valid on the saved bytes (15/15), unique against all nine focus rasters (max |Spearman| 0.0076, max 3-px overlap 26.5 %), zero mass inside the 2-px catalogue corridor, **PROJECTED** 0.2789 (not a score). No slot was spent.
 
 Three things a new session must not re-litigate, because they are measured:

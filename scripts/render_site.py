@@ -396,7 +396,7 @@ def nine_site_summary(p: str) -> str:
         f'<span class="cell-sub">{build["dots"]:,} dots · SHA-256 {esc(build["sha256"][:16])}… · generated this session</span></td>'
         f'<td><strong>{hold["pooled_dti"]:.4f}</strong><span class="cell-sub">HOLDOUT-DTI · gems57-pooled-hide-v2 · n={hold["withheld_positives"]:,} · 95% CI [{hold["ci95"][0]:.4f}, {hold["ci95"][1]:.4f}] (catalogue-pruned, conservative). Label-blind arm {base["pooled_dti"]:.4f} [{base["ci95"][0]:.4f}, {base["ci95"][1]:.4f}]; random placement {rnd["pooled_dti"]:.4f}</span></td>'
         '<td>Unavailable<span class="cell-sub">Holdout is a catalogue proxy, not the new-fault test set</span></td>'
-        f'<td><span class="pill pill-green">YES</span><span class="cell-sub">Worst of 15 pinned non-lattice rasters (incl. GEMS19 parent) {card["correlation_and_overlap_vs_registry"]["worst_focus_forward_3px_overlap"]:.1%}; max |ρ| {card["correlation_and_overlap_vs_registry"]["worst_focus_abs_spearman"]:.3f}</span></td>'
+        f'<td><span class="pill pill-neutral">YES</span><span class="cell-sub">Worst of 15 pinned non-lattice rasters (incl. GEMS19 parent) {card["correlation_and_overlap_vs_registry"]["worst_focus_forward_3px_overlap"]:.1%}; max |ρ| {card["correlation_and_overlap_vs_registry"]["worst_focus_abs_spearman"]:.3f}</span></td>'
         f'<td>{card["correlation_and_overlap_vs_registry"]["lattice_forward_3px_overlap"]:.1%}<span class="cell-sub">literal FAIL; floor {card["correlation_and_overlap_vs_registry"]["lattice_floor_forward_overlap"]:.1%}</span></td>'
         '<td><span class="pill pill-red">NO</span><span class="cell-sub">Negative: holdout ≈ random; lattice literal fail</span></td></tr>'
     )
@@ -454,7 +454,7 @@ def session_block(p: str) -> str:
     for r in summary['rows']:
         worst = r['worst_pair_3px_overlap_either_direction']
         if r['unique_vs_other_focus_sites']:
-            uniq = '<span class="pill pill-green">YES</span>'
+            uniq = '<span class="pill pill-neutral">YES</span>'
         else:
             uniq = ('<span class="pill pill-red">NO</span>'
                     f'<span class="cell-sub">pair overlap {worst["fraction"]:.2%} with {esc(worst["sibling"])} (MEASURED)</span>')
@@ -474,7 +474,7 @@ def session_block(p: str) -> str:
         f'<span class="cell-sub">{card["raster"]["dots"]:,} dots · SHA-256 {esc(card["raster"]["sha256"][:16])}… · research file, NOT CLEARED</span></td>'
         '<td>n/a<span class="cell-sub">no organizer score</span></td>'
         f'<td>NOT ESTIMABLE<span class="cell-sub">HOLDOUT-DTI {hd["value"]:.4f} [{hd["ci95"][0]:.4f}, {hd["ci95"][1]:.4f}] vs random {hd["random_control_value"]:.4f}</span></td>'
-        '<td><span class="pill pill-green">YES</span><span class="cell-sub">unique vs nine focus files; max forward 3 px overlap {card["registry_correlation_and_overlap"]["max_forward_3px_overlap_focus"]["value"]:.1%}</span></td>'
+        '<td><span class="pill pill-neutral">YES</span><span class="cell-sub">unique vs nine focus files; max forward 3 px overlap {card["registry_correlation_and_overlap"]["max_forward_3px_overlap_focus"]["value"]:.1%}</span></td>'
         f'<td><span class="pill pill-red">FAIL</span><span class="cell-sub">lattice forward 3 px overlap {lat:.2%} vs literal 70% limit</span></td>'
         '<td><span class="pill pill-red">NO</span><span class="cell-sub">Owner decision on the lattice gate first</span></td></tr>'
     )
@@ -508,11 +508,11 @@ def session_page(p: str) -> str:
 <p>SHA-256 <code class="wrap">{esc(raster["sha256"])}</code><br>{raster["dots"]:,} dots · {raster["bytes"]:,} bytes · single band float32 · zeros encoding · EPSG:32611 sample grid</p>
 <p><strong>Name:</strong> <code>{esc(card["name"])}</code><br><strong>Note ({card["note_chars"]} chars):</strong> {esc(card["note"])}</p></div></section>
 <section class="section"><div class="section-heading"><div><p class="eyebrow">GATES</p><h2>What passed and what did not.</h2></div></div><div class="table-shell"><div class="table-scroll" tabindex="0" role="region" aria-label="Gate results"><table><thead><tr><th>Gate</th><th>Result</th><th>Evidence</th></tr></thead><tbody>
-<tr><td>Validator (saved bytes)</td><td><span class="pill pill-green">PASS</span></td><td>{val["dots"]:,} dots · {val["nan_cells"]} NaN · values in [0,1] · {val["dots_outside_footprint"]} outside footprint · {val["dots_on_catalogue"]} on catalogue</td></tr>
-<tr><td>Uniqueness vs nine focus files</td><td><span class="pill pill-green">PASS</span></td><td>max forward 3 px overlap {cc["max_forward_3px_overlap_focus"]["value"]:.1%} ({esc(cc["max_forward_3px_overlap_focus"]["raster"][:24])}…); max |phi| {cc["max_abs_phi_focus"]["value"]:.3f}</td></tr>
-<tr><td>Surface correlation vs all registry rasters</td><td><span class="pill pill-green">PASS</span></td><td>max |Spearman| {cc["max_abs_surface_spearman_all_registry"]["value"]:.4f} (limit 0.90)</td></tr>
-<tr><td>Leakage canary</td><td><span class="pill pill-green">PASS</span></td><td>max single-feature AUC {card["leakage_canary"]["value"]:.4f} (limit 0.90)</td></tr>
-<tr><td>Holdout (HOLDOUT-DTI)</td><td><span class="pill pill-green">PASS_HOLDOUT_ONLY</span></td><td>DTI {hd["dti"]:.4f} [{hd["ci95"][0]:.4f}, {hd["ci95"][1]:.4f}] · random {hd["random_control_dti"]:.4f} · paired gain {hd["paired_delta_vs_random"]:+.4f} [{hd["paired_delta_vs_random_ci95"][0]:+.4f}, {hd["paired_delta_vs_random_ci95"][1]:+.4f}]</td></tr>
+<tr><td>Validator (saved bytes)</td><td><span class="pill pill-neutral">PASS</span></td><td>{val["dots"]:,} dots · {val["nan_cells"]} NaN · values in [0,1] · {val["dots_outside_footprint"]} outside footprint · {val["dots_on_catalogue"]} on catalogue</td></tr>
+<tr><td>Uniqueness vs nine focus files</td><td><span class="pill pill-neutral">PASS</span></td><td>max forward 3 px overlap {cc["max_forward_3px_overlap_focus"]["value"]:.1%} ({esc(cc["max_forward_3px_overlap_focus"]["raster"][:24])}…); max |phi| {cc["max_abs_phi_focus"]["value"]:.3f}</td></tr>
+<tr><td>Surface correlation vs all registry rasters</td><td><span class="pill pill-neutral">PASS</span></td><td>max |Spearman| {cc["max_abs_surface_spearman_all_registry"]["value"]:.4f} (limit 0.90)</td></tr>
+<tr><td>Leakage canary</td><td><span class="pill pill-neutral">PASS</span></td><td>max single-feature AUC {card["leakage_canary"]["value"]:.4f} (limit 0.90)</td></tr>
+<tr><td>Holdout (HOLDOUT-DTI)</td><td><span class="pill pill-neutral">PASS_HOLDOUT_ONLY</span></td><td>DTI {hd["dti"]:.4f} [{hd["ci95"][0]:.4f}, {hd["ci95"][1]:.4f}] · random {hd["random_control_dti"]:.4f} · paired gain {hd["paired_delta_vs_random"]:+.4f} [{hd["paired_delta_vs_random_ci95"][0]:+.4f}, {hd["paired_delta_vs_random_ci95"][1]:+.4f}]</td></tr>
 <tr><td>Lattice duplicate gate (literal 70%)</td><td><span class="pill pill-red">FAIL</span></td><td>forward 3 px overlap {cc["lattice_forward_3px_overlap"]:.2%} vs the 13GEMS lattice probe. Every dotted focus file also exceeds 70%.</td></tr>
 </tbody></table></div></div></section>
 <section class="section"><div class="section-heading"><div><p class="eyebrow">HOW TO SUBMIT</p><h2>Four steps. Step 3 is an owner decision.</h2></div></div><ol class="hypothesis-list">{step_html}</ol>
@@ -548,8 +548,9 @@ def kp1_banner(prefix: str) -> str:
     return (
         '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
         '<span aria-hidden="true">✅</span><p><strong>NEW · 31 OCT 2026 · '
-        '<a href="' + prefix + 'docs/kp1/index.html">OK TO SUBMIT: K-PROXY-DETECT GeoTIFF</a></strong> '
-        '— the only file on this site cleared for upload. '
+        '<a href="' + prefix + 'docs/kp1/index.html">ELIGIBLE TO UPLOAD · NOT VALIDATED: K-PROXY-DETECT GeoTIFF</a></strong> '
+        '— passes the format and literal-uniqueness gate only. It is not a measured or validated score improvement; '
+        'the 0.2789 figure is a projection, not a score. '
         '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + name +
         '" download>Download the .tif</a>'
         '<a href="' + prefix + 'docs/kp1/index.html">Executive summary, projected '
@@ -725,6 +726,85 @@ def _other_he1_ci() -> tuple:
     return float(lo), float(hi)
 
 
+def session_d454_panel(prefix: str) -> str:
+    """Current-session (arena/d454d34a, 31 Oct 2026) executive table.
+
+    Every number is read from evidence/registry_overlap_matrix_20261031.json (recomputed from
+    registry/*.tif), evidence/run_card_arena_d454d34a_20261031.json, or the USER-REPORTED file
+    registry/user_reported_nine_sites_20261029.json. No projection is shown as a score.
+    """
+    import json as _json
+    from pathlib import Path as _Path
+    root = _Path(__file__).resolve().parents[1]
+    ov = _json.loads((root / 'evidence/registry_overlap_matrix_20261031.json').read_text())
+    card = _json.loads((root / 'evidence/run_card_arena_d454d34a_20261031.json').read_text())
+    user = _json.loads((root / 'registry/user_reported_nine_sites_20261029.json').read_text())
+    user_labels = [(f['label'], f['user_reported_score'], s['site']) for s in user['sites'] for f in s['files']]
+    # (site, registry file, substring of the user-reported label, neighbour for display)
+    focus = [
+        ('GEMSDOE24', 'GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif', 'h25-1-dotted-h19-5'),
+        ('GEMSDOE25', 'GEMSDOE25_d28.tif', 'dotted-h19-5-d2-8'),
+        ('GEMSDOE27', 'GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif', 'topo-gap-closure-t-v2'),
+        ('GEMSDOE28', 'GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif', 'h36-1-rung30-blind'),
+        ('GEMSDOE30', 'GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif', 'd28-poisson300m-offcat'),
+        ('GEMSDOE31', 'GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif', 'h27-4-solo-d28'),
+        ('GEMSDOE32', 'GEMSDOE32_B2.tif', 'h33-h33-2-b2'),
+        ('GEMSDOE33', 'GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif', 'h33d-analog-tip-stepover'),
+        ('GEMSDOE36', 'GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif', 'anderson-geothermal-pinn-38854'),
+    ]
+    names = ov['names']
+    share = ov['share_row_within_3px_of_col']
+    rows = []
+    for site, fname, key in focus:
+        score = next((s for lab, s, st in user_labels if key in lab and st == site), None)
+        i = names.index(site)
+        j_best = max((k for k in range(len(names) - 1) if k != i), key=lambda k: share[i][k])
+        worst = share[i][j_best]
+        worst_txt = '100 %' if worst >= 0.9995 else f'{worst * 100:.1f} %'
+        rows.append(
+            '<tr>'
+            f'<th scope="row">{site}</th>'
+            f'<td><code class="wrap">{fname}</code><span class="cell-sub">Registry copy (local mirror) · research</span></td>'
+            f'<td><strong>{score:.4f}</strong><span class="cell-sub">USER-REPORTED · UNVERIFIED (no organizer receipt)</span></td>'
+            f'<td><span class="pill pill-red">NO</span><span class="cell-sub">{worst_txt} of its dots within 3 px of {names[j_best]}; limit 70 %</span></td>'
+            '<td><span class="pill pill-red">DO NOT SUBMIT</span><span class="cell-sub">Duplicate of a focus site; do not re-upload</span></td>'
+            '</tr>')
+    kp1 = card['raster']
+    kp1_name = kp1['path'].split('/')[-1]
+    kp1_row = (
+        '<tr class="candidate-row">'
+        '<th scope="row">Candidate (new)</th>'
+        f'<td><code class="wrap">{kp1_name}</code>'
+        f'<span class="cell-sub"><a href="{prefix}docs/kp1/index.html">Candidate page ↗</a></span></td>'
+        '<td><strong>Not estimated.</strong><span class="cell-sub">Projection 0.2789 is PROJECTED from a 3-parameter fit to nine unverified scores; it is not a score. HOLDOUT-DTI off-catalogue 0.0764 (95% CI [-0.0034, +0.0260] vs matched random).</span></td>'
+        f'<td><span class="pill pill-neutral">YES</span><span class="cell-sub">{ov["kp1_max_share_into_focus"]:.1%} max within 3 px of any focus file; limit 70 %</span></td>'
+        '<td><span class="pill">ELIGIBLE TO UPLOAD · NOT VALIDATED</span><span class="cell-sub">Format and uniqueness pass. Using a weekly slot is an owner decision.</span></td>'
+        '</tr>')
+    return (
+        '<section class="section nine-site-answer" id="answer-d454d34a" aria-labelledby="answer-d454-title">'
+        '<div class="section-heading"><div>'
+        '<p class="eyebrow"><span class="eyebrow-line"></span> CURRENT REVIEW · 31 OCT 2026 · arena/d454d34a</p>'
+        '<h2 id="answer-d454-title">Can I download and submit? One file is eligible, not validated.</h2>'
+        '<p><strong>Eligible, not endorsed.</strong> The kp1 GeoTIFF passes the format and literal-uniqueness gate. '
+        'Nothing here measures its score, so it is not a validated improvement over 0.2778. '
+        'GEMSDOE32 B2 (0.2778, USER-REPORTED) is the best reported focus file; it is an exact subset of GEMSDOE25 and cannot be re-submitted for a new result. '
+        'The live organizer #1 is 0.4544 (ORGANIZER-PUBLIC, 31 Oct 2026); 0.4413 does not appear in ranks 1–47.</p>'
+        f'<p><a class="button button-dark" href="{prefix}docs/downloads/{kp1_name}" download>Download the kp1 .tif ↓</a> '
+        f'<a class="text-link" href="{prefix}docs/kp1/index.html">Candidate page ↗</a> '
+        f'<a class="text-link" href="{prefix}knowledge/review-arena-d454d34a-20261031.md">Full review ↗</a> '
+        f'<a class="text-link" href="{prefix}evidence/run_card_arena_d454d34a_20261031.json">Run card (JSON) ↗</a></p>'
+        f'<p class="cell-sub">SHA-256 <code class="wrap">{kp1["sha256"]}</code> · EPSG:32611 · float32 · values in [0, 1] · 32,000 dots</p>'
+        '</div></div>'
+        '<div class="table-shell"><div class="table-scroll" tabindex="0" role="region" aria-label="Per-site download and uniqueness verdict, 31 Oct 2026">'
+        '<table><thead><tr><th>Site</th><th>File to download</th><th>Estimate (label)</th><th>Unique vs the other listed sites?</th><th>Download / submit</th></tr></thead>'
+        f'<tbody>{"".join(rows)}{kp1_row}</tbody></table></div></div>'
+        '<p class="cell-sub">Labels: USER-REPORTED = supplied scores, unverified. HOLDOUT-DTI = catalogue hide-and-recover proxy. '
+        'PROJECTED = not a score. ORGANIZER-PUBLIC = live leaderboard fetched 31 Oct 2026. '
+        'Overlap: <code>scripts/verify_registry_overlap_20261031.py</code> → <code>evidence/registry_overlap_matrix_20261031.json</code>. '
+        'Several rows above are the best-reported file for each site; other user-reported files for the same site are in the Submission guide.</p>'
+        '</section>')
+
+
 def session_31_panel(prefix: str) -> str:
     """Top-of-page panel for the 31 Oct 2026 label-blind Euler experiments.
 
@@ -823,7 +903,7 @@ def _h_e1_candidate_row(prefix: str) -> str:
         '<span class="cell-sub">HOLDOUT-DTI (gems57-pooled-hide-v2), not a public score; '
         f'matched random null {h["matched_random_null_pooled_mean_seeds_101_202_303"]:.4f}</span></td>'
         '<td>Not estimable<span class="cell-sub">HOLDOUT-DTI does not rank catalogue-derived submissions</span></td>'
-        f'<td><span class="pill pill-green">YES</span><span class="cell-sub">Worst of {c["dotted_rasters_le_100k_positive_cells_count"]} dotted local rasters {c["dotted_rasters_le_100k_max_my_dots_within_3px"]:.1%}; '
+        f'<td><span class="pill pill-neutral">YES</span><span class="cell-sub">Worst of {c["dotted_rasters_le_100k_positive_cells_count"]} dotted local rasters {c["dotted_rasters_le_100k_max_my_dots_within_3px"]:.1%}; '
         f'worst focus-site file {c["focus_site_rasters_max_my_dots_within_3px"]:.1%}; max |ρ| {c["surface_max_abs_spearman_vs_registry"]:.3f}</span></td>'
         '<td><span class="pill pill-red">NO · HOLD</span>'
         f'<span class="cell-sub">Literal 70% lattice gate fails: {lattice_actual:.1%} actual; floor for {n_dots:,} dots is {lattice["min_forward_overlap_for_n_dots"]:.1%}. Owner ruling required.</span></td></tr>'
@@ -1197,9 +1277,9 @@ def main():
         DOCS / 'submission-hub.html': shell('Submit now: executive summary and download', session_block('../') + submission_hub.body(hub, 1), 1, 'Submit now'),
         DOCS / 'submission-20261031.html': shell('Live submission status · 31 Oct 2026', session_page('../'), 1, 'Submit now'),
         ROOT / 'legacy-overview.html': shell('Submission overview', home(0), 0),
-        ROOT / 'executive-summary.html': shell('Submission guide', session_block('') + session_31_panel('') + nine_site_section('') + guide(0), 0, 'Executive summary'),
+        ROOT / 'executive-summary.html': shell('Submission guide', session_d454_panel('') + session_block('') + session_31_panel('') + nine_site_section('') + guide(0), 0, 'Executive summary'),
         DOCS / 'index.html': shell('Submission overview', session_block('../') + submission_hub.summary_strip(1) + home(1), 1),
-        DOCS / 'executive-summary.html': shell('Executive summary', session_block('../') + session_31_panel('../') + nine_site_section('../') + guide(1), 1, 'Executive summary'),
+        DOCS / 'executive-summary.html': shell('Executive summary', session_d454_panel('../') + session_block('../') + session_31_panel('../') + nine_site_section('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'legacy-executive-summary.html': shell('Executive summary', guide(1), 1, 'Executive summary'),
         DOCS / 'how-to-submit.html': shell('Submission guide', session_block('../') + session_page_steps('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'submission-guide.html': shell('Submission guide', guide(1), 1, 'Executive summary'),

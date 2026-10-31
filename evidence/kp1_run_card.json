@@ -1,6 +1,6 @@
 {
  "schema": "gems-run-card-v1",
- "lane": "H-KP1 \u00b7 K-PROXY-DETECT",
+ "lane": "H-KP1 · K-PROXY-DETECT",
  "session": "arena/9a378959-gemsdoekarage1",
  "date": "2026-10-31",
  "hypothesis": "Faults absent from the USGS/INGENIOUS catalogue are thermo-tectonic fluid conduits: structural boundaries that several independent potential fields see at once, that carry hydrothermal springs, that show potassium-metasomatism alteration in Th/K and U/K, and whose geomorphic scarp is still fresh in 1 m LiDAR. Each mechanism alone has a well-known non-fault mimic; requiring a geometric-mean consensus across all of them suppresses the mimics.",
@@ -134,5 +134,24 @@
  "what_would_change_the_verdict": [
   "an organizer receipt for this file (replaces the projection with a measurement)",
   "a cand validation showing the surface is <10 % better than the champion's - then the file should be withdrawn"
- ]
+ ],
+ "historical_verdict_20261031": "promote",
+ "owner_review_status": {
+  "status": "ELIGIBLE TO UPLOAD · NOT VALIDATED",
+  "set_by": "arena/d454d34a-gemsdoekarage1 review, 2026-10-31",
+  "superseded_fields": {
+   "metric_analysis.ceiling": "0.556 is an algebra error; correct value 1.0",
+   "metric_analysis.marginal_bar_at_0_2778": "0.0769 is an algebra error; correct value 0.0588",
+   "metric_analysis.marginal_bar_at_0_4413": "0.158 is an algebra error; correct value 0.0968",
+   "correlation_and_overlap_vs_registry.max_abs_spearman": "0.007607 does not reproduce; recomputed 0.011540 (evidence/registry_overlap_matrix_20261031.json)",
+   "banner_text": "'OK TO SUBMIT' overstated the gate, which checks format, literal uniqueness and catalogue mass only; now 'ELIGIBLE TO UPLOAD · NOT VALIDATED'"
+  },
+  "not_established": [
+   "score improvement over 0.2778",
+   "any organizer-confirmed score",
+   "validator match to official sample_submission (data/ absent)"
+  ],
+  "review": "knowledge/review-arena-d454d34a-20261031.md",
+  "run_card": "evidence/run_card_arena_d454d34a_20261031.json"
+ }
 }

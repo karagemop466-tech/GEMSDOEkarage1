@@ -143,12 +143,15 @@ def main() -> None:
     proj = gate["projection"]
     ok = bool(gate["decision"]["ok_to_submit"])
     status_class = "ok" if ok else "alert"
-    status_pill = '<span class="pill">OK TO SUBMIT</span>' if ok else '<span class="pill warn">DO NOT SUBMIT</span>'
+    status_pill = ('<span class="pill">ELIGIBLE TO UPLOAD · NOT VALIDATED</span>' if ok
+                   else '<span class="pill warn">DO NOT SUBMIT</span>')
 
     # ---------------------------------------------------------------- index
     download_block = f"""<div class="{status_class}">
 <p style="margin:0 0 6px">{status_pill}</p>
-<p class="big">{'OK TO SUBMIT — this file is cleared for upload' if ok else 'DO NOT SUBMIT — this file is not cleared'}</p>
+<p class="big">{'ELIGIBLE TO UPLOAD — format and uniqueness pass; the score is not validated' if ok else 'DO NOT SUBMIT — this file is not cleared'}</p>
+<p><small>The release gate checks format, literal uniqueness and catalogue mass only. It does not check
+that the file beats 0.2778. Uploading uses one of three weekly slots and is an owner decision.</small></p>
 <p>Download the single-band GeoTIFF, upload it to the DrivenData submission page, and nothing
 else. It is not a copy of any of the nine focus submissions, it is not built from them, and it
 uses no organizer-confirmed receipt because none exists.</p>
@@ -324,7 +327,7 @@ random dots would.</li>
 <ol>
 <li>An organizer receipt for the upload. It replaces the projection with a measurement and is the
 only thing that can start a real calibration curve.</li>
-<li>A surface whose per-dot truth rate clears 0.0769 (the exact marginal bar at 0.2778). Nothing in
+<li>A surface whose per-dot truth rate clears {metric_a['what_beats_2778']['0.2778']['marginal_dT_bar']:.4f} (the corrected marginal bar at 0.2778; an earlier 0.0769 was an algebra error). Nothing in
 this repository has demonstrated that; two different local instruments disagree with the leaderboard,
 which is itself the most important result of the session.</li>
 </ol>
@@ -360,7 +363,8 @@ which is itself the most important result of the session.</li>
 <p class="eyebrow">Metric analysis</p>
 <h1>Why 0.2778, and what it would take to beat it</h1>
 <p>The published metric, for a binary dot field, reduces exactly to</p>
-<p class="research">DTI = T / ( alpha·(n − M) + beta·|G| + T ),  alpha = 0.2, beta = 0.8</p>
+<p class="research">DTI = T / ( (1 − beta)·T + alpha·(n − M) + beta·|G| ),  alpha = 0.2, beta = 0.8</p>
+<p><small>Corrected 31 Oct 2026: the coefficient on <code>T</code> is <code>1 − beta</code> (0.2), not 1. Checked against the literal oracle <code>gems57.metric.dti_bruteforce</code>; see <code>tests/test_metric_identity_20261031.py</code>.</small></p>
 <p>with <code>n</code> dots, <code>T</code> the truth credit they cover, <code>M</code> their own
 self-credit and <code>|G|</code> the number of truth cells. Two consequences decide everything:</p>
 <ul>
@@ -386,10 +390,10 @@ the catalogue (which is collinear with dot count within this family). That is th
 "nine points on one family", and it is why 0.2778 is a <em>position</em> rather than an idea.</p>
 
 <h2>The ceiling, and what the leaderboard numbers imply</h2>
-<p>A dot field with perfect knowledge cannot exceed <strong>1/(1+beta) =
-{metric_a['ceiling_perfect_knowledge']:.3f}</strong> once every truth cell is covered: the
-false-negative weight is a hard tax on an un-covered truth cell. That places 0.4544 at 82 % of the
-theoretical maximum of the submission format.</p>
+<p>A dot field with perfect knowledge (every truth cell covered, no dot wasted) scores
+<strong>{metric_a['ceiling_perfect_knowledge']:.1f}</strong>. An earlier version of this page said
+1/(1+beta) = 0.556; that was an algebra error. Against the corrected ceiling, the live #1 score of
+0.4544 is {0.4544 / metric_a['ceiling_perfect_knowledge']:.0%} of the maximum.</p>
 {('<p>The frontier for a perfectly placed field (dots = covered truth cells, |G| = 60,988):</p>' + table(['Dots', 'Score'], frontier_rows)) if frontier_rows else ''}
 <p>Inverting the reported leaderboard numbers for the truth credit they imply at B2's dot budget:</p>
 {table(['Target', 'Assumed |G|', 'Required coverage', 'Required credit per dot', 'Geometrically possible'], demand)}

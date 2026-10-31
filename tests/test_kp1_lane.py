@@ -156,7 +156,7 @@ def test_site_pages_are_rendered_from_the_gate():
     index = (ROOT / "docs" / "kp1" / "index.html").read_text()
     assert gate["sha256"] in index
     assert f'{gate["projection"]["projected_value"]:.4f}' in index
-    assert "OK TO SUBMIT" in index
+    assert "ELIGIBLE TO UPLOAD" in index and "NOT VALIDATED" in index
     assert "Download the GeoTIFF" in index
     assert "Table 1" in index
     for rel in ("kp1/index.html", "kp1/executive-summary.html", "kp1/nine-sites.html",
@@ -169,7 +169,7 @@ def test_landing_page_banner_is_fail_closed(tmp_path, monkeypatch):
     sys.path.insert(0, str(ROOT))
     from scripts import render_site
     good = render_site.kp1_banner("")
-    assert "OK TO SUBMIT" in good and "Download the .tif" in good
+    assert "ELIGIBLE TO UPLOAD" in good and "NOT VALIDATED" in good and "Download the .tif" in good
 
     # a receipt that clears nothing must demote the banner
     tampered = tmp_path / "gate.json"

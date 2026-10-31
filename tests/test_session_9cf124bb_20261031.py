@@ -126,7 +126,9 @@ def test_hypothesis_h_o2_is_not_marked_validated():
 
 def test_readme_leads_with_core_values_and_current_review():
     text = (ROOT / "README.md").read_text(encoding="utf-8")
-    head = text[:4000]
-    assert head.index("CORE VALUES") < head.index("CURRENT REVIEW (read first) — session `arena/9cf124bb")
+    # Updated 31 Oct 2026 (arena/d454d34a): the current review block is now the first block after
+    # CORE VALUES and sits beyond 4,000 characters, so the head window is widened to 8,000.
+    head = text[:8000]
+    assert head.index("CORE VALUES") < head.index("CURRENT REVIEW — `arena/d454d34a")
     assert "Maximize P(Win)" in head and "Own the Outcome" in head
     assert "normalized copy" in text
