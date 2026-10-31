@@ -1,6 +1,6 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## LATEST REVIEW (read first) — session `arena/b2a6d9d1-gemsdoekarage1` (31 Oct 2026)
+## Session review — `arena/b2a6d9d1-gemsdoekarage1` (31 Oct 2026)
 
 **Status: NOT CLEARED — DO NOT DOWNLOAD OR SUBMIT.** No new TIF, holdout, or slot selection.
 - **Leaderboard corrected, live 31 Oct 2026:** #1 = **0.4544**; #2 = 0.3925; **0.3195 is rank #50** (not the top score); 0.4413 is not in the top 50. [Leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
