@@ -86,3 +86,66 @@ release gate. No submission slot was spent by this session; uploading is the own
    untested idea and is blocked only by the sandbox network allowlist.
 4. Ask the protocol owner to rule on the two saturated gates (uniqueness, holdout) before any further
    parallel sessions repeat them.
+
+---
+
+# Second pass — after the data was restored
+
+The first pass ran without the competition rasters in the checkout. Once they were restored,
+the three experiments were re-run against real bytes and two claims from the first pass had to
+be corrected. Both corrections are recorded here rather than quietly dropped.
+
+## Correction 1 — "fewer dots is better" was the wrong mechanism
+
+First pass: "the score rises as the dot count falls, so emit fewer dots."
+Re-check: at *fixed* surface quality, more dots is **always** better, because
+`DTI = h·y_t / (alpha·(1 + h·(y_t − y_m)))` is approached from below and `beta·|G|` dominates
+a small field. What the nine files show is that their *last* dots carry a lower hit rate — the
+marginal dot fell below `alpha·s/(1−s)` — so deleting them helped. The corrected statement is
+in `evidence/kp1_metric_analysis.json` and in the gate's `mechanism_scenarios`, which now
+reports the surface improvement this file needs (13.5–15.3 %) instead of a dot-count gain that
+does not exist.
+
+## Correction 2 — the first "external instrument" was circular
+
+First pass: "SGMC dots cannot reach catalogue cells that are >3 px from SGMC, therefore the
+instrument is broken." That test was circular by construction — the truth set was defined by
+*prediction-reachability*. The instrument that replaced it trains on the off-catalogue inventory
+itself and scores leave-one-quadrant-out, which is a real test. Its result is the strongest
+finding of the session and it is negative for the whole approach: a detector trained on the
+catalogue scores **three times worse than random** on off-catalogue faults (0.0027 vs 0.0372 at
+the same dot budget), and a detector with genuine held-out ranking skill (AUC 0.749) still loses
+to random dots because the metric pays for coverage, not precision.
+
+## What this means for the submission
+
+The candidate is kept, because (a) it passes every mechanical gate on saved bytes, (b) it beats
+a matched random field by 19.3 % on the only independent fault inventory available, and (c) it
+is the only raster in the set that is not a member of the nine-file family (max |rho| 0.0076,
+max 3-px overlap 26.5 %). It is **not** claimed to beat 0.2778: the projection says
++0.0020, which is inside the noise of a nine-point OLS, and the page says so.
+
+## Three-pass checklist against the original request
+
+| request | delivered | where |
+|---|---|---|
+| explain why GEMSDOE32 B2 scored 0.2778 | yes — dot count (rho −0.967), clumping, catalogue distance, and the exact marginal bar | `docs/kp1/metric.html`, `knowledge/kp1-why-gemsdoe32-scored-02778.md` |
+| can a score above 0.2778 / 0.3195 / 0.4413 be generated | answered with arithmetic: +0.002 projected; 1.33x and 1.86x surface accuracy required; not demonstrated | `docs/kp1/metric.html` |
+| executive summary for every site + table (file, estimate, uniqueness) | yes, Table 1 on the decision page and the per-site table on the executive summary | `docs/kp1/index.html`, `docs/kp1/executive-summary.html` |
+| a genuinely new, unique, downloadable TIF, obviously OK / DO-NOT-SUBMIT | yes — 32,000 dots, zero catalogue mass, 26.5 % max overlap, green banner rendered from the gate and fail-closed | `docs/downloads/…20261031.tif` |
+| 3–5 new geological hypotheses, ranked by gain/cost, top validated on a blocked holdout | yes — five ranked, and the top one is validated on a spatially blocked independent inventory with a block bootstrap | `docs/kp1/research.html`, `evidence/kp1_exp3_comparison.json` |
+| three-pass implementation, PR, remaining work and limits | yes — this document, the PR, and §7 of the preregistration | this file |
+| standing prompt in the README, clean site with official sources | yes | `README.md`, `docs/kp1/sources.html` |
+
+## Remaining work, in priority order
+
+1. Upload the file and record the returned score against its SHA-256. Nothing can replace the
+   projection without it, and it is the first datum that could start a real calibration curve.
+2. If the receipt is more than ~0.03 from the projection, treat the covariate model as
+   falsified and stop spending slots on geometry-only designs.
+3. Ask the protocol owner to rule on the two saturated gates (literal 3-px uniqueness, and the
+   hide-and-recover holdout). Both currently reject files the leaderboard scores at 0.2778, so
+   they cannot be promotion gates as written.
+4. The one route to a step change rather than a percent is independent expert fault traces. The
+   state compilation used here is already 79,615 cells of faults that are not in the catalogue;
+   a systematic search for further public compilations is worth more than another lattice pass.
