@@ -23,7 +23,8 @@ if str(ROOT) not in _sys.path:
     _sys.path.insert(0, str(ROOT))
 from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
-CURRENT_REVIEW_CARD = ROOT / 'evidence/session_cfabff7e_run_card.json'
+CURRENT_REVIEW_CARD = ROOT / 'evidence/session_3184815e_run_card.json'
+CURRENT_REVIEW_SESSION = 'arena/3184815e-gemsdoekarage1'
 esc = html.escape
 
 
@@ -34,12 +35,12 @@ def current_review():
 
     card = json.loads(CURRENT_REVIEW_CARD.read_text(encoding='utf-8'), parse_constant=_reject_constant)
     expected_paths = {
-        'review_path': 'knowledge/session-review-arena-cfabff7e.md',
-        'run_card_path': 'evidence/session_cfabff7e_run_card.json',
+        'review_path': 'knowledge/session-review-arena-3184815e.md',
+        'run_card_path': 'evidence/session_3184815e_run_card.json',
     }
     holdout = card.get('holdout_dti')
     if (card.get('schema') != 'karage1-run-card-v1'
-            or card.get('session') != 'arena/cfabff7e-gemsdoekarage1'
+            or card.get('session') != CURRENT_REVIEW_SESSION
             or card.get('verdict') != 'negative'
             or card.get('ok_to_submit') is not False
             or card.get('new_candidate_generated') is not False
@@ -49,7 +50,11 @@ def current_review():
             or card.get('slot_selected_or_spent') is not False
             or card.get('geological_experiments_run') != 0
             or not isinstance(holdout, dict) or holdout.get('value') is not None
-            or not isinstance(card.get('review_date'), str)):
+            or not isinstance(card.get('review_date'), str)
+            or not isinstance(card.get('homepage_summary'), str)
+            or not card.get('homepage_summary').strip()
+            or len(card.get('submission_note', '')) > 140
+            or card.get('submission_note_chars') != len(card.get('submission_note', ''))):
         raise ValueError('current review card is incomplete or not fail-closed')
     for field, expected in expected_paths.items():
         rel = card.get(field)
@@ -289,7 +294,7 @@ def status_line(p: str) -> str:
     review = current_review()
     return (
         '<strong>DO NOT SUBMIT</strong> · NOT CLEARED · '
-        f'Latest review {esc(review["review_date"])}: no file cleared; this repository-safety review produced no candidate or score estimate · no approved download · '
+        f'Latest review {esc(review["review_date"])}: {esc(review["homepage_summary"])} · no approved download · '
         f'<a href="{esc(p + review["review_path"], quote=True)}">review</a> · '
         f'<a href="{esc(p + review["run_card_path"], quote=True)}">JSON run card</a>'
     )
@@ -348,6 +353,7 @@ def nine_site_summary(p: str) -> str:
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
     p = '../' * depth
     doc = p + 'docs/'
+    review = current_review()
     links = [('Overview', p + 'index.html'), ('Submit now', doc + 'submission-hub.html'),
              ('Executive summary', doc + 'executive-summary.html'),
              ('Research', doc + 'research.html')]
@@ -361,7 +367,7 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation">{nav}</nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
 <div class="container"><p class="global-hold">{status_line(p)}</p></div></header>
-<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/session_cfabff7e_run_card.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}{review["run_card_path"]}">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
 
 
 def session_evidence():
@@ -603,8 +609,10 @@ def guide(depth=1):
 
 def research(depth=1):
     p = '../' * depth
-    return f'''<div class="page-top"><span>OVERVIEW <span class="separator">/</span> RESEARCH</span><span class="page-date">REVIEWED 28 OCT 2026</span></div><section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> SCIENCE BEFORE SCORING</p><h1>Understand the ground.<br><em>Respect the unknown.</em></h1><p>The target is previously unmapped geological faults, not direct proof of a geothermal vent.</p></section>
-<section class="notice"><span aria-hidden="true">ⓘ</span><p><strong>Research only:</strong> A prior parallel session ran three BB-STEP experiments and another generated Conduitcrest. Both fail the literal lattice gate. No geological experiment was run by the active `9ca08e2e` audit session. Novelty across the whole fleet remains unverified; HOLDOUT-DTI is not an organizer score.</p></section>
+    review = current_review()
+    return f'''<div class="page-top"><span>OVERVIEW <span class="separator">/</span> RESEARCH</span><span class="page-date">REVIEW UPDATED {esc(review['review_date'])}</span></div><section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> SCIENCE BEFORE SCORING</p><h1>Understand the ground.<br><em>Respect the unknown.</em></h1><p>The target is previously unmapped geological faults, not direct proof of a geothermal vent.</p></section>
+<section class="notice"><span aria-hidden="true">ⓘ</span><p><strong>Current research slate · {esc(review['review_date'])}:</strong> five conditional hypotheses are documented, but none was run or validated. No file is cleared and there is no approved TIF download. The preferred first research question is CP-DPCS only after the lane, canonical shared template, authenticated inputs, and shared-tool provenance are resolved. <a href="{p}knowledge/hypotheses-20261031.md">Read candidate layers, mechanisms, mimics and blockers ↗</a> · <a href="{p}knowledge/session-review-arena-3184815e.md">Three-pass review ↗</a> · <a href="{p}evidence/session_3184815e_run_card.json">JSON run card ↗</a></p></section>
+<section class="notice"><span aria-hidden="true">ⓘ</span><p><strong>Historical research only:</strong> Prior sessions ran BB-STEP and generated Conduitcrest; recorded outcomes are negative under the internal lattice gate. The previous `9ca08e2e` audit's research proposals are not current approvals. Novelty across the whole fleet remains unverified; HOLDOUT-DTI is not an organizer score.</p></section>
 <section class="section detail-grid" id="b2"><div><p class="eyebrow"><span class="eyebrow-line"></span> WHAT THE BYTES SHOW</p><h2>Why B2 may have worked.</h2></div><div class="prose-card"><p>Cross-site binary-mask algebra establishes a collar-ablation ladder on the identical GEMSDOE25/GEMSDOE30 parent mask (44,090 dots): removing 3,891 dots within 1 pixel of the mirrored catalogue yields GEMSDOE31 and GEMSDOE28 h27-4-r1 (40,199 dots, 0.2708 user-reported); removing 6,436 dots within 2 pixels yields GEMSDOE32 B2 (37,654 dots, 0.2778 user-reported). GEMSDOE36 (38,854 dots, 0.2750 user-reported) is an exact superset that adds 1,200 off-catalogue dots.</p><p>For the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">organizer metric</a>, deleting near-catalogue digitization halos helps only if saved false-positive penalty outweighs lost distance-weighted recall. Firsthand inspection of restored <code>training_features.tif</code> found 3,073 raw float32 nodata pixels inside the submission footprint and strictly positive Band 6 <code>tc</code> curvature values, both requiring explicit inference masking.</p><p>The reported 0.2778 is an unverified user report. No experiment in the active session establishes a higher leaderboard result. <a class="text-link" href="{p}knowledge/session-review-arena-9ca08e2e.md">Read the complete forensic &amp; 9-site audit ↗</a></p></div></section>
 <section class="section" id="hypotheses"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> RANKED HYPOTHESES</p><h2>One executed. Four still qualitative.</h2><p>Latest session <code>1668dda0</code> preregistration slate: Cross-Potential Dip-Polarity Co-Gradient Step (<code>CP-DPCS</code>), Biharmonic Elastic Relay-Bridge Stress-Transfer Corridor (<code>BERB-STC</code>), Wavelet-Destriped Potassium-Residual Magnetics Trough (<code>WD-KRMT</code>), and Cross-Fan Drainage-Incision Knickzone Alignment (<code>CF-DIKA</code>). <a href="{p}knowledge/session-review-arena-1668dda0.md#4-pre-implementation-generation--qualitative-ranking-of-four-untried-geological-hypotheses">Exact layers, off-catalogue rationale, non-fault mimics and sibling differences ↗</a></p><p>Additional session a1ef4ce0 preregistration slate: magnetic texture change points, paired block-tilt breaks and magnetic edge-network severance. All are untested proposals, not assigned lanes. <a href="{p}knowledge/session-review-arena-a1ef4ce0.md#2-preregistered-research-slate--proposals-only-not-assigned-lanes">Layers, confounders, relative cost and validation blockers ↗</a></p><p>Ordering reflects qualitative promise relative to cost, not a predicted DTI improvement. BB-STEP used only competition gravity, depth-to-basement, slope and RTP bands restored from hash-pinned mirrors.</p></div></div><div class="hypothesis-grid">
 <article class="hypothesis-card"><span class="hypothesis-rank">00 <span>EXECUTED · NEGATIVE</span></span><h3>Buried basement-step (BB-STEP)</h3><p>Isostatic-gravity and depth-to-basement NMS ridges, sign-invariant alignment, low topographic-slope veto. Targets intra-basin faults the scarp catalogue misses. Max leakage-canary AUC 0.53. Unique vs nine focus sites (12.6%); lattice 98.5%.</p><div><b>Confounders:</b> lithologic contacts, volcanic-flow density edges, basin-fill compaction.</div><small>Opposite of H19-5 / GPC-Z (slope is a veto). Fold-local HOLDOUT-DTI 0.0318 [0.0271, 0.0363], evaluator gemsk-hide-recover-v1, n=60,988. Not an organizer score.</small></article>

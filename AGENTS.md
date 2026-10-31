@@ -1,6 +1,8 @@
 # Starting point for every session
 
-**Current branch review first (2026-10-30, `arena/cfabff7e-gemsdoekarage1`): read `knowledge/session-review-arena-cfabff7e.md` and `evidence/session_cfabff7e_run_card.json`.** Verdict NEGATIVE / DO NOT SUBMIT; this review generated no TIF, score estimate, geological experiment, or slot selection. The shared lane/template, authenticated inputs, and complete registry remain unresolved.
+**Current branch review first (2026-10-31, `arena/3184815e-gemsdoekarage1`): read `knowledge/session-review-arena-3184815e.md`, `knowledge/hypotheses-20261031.md`, and `evidence/session_3184815e_run_card.json`.** Verdict NEGATIVE / DO NOT SUBMIT. The review produced no TIF, holdout, score estimate, or slot selection. Five conditional research candidates are documented; none was run because the lane/template, authenticated inputs and provenance blockers remain unresolved.
+
+**Previous branch review:** read `knowledge/session-review-arena-cfabff7e.md` and `evidence/session_cfabff7e_run_card.json` for its nine-site audit and safety fix.
 
 **Latest merged mainline experiment (2026-10-30, `arena/a8e4de2e`): read `knowledge/session-review-arena-a8e4de2e.md`, `knowledge/hypotheses-20261030.md`, `evidence/run_card_h_r1_20261030.json`, and `evidence/exp_h_r1_kth_magedge_20261030.json`.** H-R1 used 1 of 3 experiments and created a research-only TIF; its preregistered verdict is negative, nothing is cleared, and it must not be submitted. This is a separate upstream session, not work from the current review.
 
