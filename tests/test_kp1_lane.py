@@ -159,7 +159,7 @@ def test_site_pages_are_rendered_from_the_gate():
     index = (ROOT / "docs" / "kp1" / "index.html").read_text()
     assert gate["sha256"] in index
     assert f'{gate["projection"]["projected_value"]:.4f}' in index
-    assert "OK TO SUBMIT" in index
+    assert "DO NOT SUBMIT" in index and "not cleared" in index
     assert "Download the GeoTIFF" in index
     assert "Table 1" in index
     for rel in ("kp1/index.html", "kp1/executive-summary.html", "kp1/nine-sites.html",
@@ -172,7 +172,7 @@ def test_landing_page_banner_is_fail_closed(tmp_path, monkeypatch):
     sys.path.insert(0, str(ROOT))
     from scripts import render_site
     good = render_site.kp1_banner("")
-    assert "OK TO SUBMIT" in good and "Download the .tif" in good
+    assert "no file cleared" in good  # gate is on hold, so the banner must demote
 
     # a receipt that clears nothing must demote the banner
     tampered = tmp_path / "gate.json"
@@ -195,7 +195,7 @@ def test_landing_page_banner_is_fail_closed(tmp_path, monkeypatch):
 
 def test_old_artifacts_are_still_marked_do_not_submit():
     index = (ROOT / "docs" / "index.html").read_text()
-    assert "Every older artifact on this site remains" in index
+    assert "DO NOT SUBMIT · HOLD" in index
     assert "DO NOT SUBMIT" in index
     for name in ("GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30",
                  "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"):

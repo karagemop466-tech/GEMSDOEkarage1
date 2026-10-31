@@ -9,6 +9,10 @@
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
+## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **KP1 ON HOLD: DO NOT SUBMIT until the owner decides**
+
+KP1 (`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`) passes format and nine-file uniqueness checks, but is not cleared: holdout not shown to beat the best, global uniqueness open, projection 0.2789 is PROJECTED. Review: [knowledge/session-review-arena-4dffc2c6-20261031.md](knowledge/session-review-arena-4dffc2c6-20261031.md).
+
 ## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **NEGATIVE: DO NOT SUBMIT**
 
 **No file is cleared for submission by this repository review.** The KP1 GeoTIFF below has reported local format validation, but no organizer receipt, no validated leaderboard estimate, and unresolved global-registry duplicate clearance. Focus-site uniqueness is not global uniqueness. Do not spend a competition slot on it.
