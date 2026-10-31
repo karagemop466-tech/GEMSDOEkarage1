@@ -1,5 +1,7 @@
 # Starting point for every session
 
+**Latest (31 Oct 2026, `arena/830e1f79`): read `knowledge/session-review-arena-830e1f79.md` and `evidence/session_830e1f79_run_card.json` first.** Verdict NEGATIVE / DO NOT SUBMIT. Official rules re-verified: no uniqueness rule exists; outside-bounds must be null or NaN. Live leaderboard: 0.3195 is at #50 (not #48). No raster generated, no holdout run, no slot spent.
+
 **Current branch review first (2026-10-30, `arena/cfabff7e-gemsdoekarage1`): read `knowledge/session-review-arena-cfabff7e.md` and `evidence/session_cfabff7e_run_card.json`.** Verdict NEGATIVE / DO NOT SUBMIT; this review generated no TIF, score estimate, geological experiment, or slot selection. The shared lane/template, authenticated inputs, and complete registry remain unresolved.
 
 **Latest merged mainline experiment (2026-10-30, `arena/a8e4de2e`): read `knowledge/session-review-arena-a8e4de2e.md`, `knowledge/hypotheses-20261030.md`, `evidence/run_card_h_r1_20261030.json`, and `evidence/exp_h_r1_kth_magedge_20261030.json`.** H-R1 used 1 of 3 experiments and created a research-only TIF; its preregistered verdict is negative, nothing is cleared, and it must not be submitted. This is a separate upstream session, not work from the current review.
