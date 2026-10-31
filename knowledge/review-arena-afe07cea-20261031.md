@@ -9,13 +9,13 @@ Labels used below: **MEASURED** = computed on bytes checked in this session · *
 
 ## 1. Executive table — what to download, estimate, uniqueness, OK to submit
 
-| File to download | Estimated leaderboard score | Unique vs the nine GEMSDOE focus files? | OK to submit? |
+| File to download | Estimated leaderboard score | Unique vs the GEMSDOE focus files? (3 of 9 re-checked here) | OK to submit? |
 |---|---|---|---|
-| `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif` (zeros outside) | **PROJECTED 0.2789** (not a score; working range 0.24–0.31, `evidence/kp1_run_card.json`). **Below** the current 0.3195 target and far below the #1 score 0.4544. | **Yes — MEASURED.** Share of its dots within 3 px of a focus file: 23.2% (GEMSDOE32 B2), 24.6% (GEMSDOE25), 25.9% (GEMSDOE24). Spearman < 0.02 vs all three. | **NOT CLEARED by this review.** The repo's own pages contradict each other (§3, item A). Owner ruling required. |
+| `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif` (zeros outside) | **PROJECTED 0.2789** (not a score; working range 0.24–0.31, `evidence/kp1_run_card.json`). **Below** the current 0.3195 target and far below the #1 score 0.4544. | **Yes for the 3 files re-checked — MEASURED.** Share of its dots within 3 px of a focus file: 23.2% (GEMSDOE32 B2), 24.6% (GEMSDOE25), 25.9% (GEMSDOE24). Spearman < 0.02 vs all three. The other six focus files and the full registry of listed sites were **not** re-checked here. | **NOT CLEARED.** README and executive summary say so (commit `176c196`, on main). The generated homepage and 31 other pages still say "OK TO SUBMIT" (§3, item A). Owner ruling required. |
 | `…-nan.tif` twins of the focus-style files (7,111,787 NaN cells) | Not estimable | Not the question | **NO.** NaN sits *inside* the raster extent, which the official text does not allow (§2). This is the likeliest cause of the "must be in range [0, 1]" rejection. |
 | GEMSDOE24 / 25 / 27 / 28 / 30 / 31 / 32 / 33 / 36 (listed) | NOT ESTIMABLE. USER-REPORTED values only (see §4). | No: all nine share one lineament support (pairs overlap 97.5–100%, per the existing `evidence/kp1_run_card.json` and `docs/index.html`). | Listed on the leaderboard already. **Do not resubmit.** |
 
-**Uniqueness is the one claim verified end-to-end this session.** The three focus rasters were downloaded through `api.github.com` and their bytes were compared with the cited hashes. Receipt: `evidence/review_afe07cea_20261031.json`.
+**Uniqueness was checked on three focus rasters only.** GEMSDOE24, 25 and 32 B2 were downloaded through `api.github.com` and their bytes were compared with the hashes the repo cites. The other six focus files were not downloaded, so uniqueness against them is not verified here. Receipt: `evidence/review_afe07cea_20261031.json`.
 
 ---
 
@@ -48,13 +48,12 @@ Encoding census (MEASURED, `docs/downloads/*.tif`, script `scripts/verify_review
 
 ## 3. Irregularities flagged for owner review
 
-**A. The homepage says "OK TO SUBMIT" for KP1, while the rest of the site and the README say "NOT CLEARED".**
-- `docs/index.html` top banner: "OK TO SUBMIT: K-PROXY-DETECT GeoTIFF — the only file on this site cleared for upload."
-- Same page, executive section: "Is anything OK to download and submit? **No.** DO NOT SUBMIT · NOT CLEARED."
-- `README.md`, CURRENT REVIEW blocks from several sessions: "no file cleared".
-- `AGENTS.md` (header still names session `arena/9a378959`): "Verdict: PROMOTE one file", and the run card `evidence/kp1_run_card.json` says `"verdict": "promote"` but also `"portal_acceptance": "not tested - no organizer receipt exists for this file"`.
-
-The user asked that it be obvious whether a file is safe to submit. Right now the answer depends on which block a visitor reads first. **This review does not change any clearance.** The owner must pick one rule and make every page say it.
+**A. Clearance still contradicts itself on main.**
+- Verdict text: `README.md` and `docs/executive-summary.html` say **NOT CLEARED** (reconcile commit `176c196`, already on main).
+- Generated pages: `docs/index.html` and 31 other `docs/` pages still say "OK TO SUBMIT: K-PROXY-DETECT GeoTIFF — the only file on this site cleared for upload". The text is emitted by `scripts/render_site.py` (≈line 551), which shows it when `evidence/kp1_release_gate.json` has `decision.ok_to_submit: true`.
+- That flag's own `not_basis` lists "no organizer receipt for this file" and "no validated leaderboard estimate". Its uniqueness basis is the focus sites only, not the full registry the user specified.
+- Tests that read this flag include `tests/test_kp1_lane.py`, `tests/test_audit.py` (≈179–181), `tests/test_review_release.py` (≈83), `tests/test_session_20261029.py` (≈65) and `tests/test_session_1668dda0_hardening.py` (≈192–239). Flipping it means changing those too.
+- **This review did not edit the flag or the generated pages.** A hand edit would be overwritten by the next build. Recommended owner action: set `ok_to_submit` to `false` in the KP1 gate, re-run the build, and update the dependent tests. Until then, do not download or submit the KP1 file on the strength of the homepage.
 
 **B. The "promote" run card does not clear the file for upload.** A PROJECTED 0.2789 is below the 0.3195 target the user set, and the holdout DTI (0.0764, 95% block-bootstrap CI −0.0034 to 0.0260) is HOLDOUT-DTI on an off-catalogue proxy, not the organizer metric. The same proxy ranks the nine known scores in reverse (ρ = −1.0 on the mandated instrument; −0.34 on the independent inventory), so the repo itself says it cannot be used as a promotion gate.
 
@@ -103,8 +102,8 @@ The repo's explanation for 0.2778 (removed dots lay within 2 px of catalogue fau
 
 ## 7. What the owner needs to decide (in order)
 
-1. **Encoding.** Accept the literal reading in §2, under which zeros outside the extent is compliant and NaN inside the extent is not, and retire the "NaN-outside is permitted" note. Or record the portal test that says otherwise.
-2. **Clearance.** Choose one rule, and make the homepage banner, the executive summary, and the README say the same thing about KP1. Until then, nothing is OK to submit on this site.
+1. **Clearance first.** Set the KP1 gate flag (§3A) so the generated pages match the README verdict.
+2. **Encoding.** Accept the literal reading in §2, under which zeros outside the extent is compliant and NaN inside the extent is not, and retire the "NaN-outside is permitted" note. Or record the portal test that says otherwise.
 3. **Score re-read.** Re-check the leaderboard and record the snapshot date. The user's 0.4413 and 0.3195 figures need a source.
 4. **Next experiment.** Only after 1–3, and only inside the budget.
 
