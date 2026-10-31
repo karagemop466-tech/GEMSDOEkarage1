@@ -348,7 +348,7 @@ def nine_site_summary(p: str) -> str:
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
     p = '../' * depth
     doc = p + 'docs/'
-    links = [('Overview', p + 'index.html'), ('Submit now', doc + 'submission-hub.html'),
+    links = [('Overview', p + 'index.html'), ('Summary 31 Oct', doc + 'executive-summary-20261031.html'), ('Submit now', doc + 'submission-hub.html'),
              ('Executive summary', doc + 'executive-summary.html'),
              ('Research', doc + 'research.html')]
     nav = ''.join(f'<a {"class=active aria-current=page " if n == active else ""}href="{href}">{n}</a>' for n, href in links)
