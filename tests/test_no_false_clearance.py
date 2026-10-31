@@ -16,6 +16,9 @@ ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN_CLEARANCE_PHRASES = (
     "CLEARED FOR SUBMISSION",
     "IT IS OK TO DOWNLOAD AND SUBMIT",
+    "OK TO SUBMIT: K-PROXY-DETECT",
+    "YES — one file: the 31 October K-PROXY-DETECT",
+    "the 31 October K-PROXY-DETECT file in the banner above is the only cleared file",
 )
 
 

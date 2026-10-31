@@ -12,19 +12,27 @@ over ground-truth fault cells (``max`` over predictions) and ``FP_w`` summed ove
 *every* cell with a non-zero prediction.  For a binary dot field this reduces
 exactly to
 
-    DTI = T / (alpha*(n - M) + beta*G + T)
+    DTI = T / ((1 - beta)*T + alpha*(n - M) + beta*G)
 
-with ``n`` dots, ``T`` the covered truth credit (``<= G``), ``M`` the dots' own
-self-credit, and ``G = |truth|``.  ``M <= T`` and ``M <= n``; ``FP = n - M``.
+(FN_w = |G| - TP_w, so beta*FN_w = beta*G - beta*T and the coefficient on T is
+1 - beta = 0.2, not 1.)  Here ``n`` is the number of dots, ``T`` the covered
+truth credit (``<= G``), ``M`` the dots' own self-credit, and ``G = |truth|``.
+``M <= T`` and ``M <= n``; ``FP = n - M``.
+
+CORRECTION (31 Oct 2026, session arena/d454d34a): the first version of this file
+wrote the T term as ``+T`` (coefficient 1).  That is wrong.  It made the perfect-
+knowledge ceiling 1/(1+beta) = 0.556 and inflated the marginal bars.  The correct
+ceiling is 1.0.  Verified against ``gems57.metric.dti_bruteforce`` on toy grids
+(tests/test_metric_identity_20261031.py).
 
 Consequences that drive the whole lane:
 
 * a dot that lands on a true fault is **free** (its own credit cancels its FP
-  mass) and adds up to 1.0 to ``T``: perfect knowledge is worth 1/(1+beta) = 0.556;
+  mass) and adds up to 1.0 to ``T``: perfect knowledge scores 1.0;
 * a dot that misses costs exactly ``alpha`` and adds nothing;
 * a dot that lands within one or two pixels earns partial credit and costs
   ``alpha*(1 - m)``;
-* so one more dot is worth adding iff ``dT > alpha*(1 - m)*(T/(alpha*FP + beta*G))``
+* so one more dot is worth adding iff ``dT*(1-(1-beta)*s) > alpha*(1-m)*s`` (s = DTI)
   -- i.e. iff its expected kernel credit clears a *precision bar* that rises as
   the field fills up.
 
@@ -41,42 +49,46 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from gems57.metric import ALPHA, BETA  # noqa: E402
+from gems57.metric import ALPHA, BETA, dti_from_components  # noqa: E402
 
 EXP1 = ROOT / "evidence" / "kp1_exp1_forensics.json"
 OUT = ROOT / "evidence" / "kp1_metric_analysis.json"
 
 
 def score(n: float, T: float, M: float, G: float) -> float:
-    return T / (ALPHA * (n - M) + BETA * G + T)
+    """Binary-dot DTI through the shared template (no private identity).
+
+    TP_w = T, FP_w = n - M, FN_w = G - T, so DTI = TP/(TP + alpha*FP + beta*FN)
+    = T / ((1-beta)*T + alpha*(n-M) + beta*G).  Calls gems57.metric directly so this
+    file cannot drift from the shared metric (corrected 31 Oct 2026).
+    """
+    return float(dti_from_components(T, n - M, G - T, alpha=ALPHA, beta=BETA))
 
 
 def solve_T(s: float, n: float, G: float, M_is_T: bool = True) -> float:
     """Invert the metric for the covered truth credit T."""
-    # s = T / (a*(n-M) + b*G + T);  with M = T this is linear in T
+    # s = T / ((1-b)T + a(n-M) + bG).  With M = T this is linear in T:
+    #   s*((1-b)T + a*n - a*T + b*G) = T  ->  T = s*(a*n + b*G) / (1 - s*(1-b) + s*a)
     if M_is_T:
-        # s*(a*n - a*T + b*G + T) = T  ->  s*a*n + s*b*G = T*(1 - s + s*a)
-        return s * (ALPHA * n + BETA * G) / (1.0 - s + s * ALPHA)
-    # M = 0 (upper bound on T): T = s*a*n/(1-s) + s*b*G/(1-s)
-    return s * (ALPHA * n + BETA * G) / (1.0 - s)
+        return s * (ALPHA * n + BETA * G) / (1.0 - s * (1.0 - BETA) + s * ALPHA)
+    # M = 0 (upper bound on T): T = s*(a*n + b*G) / (1 - s*(1-b))
+    return s * (ALPHA * n + BETA * G) / (1.0 - s * (1.0 - BETA))
 
 
 def precision_bar(s: float, m: float = 0.0) -> float:
     """Minimum realised ``dT`` for one more dot to raise the score.
 
-    Adding a dot with truth credit ``dT`` and self-credit ``m`` raises DTI iff
+    Adding a dot with truth credit ``dT`` and self-credit ``m`` changes the
+    denominator by ``(1-b)*dT + a*(1-m)``, so DTI rises iff
 
-        dT * (alpha*FP + beta*G) > alpha*(1 - m)*T,
+        dT * (1 - (1-b)*s) > a*(1 - m)*s,
 
-    and since ``alpha*FP + beta*G = T/s - T = T*(1-s)/s`` the bar collapses to
-
-        dT > alpha*(1 - m)*s/(1 - s),
-
-    which depends only on the current score -- not on n, G or the surface.  A dot
-    that misses (m = 0) must therefore earn more than ``alpha*s/(1-s)`` of kernel
-    credit, i.e. it must fall within 300 m of a truth cell at least that often.
+    i.e. dT > a*(1-m)*s / (1 - (1-b)*s).  It depends only on the current score,
+    not on n, G or the surface.  (Corrected 31 Oct 2026; the earlier
+    a*s/(1-s) form came from the wrong identity.)  For a non-redundant dot
+    (dT = m) with a + b = 1 this reduces to the exact threshold a*s.
     """
-    return ALPHA * (1.0 - m) * s / (1.0 - s)
+    return ALPHA * (1.0 - m) * s / (1.0 - (1.0 - BETA) * s)
 
 
 def main() -> None:
@@ -90,8 +102,8 @@ def main() -> None:
                             "reported at G = 60,988 px (the catalogue size, the only measured "
                             "scale in the study area) and at G = 30,494 px (half), so the "
                             "reader can see the assumption explicitly."),
-           "identity": "DTI = T / (alpha*(n - M) + beta*G + T)",
-           "ceiling_perfect_knowledge": float(1.0 / (1.0 + BETA)),
+           "identity": "DTI = T / ((1-beta)*T + alpha*(n - M) + beta*G)  [corrected 2026-10-31]",
+           "ceiling_perfect_knowledge": 1.0,
            "files": {}, "frontier": {}, "what_beats_2778": {}}
 
     for site, row in sorted(per.items()):
@@ -140,10 +152,9 @@ def main() -> None:
         T = min(float(n), float(G))                 # perfect placement, one dot per truth cell
         frontier.append({"n": int(n), "perfect_dti": round(score(n, T, T, G), 4)})
     out["frontier"]["perfect_detector"] = frontier
-    out["frontier"]["note"] = ("Perfect placement is worth 1/(1+beta) = 0.556 when every truth "
-                               "cell is covered; the curve rises to that ceiling and saturates "
-                               "at n = G, so a score above 0.556 is impossible for a dot field "
-                               "with beta = 0.8 regardless of skill.")
+    out["frontier"]["note"] = ("Perfect placement scores 1.0 when every truth cell is covered and "
+                               "no dot is wasted; the curve rises to that ceiling at n = G. "
+                               "(The earlier 0.556 figure was an algebra error.)")
 
     for target in (0.2778, 0.3195, 0.4413, 0.4544):
         row = {"target": target,
@@ -161,34 +172,34 @@ def main() -> None:
         out["what_beats_2778"][f"{target}"] = row
 
     out["conclusion"] = {
-        "why_0.2778": ("Measured, not narrated: among the nine, score is monotone in dot count "
-                       "(-0.98 Spearman), 3-px clumping (-0.92) and distance from the catalogue "
-                       "(+1.00), and flat in everything else. GEMSDOE32's B2 is the smallest "
-                       "near-uniform covering of the shared lineament support (37,654 dots, "
-                       "0.26 % clumping, 0.0 % of dots within 2 px of the catalogue), and at "
-                       "the observed point the marginal dot is just below break-even, so every "
-                       "dot removed helps. 0.2778 is the best point of that one-parameter "
-                       "family, not a different geological idea."),
-        "can_it_be_beaten": ("Yes, but only by raising per-dot truth credit. At n = 37,654 the "
-                             "metric needs a dot to land on truth with probability above the "
-                             "marginal bar (see per-file rows) for the field to gain; the nine "
-                             "files sit at that bar, which is why deleting dots helped B2. A "
-                             "candidate with genuinely higher precision beats 0.2778 at the "
-                             "same budget; one with the same precision does not, whatever it "
-                             "looks like."),
-        "is_0.4413_reachable": ("It needs a marginal-dot truth rate above 0.158 (the bar at "
-                                "0.4413) -- roughly double what the nine files sit at -- and, "
-                                "at B2's budget and G = 60,988 px, a coverage of ~0.63 with "
-                                "near-zero FP mass. Whether that is geometrically hard depends "
-                                "on the (unknown) size of the private truth: the same score at "
-                                "G = 200,000 px needs a lower coverage fraction but the same "
-                                "per-dot precision. Nothing in this repository has ever "
-                                "demonstrated that level; the best local evidence (SGMC "
-                                "off-catalogue, leave-one-quadrant-out) is far below it and is "
-                                "anti-correlated with the observed ordering. The honest "
-                                "statement is that 0.4413 exists on the leaderboard and is not "
-                                "reachable from the evidence we have."),
+        "corrections_2026_10_31": (
+            "The identity was corrected (coefficient on T is 1-beta = 0.2, not 1). Consequences: "
+            "perfect-knowledge ceiling = 1.0 (was 0.556); marginal bar at 0.2778 = 0.0588 (was 0.0769); "
+            "bar at 0.4413 = 0.0968 (was 0.158); the coverage needed for 0.4413 at B2's budget is about "
+            "1.6x the nine files' coverage (was 1.86x per-dot). Checked against gems57.metric.dti_bruteforce."),
+        "why_0.2778": (
+            "Measured, not narrated. Among the nine, score is monotone in dot count (Spearman -0.97). "
+            "GEMSDOE32's B2 is an exact subset of GEMSDOE25 (37,654 of 44,090 dots; 6,436 removed, none "
+            "added; verified 31 Oct 2026 from the registry rasters). Removing those dots raised the score "
+            "from 0.2600 to 0.2778 on the same truth, so in aggregate the removed dots earned less truth "
+            "credit than the marginal bar (0.0588 at s = 0.2778). 0.2778 is the best point of that "
+            "one-parameter family, not a different geological idea."),
+        "can_it_be_beaten": (
+            "Yes, but only by raising truth credit per dot. A dot raises DTI only if its kernel credit "
+            "exceeds the marginal bar (0.0588 at 0.2778, 0.0968 at 0.4413). At B2's budget with G = 60,988 px "
+            "(assumed), 0.2778 corresponds to about 0.26 truth coverage; the nine files cover about 0.25-0.26. "
+            "A candidate with the same dot count needs a clearly higher hit rate per dot to move the score, "
+            "and this session did not produce one on a valid instrument."),
+        "is_0.4413_reachable": (
+            "At B2's budget and G = 60,988 px (assumed), 0.4413 needs about 0.41 truth coverage, roughly "
+            "1.6x the nine files at the same dot count, with a marginal-dot credit bar of 0.0968. Whether "
+            "that is geometrically hard depends on the unknown size of the private truth. Nothing in this "
+            "repository has demonstrated that level on a valid instrument; the best local evidence (SGMC "
+            "off-catalogue, leave-one-quadrant-out) is far below it and is anti-correlated with the observed "
+            "ordering. The honest statement is that 0.4413 exists on the leaderboard and is not reachable "
+            "from the evidence this repository holds."),
     }
+
     OUT.write_text(json.dumps(out, indent=1) + "\n")
     print(json.dumps({k: out[k] for k in ("dot_count_effect", "ceiling_perfect_knowledge")},
                      indent=1))

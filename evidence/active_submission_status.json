@@ -1,0 +1,23 @@
+{
+  "schema": "gems-active-submission-status-v1",
+  "review_date": "2026-10-31",
+  "session": "arena/a79c8595-gemsdoekarage1",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "candidate_name": null,
+  "candidate_sha256": null,
+  "holdout_dti": null,
+  "gates": {
+    "assigned_lane": false,
+    "canonical_template": false,
+    "organizer_authenticated_inputs": false,
+    "preplacement_surface_registry_check": false,
+    "leakage_canary": false,
+    "spatial_holdout_beats_frozen_best": false,
+    "final_dot_registry_check": false,
+    "saved_byte_format_validation": false
+  },
+  "reason": "No new candidate can be authorized: the request's lane paragraph is absent; registry/template assignment is null; the shared cache and data are absent; the existing KP1 receipt compares only nine focus rasters and is not a complete pre-placement/current-registry audit. Existing negative holdout evidence cannot rank candidates for the off-catalogue competition target.",
+  "slot_selected_or_spent": false,
+  "selector_note": "This record does not select or spend a weekly slot. Slot selection is a separate step after an eligible candidate exists."
+}

@@ -77,12 +77,12 @@ def test_regenerators_keep_all_main_pages_negative():
         assert 'DO NOT SUBMIT' in raw, name
         text = _strip_kp1_banner(raw)
         assert 'OK TO SUBMIT' not in text and 'READY FOR PORTAL' not in text, name
-        # The one permitted "OK TO SUBMIT" is the session banner, and it may only name
-        # the file for which the release gate receipt says ok_to_submit.
-        if _kp1_banner_span(raw) is not None:
-            gate = json.loads((ROOT/'evidence/kp1_release_gate.json').read_text())
-            assert gate['decision']['ok_to_submit'] is True
-            assert gate['sha256'] in raw or Path(gate['tif']).name in raw
+        # A session banner may not advertise clearance while the registry and
+        # lattice gates are unresolved. A gated negative is safer than stale UI.
+        assert _kp1_banner_span(raw) is None, name
+        gate = json.loads((ROOT/'evidence/kp1_release_gate.json').read_text())
+        assert gate['decision']['ok_to_submit'] is False
+        assert gate['decision']['registry_complete'] is False
     stale = subprocess.run([sys.executable, 'scripts/build_dashboard_and_figures.py'], cwd=ROOT, capture_output=True)
     assert stale.returncode != 0
 

@@ -9,8 +9,10 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +45,19 @@ def esc(x) -> str:
 
 def load(name: str) -> dict:
     return json.loads((EV / name).read_text())
+
+
+def write_atomic(path: Path, text: str) -> None:
+    """Replace the page atomically so concurrent site builds never expose a partial file."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temp_name = tempfile.mkstemp(prefix="." + path.name + ".", suffix=".partial", dir=path.parent)
+    temp = Path(temp_name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(text)
+        os.replace(temp, path)
+    finally:
+        temp.unlink(missing_ok=True)
 
 
 def pct(x: float) -> str:
@@ -259,7 +274,7 @@ def build() -> str:
 
 def main() -> int:
     page = build()
-    (DOCS / "focus-sites.html").write_text(page, encoding="utf-8")
+    write_atomic(DOCS / "focus-sites.html", page)
     (DOCS / "data").mkdir(parents=True, exist_ok=True)
     for name in RECEIPTS:
         shutil.copyfile(EV / name, DOCS / "data" / name)

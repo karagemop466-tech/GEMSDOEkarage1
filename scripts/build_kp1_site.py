@@ -16,11 +16,19 @@ import hashlib
 import html
 import json
 import os
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "kp1"
 DOWNLOADS = ROOT / "docs" / "downloads"
+
+# The lane receipt is historical evidence, not an active authorization. A current
+# status record must bind all present protocol gates to this exact file.
+import sys
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from scripts.release_authorization import authorization_for
 
 NAME = "karage1-kp1-ttca-springalter-far-conduit-32000-20261031"
 TIF = f"{NAME}.tif"
@@ -40,10 +48,16 @@ SITE_ORDER = ["GEMSDOE32", "GEMSDOE36", "GEMSDOE28", "GEMSDOE31", "GEMSDOE33",
 
 
 def write_atomic(path: Path, text: str) -> None:
-    """Write through a temporary file so a concurrent build never exposes a partial page."""
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(text, encoding="utf-8")
-    os.replace(tmp, path)
+    """Write through a unique temporary file so concurrent builds never expose partial pages."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, name = tempfile.mkstemp(prefix="." + path.name + ".", suffix=".partial", dir=path.parent)
+    tmp = Path(name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(text)
+        os.replace(tmp, path)
+    finally:
+        tmp.unlink(missing_ok=True)
 
 
 def load(rel: str) -> dict:
@@ -141,18 +155,20 @@ def main() -> None:
     cov = gate["candidate_covariates"]
     uni = gate["uniqueness"]
     proj = gate["projection"]
-    ok = bool(gate["decision"]["ok_to_submit"])
+    ok, authorization_reason = authorization_for(gate)
     status_class = "ok" if ok else "alert"
     status_pill = '<span class="pill">OK TO SUBMIT</span>' if ok else '<span class="pill warn">DO NOT SUBMIT</span>'
+    main_heading = ("One file is eligible for a separate selector decision." if ok else
+                    "No file is cleared. This historical research artifact is not approved for upload.")
+    candidate_decision = ("<strong>Eligible for separate selector review</strong>" if ok else
+                          "<strong>NO — not cleared under the active protocol</strong>")
 
     # ---------------------------------------------------------------- index
     download_block = f"""<div class="{status_class}">
 <p style="margin:0 0 6px">{status_pill}</p>
-<p class="big">{'OK TO SUBMIT — this file is cleared for upload' if ok else 'DO NOT SUBMIT — this file is not cleared'}</p>
-<p>Download the single-band GeoTIFF, upload it to the DrivenData submission page, and nothing
-else. It is not a copy of any of the nine focus submissions, it is not built from them, and it
-uses no organizer-confirmed receipt because none exists.</p>
-<a class="download" href="../downloads/{TIF}" download>Download the GeoTIFF · {fmt['bytes'] / 1e6:.2f} MB</a>
+<p class="big">{'Eligible for selector review — slot selection is separate' if ok else 'DO NOT SUBMIT — this file is not cleared'}</p>
+<p>{'The scientific and file-integrity gates passed, but an independent selector must still check the live weekly cap.' if ok else 'This file is retained as a historical research artifact. ' + html.escape(authorization_reason) + ' Its old nine-site comparison is not a complete current-registry uniqueness clearance.'}</p>
+<a class="download" href="../downloads/{TIF}" download>{'Download the cleared candidate' if ok else 'Download research artifact · DO NOT SUBMIT'} · {fmt['bytes'] / 1e6:.2f} MB</a>
 <a class="download alt" href="../downloads/{NAME}.zip" download>Download the .zip</a>
 <p style="margin-top:14px"><small>SHA-256 <code>{gate['sha256']}</code> — re-hashed on every build;
 the download links are rendered only while that digest matches.</small></p>
@@ -189,7 +205,7 @@ the download links are rendered only while that digest matches.</small></p>
         (f"{proj['projected_value']:.4f} <small>PROJECTED</small>", "num"),
         (f"{cov['d_cat_le_2px_frac'] * 100:.2f} / {cov['d_cat_gt_15px_frac'] * 100:.1f} %", "num"),
         (f"{cmp_['candidate']['dti']:.4f}", "num"),
-        "<strong>Yes — this is the only cleared file</strong>",
+        candidate_decision,
     ))
     table_one = table([
         "Site", "File", "Dots", "Leaderboard", "Estimated", "≤2 px / &gt;15 px from catalogue",
@@ -198,7 +214,7 @@ the download links are rendered only while that digest matches.</small></p>
 
     index_body = f"""
 <p class="eyebrow">GEMS Prize · task 1 · fault prediction · decision page</p>
-<h1>One file is cleared. It is unique, format-valid, and it is the only thing to upload.</h1>
+<h1>{html.escape(main_heading)}</h1>
 {download_block}
 {kpi_block}
 <h2>Table 1 — the nine focus sites, plus this session</h2>
@@ -324,7 +340,7 @@ random dots would.</li>
 <ol>
 <li>An organizer receipt for the upload. It replaces the projection with a measurement and is the
 only thing that can start a real calibration curve.</li>
-<li>A surface whose per-dot truth rate clears 0.0769 (the exact marginal bar at 0.2778). Nothing in
+<li>A surface whose per-dot truth rate clears {metric_a['what_beats_2778']['0.2778']['marginal_dT_bar']:.4f} (the corrected marginal bar at 0.2778; an earlier 0.0769 was an algebra error). Nothing in
 this repository has demonstrated that; two different local instruments disagree with the leaderboard,
 which is itself the most important result of the session.</li>
 </ol>
@@ -360,7 +376,8 @@ which is itself the most important result of the session.</li>
 <p class="eyebrow">Metric analysis</p>
 <h1>Why 0.2778, and what it would take to beat it</h1>
 <p>The published metric, for a binary dot field, reduces exactly to</p>
-<p class="research">DTI = T / ( alpha·(n − M) + beta·|G| + T ),  alpha = 0.2, beta = 0.8</p>
+<p class="research">DTI = T / ( (1 − beta)·T + alpha·(n − M) + beta·|G| ),  alpha = 0.2, beta = 0.8</p>
+<p><small>Corrected 31 Oct 2026: the coefficient on <code>T</code> is <code>1 − beta</code> (0.2), not 1. Checked against the literal oracle <code>gems57.metric.dti_bruteforce</code>; see <code>tests/test_metric_identity_20261031.py</code>.</small></p>
 <p>with <code>n</code> dots, <code>T</code> the truth credit they cover, <code>M</code> their own
 self-credit and <code>|G|</code> the number of truth cells. Two consequences decide everything:</p>
 <ul>
@@ -386,10 +403,10 @@ the catalogue (which is collinear with dot count within this family). That is th
 "nine points on one family", and it is why 0.2778 is a <em>position</em> rather than an idea.</p>
 
 <h2>The ceiling, and what the leaderboard numbers imply</h2>
-<p>A dot field with perfect knowledge cannot exceed <strong>1/(1+beta) =
-{metric_a['ceiling_perfect_knowledge']:.3f}</strong> once every truth cell is covered: the
-false-negative weight is a hard tax on an un-covered truth cell. That places 0.4544 at 82 % of the
-theoretical maximum of the submission format.</p>
+<p>A dot field with perfect knowledge (every truth cell covered, no dot wasted) scores
+<strong>{metric_a['ceiling_perfect_knowledge']:.1f}</strong>. An earlier version of this page said
+1/(1+beta) = 0.556; that was an algebra error. Against the corrected ceiling, the live #1 score of
+0.4544 is {0.4544 / metric_a['ceiling_perfect_knowledge']:.0%} of the maximum.</p>
 {('<p>The frontier for a perfectly placed field (dots = covered truth cells, |G| = 60,988):</p>' + table(['Dots', 'Score'], frontier_rows)) if frontier_rows else ''}
 <p>Inverting the reported leaderboard numbers for the truth credit they imply at B2's dot budget:</p>
 {table(['Target', 'Assumed |G|', 'Required coverage', 'Required credit per dot', 'Geometrically possible'], demand)}
@@ -458,33 +475,22 @@ metric rewards, which is why they are shown beside the reported score and not in
 on the literal 3-px rule (median {uni['nine_file_mutual_overlap']['median'] * 100:.1f} %), against a
 chance level of roughly 15 %. They are one covering of one support, sampled differently.</p>
 <h2>Which one to submit</h2>
-<p><strong>None.</strong> Resubmitting any of the nine buys nothing (they are already scored) and
-resubmitting a near-copy risks the duplicate rule. The only file this repository clears is the new
-one on the <a href="index.html">decision page</a>, and its status comes from a gate that re-validates
-the saved bytes every time the site is built.</p>
+<p><strong>None is approved here.</strong> Resubmitting any historical file buys nothing, and
+near-copy risk remains. The historical K-PROXY-DETECT raster is available for audit only; the active
+review has not authorized it because its old gate is not bound to a complete current-registry audit,
+pre-placement surface comparison, or current lane/template assignment. The active decision is on the
+<a href="index.html">decision page</a>.</p>
 """
     write_atomic(OUT / "nine-sites.html", page("nine-sites.html", "The nine focus sites", nine_body))
 
     # -------------------------------------------------------- how to submit
     how_body = f"""
 <p class="eyebrow">How to submit</p>
-<h1>Three steps, no interpretation required</h1>
-<div class="{status_class}"><p class="big">The file on the decision page is cleared.</p>
-<p>If you are reading this page instead of the decision page: the file is
-<code>{TIF}</code>, SHA-256 <code>{gate['sha256']}</code>. If that digest does not match what you
-downloaded, stop.</p></div>
-<ol>
-<li><strong>Download</strong> <a href="../downloads/{TIF}" download>{TIF}</a>
-({fmt['bytes'] / 1e6:.2f} MB) or the <a href="../downloads/{NAME}.zip" download>.zip</a>
-(one GeoTIFF inside, so either form is accepted by the portal).</li>
-<li><strong>Upload it</strong> at the DrivenData submission page for the GEMS competition with:
-<ul>
-<li>name: <code>{card['submission_name']}</code></li>
-<li>note (≤140 characters): <code>{card['submission_note']}</code></li>
-</ul></li>
-<li><strong>Record the returned score</strong> next to the SHA-256 in the run card. That receipt is
-the only thing that can replace the projection with a measurement.</li>
-</ol>
+<h1>How to submit a future cleared candidate</h1>
+<div class="{status_class}"><p class="big">{'Eligible for separate selector review' if ok else 'DO NOT SUBMIT — no current authorization'}</p>
+<p>{'This file is eligible for a separate weekly-slot decision, not an automatic upload.' if ok else 'This page documents the historic candidate only. The current review does not authorize download for submission. ' + html.escape(authorization_reason)} The legacy raster is
+<code>{TIF}</code>, SHA-256 <code>{gate['sha256']}</code>.</p></div>
+{'<ol><li><strong>Download</strong> the cleared candidate after the selector checks the current cap.</li><li><strong>Upload</strong> it at the DrivenData competition page with the unique name and short note shown on the decision page.</li><li><strong>Save</strong> the file-linked organizer receipt and score.</li></ol>' if ok else '<p><strong>Do not upload this historical raster.</strong> Once a future candidate receives explicit clearance, download only the exact SHA-bound file, provide a unique name and note of at most 140 characters, submit through DrivenData, and retain its receipt.</p>'}
 <h2>What the portal will check, and what was already checked here</h2>
 {table(['Check', 'Result'], [
     (f"single band, float32, {fmt['checks'] and '3730 × 3292'}, EPSG:32611", "pass"),
