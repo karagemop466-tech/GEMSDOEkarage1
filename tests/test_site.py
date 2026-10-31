@@ -44,14 +44,16 @@ def test_site_links_and_negative_banner():
     assert 'ORGANIZER-PUBLIC; live re-read 30 Oct 2026' in index
     assert '0.3195 is rank #48' in index
     hub = (ROOT/'docs/submission-hub.html').read_text()
-    assert 'independent 30 Oct live re-read' in hub
-    assert '0.3195 at rank #48' in hub
+    assert 'Historical snapshots changed: the independent 30 Oct read placed 0.3195 at #48' in hub
+    assert '31 Oct live public read' in hub
+    assert '0.3195 at #50' in hub
     assert 'Neither 0.4413 nor 0.3195 was confirmed' not in hub
     focus = (ROOT/'docs/focus-sites.html').read_text()
     assert 'Latest review 2026-10-31: no file cleared; this repository-safety review produced no candidate or score estimate' in focus
     assert 'CURRENT REVIEW · 31 OCT 2026' in focus
     assert 'No current candidate was generated.' in focus
     assert 'CURRENT PROPOSALS · NOT ASSIGNED OR TESTED' in focus
+    assert 'href="../knowledge/hypotheses-arena-087d895d-20261031.md"' in focus
     assert 'href="../knowledge/review-arena-087d895d-20261031.md"' in focus
     assert 'href="../evidence/run_card_arena_087d895d_20261031.json"' in focus
     assert 'href="candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.tif"' not in focus

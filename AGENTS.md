@@ -1,6 +1,10 @@
 # Starting point for every session
 
-**Current branch review first (2026-10-31, `arena/087d895d-gemsdoekarage1`): read `knowledge/review-arena-087d895d-20261031.md` and `evidence/run_card_arena_087d895d_20261031.json`, then the top CURRENT REVIEW block and SESSION PROMPT in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, required data, and complete authenticated registry remain unresolved. The submission hub no longer links the stale research TIFF; older session records remain historical evidence, not current clearance.
+**Current branch review first (2026-10-31, `arena/087d895d-gemsdoekarage1`): read `knowledge/review-arena-087d895d-20261031.md` and `evidence/run_card_arena_087d895d_20261031.json`, then the top CURRENT REVIEW block and SESSION PROMPT in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. Lane/template assignment, authorized cache, tool provenance, and the complete authenticated registry remain unresolved. No file is cleared.
+
+**Separate prior mainline review (2026-10-31, `arena/510af7c7-gemsdoekarage1`):** see `knowledge/review-arena-510af7c7-20261031.md`, `evidence/run_card_arena_510af7c7_20261031.json`, and its mechanism/holdout receipts. It reports B2's catalogue-adjacent subset relationship and a catalogue HOLDOUT-DTI below random; this does not estimate off-catalogue leaderboard performance. Its five-proposal slate remains at `knowledge/hypotheses-20261031.md`; the active four-proposal 087 slate is `knowledge/hypotheses-arena-087d895d-20261031.md`.
+
+**Other preserved mainline/branch reviews:** `arena/b8fc7593` (`knowledge/review-arena-b8fc7593-20261031.md`), `arena/cd6c8044` (`knowledge/session-review-arena-cd6c8044.md`), and `arena/946f7668` (`knowledge/review-arena-946f7668-20261031.md`). Each is historical and negative; current status is above.
 
 **Prior upstream review (31 Oct 2026, `arena/830e1f79`):** read `knowledge/session-review-arena-830e1f79.md` and `evidence/session_830e1f79_run_card.json`. It separately rechecked official format wording and a live leaderboard; those time-sensitive claims are historical and do not supersede this branch review or the internal parallel-run protocol.
 

@@ -2,15 +2,19 @@
 
 ## CURRENT REVIEW (read first) — session `arena/087d895d-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NEGATIVE — DO NOT SUBMIT.** No new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or weekly-slot selection was produced. The assigned method lane, canonical shared-template assignment, required cached inputs, writer/uniqueness provenance, and complete authenticated registry are unresolved. No file in this checkout is cleared for upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available.
+**Status: NEGATIVE — DO NOT SUBMIT.** No new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or weekly-slot selection was produced in this review. The method lane, canonical shared-template assignment, required authorized cache, writer/uniqueness provenance, and complete authenticated registry remain unresolved. No file is cleared for upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available.
 
-- **Three-pass review and nine-site executive table:** [current review](knowledge/review-arena-087d895d-20261031.md) · [JSON run card](evidence/run_card_arena_087d895d_20261031.json).
-- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and the absent competition sample grid. This is software verification, not model validation.
-- **Shared-tools preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; feature cache and four data rasters are absent, and the writer/uniqueness hashes differ from recorded pins. No experiment was run.
-- **Research slate:** four qualitative proposals, layers, mechanisms, non-fault mimics, relative implementation costs, and prior-art caveats are in [hypotheses-20261031.md](knowledge/hypotheses-20261031.md). None is lane-assigned, globally novelty-verified, validated, or a score projection.
-- **Download decision:** none. The submission hub no longer links the stale 29 October research TIFF. Historical TIFFs remain research/audit artifacts; do not upload any file from this checkout.
+- **Three-pass review and nine-site table:** [current review](knowledge/review-arena-087d895d-20261031.md) · [JSON run card](evidence/run_card_arena_087d895d_20261031.json).
+- **Verification after mainline reconciliation:** `.venv/bin/python -m pytest -q -rs` → **451 passed, 0 failed, 3 skipped, 126 warnings**. Skips require absent ignored bridge rasters, the sample grid, and core data for a format receipt. Software verification is not model validation.
+- **Shared-tools preflight:** not ready; assigned lane/template are null, the authorized feature cache/data are unavailable at required paths, and writer/uniqueness hashes differ from recorded pins. No experiment was run.
+- **Current research slate:** four qualitative proposals in [the 087-specific slate](knowledge/hypotheses-arena-087d895d-20261031.md). None is lane-assigned, globally novelty-verified, validated, or a score projection.
+- **Download decision:** none. The submission hub does not link the stale research TIFF. Historical TIFFs remain audit artifacts only; do not upload a file from this checkout.
 
-**Standing prompt:** read the `SESSION PROMPT — READ FIRST` section in this README on every project session. It records the user's goal and protocol; the active lane/tool/data gates above take precedence over any unsafe urge to fabricate a TIFF.
+**Separate prior-mainline evidence (not this review):** session `arena/510af7c7` preserved a local-mirror mechanism analysis and a shared holdout reproduction. It reports B2 as GEMSDOE25 minus 6,436 catalogue-adjacent dots; the nine-site score association is correlational and based on USER-REPORTED / UNVERIFIED scores. Its B2 result is **HOLDOUT-DTI 0.00473 [0.00432, 0.00515]** (evaluator `gems57-pooled-hide-v2`, 45,260 withheld positives), below its matched random result; this catalogue holdout is not calibrated to new-fault leaderboard performance. That session also recorded an **ORGANIZER-PUBLIC** 31 Oct snapshot (#1 0.4544, #50 0.3195), not a focus-site receipt. See its [review](knowledge/review-arena-510af7c7-20261031.md), [run card](evidence/run_card_arena_510af7c7_20261031.json), [mechanism receipt](evidence/offcat_mechanism_510af7c7_20261031.json), and [holdout receipt](evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json). The five-proposal slate from that separate session is preserved at [knowledge/hypotheses-20261031.md](knowledge/hypotheses-20261031.md); the active 087 slate is linked above.
+
+**Other preserved mainline/branch reviews:** [b8fc7593 review/card](knowledge/review-arena-b8fc7593-20261031.md) / [card](evidence/run_card_arena_b8fc7593_20261031.json); [cd6c8044 review/card](knowledge/session-review-arena-cd6c8044.md) / [card](evidence/session_cd6c8044_run_card.json); and [946f7668 review/card](knowledge/review-arena-946f7668-20261031.md) / [card](evidence/run_card_arena_946f7668_20261031.json). They all end negative and do not supersede the active branch review.
+
+**Standing prompt:** read the `SESSION PROMPT — READ FIRST` section in this README on every project session. It records the user's goal and protocol; the active fail-closed status and gates above take precedence over any unsafe urge to fabricate a TIFF.
 
 ## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
 
@@ -79,7 +83,7 @@ Labels: **HOLDOUT-DTI** = our proxy on withheld known-catalogue segments; **ORGA
 This is the project's normalized standing brief, not a verbatim transcript. Read it at the start of every session, together with the CURRENT REVIEW at the top of this README. New explicit user instructions and the current review supersede historical score/leaderboard snapshots below; never treat an archived experiment or TIFF as current submission clearance.
 
 ## Primary goal
-Place at the top of the leaderboard in the DrivenData DOE GEMS Prize Challenge (https://www.drivendata.org/competitions/306/competition-doe-gems/) by producing a single-band float32 GeoTIFF of fault probabilities. The user supplied 0.4413; the latest repository-recorded public leaderboard read on 30 Oct 2026 showed 0.4544 (ORGANIZER-PUBLIC snapshot, not a submission-page receipt). This is time-sensitive, was not refreshed in the current review, and is not a leaderboard projection for any focus-site file.
+Place at the top of the leaderboard in the DrivenData DOE GEMS Prize Challenge (https://www.drivendata.org/competitions/306/competition-doe-gems/) by producing a single-band float32 GeoTIFF of fault probabilities. The user supplied 0.4413; a separate prior mainline review recorded an ORGANIZER-PUBLIC snapshot on 31 Oct 2026 with #1 = 0.4544 and #50 = 0.3195 (not a submission-page receipt). This is time-sensitive, was not refreshed in the active 087 review, and is not a leaderboard projection for any focus-site file.
 
 ## Nine focus sites (highest scoring submissions)
 GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36.
@@ -562,13 +566,13 @@ Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one flo
 
 10. **Clean GitHub Pages site** under docs/; three passes then PR merged to main, listing remaining work and limitations.
 
-## Historical Competition Snapshot (not current state)
+## Dated Competition Snapshot — separate mainline review, 31 Oct 2026
 
-- The latest repository-recorded public leaderboard #1 is 0.4544 (ORGANIZER-PUBLIC snapshot, checked 30 Oct 2026; not refreshed in this review and not a submission-page receipt).
-- Best score listed for the nine focus sites is GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED).
-- A prior local audit found the nine focus-site rasters overlap the pinned 13GEMSDOE lattice; this is not a complete authenticated registry comparison.
-- No file is cleared for submission: lane and canonical assignment are null, competition inputs are unavailable here, and no organizer receipt is linked.
-- A 29 Oct artifact was once described as lattice-unique, but a later audit found out-of-footprint positives and duplicate overlap and retracted it from upload consideration. Its archived name is `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif`; it is research/audit material only. See `knowledge/session-review-arena-89955dc0.md` and the current review at the top of this README.
+- Public leaderboard snapshot: rank #1 = 0.4544, rank #48 = 0.3231, and rank #50 = 0.3195 (ORGANIZER-PUBLIC, recorded by the separate `arena/510af7c7` review; not a private score or receipt for any GEMSDOE site). See `evidence/leaderboard_snapshot_20261031.json`.
+- Best focus-site value remains GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED).
+- The nine-site masks were measured against the available local registry/lattice in earlier audits; this is not a complete authenticated registry comparison. The literal user protocol still requires any >0.90 rank correlation or >70% 3-px overlap to be logged as duplicate and stopped.
+- No file is cleared for submission. The active review did not freshly verify external sources and no TIF was generated. The lane, canonical template, authenticated inputs, and complete registry remain unresolved.
+- Earlier TIFFs in `docs/downloads/` and `archive/` are historical/research artifacts only, not approved submission downloads. See the active review at the top of this README and the dated 510 snapshot/review for source provenance.
 
 ## Official Source Links (verification dates recorded separately; not freshly checked in this review)
 

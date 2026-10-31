@@ -5,9 +5,9 @@
   "review_path": "knowledge/review-arena-087d895d-20261031.md",
   "run_card_path": "evidence/run_card_arena_087d895d_20261031.json",
   "hypothesis": "No geological hypothesis was tested. H-CMCI is ranked first for possible future preregistration only; no method lane is assigned.",
-  "mechanism": "No candidate surface, feature, point placement, or raster was computed. The four proposals are documented in knowledge/hypotheses-20261031.md.",
+  "mechanism": "No candidate surface, feature, point placement, or raster was computed. The four proposals are documented in knowledge/hypotheses-arena-087d895d-20261031.md.",
   "named_non_fault_process": "No candidate was tested. The top proposal's named mimics are saline or clay-rich playa, basin-facies contact, intrusive contact, and flight/acquisition seam.",
-  "named_non_fault_mimic": "Not applicable to an untested candidate; see the specific mimics for each proposal in knowledge/hypotheses-20261031.md.",
+  "named_non_fault_mimic": "Not applicable to an untested candidate; see the specific mimics for each proposal in knowledge/hypotheses-arena-087d895d-20261031.md.",
   "holdout_dti": {
     "label": "HOLDOUT-DTI",
     "value": null,
@@ -44,15 +44,16 @@
   },
   "software_tests": {
     "command": ".venv/bin/python -m pytest -q -rs",
-    "passed": 446,
+    "passed": 451,
     "failed": 0,
-    "skipped": 2,
+    "skipped": 3,
     "warnings": 126,
     "skip_reasons": [
       "Absent ignored bridge rasters required for data-dependent footprint/catalogue test.",
-      "Competition sample grid not restored for data-dependent validator test."
+      "Competition sample grid not restored for data-dependent validator test.",
+      "Core data not restored for the nine-site format-receipt test."
     ],
-    "meaning": "Software verification only; not a geological experiment, HOLDOUT-DTI, leaderboard estimate, or submission authorization."
+    "meaning": "Combined suite after reconciliation with origin/main; software verification only, not a geological experiment, HOLDOUT-DTI, leaderboard estimate, or submission authorization."
   },
   "preflight": {
     "command": ".venv/bin/python scripts/shared_tools.py preflight",
