@@ -1,0 +1,131 @@
+{
+  "schema": "karage1-run-card-v4",
+  "generated_utc": "20261031T011550Z",
+  "lane_id": "H-K1-SEISMIC-PROX",
+  "hypothesis": "Official band 10 deq_n100a15 (distance to nearest earthquake) is unused by the repo 58-channel stack.  Weighting a magnetic/gravity structural edge by seismic proximity marks active, commonly blind, Great Basin faults that are under-mapped in the USGS/INGENIOUS catalogue.",
+  "mechanism": "Magnetic horizontal-gradient crest = structural contact position; exp(-deq/2500 m) = seismogenic-activity prior.  Product is high where an active structure is most likely absent from the catalogue.  Dots are placed only outside a 3 px (300 m) catalogue collar, so no submitted dot can earn FP from a masked known fault, and only at kernel-spaced peaks of the expected-coverage convolution.",
+  "named_non_fault_mimic": "Earthquake clouds on non-fault structures (volcanic collapse, regional stress), lithologic magnetic contacts, and the smooth 100 km seismicity window itself.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "status": "NOT_COMPUTED_AS_LEADERBOARD",
+    "note": "Catalogue hide-and-recover holdout rewards re-finding mapped traces and penalises off-catalogue placement by construction; it cannot rank this candidate.  No leaderboard estimate is produced."
+  },
+  "registry_correlation_overlap": {
+    "registry_rasters_checked": 10,
+    "worst_forward_overlap": 1.0,
+    "worst_forward_overlap_reference": "13GEMSDOE_lattice_calibration_probe",
+    "worst_peer_forward_overlap": 0.21724119615445903,
+    "worst_peer_reference": "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
+    "unique_by_literal_rule_vs_peers": true,
+    "pairwise": [
+      {
+        "reference": "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+        "candidate_dots": 37654,
+        "within_3px": 7601,
+        "directed_overlap": 0.20186434376161896,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "GEMSDOE25_d28.tif",
+        "candidate_dots": 37654,
+        "within_3px": 7218,
+        "directed_overlap": 0.1916927816433845,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+        "candidate_dots": 37654,
+        "within_3px": 7744,
+        "directed_overlap": 0.2056620810538057,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif",
+        "candidate_dots": 37654,
+        "within_3px": 7140,
+        "directed_overlap": 0.189621288574919,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif",
+        "candidate_dots": 37654,
+        "within_3px": 7218,
+        "directed_overlap": 0.1916927816433845,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif",
+        "candidate_dots": 37654,
+        "within_3px": 7218,
+        "directed_overlap": 0.1916927816433845,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "GEMSDOE32_B2.tif",
+        "candidate_dots": 37654,
+        "within_3px": 7213,
+        "directed_overlap": 0.19155999362617518,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif",
+        "candidate_dots": 37654,
+        "within_3px": 7328,
+        "directed_overlap": 0.1946141180219897,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
+        "candidate_dots": 37654,
+        "within_3px": 8180,
+        "directed_overlap": 0.21724119615445903,
+        "exceeds_70pct": false
+      },
+      {
+        "reference": "13GEMSDOE_lattice_calibration_probe",
+        "candidate_dots": 37654,
+        "within_3px": 37654,
+        "directed_overlap": 1.0,
+        "exceeds_70pct": true,
+        "role": "calibration_probe_diagnostic_only"
+      }
+    ]
+  },
+  "raster": {
+    "tif": "karage1-seisprox-c3-w0.55-20261031T012000Z-zeros.tif",
+    "zip": "karage1-seisprox-c3-w0.55-20261031T012000Z-zeros.zip",
+    "sha256": "d2508c28accfeca7f9b5bd15e40bcdadec98f28b6800bc305f7b90199f6cc86d",
+    "bytes": 137461,
+    "dots": 37654,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ]
+  },
+  "validator_output": {
+    "single_band": true,
+    "dtype_float32": true,
+    "crs_matches_template": true,
+    "shape_matches_template": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_all_zero": true,
+    "no_inf_anywhere": true,
+    "no_nan_anywhere": true,
+    "all_checks_passed": true
+  },
+  "submission_name": "karage1-seisprox-c3-w0.55-20261031T012000Z-zeros.tif",
+  "submission_note": "Seismic-proximity (band10) x magnetic/gravity edge, 3px catalogue collar, 37654 dots; research candidate",
+  "submission_note_chars": 104,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "verdict_reason": "Unique, format-valid GeoTIFF generated for research/audit.  Hidden test labels are unavailable, so no organizer score exists; no method lane was assigned by the owner; no weekly slot was selected.  NOT cleared for DrivenData upload.",
+  "variant": {
+    "seis_weight": 0.55,
+    "collar_px": 3,
+    "budget": 37654
+  }
+}

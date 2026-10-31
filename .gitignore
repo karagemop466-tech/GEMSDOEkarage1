@@ -27,3 +27,6 @@ Thumbs.db
 *.npz
 *.partial
 *.assembling
+
+# Local analysis venv (numpy/rasterio/scikit-image/pytest)
+.venv-karage/

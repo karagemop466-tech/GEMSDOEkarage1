@@ -1,0 +1,89 @@
+{
+  "schema": "karage1-holdout-screen-v1",
+  "generated_utc": "2026-10-31T01:36:08Z",
+  "evaluator": "gemsk-hide-recover-v1",
+  "evaluator_source": "src/gemsk/holdout.py",
+  "truth": "mapped USGS/INGENIOUS catalogue segments withheld whole (local mirror)",
+  "caveat": "Catalogue-truth holdout cannot rank off-catalogue candidates; not a leaderboard estimate.",
+  "pooled": {
+    "candidate_c2-w0.55-20261031T013500Z": {
+      "tp": 0.45752766734349226,
+      "fp": 150609.5424723327,
+      "fn": 60624.54247233266,
+      "n_truth": 60625,
+      "dti": 5.819333867664168e-06
+    },
+    "candidate_c3-w0.55-20261031T012000Z": {
+      "tp": 0.0,
+      "fp": 150616.0,
+      "fn": 60625.0,
+      "n_truth": 60625,
+      "dti": 0.0
+    },
+    "control_gemsdoe32_b2": {
+      "tp": 375.7339808773916,
+      "fp": 144845.3352668399,
+      "fn": 60249.266019122624,
+      "n_truth": 60625,
+      "dti": 0.004845416082319386
+    },
+    "control_uniform_random": {
+      "tp": 3791.240048048954,
+      "fp": 140073.0883413194,
+      "fn": 56833.75995195105,
+      "n_truth": 60625,
+      "dti": 0.049063018626142894
+    }
+  },
+  "ci95": {
+    "candidate_c2-w0.55-20261031T013500Z": {
+      "ci95": [
+        2.214938824740874e-06,
+        9.849043921492501e-06
+      ]
+    },
+    "candidate_c3-w0.55-20261031T012000Z": {
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "paired_delta_vs_candidate_c2-w0.55-20261031T013500Z": {
+        "mean": -5.8567803665235965e-06,
+        "ci95": [
+          -9.849043921492501e-06,
+          -2.2149388247408743e-06
+        ],
+        "frac_positive": 0.0
+      }
+    },
+    "control_gemsdoe32_b2": {
+      "ci95": [
+        0.004322235549389281,
+        0.0053456505331544255
+      ],
+      "paired_delta_vs_candidate_c2-w0.55-20261031T013500Z": {
+        "mean": 0.00484687129287644,
+        "ci95": [
+          0.00431583043442066,
+          0.005342624512653445
+        ],
+        "frac_positive": 1.0
+      }
+    },
+    "control_uniform_random": {
+      "ci95": [
+        0.046071556532240564,
+        0.05195155959392368
+      ],
+      "paired_delta_vs_candidate_c2-w0.55-20261031T013500Z": {
+        "mean": 0.04902061811476193,
+        "ci95": [
+          0.04606404990811104,
+          0.05194507053878097
+        ],
+        "frac_positive": 1.0
+      }
+    }
+  },
+  "candidate_file": "docs/downloads/karage1-seisprox-c3-w0.55-20261031T012000Z-zeros.tif"
+}

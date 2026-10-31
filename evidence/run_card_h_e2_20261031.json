@@ -1,0 +1,68 @@
+{
+  "criteria": {
+    "beats_every_local_candidate_on_same_cells": false,
+    "canary_all_below_0_90": true,
+    "candidate_beats_null_pooled": true,
+    "paired_ci_lower_bound_gt_zero": true,
+    "registry_dot_overlap_le_0_70": false,
+    "registry_surface_rho_le_0_90": true,
+    "validator_passed": true
+  },
+  "date_utc": "2026-10-31",
+  "experiment": "E2 / H-E2",
+  "field": "iso_grav_anom",
+  "holdout": {
+    "ci95_cell_bootstrap_of_mean_cell_dti": [
+      0.04295900978734623,
+      0.050469409715416726
+    ],
+    "evaluator": "gems57-pooled-hide-v2",
+    "label": "HOLDOUT-DTI (withheld mapped catalogue segments; not organizer-confirmed)",
+    "paired_delta_ci95": [
+      0.0005255125799538344,
+      0.005061808386059018
+    ],
+    "pooled_dti": 0.047916110544725825,
+    "random_null_pooled_mean": 0.04459503747166907,
+    "withheld_positives": 45260
+  },
+  "hypothesis": "Density-contrast contacts in the isostatic gravity anomaly, whose Euler (N=0) depth solutions agree on a 300-3000 m band, mark fault-bounded density juxtapositions with no mapped trace.",
+  "mechanism": "Euler homogeneity identity solved on iso_grav_anom in 2.1 km windows; solutions counted per cell (depth-cluster density). Gravity anomalies are potential fields, so the same Tz filter applies.",
+  "named_non_fault_mimic": "Basin-margin and sediment-basement density steps, intrusive density contacts, and topographic-correction residuals at high-relief edges produce the same Euler contact geometry.",
+  "ok_to_submit": false,
+  "raster": {
+    "file": "archive/research-he2-20261031/karage1-he2-euler-gravity-37654-20261031-zeros.tif",
+    "name": "karage1-he2-euler-gravity-37654-20261031-zeros",
+    "note": "H-E2 Euler on isostatic gravity (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored",
+    "note_chars": 104,
+    "sha256": "830c6ddfb225253bcc87f774bd0497dee00497cbb8b141a73a7c1b914910cdcd"
+  },
+  "registry_overlap": {
+    "final_dots_max_3px_overlap": 1.0,
+    "max_overlap_file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+    "rasters_compared": 58,
+    "surface_max_spearman": 0.03355243098720769
+  },
+  "schema": "karage1-run-card-v1",
+  "session": "arena/ce19eeed-gemsdoekarage1",
+  "validator": {
+    "all_passed": true,
+    "checks": {
+      "crs_epsg_32611": true,
+      "dimensions_3730x3292": true,
+      "dtype_float32": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "max_le_1": true,
+      "min_ge_0": true,
+      "no_inf_anywhere": true,
+      "no_nan_anywhere": true,
+      "no_sentinel_values": true,
+      "outside_footprint_zero": true,
+      "range_0_1_guaranteed": true,
+      "single_band": true,
+      "transform_matches_sample_submission": true
+    }
+  },
+  "verdict": "negative"
+}
