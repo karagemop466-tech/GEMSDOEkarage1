@@ -146,9 +146,9 @@ per-raster 3-px overlap to six decimals. Output: `evidence/kp1_independent_verif
 
 ## 6. Irregularities (flagged, not resolved)
 
-1. **Stale green verdict fixed.** `docs/index.html`, `docs/executive-summary.html` and `docs/submission-hub.html` showed a
-   green "OK TO SUBMIT" banner above body text that said "No". The body text was hard-coded. Both now read from the same
-   receipts and fail closed (section 7).
+1. **Stale green verdict.** Earlier, `docs/index.html`, `docs/executive-summary.html` and `docs/submission-hub.html` showed a
+   green "OK TO SUBMIT" banner above body text that said "No". The merged `main` now routes every verdict through
+   `scripts/release_authorization.py`, which denies KP1. The pages were regenerated and show DO NOT SUBMIT.
 2. **Gate receipt was wrong.** `ok_to_submit: true` checked only the nine focus files. Fixed: the listed-site receipt is required.
 3. **Close-date attribution.** The date is correct (Dec. 3, 2026, 11:59 p.m. UTC, from the homepage). It was wrongly attributed
    to the rules PDF. Fixed.
@@ -166,26 +166,40 @@ per-raster 3-px overlap to six decimals. Output: `evidence/kp1_independent_verif
 
 ---
 
-## 7. What changed in the repository (this session)
+## 7. What changed in the repository (this session, merged with `main`)
+
+`main` gained three sessions of work while this branch was open (PRs #119–#124). Conflicts were resolved in favour of
+`main`'s fail-closed architecture: `scripts/release_authorization.py` and `evidence/active_submission_status.json` are the
+single authority for "may this be uploaded". Only the following was added on top:
 
 - `scripts/verify_kp1_independent_20261031.py` → `evidence/kp1_independent_verification_20261031.json` (data-free re-check).
 - `scripts/uniqueness_vs_listed_sites_20261031.py` → `evidence/kp1_uniqueness_vs_listed_sites_20261031.json`.
 - `scripts/fetch_listed_site_tifs.py` → `evidence/listed_sites_tif_inventory_20261031.json` (bytes in git-ignored `data/peers/`).
-- `scripts/kp1_release_gate.py`: requires the listed-site receipt; `failed_checks` added. Re-run: `ok_to_submit: false`.
-- `scripts/render_site.py`: one verdict source (`verdict_receipt()`) for every banner, header and panel; fails closed to
-  "NO FILE CLEARED — DO NOT SUBMIT" with the reason named. Tests in `tests/` updated to the true state.
+- `scripts/kp1_release_gate.py`: requires the listed-site receipt in addition to `main`'s gates. Re-run: `ok_to_submit: false`.
 - `evidence/kp1_exp2_holdout_rerun_20261031.json`: rerun receipt. The committed holdout file is unchanged.
-- `requirements.txt`: `pandas>=2.0`.
-- `docs/` regenerated with `scripts/build_site.py` and `scripts/build_kp1_site.py`.
+- `evidence/run_card_arena_a0f55a6a_20261031.json`: run card (labels on every number).
+- `tests/test_kp1_lane.py::test_listed_site_receipt_matches_bytes_and_gate`.
+- `requirements.txt`: `pandas>=2.0` (needed by `scripts/kp1_planes.py`).
+- `scripts/build_executive_20261031.py`: close-date attribution corrected.
+- README current-verdict block (above `READ FIRST — ACTIVE SESSION arena/a79c8595`); AGENTS.md note.
 
 Restoration: `scripts/restore_karage1_data.py --group core` and `--group external` were run. 16 files, all SHA-256 matched.
 `data/official/` is a symlink layout that the builder expects.
 
----
+**Other candidates on `main` (added by other sessions).** The same lattice test applies to them:
+
+| File on `main` | Dots | Within 3 px of the GEMSDOE13 lattice | Limit | Result |
+|---|---|---|---|---|
+| `docs/downloads/gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif` | 37,654 | **99.76 %** | 70 % | FAILS |
+| `docs/downloads/gems-karage1-geothermal-conduit-offcat-20261031T000000Z-a1b2c3d4-zeros.tif` | 20,000 | **99.87 %** | 70 % | FAILS |
+
+Measured here against `registry/13GEMSDOE_r13-lattice-s5_v2_nan-outside.tif` only. Those sessions' own audits compared against
+the nine focus files (0.0 overlap for the off-catalogue geophysics file). Their run card for the conduit file already says
+`ok_to_submit: false`. Neither file is cleared. Their full listed-site receipt has not been run.
 
 ## 8. Remaining work and limitations
 
-1. **No file is OK to submit.** Path to a unique candidate: emit dots that avoid the 3-px neighbourhood of every listed-site dot
+1. **No file is OK to submit.** Applies to KP1 and to the two `main` candidates above. Path to a unique candidate: emit dots that avoid the 3-px neighbourhood of every listed-site dot
    (2,473 unique GeoTIFFs in 107 repositories). That is the rule as written. Do not jitter dots to get past it (the repo forbids this).
    Then re-run the holdout and the cross-site check before any slot is considered. This needs a new hypothesis, not a re-run.
 2. **Score estimate.** No organizer receipt exists for any file. Estimated leaderboard scores are NOT ESTIMABLE.

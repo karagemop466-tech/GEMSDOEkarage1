@@ -1,0 +1,68 @@
+{
+  "schema": "gems-parallel-run-card-v1",
+  "session": "arena/a79c8595-gemsdoekarage1",
+  "review_date": "2026-10-31",
+  "hypothesis": "No hypothesis was advanced to candidate status because the single method paragraph referenced by the protocol is absent and no active lane is assigned. H-EULER remains the existing conditional research proposal, not this session's selected method.",
+  "mechanism": "Not tested. The queued H-EULER proposal would examine spatially coherent magnetic source-depth solutions from official TMI/RTP bands to detect buried structural edges beneath subdued or alluvial cover.",
+  "named_non_fault_process_that_could_mimic_it": "Dikes, intrusive/lithologic contacts, remanent magnetization, and survey-height/flight-line artifacts can produce coherent magnetic source edges without a fault.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": null,
+    "withheld_positive_pixels": null,
+    "value": null,
+    "ci95": null,
+    "status": "NOT RUN: no assigned method lane, no organizer-authenticated data/cache, and no agreed canonical template. No score or projection is reported."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap_within_3px": null,
+    "rho_stop_threshold": 0.9,
+    "overlap_stop_threshold": 0.7,
+    "complete_registry_available": false,
+    "scope": "No current candidate surface or final dots were created. The nine focus rasters are audited historically, but the complete registry and an assigned lane were not verified for this session.",
+    "status": "NOT TESTED"
+  },
+  "historical_lattice_diagnostic": {
+    "label": "LOCAL REGISTRY-MEASUREMENT on pinned mirror bytes; not organizer-authenticated and not a candidate score",
+    "lattice_covered_footprint_fraction": 0.9987132726822701,
+    "minimum_3px_dot_overlap_at_37654_dots": 0.8234184947150369,
+    "maximum_dots_not_ruled_out_by_this_bound": 22163,
+    "source": "docs/data/reference-audit.json",
+    "implication": "Under the literal >70% gate, the historical 37,654-dot budget cannot pass against this lattice witness. This is a registry-policy blocker, not a proposed candidate comparison."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "NOT RUN: this session generated no candidate GeoTIFF"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "submission_note_character_limit": 140,
+  "experiments": {
+    "geological_experiments_run": 0,
+    "maximum_experiments": 3,
+    "time_budget_hours": 2,
+    "weekly_slot_selected_or_spent": false
+  },
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "reason": "A negative result is the safe, evidence-supported deliverable. Generating a raster without the assigned lane, canonical shared evaluator/writer, complete registry, and valid spatial holdout would violate the stated protocol and cannot establish uniqueness or likely leaderboard performance. The historical K-PROXY-DETECT candidate is not cleared by this review: its receipt reports uniqueness only against the nine focus rasters and does not establish the required complete current-registry/pre-placement gates.",
+  "blockers": [
+    "The requested single method paragraph is not present; registry/template.json has null method_lane and canonical_template_assignment.",
+    "The cached feature stack and data/ directory are absent from this checkout.",
+    "The existing shared writer and uniqueness module do not match the recorded provenance pins.",
+    "The historical KP1 promotion does not record a complete-registry pre-placement surface check; it cannot be reused as a current authorization.",
+    "Catalogue hide-and-recover evaluates mapped catalogue faults, whereas the organizer target is off-catalogue; earlier diagnostics show ranking inversion and cannot provide a leaderboard estimate.",
+    "No authenticated organizer receipt exists for the supplied focus-site scores or any local candidate."
+  ],
+  "remaining_actions": [
+    "Resolve the method-lane assignment and canonical shared-template owner in the upstream template.",
+    "Restore organizer-authenticated training features, labels, sample grid, and the required shared cache.",
+    "Reconcile the shared writer/uniqueness provenance mismatch once upstream; do not privately fork.",
+    "Agree on an off-catalogue-relevant validation design with segment buffering and a leakage canary before running a candidate.",
+    "Run the candidate's surface duplicate gate before placement and the final dot gate after placement; then re-open and validate saved bytes.",
+    "Only after every scientific gate passes, let the separate selector decide whether a weekly slot is available."
+  ]
+}

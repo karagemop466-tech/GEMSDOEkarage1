@@ -1,0 +1,192 @@
+{
+  "file": "gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif",
+  "sha256": "9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d",
+  "bytes": 132339,
+  "submission_name": "gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros",
+  "note": "Off-catalogue mag/gravity/topo/seismic edge dots, outside all registry halos; unique; research-only, not organizer-cleared",
+  "note_chars": 122,
+  "validator": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif",
+    "bytes": 132339,
+    "sha256": "9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOEkarage1/docs/downloads/gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif",
+    "bytes": 132339,
+    "sha256": "9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "n_nonzero": 37654,
+    "mass": 37654.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.zip",
+  "zip_sha256": "45f79c04a3b0a7f1495d8cfd2e9c065385e455007622164eb4286ae3f61f8467",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "method": "off-catalogue geophysical-edge dot emission",
+    "bands_used": [
+      [
+        "tmi_hg",
+        1.0,
+        "high"
+      ],
+      [
+        "iso_grav_anom_hg",
+        1.0,
+        "high"
+      ],
+      [
+        "ieq_n100a15",
+        1.0,
+        "high"
+      ],
+      [
+        "cond_surf",
+        1.0,
+        "high"
+      ],
+      [
+        "det_elev_slope",
+        1.0,
+        "high"
+      ],
+      [
+        "rtp",
+        1.0,
+        "low"
+      ],
+      [
+        "tmi",
+        1.0,
+        "low"
+      ],
+      [
+        "iso_grav_anom",
+        1.0,
+        "low"
+      ],
+      [
+        "mag_anom",
+        1.0,
+        "low"
+      ]
+    ],
+    "n_features": 9,
+    "catalogue_collar_px": 5.0,
+    "registry_halo_px": 3.0,
+    "dot_budget": 37654,
+    "min_separation_px": 3.0,
+    "evaluator": "vendor/gems57/holdout.py gems57-pooled-hide-v2",
+    "holdout_pooled_dti": 0.0,
+    "holdout_coverage": 0.0,
+    "worst_registry_3px_overlap": 0.0,
+    "worst_registry_site": "GEMSDOE24",
+    "registry_shas": {
+      "GEMSDOE24": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+      "GEMSDOE25": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "GEMSDOE27": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+      "GEMSDOE28": "5556aa1438fd67376b60d5ffc99228ec09dcc11a8408298a743ccb88d6163641",
+      "GEMSDOE30": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+      "GEMSDOE31": "07b6db440535404bb41ec8ddc797713e200d308e3da35937393efde5eb84bc40",
+      "GEMSDOE32": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "GEMSDOE33": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+      "GEMSDOE36": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a"
+    },
+    "evaluator_note": "HOLDOUT-DTI scores catalogue-segment recovery; not a leaderboard estimate",
+    "candidate_sha256": "9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d"
+  }
+}

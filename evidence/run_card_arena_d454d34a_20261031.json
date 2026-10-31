@@ -1,0 +1,209 @@
+{
+ "schema": "gems-run-card-v1",
+ "session": "arena/d454d34a-gemsdoekarage1",
+ "date": "2026-10-31",
+ "lane": "REVIEW + VERIFICATION (no new experiment; no new raster generated; no slot selected or spent)",
+ "hypothesis": "Review: is the kp1 file (docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) supported as a score improvement over the 0.2778 reference, and is the repo's metric arithmetic correct?",
+ "verdict": "negative",
+ "verdict_meaning": "kp1 is NOT authorized. DO NOT SUBMIT. The file passes format and literal uniqueness and the project validator (15/15 against the restored mirror), but the active status record evidence/active_submission_status.json (arena/a79c8595, ok_to_submit false) and the fail-closed release_authorization gates remain in force. No score is established; 0.2789 is PROJECTED.",
+ "experiments_budget": {
+  "budget": 3,
+  "used": 0,
+  "note": "review and verification only; the kp1 analysis script was corrected and rerun, which is not a new experiment"
+ },
+ "slots_used": 0,
+ "submission_name": null,
+ "submission_note": null,
+ "metric_source": {
+  "official": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "statement": "DTI = TP_w / (TP_w + alpha*FP_w + beta*FN_w); FN_w = |G| - TP_w; k(d)=max(1-d/300m,0); alpha=0.2, beta=0.8",
+  "binary_identity_verified": "DTI = T / ((1-beta)*T + alpha*(n-M) + beta*|G|)",
+  "toy_check": {
+   "perfect_prediction_official": 1.0,
+   "old_identity_value": 0.5555556,
+   "mixed_example_official": 0.556319,
+   "mixed_example_old_identity": 0.384981
+  },
+  "tests": "tests/test_metric_identity_20261031.py (oracle: vendor gems57.metric.dti_bruteforce)"
+ },
+ "corrections_made": [
+  "scripts/kp1_metric_analysis.py: DTI identity used +T (coefficient 1) instead of (1-beta)*T; ceiling 0.556 -> 1.0; marginal bar at 0.2778 0.0769 -> 0.0588; bar at 0.4413 0.158 -> 0.0968; score() now calls gems57.metric.dti_from_components (no private identity)",
+  "scripts/build_kp1_site.py + scripts/render_site.py: pages carry the fail-closed banner from main; this session's 'ELIGIBLE TO UPLOAD' wording was withdrawn during the merge with main (PR #120 era)",
+  "vendor/gems57/metric.py: examined, NOT changed (hash-pinned by evidence/template_integrity_20261028.json). Its marginal_accept writes alpha for the T term; decisions are unaffected (T terms cancel), so this is an owner item, not a bug in outcomes"
+ ],
+ "holdout_dti_kp1": {
+  "label": "HOLDOUT-DTI",
+  "value": 0.07640846770050778,
+  "evaluator": "gems57-pooled-hide-v2 extended with off-catalogue SGMC truth (leave-one-quadrant-out, 4 folds)",
+  "n_withheld_positive_cells": 62122,
+  "ci95_candidate_minus_matched_uniform": [
+   -0.003366,
+   0.026039
+  ],
+  "ci_note": "The 95% CI for the candidate's gain over matched random dots includes zero.",
+  "same_instrument_nine_focus_files": "0.0934 to 0.1012 (all above kp1)",
+  "same_instrument_uniform_at_32000": 0.06403,
+  "same_instrument_uniform_at_37654": 0.07405,
+  "instrument_calibration_spearman_vs_known_scores": -1.0,
+  "source": "evidence/kp1_exp3_comparison.json, evidence/kp1_exp2_holdout.json"
+ },
+ "projection": {
+  "value": 0.27892044625099494,
+  "evidence_class": "PROJECTED - not a score, not a measurement",
+  "model": "OLS with 3 parameters fitted to 9 USER-REPORTED scores (unverified), extrapolated to kp1",
+  "candidate_minus_champion_fit": 0.001983,
+  "loo_rmse_implied_halfwidth": 0.0027,
+  "conclusion": "The projected gap (+0.002) is smaller than the fit's own uncertainty, so this model cannot separate kp1 from B2."
+ },
+ "correlation_and_overlap_vs_registry": {
+  "method": "rasters in registry/ (9 focus submissions); binary dots; Spearman == Pearson on 0/1 values",
+  "max_abs_rho_full_footprint_recomputed": 0.011539,
+  "max_abs_rho_run_card_claim": 0.007607,
+  "rho_status": "claim NOT reproduced; both values pass the 0.90 limit",
+  "max_share_kp1_dots_within_3px_of_any_focus_file": 0.265281,
+  "max_share_focus_dots_within_3px_of_kp1": 0.225,
+  "focus_pairwise_max_share_within_3px": 1.0,
+  "focus_each_site_max_share_within_3px_of_another_focus": {
+   "GEMSDOE24": 1.0,
+   "GEMSDOE25": 1.0,
+   "GEMSDOE27": 0.98,
+   "GEMSDOE28": 1.0,
+   "GEMSDOE30": 1.0,
+   "GEMSDOE31": 1.0,
+   "GEMSDOE32": 1.0,
+   "GEMSDOE33": 0.997,
+   "GEMSDOE36": 0.976
+  },
+  "literal_70pct_gate": "PASS for kp1 (max 26.5%)",
+  "limit_rho": 0.9,
+  "limit_overlap": 0.7
+ },
+ "b2_mechanism_verified": {
+  "claim": "GEMSDOE32 B2 is an exact subset of GEMSDOE25",
+  "dots_B2": 37654,
+  "dots_G25": 44090,
+  "in_both": 37654,
+  "only_G25": 6436,
+  "only_B2": 0,
+  "status": "VERIFIED from registry rasters 31 Oct 2026",
+  "catalogue_adjacency_of_removed_dots": "NOT VERIFIED here: the catalogue raster is not in this checkout"
+ },
+ "raster": {
+  "path": "docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+  "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "sha256_recomputed_match": true,
+  "dtype": "float32",
+  "shape": [
+   3730,
+   3292
+  ],
+  "crs": "EPSG:32611",
+  "transform": [
+   100.0,
+   0.0,
+   243350.0,
+   0.0,
+   -100.0,
+   4508550.0
+  ],
+  "grid_matches_all_nine_focus_rasters": true,
+  "nan_count": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "distinct_values": [
+   0.0,
+   1.0
+  ],
+  "dot_count": 32000
+ },
+ "validator_output": {
+  "validator": "vendor/gems57/validate.py validate(path, footprint=sample_finite_mask, catalogue=existing_faults>0)",
+  "checks_passed": 15,
+  "checks_total": 15,
+  "all_checks_passed": true,
+  "checks": [
+   "single_band",
+   "dtype_float32",
+   "dimensions_3730x3292",
+   "crs_epsg_32611",
+   "transform_matches_sample_submission",
+   "no_nan_anywhere",
+   "no_inf_anywhere",
+   "no_sentinel_values",
+   "range_0_1_guaranteed",
+   "min_ge_0",
+   "max_le_1",
+   "in_footprint_all_finite",
+   "in_footprint_range_0_1",
+   "outside_footprint_zero",
+   "zero_dots_on_mapped_catalogue"
+  ],
+  "inputs": "data/sample_submission.tif and data/existing_faults.tif from the pinned public mirror (not organizer-authenticated)",
+  "sample_submission_under_same_validator_fails": [
+   "no_nan_anywhere",
+   "outside_footprint_zero",
+   "zero_dots_on_mapped_catalogue"
+  ],
+  "classes_note": "Local preflight only; not organizer acceptance or a uniqueness clearance."
+ },
+ "leaderboard_organizer_public": {
+  "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "observed_ranks_1_to_47_utc_2026_10_31": {
+   "1": 0.4544,
+   "2": 0.3934,
+   "47": 0.3261
+  },
+  "user_cited_0_4413_present_in_ranks_1_to_47": false,
+  "user_cited_0_3195": "rank 50 per evidence/leaderboard_snapshot_20261031.json; not re-read in this session",
+  "class": "ORGANIZER-PUBLIC (point in time)"
+ },
+ "official_rules_checked": {
+  "rules_pdf": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+  "read": "Preface, sections 1, 1.1-1.4, 2, 3, 3.1, 3.2 (chunks 0-2 of 7); sections 3.5-3.6 and Appendix A not read",
+  "facts": [
+   "Single GeoTIFF, single raster layer, 100 m, entire GeoDAWN study area (sec 3.2)",
+   "Three submissions per week (sec 3.2)",
+   "Generative AI use must be indicated in the narrative (sec 3.2)",
+   "Phase 1 scored on a private test set; Phase 2 scored on an expert-revised label set built from submitted predictions (sec 1.1, 3.2)"
+  ]
+ },
+ "irregularities_for_owner_review": [
+  "Public banner and README disagreed (fixed in banner; README top block still says PROMOTE and needs the owner's ruling).",
+  "release gate ok_to_submit checks format, uniqueness and catalogue mass only; it does not test score; its own not_basis says so.",
+  "kp1 projection is a 3-parameter fit to 9 unverified user-reported scores; it cannot separate kp1 from 0.2778.",
+  "On the only measured off-catalogue instrument kp1 (0.0764) is below all nine focus files (0.0934-0.1012), and its CI over matched random spans zero.",
+  "The run-card max Spearman 0.0076 does not reproduce (0.0115); still far below 0.90.",
+  "The metric identity error in kp1_metric_analysis propagated into AGENTS.md, README and knowledge notes; the generated pages are corrected, the historical notes are not rewritten.",
+  "The rules require disclosure of generative-AI use in the narrative. No such narrative exists in this repo.",
+  "The competition page says competitors must choose ONE submission for scoring across both rounds, before the deadline.",
+  "The user cited 0.4413 as the leaderboard high; the live #1 is 0.4544 and 0.4413 is not in ranks 1-47.",
+  "Rules section 3.2 says data outside the bounds should be null or NaN; the kp1 file uses zeros inside the bounds. Its values are in [0,1], which is what the portal error message names; the portal's own handling is undocumented.",
+  "Mirror sample_submission.tif positives are identical to the catalogue (IR-S1); outside-footprint encoding is NaN in the sample but zeros in kp1."
+ ],
+ "sample_submission_check": {
+  "grid_match": true,
+  "outside_footprint_encoding": "NaN in 7,111,787 cells; kp1 writes 0 there",
+  "footprint_cells": 5167373,
+  "positives": 60988,
+  "positives_identical_to_catalogue": true,
+  "status": "VERIFIED against mirror; FLAG: encoding differs from kp1 (owner decision)"
+ },
+ "catalogue_check": {
+  "dots_on_catalogue": 0,
+  "dots_within_2px": 0,
+  "dots_within_3px": 2699,
+  "share_within_3px": 0.0843,
+  "status": "VERIFIED against mirror data/existing_faults.tif"
+ },
+ "limitations": [
+  "Organizer files not checked (DrivenData login); mirror is hash-consistent only.",
+  "Holdout runs not performed in this session (no new experiment).",
+  "Overlap computed on the restored mirror catalogue; the B2-to-catalogue adjacency is not computed here."
+ ],
+ "authorization": {
+  "active_status_file": "evidence/active_submission_status.json",
+  "ok_to_submit": false,
+  "set_by": "arena/a79c8595 (main)",
+  "this_session_changes_authorization": false
+ }
+}

@@ -258,9 +258,18 @@ def main(tif: Path) -> dict:
 
     proj = projection(cand, rows)
     fmt_ok = bool(fmt["all_checks_passed"])
-    # Cross-site receipt (added 31 Oct 2026): the nine focus files are not the whole comparison set.
-    # The user's protocol compares against every listed GEMSDOE site, and the lattice raster of
-    # GEMSDOE13 alone contains most of this file's dots. Missing, mismatched or failing -> not cleared.
+    # The comparison set above is only the nine focus-site mirrors. The
+    # parallel-run rule applies to any registry raster, but no authenticated,
+    # complete registry snapshot is present. Do not treat a partial comparison
+    # as release clearance; fail closed until registry and lattice status resolve.
+    registry_complete = False
+    lattice_gate_passes = bool(uniqueness.get("lattice_gate_passes", False))
+    uniqueness_cleared = (registry_complete and lattice_gate_passes
+                          and uniqueness["passes_rho_rule"]
+                          and uniqueness["passes_overlap_rule"])
+    # Cross-site receipt (31 Oct 2026): the comparison set must include every listed GEMSDOE repository.
+    # GEMSDOE13's lattice raster alone holds 99.78 % of this candidate's dots (limit 70 %).
+    # Missing, mismatched, or failing receipts are not clearance.
     cross_path = ROOT / "evidence" / "kp1_uniqueness_vs_listed_sites_20261031.json"
     try:
         cross = json.loads(cross_path.read_text())
@@ -272,22 +281,18 @@ def main(tif: Path) -> dict:
     except (OSError, KeyError, ValueError, TypeError):
         cross_ok = False
         cross_detail = dict(receipt=str(cross_path.relative_to(ROOT)), passes=False, error="missing or unreadable")
-    ok = fmt_ok and uniqueness["passes_rho_rule"] and uniqueness["passes_overlap_rule"] \
-        and cand["d_cat_le_2px_frac"] == 0.0 and cross_ok
+    ok = fmt_ok and uniqueness_cleared and cand["d_cat_le_2px_frac"] == 0.0 and cross_ok
     decision = dict(
         ok_to_submit=bool(ok),
-        basis=["saved-byte format preflight passed", "literal uniqueness rules passed (nine focus files)",
-               "no positive mass inside the mapped-catalogue corridor"] + (
-               ["literal uniqueness rule passed against every listed-site GeoTIFF checked"] if cross_ok else []),
-        failed_checks=[] if ok else [k for k, v in {
-            "format": fmt_ok, "focus_rho": uniqueness["passes_rho_rule"],
-            "focus_overlap": uniqueness["passes_overlap_rule"],
-            "catalogue_corridor": cand["d_cat_le_2px_frac"] == 0.0,
-            "listed_sites": cross_ok}.items() if not v],
+        registry_complete=registry_complete,
+        lattice_gate_passes=lattice_gate_passes,
+        basis=["saved-byte format preflight passed"],
+        blockers=["registry is not complete/authenticated",
+                  "lattice duplicate gate is unresolved or fails",
+                  "no organizer receipt for this file",
+                  "no validated leaderboard estimate",
+                  "holdout instrument is anti-correlated with known leaderboard ordering"],
         listed_sites_check=cross_detail,
-        not_basis=["no organizer receipt for this file", "no validated leaderboard estimate",
-                   "the holdout instrument is anti-correlated with the known leaderboard "
-                   "ordering (see evidence/kp1_exp2_holdout.json instrument_calibration)"],
         slots_used=0,
     )
     out = dict(gate="kp1-release-gate/v1", tif=str(tif.relative_to(ROOT)) if tif.is_relative_to(ROOT) else str(tif),

@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **PR #119 branch audit (`arena/fd3e38cf-gemsdoekarage1`): NEGATIVE / DO NOT SUBMIT.** This review added a dedicated nine-site decision page and run card: [`docs/current-review-20261031.html`](docs/current-review-20261031.html), [`knowledge/session-review-arena-fd3e38cf-20261031.md`](knowledge/session-review-arena-fd3e38cf-20261031.md), and [`evidence/run_card_arena_fd3e38cf_20261031.json`](evidence/run_card_arena_fd3e38cf_20261031.json). No TIF, holdout, or slot was created/spent. Details below incorporate the latest mainline fail-closed authorization; the active release status is negative.
+
 ## CORE VALUES — focal point for every decision
 
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
@@ -14,15 +16,47 @@
 
 **Standing prompt:** `# SESSION PROMPT — FULL TEXT` below. Label every number HOLDOUT-DTI, ORGANIZER-CONFIRMED, PROJECTED or USER-REPORTED. Stop and ask when ambiguous.
 
-## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **NEGATIVE: DO NOT SUBMIT**
+## READ FIRST — ACTIVE SESSION `arena/a79c8595-gemsdoekarage1` (31 Oct 2026) · **NEGATIVE / DO NOT SUBMIT**
 
-**No file is cleared for submission by this repository review.** The KP1 GeoTIFF below has reported local format validation, but no organizer receipt, no validated leaderboard estimate, and unresolved global-registry duplicate clearance. Focus-site uniqueness is not global uniqueness. Do not spend a competition slot on it.
+**No file is currently cleared for submission.** This session generated no TIF, ran no holdout, and spent no submission slot: the referenced single method paragraph is absent; `registry/template.json` has no assigned lane or canonical template; the shared cache/data are missing; and the historical KP1 receipt, even after its mainline status was corrected, is not a complete current-registry/pre-placement clearance. Do not treat historical promotion records as active permission.
 
-Research artifact (not cleared): [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif). Its reported 0.2789 is **PROJECTED, NOT A SCORE**. The prior run card reports a HOLDOUT-DTI 0.0764 on independent SGMC truth, but its confidence interval is for the candidate-minus-random difference and the holdout is not calibrated to organizer scores. The same card marks the literal global uniqueness gate saturated. Full audit: [`knowledge/review-current-repo-20261031.md`](knowledge/review-current-repo-20261031.md).
+- Current review: [knowledge/review-arena-a79c8595-20261031.md](knowledge/review-arena-a79c8595-20261031.md) · [machine-readable run card](evidence/run_card_arena_a79c8595_20261031.json) · [active authorization status](evidence/active_submission_status.json).
+- Executive summary and nine-site table: [docs/executive-summary.html](docs/executive-summary.html). Historical reported scores are not organizer-confirmed; a leaderboard estimate is **not estimable** from the available evidence.
+- The nine-site winner GEMSDOE32 B2 (0.2778, USER-REPORTED / UNVERIFIED) is a strict subset of GEMSDOE25's file after removing 6,436 catalogue-adjacent dots; this is a measured mechanism, not proof of hidden-fault discovery. Details: [knowledge/why-gemsdoe32-b2-20261031.md](knowledge/why-gemsdoe32-b2-20261031.md).
+- Existing hypotheses are proposals only: [five-hypothesis slate](knowledge/hypotheses-20261031.md). No candidate was validly tested this session; do not use a weekly slot.
+- **Historical note:** the K-PROXY-DETECT artifact below was promoted by a prior lane receipt based on checks against the nine focus rasters. Under the active full-registry/pre-placement protocol, it is a research artifact pending re-audit—not cleared. Its old projection 0.2789 remains PROJECTED, not a score.
+- Start every session by reading [docs/standing-prompt.md](docs/standing-prompt.md) and this section. The original prompt text was not preserved verbatim; the file explicitly identifies itself as a reconstruction.
 
-**Use the executive summary** at [`docs/executive-summary.html`](docs/executive-summary.html) for focus-site comparisons and [`docs/how-to-submit.html`](docs/how-to-submit.html) for submission instructions. Historical scores are user-reported unless backed by an organizer receipt; do not interpret holdout DTI or projections as leaderboard scores.
+## REVIEW — `arena/d454d34a-gemsdoekarage1` (31 Oct 2026) · NOT AUTHORIZED · DO NOT SUBMIT
 
-## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
+This block agrees with the active fail-closed record `evidence/active_submission_status.json` (`ok_to_submit: false`). It adds the verified numbers and two corrections; it does not authorize anything.
+
+- **Download and submit? No.** The kp1 file can be downloaded for audit: [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) (SHA-256 `30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d`, float32, EPSG:32611, 32,000 dots, values in [0, 1], no NaN).
+- **What passes:** format; literal uniqueness (max 26.5 % of dots within 3 px of any focus file; limit 70 %); correlation with the nine (max |ρ| 0.0115; the run card's 0.0076 does not reproduce; limit 0.90); project validator 15/15 against the restored public mirror (grid, footprint, catalogue: 0 dots on it).
+- **What does not:** organizer-authenticated inputs; leakage canary and holdout beating the frozen best (not run); final registry check. Nothing here measures the score. The 0.2789 figure is PROJECTED from a 3-parameter fit to nine unverified scores.
+- **Open format risk:** the mirror sample writes NaN outside the footprint (7,111,787 cells); kp1 writes zeros there. Both stay in [0, 1]. The portal's handling is undocumented; the owner decides the encoding.
+- **Corrections:** the kp1 metric identity was wrong in our analysis (ceiling 1.0, not 0.556; marginal bar 0.0588 at 0.2778, not 0.0769; 0.0968 at 0.4413, not 0.158; coverage ratio about 1.6×, not 1.86×). Fixed in `scripts/kp1_metric_analysis.py` and the generated pages.
+
+**Executive table (labels: USER-REPORTED / PROJECTED / HOLDOUT-DTI / ORGANIZER-PUBLIC):**
+
+| Site | File | Estimate (label) | Unique vs other listed sites? | Verdict |
+|---|---|---|---|---|
+| GEMSDOE32 | `GEMSDOE32_B2.tif` (best reported focus file) | 0.2778 (USER-REPORTED) | No: 100 % within 3 px of GEMSDOE24; exact subset of GEMSDOE25 | DO NOT SUBMIT (duplicate) |
+| GEMSDOE36 | `GEMSDOE36_…-zeros.tif` | 0.2750 (USER-REPORTED) | No: 97.6 % within 3 px of GEMSDOE27 | DO NOT SUBMIT |
+| GEMSDOE28 | `GEMSDOE28_…-nan.tif` | 0.2710 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE31 | `GEMSDOE31_…-nan.tif` | 0.2708 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE33 | `GEMSDOE33_…-cb490425926e.tif` | 0.2632 (USER-REPORTED) | No: 99.7 % | DO NOT SUBMIT |
+| GEMSDOE25 | `GEMSDOE25_d28.tif` | 0.2600 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE30 | `GEMSDOE30_…tif` | 0.2600 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE24 | `GEMSDOE24_…-nan.tif` | 0.2477 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE27 | `GEMSDOE27_…-nan.tif` | 0.2449 (USER-REPORTED) | No: 98.0 % | DO NOT SUBMIT |
+| **New: kp1** | `karage1-kp1-…-20261031.tif` | Not estimated (projection 0.2789 is PROJECTED, not a score; off-catalogue HOLDOUT-DTI 0.0764, CI spans zero) | Yes: 26.5 % max | **DO NOT SUBMIT (not authorized)** |
+
+**Leaderboard (ORGANIZER-PUBLIC, fetched 31 Oct 2026):** live #1 is **0.4544**. The brief's 0.4413 is not in ranks 1–47. The brief's "0.3195 is highest" conflicts with #1; the repo snapshot puts rank 50 at 0.3195 (not re-read this session).
+
+**Read next:** [review](knowledge/review-arena-d454d34a-20261031.md) · [run card](evidence/run_card_arena_d454d34a_20261031.json) · [overlap matrix](evidence/registry_overlap_matrix_20261031.json) · [executive summary](docs/executive-summary.html) · official: [metric page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), [rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf).
+
+## HISTORICAL K-PROXY-DETECT REVIEW — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · NOT ACTIVE CLEARANCE
 
 **Answer: no file is OK to download and submit. Verdict: NEGATIVE / DO NOT SUBMIT. No file is cleared; no weekly slot selected or spent.**
 
@@ -709,7 +743,7 @@ No competition slot was selected or spent in this session.
 
 Place at the top of the DrivenData Geologic Enhanced Mapping System (GEMS) Prize Challenge by producing a single-band float32 GeoTIFF of fault probabilities. Competition: https://www.drivendata.org/competitions/306/competition-doe-gems/
 
-Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one float32 layer; values in [0, 1]; outside bounds null or NaN. Score is distance-weighted Tversky index, α=0.2, β=0.8, 300 m triangular kernel. Three submissions per week; competition end Dec. 3, 2026, 11:59 p.m. UTC (competition homepage; the rules PDF defers dates to it). Generative-AI use must be disclosed in the narrative (rules PDF). Individual competitors must be U.S. citizens or permanent residents. Original work only.
+Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one float32 layer; values in [0, 1]; outside bounds null or NaN. Score is distance-weighted Tversky index, α=0.2, β=0.8, 300 m triangular kernel. Three submissions per week; close 2026-12-03 23:59 UTC. Original work only.
 
 ## Highest-Urgency Requirements
 
@@ -810,3 +844,57 @@ Work line by line, verifying from official verified trusted sources. Provide lin
 `existing_faults.tif`; the literal 70 %/3-px uniqueness rule is saturated for this raster family;
 the shared holdout anti-correlates with known scores; `vendor/gems57/prepare_data.py` pins external
 files at a commit that does not contain them.
+
+---
+
+# STANDING PROMPT — read at the start of every session
+
+This is the standing prompt for the GEMSDOEkarage1 project. Re-read it before starting work; it defines what we are building and the gates every deliverable must pass.
+
+## Goal
+
+Place top of the leaderboard in the DOE GEMS Prize Challenge (DrivenData competition 306, geothermal fault mapping): https://www.drivendata.org/competitions/306/competition-doe-gems/
+Leaderboard reference in brief: current high score cited in brief 0.4413 (cite the live page for the latest). Best focus-site owner-reported submission: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED — no organizer receipt in this repo).
+
+## What we must produce
+
+1. An **executive summary subpage** (`docs/executive-summary.html`) that:
+   - Opens with an obvious, easy download of a submission TIF (single-band GeoTIFF, or a ZIP containing one GeoTIFF) matched to the submission format's CRS, shape and geotransform.
+   - States clearly whether it is OK to download and OK to submit the generated TIF.
+   - Contains a table listing, for each focus site: what file to download, the estimated score (labeled USER-REPORTED/UNVERIFIED or MEASURED; never a fabricated projection), and whether it is a unique submission unlike any other GEMSDOE site.
+   - Explains exactly how to make a submission into the contest (name <= submission filename, note <= 140 characters, upload via DrivenData form, keep the organizer receipt).
+2. A **unique TIF submission** for the competition:
+   - Must NOT copy a previous submission (except for learning/education). Must be generated uniquely.
+   - Format: single-band GeoTIFF (.tif) or .zip containing one GeoTIFF; values in [0,1] (the portal rejects out-of-range values); matches CRS (EPSG:32611), shape (3730 x 3292), geotransform (100, 0, 243350, 0, -100, 4508550); no NaN inside the footprint.
+   - Unique name + short comment (<=140 chars).
+   - Obvious whether OK to download and OK to submit.
+3. The repo README must contain this prompt and be re-read each session.
+
+## Parallel-run protocol (binding)
+
+1. LANE — stay in your single method paragraph. If raster rank-correlation with any registry raster > 0.90, or > 70 % of dots within 3 px of one registry raster's dots, log as duplicate and stop. Check on surface before placement AND on final dots.
+2. REUSE, DON'T REBUILD — use the template's cached feature stack, evaluate_holdout.py and submission_writer.py. Holdout = hide-and-recover: withhold whole fault segments with a buffer, derive catalogue features only from visible faults, mask visible faults pixel-exactly, score pooled DTI (alpha 0.2, beta 0.8, 300 m triangular kernel). Fix shared tools once in the template; never keep a private fork.
+3. LABEL EVERY NUMBER as HOLDOUT-DTI (evaluator version, withheld positives, 95% CI) or ORGANIZER-CONFIRMED (submission-page receipt). A projection is never written as a score.
+4. LEAKAGE CANARY — test each feature alone on the holdout. AUC > 0.90 means leakage until proven otherwise.
+5. RUN CARD — end with one JSON card: hypothesis, mechanism, named non-fault mimic, holdout DTI + CI, correlation/overlap vs registry, raster sha256, validator output (no NaN inside footprint, values in [0,1], CRS/shape/transform match), submission name + note <= 140 chars, verdict promote/negative. Negatives are deliverables.
+6. BUDGET — stop after 3 experiments or 2 hours. Do not pick submissions; promotion is a separate selector step within the weekly cap.
+
+## Required honest posture
+
+- Competition training data (training_features.tif, labels.tif, sample_submission.tif) are login-walled at DrivenData; this checkout restores SHA-256-pinned public mirrors only. Pins prove byte-consistency, not organizer authentication.
+- The scored truth is not published; no holdout score or local number is a leaderboard estimate or organizer-confirmed score.
+- Never upload a file without an organizer receipt; never mark a file "CLEARED" without registry-overlap receipt, saved-byte audit, and a separate selector decision.
+- Report negatives, blocked gates and irregularities plainly (Own the Outcome / Maximize P(Win)).
+
+## Focus sites (owner-reported, unverified)
+
+GEMSDOE24 0.2477 · GEMSDOE25 0.2600 · GEMSDOE27 0.2449 · GEMSDOE28 0.2710 · GEMSDOE30 0.2600 · GEMSDOE31 0.2708 · GEMSDOE32 0.2778 (best reported) · GEMSDOE33 0.2632 · GEMSDOE36 0.2750. Measured from bytes: all nine are catalogue-proximal dotted fields; none is unique vs the other eight (literal 70%/3-px gate fails everywhere); GEMSDOE32's reported 0.2778 coexists with holdout DTI 0.0047 (below random) — B2 is GEMSDOE25 minus catalogue-adjacent dots, i.e. an off-catalogue shift and a duplicate lane.
+
+## Key evidence files
+
+docs/data/nine_site_eval.json · docs/data/offcat_feature_screen.json · docs/data/offcat_run_card.json · evidence/offcat_uniqueness.json · knowledge/hypotheses-offcat-geophysics.md
+
+## Generated candidate (this session, research-only, NOT organizer-cleared)
+
+docs/downloads/gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif — 37,654 dots, format-valid (all preflight checks passed), values in [0,1], EPSG:32611, 3730x3292, pinned transform, 0 dots on mapped catalogue, 0.0% forward 3-px overlap vs all nine focus-site rasters (unique by construction), holdout DTI 0.0000 (off-catalogue; not a leaderboard estimate). SHA-256: 9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d. Submission name <= 140 chars; note <= 140 chars recorded in the run card. OK to download: yes (research artifact). OK to submit: NOT CLEARED — no organizer receipt, no score. Spend no slot until an organizer receipt confirms acceptance.
+

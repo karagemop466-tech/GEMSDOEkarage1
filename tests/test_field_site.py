@@ -42,7 +42,7 @@ def test_site_tables_are_rendered_from_evidence_and_never_approve():
         assert render_site.rows_for(prefix) in text
         parser = Tags(); parser.feed(text)
         assert parser.disabled_downloads >= 1
-        assert "DO NOT SUBMIT" in text and "not cleared for upload" in text
+        assert "DO NOT SUBMIT" in text and "NO FILE CLEARED" in text
         assert "No approved .tif to download" in text
         assert "99.93%" in text and "99.89%" in text
     card = json.loads((ROOT / "docs/data/run-card.json").read_text())

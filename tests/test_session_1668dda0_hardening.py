@@ -186,22 +186,12 @@ def test_pr42_sidecars_and_all_repo_jsons_remain_fail_closed():
                 found.extend(_find_true_flags(item, f"{prefix}[{idx}]"))
         return found
 
-    # One exception is permitted and it is itself checked: the current session's release
-    # gate plus run card may assert authorization for the single cleared artifact, and they
-    # must record that zero submission slots were spent.
-    permitted = {ROOT / "evidence" / "kp1_release_gate.json",
-                 ROOT / "evidence" / "kp1_run_card.json"}
+    # Neither the partial-registry gate nor its run card may assert authorization.
+    permitted = set()
     for folder in ("docs", "evidence", "registry"):
         for json_path in sorted((ROOT / folder).rglob("*.json")):
             data = json.loads(json_path.read_text())
             hits = _find_true_flags(data)
-            if json_path in permitted:
-                if not hits:
-                    continue
-                gate = data["decision"] if "decision" in data else data
-                assert gate["ok_to_submit"] is True
-                assert gate["slots_used" if "slots_used" in gate else "slot_selected_or_spent"] in (0, False)
-                continue
             assert not hits, f"{json_path} contains true authorization flags: {hits}"
 
 
@@ -237,7 +227,8 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     # The current session's cleared artifact is audited by its own release gate, which
     # re-runs the shared validator on the saved bytes and records the digest on disk.
     gate = json.loads((ROOT / "evidence" / "kp1_release_gate.json").read_text())
-    assert gate["decision"]["ok_to_submit"] is False and gate["decision"]["slots_used"] == 0  # 31 Oct 2026: listed-site check fails
+    assert gate["decision"]["ok_to_submit"] is False and gate["decision"]["slots_used"] == 0
+    assert gate["decision"]["registry_complete"] is False
     assert gate["format"]["all_checks_passed"] is True
     assert gate["tif"] in actual_tifs
     later_tifs.add(gate["tif"])

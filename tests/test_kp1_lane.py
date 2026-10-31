@@ -47,7 +47,9 @@ def test_metric_identity_holds_exactly():
 def test_release_gate_receipt_is_self_consistent():
     gate = load(GATE)
     assert gate["gate"] == "kp1-release-gate/v1"
-    assert gate["decision"]["ok_to_submit"] is False  # 31 Oct 2026: listed-site check fails (GEMSDOE13 lattice)
+    assert gate["decision"]["ok_to_submit"] is False
+    assert gate["decision"]["registry_complete"] is False
+    assert gate["decision"]["lattice_gate_passes"] is False
     assert gate["decision"]["slots_used"] == 0
     assert gate["format"]["all_checks_passed"] is True
     assert gate["format"]["checks"]["range_0_1_guaranteed"] is True
@@ -110,7 +112,8 @@ def test_run_card_has_every_protocol_field():
                 "holdout_dti", "correlation_and_overlap_vs_registry", "raster_sha256",
                 "validator_output", "submission_name", "submission_note", "verdict"):
         assert key in card, key
-    assert card["verdict"] == "promote"
+    assert card["verdict"] == "negative"
+    assert card["ok_to_submit"] is False
     assert len(card["submission_note"]) <= 140
     assert card["slot_selected_or_spent"] is False
     assert card["holdout_dti"]["label"] == "HOLDOUT-DTI"
@@ -147,7 +150,7 @@ def test_instrument_calibration_records_the_inversion():
     assert "not the organizer metric" in e2["caveat"]
 
 
-def test_site_pages_are_rendered_from_the_gate():
+def test_site_pages_are_rendered_from_the_active_status():
     import sys
     sys.path.insert(0, str(ROOT))
     from scripts import build_kp1_site
@@ -156,57 +159,41 @@ def test_site_pages_are_rendered_from_the_gate():
     index = (ROOT / "docs" / "kp1" / "index.html").read_text()
     assert gate["sha256"] in index
     assert f'{gate["projection"]["projected_value"]:.4f}' in index
-    # 31 Oct 2026: the listed-site uniqueness check fails (GEMSDOE13 lattice, 99.78 %), so the gate
-    # says not cleared and the page must say so, with no green call to action.
-    assert gate["decision"]["ok_to_submit"] is False
     assert "DO NOT SUBMIT" in index
-    assert "OK TO SUBMIT" not in index
+    assert "Download research artifact" in index
     assert "Table 1" in index
+    assert "OK TO SUBMIT — this file is cleared for upload" not in index
     for rel in ("kp1/index.html", "kp1/executive-summary.html", "kp1/nine-sites.html",
                 "kp1/how-to-submit.html", "kp1/research.html", "kp1/sources.html"):
         assert (ROOT / "docs" / rel).is_file(), rel
 
 
-def test_landing_page_banner_is_fail_closed(tmp_path, monkeypatch):
+def test_landing_page_banner_obeys_active_status_not_historical_gate(tmp_path, monkeypatch):
     import sys
     sys.path.insert(0, str(ROOT))
     from scripts import render_site
-    # The green path is exercised with an explicit stub, because the real receipts do not clear the file.
-    monkeypatch.setattr(render_site, "verdict_receipt",
-                        lambda: dict(name="stub.tif", sha256="0" * 64, projected=0.0, rho=0.0, overlap=0.0,
-                                     tif_path="stub.tif"))
-    good = render_site.kp1_banner("")
-    assert "OK TO SUBMIT" in good and "Download the .tif" in good
-    monkeypatch.undo()
+    current = render_site.kp1_banner("")
+    assert "DO NOT SUBMIT" in current and "NO FILE CLEARED" in current
+    assert "Download the cleared candidate" not in current
 
-    # the real receipts must NOT clear the file while the listed-site check fails
-    assert render_site.verdict_receipt() is None
-    real = render_site.kp1_banner("")
-    assert "NO FILE CLEARED" in real and "OK TO SUBMIT" not in real
-
-    # a receipt that clears nothing must demote the banner
+    # A historical positive gate cannot override the negative active status.
     tampered = tmp_path / "gate.json"
     gate = load(GATE)
-    gate["decision"]["ok_to_submit"] = False
+    gate["decision"]["ok_to_submit"] = True
     tampered.write_text(json.dumps(gate))
     monkeypatch.setattr(render_site, "KP1_GATE", tampered)
-    assert "NO FILE CLEARED" in render_site.kp1_banner("")
+    assert "DO NOT SUBMIT" in render_site.kp1_banner("")
+    assert "Download the cleared candidate" not in render_site.kp1_banner("")
 
-    # a receipt describing different bytes must also demote the banner
-    gate["decision"]["ok_to_submit"] = True
-    gate["sha256"] = "0" * 64
-    tampered.write_text(json.dumps(gate))
-    assert "NO FILE CLEARED" in render_site.kp1_banner("")
-
-    # a missing receipt must not raise
+    # A missing receipt must also fail closed.
     monkeypatch.setattr(render_site, "KP1_GATE", tmp_path / "nope.json")
-    assert "NO FILE CLEARED" in render_site.kp1_banner("")
+    assert "DO NOT SUBMIT" in render_site.kp1_banner("")
 
 
-def test_old_artifacts_are_still_marked_do_not_submit():
+def test_all_historical_artifacts_remain_marked_do_not_submit():
     index = (ROOT / "docs" / "index.html").read_text()
-    assert "Every file on this site is DO NOT SUBMIT" in index
     assert "DO NOT SUBMIT" in index
+    assert "historical K-PROXY-DETECT raster is available for audit only" in index
     for name in ("GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30",
                  "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"):
         page = (ROOT / "docs" / "kp1" / "nine-sites.html").read_text()
@@ -228,7 +215,7 @@ def test_no_private_fork_of_the_shared_template():
 
 
 def test_listed_site_receipt_matches_bytes_and_gate():
-    """The cross-site receipt must describe the file on disk and agree with the release gate."""
+    """The cross-site receipt must describe the file on disk and agree with the release gate (31 Oct 2026)."""
     import hashlib
     listed = load(ROOT / "evidence" / "kp1_uniqueness_vs_listed_sites_20261031.json")
     gate = load(GATE)

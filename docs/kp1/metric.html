@@ -26,7 +26,8 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 <p class="eyebrow">Metric analysis</p>
 <h1>Why 0.2778, and what it would take to beat it</h1>
 <p>The published metric, for a binary dot field, reduces exactly to</p>
-<p class="research">DTI = T / ( alpha·(n − M) + beta·|G| + T ),  alpha = 0.2, beta = 0.8</p>
+<p class="research">DTI = T / ( (1 − beta)·T + alpha·(n − M) + beta·|G| ),  alpha = 0.2, beta = 0.8</p>
+<p><small>Corrected 31 Oct 2026: the coefficient on <code>T</code> is <code>1 − beta</code> (0.2), not 1. Checked against the literal oracle <code>gems57.metric.dti_bruteforce</code>; see <code>tests/test_metric_identity_20261031.py</code>.</small></p>
 <p>with <code>n</code> dots, <code>T</code> the truth credit they cover, <code>M</code> their own
 self-credit and <code>|G|</code> the number of truth cells. Two consequences decide everything:</p>
 <ul>
@@ -37,9 +38,9 @@ mass) and adds up to 1.0 to <code>T</code>;</li>
 <p>So one more dot helps iff its expected truth credit clears</p>
 <p class="research">dT &gt; alpha·(1 − m)·s / (1 − s)</p>
 <p>which depends only on the current score <code>s</code>. At <strong>0.2778 the bar is
-0.0769</strong>; at 0.3195 it is
-0.0939; at 0.4413,
-0.1580. A field that is already at
+0.0588</strong>; at 0.3195 it is
+0.0683; at 0.4413,
+0.0968. A field that is already at
 0.2778 must find new dots that are right about 7.7 % of the time; to reach the leaderboard top it
 would need 15.8 %.</p>
 
@@ -52,13 +53,13 @@ the catalogue (which is collinear with dot count within this family). That is th
 "nine points on one family", and it is why 0.2778 is a <em>position</em> rather than an idea.</p>
 
 <h2>The ceiling, and what the leaderboard numbers imply</h2>
-<p>A dot field with perfect knowledge cannot exceed <strong>1/(1+beta) =
-0.556</strong> once every truth cell is covered: the
-false-negative weight is a hard tax on an un-covered truth cell. That places 0.4544 at 82 % of the
-theoretical maximum of the submission format.</p>
-<p>The frontier for a perfectly placed field (dots = covered truth cells, |G| = 60,988):</p><div class="table-scroll"><table class=""><thead><tr><th>Dots</th><th>Score</th></tr></thead><tbody><tr><td>2,000</td><td class="num">0.039</td></tr><tr><td>3,454</td><td class="num">0.066</td></tr><tr><td>5,965</td><td class="num">0.109</td></tr><tr><td>10,301</td><td class="num">0.174</td></tr><tr><td>17,790</td><td class="num">0.267</td></tr><tr><td>30,723</td><td class="num">0.386</td></tr><tr><td>53,059</td><td class="num">0.521</td></tr><tr><td>91,632</td><td class="num">0.526</td></tr><tr><td>158,247</td><td class="num">0.472</td></tr></tbody></table></div>
+<p>A dot field with perfect knowledge (every truth cell covered, no dot wasted) scores
+<strong>1.0</strong>. An earlier version of this page said
+1/(1+beta) = 0.556; that was an algebra error. Against the corrected ceiling, the live #1 score of
+0.4544 is 45% of the maximum.</p>
+<p>The frontier for a perfectly placed field (dots = covered truth cells, |G| = 60,988):</p><div class="table-scroll"><table class=""><thead><tr><th>Dots</th><th>Score</th></tr></thead><tbody><tr><td>2,000</td><td class="num">0.041</td></tr><tr><td>3,454</td><td class="num">0.070</td></tr><tr><td>5,965</td><td class="num">0.119</td></tr><tr><td>10,301</td><td class="num">0.203</td></tr><tr><td>17,790</td><td class="num">0.340</td></tr><tr><td>30,723</td><td class="num">0.559</td></tr><tr><td>53,059</td><td class="num">0.893</td></tr><tr><td>91,632</td><td class="num">0.909</td></tr><tr><td>158,247</td><td class="num">0.758</td></tr></tbody></table></div>
 <p>Inverting the reported leaderboard numbers for the truth credit they imply at B2's dot budget:</p>
-<div class="table-scroll"><table class=""><thead><tr><th>Target</th><th>Assumed |G|</th><th>Required coverage</th><th>Required credit per dot</th><th>Geometrically possible</th></tr></thead><tbody><tr><td>0.2778</td><td class="num">30,494</td><td class="num">0.374</td><td class="num">0.303</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">60,988</td><td class="num">0.330</td><td class="num">0.534</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">120,000</td><td class="num">0.308</td><td class="num">0.982</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">200,000</td><td class="num">0.299</td><td class="num">1.589</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">30,494</td><td class="num">0.449</td><td class="num">0.364</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">60,988</td><td class="num">0.396</td><td class="num">0.642</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">120,000</td><td class="num">0.370</td><td class="num">1.180</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">200,000</td><td class="num">0.360</td><td class="num">1.910</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">30,494</td><td class="num">0.714</td><td class="num">0.578</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">60,988</td><td class="num">0.630</td><td class="num">1.020</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">120,000</td><td class="num">0.588</td><td class="num">1.875</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">200,000</td><td class="num">0.571</td><td class="num">3.035</td><td>no</td></tr><tr><td>0.4544</td><td class="num">30,494</td><td class="num">0.747</td><td class="num">0.605</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">60,988</td><td class="num">0.659</td><td class="num">1.068</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">120,000</td><td class="num">0.616</td><td class="num">1.963</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">200,000</td><td class="num">0.598</td><td class="num">3.176</td><td>no</td></tr></tbody></table></div>
+<div class="table-scroll"><table class=""><thead><tr><th>Target</th><th>Assumed |G|</th><th>Required coverage</th><th>Required credit per dot</th><th>Geometrically possible</th></tr></thead><tbody><tr><td>0.2778</td><td class="num">30,494</td><td class="num">0.291</td><td class="num">0.236</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">60,988</td><td class="num">0.257</td><td class="num">0.416</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">120,000</td><td class="num">0.240</td><td class="num">0.764</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">200,000</td><td class="num">0.233</td><td class="num">1.236</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">30,494</td><td class="num">0.335</td><td class="num">0.271</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">60,988</td><td class="num">0.295</td><td class="num">0.478</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">120,000</td><td class="num">0.276</td><td class="num">0.878</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">200,000</td><td class="num">0.268</td><td class="num">1.422</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">30,494</td><td class="num">0.462</td><td class="num">0.374</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">60,988</td><td class="num">0.408</td><td class="num">0.660</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">120,000</td><td class="num">0.381</td><td class="num">1.213</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">200,000</td><td class="num">0.370</td><td class="num">1.963</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">30,494</td><td class="num">0.476</td><td class="num">0.385</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">60,988</td><td class="num">0.420</td><td class="num">0.680</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">120,000</td><td class="num">0.392</td><td class="num">1.249</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">200,000</td><td class="num">0.381</td><td class="num">2.022</td><td>yes</td></tr></tbody></table></div>
 <p><small><code>|G|</code> is unknown — the inversion is run at four assumptions so the assumption
 is visible instead of hidden. <code>Credit per dot</code> above 1.0 means dots must be spaced along
 fault lines so that each also covers neighbours; the 0.4413 row is where that stops being plausible
