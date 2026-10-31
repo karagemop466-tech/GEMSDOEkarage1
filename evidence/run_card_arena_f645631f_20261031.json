@@ -1,0 +1,90 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/f645631f-gemsdoekarage1",
+  "review_date": "2026-10-31",
+  "review_path": "knowledge/review-arena-f645631f-20261031.md",
+  "run_card_path": "evidence/run_card_arena_f645631f_20261031.json",
+  "hypothesis": "No geological hypothesis was assigned for this session; this was a fail-closed repository review.",
+  "mechanism": "No surface or dot placement computed; no GeoTIFF generated.",
+  "named_non_fault_mimic": "Not applicable because no geological candidate was tested. Prior proposal-specific mimics are documented in knowledge/review-arena-946f7668-20261031.md.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run: no assigned method lane, canonical shared evaluator/writer, or required data/cache"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_rank_correlation": null,
+    "final_dot_overlap": null,
+    "status": "not computed: no candidate surface or final dots; complete authenticated registry unavailable"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run: no raster generated"
+  },
+  "submission_name": null,
+  "submission_note": "No candidate generated; no repository file cleared for upload.",
+  "submission_note_chars": 55,
+  "ok_to_submit": false,
+  "new_candidate_generated": false,
+  "download_available": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "software_tests": {
+    "command": ".venv/bin/python -m pytest -q -rs",
+    "passed": 446,
+    "failed": 0,
+    "skipped": 2,
+    "warnings": 126,
+    "skip_reasons": [
+      "Absent ignored bridge rasters required for data-dependent footprint/catalogue test.",
+      "Competition sample grid not restored for data-dependent validator test."
+    ],
+    "meaning": "Software verification only; it is not a geological performance measurement."
+  },
+  "preflight": {
+    "command": ".venv/bin/python scripts/shared_tools.py preflight",
+    "exit_code": 1,
+    "ready_for_shared_tools": false,
+    "method_lane": null,
+    "canonical_template_assignment": null,
+    "missing": [
+      ".cache/gems_work/feature_stack.npy",
+      ".cache/gems_data/existing_faults.tif",
+      ".cache/gems_data/training_features.tif",
+      ".cache/gems_data/sample_submission.tif",
+      ".cache/gems_data/labels.tif"
+    ],
+    "provenance_integrity": false,
+    "provenance_mismatches": [
+      "vendor/gems57/submission_writer.py differs from recorded SHA-256",
+      "vendor/gems57/uniqueness.py differs from recorded SHA-256"
+    ],
+    "execution_authorized": false
+  },
+  "focus_sites": {
+    "sites": ["GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30", "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"],
+    "highest_user_reported": {
+      "site": "GEMSDOE32",
+      "submission": "h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros",
+      "score": 0.2778,
+      "label": "USER-REPORTED / UNVERIFIED"
+    },
+    "leaderboard_estimate": null
+  },
+  "verdict": "negative",
+  "blockers": [
+    "No assigned method paragraph or lane; registry/template.json fields are null.",
+    "No canonical shared-template assignment; do not execute a private fork.",
+    "Shared cached feature stack and competition input rasters are absent.",
+    "Vendored submission writer and uniqueness module hashes do not match recorded pins.",
+    "Complete authenticated submission registry and owner ruling on internal lattice gate are unavailable.",
+    "Mapped-catalogue holdout is not a calibrated off-catalogue leaderboard estimator.",
+    "No organizer receipt or live weekly-slot selection is available."
+  ]
+}

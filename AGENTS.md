@@ -1,6 +1,8 @@
 # Starting point for every session
 
-**Current branch review first (2026-10-31, `arena/946f7668-gemsdoekarage1`): read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, data, and complete authenticated registry remain unresolved. The README and generated public-site banners were refreshed for this review; older session records are historical evidence, not current clearance.
+**Current branch review first (2026-10-31, `arena/f645631f-gemsdoekarage1`): read `knowledge/review-arena-f645631f-20261031.md` and `evidence/run_card_arena_f645631f_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, required inputs, and complete authenticated registry remain unresolved. The site renderer and generated decision-page banners point to this review. Older session records are historical evidence, not current clearance.
+
+**Previous branch review (2026-10-31, `arena/946f7668-gemsdoekarage1`):** read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`. It ranked four research proposals; none was validated or cleared.
 
 **Prior upstream review (31 Oct 2026, `arena/830e1f79`):** read `knowledge/session-review-arena-830e1f79.md` and `evidence/session_830e1f79_run_card.json`. It separately rechecked official format wording and a live leaderboard; those time-sensitive claims are historical and do not supersede this branch review or the internal parallel-run protocol.
 
