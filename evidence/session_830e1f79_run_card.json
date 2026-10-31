@@ -1,0 +1,54 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/830e1f79-gemsdoekarage1",
+  "date_utc": "2026-10-31",
+  "verdict": "negative",
+  "submit_ok": false,
+  "hypothesis": "None tested. This session is a repository, rules, and leaderboard review.",
+  "mechanism": "Not applicable. No raster generated.",
+  "named_non_fault_process_that_could_mimic_signal": "Not applicable (no signal claimed).",
+  "holdout_dti": {
+    "value": null,
+    "ci95": null,
+    "evaluator": null,
+    "withheld_positives": null,
+    "note": "Not run. Organizer labels are not authenticated in this sandbox; restored inputs are third-party mirrors (registry/karage1_data_manifest.json)."
+  },
+  "correlation_overlap_vs_registry": {
+    "status": "not_run",
+    "lattice_random_null": "random dots within 3 px of 13GEMS lattice: 0.999 at N=1000, 5000, 22163, 37654 (evidence/lattice_saturation_null_20261029.json)"
+  },
+  "raster_sha256": null,
+  "validator_output": "Not run. No raster generated.",
+  "submission_name": null,
+  "submission_note": null,
+  "budget": {"experiments_used": 0, "experiments_max": 3, "wall_clock_note": "review only"},
+  "tests": {"command": "python -m pytest", "passed": 446, "skipped": 2, "failed": 0},
+  "leaderboard_read_utc": "2026-10-31",
+  "leaderboard_observed": {
+    "rank_1_score": 0.4544,
+    "score_0_4413_in_ranks_1_50": false,
+    "score_0_3195_rank": 50,
+    "rank_46_score": 0.3261,
+    "rank_47_score": 0.3244,
+    "rank_48_score": 0.3231,
+    "rank_49_score": 0.3217,
+    "source": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "status_label": "ORGANIZER-PUBLIC"
+  },
+  "irregularities": [
+    "I-1: 0.3195 is rank 50 on the live board; the 30 Oct snapshot and README say rank 48.",
+    "I-2: 0.4413 does not appear in ranks 1-50; the prompt treats it as the current high score.",
+    "I-3: the 70%/3-px lattice gate is failed by uniform random dots at 99.9%; the gate cannot separate lanes.",
+    "I-4: -zeros outputs contradict the official 'outside bounds is null or nan' text; the NaN twins match it.",
+    "I-5: competition inputs are third-party GitHub mirrors, not organizer downloads; licence not established.",
+    "I-6: official rules section 3.2 requires a generative-AI disclosure in the narrative; not a checklist item in the repo."
+  ],
+  "sources": [
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+    "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+    "https://epsg.io/32611"
+  ]
+}

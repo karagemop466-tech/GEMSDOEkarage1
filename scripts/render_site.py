@@ -23,7 +23,7 @@ if str(ROOT) not in _sys.path:
     _sys.path.insert(0, str(ROOT))
 from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
-CURRENT_REVIEW_CARD = ROOT / 'evidence/session_cfabff7e_run_card.json'
+CURRENT_REVIEW_CARD = ROOT / 'evidence/run_card_arena_946f7668_20261031.json'
 esc = html.escape
 
 
@@ -34,12 +34,12 @@ def current_review():
 
     card = json.loads(CURRENT_REVIEW_CARD.read_text(encoding='utf-8'), parse_constant=_reject_constant)
     expected_paths = {
-        'review_path': 'knowledge/session-review-arena-cfabff7e.md',
-        'run_card_path': 'evidence/session_cfabff7e_run_card.json',
+        'review_path': 'knowledge/review-arena-946f7668-20261031.md',
+        'run_card_path': 'evidence/run_card_arena_946f7668_20261031.json',
     }
     holdout = card.get('holdout_dti')
     if (card.get('schema') != 'karage1-run-card-v1'
-            or card.get('session') != 'arena/cfabff7e-gemsdoekarage1'
+            or card.get('session') != 'arena/946f7668-gemsdoekarage1'
             or card.get('verdict') != 'negative'
             or card.get('ok_to_submit') is not False
             or card.get('new_candidate_generated') is not False
@@ -361,7 +361,7 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation">{nav}</nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
 <div class="container"><p class="global-hold">{status_line(p)}</p></div></header>
-<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/session_cfabff7e_run_card.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_946f7668_20261031.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
 
 
 def session_evidence():
@@ -545,7 +545,7 @@ def nine_site_section(prefix: str) -> str:
         f'GEMSDOE32 is GEMSDOE25 minus {removed:,} dots. Every focus site has at least {worst_sibling:.1%} of its dots within 3 px of one sibling. '
         f'Our own worst lattice overlap is {worst_lat:.2%} (literal duplicate; threshold 70%). '
         'No estimate for any of our files is possible without a holdout run and an organizer receipt.</p>'
-        '<p class="cell-sub">Public leaderboard (ORGANIZER-PUBLIC; live re-read 30 Oct 2026): #1 is 0.4544 and 0.3195 is rank #48; '
+        '<p class="cell-sub">Public leaderboard (ORGANIZER-PUBLIC; live re-read 31 Oct 2026): #1 is 0.4544; 0.3195 is rank #50 (#48 is now 0.3231); '
         '0.4413 is not in the top 50 (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData ↗</a>; '
         f'<a href="{prefix}knowledge/session-review-arena-89955dc0.md">independent repository review ↗</a>). '
         'This board does not confirm any of the nine user-reported GEMSDOE scores.</p>'
