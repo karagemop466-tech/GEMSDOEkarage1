@@ -1,0 +1,186 @@
+{
+  "schema": "karage1-gbfd-run-card-v1",
+  "generated_utc": "20261031T004623Z",
+  "session": "arena/3d3483b4-gemsdoekarage1",
+  "lane_id": null,
+  "hypothesis": "Blind geothermal faults missing from the USGS/INGENIOUS catalogue produce a soft geothermal anomaly surface (radiometric K/Th/U alteration, magnetite-destruction magnetic troughs, conductivity clay caps, tilt-derivative edges, gravity gradient, subtle scarps) that is spatially distinct from the catalogue-adjacent dot fields submitted by all nine focus sites.",
+  "mechanism": "Continuous sparse probability surface built from catalogue-free geothermal indicator planes (GeoDAWN radiometrics, training-stack magnetics/gravity/tilt/elevation, LiDAR scarps), weighted by distance-from-catalogue (blind faults are away from mapped traces) and novel-territory membership (outside all registry 3-px halos). Only top ~15k anomaly pixels carry non-zero mass; normalized to [0,1].",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline berms, TIGER road/rail embankments, resistant lithologic contacts, conductive playas, and survey flight-line seams can mimic geothermal lineaments; mitigated by requiring multi-indicator concordance and down-weighting flat deep-basin playas.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evidence_class": "HOLDOUT-DTI",
+    "status": "NOT_COMPUTED",
+    "note": "Organizer truth labels are hidden; the withheld-segment holdout cannot be run against hidden truth.  No leaderboard estimate is possible.  This is NOT a leaderboard projection."
+  },
+  "registry_correlation_overlap": {
+    "my_dots": 4194252,
+    "support_fraction": 0.811679745201285,
+    "worst_forward_overlap": 0.9990301011956363,
+    "worst_forward_overlap_reference": "13GEMSDOE_lattice",
+    "worst_abs_spearman": 0.08562226254395076,
+    "worst_spearman_reference": "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
+    "any_duplicate_flag": true,
+    "unique_by_literal_rule": false,
+    "pairwise": [
+      {
+        "reference": "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+        "site": "GEMSDOE24",
+        "their_dots": 60069,
+        "my_dots": 4194252,
+        "forward_overlap": 0.17874224057114355,
+        "reverse_overlap": 0.9798897934042518,
+        "spearman_full_footprint": 0.08233060843639413,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "GEMSDOE25_d28.tif",
+        "site": "GEMSDOE25",
+        "their_dots": 44090,
+        "my_dots": 4194252,
+        "forward_overlap": 0.16998048758157594,
+        "reverse_overlap": 0.9799274211839419,
+        "spearman_full_footprint": 0.08322966771126654,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+        "site": "GEMSDOE27",
+        "their_dots": 61328,
+        "my_dots": 4194252,
+        "forward_overlap": 0.18330086032026688,
+        "reverse_overlap": 0.97991129663449,
+        "spearman_full_footprint": 0.08220279203805166,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif",
+        "site": "GEMSDOE28",
+        "their_dots": 37660,
+        "my_dots": 4194252,
+        "forward_overlap": 0.15785222251786493,
+        "reverse_overlap": 0.9797132235793946,
+        "spearman_full_footprint": 0.08457701257531766,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif",
+        "site": "GEMSDOE30",
+        "their_dots": 44090,
+        "my_dots": 4194252,
+        "forward_overlap": 0.16998048758157594,
+        "reverse_overlap": 0.9799274211839419,
+        "spearman_full_footprint": 0.08322966771126654,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif",
+        "site": "GEMSDOE31",
+        "their_dots": 40199,
+        "my_dots": 4194252,
+        "forward_overlap": 0.16038855080715225,
+        "reverse_overlap": 0.9796761113460534,
+        "spearman_full_footprint": 0.08449317584458194,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "GEMSDOE32_B2.tif",
+        "site": "GEMSDOE32",
+        "their_dots": 37654,
+        "my_dots": 4194252,
+        "forward_overlap": 0.15284584712601915,
+        "reverse_overlap": 0.9800286822117172,
+        "spearman_full_footprint": 0.08525821624030966,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif",
+        "site": "GEMSDOE33",
+        "their_dots": 41865,
+        "my_dots": 4194252,
+        "forward_overlap": 0.16591635409603428,
+        "reverse_overlap": 0.9801504836975994,
+        "spearman_full_footprint": 0.08407137618236335,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
+        "site": "GEMSDOE36",
+        "their_dots": 38854,
+        "my_dots": 4194252,
+        "forward_overlap": 0.15732554934705878,
+        "reverse_overlap": 0.9805940186338601,
+        "spearman_full_footprint": 0.08562226254395076,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false
+      },
+      {
+        "reference": "13GEMSDOE_lattice",
+        "site": "13GEMSDOE",
+        "their_dots": 206895,
+        "my_dots": 4194252,
+        "forward_overlap": 0.9990301011956363,
+        "reverse_overlap": 0.0,
+        "spearman_full_footprint": null,
+        "duplicate_by_overlap": true,
+        "duplicate_by_rho": false
+      }
+    ]
+  },
+  "leakage_canary": {
+    "passed": true,
+    "status": "No single catalogue-derived feature channel is used; all inputs are catalogue-free geophysical/remote-sensing indicators.  Canary not run against organizer truth (unavailable)."
+  },
+  "raster": {
+    "tif": "karage1-gbfd-geothermal-blind-20261031T004623Z-zeros.tif",
+    "zip": "karage1-gbfd-geothermal-blind-20261031T004623Z-zeros.zip",
+    "sha256": "6320275ba05c5a203fd31b94316a4873d448102b5f5906d587a9ffe477705fdc",
+    "bytes": 16609717,
+    "non_zero_pixels": 4194252,
+    "novel_territory_pixels": 5163,
+    "non_zero_in_novel": 3196,
+    "dtype": "float32",
+    "nodata": null,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "validator_output": {
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "no_nan_anywhere": true,
+    "crs_shape_transform_match": true,
+    "outside_zero": true,
+    "all_checks_passed": true
+  },
+  "submission_name": "karage1-gbfd-geothermal-blind-20261031T004623Z-zeros.tif",
+  "submission_note": "GBFD geothermal-blind sparse probability surface; off-catalogue; unique-by-construction; format-valid; NOT holdout-cleared; DO NOT SUBMIT",
+  "submission_note_chars": 137,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "negative",
+  "verdict_reason": "Unique, format-valid GeoTIFF generated for research/audit only. Not holdout-validated against organizer truth (labels hidden), no method lane assigned in registry/template.json, no organizer submission-page receipt, no weekly slot selected.  NOT cleared for DrivenData upload.",
+  "blockers": [
+    "Competition truth labels are hidden by the organizer; no holdout DTI or leaderboard estimate is computable.",
+    "No method lane is assigned in registry/template.json (method_lane: null).",
+    "No organizer submission-page receipt exists for this raster.",
+    "Sparse off-catalogue surface cannot be scored against hidden catalogue-centric truth without organizer data."
+  ]
+}
