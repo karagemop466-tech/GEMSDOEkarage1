@@ -97,6 +97,26 @@
         "Mirrored sample and labels both have 60,988 positives although the official description says the sample predicts total fault absence.",
         "Mirrored labels contain -1; meaning is not established by the receipt."
       ]
+    },
+    "all_repo_tiff_format_audit": {
+      "path": "evidence/official_format_check_20261031.json",
+      "label": "UPSTREAM_LOCAL_FORMAT_AUDIT",
+      "files_checked": 31,
+      "finite_out_of_range_values": 0,
+      "outside_encoding_counts": {"nan": 10, "zero": 19, "mixed": 2},
+      "literal_official_format_passes": 10,
+      "exact_user_rejected_file_known": false,
+      "portal_acceptance": "not tested",
+      "note": "Audit uses local/mirrored sample footprint. Zero-outside differs from official null/NaN wording; not proof of the user's portal error cause."
+    },
+    "metric_software_check": {
+      "path": "evidence/dti_threshold_check_20261031.json",
+      "label": "SOFTWARE_VERIFICATION_NOT_HOLDOUT",
+      "soft_grids": 40,
+      "marginal_rule_trials": "300/300",
+      "max_abs_err_exact_vs_bruteforce": 1.6653345369377348e-16,
+      "max_abs_err_binary_vs_exact": 1.1102230246251565e-16,
+      "leaderboard_estimate": null
     }
   },
   "verdict": "negative",

@@ -7,9 +7,13 @@
 - **Three-pass review and focus-site decision:** [review](knowledge/review-arena-f645631f-20261031.md) · [run card](evidence/run_card_arena_f645631f_20261031.json).
 - **Verification after merging latest mainline evidence:** `.venv/bin/python -m pytest -q -rs` → **447 passed, 3 skipped, 126 warnings**. Skips require absent ignored bridge rasters, absent core data for the mirror receipt test, and the missing competition sample grid. Tests are software checks, not model validation.
 - **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; lane/template assignment is null, five shared-input/cache paths are missing, and writer/uniqueness provenance hashes mismatch. No experiment was run.
-- **Latest checked-in organizer-public context (read 31 Oct 2026 in upstream session 38b8b045):** leaderboard #1 = 0.4544; 0.3195 is rank #50, #48 is 0.3231; 0.4413 is not in the top 50. See the dated [`ORGANIZER-PUBLIC` snapshot](registry/leaderboard_snapshot_20261031.json); it does not confirm any focus-site score and was not freshly fetched by this branch review.
+- **Latest checked-in organizer-public context (live read 31 Oct 2026 in upstream session b2a6d9d1):** leaderboard #1 = 0.4544; 0.3195 is rank #50, #48 is 0.3231; 0.4413 is not in the top 50. See the dated [`ORGANIZER-PUBLIC` snapshot](registry/leaderboard_snapshot_20261031.json); it does not confirm any focus-site score and was not freshly fetched by this branch review.
 - **Focus-site format receipt:** [`evidence/nine_site_format_receipt_20261031.json`](evidence/nine_site_format_receipt_20261031.json) audits pinned mirror bytes, not portal acceptance or organizer authenticity. Existing table lists USER-REPORTED scores; no organizer score estimate is available.
 - **Submission action:** none. Historical files are learning/audit-only. No file in this checkout is OK to download and submit.
+
+## Latest upstream evidence available on main — session `arena/b2a6d9d1` (31 Oct 2026)
+
+The upstream review corrected the dated live leaderboard snapshot (#1 = 0.4544; 0.3195 is #50) and checked the official problem-page submission wording. A format audit of 31 local/mirrored TIFs found no finite values outside [0, 1], but 19 files encode zero outside the footprint while the official wording specifies null/NaN; the exact file behind the user's range error is unknown. A random-grid software check verifies metric implementation/marginal arithmetic, not a holdout or leaderboard score. See [review](knowledge/review-arena-b2a6d9d1-20261031.md), [format audit](evidence/official_format_check_20261031.json), and [DTI arithmetic check](evidence/dti_threshold_check_20261031.json). No file was cleared.
 
 ## Previous branch review — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
 

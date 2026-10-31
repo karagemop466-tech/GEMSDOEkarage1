@@ -2,7 +2,7 @@
 
 **Current branch review first (2026-10-31, `arena/f645631f-gemsdoekarage1`): read `knowledge/review-arena-f645631f-20261031.md` and `evidence/run_card_arena_f645631f_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, required inputs, and complete authenticated registry remain unresolved. The site renderer and generated decision-page banners point to this review. Older session records are historical evidence, not current clearance.
 
-**Latest upstream review before this branch update (2026-10-31, `arena/38b8b045-gemsdoekarage1`):** read `knowledge/session-review-arena-38b8b045.md` and `evidence/session_38b8b045_run_card.json`. It records the nine-site mirror format audit and a 31 Oct leaderboard snapshot (#50 = 0.3195); neither is a submission receipt for a focus-site score.
+**Latest supporting upstream review before this branch update (2026-10-31, `arena/b2a6d9d1`):** read `knowledge/review-arena-b2a6d9d1-20261031.md`, `evidence/run_card_arena_b2a6d9d1_20261031.json`, `evidence/official_format_check_20261031.json`, and `evidence/dti_threshold_check_20261031.json`. The live board read placed 0.3195 at #50; the format audit flagged zero-outside encodings, and the metric arithmetic check is software verification only. Neither is a submission receipt for a focus-site score.
 
 **Previous branch review (2026-10-31, `arena/946f7668-gemsdoekarage1`):** read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`. It ranked four research proposals; none was validated or cleared.
 
