@@ -1,0 +1,127 @@
+{
+  "schema": "karage1-run-card-offcat-geophys-v1",
+  "generated_utc": "20261031T044648Z",
+  "lane_id": "offcat-geophys-edge",
+  "hypothesis": "Blind geothermal faults missing from the USGS/INGENIOUS catalogue express as coincident geophysical edges (magnetic/gravity/topo gradients, tilt curvature), seismicity and conductivity without a mapped surface trace.  Dots placed off-catalogue and outside all registry halos target those unseen structures while being unique by construction.",
+  "mechanism": "Equal-weight rank composite of rtp/tmi (magnetite destruction, mag lows), tmi_hg/iso_grav_anom_hg (source edges), ieq_n100a15 (seismicity), cond_surf (fluids), det_elev_slope (scarps), restricted to footprint pixels >5 px from catalogue and outside the 3-px halo of every GEMSDOE24/25/27/28/30/31/32/33/36 raster. Greedy 3-px NMS emits the top dots.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline berms, TIGER road/rail embankments, alluvial fan edges and conductive playas can mimic lineament/edge signals; mitigated by equal-weight multi-sensor fusion (no single mimic drives all bands) and by ranking rather than thresholding.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "radius_px": 3,
+    "pooled_dti": 0.0,
+    "coverage": 0.0,
+    "withheld_positive_pixels": 45260,
+    "note": "Catalogue hide-and-recover; off-catalogue dots are not expected to recover mapped segments. NOT a leaderboard estimate; no organizer truth available."
+  },
+  "leakage_canary": {
+    "note": "Single-feature AUC screen (docs/data/offcat_feature_screen.json): max mean AUC 0.5700 (det_elev_slope), all bands < 0.90 -> no leakage."
+  },
+  "registry_correlation_overlap": {
+    "worst_forward_3px_overlap": 0.0,
+    "worst_forward_3px_overlap_vs": "GEMSDOE24",
+    "pairwise": {
+      "GEMSDOE24": 0.0,
+      "GEMSDOE25": 0.0,
+      "GEMSDOE27": 0.0,
+      "GEMSDOE28": 0.0,
+      "GEMSDOE30": 0.0,
+      "GEMSDOE31": 0.0,
+      "GEMSDOE32": 0.0,
+      "GEMSDOE33": 0.0,
+      "GEMSDOE36": 0.0
+    },
+    "unique_by_literal_rule": true
+  },
+  "raster": {
+    "tif": "gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif",
+    "zip": "gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.zip",
+    "sha256": "9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d",
+    "bytes": 132339,
+    "dots": 37654,
+    "dtype": "float32",
+    "nodata": null,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "validator_output": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif",
+    "bytes": 132339,
+    "sha256": "9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "submission_name": "gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros",
+  "submission_note": "Off-catalogue mag/gravity/topo/seismic edge dots, outside all registry halos; unique; research-only, not organizer-cleared",
+  "submission_note_chars": 122,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "verdict": "research-only",
+  "verdict_reason": "Format-valid and unique by construction, but leaderboard truth is organizer-held; no organizer receipt exists. HOLDOUT-DTI is not a leaderboard score. Download permitted; submission slot decision is a separate owner step after an organizer receipt / leaderboard check.",
+  "blockers": [
+    "Organizer labels/truth are login-walled at DrivenData; no leaderboard score can be estimated or confirmed from this checkout.",
+    "No organizer submission-page receipt exists for this raster."
+  ]
+}

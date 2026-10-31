@@ -1,0 +1,19 @@
+{
+  "candidate": "gems-karage1-offcat-geophys-edge-37654dots-20261031-zeros.tif",
+  "sha256": "9b29f8e14de2ffa7bd23f62a36b9717e9ce73e9c9eb338b80920d0716f15ed6d",
+  "worst_forward_3px_overlap": 0.0,
+  "worst_site": "GEMSDOE24",
+  "pairwise": {
+    "GEMSDOE24": 0.0,
+    "GEMSDOE25": 0.0,
+    "GEMSDOE27": 0.0,
+    "GEMSDOE28": 0.0,
+    "GEMSDOE30": 0.0,
+    "GEMSDOE31": 0.0,
+    "GEMSDOE32": 0.0,
+    "GEMSDOE33": 0.0,
+    "GEMSDOE36": 0.0
+  },
+  "unique_by_literal_rule": true,
+  "dots": 37654
+}
