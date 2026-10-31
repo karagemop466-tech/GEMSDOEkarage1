@@ -22,6 +22,27 @@
 - **Submission action:** none. Do not upload any file from this checkout.
 
 
+## PARALLEL REVIEW (read first) — session `arena/ce19eeed-gemsdoekarage1` (31 Oct 2026)
+
+**Can I download and submit a file? NO. No file is cleared by this session. No submission slot was selected or spent.**
+
+- **Standing prompt:** read at the start of every session; see the section further down (`# SESSION PROMPT — READ FIRST`).
+- **What was done:** two pre-registered, label-blind Euler depth-contact experiments on the shared hide-and-recover holdout (`gems57-pooled-hide-v2`, 16 cells, 45,260 withheld positives). Experiment budget: 3; used: 2. Each number is **HOLDOUT-DTI**, never an organizer score.
+- **Fixed:** round-off in `euler.solution_density` broke the [0,1] check (the portal range-error class). It is now an exact integer box sum, with a regression test. A zero-density integrity assertion was added: the superseded first H-E1b run placed 11,913 dots on noise.
+
+| Experiment | Field | HOLDOUT-DTI (95% CI) | Random null | Paired vs null (CI) | Verdict |
+|---|---|---|---|---|---|
+| H-E1b (this session: 21 px window, 300–3000 m, unsmoothed peaks, 25,741 dots) | TMI (band 14) | 0.0284 [0.0245, 0.0313] | 0.0346 | −0.0065 [−0.0099, −0.0031] | **NEGATIVE**: below random |
+| H-E2 (this session: same protocol on gravity, 37,654 dots) | Isostatic gravity (band 13) | 0.0479 [0.0430, 0.0505] | 0.0446 | +0.0028 [+0.0005, +0.0051] | **NEGATIVE** under the pre-registered rule: beats random, but gate-blocked |
+
+- **Cross-session H-E1 conflict (important).** Another 31 Oct session (`arena/he1-euler-gemsdoe-20261031`, `scripts/run_he1_euler_deconvolution.py`) pre-registered the same TMI Euler hypothesis with a different protocol (11 px window, 50–2000 m, Gaussian-smoothed density). Its HOLDOUT-DTI is 0.0507 against the same 0.0446 null, with paired CI [+0.0034, +0.0080]. It passes the null, where H-E1b does not. The two protocols disagree in sign, so **the Euler/TMI result is protocol-sensitive**. Neither result is "the H-E1 answer" on its own. Both are negative under their own literal rules, because of the registry gate. Details: [knowledge/hypotheses-20261031-ce19eeed.md](knowledge/hypotheses-20261031-ce19eeed.md).
+- **Uniqueness.** H-E2's surface is unique (max Spearman 0.033). Its dots are unique against the nine focus sites (max overlap 19.6% within 3 px; Jaccard ≤ 0.005). Its archived file is `archive/research-he2-20261031/karage1-he2-euler-gravity-37654-20261031-zeros.tif` (sha256 `830c6ddf…`). Validator: all checks passed. Submission name `karage1-he2-euler-gravity-37654-20261031-zeros`, note 104 characters. **Not in `docs/downloads/`; not cleared.**
+- **Why H-E2 is negative:** two criteria failed. (1) The literal 70% registry-overlap gate trips on dense local rasters (the halo damage zone and the 13GEMS lattice), which any dot set overlaps. (2) The league bar compares against the catalogue-trained 0.2708 leader, which a label-blind candidate cannot beat. Both are owner review items, not changes made here.
+- **Leakage.** The holdout is catalogue-based. It measures recovery of withheld visible segments, not new faults. Canaries are clean (max AUC 0.586 < 0.90). GEMSDOE32_B2 scores 0.0047 on the same cells, below random.
+- **Open items:** a density-matched random null (the uniform null may flatter structure-aware candidates); owner decision on the registry gate and the league bar; reconciling the two H-E1 protocols under one pre-registration before either is treated as a result.
+- **Pages:** the executive summary (`docs/executive-summary.html`) opens with a generated panel for H-E1b and H-E2, including the cross-session conflict. It is rendered from the evidence JSON by `scripts/render_site.py`.
+- **Details:** [knowledge/hypotheses-20261031-ce19eeed.md](knowledge/hypotheses-20261031-ce19eeed.md) · [evidence/session_ce19eeed_20261031_run_card.json](evidence/session_ce19eeed_20261031_run_card.json) · [evidence/exp_h_e1b_euler_tmi_20261031.json](evidence/exp_h_e1b_euler_tmi_20261031.json) · [evidence/exp_h_e2_euler_gravity_20261031.json](evidence/exp_h_e2_euler_gravity_20261031.json).
+
 ## Previous review — session `arena/55dc7b72-gemsdoekarage1` — executive summary (31 Oct 2026)
 
 **Verdict: NEGATIVE — DO NOT SUBMIT. Nothing is cleared for download or upload. No weekly slot was selected or spent.**

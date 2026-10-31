@@ -1,0 +1,68 @@
+{
+  "criteria": {
+    "beats_every_local_candidate_on_same_cells": false,
+    "canary_all_below_0_90": true,
+    "candidate_beats_null_pooled": false,
+    "paired_ci_lower_bound_gt_zero": false,
+    "registry_dot_overlap_le_0_70": false,
+    "registry_surface_rho_le_0_90": true,
+    "validator_passed": true
+  },
+  "date_utc": "2026-10-31",
+  "experiment": "E1b / H-E1b",
+  "field": "tmi",
+  "holdout": {
+    "ci95_cell_bootstrap_of_mean_cell_dti": [
+      0.02447569667496133,
+      0.031276849743707195
+    ],
+    "evaluator": "gems57-pooled-hide-v2",
+    "label": "HOLDOUT-DTI (withheld mapped catalogue segments; not organizer-confirmed)",
+    "paired_delta_ci95": [
+      -0.009902527563410117,
+      -0.0030884848035220985
+    ],
+    "pooled_dti": 0.028366256961406766,
+    "random_null_pooled_mean": 0.03462636990130461,
+    "withheld_positives": 45260
+  },
+  "hypothesis": "Magnetic contacts whose Euler (N=0) depth solutions agree on a 300-3000 m band mark buried fault-bounded magnetic juxtapositions with no mapped trace.",
+  "mechanism": "Euler homogeneity identity x.Tx + y.Ty + N.T = x0.Tx + y0.Ty + z0.Tz + N.B solved in 2.1 km windows; solutions counted per cell (depth-cluster density).",
+  "named_non_fault_mimic": "Lithologic and intrusive contacts, basin-margin magnetic steps, and flight-line levelling seams produce the same Euler contact geometry.",
+  "ok_to_submit": false,
+  "raster": {
+    "file": "archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-zeros.tif",
+    "name": "karage1-he1b-euler-tmi-37654-20261031-zeros",
+    "note": "H-E1b Euler contacts (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored; do not submit unless gates pass",
+    "note_chars": 126,
+    "sha256": "4019f4f4da5f76608f82b57e98ad6fede2e9036db43d1395833bbb3e17c4d32f"
+  },
+  "registry_overlap": {
+    "final_dots_max_3px_overlap": 1.0,
+    "max_overlap_file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+    "rasters_compared": 58,
+    "surface_max_spearman": 0.019634616982245355
+  },
+  "schema": "karage1-run-card-v1",
+  "session": "arena/ce19eeed-gemsdoekarage1",
+  "validator": {
+    "all_passed": true,
+    "checks": {
+      "crs_epsg_32611": true,
+      "dimensions_3730x3292": true,
+      "dtype_float32": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "max_le_1": true,
+      "min_ge_0": true,
+      "no_inf_anywhere": true,
+      "no_nan_anywhere": true,
+      "no_sentinel_values": true,
+      "outside_footprint_zero": true,
+      "range_0_1_guaranteed": true,
+      "single_band": true,
+      "transform_matches_sample_submission": true
+    }
+  },
+  "verdict": "negative"
+}

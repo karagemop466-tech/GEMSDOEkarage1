@@ -661,6 +661,104 @@ NINE_LINEAGE = ROOT / 'evidence/site_lineage_verification_20261029.json'
 LOCAL_AUDIT_20261029 = ROOT / 'evidence/local_downloads_audit_20261029.json'
 
 
+SESSION_31_EXPERIMENTS = [
+    ('H-E1b', 'TMI (training band 14), window 21 px, 300-3000 m', 'evidence/exp_h_e1b_euler_tmi_20261031.json', 'evidence/run_card_h_e1b_20261031.json'),
+    ('H-E2', 'Isostatic gravity (band 13)', 'evidence/exp_h_e2_euler_gravity_20261031.json', 'evidence/run_card_h_e2_20261031.json'),
+]
+
+
+OTHER_H_E1_EVIDENCE = ROOT / 'evidence/exp_h_e1_euler_20261031.json'
+
+
+def _other_he1_arm() -> dict:
+    return json.loads(OTHER_H_E1_EVIDENCE.read_text(encoding='utf-8'))['arms']['primary_SI0_contact']
+
+
+def _other_he1_dti() -> float:
+    return float(_other_he1_arm()['candidate']['pooled_dti'])
+
+
+def _other_he1_null() -> float:
+    return float(_other_he1_arm()['nulls']['pooled_mean'])
+
+
+def _other_he1_ci() -> tuple:
+    lo, hi = _other_he1_arm()['paired_vs_null']['ci95']
+    return float(lo), float(hi)
+
+
+def session_31_panel(prefix: str) -> str:
+    """Top-of-page panel for the 31 Oct 2026 label-blind Euler experiments.
+
+    Every number is read from the committed experiment JSON. The holdout is
+    catalogue-based (withheld visible segments), so these are HOLDOUT-DTI values,
+    not organizer-confirmed scores. No file is cleared for upload.
+    """
+    import re as _re
+    focus = _re.compile(r'GEMSDOE(24|25|27|28|30|31|32|33|36)')
+    rows = []
+    for hid, field, exp_path, card_path in SESSION_31_EXPERIMENTS:
+        exp = json.loads((ROOT / exp_path).read_text(encoding='utf-8'))
+        card = json.loads((ROOT / card_path).read_text(encoding='utf-8'))
+        h = card['holdout']
+        ci = h['ci95_cell_bootstrap_of_mean_cell_dti']
+        paired = exp['paired_vs_null']
+        focus_rows = [r for r in exp['uniqueness']['rows_dots']
+                      if focus.search(r['file'] + r.get('submission', ''))]
+        focus_max = max(r['my_dots_within_3px_of_theirs'] for r in focus_rows)
+        rows.append(dict(
+            hid=hid, field=field, dti=h['pooled_dti'], ci=ci, withheld=h['withheld_positives'],
+            evaluator=h['evaluator'], null=exp['controls']['random_null_matched_count']['pooled_mean'],
+            delta=paired['mean_delta'], delta_ci=paired['ci95'], focus_max=focus_max,
+            verdict=card['verdict'], ok=card['ok_to_submit'], sha=card['raster']['sha256'],
+            name=card['raster']['name'], criteria=card['criteria'], note=card['raster']['note'],
+        ))
+    body_rows = []
+    for r in rows:
+        failed = [k for k, v in r['criteria'].items() if not v]
+        body_rows.append(
+            f"<tr><th scope=\"row\">{r['hid']}<span class=\"cell-sub\">{r['field']}</span></th>"
+            f"<td><strong>{r['dti']:.4f}</strong><span class=\"cell-sub\">HOLDOUT-DTI · {r['evaluator']} · "
+            f"withheld positives {r['withheld']:,} · 95% CI [{r['ci'][0]:.4f}, {r['ci'][1]:.4f}]</span></td>"
+            f"<td>{r['null']:.4f}<span class=\"cell-sub\">matched random dots, 3 seeds</span></td>"
+            f"<td>{r['delta']:+.4f}<span class=\"cell-sub\">paired CI [{r['delta_ci'][0]:+.4f}, {r['delta_ci'][1]:+.4f}]</span></td>"
+            f"<td>{r['focus_max']:.1%}<span class=\"cell-sub\">max dots within 3 px of a focus site</span></td>"
+            f"<td><span class=\"pill pill-red\">{r['verdict'].upper()}</span>"
+            f"<span class=\"cell-sub\">not cleared · failed: {esc(', '.join(failed))}</span></td></tr>"
+        )
+    table = ('<div class="table-shell"><div class="table-scroll" tabindex="0" role="region" '
+             'aria-label="Session 31 Oct Euler experiments"><table><thead><tr><th scope="col">Hypothesis</th>'
+             '<th scope="col">Holdout result (not a leaderboard estimate)</th><th scope="col">Random null</th>'
+             '<th scope="col">Paired difference vs null</th><th scope="col">Focus-site overlap</th>'
+             '<th scope="col">Verdict</th></tr></thead><tbody>' + ''.join(body_rows) +
+             '</tbody></table></div></div>')
+    return (
+        '<section class="section" id="session-31-euler"><div class="section-heading"><div>'
+        '<p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · arena/ce19eeed · LABEL-BLIND EULER</p>'
+        '<h2>Two pre-registered Euler experiments: no file cleared.</h2>'
+        '<p><strong>Download answer:</strong> no file is cleared. Both candidate rasters are archived under '
+        '<code>archive/research-he1b-20261031/</code> and <code>archive/research-he2-20261031/</code> and were '
+        'not copied to <code>docs/downloads/</code>. No submission slot was used.</p></div></div>'
+        + table +
+        '<p class="body-copy">The holdout is catalogue-based: it scores recovery of withheld visible fault segments. '
+        'It does not measure new faults, so a holdout value is not a forecast of the organizer score. '
+        'The H-E2 holdout beats random dots (paired CI above zero) but fails the two other gates: the literal '
+        '70% registry-overlap gate, which the dense halo and 13GEMS lattice rasters trip for any dot set, and the '
+        'leakage-prone league bar, where the 0.27 leader is catalogue-trained. Under the pre-registered rule the '
+        'verdict is negative. Owner review of the gate is needed before any promotion step.</p>'
+        '<p class="body-copy"><strong>Cross-session H-E1 conflict.</strong> Another 31 Oct session pre-registered the same '
+        'hypothesis with a different protocol (11 px window, 50-2000 m, smoothed density). Its holdout is '
+        f'HOLDOUT-DTI {_other_he1_dti():.4f} against random {_other_he1_null():.4f} '
+        f'(paired CI [{_other_he1_ci()[0]:+.4f}, {_other_he1_ci()[1]:+.4f}]), so it passes the null where H-E1b does not. '
+        'The two protocols disagree in sign. The Euler/TMI result is protocol-sensitive, and neither is an answer on its own.</p>'
+        f'<p class="body-copy">Hypotheses tested this session: 2 of the 3-experiment budget. Full evidence: '
+        '<a href="' + prefix + 'evidence/exp_h_e1b_euler_tmi_20261031.json">H-E1b JSON</a> · '
+        '<a href="' + prefix + 'evidence/exp_h_e2_euler_gravity_20261031.json">H-E2 JSON</a> · '
+        '<a href="' + prefix + 'knowledge/hypotheses-20261031-ce19eeed.md">hypothesis record</a>.</p>'
+        '</section>'
+    )
+
+
 H_E1_RUN_CARD = ROOT / 'evidence/session_46ed1c8c_run_card.json'
 H_E1_EVIDENCE = ROOT / 'evidence/exp_h_e1_euler_20261031.json'
 
@@ -1061,9 +1159,9 @@ def main():
         DOCS / 'submission-hub.html': shell('Submit now: executive summary and download', session_block('../') + submission_hub.body(hub, 1), 1, 'Submit now'),
         DOCS / 'submission-20261031.html': shell('Live submission status · 31 Oct 2026', session_page('../'), 1, 'Submit now'),
         ROOT / 'legacy-overview.html': shell('Submission overview', home(0), 0),
-        ROOT / 'executive-summary.html': shell('Submission guide', session_block('') + nine_site_section('') + guide(0), 0, 'Executive summary'),
+        ROOT / 'executive-summary.html': shell('Submission guide', session_block('') + session_31_panel('') + nine_site_section('') + guide(0), 0, 'Executive summary'),
         DOCS / 'index.html': shell('Submission overview', session_block('../') + submission_hub.summary_strip(1) + home(1), 1),
-        DOCS / 'executive-summary.html': shell('Executive summary', session_block('../') + nine_site_section('../') + guide(1), 1, 'Executive summary'),
+        DOCS / 'executive-summary.html': shell('Executive summary', session_block('../') + session_31_panel('../') + nine_site_section('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'legacy-executive-summary.html': shell('Executive summary', guide(1), 1, 'Executive summary'),
         DOCS / 'how-to-submit.html': shell('Submission guide', session_block('../') + session_page_steps('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'submission-guide.html': shell('Submission guide', guide(1), 1, 'Executive summary'),
