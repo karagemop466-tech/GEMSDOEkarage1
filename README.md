@@ -1,6 +1,15 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+## ▶ LATEST (31 Oct 2026, session `arena/830e1f79-gemsdoekarage1`): NEGATIVE — DO NOT SUBMIT. No file is cleared.
+
+- **Can I download and submit a file? No.** No GeoTIFF in this repo has cleared the team's own gates. This session generated no new TIF, because the 70 %/3-px duplicate gate is failed by uniform random dots at 99.9 % (evidence, not opinion), so a new dotted file would be a duplicate by the protocol.
+- **Official facts verified line by line** (DrivenData problem page and NLR Official Rules, fetched 31 Oct 2026): metric DTI α=0.2, β=0.8, R=300 m; single-layer float32 GeoTIFF, EPSG:32611, 100 m; outside-bounds values **null or NaN**; in-bounds values **0–1**; three submissions a week. **No uniqueness rule exists in the official rules.** The 70 %/3-px and 0.90 Spearman gates are the team's protocol.
+- **Leaderboard, live 31 Oct 2026:** #1 **0.4544**. **0.4413 is not in ranks 1–50.** **0.3195 is at #50**, not #48 as the 30 Oct snapshot said (flagged, I-1).
+- **Nine-site scores** (0.2778 and the rest) are USER-REPORTED / UNVERIFIED. The GEMSDOE32 site itself says the 0.2778 has no submission receipt and that the file is already submitted. GEMSDOE32 is a strict subset of GEMSDOE25 (6,436 dots removed, 0 added).
+- **Full review:** [knowledge/session-review-arena-830e1f79.md](knowledge/session-review-arena-830e1f79.md) · **run card:** [evidence/session_830e1f79_run_card.json](evidence/session_830e1f79_run_card.json). Irregularities I-1 to I-6 are listed there for owner review.
+- **Owner decisions needed before any file can be cleared:** (I-3) whether the lattice gate is replaced by a null-calibrated test; (I-4) whether `-zeros` outputs are allowed, given the official "null or NaN" wording; (lane) the protocol's method paragraph is still missing.
+
+## CURRENT REVIEW — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
 
