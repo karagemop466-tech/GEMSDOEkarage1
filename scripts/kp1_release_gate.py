@@ -267,7 +267,21 @@ def main(tif: Path) -> dict:
     uniqueness_cleared = (registry_complete and lattice_gate_passes
                           and uniqueness["passes_rho_rule"]
                           and uniqueness["passes_overlap_rule"])
-    ok = fmt_ok and uniqueness_cleared and cand["d_cat_le_2px_frac"] == 0.0
+    # Cross-site receipt (31 Oct 2026): the comparison set must include every listed GEMSDOE repository.
+    # GEMSDOE13's lattice raster alone holds 99.78 % of this candidate's dots (limit 70 %).
+    # Missing, mismatched, or failing receipts are not clearance.
+    cross_path = ROOT / "evidence" / "kp1_uniqueness_vs_listed_sites_20261031.json"
+    try:
+        cross = json.loads(cross_path.read_text())
+        cross_ok = (cross["candidate"]["sha256"] == fmt["sha256"]
+                    and bool(cross["passes_literal_rule_on_checked_files"]))
+        cross_detail = dict(receipt=str(cross_path.relative_to(ROOT)), passes=cross_ok,
+                            max_overlap=cross["max_kp1_dots_within_3px_rule_set"],
+                            origins_over_limit=cross["origins_over_overlap_limit"])
+    except (OSError, KeyError, ValueError, TypeError):
+        cross_ok = False
+        cross_detail = dict(receipt=str(cross_path.relative_to(ROOT)), passes=False, error="missing or unreadable")
+    ok = fmt_ok and uniqueness_cleared and cand["d_cat_le_2px_frac"] == 0.0 and cross_ok
     decision = dict(
         ok_to_submit=bool(ok),
         registry_complete=registry_complete,
@@ -278,6 +292,7 @@ def main(tif: Path) -> dict:
                   "no organizer receipt for this file",
                   "no validated leaderboard estimate",
                   "holdout instrument is anti-correlated with known leaderboard ordering"],
+        listed_sites_check=cross_detail,
         slots_used=0,
     )
     out = dict(gate="kp1-release-gate/v1", tif=str(tif.relative_to(ROOT)) if tif.is_relative_to(ROOT) else str(tif),

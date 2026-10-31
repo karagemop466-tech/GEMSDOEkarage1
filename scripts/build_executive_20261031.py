@@ -324,7 +324,7 @@ e.g. <code>clustering with k=25</code>.</li>
 &gt; 1. The candidate on this page is all-finite and binary (0/1), so it does not trip that
 check — but that only means it is <em>format-valid</em>, not that it is approved.</div>
 <p class="small">Submission limit: three per week (verify on the submission page).
-Competition closes 2026-12-03 23:59 UTC (per the official rules PDF).</p>
+Competition closes Dec. 3, 2026, 11:59 p.m. UTC (per the competition homepage; the rules PDF defers dates to that page).</p>
 </section>
 
 <section class="card">

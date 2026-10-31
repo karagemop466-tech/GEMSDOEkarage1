@@ -7,6 +7,15 @@
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
+## ▶ CURRENT VERDICT — 31 Oct 2026 · `arena/a0f55a6a-gemsdoekarage1` · **NOT OK TO DOWNLOAD OR SUBMIT**
+
+- **KP1 GeoTIFF: NOT cleared.** It passes format and the nine-focus-file rule, but **99.78 %** of its dots lie within 3 px of the GEMSDOE13 lattice raster, a listed site (limit 70 %). The earlier "promote" receipt checked only the nine focus files and was wrong.
+- **Nothing submitted; no slot spent; no file cleared.** Best known: `registry/GEMSDOE32_B2.tif`, 0.2778 (USER-REPORTED; already listed; DO NOT RESUBMIT).
+- KP1's 0.2789 is a **PROJECTION**, not a score. On the off-catalogue instrument it is below all nine focus files (HOLDOUT-DTI 0.0764 vs 0.0934–0.1012).
+- Review, per-site table, sources, irregularities, re-run commands: `knowledge/review-arena-a0f55a6a-20261031.md`. Receipts: `evidence/kp1_release_gate.json` and `evidence/kp1_uniqueness_vs_listed_sites_20261031.json`.
+
+**Standing prompt:** `# SESSION PROMPT — FULL TEXT` below. Label every number HOLDOUT-DTI, ORGANIZER-CONFIRMED, PROJECTED or USER-REPORTED. Stop and ask when ambiguous.
+
 ## READ FIRST — ACTIVE SESSION `arena/a79c8595-gemsdoekarage1` (31 Oct 2026) · **NEGATIVE / DO NOT SUBMIT**
 
 **No file is currently cleared for submission.** This session generated no TIF, ran no holdout, and spent no submission slot: the referenced single method paragraph is absent; `registry/template.json` has no assigned lane or canonical template; the shared cache/data are missing; and the historical KP1 receipt, even after its mainline status was corrected, is not a complete current-registry/pre-placement clearance. Do not treat historical promotion records as active permission.

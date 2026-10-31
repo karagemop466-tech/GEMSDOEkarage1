@@ -1,3 +1,7 @@
+# Starting point for every session
+
+**CURRENT VERDICT (31 Oct 2026, `arena/a0f55a6a-gemsdoekarage1`): KP1 is NOT OK to download or submit.** It fails the literal uniqueness rule against the listed GEMSDOE repositories: 99.78 % of its dots lie within 3 px of GEMSDOE13's lattice (limit 70 %). Read `README.md` (current-verdict block and the "SESSION PROMPT — FULL TEXT" section) and `knowledge/review-arena-a0f55a6a-20261031.md` first. The other session on main (`arena/a79c8595`) reaches the same NO. Its active status file is `evidence/active_submission_status.json`.
+
 **CURRENT REVIEW (31 Oct 2026, `arena/fd3e38cf-gemsdoekarage1`): read `knowledge/session-review-arena-fd3e38cf-20261031.md` and `evidence/run_card_arena_fd3e38cf_20261031.json` first.** NEGATIVE / DO NOT SUBMIT; no TIFF, holdout, or slot. Method lane, canonical template and cached competition data are absent; shared-tool hashes fail preflight. Current executive decision: `docs/current-review-20261031.html`. The merged mainline review (`arena/4dffc2c6`) independently confirms the KP1 raster is on HOLD, not cleared.
 
 **LATEST UPSTREAM REVIEW (31 Oct 2026, `arena/afe07cea-gemsdoekarage1`):** read `knowledge/review-arena-afe07cea-20261031.md`. No file cleared; no TIF or slot. Its format/NaN review is historical and does not supersede the current session above.

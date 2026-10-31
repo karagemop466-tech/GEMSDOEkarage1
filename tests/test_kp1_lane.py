@@ -212,3 +212,16 @@ def test_no_private_fork_of_the_shared_template():
     assert "def write_submission" not in writer
     metric_users = (ROOT / "scripts" / "kp1_exp2_holdout.py").read_text()
     assert "evaluate_holdout.evaluate" in metric_users
+
+
+def test_listed_site_receipt_matches_bytes_and_gate():
+    """The cross-site receipt must describe the file on disk and agree with the release gate (31 Oct 2026)."""
+    import hashlib
+    listed = load(ROOT / "evidence" / "kp1_uniqueness_vs_listed_sites_20261031.json")
+    gate = load(GATE)
+    tif = ROOT / gate["tif"]
+    digest = hashlib.sha256(tif.read_bytes()).hexdigest()
+    assert listed["candidate"]["sha256"] == digest
+    assert gate["decision"]["listed_sites_check"]["passes"] is listed["passes_literal_rule_on_checked_files"]
+    assert listed["passes_literal_rule_on_checked_files"] is False
+    assert listed["max_kp1_dots_within_3px_rule_set"]["value"] > 0.70
