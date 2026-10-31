@@ -11,7 +11,13 @@
 - **Focus-site format receipt:** [`evidence/nine_site_format_receipt_20261031.json`](evidence/nine_site_format_receipt_20261031.json) audits pinned mirror bytes, not portal acceptance or organizer authenticity. Existing table lists USER-REPORTED scores; no organizer score estimate is available.
 - **Submission action:** none. Historical files are learning/audit-only. No file in this checkout is OK to download and submit.
 
-## Latest upstream review available on main — session `arena/b8fc7593` (31 Oct 2026)
+## Latest upstream forensic review available on main — session `arena/510af7c7` (31 Oct 2026)
+
+This review explained why the historical GEMSDOE32 B2 result may have risen over its parent without treating the user-reported score as verified. **LOCAL-MEASURED on pinned mirrors:** B2's 37,654 dots are a subset of GEMSDOE25's 44,090, removing 6,436 dots that the audit finds within 2 pixels of the mirrored catalogue. Across the nine historical submissions, off-catalogue proximity associates with the USER-REPORTED scores (Spearman ρ = 0.9832, n = 9), but this is a tiny, unverified observational set—not causal evidence. A metric-based explanation is plausible because official test faults are new/unmapped and mapped-adjacent dots can add false-positive mass; catalogue misalignment is a counter-mechanism.
+
+The same upstream review reproduced a prior catalogue hide-and-recover calibration (**HOLDOUT-DTI**, evaluator `gems57-pooled-hide-v2`, 45,260 withheld positives, 16 cells): B2 0.00473 [0.00432, 0.00515], GEMSDOE25 0.10227 [0.09296, 0.11431], and matched-count random placement mean 0.04460 (three seeds). This reproduction reverses the public ordering and shows this catalogue holdout cannot rank off-catalogue candidates. These are not candidate results, leaderboard estimates, or organizer receipts. The review generated no TIF and selected no slot. See [forensic review](knowledge/review-arena-510af7c7-20261031.md), [run card](evidence/run_card_arena_510af7c7_20261031.json), [mechanism receipt](evidence/offcat_mechanism_510af7c7_20261031.json), and [reproduction receipt](evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json). Its mirror data were not organizer-authenticated.
+
+## Earlier mainline review — session `arena/b8fc7593` (31 Oct 2026)
 
 This review added an explicit “Leaderboard estimate” column to the nine-site executive table; all nine rows say **Not estimable** and all historical files remain **DO NOT SUBMIT**. It also documented five conditional research hypotheses, none validated or selected; no TIF, experiment, score estimate, or slot was produced. See [review](knowledge/review-arena-b8fc7593-20261031.md) and [run card](evidence/run_card_arena_b8fc7593_20261031.json). Its final suite result was 451 passed, 3 skipped, 126 warnings; the active branch reruns this after integration.
 

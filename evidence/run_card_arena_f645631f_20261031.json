@@ -79,6 +79,28 @@
     "leaderboard_estimate": null
   },
   "upstream_records_inherited_after_merge": {
+    "latest_forensic_review": {
+      "path": "knowledge/review-arena-510af7c7-20261031.md",
+      "run_card": "evidence/run_card_arena_510af7c7_20261031.json",
+      "mechanism_receipt": "evidence/offcat_mechanism_510af7c7_20261031.json",
+      "holdout_reproduction_receipt": "evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json",
+      "new_candidate_generated": false,
+      "geological_experiments_run": 0,
+      "reproduction_runs": 1,
+      "holdout_reproduction": {
+        "label": "HOLDOUT-DTI (historical catalogue-hide reproduction; not a candidate score)",
+        "evaluator": "gems57-pooled-hide-v2",
+        "withheld_positives": 45260,
+        "cells": 16,
+        "arms": {
+          "GEMSDOE32_B2": {"value": 0.00473, "ci95": [0.00432, 0.00515]},
+          "GEMSDOE25_d28": {"value": 0.10227, "ci95": [0.09296, 0.11431]},
+          "matched_random_mean_3_seeds": {"value": 0.04460, "ci95": null}
+        },
+        "interpretation": "Catalogue holdout reverses public ordering; not calibrated for off-catalogue leaderboard prediction."
+      },
+      "main_score_relation": "B2 is a subset of GEMSDOE25; 6436 points removed, all within 2 px of pinned mirror catalogue; association is not causal."
+    },
     "latest_nine_site_review": {
       "path": "knowledge/review-arena-b8fc7593-20261031.md",
       "run_card": "evidence/run_card_arena_b8fc7593_20261031.json",
