@@ -264,7 +264,7 @@ def body(f: dict, depth: int) -> str:
   <p class="eyebrow">IRREGULARITIES FLAGGED FOR MANUAL REVIEW</p>
   <h2 id="irr-title">What does not match, and why it matters</h2>
   <ul class="why">
-    <li>Historical snapshots changed: the 30 Oct independent read placed 0.3195 at #48; the 31 Oct live public read (<a href="../evidence/leaderboard_snapshot_20261031.json">snapshot JSON ↗</a>) showed #1 at 0.4544 and 0.3195 at #50, with 0.4413 absent from the top 50. These are ORGANIZER-PUBLIC values and do not verify any of the nine user-reported GEMSDOE scores.</li>
+    <li>Historical snapshots changed: the independent 30 Oct read placed 0.3195 at #48; the 31 Oct live public read (<a href="../evidence/leaderboard_snapshot_20261031.json">snapshot JSON ↗</a>) showed #1 at 0.4544, 0.3195 at #50, and #48 at 0.3231, with 0.4413 absent from the top 50. These are ORGANIZER-PUBLIC values and do not verify any of the nine user-reported GEMSDOE scores.</li>
     <li>The organizer's sample description says the sample "predicts total fault absence" (<a href="{PAGE}">problem page</a>).
     The mirrored <code>sample_submission.tif</code> has 60,988 positive cells, exactly equal to the label raster. The mirror does not match the description.</li>
     <li>The mirrored <code>labels.tif</code> and <code>existing_faults.tif</code> are byte-identical (same SHA-256).</li>

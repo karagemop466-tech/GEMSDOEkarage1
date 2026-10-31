@@ -1,0 +1,84 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/3184815e-gemsdoekarage1",
+  "created_utc": "2026-10-31T00:44:32Z",
+  "review_date": "2026-10-31",
+  "review_path": "knowledge/session-review-arena-3184815e.md",
+  "run_card_path": "evidence/session_3184815e_run_card.json",
+  "homepage_summary": "five research proposals documented; no candidate tested, no TIF or score estimate, no file cleared",
+  "hypothesis": "No geological candidate was authorized or tested. Five previously documented, untested-at-experiment-level ideas were ranked as a research queue; this is not a claim of global novelty. CP-DPCS is a conditional top research question, not a selected submission.",
+  "mechanism": "No candidate surface, dot placement, GeoTIFF, holdout, or leaderboard-score projection was produced. Current prerequisites fail closed: method lane and canonical template are unassigned, required data/cache are absent, and vendored writer/uniqueness hashes do not match recorded provenance.",
+  "named_non_fault_mimic": "For the conditional CP-DPCS proposal: buried paleochannels and igneous/lithologic contacts can produce coincident magnetic and gravity edges; no mimic was evaluated because no experiment was run.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run; no assigned lane, authenticated inputs, or authorized shared-tool provenance"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_spearman": null,
+    "final_dot_overlap": null,
+    "registry_coverage": "not computed; no candidate surface or dots, and the complete authenticated registry is unavailable",
+    "status": "not run"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run; no raster generated"
+  },
+  "submission_name": null,
+  "submission_note": "Research slate only; no TIF generated or cleared. Do not download or submit any repository artifact.",
+  "submission_note_chars": 100,
+  "new_candidate_generated": false,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "hypothesis_queue": "knowledge/hypotheses-20261031.md",
+  "preflight": {
+    "command": ".venv/bin/python scripts/shared_tools.py preflight",
+    "exit_code": 1,
+    "ready_for_shared_tools": false,
+    "method_lane": null,
+    "canonical_template_assignment": null,
+    "missing": [
+      ".cache/gems_work/feature_stack.npy",
+      ".cache/gems_data/existing_faults.tif",
+      ".cache/gems_data/training_features.tif",
+      ".cache/gems_data/sample_submission.tif",
+      ".cache/gems_data/labels.tif"
+    ],
+    "provenance_failures": [
+      "vendor/gems57/submission_writer.py differs from its recorded SHA-256",
+      "vendor/gems57/uniqueness.py differs from its recorded SHA-256",
+      "vendored source and execution-template pins identify different repositories or commits",
+      "assigned method lane is absent",
+      "canonical shared-template assignment and upstream repair approval are not established"
+    ]
+  },
+  "software_tests": {
+    "command": ".venv/bin/python -m pytest -q -rs",
+    "passed": 447,
+    "failed": 0,
+    "skipped": 2,
+    "warnings": 126,
+    "meaning": "software verification only; not geological performance or a leaderboard score",
+    "skip_reasons": [
+      "tests/test_focus_sites_20261029.py::test_candidate_respects_footprint_and_catalogue_when_bridge_data_available skipped: ignored bridge rasters are absent.",
+      "tests/test_thd_ridge_candidate_20261029.py::test_bytes_match_receipt_and_are_format_valid skipped: the competition sample grid is not restored."
+    ]
+  },
+  "verdict": "negative",
+  "blockers": [
+    "No method lane or canonical shared-template assignment is present.",
+    "Competition data and cached feature stack are missing; unofficial mirrors are not organizer-authenticated.",
+    "Vendored writer and uniqueness code have recorded SHA-256 mismatches and cannot be used as the approved common template.",
+    "Complete authenticated registry and owner decision on the internal 70%/3-px duplicate witness are unavailable.",
+    "Catalogue hide-and-recover DTI is not a calibrated leaderboard estimate for off-catalogue discovery.",
+    "No raster was generated; therefore format, range, CRS/shape/transform, uniqueness, and portal acceptance are not evaluated."
+  ]
+}

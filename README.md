@@ -7,7 +7,7 @@
 - **Current three-pass review / run card:** [review](knowledge/session-review-arena-cd6c8044.md) · [JSON](evidence/session_cd6c8044_run_card.json).
 - **Research slate:** [five hypotheses](knowledge/hypotheses-20261031.md); H-EULER is only a conditional first validation candidate. No canary or holdout ran because prerequisites are unmet.
 - **Nine-site decision:** all nine per-site pages and the executive table are linked from [the summary](docs/executive-summary.html). The reported 0.2477–0.2778 values remain USER-REPORTED / UNVERIFIED; organizer-score estimates are unavailable; no historic raster is cleared for resubmission.
-- **Public leaderboard:** fresh read 31 Oct 2026: #1 = **0.4544**, #50 = **0.3195**; 0.4413 was absent from the top 50. ORGANIZER-PUBLIC, not a receipt for any focus-site raster. [Snapshot JSON](evidence/leaderboard_snapshot_20261031.json).
+- **Public leaderboard:** fresh read 31 Oct 2026: #1 = **0.4544**, #48 = **0.3231**, #50 = **0.3195**; 0.4413 was absent from the top 50. ORGANIZER-PUBLIC, not a receipt for any focus-site raster. [Snapshot JSON](evidence/leaderboard_snapshot_20261031.json).
 - **Software checks:** 451 passed, 0 failed, 2 skipped; skips require missing ignored bridge/sample rasters. Software verification is not geological validation.
 - **Submission decision:** no approved download, no TIF generated, and no selector or slot use. Do not submit any repo artifact from this session.
 - **Read this brief every session:** [README prompt section](#session-prompt--full-text-read-at-start-of-every-session) and [standing prompt](docs/standing-prompt.md), followed by this review and the latest run card.
@@ -564,7 +564,7 @@ Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one flo
 
 ## Current Competition State (reviewed 31 Oct 2026; supersedes older snapshots)
 
-- Live public leaderboard snapshot: rank #1 = 0.4544 and rank #50 = 0.3195 (ORGANIZER-PUBLIC, observed 31 Oct 2026; not a private score or receipt for any GEMSDOE site). See `evidence/leaderboard_snapshot_20261031.json`.
+- Live public leaderboard snapshot: rank #1 = 0.4544, rank #48 = 0.3231, and rank #50 = 0.3195 (ORGANIZER-PUBLIC, observed 31 Oct 2026; not a private score or receipt for any GEMSDOE site). See `evidence/leaderboard_snapshot_20261031.json`.
 - Best nine focus-site reported value: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED).
 - All nine focus-site masks fail the recorded internal lattice overlap rule; this rule is not an official competition requirement and has a documented saturation/interpretation concern.
 - No file is cleared for submission. The lane, canonical shared template, authenticated labels, and shared input/cache are unresolved or absent.
