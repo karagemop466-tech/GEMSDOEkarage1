@@ -7,17 +7,13 @@
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
-## CURRENT SESSION — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · **PROMOTE: ONE FILE IS CLEARED**
+## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **NEGATIVE: DO NOT SUBMIT**
 
-**✅ OK TO SUBMIT:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif)
-· [.zip](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip)
-· [receipt](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.receipt.json)
+**No file is cleared for submission by this repository review.** The KP1 GeoTIFF below has reported local format validation, but no organizer receipt, no validated leaderboard estimate, and unresolved global-registry duplicate clearance. Focus-site uniqueness is not global uniqueness. Do not spend a competition slot on it.
 
-32,000 dots, float32, EPSG:32611, values in [0, 1], zeros outside the footprint, **zero** pixels on the
-mapped catalogue. **Format 15/15 · max |ρ| vs the nine 0.0076 · max 3-px overlap 26.5 % · projection
-0.2789 (PROJECTED, not a score) · 0 slots spent.** Older artifacts remain **DO NOT SUBMIT**; the details,
-the tables and the metric arithmetic are in [`docs/kp1/index.html`](docs/kp1/index.html) and in
-“Session detail — K-PROXY-DETECT” at the end of this file.
+Research artifact (not cleared): [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif). Its reported 0.2789 is **PROJECTED, NOT A SCORE**. The prior run card reports a HOLDOUT-DTI 0.0764 on independent SGMC truth, but its confidence interval is for the candidate-minus-random difference and the holdout is not calibrated to organizer scores. The same card marks the literal global uniqueness gate saturated. Full audit: [`knowledge/review-current-repo-20261031.md`](knowledge/review-current-repo-20261031.md).
+
+**Use the executive summary** at [`docs/executive-summary.html`](docs/executive-summary.html) for focus-site comparisons and [`docs/how-to-submit.html`](docs/how-to-submit.html) for submission instructions. Historical scores are user-reported unless backed by an organizer receipt; do not interpret holdout DTI or projections as leaderboard scores.
 
 ## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
 
