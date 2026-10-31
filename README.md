@@ -1,5 +1,19 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## LATEST REVIEW (read first) — session `arena/38b8b045-gemsdoekarage1` (31 Oct 2026)
+
+**Status: NEGATIVE — DO NOT SUBMIT. No file is cleared. No new TIF was generated.** Reason: no validated method lane, no authenticated organizer data in the sandbox (the restored copy is a hash-pinned mirror), and no holdout that beats the baseline. Format validity is not approval.
+
+- **Executive summary (nine focus sites, with table):** [`docs/executive-summary.html`](docs/executive-summary.html) · full review: [knowledge/session-review-arena-38b8b045.md](knowledge/session-review-arena-38b8b045.md) · run card: [evidence/session_38b8b045_run_card.json](evidence/session_38b8b045_run_card.json).
+- **Format and footprint receipt (re-runnable):** `python scripts/nine_site_format_receipt.py --out evidence/nine_site_format_receipt_20261031.json` · [receipt](evidence/nine_site_format_receipt_20261031.json).
+- **Leaderboard, live read 31 Oct 2026** ([official page](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)): #1 0.4544; **0.3195 is rank #50** (not #48, as the 30 Oct pages said); #48 is 0.3231; 0.4413 is not in the top 50. Snapshot: [registry/leaderboard_snapshot_20261031.json](registry/leaderboard_snapshot_20261031.json).
+- **Official facts verified** on the [competition page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) and the [official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf): single-band float32 GeoTIFF, EPSG:32611, 100 m, values 0–1, null or NaN outside bounds; distance-weighted Tversky with α = 0.2, β = 0.8, R = 300 m; three submissions per week. The 3 px lattice rule is internal, not official.
+- **Irregularities flagged:** mirrored `sample_submission.tif` has 60,988 positives (official text says "total fault absence"); `labels.tif` contains −1; five focus files use 0 outside the footprint and four use NaN (both produced portal scores); the "must be in range [0, 1]" error cannot be reproduced from any focus file.
+- **Why 0.2778 scored well (verified subset):** GEMSDOE32 is GEMSDOE25 minus 6,436 dots. Under the official formula, removing dots that lie beyond 300 m of any fault can only raise the score, so the gain points to pruning false positives. Not measured on organizer labels.
+- **Tests:** `python -m pytest -q` → 447 passed, 1 skipped (the skip needs `data/`, restorable with `python scripts/restore_karage1_data.py --group core`).
+
+## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+
 ## CURRENT REVIEW (read first) — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.

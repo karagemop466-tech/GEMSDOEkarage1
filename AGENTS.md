@@ -1,3 +1,5 @@
+**Latest review (2026-10-31, `arena/38b8b045-gemsdoekarage1`): read `knowledge/session-review-arena-38b8b045.md` and `evidence/session_38b8b045_run_card.json` first.** Verdict NEGATIVE / DO NOT SUBMIT. Nine-site format receipt: `scripts/nine_site_format_receipt.py`. Leaderboard correction: 0.3195 is rank #50 on the 31 Oct live page.
+
 # Starting point for every session
 
 **Current branch review first (2026-10-31, `arena/946f7668-gemsdoekarage1`): read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, data, and complete authenticated registry remain unresolved. The README and generated public-site banners were refreshed for this review; older session records are historical evidence, not current clearance.
