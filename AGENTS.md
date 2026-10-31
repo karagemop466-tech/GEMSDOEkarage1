@@ -1,6 +1,12 @@
 # Starting point for every session
 
-**Current branch review first (2026-10-31, `arena/cd6c8044-gemsdoekarage1`): read `knowledge/session-review-arena-cd6c8044.md`, `evidence/session_cd6c8044_run_card.json`, and `knowledge/hypotheses-20261031.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, score estimate, holdout, or slot selection. The lane/canonical shared template, authenticated inputs, and complete registry remain unresolved. Full suite: 451 passed, 2 skipped (both data-dependent; see run card). The 31 Oct live leaderboard snapshot shows #1 0.4544 and #50 0.3195; prior rank snapshots are historical.
+**Current branch review first (2026-10-31, `arena/cd6c8044-gemsdoekarage1`): read `knowledge/session-review-arena-cd6c8044.md`, `evidence/session_cd6c8044_run_card.json`, and `knowledge/hypotheses-20261031.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no TIF, experiment, holdout, score estimate, or slot selection. Lane/canonical template, authenticated inputs, and complete registry remain unresolved. Suite: 451 passed, 2 data-dependent skips. Live board snapshot: #1 0.4544, #50 0.3195 (31 Oct, organizer-public only).
+
+**Previous branch review (31 Oct 2026, `arena/946f7668`):** read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`. It also ended negative and is historical; current review is above.
+
+**Prior upstream review (31 Oct 2026, `arena/830e1f79`):** read `knowledge/session-review-arena-830e1f79.md` and `evidence/session_830e1f79_run_card.json`. It separately rechecked official format wording and a live leaderboard; those time-sensitive claims are historical and do not supersede this branch review or the internal parallel-run protocol.
+
+**Previous branch review (2026-10-30, `arena/cfabff7e-gemsdoekarage1`):** read `knowledge/session-review-arena-cfabff7e.md` and `evidence/session_cfabff7e_run_card.json` for the earlier safety review and its upstream merge context.
 
 **Latest merged mainline experiment (2026-10-30, `arena/a8e4de2e`): read `knowledge/session-review-arena-a8e4de2e.md`, `knowledge/hypotheses-20261030.md`, `evidence/run_card_h_r1_20261030.json`, and `evidence/exp_h_r1_kth_magedge_20261030.json`.** H-R1 used 1 of 3 experiments and created a research-only TIF; its preregistered verdict is negative, nothing is cleared, and it must not be submitted. This is a separate upstream session, not work from the current review.
 

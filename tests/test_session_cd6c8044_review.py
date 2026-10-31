@@ -65,6 +65,6 @@ def test_readme_points_to_latest_review_and_standing_prompt_correction():
     standing = (ROOT / "docs/standing-prompt.md").read_text()
     assert "session `arena/cd6c8044-gemsdoekarage1`" in readme
     assert "evidence/session_cd6c8044_run_card.json" in readme
-    assert "rank #50 = 0.3195" in readme
+    assert "#50 = **0.3195**" in readme
     assert "Current addendum (31 Oct 2026)" in standing
     assert "knowledge/hypotheses-20261031.md" in standing

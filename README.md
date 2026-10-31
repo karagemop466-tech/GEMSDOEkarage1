@@ -2,15 +2,31 @@
 
 ## CURRENT REVIEW (read first) — session `arena/cd6c8044-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NEGATIVE — DO NOT SUBMIT. No new TIF was generated or cleared, no leaderboard score estimate is supportable, and no weekly slot was selected or spent.** We did not create an arbitrary raster: the assigned method lane and canonical shared template are null, the shared cache and organizer inputs are absent, and prior preflight recorded vendored writer/uniqueness integrity mismatches. An unassigned experiment would violate the shared-tool, holdout, and uniqueness protocol.
+**Status: NEGATIVE — DO NOT SUBMIT.** No new TIF was generated or cleared, no leaderboard score estimate is supportable, and no weekly slot was selected or spent. The assigned method lane and canonical shared template are unset; required cached data and organizer inputs are absent; and shared-tool preflight reports writer/uniqueness provenance mismatches. Producing an arbitrary raster would violate the lane, shared-tool, holdout, and uniqueness protocol.
 
-- **Current review / JSON run card:** [three-pass review](knowledge/session-review-arena-cd6c8044.md) · [run card](evidence/session_cd6c8044_run_card.json).
-- **Research slate:** [five preregistered hypotheses](knowledge/hypotheses-20261031.md); H-EULER is first for conditional validation only. No canary or holdout was run because the shared preconditions are unmet.
-- **Focus-site decision:** GEMSDOE24/25/27/28/30/31/32/33/36 best-listed files and values are in the [executive summary](docs/executive-summary.html) and [individual pages](docs/GEMSDOE24.html), etc. The 0.2477–0.2778 values remain USER-REPORTED / UNVERIFIED; per-site organizer score estimates are unavailable; no historical file is cleared for re-submission.
-- **Public leaderboard:** live read 31 Oct 2026: rank #1 = **0.4544**, rank #50 = **0.3195**; 0.4413 was not in the top 50. Label: ORGANIZER-PUBLIC, not a receipt for any focus-site artifact. Snapshot: [JSON](evidence/leaderboard_snapshot_20261031.json).
-- **Current download decision:** no candidate TIF is approved or available from this session. Do not submit any repository artifact without a separate passing gate review and selector.
-- **Software checks:** 451 passed, 0 failed, 2 skipped; the skips require unavailable bridge rasters/sample grid. These are software checks, not evidence of scientific performance.
-- **Standing brief:** [README full prompt section](#session-prompt--full-text-read-at-start-of-every-session) and [canonical session brief](docs/standing-prompt.md); read these plus this newest review at the start of each session. The standing-brief file notes that earlier text was reconstructed, not a verbatim prompt transcript.
+- **Current three-pass review / run card:** [review](knowledge/session-review-arena-cd6c8044.md) · [JSON](evidence/session_cd6c8044_run_card.json).
+- **Research slate:** [five hypotheses](knowledge/hypotheses-20261031.md); H-EULER is only a conditional first validation candidate. No canary or holdout ran because prerequisites are unmet.
+- **Nine-site decision:** all nine per-site pages and the executive table are linked from [the summary](docs/executive-summary.html). The reported 0.2477–0.2778 values remain USER-REPORTED / UNVERIFIED; organizer-score estimates are unavailable; no historic raster is cleared for resubmission.
+- **Public leaderboard:** fresh read 31 Oct 2026: #1 = **0.4544**, #50 = **0.3195**; 0.4413 was absent from the top 50. ORGANIZER-PUBLIC, not a receipt for any focus-site raster. [Snapshot JSON](evidence/leaderboard_snapshot_20261031.json).
+- **Software checks:** 451 passed, 0 failed, 2 skipped; skips require missing ignored bridge/sample rasters. Software verification is not geological validation.
+- **Submission decision:** no approved download, no TIF generated, and no selector or slot use. Do not submit any repo artifact from this session.
+- **Read this brief every session:** [README prompt section](#session-prompt--full-text-read-at-start-of-every-session) and [standing prompt](docs/standing-prompt.md), followed by this review and the latest run card.
+
+**Previous branch review (`arena/946f7668`, 31 Oct 2026):** [review](knowledge/review-arena-946f7668-20261031.md) and [card](evidence/run_card_arena_946f7668_20261031.json). It also ended negative; this session adds the five-hypothesis slate and live leaderboard correction. The prior result remains historical, not a clearance.
+
+## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
+
+That separate session verified official format wording and performed a live public-board read; its leaderboard rank claims are time-sensitive and are not an organizer receipt for any focus-site file. Its review and run card are [here](knowledge/session-review-arena-830e1f79.md) and [here](evidence/session_830e1f79_run_card.json). The current session still does not clear a file for submission.
+
+## Previous review — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+
+**Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
+
+- **Review / run card:** [three-pass review](knowledge/session-review-arena-cfabff7e.md) · [JSON card](evidence/session_cfabff7e_run_card.json).
+- **Safety fix:** `scripts/prepare_data.py` now exits before the retired private feature stack can run; its regression test covers `--force`. Data-dependent candidate checks are explicitly skipped when their ignored bridge inputs are absent. Full suite after incorporating latest `main`: **446 passed, 0 failed, 2 skipped**; both skips require absent competition rasters/sample data.
+- **Score policy:** GEMSDOE24/25/27/28/30/31/32/33/36 values remain USER-REPORTED / UNVERIFIED. A leaderboard estimate is unavailable; do not relabel a catalogue holdout as a leaderboard prediction.
+- **Public-board context:** the independent 30 Oct re-read records #1 = 0.4544, 0.3195 at rank #48, and 0.4413 absent from the top 50 (ORGANIZER-PUBLIC; not a submission receipt for any focus site).
+- **Submission decision:** there is no current download that is OK to submit. Existing TIFFs are research/audit artifacts only. No weekly slot was selected or spent in this review.
 
 ## Latest merged mainline experiment — session `arena/a8e4de2e` (30 Oct 2026)
 
