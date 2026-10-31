@@ -258,10 +258,16 @@ def main(tif: Path) -> dict:
 
     proj = projection(cand, rows)
     fmt_ok = bool(fmt["all_checks_passed"])
-    ok = fmt_ok and uniqueness["passes_rho_rule"] and uniqueness["passes_overlap_rule"] \
+    mechanical_ok = fmt_ok and uniqueness["passes_rho_rule"] and uniqueness["passes_overlap_rule"] \
         and cand["d_cat_le_2px_frac"] == 0.0
+    # Fail-closed: the mechanical checks are necessary but not sufficient. Clearance is
+    # an explicit owner decision recorded by setting OWNER_CLEARANCE = True in writing.
+    OWNER_CLEARANCE = False
+    ok = bool(mechanical_ok) and OWNER_CLEARANCE
     decision = dict(
         ok_to_submit=bool(ok),
+        mechanical_ok=bool(mechanical_ok),
+        owner_clearance=OWNER_CLEARANCE,
         basis=["saved-byte format preflight passed", "literal uniqueness rules passed",
                "no positive mass inside the mapped-catalogue corridor"],
         not_basis=["no organizer receipt for this file", "no validated leaderboard estimate",

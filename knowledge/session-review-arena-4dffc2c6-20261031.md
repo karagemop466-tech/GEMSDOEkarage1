@@ -2,14 +2,15 @@
 
 ## 1. Answer first: can the kp1 file be downloaded and submitted?
 
-**YES, one file: `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`** (SHA-256 `30a5fc28…0efbe0ff0d`).
-Every other file in this repository remains **DO NOT SUBMIT**.
+**NOT YET. The KP1 file is on HOLD: DO NOT SUBMIT until the owner decides.** File: `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif` (SHA-256 `30a5fc28…0efbe0ff0d`). It passes the format and the nine-file uniqueness checks (mechanical pass), but the owner-clearance step is not met: (a) the holdout has not shown KP1 beating the current holdout best on a valid instrument; (b) global-registry uniqueness is open; (c) the projection 0.2789 is below the 0.3195 target. The gate was changed from `ok_to_submit: true` to `false` in this session (`evidence/kp1_release_gate.json`, `scripts/kp1_release_gate.py` `OWNER_CLEARANCE = False`) so every page says the same thing. To clear it, the owner sets `OWNER_CLEARANCE = True` in writing and rebuilds.
+
+Download page (held, for review): [docs/kp1/index.html](../docs/kp1/index.html). Other files: all DO NOT SUBMIT.
 
 - Download page with the one-click file and a live hash check: [docs/kp1/index.html](../docs/kp1/index.html)
 - Direct download: [GeoTIFF](../docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) · [zip](../docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip)
 - Name: `karage1-kp1-ttca-springalter-far-conduit-32000-20261031` · Note (127 chars): "KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, >=2px off catalogue, 4px spacing, 32k dots"
 - Projected leaderboard value **0.2789 — PROJECTED, not a score**. Organizer-confirmed value: none exists.
-- You choose the weekly slot. This repository did not select or spend one.
+- Clearance is an owner decision. This repository did not select or spend a weekly slot.
 
 What this does and does not establish:
 
@@ -18,6 +19,7 @@ What this does and does not establish:
 | Format valid on the saved bytes? | Yes (local checks) | §3 |
 | Unique vs the nine focus rasters under your stated rules (|rho| ≤ 0.90, ≤ 70 % of dots within 3 px)? | Yes | §2 |
 | Would the organizer accept it? | Not proven. No organizer receipt for this file. | §4 |
+| Owner clearance met (holdout beat + global uniqueness)? | **No** (open) | §4 |
 | Will it top the leaderboard? | Unknown. Projected 0.2789 is close to the 0.2778 user-reported B2 value and far below the reported top values. | §5 |
 
 ## 2. Independent uniqueness recheck (this session)

@@ -342,7 +342,7 @@ def status_line(p: str) -> str:
     else:
         candidate = 'no candidate generated · '
     return (
-        '<strong>ONE FILE CLEARED: KP1 (31 Oct)</strong> — see the green banner above · every other file: <strong>DO NOT SUBMIT</strong> · '
+        '<strong>DO NOT SUBMIT · HOLD</strong> — KP1 passes format and uniqueness checks but is <strong>not cleared</strong> until the owner decides · every other file: <strong>DO NOT SUBMIT</strong> · '
         f'Latest review {esc(review["review_date"])}: one H-E1 file is downloadable for owner review only; '
         'its pre-registered lattice gate failed, so it is not authorised; '
         + candidate
@@ -350,7 +350,7 @@ def status_line(p: str) -> str:
         f'<a href="{esc(p + "docs/submit-he1-20261031.html", quote=True)}">submit guide</a> · '
         f'<a href="{esc(p + review["review_path"], quote=True)}">review</a> · '
         f'<a href="{esc(p + review["run_card_path"], quote=True)}">JSON run card</a>'
-        ' · <strong>Session 31 Oct 2026: KP1 cleared by its release gate; H-V31 not cleared</strong> · '
+        ' · <strong>Session 31 Oct 2026: NOT CLEARED</strong> · '
         f'<a href="{esc(p + "docs/submission-20261031.html", quote=True)}">live submission status</a>'
     )
 
@@ -478,7 +478,7 @@ def session_block(p: str) -> str:
         f'<td><span class="pill pill-red">FAIL</span><span class="cell-sub">lattice forward 3 px overlap {lat:.2%} vs literal 70% limit</span></td>'
         '<td><span class="pill pill-red">NO</span><span class="cell-sub">Owner decision on the lattice gate first</span></td></tr>'
     )
-    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>Is anything OK to download and submit? Yes: one file, KP1. H-V31 is not.</h2><p><strong>H-V31: DO NOT SUBMIT · NOT CLEARED.</strong> The new H-V31 raster is unique against the nine focus files, and its holdout beats random placement on our catalogue proxy. It still fails the literal lattice gate (forward 3 px overlap {lat:.2%}, limit 70%). That gate is an owner decision. No slot was selected or spent.</p><p><a class="text-link" href="{p}docs/kp1/index.html">OK-to-submit file: KP1 ↗</a> · <a class="text-link" href="{p}docs/submission-20261031.html">H-V31 status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}docs/executive-20261031.html">Nine-site executive table + H-K1-SEISMIC-PROX candidate ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
+    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>Is anything OK to download and submit? No. KP1 is on hold for the owner.</h2><p><strong>DO NOT SUBMIT · NOT CLEARED.</strong> The new H-V31 raster is unique against the nine focus files, and its holdout beats random placement on our catalogue proxy. It still fails the literal lattice gate (forward 3 px overlap {lat:.2%}, limit 70%). That gate is an owner decision. No slot was selected or spent.</p><p><a class="text-link" href="{p}docs/kp1/index.html">OK-to-submit file: KP1 ↗</a> · <a class="text-link" href="{p}docs/submission-20261031.html">H-V31 status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}docs/executive-20261031.html">Nine-site executive table + H-K1-SEISMIC-PROX candidate ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
 <div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="31 October nine-site executive summary"><table><thead><tr><th>Site</th><th>File to download</th><th>Score (label)</th><th>Estimated score</th><th>Unique vs other focus sites?</th><th>OK to submit?</th></tr></thead><tbody>{''.join(trs)}</tbody></table></div></div>
 <p class="cell-sub">Labels: USER-REPORTED = supplied scores, no receipt. HOLDOUT-DTI = catalogue hide-and-recover proxy (evaluator gems57-pooled-hide-v2). MEASURED = geometry on local mirror files. ORGANIZER-PUBLIC leader 0.4544; rank 48 0.3195 (30 Oct snapshot, not re-fetched). Highest USER-REPORTED focus value is GEMSDOE32 B2 at 0.2778; its +0.018 gain over D2.8 is a mechanism, not a measurement (see review §2).</p></section>'''
 
@@ -501,8 +501,8 @@ def session_page(p: str) -> str:
     ]
     step_html = ''.join(
         f'<li><span class="hypothesis-rank">{n}</span> <strong>{esc(t)}</strong><p>{d}</p></li>' for n, t, d in steps)
-    return f'''<div class="page-top"><span>SUBMIT NOW <span class="separator">/</span> 31 OCT 2026</span><span class="page-date">H-V31 NOT CLEARED</span></div>
-<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> LIVE SUBMISSION STATUS</p><h1>Download, verify, then wait. <em>H-V31 not cleared.</em></h1><p><strong>OK to download and submit (this H-V31 file): NO.</strong> The only file cleared this session is KP1, see <a href="{p}docs/kp1/index.html">docs/kp1/index.html</a>. This page is generated from <code>evidence/run_card_h31_20261031.json</code> and the build fails if any submission flag changes.</p></section>
+    return f'''<div class="page-top"><span>SUBMIT NOW <span class="separator">/</span> 31 OCT 2026</span><span class="page-date">NOT CLEARED</span></div>
+<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> LIVE SUBMISSION STATUS</p><h1>Download, verify, then wait. <em>Not cleared.</em></h1><p><strong>OK to download and submit (this H-V31 file): NO.</strong> The KP1 file is on hold, see <a href="{p}docs/kp1/index.html">docs/kp1/index.html</a>. This page is generated from <code>evidence/run_card_h31_20261031.json</code> and the build fails if any submission flag changes.</p></section>
 <section class="section detail-grid"><div><p class="eyebrow">RESEARCH FILE</p><h2>{esc(tif_name)}</h2></div><div class="prose-card">
 <p><a class="file-link" href="{p}docs/downloads/{esc(tif_name, quote=True)}">Download the TIF</a> · <a class="text-link" href="{p}docs/downloads/{esc(zip_name, quote=True)}">zip</a> · <a class="text-link" href="{p}docs/downloads/{esc(sha_name, quote=True)}">sha256 file</a></p>
 <p>SHA-256 <code class="wrap">{esc(raster["sha256"])}</code><br>{raster["dots"]:,} dots · {raster["bytes"]:,} bytes · single band float32 · zeros encoding · EPSG:32611 sample grid</p>

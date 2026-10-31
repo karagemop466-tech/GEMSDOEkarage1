@@ -2,7 +2,7 @@
   "schema": "gems-run-card-v1",
   "session": "arena/4dffc2c6-gemsdoekarage1",
   "date": "2026-10-31",
-  "scope": "review, independent verification, and fail-closed site fix; no new hypothesis or experiment",
+  "scope": "review, independent verification, fail-closed hold; no new hypothesis or experiment",
   "hypothesis": "No new hypothesis tested this session. Verified the existing K-PROXY-DETECT file (kp1) instead.",
   "mechanism": "not applicable (no new mechanism); the kp1 mechanism is recorded in evidence/kp1_run_card.json",
   "named_non_fault_process_that_could_mimic": [
@@ -51,8 +51,10 @@
     "label": "PROJECTED - not a score",
     "value": 0.27892044625099494
   },
-  "verdict": "promote (kp1 only, unchanged from evidence/kp1_run_card.json); no slot selected or spent",
-  "ok_to_download_and_submit_for_kp1": "YES - user chooses the slot",
+  "verdict": "HOLD - mechanical checks pass; owner clearance not met; DO NOT SUBMIT until the owner decides",
+  "ok_to_download_and_submit_for_kp1": "NO - held; owner decision required (see knowledge/session-review-arena-4dffc2c6-20261031.md section 1)",
   "slot_selected_or_spent": false,
-  "slots_used": 0
+  "slots_used": 0,
+  "owner_clearance_met": false,
+  "gate_change": "evidence/kp1_release_gate.json decision.ok_to_submit changed true->false; scripts/kp1_release_gate.py OWNER_CLEARANCE=False"
 }

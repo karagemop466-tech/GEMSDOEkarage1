@@ -1,29 +1,25 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **CURRENT CHECKOUT REVIEW — NEGATIVE / DO NOT SUBMIT.** This repository contains conflicting historical clearance notices. The current branch review did not generate or validate a new candidate, and the checked-in KP1 `promote` record does not establish authorization under the present unassigned-lane, incomplete-registry and fail-closed preflight conditions. No file is cleared by this review. See [repository review](knowledge/repo-review-20261031.md) and rerun required validations before any upload. This notice supersedes older session banners below; those are retained as historical records.
+
+> **Review record (31 Oct 2026, `arena/afe07cea`):** [`knowledge/review-arena-afe07cea-20261031.md`](knowledge/review-arena-afe07cea-20261031.md). Adds: (1) the literal official text puts NaN *outside the bounds*, so NaN *inside* the raster extent (the `-nan` files) is the likeliest cause of the "must be in range [0, 1]" rejection; (2) **clearance still contradicts itself:** the README and executive summary say NOT CLEARED, but `scripts/render_site.py` still emits "OK TO SUBMIT" on the homepage and 31 other generated pages, driven by `evidence/kp1_release_gate.json` `decision.ok_to_submit: true` — owner ruling required; (3) KP1 uniqueness re-measured on 3 of the 9 focus files (23–26 % 3-px overlap, |Spearman| < 0.02), not all nine; (4) the live leaderboard top is 0.4544.
+
 ## CORE VALUES — focal point for every decision
 
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
-## LATEST REVIEW — `arena/4dffc2c6-gemsdoekarage1` (31 Oct 2026) · **YES: one file (KP1). All others DO NOT SUBMIT.**
+## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **KP1 ON HOLD: DO NOT SUBMIT until the owner decides**
 
-- **Answer:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) is the file to download and upload. Download page: [docs/kp1/index.html](docs/kp1/index.html). Projected 0.2789 is a **PROJECTION, not a score**; no organizer receipt exists. You choose the slot.
-- **Verified this session (independent recheck):** max |Spearman| 0.0136 and max 3-px overlap 26.5 % vs the nine focus rasters; saved bytes SHA-256 `30a5fc28…`, values in [0, 1], no NaN. Receipt: [`evidence/uniqueness_recheck_kp1_20261031.json`](evidence/uniqueness_recheck_kp1_20261031.json). Script: `scripts/verify_uniqueness_independent.py`.
-- **Fixed:** the home page and executive summary showed both "OK TO SUBMIT" and "DO NOT SUBMIT · HOLD". The shared status bar and the 31 Oct headings now say the same thing: one file cleared, everything else not.
-- **Review, flags and remaining work:** [`knowledge/session-review-arena-4dffc2c6-20261031.md`](knowledge/session-review-arena-4dffc2c6-20261031.md) · run card [`evidence/run_card_arena_4dffc2c6_20261031.json`](evidence/run_card_arena_4dffc2c6_20261031.json). Experiments used: 0 of 3.
-- **Standing prompt:** the SESSION PROMPT section (further down) is the starting point for every session. Core values: Maximize P(Win), Own the Outcome.
+KP1 (`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`) passes format and nine-file uniqueness checks, but is not cleared: holdout not shown to beat the best, global uniqueness open, projection 0.2789 is PROJECTED. Review: [knowledge/session-review-arena-4dffc2c6-20261031.md](knowledge/session-review-arena-4dffc2c6-20261031.md).
 
-## CURRENT SESSION — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · **PROMOTE: ONE FILE IS CLEARED**
+## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **NEGATIVE: DO NOT SUBMIT**
 
-**✅ OK TO SUBMIT:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif)
-· [.zip](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip)
-· [receipt](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.receipt.json)
+**No file is cleared for submission by this repository review.** The KP1 GeoTIFF below has reported local format validation, but no organizer receipt, no validated leaderboard estimate, and unresolved global-registry duplicate clearance. Focus-site uniqueness is not global uniqueness. Do not spend a competition slot on it.
 
-32,000 dots, float32, EPSG:32611, values in [0, 1], zeros outside the footprint, **zero** pixels on the
-mapped catalogue. **Format 15/15 · max |ρ| vs the nine 0.0076 · max 3-px overlap 26.5 % · projection
-0.2789 (PROJECTED, not a score) · 0 slots spent.** Older artifacts remain **DO NOT SUBMIT**; the details,
-the tables and the metric arithmetic are in [`docs/kp1/index.html`](docs/kp1/index.html) and in
-“Session detail — K-PROXY-DETECT” at the end of this file.
+Research artifact (not cleared): [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif). Its reported 0.2789 is **PROJECTED, NOT A SCORE**. The prior run card reports a HOLDOUT-DTI 0.0764 on independent SGMC truth, but its confidence interval is for the candidate-minus-random difference and the holdout is not calibrated to organizer scores. The same card marks the literal global uniqueness gate saturated. Full audit: [`knowledge/review-current-repo-20261031.md`](knowledge/review-current-repo-20261031.md).
+
+**Use the executive summary** at [`docs/executive-summary.html`](docs/executive-summary.html) for focus-site comparisons and [`docs/how-to-submit.html`](docs/how-to-submit.html) for submission instructions. Historical scores are user-reported unless backed by an organizer receipt; do not interpret holdout DTI or projections as leaderboard scores.
 
 ## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
 
