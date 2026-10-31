@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **PR #119 branch audit (`arena/fd3e38cf-gemsdoekarage1`): NEGATIVE / DO NOT SUBMIT.** This review added a dedicated nine-site decision page and run card: [`docs/current-review-20261031.html`](docs/current-review-20261031.html), [`knowledge/session-review-arena-fd3e38cf-20261031.md`](knowledge/session-review-arena-fd3e38cf-20261031.md), and [`evidence/run_card_arena_fd3e38cf_20261031.json`](evidence/run_card_arena_fd3e38cf_20261031.json). No TIF, holdout, or slot was created/spent. Details below incorporate the latest mainline fail-closed authorization; the active release status is negative.
+
 ## CORE VALUES — focal point for every decision
 
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
