@@ -22,6 +22,16 @@
 - **Submission action:** none. Do not upload any file from this checkout.
 
 
+## PARALLEL REVIEW (read first) — session `arena/dcf0baf1-gemsdoekarage1` (31 Oct 2026)
+
+**Verdict: NEGATIVE / DO NOT SUBMIT. No slot selected or spent.**
+
+- **Nine-site executive table from restored raster bytes:** [`docs/data/nine_site_executive_20261031.json`](docs/data/nine_site_executive_20261031.json). All nine sites are one underlying field dotted differently (pairwise |Spearman| 0.98–0.9999); the best reported submission is GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED). B2 is exactly the GEMSDOE25 mask with 6,436 dots removed and none added.
+- **Executive summary page:** [`docs/executive-20261031.html`](docs/executive-20261031.html) — download link and OK/NOT-OK status at the top, the nine-site table, the B2 explanation and the submission guide.
+- **Lane H-K1-SEISMIC-PROX candidate:** [`docs/downloads/karage1-seisprox-c3-w0.55-20261031T012000Z-zeros.tif`](docs/downloads/karage1-seisprox-c3-w0.55-20261031T012000Z-zeros.tif) (SHA-256 `d2508c28…`, 37,654 dots). Uses official band 10 `deq_n100a15`, which the 58-channel stack never references, with a full 3 px catalogue collar. Format-valid (`scripts/validate_geotiff.py` exit 0); unique vs the nine focus sites (worst peer 3-px overlap 21.7 %). A 2 px-collar twin is also on disk.
+- **Holdout screen (HOLDOUT-DTI):** candidate c3 0.000000, candidate c2 0.000006, champion control 0.004845, uniform random 0.049063. The catalogue hide-and-recover screen rewards re-finding mapped traces, so it cannot rank off-catalogue candidates.
+- **Review:** [`knowledge/session-dcf0baf1-review.md`](knowledge/session-dcf0baf1-review.md). **Tests:** 498 passed, 1 skipped.
+
 ## PARALLEL REVIEW (read first) — session `arena/ce19eeed-gemsdoekarage1` (31 Oct 2026)
 
 **Can I download and submit a file? NO. No file is cleared by this session. No submission slot was selected or spent.**
