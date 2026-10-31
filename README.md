@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **CURRENT CHECKOUT REVIEW — NEGATIVE / DO NOT SUBMIT.** This repository contains conflicting historical clearance notices. The current branch review did not generate or validate a new candidate, and the checked-in KP1 `promote` record does not establish authorization under the present unassigned-lane, incomplete-registry and fail-closed preflight conditions. No file is cleared by this review. See [repository review](knowledge/repo-review-20261031.md) and rerun required validations before any upload. This notice supersedes older session banners below; those are retained as historical records.
+
 ## CORE VALUES — focal point for every decision
 
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
