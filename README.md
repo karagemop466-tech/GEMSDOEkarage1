@@ -1,6 +1,16 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
+
+**Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
+
+- **Three-pass repository review and focus-site executive table:** [review report](knowledge/review-arena-946f7668-20261031.md) · [JSON run card](evidence/run_card_arena_946f7668_20261031.json).
+- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and absent competition sample grid. This is software verification, not model validation.
+- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; missing shared stack/data and writer/uniqueness provenance mismatch. No experiment was run because the lane and authorized shared inputs are unresolved.
+- **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
+- **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
+
+## Previous review — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
 
