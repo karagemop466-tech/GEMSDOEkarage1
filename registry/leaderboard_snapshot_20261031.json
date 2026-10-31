@@ -1,0 +1,14 @@
+{
+  "schema": "karage1-leaderboard-snapshot-v2",
+  "captured_utc_date": "2026-10-31",
+  "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "method": "fetch_page, three chunks (0-2), read 31 Oct 2026; rank and public score only. Ranks 1-50 covered across the chunks.",
+  "status_label": "ORGANIZER-PUBLIC (public leaderboard row; not a submission receipt for any file here)",
+  "rows_read": {"rank_1": 0.4544, "rank_2": 0.3925, "rank_23": 0.3405, "rank_47": 0.3244, "rank_48": 0.3231, "rank_49": 0.3217, "rank_50": 0.3195},
+  "top_score": 0.4544,
+  "rank_50_score": 0.3195,
+  "user_reported_0_3195_rank": [50],
+  "user_reported_0_4413_in_top_50": false,
+  "supersedes": "registry/leaderboard_snapshot_20261030.json (rank_48 0.3195 was the 30 Oct snapshot; the board has since moved)",
+  "irregularity": "The 30 Oct snapshot and the README recorded 0.3195 at rank #48. The 31 Oct live page shows #48 = 0.3231 and 0.3195 at #50."
+}

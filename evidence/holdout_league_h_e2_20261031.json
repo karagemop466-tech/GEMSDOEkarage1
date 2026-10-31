@@ -11,6 +11,13 @@
       "withheld_positives": 45260
     },
     {
+      "emitted": 40000,
+      "file": "docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.2222362657906117,
+      "withheld_positives": 45260
+    },
+    {
       "emitted": 69281,
       "file": "data/scored/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
       "on_visible_catalogue": 4045,
@@ -124,6 +131,34 @@
     },
     {
       "emitted": 37654,
+      "file": "docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+      "on_visible_catalogue": 472,
+      "pooled_dti": 0.05071279332369982,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+      "on_visible_catalogue": 472,
+      "pooled_dti": 0.05071279332369982,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "archive/research-he1-20261031/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+      "on_visible_catalogue": 472,
+      "pooled_dti": 0.05071279332369982,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "archive/research-he1-20261031/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+      "on_visible_catalogue": 472,
+      "pooled_dti": 0.05071279332369982,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
       "file": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-nan.tif",
       "on_visible_catalogue": 430,
       "pooled_dti": 0.043296403603769344,
@@ -201,14 +236,14 @@
     },
     {
       "emitted": 25741,
-      "file": "archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-nan.tif",
+      "file": "archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-nan.tif",
       "on_visible_catalogue": 264,
       "pooled_dti": 0.028366256961406766,
       "withheld_positives": 45260
     },
     {
       "emitted": 25741,
-      "file": "archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-zeros.tif",
+      "file": "archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-zeros.tif",
       "on_visible_catalogue": 264,
       "pooled_dti": 0.028366256961406766,
       "withheld_positives": 45260
@@ -340,6 +375,13 @@
       "withheld_positives": 45260
     },
     {
+      "emitted": 557271,
+      "file": "docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.0,
+      "withheld_positives": 45260
+    },
+    {
       "emitted": 1322,
       "file": "docs/downloads/gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif",
       "on_visible_catalogue": 46,
@@ -389,6 +431,13 @@
       "file": "data/scored/8GEMSDOE_Hedge-v2_submission.tif",
       "on_visible_catalogue": 60988,
       "pooled_dti": 0.27077249416269966,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 40000,
+      "file": "docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.2222362657906117,
       "withheld_positives": 45260
     },
     {
@@ -445,13 +494,6 @@
       "file": "data/scored/gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
       "on_visible_catalogue": 0,
       "pooled_dti": 0.09750418428986357,
-      "withheld_positives": 45260
-    },
-    {
-      "emitted": 61328,
-      "file": "registry/GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
-      "on_visible_catalogue": 0,
-      "pooled_dti": 0.09719107195151397,
       "withheld_positives": 45260
     }
   ]

@@ -1,0 +1,31 @@
+{
+  "schema": "karage1-local-tif-audit-v1",
+  "file": "docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+  "sha256": "1119dfa24f0579df35411fa97da71ed0ae0e921ae4366e41199ad67c3f997a93",
+  "bytes": 1589852,
+  "audited_utc": "2026-10-31T01:01:25.873552+00:00",
+  "audit_method": "H-E1 runner validators and literal registry comparison, recomputed from the saved bytes by scripts/make_he1_run_card_20261031.py; scripts/audit_local_tif.py not used (needs .cache/gems_data; vendored uniqueness.py pin mismatch)",
+  "format_report_ok": true,
+  "validator_checks": {
+    "all_passed": true,
+    "crs_32611": true,
+    "finite_in_footprint_in_0_1": true,
+    "float32": true,
+    "nan_exactly_outside_footprint": true,
+    "shape_3730x3292": true,
+    "single_band": true,
+    "transform_matches": true
+  },
+  "positives": 37654,
+  "positives_outside_footprint": 0,
+  "positives_on_mapped_catalogue": 472,
+  "value_min": 0.0,
+  "value_max": 1.0,
+  "nan_count": 7111787,
+  "lattice_forward_3px_overlap": 1.0,
+  "worst_focus_file": "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+  "worst_focus_forward_3px_overlap": 0.2022095926063632,
+  "registry_rasters_checked": 52,
+  "ok_to_submit": false,
+  "verdict": "research audit only; not cleared (literal 70% lattice gate fails; holdout is in the H-E1 evidence)"
+}

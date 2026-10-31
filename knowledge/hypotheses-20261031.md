@@ -1,61 +1,40 @@
-# Hypotheses — 31 Oct 2026 (session `arena/ce19eeed-gemsdoekarage1`)
+# Preregistered candidate slate — 2026-10-31
 
-Status: **no file cleared; no submission slot selected or spent.** Every number below is
-**HOLDOUT-DTI** (evaluator `gems57-pooled-hide-v2`, 16 cells, withheld positives 45,260, 95% CI as stated).
-No ORGANIZER-CONFIRMED number exists in this session. Nothing here is a leaderboard projection.
+**Decision state: research queue only; no candidate is validated or authorized for a submission slot.**
+This slate identifies plausible, testable hypotheses from the official competition raster layers. The ranking is qualitative prioritization (mechanistic plausibility × novelty × effort), **not a numeric leaderboard-score projection**. No `HOLDOUT-DTI` is supplied for these proposals.
 
-## Ranking (expected DTI gain × implementation cost)
+## Why no experiment was run in this review
 
-Expected gain is qualitative. It is not a score and is not reported as one. Cost is the
-engineering effort in this repository with the shared template.
+Before testing, the protocol requires one assigned method lane and the canonical shared template/cache. In this checkout `registry/template.json` has `method_lane: null` and `canonical_template_assignment: null`; the cache and organizer data rasters are absent; and `scripts/shared_tools.py preflight` has previously failed due to missing inputs and vendored writer/uniqueness hash mismatches. Running a private evaluator or inventing a fallback candidate would break the shared-tool and provenance requirements. Accordingly this review did not run a feature canary or holdout, did not generate a TIF, and spent no submission slot. This is a blocker, not a failed scientific result.
 
-| Rank | ID | Mechanism | Field | Expected gain | Cost | Overlap with existing code (grep-verified) | Status |
-|---|---|---|---|---|---|---|---|
-| 1 | **H-E2** | Euler N=0 depth-cluster contacts (2.1 km windows, 300–3000 m) | `iso_grav_anom` (band 13) | Small, positive vs random | Low: reuses `euler.py` and the runner | No Euler code existed before `euler.py`. `iso_grav` appears in 9 code files, none of them as an Euler input | **Tested. Holdout-positive vs random, gate-blocked. Negative under the pre-registered rule. Not cleared.** |
-| 2 | **H-E1** | Same method on the official magnetic field | `tmi` (band 14) | Negative | Low | Same as above | **Tested. Negative: holdout below random.** |
-| 3 | H-E3 | Joint TMI–gravity Euler coincidence: keep solutions where both fields agree within 300 m | both | Unknown; the joint solutions are sparser | Medium: two surfaces and a coincidence join | Not checked against the bbstep/signedoffset lanes | Not implemented. Needs the overlap check first. |
-| 4 | H-E4 | Euler with structural index N=1 on TMI (thin dikes/sheets) | `tmi` | Unknown; sensitivity of H-E1 | Low | Same as H-E1 | Not run. Low novelty, and it would consume a slot of the 3-experiment budget. |
-| 5 | H-S1 | Earthquake-density lineaments from `deq_n100a15` / `ieq_n100a15` | seismicity features | Low: the 100 km smoothing scale is far coarser than the 300 m kernel | Low | The two features appear in 2 code files | Deprioritised. |
+The five hypotheses below require **no new external dataset** beyond the official `training_features.tif` described by DrivenData. That file is available only from the competition data tab, which is login-gated in the recorded repository audit. To validate, the owner must restore the organizer-authenticated file and matching shared cache, then use the assigned upstream template. External data availability is therefore not the blocking issue for this slate; local/authorized core inputs and template provenance are.
 
-Carried over, not re-tested here: **H-R1** (K-th magnitude edge, `scripts/run_h_r1_kth_magedge.py`,
-`evidence/exp_h_r1_kth_magedge_20261030.json`): HOLDOUT-DTI 0.0433 vs random null 0.0446, paired
-difference −0.0029, CI [−0.0071, +0.0009]. Negative, not cleared. The prior strain ridge candidate
-(0.0481 vs random 0.0449) was not a pass. The 30 Oct ranking placed H-R1 first.
+## Ranked hypotheses
 
-Note on the random null: the matched-random null depends only on the footprint, the dot count and the
-seeds (101/202/303). It is therefore identical (0.0446) for every 37,654-dot candidate in this
-session. H-E2 (0.0479) and H-R1 (0.0433) are measured against the same null. Their difference on the
-same 16 cells (+0.0046) has not been tested with a paired CI.
+| Rank | Hypothesis | Layers and physical signature | Why target an unmapped fault | Difference from implemented work | Named non-fault mimic | Expected DTI opportunity / cost |
+|---:|---|---|---|---|---|---|
+| 1 | **H-EULER: depth-coherent Euler source edges** | Official `tmi` / `rtp` magnetic grids. Apply Euler deconvolution at preregistered structural indices and window sizes; retain only edge solutions with spatially coherent source-depth clusters and lineament continuity. | A buried fault/contact beneath alluvium may have no surface scarp but can offset magnetic sources at depth. Depth consistency could reject isolated shallow lithologic edges. | The repo contains magnetic analytic-signal and derivative/ridge features; the reviewed source search found no Euler deconvolution implementation. It was already proposed but untested in `knowledge/hypotheses-20261030.md`; it is **carried forward, not claimed as a novel idea**. | Dikes, intrusive contacts, remanent magnetization, survey-height variation. | **Moderate qualitative upside; medium cost.** Best first candidate because it can use competition layers alone and has a clear falsifiable depth-coherence test. No numeric DTI forecast. |
+| 2 | **H-SPEC: gravity–magnetic cross-scale phase stability** | `iso_grav_anom` and `rtp` / `tmi`; estimate cross-wavelet or Fourier phase/coherence at multiple wavelengths, retaining lineaments whose phase relation persists across adjacent scales rather than simply coincident gradient maxima. | Fault offsets can juxtapose density and susceptibility contrasts at different effective depths; scale-persistent phase relationships could trace a buried structure even where a single-band edge is weak. | Existing work combines unsigned or signed gravity/magnetic edges and upward continuation; this tests **cross-scale phase stability**, not a pointwise edge union. Search for specific cross-wavelet/cross-spectrum implementation found no match in active code. | Lithologic contacts, pluton boundaries, remanent magnetic bodies, gridding/flight-line artifacts. | **Moderate qualitative upside; medium–high cost.** Must control multiscale leakage and survey-block artifacts. No numeric DTI forecast. |
+| 3 | **H-CB-OFFSET: shallow/deep conductivity boundary separation** | Official surface-conductivity and conductive-base/depth surfaces; compute signed, orientation-aware displacement between their boundary ridges and require spatial persistence with a basement/potential-field edge. | A fault-controlled hydrothermal alteration or basin-fill boundary can separate shallow conductive cover from a deeper conductive base, including below subdued topography. | The repo includes a conductivity-gradient feature and basement inflection features, but this hypothesis tests their **signed lateral offset / paired-boundary geometry**, not standalone conductivity or basement ridges. | Playa brine fronts, clay-rich sediment transitions, basin-fill thickness changes unrelated to faults. | **Low–moderate qualitative upside; low–medium cost.** Strong confounding expected; only proceed if individual-feature canaries are clean. No numeric DTI forecast. |
+| 4 | **H-TOPO-ASYM: signed detrended-elevation profile breaks** | Official detrended-elevation surface and its slope; use paired, opposite-sign profile curvature / asymmetric break-of-slope across candidate lineaments, conditioned on support from an independent subsurface edge. | Blind or partly buried faults can produce weak asymmetric warping or subtle scarps that are not captured by unsigned ridge/curvature maxima. | Existing work uses DEM relief, curvature, ridges, and LiDAR scarp polarity. This tests a **signed paired-profile shape** from the supplied detrended elevation rather than a positive ridge or standalone LiDAR scarp. | Alluvial-fan margins, drainage incision, shoreline berms, roads/rail grades. | **Low–moderate qualitative upside; medium cost.** Needs strict controls for geomorphic edges. No numeric DTI forecast. |
+| 5 | **H-SEIS-EDGE: seismicity-density termination at a structural edge** | Official earthquake-density surface plus gravity or magnetic edge orientation; seek persistent terminations or sharp along-strike density changes at a potential-field discontinuity, not simply high seismicity. | Fault tips and relay zones may have abrupt changes in microseismicity that extend a structure beyond mapped Quaternary traces. | Prior code couples seismic/strain values with general structural or strain cues; this focuses on **lineament-normal seismic-density terminations** and explicitly tests density alone as a canary first. | Catalog completeness boundaries, isolated swarms, volcanic seismicity, injection/operational events. | **Low qualitative upside; medium cost.** High event-catalog bias risk; should be last. No numeric DTI forecast. |
 
-## H-E1 — Euler N=0 contacts on TMI (tested, negative)
+## Preregistered validation order and gates
 
-- Mechanism: the Euler homogeneity identity solved in 21×21 px windows (`half=10`), keeping solutions with 300–3000 m depth. Solutions per cell give a depth-cluster density, and the top 37,654 peaks are placed with 2.8 px spacing.
-- Result: pooled HOLDOUT-DTI **0.0284** (CI [0.0245, 0.0313]). Random null mean **0.0346** (seeds 101/202/303). Paired difference **−0.0065**, CI [−0.0099, −0.0031].
-- Only **25,741** of 37,654 dots were placed. The clean run places dots on real density peaks only. Dots on zero-density cells: 0.
-- Verdict: negative. The candidate scores significantly below random dots.
-- Named non-fault mimic: lithologic and intrusive contacts, basin-margin magnetic steps, and flight-line levelling seams.
+1. **Candidate for first validation: H-EULER**, conditional on restoring organizer inputs and confirming the owner-assigned lane/template. Before trusting the composite, compute a spatially blocked, direction-invariant single-feature AUC for every raw Euler-derived feature; any AUC `> 0.90` is treated as leakage until resolved.
+2. Use the canonical shared `evaluate_holdout.py` hide-and-recover routine: withhold whole fault segments with the required buffer; derive all catalogue-dependent features from visible faults only; mask visible-fault pixels exactly; pool DTI at α=0.2, β=0.8, 300 m triangular kernel. Report evaluator version, withheld-positive count, and a 95% CI. Compare against a frozen, same-fold baseline and matched null. Do not call a holdout result a leaderboard score.
+3. Before placement, compare the candidate surface to every available registry raster. After any permitted placement, compare the final positive dots. If absolute rank-correlation exceeds 0.90 or more than 70% of candidate dots fall within 3 px of any registry raster, log duplicate and stop; do not jitter or otherwise evade the gate.
+4. Reuse the assigned template writer. Re-open saved bytes and verify finite/in-range values, no NaN inside the footprint, single-band float32, CRS/shape/transform match, and the organizer-required outside-footprint encoding.
+5. Do not touch a weekly slot unless the candidate beats the current comparable holdout best and clears all gates. Promotion to a live slot remains a separate selector step; budget remains at most three experiments or two hours.
 
-## H-E2 — Euler N=0 contacts on isostatic gravity (tested, gate-blocked)
+## Source and data availability
 
-- Mechanism: the same method on `iso_grav_anom`. Gravity anomalies are potential fields, so the same Tz filter applies. Full budget: 37,654 dots, with 1,822,268 accepted solutions.
-- Result: pooled HOLDOUT-DTI **0.0479** (CI [0.0430, 0.0505]). Random null mean **0.0446**. Paired difference **+0.0028**, CI **[+0.0005, +0.0051]**, so the lower bound is above zero.
-- Canary: maximum direction-invariant AUC **0.586** (raw field), 0.545 (|Tz|), 0.526 (density). All below the 0.90 alarm.
-- Uniqueness: surface max Spearman **0.033**. Against the nine focus sites: max dot overlap 19.6% within 3 px, max Jaccard 0.005. Against the 52 local TIFs, the literal 70% gate trips on the halo raster and 13GEMS lattice (see review items).
-- Failed criteria: `beats_every_local_candidate_on_same_cells` (the catalogue-trained 0.2708 leader) and `registry_dot_overlap_le_0_70` (dense rasters). Pre-registered verdict: **negative**.
-- Named non-fault mimic: basin-margin and sediment-basement density steps, intrusive density contacts, topographic-correction residuals at high-relief edges.
-- Artefacts (archive only, not `docs/downloads/`): `archive/research-he2-20261031/karage1-he2-euler-gravity-37654-20261031-zeros.tif` (sha256 `830c6ddf…`) and its `-nan.tif` twin. Validator: all checks passed. Note: "H-E2 Euler on isostatic gravity (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored" (104 characters).
+- DrivenData's problem description says the official training features include conductivity/depth-to-conductive-base, detrended elevation/slope, strain, gravity, magnetics, and earthquake density; it specifies the 100 m EPSG:32611 grid and the submission metric/format: [problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/).
+- The competition data tab provides `training_features.tif` but is login gated in this environment: [competition data](https://www.drivendata.org/competitions/306/competition-doe-gems/data/).
+- The [organizer reference solution](https://github.com/drivendataorg/gems-prize-reference-solution) requires competition data placed locally; it does not supply an independent, official holdout for off-catalogue discovery.
+- No new external data are required for the five ideas above. Optional future geomorphic work would need the exact DEM tile manifest and coverage from the competition's `1m_DEM_links.csv`; do not assume coverage or fetch a substitute until the official list is restored.
 
-## Review items for the owner (not changed here)
+## Audit notes
 
-1. **Literal 70% registry gate.** Dense registry rasters (the halo damage zone with 5.1 million positive cells, and the 13GEMS lattice at 99.996%) overlap any dot set. The runner itself notes "fail by construction". The gate should be restricted to sparse, dot-count-matched rasters, but this is an owner decision.
-2. **League bar.** The bar compares against every local TIF, including catalogue-trained rasters. A label-blind candidate cannot pass it. A label-blind league should be used.
-3. **Random null.** The null is uniform over the footprint. A structure-aware candidate can beat it for generic reasons, because it places dots where the magnetic or gravity signal is active. A stronger control matched to that density is needed before any positive result is trusted. The H-E2 margin is small (+0.0028) and could be explained this way.
-4. **Holdout scope.** The holdout scores recovery of withheld visible catalogue segments. It does not measure new faults. A holdout positive is not a forecast of the organizer score.
-5. **GEMSDOE32_B2** scores 0.0047 on the same 16 cells, below random. The holdout cannot judge B2 fairly. B2 removes dots near mapped catalogue traces, which is the very signal this holdout measures.
-
-## Next steps (in order)
-
-1. Owner review of items 1–3 above before any further promotion attempt.
-2. If the owner approves a stronger null: rerun H-E2 against a density-matched random null. Do not rerun H-E1 or H-E2 with new parameters, because the budget is 3 experiments and 2 are used.
-3. H-E3 only after the overlap check against the bbstep and signedoffset lanes.
-4. No slot is selected here. Promotion is a separate selector step.
+- Keyword/feature review was performed against `src/gemskarage1/features.py`, `src/gemsk/`, `scripts/`, `knowledge/hypotheses-20261029.md`, `knowledge/hypotheses-20261030.md`, and prior lane scripts. Euler was identified in the 30 Oct slate as unimplemented and untested. The other four are proposed distinctions, not claims of global novelty.
+- Since the assigned lane is unset, no experiment was launched. This document is a preregistration slate, not evidence of success and not clearance to submit.

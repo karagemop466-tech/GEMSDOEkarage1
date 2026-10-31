@@ -40,8 +40,8 @@
   "registry_overlap": {
     "final_dots_max_3px_overlap": 1.0,
     "max_overlap_file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
-    "rasters_compared": 52,
-    "surface_max_spearman": 0.03299650202134129
+    "rasters_compared": 58,
+    "surface_max_spearman": 0.03355243098720769
   },
   "schema": "karage1-run-card-v1",
   "session": "arena/ce19eeed-gemsdoekarage1",

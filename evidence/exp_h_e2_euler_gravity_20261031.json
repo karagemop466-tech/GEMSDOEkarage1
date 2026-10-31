@@ -415,7 +415,7 @@
     },
     "random_null_mean": 0.19220780614489766
   },
-  "schema": "karage1-exp-he1-v1",
+  "schema": "karage1-exp-he1b-v1",
   "session": "arena/ce19eeed-gemsdoekarage1",
   "slot_selected_or_spent": false,
   "surface": {
@@ -443,12 +443,12 @@
     "final_dots": {
       "max_my_dots_within_3px": 1.0,
       "max_overlap_file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
-      "max_spearman": 0.002673591789903507,
-      "max_spearman_file": "/home/user/GEMSDOEkarage1/docs/downloads/gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
-      "rows_compared": 52
+      "max_spearman": 0.002999452751785699,
+      "max_spearman_file": "/home/user/GEMSDOEkarage1/docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+      "rows_compared": 58
     },
     "registry_focus_rasters_compared": 9,
-    "registry_rasters_scanned": 54,
+    "registry_rasters_scanned": 60,
     "rows_dots": [
       {
         "decoded_sha256": "21a915ffe73ee64a78dffdcbdde3bbcc88dc84ec8ffe8dae61f19706452f9d92",
@@ -602,6 +602,23 @@
         "submission": "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
         "their_dots": 38854,
         "their_dots_within_3px_of_mine": 0.17959540845215421
+      },
+      {
+        "decoded_sha256": "b49c4540ee5dcdff891246eccc541d7f2db2001aac943cbadbc1846d0a215223",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.007582378126439585,
+        "my_dots_within_3px_of_theirs": 0.28480373931056463,
+        "repo": "local-repo",
+        "sha256": "dd5d18d06c9a368d3c1aa5c14ef729547ba110e487d7363ec5717e182c0d3727",
+        "spearman_full_footprint": 0.002999452751785699,
+        "submission": "DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+        "their_dots": 557271,
+        "their_dots_within_3px_of_mine": 0.18859405926380524
       },
       {
         "decoded_sha256": "0d2d3697419c6fdb85a101d193aba013c72564d40ddc44b53745030d1a730eb9",
@@ -808,6 +825,23 @@
         "their_dots_within_3px_of_mine": 0.18908333333333333
       },
       {
+        "decoded_sha256": "afee578c84702a7187216479997c303e7e24dcc40a318204f2c9f719fd49505e",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.004021049093001306,
+        "my_dots_within_3px_of_theirs": 0.14258777287937535,
+        "repo": "local-repo",
+        "sha256": "4221236752e703ec035b4d4245d23dbb0cf2b1126f8cb6040e810316be1d738a",
+        "spearman_full_footprint": 0.000506910456598513,
+        "submission": "karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+        "their_dots": 40000,
+        "their_dots_within_3px_of_mine": 0.18515
+      },
+      {
         "decoded_sha256": "635f8d009eaddcaecabfb3154204bf294cc92a62eba2df96a386243d217b4286",
         "duplicate_by_jaccard": false,
         "duplicate_by_overlap": true,
@@ -823,6 +857,40 @@
         "submission": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
         "their_dots": 5106385,
         "their_dots_within_3px_of_mine": 0.16811325428850352
+      },
+      {
+        "decoded_sha256": "4d5608d30f403dc376c0de81849c3115805f4592d550e8503dd1a1073e87cdea",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.0037586969850451845,
+        "my_dots_within_3px_of_theirs": 0.21092048653529505,
+        "repo": "local-repo",
+        "sha256": "1119dfa24f0579df35411fa97da71ed0ae0e921ae4366e41199ad67c3f997a93",
+        "spearman_full_footprint": 0.00020385485395926683,
+        "submission": "karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "their_dots": 37654,
+        "their_dots_within_3px_of_mine": 0.17501460668189303
+      },
+      {
+        "decoded_sha256": "4d5608d30f403dc376c0de81849c3115805f4592d550e8503dd1a1073e87cdea",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.0037586969850451845,
+        "my_dots_within_3px_of_theirs": 0.21092048653529505,
+        "repo": "local-repo",
+        "sha256": "6b2e99b559efa64b2e161da5d349a518b583f1af64d24cce266bf70a7072c4ea",
+        "spearman_full_footprint": 0.00020385485395926683,
+        "submission": "karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "their_dots": 37654,
+        "their_dots_within_3px_of_mine": 0.17501460668189303
       },
       {
         "decoded_sha256": "ec0f0e768f7bb90088ac802ef70356ffd962498a8ef07f075c95de46eebcffaa",
@@ -1007,11 +1075,45 @@
         "their_dots_within_3px_of_mine": 0.1787857863706379
       },
       {
+        "decoded_sha256": "4d5608d30f403dc376c0de81849c3115805f4592d550e8503dd1a1073e87cdea",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/archive/research-he1-20261031/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.0037586969850451845,
+        "my_dots_within_3px_of_theirs": 0.21092048653529505,
+        "repo": "local-repo",
+        "sha256": "1119dfa24f0579df35411fa97da71ed0ae0e921ae4366e41199ad67c3f997a93",
+        "spearman_full_footprint": 0.00020385485395926683,
+        "submission": "karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "their_dots": 37654,
+        "their_dots_within_3px_of_mine": 0.17501460668189303
+      },
+      {
+        "decoded_sha256": "4d5608d30f403dc376c0de81849c3115805f4592d550e8503dd1a1073e87cdea",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/archive/research-he1-20261031/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.0037586969850451845,
+        "my_dots_within_3px_of_theirs": 0.21092048653529505,
+        "repo": "local-repo",
+        "sha256": "6b2e99b559efa64b2e161da5d349a518b583f1af64d24cce266bf70a7072c4ea",
+        "spearman_full_footprint": 0.00020385485395926683,
+        "submission": "karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "their_dots": 37654,
+        "their_dots_within_3px_of_mine": 0.17501460668189303
+      },
+      {
         "decoded_sha256": "f4f8db496ac6fb319273659ab30cadb76a8d7a12962a73c3cbc3046a6df49fed",
         "duplicate_by_jaccard": false,
         "duplicate_by_overlap": false,
         "duplicate_by_rho": false,
-        "file": "/home/user/GEMSDOEkarage1/archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-nan.tif",
+        "file": "/home/user/GEMSDOEkarage1/archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-nan.tif",
         "identical_bytes": false,
         "identical_decoded_predictions": false,
         "jaccard_dot_sets": 0.002736389231596596,
@@ -1019,7 +1121,7 @@
         "repo": "local-repo",
         "sha256": "d1a71a67e514d71e3a18d83d3a50a43333a5712a6c5319d668e47c196817121e",
         "spearman_full_footprint": -0.00047093053035541675,
-        "submission": "karage1-he1-euler-contacts-37654-20261031-nan.tif",
+        "submission": "karage1-he1b-euler-tmi-37654-20261031-nan.tif",
         "their_dots": 25741,
         "their_dots_within_3px_of_mine": 0.1487898683034847
       },
@@ -1028,7 +1130,7 @@
         "duplicate_by_jaccard": false,
         "duplicate_by_overlap": false,
         "duplicate_by_rho": false,
-        "file": "/home/user/GEMSDOEkarage1/archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-zeros.tif",
+        "file": "/home/user/GEMSDOEkarage1/archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-zeros.tif",
         "identical_bytes": false,
         "identical_decoded_predictions": false,
         "jaccard_dot_sets": 0.002736389231596596,
@@ -1036,7 +1138,7 @@
         "repo": "local-repo",
         "sha256": "4019f4f4da5f76608f82b57e98ad6fede2e9036db43d1395833bbb3e17c4d32f",
         "spearman_full_footprint": -0.00047093053035541675,
-        "submission": "karage1-he1-euler-contacts-37654-20261031-zeros.tif",
+        "submission": "karage1-he1b-euler-tmi-37654-20261031-zeros.tif",
         "their_dots": 25741,
         "their_dots_within_3px_of_mine": 0.1487898683034847
       },
@@ -1502,6 +1604,23 @@
         "their_dots_within_3px_of_mine": 0.0
       },
       {
+        "decoded_sha256": "b49c4540ee5dcdff891246eccc541d7f2db2001aac943cbadbc1846d0a215223",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.09929899301429826,
+        "my_dots_within_3px_of_theirs": 0.29188215219811714,
+        "repo": "local-repo",
+        "sha256": "dd5d18d06c9a368d3c1aa5c14ef729547ba110e487d7363ec5717e182c0d3727",
+        "spearman_full_footprint": 0.03355243098720769,
+        "submission": "DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+        "their_dots": 557271,
+        "their_dots_within_3px_of_mine": 0.0
+      },
+      {
         "decoded_sha256": "0d2d3697419c6fdb85a101d193aba013c72564d40ddc44b53745030d1a730eb9",
         "duplicate_by_jaccard": false,
         "duplicate_by_overlap": false,
@@ -1706,6 +1825,23 @@
         "their_dots_within_3px_of_mine": 0.0
       },
       {
+        "decoded_sha256": "afee578c84702a7187216479997c303e7e24dcc40a318204f2c9f719fd49505e",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.008590456817562367,
+        "my_dots_within_3px_of_theirs": 0.14846596261916212,
+        "repo": "local-repo",
+        "sha256": "4221236752e703ec035b4d4245d23dbb0cf2b1126f8cb6040e810316be1d738a",
+        "spearman_full_footprint": 0.0077004246452052625,
+        "submission": "karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+        "their_dots": 40000,
+        "their_dots_within_3px_of_mine": 0.0
+      },
+      {
         "decoded_sha256": "635f8d009eaddcaecabfb3154204bf294cc92a62eba2df96a386243d217b4286",
         "duplicate_by_jaccard": false,
         "duplicate_by_overlap": true,
@@ -1720,6 +1856,40 @@
         "spearman_full_footprint": 0.03299650202134129,
         "submission": "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
         "their_dots": 5106385,
+        "their_dots_within_3px_of_mine": 0.0
+      },
+      {
+        "decoded_sha256": "4d5608d30f403dc376c0de81849c3115805f4592d550e8503dd1a1073e87cdea",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.007468201368770859,
+        "my_dots_within_3px_of_theirs": 0.21033869384474502,
+        "repo": "local-repo",
+        "sha256": "1119dfa24f0579df35411fa97da71ed0ae0e921ae4366e41199ad67c3f997a93",
+        "spearman_full_footprint": 0.0024043062964787362,
+        "submission": "karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "their_dots": 37654,
+        "their_dots_within_3px_of_mine": 0.0
+      },
+      {
+        "decoded_sha256": "4d5608d30f403dc376c0de81849c3115805f4592d550e8503dd1a1073e87cdea",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.007468201368770859,
+        "my_dots_within_3px_of_theirs": 0.21033869384474502,
+        "repo": "local-repo",
+        "sha256": "6b2e99b559efa64b2e161da5d349a518b583f1af64d24cce266bf70a7072c4ea",
+        "spearman_full_footprint": 0.0024043062964787362,
+        "submission": "karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "their_dots": 37654,
         "their_dots_within_3px_of_mine": 0.0
       },
       {
@@ -1905,11 +2075,45 @@
         "their_dots_within_3px_of_mine": 0.0
       },
       {
+        "decoded_sha256": "4d5608d30f403dc376c0de81849c3115805f4592d550e8503dd1a1073e87cdea",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/archive/research-he1-20261031/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.007468201368770859,
+        "my_dots_within_3px_of_theirs": 0.21033869384474502,
+        "repo": "local-repo",
+        "sha256": "1119dfa24f0579df35411fa97da71ed0ae0e921ae4366e41199ad67c3f997a93",
+        "spearman_full_footprint": 0.0024043062964787362,
+        "submission": "karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+        "their_dots": 37654,
+        "their_dots_within_3px_of_mine": 0.0
+      },
+      {
+        "decoded_sha256": "4d5608d30f403dc376c0de81849c3115805f4592d550e8503dd1a1073e87cdea",
+        "duplicate_by_jaccard": false,
+        "duplicate_by_overlap": false,
+        "duplicate_by_rho": false,
+        "file": "/home/user/GEMSDOEkarage1/archive/research-he1-20261031/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "identical_bytes": false,
+        "identical_decoded_predictions": false,
+        "jaccard_dot_sets": 0.007468201368770859,
+        "my_dots_within_3px_of_theirs": 0.21033869384474502,
+        "repo": "local-repo",
+        "sha256": "6b2e99b559efa64b2e161da5d349a518b583f1af64d24cce266bf70a7072c4ea",
+        "spearman_full_footprint": 0.0024043062964787362,
+        "submission": "karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+        "their_dots": 37654,
+        "their_dots_within_3px_of_mine": 0.0
+      },
+      {
         "decoded_sha256": "f4f8db496ac6fb319273659ab30cadb76a8d7a12962a73c3cbc3046a6df49fed",
         "duplicate_by_jaccard": false,
         "duplicate_by_overlap": false,
         "duplicate_by_rho": false,
-        "file": "/home/user/GEMSDOEkarage1/archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-nan.tif",
+        "file": "/home/user/GEMSDOEkarage1/archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-nan.tif",
         "identical_bytes": false,
         "identical_decoded_predictions": false,
         "jaccard_dot_sets": 0.004318822532047966,
@@ -1917,7 +2121,7 @@
         "repo": "local-repo",
         "sha256": "d1a71a67e514d71e3a18d83d3a50a43333a5712a6c5319d668e47c196817121e",
         "spearman_full_footprint": -0.005690283153885401,
-        "submission": "karage1-he1-euler-contacts-37654-20261031-nan.tif",
+        "submission": "karage1-he1b-euler-tmi-37654-20261031-nan.tif",
         "their_dots": 25741,
         "their_dots_within_3px_of_mine": 0.0
       },
@@ -1926,7 +2130,7 @@
         "duplicate_by_jaccard": false,
         "duplicate_by_overlap": false,
         "duplicate_by_rho": false,
-        "file": "/home/user/GEMSDOEkarage1/archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-zeros.tif",
+        "file": "/home/user/GEMSDOEkarage1/archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-zeros.tif",
         "identical_bytes": false,
         "identical_decoded_predictions": false,
         "jaccard_dot_sets": 0.004318822532047966,
@@ -1934,7 +2138,7 @@
         "repo": "local-repo",
         "sha256": "4019f4f4da5f76608f82b57e98ad6fede2e9036db43d1395833bbb3e17c4d32f",
         "spearman_full_footprint": -0.005690283153885401,
-        "submission": "karage1-he1-euler-contacts-37654-20261031-zeros.tif",
+        "submission": "karage1-he1b-euler-tmi-37654-20261031-zeros.tif",
         "their_dots": 25741,
         "their_dots_within_3px_of_mine": 0.0
       },
@@ -2248,9 +2452,9 @@
     "surface_pre_placement": {
       "max_my_dots_within_3px": 1.0,
       "max_overlap_file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
-      "max_spearman": 0.03299650202134129,
-      "max_spearman_file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
-      "rows_compared": 52
+      "max_spearman": 0.03355243098720769,
+      "max_spearman_file": "/home/user/GEMSDOEkarage1/docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+      "rows_compared": 58
     }
   },
   "verdict": "negative"

@@ -6,17 +6,29 @@
   "budget": {
     "hypotheses_tested": 2,
     "max_experiments": 3,
-    "runner_executions_including_fixes": 5,
-    "note": "H-E1 ran 4 times (crash at uniqueness; crash at write on stale archive files; clean run; byte-identical reproduction after refactor). H-E2 ran once."
+    "note": "H-E1b ran 3 times (crash at uniqueness; crash at write on stale archive; clean run) plus 1 byte-identical reproduction after refactor and after the merge. H-E2 ran twice (pre-merge and post-merge reproduction). Reruns reproduce bytes; they are not new hypotheses."
+  },
+  "cross_session_conflict": {
+    "other_session": "arena/he1-euler-gemsdoe-20261031",
+    "other_hypothesis_id": "H-E1",
+    "other_protocol": "window 11 px; depth 50-2000 m; Gaussian-smoothed density; SI=0 primary",
+    "other_holdout_pooled_dti": 0.050713,
+    "other_random_null_pooled_mean": 0.044595,
+    "other_paired_delta_ci95": [
+      0.003361,
+      0.007971
+    ],
+    "this_session_protocol": "window 21 px; depth 300-3000 m; unsmoothed peaks (H-E1b)",
+    "reading": "Same field, opposite sign of the null comparison. The Euler/TMI result is protocol-sensitive."
   },
   "bugs_fixed": [
     "euler.solution_density: uniform_filter round-off gave -6.5e-14 values; replaced by exact integer box sum with np.maximum(count,0). Regression test added.",
-    "H-E1 first run placed 11,913 dots on round-off noise (zero-density cells); the clean run places only on real density peaks (dots on zero-density cells = 0). The first run is superseded."
+    "H-E1b first run placed 11,913 dots on round-off noise (zero-density cells); the clean run places dots only on real peaks (dots on zero-density cells = 0). The first run is superseded."
   ],
   "label_convention": "Every holdout number is HOLDOUT-DTI (evaluator gems57-pooled-hide-v2, withheld positives, 95% CI). No ORGANIZER-CONFIRMED number exists in this session.",
   "hypotheses": [
     {
-      "id": "H-E1",
+      "id": "H-E1b",
       "field": "tmi",
       "hypothesis": "Magnetic contacts whose Euler (N=0) depth solutions agree on a 300-3000 m band mark buried fault-bounded magnetic juxtapositions with no mapped trace.",
       "mechanism": "Euler homogeneity identity x.Tx + y.Ty + N.T = x0.Tx + y0.Ty + z0.Tz + N.B solved in 2.1 km windows; solutions counted per cell (depth-cluster density).",
@@ -43,7 +55,8 @@
         "|Tz| vertical derivative": 0.5647
       },
       "registry_overlap": {
-        "surface_max_spearman": 0.003645,
+        "registry_rasters_scanned": 60,
+        "surface_max_spearman": 0.019635,
         "focus_site_max_dot_overlap_3px": 0.133017,
         "focus_site_max_jaccard": 0.002475,
         "literal_gate_trips": [
@@ -52,11 +65,11 @@
         ]
       },
       "raster": {
-        "path": "archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-zeros.tif",
+        "path": "archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-zeros.tif",
         "sha256": "4019f4f4da5f76608f82b57e98ad6fede2e9036db43d1395833bbb3e17c4d32f",
-        "submission_name": "karage1-he1-euler-contacts-37654-20261031-zeros",
-        "note": "H-E1 Euler contacts (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored; do not submit unless gates pass",
-        "note_chars": 125
+        "submission_name": "karage1-he1b-euler-tmi-37654-20261031-zeros",
+        "note": "H-E1b Euler contacts (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored; do not submit unless gates pass",
+        "note_chars": 126
       },
       "validator_all_passed": true,
       "criteria": {
@@ -99,7 +112,8 @@
         "|Tz| vertical derivative": 0.5449
       },
       "registry_overlap": {
-        "surface_max_spearman": 0.032997,
+        "registry_rasters_scanned": 60,
+        "surface_max_spearman": 0.033552,
         "focus_site_max_dot_overlap_3px": 0.195915,
         "focus_site_max_jaccard": 0.005108,
         "literal_gate_trips": [
@@ -129,18 +143,22 @@
     }
   ],
   "review_items_for_owner": [
-    "Literal 70% registry-overlap gate trips for any dot set because the local registry contains dense rasters (halo damage zone: 5.1 million positive cells; 13GEMS lattice: 99.996% overlap). The runner records this as \"fail by construction\".",
+    "Literal 70% registry-overlap gate trips for any dot set because the local registry contains dense rasters (halo damage zone 5.1M positives; 13GEMS lattice 99.996%). The runner records this as \"fail by construction\".",
     "League bar compares against every local TIF, including catalogue-trained rasters (8GEMSDOE_Hedge-v2 at 0.2708 on the same cells). A label-blind candidate cannot pass this bar by construction.",
-    "The random null is uniform over the footprint. A structure-aware candidate may beat it for generic reasons (dots placed where the magnetic/gravity signal is active). A stronger null matched to that density is needed.",
-    "The holdout scores recovery of withheld visible catalogue segments. It does not measure new faults.",
-    "GEMSDOE32_B2 scores 0.0047 on the same 16 cells (below random). The holdout cannot judge B2 fairly because B2 removes dots near mapped catalogue traces, which is the holdout signal."
+    "Cross-session H-E1 protocols disagree in sign on the same field. Reconcile under one pre-registration before either is treated as a result.",
+    "The random null is uniform over the footprint. A density-matched null is needed before trusting small positive margins (H-E2 margin +0.0028).",
+    "The holdout measures recovery of withheld visible catalogue segments, not new faults.",
+    "GEMSDOE32_B2 scores 0.0047 on the same 16 cells (below random). The holdout cannot judge B2 fairly because B2 removes dots near mapped catalogue traces."
   ],
   "files": {
     "runner": "scripts/run_h_e1_euler_contacts.py",
     "wrapper": "scripts/run_h_e2_euler_gravity.py",
     "library": "src/gemskarage1/euler.py",
-    "tests": "tests/test_h_e1_euler.py",
-    "hypothesis_record": "knowledge/hypotheses-20261031.md",
+    "tests": [
+      "tests/test_h_e1_euler.py",
+      "tests/test_h_e2_wrapper.py"
+    ],
+    "hypothesis_record": "knowledge/hypotheses-20261031-ce19eeed.md",
     "page_panel": "scripts/render_site.py (session_31_panel)"
   }
 }

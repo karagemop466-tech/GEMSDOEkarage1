@@ -1,4 +1,4 @@
-"""Checks for the shared H-E1 runner, the H-E2 gravity wrapper and the session-31 Pages panel.
+"""Checks for the H-E1b runner, the H-E2 gravity wrapper and the session-31 Pages panel.
 
 These tests do not run the experiments (that takes minutes). They check configuration, the
 import-time guard, the zero-density integrity assertion, and that the rendered panel labels every
@@ -16,8 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_e1_runner_defaults_to_official_tmi_band():
     E1 = importlib.import_module("scripts.run_h_e1_euler_contacts")
     assert E1.FIELD == {"name": "tmi", "band": 14}
-    assert E1.HYP_ID == "H-E1"
-    assert E1.NAME.startswith("karage1-he1-euler-contacts-37654-20261031")
+    assert E1.HYP_ID == "H-E1b"
+    assert E1.NAME.startswith("karage1-he1b-euler-tmi-37654-20261031")
 
 
 def test_e2_wrapper_overrides_only_the_field_and_identifiers():
@@ -35,9 +35,9 @@ def test_e2_wrapper_overrides_only_the_field_and_identifiers():
     for token in ("HALF = 10", "BUDGET_DOTS = 37654", "SEEDS = (101, 202, 303)"):
         assert token in src, token
     E1.FIELD = {"name": "tmi", "band": 14}
-    E1.HYP_ID = "H-E1"
-    E1.NAME = "karage1-he1-euler-contacts-37654-20261031-zeros"
-    E1.ARCHIVE = ROOT / "archive" / "research-he1-20261031"
+    E1.HYP_ID = "H-E1b"
+    E1.NAME = "karage1-he1b-euler-tmi-37654-20261031-zeros"
+    E1.ARCHIVE = ROOT / "archive" / "research-he1b-20261031"
 
 
 def test_e1_runner_is_guarded_against_import_side_effects():
@@ -60,13 +60,15 @@ def test_session_panel_labels_and_refuses_clearance():
     assert "docs/downloads/" in html  # states that nothing was copied there
     # Every numeric holdout value shown is a 4-decimal HOLDOUT-DTI, never a bare score.
     assert re.search(r"0\.0284", html) and re.search(r"0\.0479", html)
+    assert "H-E1b" in html and "H-E2" in html
     assert "ORGANIZER-CONFIRMED" not in html
 
 
-def test_no_candidate_was_copied_into_downloads():
+def test_no_candidate_from_this_session_was_copied_into_downloads():
+    # Another session's Euler TIF legitimately lives in docs/downloads/ on main; only this session's files matter.
     downloads = ROOT / "docs" / "downloads"
     names = [p.name for p in downloads.glob("*") if p.is_file()] if downloads.exists() else []
-    assert not [n for n in names if "euler" in n.lower()], names
+    assert not [n for n in names if n.startswith(("karage1-he1b-", "karage1-he2-"))], names
 
 
 def test_session_run_card_declares_no_slot_and_no_clearance():

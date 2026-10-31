@@ -9,7 +9,7 @@
     "validator_passed": true
   },
   "date_utc": "2026-10-31",
-  "experiment": "E1 / H-E1",
+  "experiment": "E1b / H-E1b",
   "field": "tmi",
   "holdout": {
     "ci95_cell_bootstrap_of_mean_cell_dti": [
@@ -31,17 +31,17 @@
   "named_non_fault_mimic": "Lithologic and intrusive contacts, basin-margin magnetic steps, and flight-line levelling seams produce the same Euler contact geometry.",
   "ok_to_submit": false,
   "raster": {
-    "file": "archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-zeros.tif",
-    "name": "karage1-he1-euler-contacts-37654-20261031-zeros",
-    "note": "H-E1 Euler contacts (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored; do not submit unless gates pass",
-    "note_chars": 125,
+    "file": "archive/research-he1b-20261031/karage1-he1b-euler-tmi-37654-20261031-zeros.tif",
+    "name": "karage1-he1b-euler-tmi-37654-20261031-zeros",
+    "note": "H-E1b Euler contacts (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored; do not submit unless gates pass",
+    "note_chars": 126,
     "sha256": "4019f4f4da5f76608f82b57e98ad6fede2e9036db43d1395833bbb3e17c4d32f"
   },
   "registry_overlap": {
     "final_dots_max_3px_overlap": 1.0,
     "max_overlap_file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
-    "rasters_compared": 50,
-    "surface_max_spearman": 0.0036446093570880614
+    "rasters_compared": 58,
+    "surface_max_spearman": 0.019634616982245355
   },
   "schema": "karage1-run-card-v1",
   "session": "arena/ce19eeed-gemsdoekarage1",

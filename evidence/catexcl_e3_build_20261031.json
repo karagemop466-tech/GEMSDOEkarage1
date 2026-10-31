@@ -1,0 +1,25 @@
+{
+  "output": "docs/downloads/karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+  "sha256": "dd5d18d06c9a368d3c1aa5c14ef729547ba110e487d7363ec5717e182c0d3727",
+  "bytes": 3132516,
+  "dots_gt0": 557271,
+  "config": {
+    "halo_r_px": 3,
+    "threshold": 0.292232,
+    "tp": 7785.56454490723,
+    "fp": 197837.2471001758,
+    "fn": 52808.43545509277,
+    "dti_pooled": 0.08689269192833449,
+    "n_dots": 514003
+  },
+  "training": {
+    "n_pos_train": 40000,
+    "n_neg_train": 160000,
+    "n_withheld_pixels": 0,
+    "n_buffer_pixels": 0
+  },
+  "min": 0.0,
+  "max": 0.9758114218711853,
+  "nan_count": 0,
+  "seconds": null
+}

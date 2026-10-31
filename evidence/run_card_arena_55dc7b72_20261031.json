@@ -1,0 +1,147 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/55dc7b72-gemsdoekarage1",
+  "date_utc": "2026-10-31",
+  "lane": "catalogue-free LightGBM (PROPOSED; method_lane unassigned in registry/template.json; owner to confirm)",
+  "hypothesis": "H-K1-CATEXCL: a model on 25 catalogue-free features, trained on catalogue labels, ranks unmapped fault-like pixels above random placement.",
+  "mechanism": "Fault zones have distinct gravity/magnetic/strain/curvature signatures that generalise across spatially blocked catalogue segments.",
+  "named_non_fault_mimic": "Topographic ridge lines and erosion lineaments (ridge_s1..s3, relief5) and lithologic/stratigraphic contacts (cond_surf, depth_to_base_surf).",
+  "experiments": {
+    "budget": "3 experiments (E1 canary, E2 holdout, E3 build); E2 was executed twice, the second run only to add controls",
+    "E1_canary": {
+      "stop_triggered": false,
+      "max_single_feature_auc_direction_free": 0.592,
+      "ceiling": 0.9,
+      "evidence": "evidence/catexcl_e1_canary_20261031.json"
+    },
+    "E2_holdout": {
+      "evaluator": "gems57.metric.dti_exact (organizer masking of visible known faults)",
+      "best_config": {
+        "halo_r_px": 3,
+        "threshold": 0.292232,
+        "tp": 7785.56454490723,
+        "fp": 197837.2471001758,
+        "fn": 52808.43545509277,
+        "dti_pooled": 0.08689269192833449,
+        "n_dots": 514003
+      },
+      "evidence": "evidence/catexcl_e2_holdout_20261031.json"
+    },
+    "E3_build": {
+      "evidence": "evidence/catexcl_e3_build_20261031.json"
+    }
+  },
+  "holdout_DTI": {
+    "label": "HOLDOUT-DTI",
+    "dti_pooled": 0.08689,
+    "ci95_cell_bootstrap_approx": [
+      0.0699,
+      0.1051
+    ],
+    "withheld_positives_pixels": 60594,
+    "random_matched_control": {
+      "mean": 0.1902,
+      "sd": 0.0272,
+      "n_seeds": 20
+    },
+    "model_minus_random": -0.1033,
+    "auc_model_surface": 0.6335,
+    "sparse_n_model_minus_random": [
+      {
+        "n": 5000,
+        "delta": 0.002
+      },
+      {
+        "n": 10000,
+        "delta": -0.0023
+      },
+      {
+        "n": 20000,
+        "delta": -0.0101
+      },
+      {
+        "n": 37652,
+        "delta": -0.0263
+      },
+      {
+        "n": 60000,
+        "delta": -0.0471
+      },
+      {
+        "n": 100000,
+        "delta": -0.0739
+      },
+      {
+        "n": 300000,
+        "delta": -0.1081
+      }
+    ],
+    "caveats": [
+      "Holdout targets catalogue segments, not organizer new faults; it is a proxy.",
+      "Halo and threshold are selected on the same holdout (in-sample selection).",
+      "Quadrant boundary effects on the 3-px kernel are ignored (predictions only inside each quadrant)."
+    ]
+  },
+  "correlation_overlap_vs_registry": {
+    "label": "LOCAL MEASUREMENT",
+    "max_forward_3px_to_focus_sites": 0.3406,
+    "max_spearman_to_focus_sites": 0.0427,
+    "literal_duplicate_vs_focus_sites": [],
+    "lattice_13gems_forward_3px": 0.9962,
+    "literal_duplicate_vs_lattice": true,
+    "evidence": "evidence/candidate_validation_catexcl_20261031.json"
+  },
+  "raster": {
+    "file": "docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+    "sha256": "dd5d18d06c9a368d3c1aa5c14ef729547ba110e487d7363ec5717e182c0d3727",
+    "bytes": 3132516,
+    "dots_gt0": 557271
+  },
+  "validator_output": {
+    "tool": "scripts/validate_candidate_20261031.py (independent local checks; shared gems57 validators NOT run)",
+    "format_pass": true,
+    "format_checks": {
+      "single_band": true,
+      "float32": true,
+      "crs_EPSG_32611": true,
+      "shape_matches_training": true,
+      "transform_matches_training": true,
+      "no_nan_anywhere": true,
+      "values_in_unit_interval": true,
+      "zero_outside_footprint": true,
+      "no_nan_inside_footprint": true,
+      "dots_present": true
+    },
+    "receipt": "evidence/audit_catexcl_candidate_20261031.json"
+  },
+  "name": "karage1-catexcl-halo-r3-t0.292 (DO-NOT-SUBMIT)",
+  "note": "Catalogue-free LightGBM, 3px halo, t=0.292: HOLDOUT-DTI 0.087 below random 0.190; unique vs focus but lattice gate trips. Not cleared.",
+  "ok_to_download_and_submit": false,
+  "verdict": "negative",
+  "verdict_reasons": [
+    "Holdout DTI 0.0869 is below the density-matched random control 0.1902 +/- 0.0272 (3 SD margin).",
+    "Model is below random at every tested count >= 10,000 dots; only N=5,000 is marginally positive (+0.0020).",
+    "Fails the literal 13GEMS lattice gate (99.6% forward overlap); the gate is non-discriminating (see lattice_gate_null_check_20261029.json).",
+    "No organizer receipt; leaderboard estimate not estimable."
+  ],
+  "promotion": "Not promoted. Promotion is a separate selector step; no slot selected or spent.",
+  "leaderboard": {
+    "label": "ORGANIZER-PUBLIC (live read 31 Oct 2026, chunk 0)",
+    "rank1": 0.4544,
+    "rank2": 0.3925
+  },
+  "user_reported": {
+    "GEMSDOE32_B2": 0.2778,
+    "target": 0.3195,
+    "label": "USER-REPORTED / UNVERIFIED"
+  },
+  "limitations": [
+    "Holdout targets catalogue segments, not organizer new faults; cannot measure the halo/off-catalogue effect.",
+    "Halo and threshold selected in-sample on the holdout.",
+    "CI is an approximate 16-cell bootstrap.",
+    "Method lane not assigned in registry/template.json.",
+    "Shared validators and preflight not run (data stack absent; vendor pin mismatch)."
+  ],
+  "review": "knowledge/review-arena-55dc7b72-20261031.md",
+  "exec_summary": "docs/executive-summary-20261031.html"
+}

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Experiment E1 of session arena/ce19eeed (31 Oct 2026): hypothesis H-E1.
+"""Experiment E1b of session arena/ce19eeed (31 Oct 2026): hypothesis H-E1b.
+
+NOTE: a different session (arena/he1-euler-gemsdoe-20261031, scripts/run_he1_euler_deconvolution.py)
+also pre-registered H-E1 (TMI Euler). Its protocol differs (11 px window, 50-2000 m, smoothed density),
+so its result is NOT the same experiment. This file is the 21 px / 300-3000 m / unsmoothed variant, labelled H-E1b.
 
 Hypothesis (ranked #1 in knowledge/hypotheses-20261031.md):
     Magnetic contacts (structural index N = 0) whose Euler-deconvolution depth
@@ -59,14 +63,14 @@ from scripts import run_h_r1_kth_magedge as HR1  # noqa: E402  (shared helpers o
 
 SESSION = "arena/ce19eeed-gemsdoekarage1"
 DATE = "2026-10-31"
-NAME = "karage1-he1-euler-contacts-37654-20261031-zeros"
-NAME_NAN = "karage1-he1-euler-contacts-37654-20261031-nan"
-ARCHIVE = ROOT / "archive" / "research-he1-20261031"
-NOTE = ("H-E1 Euler contacts (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; "
+NAME = "karage1-he1b-euler-tmi-37654-20261031-zeros"
+NAME_NAN = "karage1-he1b-euler-tmi-37654-20261031-nan"
+ARCHIVE = ROOT / "archive" / "research-he1b-20261031"
+NOTE = ("H-E1b Euler contacts (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; "
         "holdout-scored; do not submit unless gates pass")
-EVIDENCE = ROOT / "evidence" / "exp_h_e1_euler_20261031.json"
-RUN_CARD = ROOT / "evidence" / "run_card_h_e1_20261031.json"
-LEAGUE = ROOT / "evidence" / "holdout_league_20261031.json"
+EVIDENCE = ROOT / "evidence" / "exp_h_e1b_euler_tmi_20261031.json"
+RUN_CARD = ROOT / "evidence" / "run_card_h_e1b_20261031.json"
+LEAGUE = ROOT / "evidence" / "holdout_league_h_e1b_20261031.json"
 
 BUDGET_DOTS = 37654
 SPACING_PX = 2.8
@@ -102,8 +106,8 @@ def sha256(p: Path) -> str:
 
 # Field under test. E1 = official TMI (band 14). E2 overrides this (see run_h_e2_euler_gravity.py).
 FIELD = dict(name="tmi", band=14)
-HYP_ID = "H-E1"
-EXP_LABEL = "E1 / H-E1"
+HYP_ID = "H-E1b"
+EXP_LABEL = "E1b / H-E1b"
 CARD_TEXT = dict(
     hypothesis=("Magnetic contacts whose Euler (N=0) depth solutions agree on a 300-3000 m band mark "
                 "buried fault-bounded magnetic juxtapositions with no mapped trace."),
@@ -335,7 +339,7 @@ def main() -> None:
     verdict = "promote-to-selector" if promote else "negative"
 
     out = dict(
-        schema="karage1-exp-he1-v1", session=SESSION, date_utc=DATE, field=FIELD["name"],
+        schema="karage1-exp-he1b-v1", session=SESSION, date_utc=DATE, field=FIELD["name"],
         evaluator=dict(module="vendor/gems57 evaluate_holdout/holdout (unmodified)", version=EH57.VERSION,
                        label="HOLDOUT-DTI", alpha=0.2, beta=0.8, kernel_px=3.0, cells=len(ctx.cells),
                        withheld_positives=sum(c.n_truth for c in ctx.cells),
