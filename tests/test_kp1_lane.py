@@ -47,8 +47,9 @@ def test_metric_identity_holds_exactly():
 def test_release_gate_receipt_is_self_consistent():
     gate = load(GATE)
     assert gate["gate"] == "kp1-release-gate/v1"
-    assert gate["decision"]["ok_to_submit"] is False  # fail-closed hold, owner decides
-    assert gate["decision"]["mechanical_ok"] is True
+    assert gate["decision"]["ok_to_submit"] is False
+    assert gate["decision"]["registry_complete"] is False
+    assert gate["decision"]["lattice_gate_passes"] is False
     assert gate["decision"]["slots_used"] == 0
     assert gate["format"]["all_checks_passed"] is True
     assert gate["format"]["checks"]["range_0_1_guaranteed"] is True
@@ -111,7 +112,8 @@ def test_run_card_has_every_protocol_field():
                 "holdout_dti", "correlation_and_overlap_vs_registry", "raster_sha256",
                 "validator_output", "submission_name", "submission_note", "verdict"):
         assert key in card, key
-    assert card["verdict"] == "promote"
+    assert card["verdict"] == "negative"
+    assert card["ok_to_submit"] is False
     assert len(card["submission_note"]) <= 140
     assert card["slot_selected_or_spent"] is False
     assert card["holdout_dti"]["label"] == "HOLDOUT-DTI"
