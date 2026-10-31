@@ -1,14 +1,16 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/cd6c8044-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
+**Status: NEGATIVE — DO NOT SUBMIT. No new TIF was generated or cleared, no leaderboard score estimate is supportable, and no weekly slot was selected or spent.** We did not create an arbitrary raster: the assigned method lane and canonical shared template are null, the shared cache and organizer inputs are absent, and prior preflight recorded vendored writer/uniqueness integrity mismatches. An unassigned experiment would violate the shared-tool, holdout, and uniqueness protocol.
 
-- **Review / run card:** [three-pass review](knowledge/session-review-arena-cfabff7e.md) · [JSON card](evidence/session_cfabff7e_run_card.json).
-- **Safety fix:** `scripts/prepare_data.py` now exits before the retired private feature stack can run; its regression test covers `--force`. Data-dependent candidate checks are explicitly skipped when their ignored bridge inputs are absent. Full suite after incorporating latest `main`: **446 passed, 0 failed, 2 skipped**; both skips require absent competition rasters/sample data.
-- **Score policy:** GEMSDOE24/25/27/28/30/31/32/33/36 values remain USER-REPORTED / UNVERIFIED. A leaderboard estimate is unavailable; do not relabel a catalogue holdout as a leaderboard prediction.
-- **Public-board context:** the independent 30 Oct re-read records #1 = 0.4544, 0.3195 at rank #48, and 0.4413 absent from the top 50 (ORGANIZER-PUBLIC; not a submission receipt for any focus site).
-- **Submission decision:** there is no current download that is OK to submit. Existing TIFFs are research/audit artifacts only. No weekly slot was selected or spent in this review.
+- **Current review / JSON run card:** [three-pass review](knowledge/session-review-arena-cd6c8044.md) · [run card](evidence/session_cd6c8044_run_card.json).
+- **Research slate:** [five preregistered hypotheses](knowledge/hypotheses-20261031.md); H-EULER is first for conditional validation only. No canary or holdout was run because the shared preconditions are unmet.
+- **Focus-site decision:** GEMSDOE24/25/27/28/30/31/32/33/36 best-listed files and values are in the [executive summary](docs/executive-summary.html) and [individual pages](docs/GEMSDOE24.html), etc. The 0.2477–0.2778 values remain USER-REPORTED / UNVERIFIED; per-site organizer score estimates are unavailable; no historical file is cleared for re-submission.
+- **Public leaderboard:** live read 31 Oct 2026: rank #1 = **0.4544**, rank #50 = **0.3195**; 0.4413 was not in the top 50. Label: ORGANIZER-PUBLIC, not a receipt for any focus-site artifact. Snapshot: [JSON](evidence/leaderboard_snapshot_20261031.json).
+- **Current download decision:** no candidate TIF is approved or available from this session. Do not submit any repository artifact without a separate passing gate review and selector.
+- **Software checks:** 451 passed, 0 failed, 2 skipped; the skips require unavailable bridge rasters/sample grid. These are software checks, not evidence of scientific performance.
+- **Standing brief:** [README full prompt section](#session-prompt--full-text-read-at-start-of-every-session) and [canonical session brief](docs/standing-prompt.md); read these plus this newest review at the start of each session. The standing-brief file notes that earlier text was reconstructed, not a verbatim prompt transcript.
 
 ## Latest merged mainline experiment — session `arena/a8e4de2e` (30 Oct 2026)
 
@@ -544,13 +546,13 @@ Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one flo
 
 10. **Clean GitHub Pages site** under docs/; three passes then PR merged to main, listing remaining work and limitations.
 
-## Current Competition State
+## Current Competition State (reviewed 31 Oct 2026; supersedes older snapshots)
 
-- Public leaderboard #1: 0.4544 (DrivenData, checked 29 Oct 2026)
-- Best nine focus-site reported score: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED)
-- All nine focus-site rasters are lattice duplicates (>97.6% dots within 3 px of pinned 13GEMSDOE lattice)
-- No file currently cleared for submission (lane = null, labels login-walled, no organizer receipt)
-- Unique TIF generated: `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif` (1,322 dots, format-valid, lattice-unique, 0.0000 worst overlap, NOT cleared for submission)
+- Live public leaderboard snapshot: rank #1 = 0.4544 and rank #50 = 0.3195 (ORGANIZER-PUBLIC, observed 31 Oct 2026; not a private score or receipt for any GEMSDOE site). See `evidence/leaderboard_snapshot_20261031.json`.
+- Best nine focus-site reported value: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED).
+- All nine focus-site masks fail the recorded internal lattice overlap rule; this rule is not an official competition requirement and has a documented saturation/interpretation concern.
+- No file is cleared for submission. The lane, canonical shared template, authenticated labels, and shared input/cache are unresolved or absent.
+- Earlier TIFs in `docs/downloads/` and `archive/` are historical/research artifacts only, not approved submission downloads. This session generated no TIF.
 
 ## Source Links (Official, Verified)
 

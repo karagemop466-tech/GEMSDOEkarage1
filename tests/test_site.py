@@ -32,24 +32,25 @@ def test_site_links_and_negative_banner():
     index = (ROOT/'docs/index.html').read_text()
     assert 'DO NOT SUBMIT' in index
     assert 'No approved .tif to download' in index
-    assert 'Latest review 2026-10-30: no file cleared; this repository-safety review produced no candidate or score estimate' in index
+    assert 'Latest review 2026-10-31: no file cleared; no candidate or leaderboard estimate produced' in index
     assert 'HOLDOUT-DTI 0.04330 [0.03559, 0.04629] · gems57-pooled-hide-v2 · n=45,260 withheld positives' in index
     assert 'paired Δ vs matched random -0.00291 [95% CI -0.00707, +0.00095]' in index
-    assert 'LATEST REVIEW · 2026-10-30' in index
+    assert 'LATEST REVIEW · 2026-10-31' in index
     assert 'HISTORICAL EXPERIMENT · SESSION arena/fb1e3550 · 29 OCT 2026' in index
     assert 'PRIOR CANDIDATE REVIEW · 29 OCT 2026' in index
     assert 'Historical experiment run card' in index
-    assert 'ORGANIZER-PUBLIC; live re-read 30 Oct 2026' in index
-    assert '0.3195 is rank #48' in index
+    assert 'ORGANIZER-PUBLIC; live re-read 31 Oct 2026' in index
+    assert '0.3195 is rank #50' in index
+    assert 'Five testable hypotheses; none validated or cleared.' in (ROOT/'docs/research.html').read_text()
     hub = (ROOT/'docs/submission-hub.html').read_text()
-    assert 'independent 30 Oct live re-read' in hub
-    assert '0.3195 at rank #48' in hub
+    assert '31 Oct live public read' in hub
+    assert '0.3195 at #50' in hub
     assert 'Neither 0.4413 nor 0.3195 was confirmed' not in hub
     focus = (ROOT/'docs/focus-sites.html').read_text()
-    assert 'Latest review 2026-10-30: no file cleared; this repository-safety review produced no candidate or score estimate' in focus
-    assert 'href="../evidence/session_cfabff7e_run_card.json"' in focus
-    assert 'href="../knowledge/session-review-arena-cfabff7e.md"' in index
-    assert 'href="../evidence/session_cfabff7e_run_card.json"' in index
+    assert 'Latest review 2026-10-31: no file cleared; no candidate or leaderboard estimate produced' in focus
+    assert 'href="../evidence/session_cd6c8044_run_card.json"' in focus
+    assert 'href="../knowledge/session-review-arena-cd6c8044.md"' in index
+    assert 'href="../evidence/session_cd6c8044_run_card.json"' in index
     assert 'No defensible forecast' in (ROOT/'docs/executive-summary.html').read_text()
 
 
@@ -70,7 +71,7 @@ def test_evidence_strict_json():
 def test_current_review_renderer_fails_closed(tmp_path, monkeypatch):
     from scripts import render_site
 
-    card = json.loads((ROOT/'evidence/session_cfabff7e_run_card.json').read_text())
+    card = json.loads((ROOT/'evidence/session_cd6c8044_run_card.json').read_text())
     assert render_site.current_review()['verdict'] == 'negative'
     card['ok_to_submit'] = True
     candidate = tmp_path/'current-review.json'
