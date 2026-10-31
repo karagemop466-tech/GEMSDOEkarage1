@@ -38,12 +38,13 @@
   "geological_experiments_run": 0,
   "software_tests": {
     "command": ".venv/bin/python -m pytest -q -rs",
-    "passed": 446,
+    "passed": 447,
     "failed": 0,
-    "skipped": 2,
+    "skipped": 3,
     "warnings": 126,
     "skip_reasons": [
       "Absent ignored bridge rasters required for a data-dependent focus-site audit.",
+      "Core competition data not restored for the new nine-site format receipt test.",
       "Competition sample grid absent for a data-dependent validator test."
     ],
     "meaning": "Software tests only; not geological or leaderboard validation."
