@@ -46,7 +46,7 @@ Reading the uniqueness column: under the protocol's >70% rule applied in **eithe
 
 Possibly, but nothing here shows it. The only validated improvement is the H-V31 holdout gain over random, which is measured on a proxy. Its leaderboard effect is unknown. The leaderboard leader is 0.4544 (ORGANIZER-PUBLIC); the target 0.3195 (rank 48) is above every USER-REPORTED focus value (highest 0.2778), a re-upload of an existing focus file would reproduce its existing value, so reaching 0.3195 needs a new file, and no new file has an organizer score. Beating 0.3195 requires an organizer-scored submission, and the lattice gate blocks every dotted candidate from being submitted under the literal rule.
 
-Hypotheses, ranked by expected DTI gain and cost, are in `knowledge/hypotheses-20261031.md`. Top: H-P1 (credit-aware dot budget, cheapest, no new data), then H-B1 (buried basin-bounding faults via depth-to-basement), then H-A1 (catalogue-adjacent truth, highest value but needs a holdout-design decision). All are **not run**: the experiment budget (3) is spent.
+Hypotheses, ranked by expected DTI gain and cost, are in `knowledge/hypotheses-8e91c377-20261031.md`. Top: H-P1 (credit-aware dot budget, cheapest, no new data), then H-B1 (buried basin-bounding faults via depth-to-basement), then H-A1 (catalogue-adjacent truth, highest value but needs a holdout-design decision). All are **not run**: the experiment budget (3) is spent.
 
 ## 4. Multi-pass review record
 
@@ -70,7 +70,7 @@ Hypotheses, ranked by expected DTI gain and cost, are in `knowledge/hypotheses-2
 | Obvious whether OK to submit | Yes: **NO**, on every page and in the run card (`ok_to_submit: false`). |
 | Validation gates without human intervention | Scripted: validator, saved-byte audit, uniqueness, surface check, canary. Lattice gate fails and blocks. Owner decision needed (section 6). |
 | Explain B2 0.2778 and whether a higher score is achievable | Section 2 and 3. Labeled. |
-| 3–5 untried hypotheses, ranked by DTI gain and cost | Done: five, `knowledge/hypotheses-20261031.md`. |
+| 3–5 untried hypotheses, ranked by DTI gain and cost | Done: five, `knowledge/hypotheses-8e91c377-20261031.md`. |
 | Validate top candidate on spatially blocked holdout before any slot | Done (H-V31, PASS_HOLDOUT_ONLY). No slot used. |
 | Target beat 0.3195; ideally 0.4544 | **Not demonstrated.** No organizer receipt. Cannot be shown from this repo. |
 | Prompt in README and read every session | Added to README (section below the current block). |
@@ -115,4 +115,4 @@ Limitations:
 - Run card: `evidence/run_card_h31_20261031.json`.
 - Evidence: `evidence/focus_nine_audit_20261031.json`, `evidence/h31_holdout_20261031.json`, `evidence/h31_holdout_20261031_buffer20_posthoc.json`, `evidence/h31_final_20261031.json`, `evidence/audit_h31_candidate_saved_bytes_20261031.json`, `evidence/nine_site_executive_20261031.json`.
 - Preregistration: `knowledge/preregistration-h31-visgrad-20261031.md`.
-- Hypotheses: `knowledge/hypotheses-20261031.md`. Sources: `knowledge/official-sources-20261031.md`.
+- Hypotheses: `knowledge/hypotheses-8e91c377-20261031.md`. Sources: `knowledge/official-sources-20261031.md`.

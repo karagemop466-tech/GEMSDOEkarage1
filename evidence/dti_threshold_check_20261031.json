@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-31",
+  "scope": "software verification of vendor/gems57/metric.py on random grids; no competition data",
+  "soft_grids": 40,
+  "max_abs_err_exact_vs_bruteforce": 1.6653345369377348e-16,
+  "max_abs_err_binary_vs_exact": 1.1102230246251565e-16,
+  "marginal_rule_agreement": "300/300",
+  "nonredundant_bar_violations": 0,
+  "pass": true
+}

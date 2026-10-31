@@ -121,7 +121,7 @@
   ],
   "limitations": [
     "No organizer receipt exists for any file in this repository; no leaderboard estimate is available.",
-    "The buffer of 1 km removes any hidden truth within about 2.8 px of visible catalogue traces, so the holdout cannot measure the adjacency trade-off that the metric's marginal rule makes important (knowledge/hypotheses-20261031.md, H-A1).",
+    "The buffer of 1 km removes any hidden truth within about 2.8 px of visible catalogue traces, so the holdout cannot measure the adjacency trade-off that the metric's marginal rule makes important (knowledge/hypotheses-8e91c377-20261031.md, H-A1).",
     "Random placement is a strong control under this metric (0.0773 HOLDOUT-DTI), so holdout values are not comparable to leaderboard values (0.26\u20130.28, USER-REPORTED)."
   ]
 }
