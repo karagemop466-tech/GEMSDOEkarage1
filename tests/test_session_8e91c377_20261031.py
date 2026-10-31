@@ -152,7 +152,7 @@ def test_rendered_pages_never_claim_clearance_and_show_session_block():
     for rel in ("index.html", "docs/index.html", "docs/executive-summary.html"):
         assert 'id="session-20261031"' in (ROOT / rel).read_text(encoding="utf-8"), rel
     live = (ROOT / "docs/submission-20261031.html").read_text(encoding="utf-8")
-    assert "OK to download and submit: NO" in live
+    assert "OK to download and submit: NO." in live
     assert "NOT CLEARED" in live
 
 

@@ -63,5 +63,12 @@
     "site_build_status": "passed; deterministic static pages generated",
     "diff_check": "git diff --check passed",
     "scope": "Software/site verification only; not geological validation."
+  },
+  "historical_kp1_recheck": {
+    "label": "MEASURED existing audit; not a new candidate and not full-registry clearance",
+    "source": "evidence/uniqueness_recheck_kp1_20261031.json (merged from arena/4dffc2c6)",
+    "max_abs_spearman_vs_nine_focus_rasters": 0.013636,
+    "max_candidate_dots_within_3px_of_one_focus_raster": 0.265281,
+    "scope": "Nine locally pinned focus rasters only; complete organizer registry not available."
   }
 }
