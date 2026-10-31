@@ -237,7 +237,7 @@ def test_local_and_peer_evidence_verifies_all_9_local_tifs():
     # The current session's cleared artifact is audited by its own release gate, which
     # re-runs the shared validator on the saved bytes and records the digest on disk.
     gate = json.loads((ROOT / "evidence" / "kp1_release_gate.json").read_text())
-    assert gate["decision"]["ok_to_submit"] is True and gate["decision"]["slots_used"] == 0
+    assert gate["decision"]["ok_to_submit"] is False and gate["decision"]["slots_used"] == 0  # 31 Oct 2026: listed-site check fails
     assert gate["format"]["all_checks_passed"] is True
     assert gate["tif"] in actual_tifs
     later_tifs.add(gate["tif"])

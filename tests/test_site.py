@@ -33,6 +33,7 @@ def test_site_links_and_negative_banner():
     assert 'DO NOT SUBMIT' in index
     assert 'No approved .tif to download' in index
     assert 'Latest review 2026-10-31: one H-E1 file is downloadable for owner review only' in index
+    assert 'NO FILE CLEARED' in index
     assert 'DO NOT SUBMIT · HOLD' in index
     assert 'Download: yes, one owner-review file (H-E1, last row). Submit: no, hold.' in index
     assert 'submit-he1-20261031.html' in index

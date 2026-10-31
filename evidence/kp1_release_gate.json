@@ -376,12 +376,35 @@
     ]
   },
   "decision": {
-    "ok_to_submit": true,
+    "ok_to_submit": false,
     "basis": [
       "saved-byte format preflight passed",
-      "literal uniqueness rules passed",
+      "literal uniqueness rules passed (nine focus files)",
       "no positive mass inside the mapped-catalogue corridor"
     ],
+    "failed_checks": [
+      "listed_sites"
+    ],
+    "listed_sites_check": {
+      "receipt": "evidence/kp1_uniqueness_vs_listed_sites_20261031.json",
+      "passes": false,
+      "max_overlap": {
+        "value": 0.997812,
+        "file": "data/peers/buffedlizard55-lab__13GEMSDOE/docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+        "origin": "buffedlizard55-lab/13GEMSDOE",
+        "passes": false
+      },
+      "origins_over_limit": [
+        "buffedlizard55-lab/13GEMSDOE",
+        "buffedlizard55-lab/15GEMSDOE",
+        "buffedlizard55-lab/61GEMSDOE",
+        "buffedlizard55-lab/GEMSDOE22",
+        "buffedlizard55-lab/GEMSDOE3",
+        "buffedlizard55-lab/GEMSDOE50",
+        "buffedlizard55-lab/GEMSDOE67",
+        "buffedlizard55-lab/GEMSDOE77"
+      ]
+    },
     "not_basis": [
       "no organizer receipt for this file",
       "no validated leaderboard estimate",

@@ -1,11 +1,18 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-> **CURRENT CHECKOUT REVIEW — NEGATIVE / DO NOT SUBMIT.** This repository contains conflicting historical clearance notices. The current branch review did not generate or validate a new candidate, and the checked-in KP1 `promote` record does not establish authorization under the present unassigned-lane, incomplete-registry and fail-closed preflight conditions. No file is cleared by this review. See [repository review](knowledge/repo-review-20261031.md) and rerun required validations before any upload. This notice supersedes older session banners below; those are retained as historical records.
-
 ## CORE VALUES — focal point for every decision
 
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
+
+## ▶ CURRENT VERDICT — 31 Oct 2026 · `arena/a0f55a6a-gemsdoekarage1` · **NOT OK TO DOWNLOAD OR SUBMIT**
+
+- **KP1 GeoTIFF: NOT cleared.** It passes format and the nine-focus-file rule, but **99.78 %** of its dots lie within 3 px of the GEMSDOE13 lattice raster, a listed site (limit 70 %). The earlier "promote" receipt checked only the nine focus files and was wrong.
+- **Nothing submitted; no slot spent; no file cleared.** Best known: `registry/GEMSDOE32_B2.tif`, 0.2778 (USER-REPORTED; already listed; DO NOT RESUBMIT).
+- KP1's 0.2789 is a **PROJECTION**, not a score. On the off-catalogue instrument it is below all nine focus files (HOLDOUT-DTI 0.0764 vs 0.0934–0.1012).
+- Review, per-site table, sources, irregularities, re-run commands: `knowledge/review-arena-a0f55a6a-20261031.md`. Receipts: `evidence/kp1_release_gate.json` and `evidence/kp1_uniqueness_vs_listed_sites_20261031.json`.
+
+**Standing prompt:** `# SESSION PROMPT — FULL TEXT` below. Label every number HOLDOUT-DTI, ORGANIZER-CONFIRMED, PROJECTED or USER-REPORTED. Stop and ask when ambiguous.
 
 ## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **NEGATIVE: DO NOT SUBMIT**
 
@@ -702,7 +709,7 @@ No competition slot was selected or spent in this session.
 
 Place at the top of the DrivenData Geologic Enhanced Mapping System (GEMS) Prize Challenge by producing a single-band float32 GeoTIFF of fault probabilities. Competition: https://www.drivendata.org/competitions/306/competition-doe-gems/
 
-Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one float32 layer; values in [0, 1]; outside bounds null or NaN. Score is distance-weighted Tversky index, α=0.2, β=0.8, 300 m triangular kernel. Three submissions per week; close 2026-12-03 23:59 UTC. Original work only.
+Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one float32 layer; values in [0, 1]; outside bounds null or NaN. Score is distance-weighted Tversky index, α=0.2, β=0.8, 300 m triangular kernel. Three submissions per week; competition end Dec. 3, 2026, 11:59 p.m. UTC (competition homepage; the rules PDF defers dates to it). Generative-AI use must be disclosed in the narrative (rules PDF). Individual competitors must be U.S. citizens or permanent residents. Original work only.
 
 ## Highest-Urgency Requirements
 

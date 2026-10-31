@@ -1,0 +1,211 @@
+{
+ "schema": "karage1-kp1-independent-verification-v1",
+ "footprint": {
+  "definition": "finite cells of the NaN-outside registry rasters (= organizer sample footprint)",
+  "cells": 5167373,
+  "nan_outside_files": [
+   "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+   "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+   "GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif",
+   "GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif"
+  ],
+  "masks_identical": true,
+  "kp1_positives_inside_footprint": 32000,
+  "kp1_positives_outside_footprint": 0,
+  "kp1_values_outside_footprint_all_zero": true
+ },
+ "date": "2026-10-31",
+ "purpose": "Data-free re-check of the K-PROXY-DETECT GeoTIFF from the saved bytes.",
+ "official_rules_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+ "identity": {
+  "file": "docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+  "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "bytes": 128570,
+  "sha256_matches_gate_receipt": true,
+  "bytes_match_gate_receipt": true
+ },
+ "format": {
+  "single_band": true,
+  "dtype_float32": true,
+  "crs_epsg_32611": true,
+  "resolution_100m": true,
+  "unrotated": true,
+  "all_pixels_finite": true,
+  "values_in_0_1": true,
+  "no_masked_pixels": true,
+  "shape_matches_registry": true,
+  "transform_matches_registry": true,
+  "crs_matches_registry": true,
+  "all_checks_pass": true
+ },
+ "uniqueness": {
+  "registry_rule": {
+   "rho_limit": 0.9,
+   "overlap_limit": 0.7,
+   "registry_files": 9,
+   "max_abs_spearman": 0.007607,
+   "max_kp1_dots_within_3px": 0.265281,
+   "passes_rho": true,
+   "passes_overlap": true
+  },
+  "registry_detail": [
+   {
+    "file": "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+    "abs_spearman": 0.004695,
+    "kp1_dots_within_3px_of_it": 0.258625,
+    "its_positives": 60069,
+    "dense_artifact": false
+   },
+   {
+    "file": "GEMSDOE25_d28.tif",
+    "abs_spearman": 0.005309,
+    "kp1_dots_within_3px_of_it": 0.245844,
+    "its_positives": 44090,
+    "dense_artifact": false
+   },
+   {
+    "file": "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+    "abs_spearman": 0.004788,
+    "kp1_dots_within_3px_of_it": 0.265281,
+    "its_positives": 61328,
+    "dense_artifact": false
+   },
+   {
+    "file": "GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif",
+    "abs_spearman": 0.006026,
+    "kp1_dots_within_3px_of_it": 0.236344,
+    "its_positives": 37660,
+    "dense_artifact": false
+   },
+   {
+    "file": "GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif",
+    "abs_spearman": 0.005309,
+    "kp1_dots_within_3px_of_it": 0.245844,
+    "its_positives": 44090,
+    "dense_artifact": false
+   },
+   {
+    "file": "GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif",
+    "abs_spearman": 0.006235,
+    "kp1_dots_within_3px_of_it": 0.23925,
+    "its_positives": 40199,
+    "dense_artifact": false
+   },
+   {
+    "file": "GEMSDOE32_B2.tif",
+    "abs_spearman": 0.006898,
+    "kp1_dots_within_3px_of_it": 0.232063,
+    "its_positives": 37654,
+    "dense_artifact": false
+   },
+   {
+    "file": "GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif",
+    "abs_spearman": 0.006019,
+    "kp1_dots_within_3px_of_it": 0.243062,
+    "its_positives": 41865,
+    "dense_artifact": false
+   },
+   {
+    "file": "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
+    "abs_spearman": 0.007607,
+    "kp1_dots_within_3px_of_it": 0.243219,
+    "its_positives": 38854,
+    "dense_artifact": false
+   }
+  ],
+  "other_local_same_grid_sparse_files": {
+   "count": 40,
+   "max_kp1_dots_within_3px": 0.415938,
+   "max_abs_spearman": 0.019219,
+   "passes_overlap": true
+  },
+  "dense_research_rasters_excluded_from_rule": {
+   "count": 2,
+   "note": "Each has more than 1000000 positives, so almost any dot falls within 3 px of them. Their 100 % overlap is a density artifact, not duplication. They are not registry members and not organizer-scored files.",
+   "files": [
+    {
+     "file": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+     "abs_spearman": 0.009565,
+     "kp1_dots_within_3px_of_it": 1.0,
+     "its_positives": 3943064,
+     "dense_artifact": true
+    },
+    {
+     "file": "docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+     "abs_spearman": 0.014925,
+     "kp1_dots_within_3px_of_it": 1.0,
+     "its_positives": 5106385,
+     "dense_artifact": true
+    }
+   ]
+  },
+  "sparse_other_files": [
+   {
+    "file": "docs/downloads/DO-NOT-SUBMIT_karage1-catexcl-halo-r3-t0.292-20261031T010556Z-zeros.tif",
+    "abs_spearman": 0.019219,
+    "kp1_dots_within_3px_of_it": 0.415938,
+    "its_positives": 557271,
+    "dense_artifact": false
+   },
+   {
+    "file": "docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif",
+    "abs_spearman": 0.009827,
+    "kp1_dots_within_3px_of_it": 0.315094,
+    "its_positives": 37654,
+    "dense_artifact": false
+   },
+   {
+    "file": "archive/research-s1-20261029/karage1-s1-tmihg-ridge-offcat-20261029-zeros.tif",
+    "abs_spearman": 0.009701,
+    "kp1_dots_within_3px_of_it": 0.301469,
+    "its_positives": 37311,
+    "dense_artifact": false
+   },
+   {
+    "file": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-nan.tif",
+    "abs_spearman": 0.012815,
+    "kp1_dots_within_3px_of_it": 0.283094,
+    "its_positives": 37654,
+    "dense_artifact": false
+   },
+   {
+    "file": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-zeros.tif",
+    "abs_spearman": 0.012815,
+    "kp1_dots_within_3px_of_it": 0.283094,
+    "its_positives": 37654,
+    "dense_artifact": false
+   },
+   {
+    "file": "archive/research-he1-20261031/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+    "abs_spearman": 0.001445,
+    "kp1_dots_within_3px_of_it": 0.259219,
+    "its_positives": 37654,
+    "dense_artifact": false
+   },
+   {
+    "file": "archive/research-he1-20261031/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif",
+    "abs_spearman": 0.001445,
+    "kp1_dots_within_3px_of_it": 0.259219,
+    "its_positives": 37654,
+    "dense_artifact": false
+   },
+   {
+    "file": "docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-nan.tif",
+    "abs_spearman": 0.001445,
+    "kp1_dots_within_3px_of_it": 0.259219,
+    "its_positives": 37654,
+    "dense_artifact": false
+   }
+  ]
+ },
+ "content": {
+  "positives": 32000,
+  "unique_values": [
+   0.0,
+   1.0
+  ],
+  "mean": 0.002606041455604455
+ },
+ "verdict_scope": "format and uniqueness only. Not an organizer receipt, not a score, not a leaderboard estimate. Score projection lives in the gate receipt and is labelled PROJECTED.",
+ "all_gates_pass": true
+}

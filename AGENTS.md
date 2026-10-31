@@ -1,5 +1,7 @@
 # Starting point for every session
 
+**CURRENT VERDICT (31 Oct 2026, `arena/a0f55a6a-gemsdoekarage1`): KP1 is NOT OK to download or submit.** It fails the literal uniqueness rule against the listed GEMSDOE repositories (99.78 % of dots within 3 px of GEMSDOE13's lattice; limit 70 %). Read `README.md` (top block and the "SESSION PROMPT — FULL TEXT" section) and `knowledge/review-arena-a0f55a6a-20261031.md` first. The older "CURRENT SESSION … 9a378959" block below is superseded by this verdict.
+
 **CURRENT SESSION (2026-10-31, `arena/9a378959-gemsdoekarage1`): read `knowledge/kp1-why-gemsdoe32-scored-02778.md`, `knowledge/kp1-preregistration-20261031.md` and `evidence/kp1_run_card.json` first.** Verdict: **PROMOTE one file** — `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`. Format-valid on the saved bytes (15/15), unique against all nine focus rasters (max |Spearman| 0.0076, max 3-px overlap 26.5 %), zero mass inside the 2-px catalogue corridor, **PROJECTED** 0.2789 (not a score). No slot was spent.
 
 Three things a new session must not re-litigate, because they are measured:

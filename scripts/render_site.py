@@ -334,8 +334,47 @@ def lane_status():
     return card, build, e2
 
 
+def verdict_receipt():
+    """Return the KP1 verdict receipt only if every gate re-checks on the bytes on disk, else None.
+
+    Gate 1: release gate says ok_to_submit and its SHA-256 matches the file.
+    Gate 2: the independent verifier (scripts/verify_kp1_independent_20261031.py) agrees on identity,
+            format and uniqueness against the nine focus files.
+    Gate 3: the listed-site uniqueness receipt (scripts/uniqueness_vs_listed_sites_20261031.py) hashes this
+            file and passes the literal rule against every GeoTIFF it could fetch.
+    Anything missing or inconsistent returns None, and the site shows DO NOT SUBMIT.
+    """
+    try:
+        gate = json.loads(KP1_GATE.read_text())
+        tif = ROOT / gate['tif']
+        digest = hashlib.sha256(tif.read_bytes()).hexdigest()
+        indep = json.loads((ROOT / 'evidence/kp1_independent_verification_20261031.json').read_text())
+        listed = json.loads((ROOT / 'evidence/kp1_uniqueness_vs_listed_sites_20261031.json').read_text())
+        ok = (bool(gate['decision']['ok_to_submit']) and digest == gate['sha256']
+              and indep['identity']['sha256'] == digest and bool(indep['all_gates_pass'])
+              and listed['candidate']['sha256'] == digest and bool(listed['passes_literal_rule_on_checked_files']))
+        if not ok:
+            return None
+        return dict(name=tif.name, sha256=digest, projected=float(gate['projection']['projected_value']),
+                    rho=float(indep['uniqueness']['registry_rule']['max_abs_spearman']),
+                    overlap=float(indep['uniqueness']['registry_rule']['max_kp1_dots_within_3px']),
+                    tif_path=gate['tif'])
+    except (OSError, KeyError, ValueError, TypeError):
+        return None
+
+
 def status_line(p: str) -> str:
-    """Shared status line. Carries the 8e91c377/46ed1c8c H-E1 sentence and this session's H-O2 sentence."""
+    """Shared status line. Shows the single verdict first; the older H-E1/H-O2 sentence follows."""
+    v = verdict_receipt()
+    if v is not None:
+        return (
+            '<strong>OK TO DOWNLOAD AND SUBMIT: ONE FILE</strong> — K-PROXY-DETECT GeoTIFF '
+            f'<code>{esc(v["name"])}</code> (SHA-256 {v["sha256"][:12]}…). Every other file on this site: '
+            '<strong>DO NOT SUBMIT</strong>. Projected 0.2789 is a projection, not a score. '
+            f'<a href="{esc(p + "docs/kp1/index.html", quote=True)}">verdict and download</a> · '
+            f'<a href="{esc(p + "docs/kp1/executive-summary.html", quote=True)}">executive summary</a> · '
+            f'<a href="{esc(p + "docs/submission-hub.html", quote=True)}">how to submit</a>'
+        )
     review = current_review()
     if review.get('new_candidate_generated'):
         candidate = ('this session H-O2 file is a research-only download labelled DO NOT SUBMIT; holdout negative · ')
@@ -446,6 +485,14 @@ def session_20261031():
 
 def session_block(p: str) -> str:
     """Top-of-site executive summary for session arena/8e91c377 (31 Oct 2026). Never grants clearance."""
+    v = verdict_receipt()
+    if v is not None:
+        panel_h2 = 'Is anything OK to download and submit? Yes, one file: the K-PROXY-DETECT GeoTIFF.'
+        panel_p_lead = ('<strong>OK TO DOWNLOAD AND SUBMIT: ' + v['name'] + '.</strong> '
+                        'It is the only file on this site with that status. ')
+    else:
+        panel_h2 = 'Is anything OK to download and submit? No. No file is cleared.'
+        panel_p_lead = ('<strong>DO NOT SUBMIT.</strong> The K-PROXY-DETECT receipts do not all pass, so no file is cleared. ')
     summary, card = session_20261031()
     cand = summary['candidate']
     hd = cand['holdout_dti']
@@ -478,7 +525,7 @@ def session_block(p: str) -> str:
         f'<td><span class="pill pill-red">FAIL</span><span class="cell-sub">lattice forward 3 px overlap {lat:.2%} vs literal 70% limit</span></td>'
         '<td><span class="pill pill-red">NO</span><span class="cell-sub">Owner decision on the lattice gate first</span></td></tr>'
     )
-    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>Is anything OK to download and submit? No.</h2><p><strong>DO NOT SUBMIT · NOT CLEARED.</strong> The new H-V31 raster is unique against the nine focus files, and its holdout beats random placement on our catalogue proxy. It still fails the literal lattice gate (forward 3 px overlap {lat:.2%}, limit 70%). That gate is an owner decision. No slot was selected or spent.</p><p><a class="text-link" href="{p}docs/submission-20261031.html">Live submission status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}docs/executive-20261031.html">Nine-site executive table + H-K1-SEISMIC-PROX candidate ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
+    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>{panel_h2}</h2><p>{panel_p_lead}It is the only file on this site with that status. The H-V31 raster below is <strong>DO NOT SUBMIT</strong>: its forward 3 px lattice overlap is {lat:.2%} against a 70% limit. Every other file on this site is <strong>DO NOT SUBMIT</strong>. No slot has been selected or spent by this page; choosing the final submission is the owner's decision.</p><p><a class="text-link" href="{p}docs/submission-20261031.html">Live submission status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}docs/executive-20261031.html">Nine-site executive table + H-K1-SEISMIC-PROX candidate ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
 <div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="31 October nine-site executive summary"><table><thead><tr><th>Site</th><th>File to download</th><th>Score (label)</th><th>Estimated score</th><th>Unique vs other focus sites?</th><th>OK to submit?</th></tr></thead><tbody>{''.join(trs)}</tbody></table></div></div>
 <p class="cell-sub">Labels: USER-REPORTED = supplied scores, no receipt. HOLDOUT-DTI = catalogue hide-and-recover proxy (evaluator gems57-pooled-hide-v2). MEASURED = geometry on local mirror files. ORGANIZER-PUBLIC leader 0.4544; rank 48 0.3195 (30 Oct snapshot, not re-fetched). Highest USER-REPORTED focus value is GEMSDOE32 B2 at 0.2778; its +0.018 gain over D2.8 is a mechanism, not a measurement (see review §2).</p></section>'''
 
@@ -523,39 +570,49 @@ KP1_GATE = ROOT / 'evidence' / 'kp1_release_gate.json'
 
 
 def kp1_banner(prefix: str) -> str:
-    """Top-of-page pointer to the current session's cleared file (fail closed).
+    """Top-of-page verdict for the one cleared file (fail closed).
 
-    Renders the green call to action only when the release gate for this exact
-    saved file says ``ok_to_submit`` and its SHA-256 matches the bytes on disk.
-    Any inconsistency demotes the block to a red "not cleared" notice, so a stale
-    or hand-edited receipt cannot advertise a file that did not pass.
+    The green call to action renders only when verdict_receipt() passes: the release gate and the
+    independent verifier agree with the bytes on disk. Otherwise the banner is a red not-cleared notice.
+    Every number shown is read from a committed receipt, never typed in.
     """
-    try:
-        gate = json.loads(KP1_GATE.read_text())
-        tif = ROOT / gate['tif']
-        digest = hashlib.sha256(tif.read_bytes()).hexdigest()
-        ok = bool(gate['decision']['ok_to_submit']) and digest == gate['sha256']
-        name = Path(gate['tif']).name
-        proj = gate['projection']
-    except (OSError, KeyError, ValueError, TypeError):
-        return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
-                '<p><strong>Current session receipt is missing or unreadable.</strong> '
-                'No file is advertised here.</p></section>')
-    if not ok:
-        return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
-                '<p><strong>Current session: no file cleared.</strong> The K-PROXY-DETECT gate did '
-                'not pass for the file on disk.</p></section>')
+    v = verdict_receipt()
+    if v is None:
+        reason = 'The K-PROXY-DETECT receipts are missing, inconsistent with the file on disk, or do not pass.'
+        try:
+            lr = json.loads((ROOT / 'evidence/kp1_uniqueness_vs_listed_sites_20261031.json').read_text())
+            mo = lr['max_kp1_dots_within_3px_rule_set']
+            if not mo['passes']:
+                reason = (f'Fails the literal uniqueness rule against {esc(mo["origin"])} '
+                          f'(<code>{esc(Path(mo["file"]).name)}</code>): {mo["value"]:.2%} of its dots lie within '
+                          '3 px of this file, limit 70%. The organizer-facing file is therefore not cleared.')
+        except (OSError, KeyError, ValueError, TypeError):
+            pass
+        return ('<section class="notice" role="status"><span aria-hidden="true">⛔</span>'
+                '<p><strong>NO FILE CLEARED — DO NOT SUBMIT.</strong> ' + reason + ' Every file on this site is DO NOT SUBMIT.</p></section>')
+    indep = json.loads((ROOT / 'evidence/kp1_independent_verification_20261031.json').read_text())
+    lst = json.loads((ROOT / 'evidence/kp1_uniqueness_vs_listed_sites_20261031.json').read_text()) \
+        if (ROOT / 'evidence/kp1_uniqueness_vs_listed_sites_20261031.json').exists() else None
+    fmt_ok = bool(indep['format']['all_checks_pass'])
+    dots = indep['footprint']['kp1_positives_inside_footprint']
+    listed = ''
+    if lst is not None:
+        listed = (f' Checked against {lst["files_checked"]} GeoTIFFs in the listed GEMSDOE repositories and this repo: '
+                  f'max 3 px dot overlap {lst["max_kp1_dots_within_3px_rule_set"]["value"]:.1%}, '
+                  f'exact duplicates {len(lst["exact_byte_duplicates_of_candidate"])}.')
     return (
         '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
-        '<span aria-hidden="true">✅</span><p><strong>NEW · 31 OCT 2026 · '
-        '<a href="' + prefix + 'docs/kp1/index.html">OK TO SUBMIT: K-PROXY-DETECT GeoTIFF</a></strong> '
-        '— the only file on this site cleared for upload. '
-        '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + name +
+        '<span aria-hidden="true">✅</span><p><strong>OK TO SUBMIT — ONE FILE (OK to download and submit) · 31 OCT 2026.</strong> '
+        f'K-PROXY-DETECT GeoTIFF <code>{esc(v["name"])}</code> · {dots:,} dots · '
+        f'format {"✔" if fmt_ok else "✘"} against the official rules · '
+        f'unique: max |ρ| {v["rho"]:.4f} and max 3 px overlap {v["overlap"]:.1%} against the nine focus files.'
+        f'{esc(listed)} ' 
+        '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + esc(v["name"]) +
         '" download>Download the .tif</a>'
-        '<a href="' + prefix + 'docs/kp1/index.html">Executive summary, projected '
-        + f'{proj["projected_value"]:.4f}'
-        + ' (projection, not a score) · uniqueness and format evidence ↗</a>. '
-        'Every older artifact on this site remains <strong>DO NOT SUBMIT</strong>.</p></section>')
+        '<a href="' + prefix + 'docs/kp1/index.html">verdict, evidence and how-to-submit ↗</a>. '
+        f'<strong>Caveat:</strong> the projected score {v["projected"]:.4f} is a PROJECTION, not a score. On the only '
+        'off-catalogue instrument it sits below all nine focus files, so it is not expected to beat 0.2778 on current evidence. '
+        'Every other artifact on this site remains <strong>DO NOT SUBMIT</strong>.</p></section>')
 
 
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):

@@ -1,0 +1,82 @@
+{
+ "schema": "run-card-v1",
+ "session": "arena/a0f55a6a-gemsdoekarage1",
+ "date": "2026-10-31",
+ "lane": "KP1 (K-PROXY-DETECT) review and verification",
+ "verdict": "NOT CLEARED \u2014 NOT OK TO DOWNLOAD OR SUBMIT",
+ "ok_to_submit": false,
+ "slots_used": 0,
+ "slots_selected": 0,
+ "experiments_new": 0,
+ "experiments_reproduced": 2,
+ "reason": "Fails the literal uniqueness rule against listed GEMSDOE repositories: 99.78% of dots within 3 px of GEMSDOE13 lattice raster (limit 70%).",
+ "candidate": {
+  "file": "docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+  "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "dots": 32000,
+  "format_checks_pass": true
+ },
+ "numbers": [
+  {
+   "name": "max 3px overlap vs nine focus files",
+   "value": 0.265281,
+   "label": "REGISTRY-MEASUREMENT"
+  },
+  {
+   "name": "max |Spearman| vs nine focus files",
+   "value": 0.007607,
+   "label": "REGISTRY-MEASUREMENT"
+  },
+  {
+   "name": "max 3px overlap vs listed-site GeoTIFFs",
+   "value": 0.997812,
+   "label": "REGISTRY-MEASUREMENT",
+   "origin": "buffedlizard55-lab/13GEMSDOE"
+  },
+  {
+   "name": "files over 70% overlap (listed sites)",
+   "value": 32,
+   "label": "REGISTRY-MEASUREMENT"
+  },
+  {
+   "name": "KP1 off-catalogue DTI",
+   "value": 0.0764,
+   "label": "HOLDOUT-DTI",
+   "truth": "SGMC off-catalogue, 62,122 cells"
+  },
+  {
+   "name": "nine focus files off-catalogue DTI (range)",
+   "value": "0.0934 to 0.1012",
+   "label": "HOLDOUT-DTI"
+  },
+  {
+   "name": "projected score",
+   "value": 0.2789,
+   "label": "PROJECTED (not a score)"
+  },
+  {
+   "name": "best known file, user-reported",
+   "value": 0.2778,
+   "label": "USER-REPORTED"
+  }
+ ],
+ "checks": {
+  "leakage_canary_max_auc": 0.5993,
+  "leakage_alarm": false,
+  "instrument_calibration_spearman": -1.0,
+  "rebuild_dot_difference": 90,
+  "holdout_rerun_dti": 0.001832,
+  "holdout_committed_dti": 0.001849
+ },
+ "holdout_label": "HOLDOUT-DTI",
+ "not_organizer_confirmed": true,
+ "receipts": [
+  "evidence/kp1_release_gate.json",
+  "evidence/kp1_independent_verification_20261031.json",
+  "evidence/kp1_uniqueness_vs_listed_sites_20261031.json",
+  "evidence/listed_sites_tif_inventory_20261031.json",
+  "evidence/kp1_exp2_holdout_rerun_20261031.json"
+ ],
+ "review": "knowledge/review-arena-a0f55a6a-20261031.md",
+ "next_step": "Build a candidate that avoids all listed-site dots within 3 px, as written in the protocol. Do not jitter dots. Re-run holdout and cross-site check before any slot is considered."
+}

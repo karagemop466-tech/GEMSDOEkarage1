@@ -258,12 +258,33 @@ def main(tif: Path) -> dict:
 
     proj = projection(cand, rows)
     fmt_ok = bool(fmt["all_checks_passed"])
+    # Cross-site receipt (added 31 Oct 2026): the nine focus files are not the whole comparison set.
+    # The user's protocol compares against every listed GEMSDOE site, and the lattice raster of
+    # GEMSDOE13 alone contains most of this file's dots. Missing, mismatched or failing -> not cleared.
+    cross_path = ROOT / "evidence" / "kp1_uniqueness_vs_listed_sites_20261031.json"
+    try:
+        cross = json.loads(cross_path.read_text())
+        cross_ok = (cross["candidate"]["sha256"] == fmt["sha256"]
+                    and bool(cross["passes_literal_rule_on_checked_files"]))
+        cross_detail = dict(receipt=str(cross_path.relative_to(ROOT)), passes=cross_ok,
+                            max_overlap=cross["max_kp1_dots_within_3px_rule_set"],
+                            origins_over_limit=cross["origins_over_overlap_limit"])
+    except (OSError, KeyError, ValueError, TypeError):
+        cross_ok = False
+        cross_detail = dict(receipt=str(cross_path.relative_to(ROOT)), passes=False, error="missing or unreadable")
     ok = fmt_ok and uniqueness["passes_rho_rule"] and uniqueness["passes_overlap_rule"] \
-        and cand["d_cat_le_2px_frac"] == 0.0
+        and cand["d_cat_le_2px_frac"] == 0.0 and cross_ok
     decision = dict(
         ok_to_submit=bool(ok),
-        basis=["saved-byte format preflight passed", "literal uniqueness rules passed",
-               "no positive mass inside the mapped-catalogue corridor"],
+        basis=["saved-byte format preflight passed", "literal uniqueness rules passed (nine focus files)",
+               "no positive mass inside the mapped-catalogue corridor"] + (
+               ["literal uniqueness rule passed against every listed-site GeoTIFF checked"] if cross_ok else []),
+        failed_checks=[] if ok else [k for k, v in {
+            "format": fmt_ok, "focus_rho": uniqueness["passes_rho_rule"],
+            "focus_overlap": uniqueness["passes_overlap_rule"],
+            "catalogue_corridor": cand["d_cat_le_2px_frac"] == 0.0,
+            "listed_sites": cross_ok}.items() if not v],
+        listed_sites_check=cross_detail,
         not_basis=["no organizer receipt for this file", "no validated leaderboard estimate",
                    "the holdout instrument is anti-correlated with the known leaderboard "
                    "ordering (see evidence/kp1_exp2_holdout.json instrument_calibration)"],
