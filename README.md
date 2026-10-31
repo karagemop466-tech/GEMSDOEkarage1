@@ -5,33 +5,21 @@
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
-## CURRENT SESSION — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · **PROMOTE: ONE FILE IS CLEARED**
+## CURRENT SESSION — `arena/fd3e38cf-gemsdoekarage1` (31 Oct 2026) · **NEGATIVE / DO NOT SUBMIT**
 
-**✅ OK TO SUBMIT:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif)
-· [.zip](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip)
-· [receipt](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.receipt.json)
+**No file is cleared. No new TIFF was generated, no candidate was validated, and no slot was selected or spent.** The assigned method lane and canonical shared-template assignment are unset; required cached inputs are missing; and preflight found vendored writer/uniqueness hashes inconsistent with their recorded pins. A new TIFF generated around those blockers would violate the parallel-run protocol. The old KP1 `promote` record is historical, not current authorization.
 
-32,000 dots, float32, EPSG:32611, values in [0, 1], zeros outside the footprint, **zero** pixels on the
-mapped catalogue. **Format 15/15 · max |ρ| vs the nine 0.0076 · max 3-px overlap 26.5 % · projection
-0.2789 (PROJECTED, not a score) · 0 slots spent.** Older artifacts remain **DO NOT SUBMIT**; the details,
-the tables and the metric arithmetic are in [`docs/kp1/index.html`](docs/kp1/index.html) and in
-“Session detail — K-PROXY-DETECT” at the end of this file.
-
-## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
-
-**Answer: no file is OK to download and submit. Verdict: NEGATIVE / DO NOT SUBMIT. No file is cleared; no weekly slot selected or spent.**
-
-- **Executive summary (per site table, uniqueness, download verdict):** [`docs/executive-summary.html`](docs/executive-summary.html). Top of the page.
-- **Candidate page with one-click research download, unique name, short comment, and the range-error fix:** [`docs/o2-candidate-20261031.html`](docs/o2-candidate-20261031.html). The file is `DO-NOT-SUBMIT_karage1-o2-lidar-scarp-halo-prune-37654-20261031-zeros.tif`.
-- **Best reported file:** GEMSDOE32 at 0.2778 (USER-REPORTED / UNVERIFIED). It is not unique (100% of its dots lie within 3 px of GEMSDOE24's file). Why it scored higher: [`knowledge/why-gemsdoe32-b2-20261031.md`](knowledge/why-gemsdoe32-b2-20261031.md).
-- **New candidate (H-O2, E1):** HOLDOUT-DTI 0.038756 (arm A 0.044417; matched random 0.045875; evaluator `gems57-pooled-hide-v2`, 45,260 withheld positives). Negative under the pre-registered rule (five of six criteria failed).
-- **Uniqueness gate:** the literal 70% dot-overlap rule fails against one local probability blanket (overlap 1.0). Every other local raster is at most 0.2539. This is an owner decision (IR-B1), not a clearance.
-- **Submission error "Predicted values must be in range [0, 1]":** the zeros file passes every local check. The NaN file is organizer-permitted but fails the repo's stricter all-finite policy; it is a fallback only.
-- **Review and run card:** [`knowledge/review-arena-9cf124bb-20261031.md`](knowledge/review-arena-9cf124bb-20261031.md) · [`evidence/run_card_arena_9cf124bb_20261031.json`](evidence/run_card_arena_9cf124bb_20261031.json).
-- **Next steps and limitations:** section 8 and section 9 of the review. The owner must decide the blanket policy and holdout alignment (IR-H1) before any further experiment.
-- **Superseded review:** [`knowledge/review-arena-946f7668-20261031.md`](knowledge/review-arena-946f7668-20261031.md).
-- **Verification:** `.venv/bin/python -m pytest -q -p no:cacheprovider` → 493 passed, 1 skipped, 0 failed (after merging origin/main again). This is software verification, not model validation.
+- **Current decision page:** [`docs/current-review-20261031.html`](docs/current-review-20261031.html) — no submission download is offered; nine-site table, score labels and research hypotheses.
+- **Three-pass review:** [`knowledge/session-review-arena-fd3e38cf-20261031.md`](knowledge/session-review-arena-fd3e38cf-20261031.md).
+- **Run card:** [`evidence/run_card_arena_fd3e38cf_20261031.json`](evidence/run_card_arena_fd3e38cf_20261031.json). Unrun HOLDOUT-DTI and validator values are null, not invented.
+- **Best reported focus-site artifact:** GEMSDOE32 B2, 0.2778 (USER-REPORTED / UNVERIFIED). The saved-byte lineage audit finds it is GEMSDOE25 minus 6,436 catalogue-adjacent dots, with no additions. The plausible false-positive mechanism is discussed in the review; causation is unproven and no leaderboard estimate is supportable.
+- **Preflight:** `python scripts/shared_tools.py preflight` returned exit 1; lane/template absent, data/cache missing, two vendored hash mismatches. No private evaluator or writer was used.
+- **Software verification:** `.venv/bin/python -m pytest -q -rs` → 518 passed, 4 data-dependent skips, 0 failed; `git diff --check` passed. Tests do not validate geology or the organizer score.
+- **Research slate:** H-SPEC cross-scale potential-field phase, H-CB-OFFSET conductivity/basement boundary displacement, H-TOPO-ASYM signed profile flexure, and joint H-E3 Euler depth coincidence are proposals only, not validated. H-SPEC is the first proposed holdout test once prerequisites are restored.
+- **Web pages:** this session hardens the generated banner and archived KP1 page so a stale historical technical gate cannot show “OK TO SUBMIT” or an active download button.
 - **Submission action:** none. Do not upload any file from this checkout.
+
+The following reviews are historical evidence only and do not supersede this session. Their candidate files, scores, holdout results, and promotion statements must not be treated as current clearance.
 
 
 ## PARALLEL REVIEW (read first) — session `arena/dcf0baf1-gemsdoekarage1` (31 Oct 2026)

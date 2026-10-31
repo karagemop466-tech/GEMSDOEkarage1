@@ -147,7 +147,7 @@ def test_instrument_calibration_records_the_inversion():
     assert "not the organizer metric" in e2["caveat"]
 
 
-def test_site_pages_are_rendered_from_the_gate():
+def test_site_pages_do_not_promote_archived_gate():
     import sys
     sys.path.insert(0, str(ROOT))
     from scripts import build_kp1_site
@@ -156,44 +156,32 @@ def test_site_pages_are_rendered_from_the_gate():
     index = (ROOT / "docs" / "kp1" / "index.html").read_text()
     assert gate["sha256"] in index
     assert f'{gate["projection"]["projected_value"]:.4f}' in index
-    assert "OK TO SUBMIT" in index
-    assert "Download the GeoTIFF" in index
+    assert "DO NOT SUBMIT" in index
+    assert "No submission download is offered" in index
+    assert 'href="../downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif" download' not in index
     assert "Table 1" in index
+    howto = (ROOT / "docs" / "kp1" / "how-to-submit.html").read_text()
+    assert "No TIF or ZIP download is offered" in howto
+    assert "Download</strong>" not in howto
     for rel in ("kp1/index.html", "kp1/executive-summary.html", "kp1/nine-sites.html",
                 "kp1/how-to-submit.html", "kp1/research.html", "kp1/sources.html"):
         assert (ROOT / "docs" / rel).is_file(), rel
 
 
-def test_landing_page_banner_is_fail_closed(tmp_path, monkeypatch):
+def test_landing_page_banner_never_trusts_archived_kp1_gate():
     import sys
     sys.path.insert(0, str(ROOT))
     from scripts import render_site
-    good = render_site.kp1_banner("")
-    assert "OK TO SUBMIT" in good and "Download the .tif" in good
-
-    # a receipt that clears nothing must demote the banner
-    tampered = tmp_path / "gate.json"
-    gate = load(GATE)
-    gate["decision"]["ok_to_submit"] = False
-    tampered.write_text(json.dumps(gate))
-    monkeypatch.setattr(render_site, "KP1_GATE", tampered)
-    assert "no file cleared" in render_site.kp1_banner("")
-
-    # a receipt describing different bytes must also demote the banner
-    gate["decision"]["ok_to_submit"] = True
-    gate["sha256"] = "0" * 64
-    tampered.write_text(json.dumps(gate))
-    assert "no file cleared" in render_site.kp1_banner("")
-
-    # a missing receipt must not raise
-    monkeypatch.setattr(render_site, "KP1_GATE", tmp_path / "nope.json")
-    assert "receipt is missing" in render_site.kp1_banner("")
+    banner = render_site.kp1_banner("")
+    assert "DO NOT SUBMIT" in banner and "no file is currently cleared" in banner
+    assert "current-review-20261031.html" in banner
+    assert ' download>' not in banner
 
 
 def test_old_artifacts_are_still_marked_do_not_submit():
     index = (ROOT / "docs" / "index.html").read_text()
-    assert "Every older artifact on this site remains" in index
     assert "DO NOT SUBMIT" in index
+    assert "no file is currently cleared" in index
     for name in ("GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30",
                  "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"):
         page = (ROOT / "docs" / "kp1" / "nine-sites.html").read_text()

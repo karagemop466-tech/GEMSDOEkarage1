@@ -141,21 +141,22 @@ def main() -> None:
     cov = gate["candidate_covariates"]
     uni = gate["uniqueness"]
     proj = gate["projection"]
-    ok = bool(gate["decision"]["ok_to_submit"])
-    status_class = "ok" if ok else "alert"
-    status_pill = '<span class="pill">OK TO SUBMIT</span>' if ok else '<span class="pill warn">DO NOT SUBMIT</span>'
+    # This is an archived technical receipt, not an active selector decision.
+    # The current checkout fails shared-template/lane/data preflight, so it must
+    # never become a green release merely because the historical bytes still hash.
+    ok = False
+    status_class = "alert"
+    status_pill = '<span class="pill warn">DO NOT SUBMIT</span>'
 
     # ---------------------------------------------------------------- index
     download_block = f"""<div class="{status_class}">
 <p style="margin:0 0 6px">{status_pill}</p>
 <p class="big">{'OK TO SUBMIT — this file is cleared for upload' if ok else 'DO NOT SUBMIT — this file is not cleared'}</p>
-<p>Download the single-band GeoTIFF, upload it to the DrivenData submission page, and nothing
-else. It is not a copy of any of the nine focus submissions, it is not built from them, and it
-uses no organizer-confirmed receipt because none exists.</p>
-<a class="download" href="../downloads/{TIF}" download>Download the GeoTIFF · {fmt['bytes'] / 1e6:.2f} MB</a>
-<a class="download alt" href="../downloads/{NAME}.zip" download>Download the .zip</a>
-<p style="margin-top:14px"><small>SHA-256 <code>{gate['sha256']}</code> — re-hashed on every build;
-the download links are rendered only while that digest matches.</small></p>
+<p>This is a historical research artifact only. Its old technical gate is not current
+protocol clearance: the active method lane and canonical shared-template assignment are absent,
+and the required data/cache are not present in this checkout. Do not upload this file.</p>
+<p><strong>No submission download is offered.</strong> Historical SHA-256 <code>{gate['sha256']}</code>
+identifies the archived bytes; it does not grant upload authorization.</p>
 </div>"""
 
     kpi_block = kpi([
@@ -189,7 +190,7 @@ the download links are rendered only while that digest matches.</small></p>
         (f"{proj['projected_value']:.4f} <small>PROJECTED</small>", "num"),
         (f"{cov['d_cat_le_2px_frac'] * 100:.2f} / {cov['d_cat_gt_15px_frac'] * 100:.1f} %", "num"),
         (f"{cmp_['candidate']['dti']:.4f}", "num"),
-        "<strong>Yes — this is the only cleared file</strong>",
+        "<strong>NO — historical research only; not cleared</strong>",
     ))
     table_one = table([
         "Site", "File", "Dots", "Leaderboard", "Estimated", "≤2 px / &gt;15 px from catalogue",
@@ -198,7 +199,7 @@ the download links are rendered only while that digest matches.</small></p>
 
     index_body = f"""
 <p class="eyebrow">GEMS Prize · task 1 · fault prediction · decision page</p>
-<h1>One file is cleared. It is unique, format-valid, and it is the only thing to upload.</h1>
+<h1>No file is cleared for upload in the current review.</h1>
 {download_block}
 {kpi_block}
 <h2>Table 1 — the nine focus sites, plus this session</h2>
@@ -458,33 +459,19 @@ metric rewards, which is why they are shown beside the reported score and not in
 on the literal 3-px rule (median {uni['nine_file_mutual_overlap']['median'] * 100:.1f} %), against a
 chance level of roughly 15 %. They are one covering of one support, sampled differently.</p>
 <h2>Which one to submit</h2>
-<p><strong>None.</strong> Resubmitting any of the nine buys nothing (they are already scored) and
-resubmitting a near-copy risks the duplicate rule. The only file this repository clears is the new
-one on the <a href="index.html">decision page</a>, and its status comes from a gate that re-validates
-the saved bytes every time the site is built.</p>
+<p><strong>None from this repository is cleared in the current review.</strong> The historical KP1
+file has a local technical receipt, but it predates the current lane/template preflight and is not
+active upload authorization. The saved file is not linked for download on these pages.</p>
 """
     write_atomic(OUT / "nine-sites.html", page("nine-sites.html", "The nine focus sites", nine_body))
 
     # -------------------------------------------------------- how to submit
     how_body = f"""
-<p class="eyebrow">How to submit</p>
-<h1>Three steps, no interpretation required</h1>
-<div class="{status_class}"><p class="big">The file on the decision page is cleared.</p>
-<p>If you are reading this page instead of the decision page: the file is
-<code>{TIF}</code>, SHA-256 <code>{gate['sha256']}</code>. If that digest does not match what you
-downloaded, stop.</p></div>
-<ol>
-<li><strong>Download</strong> <a href="../downloads/{TIF}" download>{TIF}</a>
-({fmt['bytes'] / 1e6:.2f} MB) or the <a href="../downloads/{NAME}.zip" download>.zip</a>
-(one GeoTIFF inside, so either form is accepted by the portal).</li>
-<li><strong>Upload it</strong> at the DrivenData submission page for the GEMS competition with:
-<ul>
-<li>name: <code>{card['submission_name']}</code></li>
-<li>note (≤140 characters): <code>{card['submission_note']}</code></li>
-</ul></li>
-<li><strong>Record the returned score</strong> next to the SHA-256 in the run card. That receipt is
-the only thing that can replace the projection with a measurement.</li>
-</ol>
+<p class="eyebrow">Submission guidance</p>
+<h1>No file in this historical lane is currently authorized for upload.</h1>
+<div class="{status_class}"><p class="big">DO NOT SUBMIT this archived candidate.</p>
+<p>Historical filename <code>{TIF}</code>; SHA-256 <code>{gate['sha256']}</code>. The digest is for audit only. No TIF or ZIP download is offered, and the old name/note are not current submission instructions.</p></div>
+<p>When a future candidate passes the assigned shared holdout, leakage canaries, complete registry uniqueness check, and saved-byte format validation, use the separate current-review decision page. Only then should a selector choose a weekly slot and provide a unique name and note.</p>
 <h2>What the portal will check, and what was already checked here</h2>
 {table(['Check', 'Result'], [
     (f"single band, float32, {fmt['checks'] and '3730 × 3292'}, EPSG:32611", "pass"),

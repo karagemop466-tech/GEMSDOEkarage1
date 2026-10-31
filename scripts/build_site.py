@@ -11,3 +11,5 @@ from scripts import build_kp1_site
 if __name__ == '__main__':
     main()
     build_kp1_site.main()
+    from scripts.build_current_review_fd3e38cf import main as build_current_review
+    build_current_review()

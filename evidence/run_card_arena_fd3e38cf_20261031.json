@@ -1,0 +1,67 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/fd3e38cf-gemsdoekarage1",
+  "date": "2026-10-31",
+  "hypothesis": "No candidate hypothesis is validated or assigned to an active lane in this checkout. The next research candidate proposed is cross-scale gravity\u2013magnetic phase stability (H-SPEC), subject to lane and template assignment.",
+  "mechanism": "A fault-related boundary may produce scale-persistent spatial phase relationships between isostatic gravity and magnetic fields even where their single-scale gradient maxima do not coincide. This is a research proposal only; no surface or dots were generated.",
+  "named_non_fault_process_that_could_mimic_it": "Lithologic or plutonic contacts, magnetic remanence, gridding artifacts, and survey-line leveling seams can produce coherent gravity\u2013magnetic boundaries without a fault.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "NOT RUN. Canonical lane/template assignment, feature stack, and organizer-authenticated data are absent; no private evaluator was substituted."
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_rank_correlation": null,
+    "final_dots_within_3px": null,
+    "registry_rasters_checked_for_new_candidate": 0,
+    "scope": "No candidate surface or dots exist to compare. Historical nine-site pairwise checks are recorded in docs/data/nine_site_executive_20261031.json; the full organizer registry is not accessible/authenticated.",
+    "duplicate_rule": "If absolute rank-correlation > 0.90 or >70% of candidate dots fall within 3 px of a registry raster, stop and record duplicate."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "NOT RUN; no new raster was written."
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "submission_note_character_limit": 140,
+  "download_available": false,
+  "ok_to_submit": false,
+  "slot_selected_or_spent": false,
+  "experiments_run": 0,
+  "preflight": {
+    "ready_for_shared_tools": false,
+    "lane_assigned": false,
+    "canonical_template_assignment_recorded": false,
+    "feature_stack_present": false,
+    "organizer_data_present_in_cache": false,
+    "template_integrity_execution_authorized": false,
+    "command": "python scripts/shared_tools.py preflight",
+    "exit_code": 1
+  },
+  "verdict": "negative",
+  "blockers": [
+    "registry/template.json has method_lane=null and canonical_template_assignment=null.",
+    "Required .cache/gems_work/feature_stack.npy and competition input rasters are missing.",
+    "Template integrity fails: vendored submission_writer.py and uniqueness.py do not match recorded pins; no upstream execution authorization is established.",
+    "No candidate surface, single-feature leakage canary, candidate holdout, saved-byte validator, or complete registry comparison can be run.",
+    "The old KP1 card's promote state is historical and lacks the current protocol prerequisites; do not treat its raster or projection as cleared or current."
+  ],
+  "software_verification": {
+    "command": ".venv/bin/python -m pytest -q -rs",
+    "passed": 518,
+    "skipped": 4,
+    "failed": 0,
+    "warnings": 126,
+    "skip_reason": "All four skips require unavailable competition/reference rasters.",
+    "site_build_command": ".venv/bin/python scripts/build_site.py",
+    "site_build_status": "passed; deterministic static pages generated",
+    "diff_check": "git diff --check passed",
+    "scope": "Software/site verification only; not geological validation."
+  }
+}

@@ -335,23 +335,27 @@ def lane_status():
 
 
 def status_line(p: str) -> str:
-    """Shared status line. Carries the 8e91c377/46ed1c8c H-E1 sentence and this session's H-O2 sentence."""
-    review = current_review()
-    if review.get('new_candidate_generated'):
-        candidate = ('this session H-O2 file is a research-only download labelled DO NOT SUBMIT; holdout negative · ')
-    else:
-        candidate = 'no candidate generated · '
+    """Top status from this branch's current negative card; historical reviews are not current authority."""
+    card_path = ROOT / 'evidence/run_card_arena_fd3e38cf_20261031.json'
+    try:
+        card = json.loads(card_path.read_text(encoding='utf-8'))
+        current = (card.get('session') == 'arena/fd3e38cf-gemsdoekarage1'
+                   and card.get('verdict') == 'negative'
+                   and card.get('ok_to_submit') is False
+                   and card.get('download_available') is False
+                   and card.get('slot_selected_or_spent') is False)
+    except (OSError, ValueError, TypeError):
+        current = False
+    if not current:
+        return ('<strong>DO NOT SUBMIT — current release status missing or invalid.</strong> '
+                'No file is authorized. '
+                f'<a href="{esc(p + "docs/current-review-20261031.html", quote=True)}">Current review ↗</a>')
     return (
-        '<strong>DO NOT SUBMIT · HOLD</strong> · NOT CLEARED FOR UPLOAD · '
-        f'Latest review {esc(review["review_date"])}: one H-E1 file is downloadable for owner review only; '
-        'the pre-registered lattice gate is failed, so no submission is authorised; '
-        + candidate
-        + 'no file cleared · '
-        f'<a href="{esc(p + "docs/submit-he1-20261031.html", quote=True)}">submit guide</a> · '
-        f'<a href="{esc(p + review["review_path"], quote=True)}">review</a> · '
-        f'<a href="{esc(p + review["run_card_path"], quote=True)}">JSON run card</a>'
-        ' · <strong>Session 31 Oct 2026: NOT CLEARED</strong> · '
-        f'<a href="{esc(p + "docs/submission-20261031.html", quote=True)}">live submission status</a>'
+        '<strong>DO NOT SUBMIT · CURRENT REVIEW NEGATIVE</strong> · no new TIFF generated · '
+        'no holdout run · lane/template/data preflight blocked · no slot selected or spent · '
+        f'<a href="{esc(p + "docs/current-review-20261031.html", quote=True)}">Executive decision and nine-site table ↗</a> · '
+        f'<a href="{esc(p + "knowledge/session-review-arena-fd3e38cf-20261031.md", quote=True)}">Three-pass review ↗</a> · '
+        f'<a href="{esc(p + "evidence/run_card_arena_fd3e38cf_20261031.json", quote=True)}">JSON run card ↗</a>'
     )
 
 
@@ -523,39 +527,21 @@ KP1_GATE = ROOT / 'evidence' / 'kp1_release_gate.json'
 
 
 def kp1_banner(prefix: str) -> str:
-    """Top-of-page pointer to the current session's cleared file (fail closed).
+    """Never let an archived release gate authorize a present-day upload.
 
-    Renders the green call to action only when the release gate for this exact
-    saved file says ``ok_to_submit`` and its SHA-256 matches the bytes on disk.
-    Any inconsistency demotes the block to a red "not cleared" notice, so a stale
-    or hand-edited receipt cannot advertise a file that did not pass.
+    The historical KP1 receipt predates this checkout's current lane/template
+    audit. A matching SHA proves byte identity, not current protocol clearance.
+    Only a future selector-owned active-release receipt may add a download CTA;
+    this builder currently has no such receipt and therefore fails closed.
     """
-    try:
-        gate = json.loads(KP1_GATE.read_text())
-        tif = ROOT / gate['tif']
-        digest = hashlib.sha256(tif.read_bytes()).hexdigest()
-        ok = bool(gate['decision']['ok_to_submit']) and digest == gate['sha256']
-        name = Path(gate['tif']).name
-        proj = gate['projection']
-    except (OSError, KeyError, ValueError, TypeError):
-        return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
-                '<p><strong>Current session receipt is missing or unreadable.</strong> '
-                'No file is advertised here.</p></section>')
-    if not ok:
-        return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
-                '<p><strong>Current session: no file cleared.</strong> The K-PROXY-DETECT gate did '
-                'not pass for the file on disk.</p></section>')
     return (
-        '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
-        '<span aria-hidden="true">✅</span><p><strong>NEW · 31 OCT 2026 · '
-        '<a href="' + prefix + 'docs/kp1/index.html">OK TO SUBMIT: K-PROXY-DETECT GeoTIFF</a></strong> '
-        '— the only file on this site cleared for upload. '
-        '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + name +
-        '" download>Download the .tif</a>'
-        '<a href="' + prefix + 'docs/kp1/index.html">Executive summary, projected '
-        + f'{proj["projected_value"]:.4f}'
-        + ' (projection, not a score) · uniqueness and format evidence ↗</a>. '
-        'Every older artifact on this site remains <strong>DO NOT SUBMIT</strong>.</p></section>')
+        '<section class="notice" role="alert" style="border-left-color:#a83232;background:#fff0ef">'
+        '<span aria-hidden="true">⛔</span><p><strong>DO NOT SUBMIT — no file is currently cleared.</strong> '
+        'The historical KP1 card is not current upload authorization: this checkout has no assigned '
+        'method lane or canonical shared-template assignment, and required data/cache are absent. '
+        '<a href="' + prefix + 'docs/current-review-20261031.html">Current decision and nine-site table ↗</a> · '
+        '<a href="' + prefix + 'evidence/run_card_arena_fd3e38cf_20261031.json">Current JSON run card ↗</a>. '
+        'No submission download is offered.</p></section>')
 
 
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
@@ -646,7 +632,7 @@ def decision(prefix: str):
     chdt = conduit_audit['previous_holdout_claim']
     return session_panel(prefix) + f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> PRIOR CANDIDATE REVIEW · 29 OCT 2026 <span class="status-tag">DO NOT SUBMIT</span></div>
-<h2 id="decision-title">No eligible submission file was found. Both reviewed research rasters fail the literal lattice gate.</h2><p><strong>not cleared for upload.</strong> No approved .tif to download from that review — the 31 October K-PROXY-DETECT file in the banner at the top of this page is the cleared one.</p>
+<h2 id="decision-title">No eligible submission file was found. No current candidate is cleared.</h2><p><strong>DO NOT SUBMIT.</strong> The archived 31 October K-PROXY-DETECT technical gate is not current upload authorization; no active release receipt or download is offered.</p>
 <p>The prior BB-STEP file <code class="wrap">{esc(card['submission_name'])}</code> is unique versus the nine focus sites (worst overlap {nine:.1%}) but has {lat:.2%} lattice overlap; it is a duplicate. Its prior-session <strong>HOLDOUT-DTI {dti['value']:.5f}</strong> [{dti['ci95'][0]:.5f}, {dti['ci95'][1]:.5f}] used evaluator {esc(dti['evaluator_version'])} with {dti['withheld_positives']:,} withheld positives. This is not an organizer score and does not override the duplicate stop.</p>
 <p>The newer Conduitcrest research file has {clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) are within 3 px of the pinned lattice, exceeding the 70% threshold. Its prior run card's incomplete <strong>HOLDOUT-DTI {chdt['reported_value']:.6f}</strong> claim names evaluator {esc(chdt['evaluator_version'])} and {chdt['withheld_positives']:,} withheld positives but provides <strong>no 95% CI</strong>; it is not a release-grade result.</p>
 <p>Original Conduitcrest uniqueness compared only the nine focus-site rasters, not the lattice or complete fleet. Its pre-placement lattice comparison and per-feature canary are absent. Both candidates are research/audit files only; neither is cleared for upload.</p>

@@ -140,7 +140,7 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
     expected.add(json.loads((root/'evidence/conduitcrest_lattice_reaudit_20261028.json').read_text())['candidate']['sha256'])
     assert len(expected) == 4
     # 2026-10-31 E1 candidate (zeros and NaN variants): each has a saved-byte receipt written by
-    # scripts/write_o2_audit_receipts_20261031.py; the audited bytes are the only allowed downloads.
+    # scripts/write_o2_audit_receipts_20261031.py; the audited bytes are research-only downloads.
     for receipt in ('evidence/audit_o2_candidate_zeros_20261031.json', 'evidence/audit_o2_candidate_nan_20261031.json'):
         expected.add(json.loads((root/receipt).read_text())['sha256'])
     assert len(expected) == 6
@@ -163,28 +163,22 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
             if 'download' in attrs:
                 target = (self.page.parent / unquote(urlsplit(attrs['href']).path)).resolve()
                 digest = hashlib.sha256(target.read_bytes()).hexdigest()
-                if 'K-PROXY-DETECT' in self.page.read_text() and not self.in_audit:
-                    # The single cleared file is advertised in the session banner; its
-                    # legitimacy is asserted separately below against the release gate.
-                    self.banner_downloads.append(digest)
-                else:
-                    assert self.in_audit, 'research file must be inside an audit warning card'
-                    self.article_downloads.append(digest)
+                assert self.in_audit, 'every downloadable raster must be inside an explicit research-only audit card'
+                self.article_downloads.append(digest)
         def handle_data(self, text):
             if self.in_audit: self.label += text
         def handle_endtag(self, tag):
             if tag == 'article' and self.in_audit:
                 assert 'DO NOT SUBMIT' in self.label and 'research only' in self.label.lower()
                 self.downloads.extend(self.article_downloads); self.in_audit = False
-    gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
-    assert gate['decision']['ok_to_submit'] is True and gate['decision']['slots_used'] == 0
-    gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
+    historical_gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
+    assert historical_gate['decision']['ok_to_submit'] is True and historical_gate['decision']['slots_used'] == 0
+    # The archived green technical gate is not an active release authorization.
+    current = json.loads((root/'evidence/run_card_arena_fd3e38cf_20261031.json').read_text())
+    assert current['verdict'] == 'negative' and current['ok_to_submit'] is False
     home = Links(root/'index.html'); home.feed((root/'index.html').read_text())
     assert not home.downloads
-    if home.banner_downloads:
-        assert gate['decision']['ok_to_submit'] is True
-        assert home.banner_downloads == [gate['sha256']]
-    assert home.banner_downloads == [gate['sha256']]
+    assert not home.banner_downloads
     for page in (root/'executive-summary.html', root/'docs/executive-summary.html'):
         parsed = Links(page); parsed.feed(page.read_text())
         assert set(parsed.downloads) == expected
