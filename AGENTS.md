@@ -2,6 +2,8 @@
 
 # Starting point for every session
 
+**Latest (31 Oct 2026, `arena/b2a6d9d1`): read `knowledge/review-arena-b2a6d9d1-20261031.md` and `evidence/run_card_arena_b2a6d9d1_20261031.json` first.** Verdict NOT CLEARED. Corrected: 0.3195 is live rank #50 and #1 is 0.4544. Official format check tool: `scripts/check_official_format.py`. Metric check: `scripts/verify_dti_threshold.py`. Restore data with `scripts/restore_karage1_data.py --group core` (third-party mirrors, not organizer-authenticated).
+
 **Current branch review first (2026-10-31, `arena/946f7668-gemsdoekarage1`): read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, data, and complete authenticated registry remain unresolved. The README and generated public-site banners were refreshed for this review; older session records are historical evidence, not current clearance.
 
 **Supplemental same-day work from `arena/3184815e` (31 Oct 2026):** read `knowledge/hypotheses-20261031.md`, `knowledge/session-review-arena-3184815e.md`, and `evidence/session_3184815e_run_card.json` for five proposal-only hypotheses and their blockers. This review is earlier than the current `946f7668` review above; no TIF or experiment was cleared.
