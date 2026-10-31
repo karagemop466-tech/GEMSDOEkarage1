@@ -127,6 +127,7 @@ def test_hypothesis_h_o2_is_not_marked_validated():
 def test_readme_leads_with_core_values_and_current_review():
     text = (ROOT / "README.md").read_text(encoding="utf-8")
     head = text[:4000]
-    assert head.index("CORE VALUES") < head.index("CURRENT REVIEW (read first) — session `arena/9cf124bb")
+    assert head.index("CORE VALUES") < head.index("READ FIRST — ACTIVE SESSION `arena/a79c8595-gemsdoekarage1`")
+    assert "NEGATIVE / DO NOT SUBMIT" in head
     assert "Maximize P(Win)" in head and "Own the Outcome" in head
-    assert "normalized copy" in text
+    assert "normalized copy" in text or "reconstruction" in text.lower()

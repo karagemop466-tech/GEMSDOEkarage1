@@ -1,27 +1,22 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-> **CURRENT CHECKOUT REVIEW — NEGATIVE / DO NOT SUBMIT.** Review `arena/0cc984e5-gemsdoekarage1` found a fail-open KP1 gate: it marked a candidate cleared using only nine focus-site comparisons despite incomplete global registry and unresolved lattice status. The release gate and receipts/tests have been changed to fail closed. No new TIF, experiment, score estimate, or slot selection was made; required tests could not run because scientific dependencies and pytest are absent. See [this branch review](knowledge/review-arena-0cc984e5-20261031.md). This notice supersedes older session banners below; those are retained as historical records.
-
-> **Review record (31 Oct 2026, `arena/afe07cea`):** [`knowledge/review-arena-afe07cea-20261031.md`](knowledge/review-arena-afe07cea-20261031.md). Adds: (1) the literal official text puts NaN *outside the bounds*, so NaN *inside* the raster extent (the `-nan` files) is the likeliest cause of the "must be in range [0, 1]" rejection; (2) **clearance still contradicts itself:** the README and executive summary say NOT CLEARED, but `scripts/render_site.py` still emits "OK TO SUBMIT" on the homepage and 31 other generated pages, driven by `evidence/kp1_release_gate.json` `decision.ok_to_submit: true` — owner ruling required; (3) KP1 uniqueness re-measured on 3 of the 9 focus files (23–26 % 3-px overlap, |Spearman| < 0.02), not all nine; (4) the live leaderboard top is 0.4544.
-
 ## CORE VALUES — focal point for every decision
 
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
-## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **KP1 ON HOLD: DO NOT SUBMIT until the owner decides**
+## READ FIRST — ACTIVE SESSION `arena/a79c8595-gemsdoekarage1` (31 Oct 2026) · **NEGATIVE / DO NOT SUBMIT**
 
-KP1 (`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`) passes format and nine-file uniqueness checks, but is not cleared: holdout not shown to beat the best, global uniqueness open, projection 0.2789 is PROJECTED. Review: [knowledge/session-review-arena-4dffc2c6-20261031.md](knowledge/session-review-arena-4dffc2c6-20261031.md).
+**No file is currently cleared for submission.** This session generated no TIF, ran no holdout, and spent no submission slot: the referenced single method paragraph is absent; `registry/template.json` has no assigned lane or canonical template; the shared cache/data are missing; and the historical KP1 receipt, even after its mainline status was corrected, is not a complete current-registry/pre-placement clearance. Do not treat historical promotion records as active permission.
 
-## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **NEGATIVE: DO NOT SUBMIT**
+- Current review: [knowledge/review-arena-a79c8595-20261031.md](knowledge/review-arena-a79c8595-20261031.md) · [machine-readable run card](evidence/run_card_arena_a79c8595_20261031.json) · [active authorization status](evidence/active_submission_status.json).
+- Executive summary and nine-site table: [docs/executive-summary.html](docs/executive-summary.html). Historical reported scores are not organizer-confirmed; a leaderboard estimate is **not estimable** from the available evidence.
+- The nine-site winner GEMSDOE32 B2 (0.2778, USER-REPORTED / UNVERIFIED) is a strict subset of GEMSDOE25's file after removing 6,436 catalogue-adjacent dots; this is a measured mechanism, not proof of hidden-fault discovery. Details: [knowledge/why-gemsdoe32-b2-20261031.md](knowledge/why-gemsdoe32-b2-20261031.md).
+- Existing hypotheses are proposals only: [five-hypothesis slate](knowledge/hypotheses-20261031.md). No candidate was validly tested this session; do not use a weekly slot.
+- **Historical note:** the K-PROXY-DETECT artifact below was promoted by a prior lane receipt based on checks against the nine focus rasters. Under the active full-registry/pre-placement protocol, it is a research artifact pending re-audit—not cleared. Its old projection 0.2789 remains PROJECTED, not a score.
+- Start every session by reading [docs/standing-prompt.md](docs/standing-prompt.md) and this section. The original prompt text was not preserved verbatim; the file explicitly identifies itself as a reconstruction.
 
-**No file is cleared for submission by this repository review.** The KP1 GeoTIFF below has reported local format validation, but no organizer receipt, no validated leaderboard estimate, and unresolved global-registry duplicate clearance. Focus-site uniqueness is not global uniqueness. Do not spend a competition slot on it.
-
-Research artifact (not cleared): [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif). Its reported 0.2789 is **PROJECTED, NOT A SCORE**. The prior run card reports a HOLDOUT-DTI 0.0764 on independent SGMC truth, but its confidence interval is for the candidate-minus-random difference and the holdout is not calibrated to organizer scores. The same card marks the literal global uniqueness gate saturated. Full audit: [`knowledge/review-current-repo-20261031.md`](knowledge/review-current-repo-20261031.md).
-
-**Use the executive summary** at [`docs/executive-summary.html`](docs/executive-summary.html) for focus-site comparisons and [`docs/how-to-submit.html`](docs/how-to-submit.html) for submission instructions. Historical scores are user-reported unless backed by an organizer receipt; do not interpret holdout DTI or projections as leaderboard scores.
-
-## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
+## HISTORICAL K-PROXY-DETECT REVIEW — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · NOT ACTIVE CLEARANCE
 
 **Answer: no file is OK to download and submit. Verdict: NEGATIVE / DO NOT SUBMIT. No file is cleared; no weekly slot selected or spent.**
 

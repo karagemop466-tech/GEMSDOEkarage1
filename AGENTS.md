@@ -2,11 +2,11 @@
 
 # Starting point for every session
 
-**LATEST (2026-10-31, `arena/4dffc2c6-gemsdoekarage1`): read `knowledge/session-review-arena-4dffc2c6-20261031.md` and `evidence/run_card_arena_4dffc2c6_20261031.json` first.** Verdict: **HOLD. Do not submit KP1 (`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`) until the owner decides.** The mechanical gate passes (format; nine-file uniqueness, max |Spearman| 0.0136, max 3-px overlap 26.5 %); owner clearance is not met (holdout not shown to beat the best; global uniqueness open; projection 0.2789 is PROJECTED). The gate is `ok_to_submit: false` so every page agrees.
+**CURRENT SESSION (2026-10-31, `arena/a79c8595-gemsdoekarage1`): read `docs/standing-prompt.md`, `knowledge/review-arena-a79c8595-20261031.md`, and `evidence/run_card_arena_a79c8595_20261031.json` first.** Verdict: **NEGATIVE / DO NOT SUBMIT**. No candidate was generated, no holdout was run, and no slot was selected or spent. The earlier K-PROXY-DETECT `promote` card is a historical lane decision, not current authorization: it lacks an active complete-registry/pre-placement clearance and its old renderer conflicts with the later fail-closed review. The website/builders are being corrected to prevent that stale green status.
 
-**CURRENT SESSION (2026-10-31, `arena/9a378959-gemsdoekarage1`): read `knowledge/kp1-why-gemsdoe32-scored-02778.md`, `knowledge/kp1-preregistration-20261031.md` and `evidence/kp1_run_card.json` first.** Verdict: **PROMOTE one file** — `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`. Format-valid on the saved bytes (15/15), unique against all nine focus rasters (max |Spearman| 0.0076, max 3-px overlap 26.5 %), zero mass inside the 2-px catalogue corridor, **PROJECTED** 0.2789 (not a score). No slot was spent.
+The original prompt reconstruction is in `docs/standing-prompt.md`; the user's current full prompt is also represented in the README session-prompt section. The original text was not preserved verbatim in this checkout.
 
-Three things a new session must not re-litigate, because they are measured:
+Three prior-session measurements remain historical evidence, not current clearances:
 
 1. The nine focus submissions are one near-uniform family over one lineament support (all 36 pairs overlap 97.5–100 %; score tracks dot count at ρ = −0.967). Their differences are dot-count, not geology. More passes of the same lattice have ≈0.03 of headroom in total.
 2. The exact marginal bar on one more dot is `alpha·s/(1−s)` — 0.0769 at 0.2778, 0.158 at 0.4413 — and the format ceiling is 0.5556. Reaching the leaderboard top needs ~1.86× the champion's per-dot accuracy, or independent expert fault traces that are not in the catalogue. Nothing in this repo has demonstrated either.

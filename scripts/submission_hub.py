@@ -176,11 +176,10 @@ def body(f: dict, depth: int) -> str:
     return f"""
 <section class="hub-decision" id="download" aria-labelledby="hub-title">
   <p class="eyebrow">SUBMISSION DECISION · 29 OCT 2026</p>
-  <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-ok">YES — one file: the 31 October K-PROXY-DETECT GeoTIFF in the banner above</span></h1>
-  <p class="lead">This page documents the <strong>29-30 October</strong> review. Nothing from that review is
-  cleared: <strong>NOT CLEARED: DO NOT SUBMIT</strong> for every artifact listed below. The only file this
-  repository clears is the new one named in the banner at the top of this page, whose status is
-  re-derived from <code>evidence/kp1_release_gate.json</code> on every build.</p>
+  <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-no">NO — no active candidate is cleared</span></h1>
+  <p class="lead">The active review is <strong>NEGATIVE / DO NOT SUBMIT</strong>. Historical lane receipts, including the
+  K-PROXY-DETECT record, do not constitute current authorization because they do not establish every current
+  pre-placement, full-registry, lane/template and validation gate. The download banners are audit/research links only.</p>
   <p><strong>No file on this site is cleared for DrivenData upload.</strong> The new GeoTIFF below is valid in
   format and passes the rank and dot-overlap checks against the nine focus files. It fails the literal 3-px lattice gate, and its holdout is negative. It must not be submitted.</p>
   <ul class="why">
@@ -329,7 +328,7 @@ def summary_strip(depth: int) -> str:
     if not isinstance(max_focus, (int, float)):
         raise ValueError("latest mainline focus-site overlap evidence is missing")
     return (f'<section class="hub-strip" aria-label="Submission decision"><p class="eyebrow">DECISION · {esc(card["date_utc"])}</p>'
-            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file from the 29-30 October work below is cleared for upload; the 31 October K-PROXY-DETECT file in the banner above is the only cleared file.</strong></p>'
+            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no candidate in this repository is currently authorized for upload.</strong></p>'
             f'<p>Newest research-only raster <code>{esc(new_name)}</code>: maximum 3-px overlap versus the nine focus-site rasters {100*max_focus:.1f}%; '
             f'{estimate}; {paired}. The literal 3-px gate also trips on two dense registry rasters. No leaderboard estimate; DO NOT SUBMIT. '
             f'<a href="{doc}session-a8e4de2e.html">executive summary and download verdict ↗</a> · '
@@ -341,7 +340,7 @@ def write_data(f: dict) -> None:
     rows = site_rows(f)
     payload = dict(
         schema="karage1-submission-hub-v1", date="2026-10-29",
-        decision="NOT CLEARED: DO NOT SUBMIT - no file from the 29-30 October work is cleared; the 31 October K-PROXY-DETECT file is cleared"
+        decision="NOT CLEARED: DO NOT SUBMIT - no active candidate has current authorization; historical lane receipts do not override the active review"
 ,
         new_file=dict(name=TIF_NAME, sha256=f["file"]["sha256"], dots=f["file"]["dots"],
                       validator_all_checks_passed=f["file"]["all_checks_passed"],
