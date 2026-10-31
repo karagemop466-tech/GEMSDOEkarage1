@@ -1,6 +1,27 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/510af7c7-gemsdoekarage1` (31 Oct 2026)
+
+**Status: NEGATIVE — DO NOT SUBMIT.** No TIF was generated and no file is cleared for upload. No weekly slot was selected or spent.
+
+**Why 0.2778 (GEMSDOE32 B2) scored highest — LOCAL-MEASURED and reproducible:** B2 is exactly GEMSDOE25's dot set minus 6,436 dots, and every removed dot lies within 2 px of the existing fault catalogue. Across the nine focus sites, the share of dots near the catalogue ranks the user-reported scores almost perfectly (Spearman 0.983, n = 9; association, not proof). The organizer tests on **new faults**, so deleting catalogue-adjacent dots lowers false-positive weight. Full analysis: [review](knowledge/review-arena-510af7c7-20261031.md) · [mechanism receipt](evidence/offcat_mechanism_510af7c7_20261031.json) · [run card](evidence/run_card_arena_510af7c7_20261031.json).
+
+**Executive table (download / estimate / unique / OK to submit)**
+
+| File to download | Estimated leaderboard score | Unique vs other GEMSDOE sites? | OK to submit? |
+|---|---|---|---|
+| GEMSDOE32 B2 (`registry/GEMSDOE32_B2.tif`) | Not estimable. USER-REPORTED 0.2778 (unverified). Catalogue holdout HOLDOUT-DTI 0.00473 [0.00432, 0.00515], 45,260 withheld positives, evaluator `gems57-pooled-hide-v2`; this does not measure the organizer's new-fault test. | No: exact subset of GEMSDOE25 | **NO — do not resubmit** |
+| GEMSDOE25 / GEMSDOE30 | Not estimable. USER-REPORTED 0.2600 each. | No: identical dot sets | NO |
+| GEMSDOE28 (`h36-1-rung30-blind-r1`) | Not estimable. USER-REPORTED 0.2710. | No: 100% of dots within 3 px of GEMSDOE25/27/30 | NO |
+| GEMSDOE31 / GEMSDOE36 / GEMSDOE33 / GEMSDOE24 / GEMSDOE27 | Not estimable. USER-REPORTED 0.2708 / 0.2750 / 0.2632 / 0.2477 / 0.2449. | No (see review §1) | NO |
+
+**Leaderboard (ORGANIZER-PUBLIC, fetched 31 Oct 2026):** #1 = 0.4544; **#50 = 0.3195** (corrected from "#48" above); **0.4413 is not in the top 50**; no focus site is in the visible top 50.
+
+**Blockers:** no assigned method lane (the request's "method paragraph" is missing); vendored writer and uniqueness modules fail their pins; feature stack absent; data restored from public mirrors, not organizer-authenticated; the catalogue holdout ranks B2 below random, so it cannot select candidates. The protocol's 70%/3-px gate needs an owner decision (see review §9).
+
+Verification: `.venv/bin/python -m pytest -q -rs` → **447 passed, 0 failed, 1 skipped**. Preflight: exit 1 (feature stack missing). Shared-template holdout reproduction receipt: [evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json](evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json).
+
+## Previous review — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
 

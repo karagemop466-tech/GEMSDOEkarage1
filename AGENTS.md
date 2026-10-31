@@ -1,5 +1,9 @@
 # Starting point for every session
 
+**Latest review (2026-10-31, `arena/510af7c7-gemsdoekarage1`): read `knowledge/review-arena-510af7c7-20261031.md` and `evidence/run_card_arena_510af7c7_20261031.json` first.** Verdict NEGATIVE / DO NOT SUBMIT. Mechanism for 0.2778: B2 = GEMSDOE25 minus 6,436 catalogue-adjacent dots. The catalogue holdout ranks B2 below random, so it cannot select candidates. Official sources were fetched on 31 Oct 2026 (see the review's §7). Reproduce the mechanism with `GEMS_DATA_DIR=$PWD/data .venv/bin/python scripts/offcat_mechanism_analysis.py`.
+
+**Prior review (2026-10-31, `arena/946f7668`):** read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`.
+
 **Current branch review first (2026-10-31, `arena/946f7668-gemsdoekarage1`): read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, data, and complete authenticated registry remain unresolved. The README and generated public-site banners were refreshed for this review; older session records are historical evidence, not current clearance.
 
 **Prior upstream review (31 Oct 2026, `arena/830e1f79`):** read `knowledge/session-review-arena-830e1f79.md` and `evidence/session_830e1f79_run_card.json`. It separately rechecked official format wording and a live leaderboard; those time-sensitive claims are historical and do not supersede this branch review or the internal parallel-run protocol.

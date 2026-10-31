@@ -23,7 +23,7 @@ if str(ROOT) not in _sys.path:
     _sys.path.insert(0, str(ROOT))
 from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
-CURRENT_REVIEW_CARD = ROOT / 'evidence/run_card_arena_946f7668_20261031.json'
+CURRENT_REVIEW_CARD = ROOT / 'evidence/run_card_arena_510af7c7_20261031.json'
 esc = html.escape
 
 
@@ -34,12 +34,12 @@ def current_review():
 
     card = json.loads(CURRENT_REVIEW_CARD.read_text(encoding='utf-8'), parse_constant=_reject_constant)
     expected_paths = {
-        'review_path': 'knowledge/review-arena-946f7668-20261031.md',
-        'run_card_path': 'evidence/run_card_arena_946f7668_20261031.json',
+        'review_path': 'knowledge/review-arena-510af7c7-20261031.md',
+        'run_card_path': 'evidence/run_card_arena_510af7c7_20261031.json',
     }
     holdout = card.get('holdout_dti')
     if (card.get('schema') != 'karage1-run-card-v1'
-            or card.get('session') != 'arena/946f7668-gemsdoekarage1'
+            or card.get('session') != 'arena/510af7c7-gemsdoekarage1'
             or card.get('verdict') != 'negative'
             or card.get('ok_to_submit') is not False
             or card.get('new_candidate_generated') is not False
@@ -289,7 +289,7 @@ def status_line(p: str) -> str:
     review = current_review()
     return (
         '<strong>DO NOT SUBMIT</strong> · NOT CLEARED · '
-        f'Latest review {esc(review["review_date"])}: no file cleared; this repository-safety review produced no candidate or score estimate · no approved download · '
+        f'Latest review {esc(review["review_date"])}: no file cleared; this review generated no candidate and no leaderboard estimate (a catalogue-holdout reproduction and a mechanism audit only) · no approved download · '
         f'<a href="{esc(p + review["review_path"], quote=True)}">review</a> · '
         f'<a href="{esc(p + review["run_card_path"], quote=True)}">JSON run card</a>'
     )
@@ -361,7 +361,7 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation">{nav}</nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
 <div class="container"><p class="global-hold">{status_line(p)}</p></div></header>
-<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_946f7668_20261031.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_510af7c7_20261031.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
 
 
 def session_evidence():

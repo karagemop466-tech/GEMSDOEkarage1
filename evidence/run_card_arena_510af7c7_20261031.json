@@ -1,0 +1,128 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/510af7c7-gemsdoekarage1",
+  "review_date": "2026-10-31",
+  "review_path": "knowledge/review-arena-510af7c7-20261031.md",
+  "run_card_path": "evidence/run_card_arena_510af7c7_20261031.json",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "new_candidate_generated": false,
+  "download_available": false,
+  "submission_name": null,
+  "submission_note": "No candidate generated; no repository file cleared for upload.",
+  "submission_note_chars": 62,
+  "raster_sha256": null,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "reproduction_runs": 1,
+  "hypothesis": "Why GEMSDOE32 B2 (USER-REPORTED 0.2778) ranks above GEMSDOE25/30 (USER-REPORTED 0.2600): B2 equals the GEMSDOE25 dot set with 6,436 catalogue-adjacent dots removed.",
+  "mechanism": "The official test set is NEW faults not in the USGS/INGENIOUS catalogue (DrivenData problem description). A dot within 2 px of a mapped catalogue trace has near-zero chance of matching an unmapped test fault, so it adds alpha-weighted false-positive mass. Removing those dots lowers FP_w while removing little expected TP_w. This is a mechanism inference, not a measured result.",
+  "named_non_fault_mimic": "Catalogue-adjacent dots can be correct where a new fault is misaligned or sits on a mapped trace (the rules note misalignment), so removing them can also remove true positives. Holdout cannot separate these cases.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "No new candidate was generated, so no candidate holdout was run. Reproduction results are in reproduction_holdout and are not a candidate score."
+  },
+  "reproduction_holdout": {
+    "label": "HOLDOUT-DTI (reproduction of shared calibration on catalogue hide-and-recover)",
+    "evaluator": "vendor/gems57 holdout.evaluate (unmodified), gems57-pooled-hide-v2",
+    "withheld_positives_per_cell_sum": 45260,
+    "cells": 16,
+    "ci95_method": "percentile bootstrap over the 16 cells",
+    "receipt": "evidence/exp_510af7c7_shared_holdout_reproduction_20261031.json",
+    "arms": {
+      "GEMSDOE32_B2": {
+        "pooled_dti": 0.00473,
+        "ci95": [
+          0.00432,
+          0.00515
+        ],
+        "dots": 37654
+      },
+      "GEMSDOE25_d28": {
+        "pooled_dti": 0.10227,
+        "ci95": [
+          0.09296,
+          0.11431
+        ],
+        "dots": 44090
+      },
+      "random_matched_count_3_seeds": {
+        "mean": 0.0446,
+        "per_seed": [
+          0.04638,
+          0.04199,
+          0.04542
+        ],
+        "dots": 37654
+      }
+    },
+    "interpretation": "On the catalogue holdout, GEMSDOE25 ranks far above B2 and B2 ranks below a matched random placement. The public board ranks B2 above GEMSDOE25. The holdout therefore cannot rank off-catalogue candidates."
+  },
+  "correlation_overlap_vs_registry": {
+    "receipt": "evidence/offcat_mechanism_510af7c7_20261031.json",
+    "b2_is_subset_of_gemsdoe25": true,
+    "removed_gemsdoe25_to_b2": 6436,
+    "removed_within_2px_of_catalogue": 6436,
+    "gemsdoe25_gemsdoe30_identical_dot_sets": true,
+    "spearman_user_score_vs_neg_offcat_pct": {
+      "rho": 0.9832,
+      "p_value": 1.99e-06,
+      "n": 9,
+      "label": "association, not causal"
+    },
+    "pairwise_3px_overlap": "Saturated near 100% for the dense focus rasters. This is the internal literal lattice gate, not an official rule."
+  },
+  "validator_output": {
+    "applies_to": "registry/GEMSDOE32_B2.tif (existing file, not a new candidate)",
+    "receipt": "validator run: scripts/validate_geotiff.py --template data/sample_submission.tif",
+    "single_band": true,
+    "float32": true,
+    "crs_shape_transform_match_mirror": true,
+    "no_nonfinite_inside": true,
+    "inside_values_in_0_1": true,
+    "outside_nan_count": 0,
+    "portal_acceptance": "not tested"
+  },
+  "software_tests": {
+    "command": ".venv/bin/python -m pytest -q -rs",
+    "passed": 447,
+    "failed": 0,
+    "skipped": 1,
+    "meaning": "Software tests only; not a geological performance metric."
+  },
+  "preflight": {
+    "command": ".venv/bin/python scripts/shared_tools.py preflight",
+    "exit_code": 1,
+    "core_data_restored_via_pinned_mirrors": true,
+    "missing": [
+      ".cache/gems_work/feature_stack.npy"
+    ],
+    "provenance_integrity": false,
+    "provenance_mismatches": [
+      "vendor/gems57/submission_writer.py",
+      "vendor/gems57/uniqueness.py"
+    ],
+    "lane": null,
+    "execution_authorized": false
+  },
+  "irregularities_for_review": [
+    "The prompt's PARALLEL-RUN PROTOCOL says the lane is 'the single method paragraph below'. No such paragraph is in the request.",
+    "The request says 0.3195 is the highest score and also cites 0.4413 as the current high. The public leaderboard snapshot (fetched 31 Oct 2026) shows #1 = 0.4544, #50 = 0.3195, and no 0.4413 in the top 50.",
+    "GEMSDOE30 and GEMSDOE25 have identical dot sets (both 44,090 dots) but different file bytes. Both are reported at 0.2600.",
+    "The restored labels.tif and existing_faults.tif are byte-identical. This matches the official rules text (training labels = existing fault data), so it is a note for review, not a defect.",
+    "The shared calibration script hard-codes date 2026-10-29 and session arena/5ee7ef4b in its receipt. This run was on 2026-10-31; the receipt filename was kept distinct.",
+    "The peer GEMSDOE32 repository's own static evaluator gives 0.004515 for the same B2 raster. Its figure matches ours, but it is a peer claim, not an organizer receipt."
+  ],
+  "blockers": [
+    "No assigned method lane (the protocol paragraph is missing).",
+    "Vendored shared writer and uniqueness modules fail recorded SHA-256 pins; no repin without upstream review.",
+    "Cached feature stack is absent and cannot be built authorized by the preflight.",
+    "No organizer-authenticated data: restored files are hash-matched public mirrors only.",
+    "The catalogue holdout cannot rank off-catalogue candidates (B2 below random), so no candidate can be validated on it.",
+    "The only real score feedback is the organizer leaderboard, which is limited to 3 submissions per week and needs an owner selection step."
+  ]
+}
