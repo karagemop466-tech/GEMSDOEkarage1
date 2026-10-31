@@ -38,7 +38,7 @@
   "geological_experiments_run": 0,
   "software_tests": {
     "command": ".venv/bin/python -m pytest -q -rs",
-    "passed": 447,
+    "passed": 451,
     "failed": 0,
     "skipped": 3,
     "warnings": 126,

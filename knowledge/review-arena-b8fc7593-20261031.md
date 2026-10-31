@@ -32,7 +32,7 @@ The best-ranked historical reference among GEMSDOE24/25/27/28/30/31/32/33/36 is 
 - No feature-alone AUC canary, holdout DTI or 95% interval, pre-placement correlation, final-dot overlap, or candidate-raster format validation was computed in this review. Accordingly the required leakage/registry/validation gates are **unknown, not passed**.
 - The candidate hypotheses in the prior review need to be reconsidered against the full local experiment history and registry before any lane is assigned; novelty against every user-listed GEMSDOE repository is not established.
 - Checked page output and ran `git diff --check`; no generated TIF was added. After merging concurrent `main` updates, repeated the full suite: **447 passed, 0 failed, 3 skipped, 126 warnings**. The added third skip is the new nine-site format receipt test, which requires restored core data. Rebuilt the pages and rechecked the nine “Not estimable” entries and current-review links.
-- The full original science/submission objective remains blocked, and no download from this checkout is approved.
+- After one further concurrent-main integration, the final local suite was **451 passed, 0 failed, 3 skipped, 126 warnings** (same three data-dependent skips). The generated pages were rebuilt with the current branch review links and estimate column. The full original science/submission objective remains blocked, and no download from this checkout is approved.
 
 ## Focus-site executive table
 

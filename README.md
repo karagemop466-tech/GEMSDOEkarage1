@@ -4,48 +4,23 @@
 
 **Status: NEGATIVE — DO NOT SUBMIT.** No TIF, geological experiment, or holdout ran; no leaderboard estimate is supported and no slot was selected. Lane/template assignment and required cached data remain absent; preflight fails closed and writer/uniqueness pins mismatch.
 - **Review/run card:** [three-pass review](knowledge/review-arena-b8fc7593-20261031.md) · [JSON card](evidence/run_card_arena_b8fc7593_20261031.json).
-- **Verification:** `.venv/bin/python -m pytest -q -rs` → 447 passed, 3 data-dependent skips, 126 Rasterio warnings after integrating current main. Software tests are not scientific validation.
-- **Executive table:** the nine-site table now has explicit “Leaderboard estimate” values, all “Not estimable”; historical scores remain USER-REPORTED / UNVERIFIED.
+- **Verification:** `.venv/bin/python -m pytest -q -rs` → 451 passed, 3 data-dependent skips, 126 Rasterio warnings after integrating current main. Software checks are not scientific validation.
+- **Executive table:** the nine-site table now has an explicit “Leaderboard estimate” column, all entries “Not estimable”; historical scores remain USER-REPORTED / UNVERIFIED.
 - **Submission:** no file is approved for download/upload. No experiment or weekly slot was spent.
 
-## Session review — `arena/b2a6d9d1-gemsdoekarage1` (31 Oct 2026)
+## Previous mainline review — session `arena/cd6c8044-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NOT CLEARED — DO NOT DOWNLOAD OR SUBMIT.** No new TIF, holdout, or slot selection.
-- **Leaderboard corrected, live 31 Oct 2026:** #1 = **0.4544**; #2 = 0.3925; **0.3195 is rank #50** (not the top score); 0.4413 is not in the top 50. [Leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
-- **Official format, fetched today:** float32, EPSG 32611, 100 m, single layer, values in [0, 1], **null or NaN outside bounds**. [Problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
-- **Upload error:** no local TIF has a value outside [0, 1]. 19 of 31 TIFs encode 0 outside the footprint, which the official text does not list; 10 use NaN and pass the literal check. The exact file the user uploaded is unknown.
-- **Why B2 (0.2778, user-reported) is plausible:** B2 is a pure 6,436-cell removal from GEMSDOE25; GEMSDOE25 and GEMSDOE30 have identical masks. The metric's bar for a dot is k > α·DTI ≈ 0.056 at DTI 0.28 (verified in code).
-- **Blocker:** the protocol's method-lane paragraph is missing, and the shared feature stack is not built, so no holdout has been run.
-- Review: [knowledge/review-arena-b2a6d9d1-20261031.md](knowledge/review-arena-b2a6d9d1-20261031.md) · run card: [evidence/run_card_arena_b2a6d9d1_20261031.json](evidence/run_card_arena_b2a6d9d1_20261031.json) · format check: [evidence/official_format_check_20261031.json](evidence/official_format_check_20261031.json) · metric check: [evidence/dti_threshold_check_20261031.json](evidence/dti_threshold_check_20261031.json)
+**Status: NEGATIVE — DO NOT SUBMIT.** No new TIF was generated or cleared, no leaderboard score estimate is supportable, and no weekly slot was selected or spent. The assigned method lane and canonical shared template are unset; required cached data and organizer inputs are absent; and shared-tool preflight reports writer/uniqueness provenance mismatches. Producing an arbitrary raster would violate the lane, shared-tool, holdout, and uniqueness protocol.
 
-## Previous branch review — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
-## Previous same-day review — session `arena/38b8b045-gemsdoekarage1` (31 Oct 2026)
+- **Current three-pass review / run card:** [review](knowledge/session-review-arena-cd6c8044.md) · [JSON](evidence/session_cd6c8044_run_card.json).
+- **Research slate:** [five hypotheses](knowledge/hypotheses-20261031.md); H-EULER is only a conditional first validation candidate. No canary or holdout ran because prerequisites are unmet.
+- **Nine-site decision:** all nine per-site pages and the executive table are linked from [the summary](docs/executive-summary.html). The reported 0.2477–0.2778 values remain USER-REPORTED / UNVERIFIED; organizer-score estimates are unavailable; no historic raster is cleared for resubmission.
+- **Public leaderboard:** fresh read 31 Oct 2026: #1 = **0.4544**, #48 = **0.3231**, #50 = **0.3195**; 0.4413 was absent from the top 50. ORGANIZER-PUBLIC, not a receipt for any focus-site raster. [Snapshot JSON](evidence/leaderboard_snapshot_20261031.json).
+- **Software checks:** 451 passed, 0 failed, 2 skipped; skips require missing ignored bridge/sample rasters. Software verification is not geological validation.
+- **Submission decision:** no approved download, no TIF generated, and no selector or slot use. Do not submit any repo artifact from this session.
+- **Read this brief every session:** [README prompt section](#session-prompt--full-text-read-at-start-of-every-session) and [standing prompt](docs/standing-prompt.md), followed by this review and the latest run card.
 
-**Status: NEGATIVE — DO NOT SUBMIT. No file is cleared. No new TIF was generated.** Reason: no validated method lane, no authenticated organizer data in the sandbox (the restored copy is a hash-pinned mirror), and no holdout that beats the baseline. Format validity is not approval.
-
-- **Executive summary (nine focus sites, with table):** [`docs/executive-summary.html`](docs/executive-summary.html) · full review: [knowledge/session-review-arena-38b8b045.md](knowledge/session-review-arena-38b8b045.md) · run card: [evidence/session_38b8b045_run_card.json](evidence/session_38b8b045_run_card.json).
-- **Format and footprint receipt (re-runnable):** `python scripts/nine_site_format_receipt.py --out evidence/nine_site_format_receipt_20261031.json` · [receipt](evidence/nine_site_format_receipt_20261031.json).
-- **Leaderboard, live read 31 Oct 2026** ([official page](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)): #1 0.4544; **0.3195 is rank #50** (not #48, as the 30 Oct pages said); #48 is 0.3231; 0.4413 is not in the top 50. Snapshot: [registry/leaderboard_snapshot_20261031.json](registry/leaderboard_snapshot_20261031.json).
-- **Official facts verified** on the [competition page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) and the [official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf): single-band float32 GeoTIFF, EPSG:32611, 100 m, values 0–1, null or NaN outside bounds; distance-weighted Tversky with α = 0.2, β = 0.8, R = 300 m; three submissions per week. The 3 px lattice rule is internal, not official.
-- **Irregularities flagged:** mirrored `sample_submission.tif` has 60,988 positives (official text says "total fault absence"); `labels.tif` contains −1; five focus files use 0 outside the footprint and four use NaN (both produced portal scores); the "must be in range [0, 1]" error cannot be reproduced from any focus file.
-- **Why 0.2778 scored well (verified subset):** GEMSDOE32 is GEMSDOE25 minus 6,436 dots. Under the official formula, removing dots that lie beyond 300 m of any fault can only raise the score, so the gain points to pruning false positives. Not measured on organizer labels.
-- **Tests:** `python -m pytest -q` → 447 passed, 1 skipped (the skip needs `data/`, restorable with `python scripts/restore_karage1_data.py --group core`).
-
-## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
-
-## Previous branch review — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
-
-**Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
-
-- **Three-pass repository review and focus-site executive table:** [review report](knowledge/review-arena-946f7668-20261031.md) · [JSON run card](evidence/run_card_arena_946f7668_20261031.json).
-- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and absent competition sample grid. This is software verification, not model validation.
-- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; missing shared stack/data and writer/uniqueness provenance mismatch. No experiment was run because the lane and authorized shared inputs are unresolved.
-- **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
-- **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
-
-## Supplemental same-day research slate — session `arena/3184815e` (31 Oct 2026)
-
-This earlier review added [five conditional geological hypotheses](knowledge/hypotheses-20261031.md) and an auditable [run card](evidence/session_3184815e_run_card.json). It produced no TIF, holdout, score estimate, or slot decision. These are previously documented proposal families, not globally novel claims, and the top proposal was not run. The latest branch review is session `arena/b8fc7593` above; do not treat this supplemental slate as a newer decision or clearance.
+**Previous branch review (`arena/946f7668`, 31 Oct 2026):** [review](knowledge/review-arena-946f7668-20261031.md) and [card](evidence/run_card_arena_946f7668_20261031.json). It also ended negative; this session adds the five-hypothesis slate and live leaderboard correction. The prior result remains historical, not a clearance.
 
 ## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
 
@@ -595,13 +570,13 @@ Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one flo
 
 10. **Clean GitHub Pages site** under docs/; three passes then PR merged to main, listing remaining work and limitations.
 
-## Current Competition State
+## Current Competition State (reviewed 31 Oct 2026; supersedes older snapshots)
 
-- Public leaderboard #1: 0.4544 (DrivenData, checked 29 Oct 2026)
-- Best nine focus-site reported score: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED)
-- All nine focus-site rasters are lattice duplicates (>97.6% dots within 3 px of pinned 13GEMSDOE lattice)
-- No file currently cleared for submission (lane = null, labels login-walled, no organizer receipt)
-- Unique TIF generated: `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif` (1,322 dots, format-valid, lattice-unique, 0.0000 worst overlap, NOT cleared for submission)
+- Live public leaderboard snapshot: rank #1 = 0.4544, rank #48 = 0.3231, and rank #50 = 0.3195 (ORGANIZER-PUBLIC, observed 31 Oct 2026; not a private score or receipt for any GEMSDOE site). See `evidence/leaderboard_snapshot_20261031.json`.
+- Best nine focus-site reported value: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED).
+- All nine focus-site masks fail the recorded internal lattice overlap rule; this rule is not an official competition requirement and has a documented saturation/interpretation concern.
+- No file is cleared for submission. The lane, canonical shared template, authenticated labels, and shared input/cache are unresolved or absent.
+- Earlier TIFs in `docs/downloads/` and `archive/` are historical/research artifacts only, not approved submission downloads. This session generated no TIF.
 
 ## Source Links (Official, Verified)
 
