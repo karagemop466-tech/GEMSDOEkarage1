@@ -98,7 +98,7 @@
     "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
     "https://epsg.io/32611"
   ],
-  "tests_run": "487 passed, 1 skipped (tests/test_focus_sites_20261029.py:72, data-dependent), 0 failed; after merging origin/main (PRs 104-106)",
+  "tests_run": "493 passed, 1 skipped (tests/test_focus_sites_20261029.py:72, data-dependent), 0 failed; after merging origin/main through PR 109",
   "audit_receipts": {
     "zeros": "evidence/audit_o2_candidate_zeros_20261031.json",
     "nan": "evidence/audit_o2_candidate_nan_20261031.json",

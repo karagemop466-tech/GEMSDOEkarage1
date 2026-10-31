@@ -1,0 +1,194 @@
+{
+  "experiment": "E1 leakage canary (single feature alone on holdout)",
+  "label": "HOLDOUT-DTI-free diagnostic: AUC of single features; not a score",
+  "ceiling_auc": 0.9,
+  "stop_triggered": false,
+  "n_segments": 3199,
+  "withheld_segments_quadrant0": 1822,
+  "features": [
+    {
+      "feature": "mag_anom",
+      "auc_signed": 0.50105,
+      "auc_direction_free": 0.50105,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "rtp",
+      "auc_signed": 0.50916,
+      "auc_direction_free": 0.50916,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "tmi_hg",
+      "auc_signed": 0.53409,
+      "auc_direction_free": 0.53409,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "geod_2ndinv",
+      "auc_signed": 0.58678,
+      "auc_direction_free": 0.58678,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "iso_grav_anom_slope",
+      "auc_signed": 0.53625,
+      "auc_direction_free": 0.53625,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "tc",
+      "auc_signed": 0.45219,
+      "auc_direction_free": 0.54781,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "geod_shearrate",
+      "auc_signed": 0.59177,
+      "auc_direction_free": 0.59177,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "geod_dilaterate",
+      "auc_signed": 0.49479,
+      "auc_direction_free": 0.50521,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "tmi_vg",
+      "auc_signed": 0.49135,
+      "auc_direction_free": 0.50865,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "deq_n100a15",
+      "auc_signed": 0.53682,
+      "auc_direction_free": 0.53682,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "iso_grav_anom_vg",
+      "auc_signed": 0.51944,
+      "auc_direction_free": 0.51944,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "det_elev",
+      "auc_signed": 0.50383,
+      "auc_direction_free": 0.50383,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "iso_grav_anom",
+      "auc_signed": 0.45092,
+      "auc_direction_free": 0.54908,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "tmi",
+      "auc_signed": 0.4994,
+      "auc_direction_free": 0.5006,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "depth_to_base_surf",
+      "auc_signed": 0.51556,
+      "auc_direction_free": 0.51556,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "ieq_n100a15",
+      "auc_signed": 0.56271,
+      "auc_direction_free": 0.56271,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "cond_surf",
+      "auc_signed": 0.50702,
+      "auc_direction_free": 0.50702,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "iso_grav_anom_hg",
+      "auc_signed": 0.46184,
+      "auc_direction_free": 0.53816,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "det_elev_slope",
+      "auc_signed": 0.56105,
+      "auc_direction_free": 0.56105,
+      "n_pos": 29232,
+      "n_neg": 199898
+    },
+    {
+      "feature": "grad_mag_mag_anom",
+      "auc_signed": 0.53751,
+      "auc_direction_free": 0.53751,
+      "n_pos": 29254,
+      "n_neg": 200000
+    },
+    {
+      "feature": "grad_mag_tmi",
+      "auc_signed": 0.53458,
+      "auc_direction_free": 0.53458,
+      "n_pos": 29254,
+      "n_neg": 200000
+    },
+    {
+      "feature": "grad_mag_iso_grav_anom",
+      "auc_signed": 0.53779,
+      "auc_direction_free": 0.53779,
+      "n_pos": 29254,
+      "n_neg": 200000
+    },
+    {
+      "feature": "grad_mag_det_elev",
+      "auc_signed": 0.57093,
+      "auc_direction_free": 0.57093,
+      "n_pos": 29254,
+      "n_neg": 200000
+    },
+    {
+      "feature": "grad_mag_depth_to_base",
+      "auc_signed": 0.53067,
+      "auc_direction_free": 0.53067,
+      "n_pos": 29254,
+      "n_neg": 200000
+    },
+    {
+      "feature": "tex_std5_tmi",
+      "auc_signed": 0.53629,
+      "auc_direction_free": 0.53629,
+      "n_pos": 29254,
+      "n_neg": 200000
+    }
+  ],
+  "worst": {
+    "feature": "geod_shearrate",
+    "auc_signed": 0.59177,
+    "auc_direction_free": 0.59177,
+    "n_pos": 29232,
+    "n_neg": 199898
+  },
+  "seconds": 1.9,
+  "feature_stack_sha256": "62595ee3fdde1f8d91d09f12789e943f191757322e85f3143891adc359507847"
+}
