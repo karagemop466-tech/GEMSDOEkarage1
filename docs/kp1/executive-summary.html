@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Executive summary — nine sites and the new file</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.ok{border-left:6px solid #1d6b45;background:#e5f3ea;padding:26px 30px;border-radius:4px;margin:26px 0}
+.ok h2{color:#175437;margin:0 0 10px}
+.big{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.pill{display:inline-block;background:#1d6b45;color:#fff;padding:4px 12px;border-radius:999px;
+font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;vertical-align:middle}
+.pill.warn{background:#ad3f29}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 34px}
+.kpi div{background:#fff;border:1px solid #d3dacd;border-radius:8px;padding:16px}
+.kpi b{display:block;font-size:1.5rem;letter-spacing:-.02em}
+.download{display:inline-block;background:#1d6b45;color:#fff;padding:16px 26px;border-radius:6px;
+text-decoration:none;font-weight:700;font-size:1.05rem;margin:10px 12px 10px 0}
+.download.alt{background:#3b5a4e}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+</style></head>
+<body>
+<header><a href="../index.html">GEMS · KARAGE-1</a>
+<nav><a href="index.html">Decision &amp; download</a><a href="executive-summary.html" aria-current="page">Executive summary</a><a href="metric.html">Why 0.2778</a><a href="nine-sites.html">The nine sites</a><a href="how-to-submit.html">How to submit</a><a href="research.html">New hypotheses</a><a href="sources.html">Sources</a><a href="../index.html">Repository home</a></nav></header>
+<main>
+
+<p class="eyebrow">Executive summary</p>
+<h1>Nine submissions, one explanation, one new file</h1>
+<div class="ok"><p class="big">Bottom line</p>
+<p>The nine focus submissions are not nine ideas. They are nine points on a one-parameter family
+that covers the same 2 %-of-the-map lineament support with different numbers of dots.
+Their scores rise as their dot count falls, and the best of them — GEMSDOE32's
+<code>h33-h33-2-b2-...-zeros</code> at <strong>0.2778</strong> — is the smallest member. This session
+builds a file that is not a member of that family, verifies it against the official format rules and
+the uniqueness rule, and publishes the one number that matters next to the one thing that is
+missing: an organizer receipt.</p></div>
+
+<h2>Per-site read</h2>
+<div class="table-scroll"><table class=""><thead><tr><th>Site</th><th>Reported score</th><th>Dots</th><th>Clumped (≥3 within 3 px)</th><th>≤2 px from catalogue</th><th>&gt;15 px from catalogue</th><th>Area covered</th></tr></thead><tbody><tr><td><strong>GEMSDOE32</strong></td><td class="num">0.2778</td><td class="num">37,654</td><td class="num">0.26 %</td><td class="num">0.00 %</td><td class="num">58.4 %</td><td>15.1 %</td></tr><tr><td><strong>GEMSDOE36</strong></td><td class="num">0.2750</td><td class="num">38,854</td><td class="num">0.29 %</td><td class="num">0.00 %</td><td class="num">58.1 %</td><td>15.5 %</td></tr><tr><td><strong>GEMSDOE28</strong></td><td class="num">0.2710</td><td class="num">37,660</td><td class="num">0.19 %</td><td class="num">6.25 %</td><td class="num">54.9 %</td><td>15.8 %</td></tr><tr><td><strong>GEMSDOE31</strong></td><td class="num">0.2708</td><td class="num">40,199</td><td class="num">0.28 %</td><td class="num">6.33 %</td><td class="num">54.7 %</td><td>16.0 %</td></tr><tr><td><strong>GEMSDOE33</strong></td><td class="num">0.2632</td><td class="num">41,865</td><td class="num">0.31 %</td><td class="num">9.30 %</td><td class="num">52.9 %</td><td>16.6 %</td></tr><tr><td><strong>GEMSDOE25</strong></td><td class="num">0.2600</td><td class="num">44,090</td><td class="num">0.34 %</td><td class="num">14.60 %</td><td class="num">49.9 %</td><td>17.2 %</td></tr><tr><td><strong>GEMSDOE30</strong></td><td class="num">0.2600</td><td class="num">44,090</td><td class="num">0.34 %</td><td class="num">14.60 %</td><td class="num">49.9 %</td><td>17.2 %</td></tr><tr><td><strong>GEMSDOE24</strong></td><td class="num">0.2477</td><td class="num">60,069</td><td class="num">1.65 %</td><td class="num">14.60 %</td><td class="num">49.6 %</td><td>18.1 %</td></tr><tr><td><strong>GEMSDOE27</strong></td><td class="num">0.2449</td><td class="num">61,328</td><td class="num">1.67 %</td><td class="num">14.47 %</td><td class="num">48.6 %</td><td>18.5 %</td></tr></tbody></table></div>
+<p><small>Scores are user-reported; no organizer receipt exists for any of them. Dots, clumping and
+catalogue distances are measured on the saved bytes in <code>registry/</code>.</small></p>
+
+<h2>Why the best of the nine is 0.2778</h2>
+<p>Across the nine, reported score tracks <em>dot count</em> at Spearman
+-0.967 (slope
+-0.0012 per 1,000 dots) and nothing else
+does. The metric charges every dot that is not exactly on a truth cell
+<code>alpha = 0.2</code>, and pays out only what lands within 300 m. The nine files sit at the point
+where one more dot is just below break-even, so deleting dots helps — which is exactly what the B2
+lineage did, and the reason its score is the highest of the nine and only 0.0011 above the
+projection for a file with 5,654 fewer dots. Full arithmetic:
+<a href="metric.html">Why 0.2778</a>.</p>
+
+<h2>The new file</h2>
+<ul>
+<li><strong>What:</strong> <code>karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif</code>, single band, float32, EPSG:32611, 3730 × 3292,
+values in [0, 1], zeros outside the scored footprint, 32,000 dots with a hard 4-px
+separation and 0.00 % of them within 2 px of the catalogue.</li>
+<li><strong>Verified:</strong> 15/15
+saved-byte checks pass under the shared validator; SHA-256 <code>30a5fc28ff060ad3…</code>
+re-hashed on every site build.</li>
+<li><strong>Unique:</strong> max |Spearman| 0.0076, max 3-px overlap
+26.5 % against the nine (limits 0.90 and 70 %).</li>
+<li><strong>Better than random on an independent inventory:</strong> on the state-compilation faults
+that are absent from the training catalogue, the candidate covers
++19.3 % more fault mass than a random
+dot field of the same size (block bootstrap: +0.0109,
+95 % [-0.0034, +0.0260],
+92 % of draws positive). Its
+32,000 dots buy what 40,171
+random dots would.</li>
+<li><strong>Projected:</strong> 0.2789 (LOO interval
+[0.2762, 0.2816]; parameter bootstrap
+[0.2757, 0.2846]), i.e.
++0.0020 versus B2. <strong>PROJECTED, not a score.</strong></li>
+</ul>
+
+<h2>What would change the answer</h2>
+<ol>
+<li>An organizer receipt for the upload. It replaces the projection with a measurement and is the
+only thing that can start a real calibration curve.</li>
+<li>A surface whose per-dot truth rate clears 0.0769 (the exact marginal bar at 0.2778). Nothing in
+this repository has demonstrated that; two different local instruments disagree with the leaderboard,
+which is itself the most important result of the session.</li>
+</ol>
+
+</main>
+<footer>Lane H-KP1 · session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 ·
+every figure on this page is rendered from a committed JSON receipt. Nothing here is an
+organizer-confirmed score.</footer>
+</body></html>

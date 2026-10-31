@@ -1,5 +1,19 @@
 # Starting point for every session
 
+**CURRENT SESSION (2026-10-31, `arena/9a378959-gemsdoekarage1`): read `knowledge/kp1-why-gemsdoe32-scored-02778.md`, `knowledge/kp1-preregistration-20261031.md` and `evidence/kp1_run_card.json` first.** Verdict: **PROMOTE one file** — `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`. Format-valid on the saved bytes (15/15), unique against all nine focus rasters (max |Spearman| 0.0076, max 3-px overlap 26.5 %), zero mass inside the 2-px catalogue corridor, **PROJECTED** 0.2789 (not a score). No slot was spent.
+
+Three things a new session must not re-litigate, because they are measured:
+
+1. The nine focus submissions are one near-uniform family over one lineament support (all 36 pairs overlap 97.5–100 %; score tracks dot count at ρ = −0.967). Their differences are dot-count, not geology. More passes of the same lattice have ≈0.03 of headroom in total.
+2. The exact marginal bar on one more dot is `alpha·s/(1−s)` — 0.0769 at 0.2778, 0.158 at 0.4413 — and the format ceiling is 0.5556. Reaching the leaderboard top needs ~1.86× the champion's per-dot accuracy, or independent expert fault traces that are not in the catalogue. Nothing in this repo has demonstrated either.
+3. Both mandated local instruments disagree with the observed ordering (hide-and-recover ρ = −1.0; independent state-compilation inventory ρ = −0.34) and must not be used as promotion gates without an owner ruling. A catalogue-trained detector scores three times worse than random on off-catalogue faults (`evidence/kp1_exp2_external.json`).
+
+Earlier negative reviews below remain historical evidence for the files they examined.
+
+
+
+**Current branch review first (2026-10-31, `arena/946f7668-gemsdoekarage1`): read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, data, and complete authenticated registry remain unresolved. The README and generated public-site banners were refreshed for this review; older session records are historical evidence, not current clearance.
+
 **Parallel review (2026-10-31, `arena/dcf0baf1-gemsdoekarage1`): read `knowledge/session-dcf0baf1-review.md`, `evidence/run_card_karage1-seisprox-c3-w0.55-20261031T012000Z.json`, `docs/data/nine_site_executive_20261031.json` and `docs/executive-20261031.html`.** Verdict NEGATIVE / DO NOT SUBMIT. Added the nine-site executive table from restored raster bytes (all nine sites are one field dotted differently; best reported = GEMSDOE32 B2 0.2778 USER-REPORTED), a new format-valid unique candidate on lane H-K1-SEISMIC-PROX (band 10 `deq_n100a15`, unused by the 58-channel stack; 3 px catalogue collar; 37,654 dots; worst peer 3-px overlap 21.7 %), and an executive-summary page. Catalogue holdout: c3 0.000000 / c2 0.000006 vs champion 0.004845 vs random 0.049063 — mismatched, cannot rank off-catalogue candidates. Suite: 498 passed, 1 skipped.
 
 **Latest review (2026-10-31, `arena/510af7c7-gemsdoekarage1`): read `knowledge/review-arena-510af7c7-20261031.md` and `evidence/run_card_arena_510af7c7_20261031.json` first.** Verdict NEGATIVE / DO NOT SUBMIT. Mechanism for 0.2778: B2 = GEMSDOE25 minus 6,436 catalogue-adjacent dots. The catalogue holdout ranks B2 below random, so it cannot select candidates. Official sources were fetched on 31 Oct 2026 (see the review's §7). Reproduce the mechanism with `GEMS_DATA_DIR=$PWD/data .venv/bin/python scripts/offcat_mechanism_analysis.py`.

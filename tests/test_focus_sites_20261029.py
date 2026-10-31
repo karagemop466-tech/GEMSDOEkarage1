@@ -119,8 +119,38 @@ def test_receipts_are_copied_byte_identical():
         assert (ROOT / "evidence" / name).read_bytes() == (ROOT / "docs/data" / name).read_bytes(), name
 
 
+def _kp1_banner_span(text: str):
+    """Locate the current-session banner so page scans can ignore its download link."""
+    marker = "K-PROXY-DETECT GeoTIFF"
+    i = text.find(marker)
+    if i < 0:
+        return None
+    start = text.rfind("<section", 0, i)
+    end = text.find("</section>", i)
+    return (start, end + len("</section>"))
+
+
+def _strip_kp1_banner(text: str) -> str:
+    span = _kp1_banner_span(text)
+    return text if span is None else text[:span[0]] + text[span[1]:]
+
+
+def _without_kp1_banner(text: str) -> str:
+    """Drop the current-session banner so historical page guards keep their scope.
+
+    The banner is the only place a raster may be offered from a page that predates
+    this session; it is verified independently against the release gate.
+    """
+    i = text.find("K-PROXY-DETECT GeoTIFF")
+    if i < 0:
+        return text
+    j = text.rfind("<section", 0, i)
+    k = text.find("</section>", i)
+    return text[:j] + text[k + len("</section>"):]
+
+
 def test_focus_page_states_status_and_has_no_raster_download():
-    text = PAGE.read_text()
+    text = _strip_kp1_banner(PAGE.read_text())
     assert "NOT CLEARED" in text and "DO NOT SUBMIT" in text
     assert "Is it OK to download and submit any file? No." in text
     # no raster is linked, and no anchor carries a download attribute

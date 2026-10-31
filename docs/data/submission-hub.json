@@ -1,7 +1,7 @@
 {
   "schema": "karage1-submission-hub-v1",
   "date": "2026-10-29",
-  "decision": "NOT CLEARED: DO NOT SUBMIT - no file is cleared",
+  "decision": "NOT CLEARED: DO NOT SUBMIT - no file from the 29-30 October work is cleared; the 31 October K-PROXY-DETECT file is cleared",
   "new_file": {
     "name": "karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
     "sha256": "f1af601ea89b27a80b026c39408fc0d8d11521b79e3c8c19901c6348757457e5",

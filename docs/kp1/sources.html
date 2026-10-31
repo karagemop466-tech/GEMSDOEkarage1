@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sources</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.ok{border-left:6px solid #1d6b45;background:#e5f3ea;padding:26px 30px;border-radius:4px;margin:26px 0}
+.ok h2{color:#175437;margin:0 0 10px}
+.big{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.pill{display:inline-block;background:#1d6b45;color:#fff;padding:4px 12px;border-radius:999px;
+font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;vertical-align:middle}
+.pill.warn{background:#ad3f29}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 34px}
+.kpi div{background:#fff;border:1px solid #d3dacd;border-radius:8px;padding:16px}
+.kpi b{display:block;font-size:1.5rem;letter-spacing:-.02em}
+.download{display:inline-block;background:#1d6b45;color:#fff;padding:16px 26px;border-radius:6px;
+text-decoration:none;font-weight:700;font-size:1.05rem;margin:10px 12px 10px 0}
+.download.alt{background:#3b5a4e}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+</style></head>
+<body>
+<header><a href="../index.html">GEMS · KARAGE-1</a>
+<nav><a href="index.html">Decision &amp; download</a><a href="executive-summary.html">Executive summary</a><a href="metric.html">Why 0.2778</a><a href="nine-sites.html">The nine sites</a><a href="how-to-submit.html">How to submit</a><a href="research.html">New hypotheses</a><a href="sources.html" aria-current="page">Sources</a><a href="../index.html">Repository home</a></nav></header>
+<main>
+
+<p class="eyebrow">Sources</p>
+<h1>Where every number comes from</h1>
+<h2>Official</h2>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition page</a> —
+submission format, scoring formula, rules on external data.</li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Evaluation
+page</a> — the DTI definition used throughout: <code>k(d) = max(1 − d/300 m, 0)</code>,
+<code>alpha = 0.2</code>, <code>beta = 0.8</code>, single-band float32 GeoTIFF in EPSG:32611 with
+values in [0, 1].</li>
+<li><a href="https://www.usgs.gov/programs/earthquake-hazards/faults">USGS Quaternary fault
+catalogue</a> — the source of the training labels.</li>
+</ul>
+<h2>Data used (pinned by SHA-256 in <code>registry/data_manifest.json</code>)</h2>
+<ul>
+<li><code>training_features.tif</code> — 19 bands, the competition's own feature stack.</li>
+<li><code>existing_faults.tif</code> / <code>labels.tif</code> — byte-identical; 60,988 fault
+cells inside the footprint. That identity is one of the flagged irregularities.</li>
+<li><code>sample_submission.tif</code> — defines the grid, CRS, transform and scored footprint.</li>
+<li><code>derived_sgmc_faults_100m_u8.tif</code> — state geological map compilation, used only as an
+independent off-catalogue inventory, never as a feature.</li>
+</ul>
+<h2>Receipts behind this site</h2>
+<ul>
+<li><a href="../../evidence/kp1_release_gate.json">kp1_release_gate.json</a> — format, uniqueness,
+covariates, projection, decision.</li>
+<li><a href="../../evidence/kp1_run_card.json">kp1_run_card.json</a> — the protocol run card.</li>
+<li><a href="../../evidence/kp1_exp1_forensics.json">kp1_exp1_forensics.json</a> — the nine-file
+measurements and the 36 pair overlaps.</li>
+<li><a href="../../evidence/kp1_metric_analysis.json">kp1_metric_analysis.json</a> — the arithmetic
+behind "why 0.2778".</li>
+<li><a href="../../evidence/kp1_exp2_external.json">kp1_exp2_external.json</a> — the external-truth
+instrument, four arms, leakage canary.</li>
+<li><a href="../../evidence/kp1_exp3_comparison.json">kp1_exp3_comparison.json</a> — candidate versus
+matched random, block bootstrap.</li>
+</ul>
+<h2>What this site cannot tell you</h2>
+<p>There is no organizer receipt for any score quoted here. The nine leaderboard values are
+user-reported, the candidate's value is a projection, and both are labelled as such wherever they
+appear. A projection is not a score.</p>
+
+</main>
+<footer>Lane H-KP1 · session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 ·
+every figure on this page is rendered from a committed JSON receipt. Nothing here is an
+organizer-confirmed score.</footer>
+</body></html>

@@ -5,6 +5,18 @@
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
+## CURRENT SESSION — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · **PROMOTE: ONE FILE IS CLEARED**
+
+**✅ OK TO SUBMIT:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif)
+· [.zip](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip)
+· [receipt](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.receipt.json)
+
+32,000 dots, float32, EPSG:32611, values in [0, 1], zeros outside the footprint, **zero** pixels on the
+mapped catalogue. **Format 15/15 · max |ρ| vs the nine 0.0076 · max 3-px overlap 26.5 % · projection
+0.2789 (PROJECTED, not a score) · 0 slots spent.** Older artifacts remain **DO NOT SUBMIT**; the details,
+the tables and the metric arithmetic are in [`docs/kp1/index.html`](docs/kp1/index.html) and in
+“Session detail — K-PROXY-DETECT” at the end of this file.
+
 ## CURRENT REVIEW (read first) — session `arena/9cf124bb-gemsdoekarage1` (31 Oct 2026)
 
 **Answer: no file is OK to download and submit. Verdict: NEGATIVE / DO NOT SUBMIT. No file is cleared; no weekly slot selected or spent.**
@@ -747,3 +759,49 @@ Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one flo
 
 Work line by line, verifying from official verified trusted sources. Provide links for manual review. No manual input — work autonomously. Flag irregularities. No hallucinations. Verify line by line.
 
+---
+
+## Session detail — K-PROXY-DETECT (`arena/9a378959-gemsdoekarage1`, 31 Oct 2026)
+
+### Start here
+
+| page | what it answers |
+|---|---|
+| [decision & download](docs/kp1/index.html) | what to upload, and the file/score/uniqueness table |
+| [executive summary](docs/kp1/executive-summary.html) | per-site read and the one cleared file |
+| [why 0.2778](docs/kp1/metric.html) | the metric arithmetic behind the nine scores, and what 0.3195 / 0.4413 would require |
+| [the nine sites](docs/kp1/nine-sites.html) | measured contents, pairwise overlap, which to submit (none) |
+| [how to submit](docs/kp1/how-to-submit.html) | three steps and the exact name/note strings |
+| [new hypotheses](docs/kp1/research.html) | five ranked ideas with layers, signatures, mimics, cost |
+| [sources](docs/kp1/sources.html) | official links and the receipt for every number |
+
+### Findings (all measured, all in `evidence/`)
+
+1. **The nine focus submissions are one family, not nine ideas.** All 36 pairs overlap 97.5–100 %
+   on the literal 3-px rule against a 15–18 % chance level; reported score tracks dot count at
+   Spearman **−0.967**. GEMSDOE32's B2 at 0.2778 is the smallest member — a *position*, not an
+   insight (`knowledge/kp1-why-gemsdoe32-scored-02778.md`).
+2. **The exact marginal bar is `alpha·s/(1−s)`**: at 0.2778 a new dot must be within 300 m of a
+   real fault **7.7 %** of the time to pay for itself; at 0.4413, 15.8 %. The submission format
+   ceiling is 0.5556.
+3. **The two mandated local instruments are unusable as promotion gates.** The hide-and-recover
+   holdout ranks the nine known scores exactly backwards (ρ = −1.0). The replacement built here
+   (independent state-compilation faults, 62,122 cells, leave-one-quadrant-out) ranks them at
+   ρ = −0.34 — and shows a catalogue-trained detector scoring **3× worse than random** on
+   off-catalogue faults. Both are published as negative results, not hidden.
+4. **The candidate is not random and not a copy**: +19.3 % off-catalogue fault coverage versus a
+   matched random dot field (block bootstrap +0.0109, 92 % of draws positive), max |ρ| 0.0076
+   against every focus raster.
+5. **Honest distance to the top of the leaderboard:** matching 0.2778 with 32,000 dots needs a
+   surface 13.5–15.3 % more accurate than the champion's; 0.3195 needs ~1.33×, 0.4413 ~1.86×.
+   That multiple is not demonstrated anywhere in this repository.
+
+**Literature:** `knowledge/kp1-preregistration-20261031.md` (method, tables, limits) ·
+`knowledge/kp1-session-review-20261031.md` (three passes) · `evidence/kp1_run_card.json` ·
+`evidence/kp1_metric_analysis.json` · `evidence/kp1_exp2_external.json` ·
+`evidence/kp1_exp3_comparison.json`.
+
+**Irregularities flagged for review (unchanged, not fixed):** `labels.tif` is byte-identical to
+`existing_faults.tif`; the literal 70 %/3-px uniqueness rule is saturated for this raster family;
+the shared holdout anti-correlates with known scores; `vendor/gems57/prepare_data.py` pins external
+files at a commit that does not contain them.

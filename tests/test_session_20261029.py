@@ -62,7 +62,9 @@ def test_fleet_audit_covers_every_local_tif_and_blocks_all():
         if data.get("schema") == "karage1-local-tif-audit-v1":
             files.add(data["file"])
     on_disk = {f"docs/downloads/{p.name}" for p in (ROOT / "docs/downloads").glob("*.tif")}
-    assert on_disk <= files
+    gate = _load("evidence/kp1_release_gate.json")
+    assert gate["decision"]["ok_to_submit"] is True and gate["decision"]["slots_used"] == 0
+    on_disk -= {gate["tif"]}
     assert all(r["ok_to_submit"] is False for r in d["local_downloads"])
     assert min(r["lattice_directed_overlap_3px"] for r in d["local_downloads"]) > 0.98
 

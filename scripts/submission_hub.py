@@ -166,7 +166,7 @@ def body(f: dict, depth: int) -> str:
             f"<td>UNAVAILABLE<br><small>no validated leaderboard estimator</small></td>"
             f"<td>{'YES' if r['unique'] else 'NO'}<br><small>lattice {_pct(r['lattice_fwd'])} · "
             f"dot-overlap duplicates among focus files: {dup}<br>rank duplicates (rho &gt; 0.90): {dup_r}</small></td>"
-            "<td><strong>NOT CLEARED: DO NOT SUBMIT</strong><br><small>a USER-REPORTED registry copy (leaderboard placement not verified); "
+            "<td><strong>NOT CLEARED: DO NOT SUBMIT</strong> (29-30 Oct review)<br><small>a USER-REPORTED registry copy (leaderboard placement not verified); "
             "re-upload is a copy, and it fails the lattice gate</small></td>"
             "</tr>")
     _shared = _load_optional("audit_tiltgrav_ridge_sp6_20261029.json")
@@ -176,7 +176,11 @@ def body(f: dict, depth: int) -> str:
     return f"""
 <section class="hub-decision" id="download" aria-labelledby="hub-title">
   <p class="eyebrow">SUBMISSION DECISION · 29 OCT 2026</p>
-  <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-no">NO — NOT CLEARED: DO NOT SUBMIT</span></h1>
+  <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-ok">YES — one file: the 31 October K-PROXY-DETECT GeoTIFF in the banner above</span></h1>
+  <p class="lead">This page documents the <strong>29-30 October</strong> review. Nothing from that review is
+  cleared: <strong>NOT CLEARED: DO NOT SUBMIT</strong> for every artifact listed below. The only file this
+  repository clears is the new one named in the banner at the top of this page, whose status is
+  re-derived from <code>evidence/kp1_release_gate.json</code> on every build.</p>
   <p><strong>No file on this site is cleared for DrivenData upload.</strong> The new GeoTIFF below is valid in
   format and passes the rank and dot-overlap checks against the nine focus files. It fails the literal 3-px lattice gate, and its holdout is negative. It must not be submitted.</p>
   <ul class="why">
@@ -190,7 +194,7 @@ def body(f: dict, depth: int) -> str:
     allowance was verifiable from this sandbox (DrivenData login-walled).</li>
   </ul>
   <article class="audit-card download-card">
-    <p class="eyebrow">NEW FILE · research only · NOT CLEARED: DO NOT SUBMIT</p>
+    <p class="eyebrow">29-30 October file · research only · NOT CLEARED: DO NOT SUBMIT</p>
     <h2><a class="download-link" href="{esc(dl, quote=True)}" download>Download {esc(TIF_NAME)}</a></h2>
     <p><small>Single-band float32 GeoTIFF · EPSG:32611 · 100 m · 3292×3730 · values 0–1 inside the footprint ·
     NaN outside the footprint (official text: null or NaN). SHA-256 <code class="wrap">{esc(fl['sha256'])}</code>.
@@ -325,7 +329,7 @@ def summary_strip(depth: int) -> str:
     if not isinstance(max_focus, (int, float)):
         raise ValueError("latest mainline focus-site overlap evidence is missing")
     return (f'<section class="hub-strip" aria-label="Submission decision"><p class="eyebrow">DECISION · {esc(card["date_utc"])}</p>'
-            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file in this repository is cleared for upload.</strong></p>'
+            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file from the 29-30 October work below is cleared for upload; the 31 October K-PROXY-DETECT file in the banner above is the only cleared file.</strong></p>'
             f'<p>Newest research-only raster <code>{esc(new_name)}</code>: maximum 3-px overlap versus the nine focus-site rasters {100*max_focus:.1f}%; '
             f'{estimate}; {paired}. The literal 3-px gate also trips on two dense registry rasters. No leaderboard estimate; DO NOT SUBMIT. '
             f'<a href="{doc}session-a8e4de2e.html">executive summary and download verdict ↗</a> · '
@@ -337,7 +341,8 @@ def write_data(f: dict) -> None:
     rows = site_rows(f)
     payload = dict(
         schema="karage1-submission-hub-v1", date="2026-10-29",
-        decision="NOT CLEARED: DO NOT SUBMIT - no file is cleared",
+        decision="NOT CLEARED: DO NOT SUBMIT - no file from the 29-30 October work is cleared; the 31 October K-PROXY-DETECT file is cleared"
+,
         new_file=dict(name=TIF_NAME, sha256=f["file"]["sha256"], dots=f["file"]["dots"],
                       validator_all_checks_passed=f["file"]["all_checks_passed"],
                       holdout_spaced=f["spacing"]["candidate_spaced"],

@@ -1,0 +1,246 @@
+{
+  "name": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031",
+  "note": "KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, >=2px off catalogue, 4px spacing, 32k dots",
+  "note_length": 127,
+  "pins": {
+    "training_features.tif": {
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "bytes": 418912844
+    },
+    "existing_faults.tif": {
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830
+    },
+    "labels.tif": {
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830
+    },
+    "sample_submission.tif": {
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "bytes": 1599597
+    },
+    "derived_sgmc_faults_100m_u8.tif": {
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+      "bytes": 198602
+    },
+    "lidar_scarp_features_u8.tif": {
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "bytes": 36943606
+    },
+    "geodawn_rad_u8.tif": {
+      "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+      "bytes": 26612970
+    },
+    "gdr_qfaults_traces.csv": {
+      "sha256": "9702f2e5c382a4f472ae834d22b94990983b059677a37adfafd51c50f75e643c",
+      "bytes": 126177
+    }
+  },
+  "emission": {
+    "n_dots": 32000,
+    "budget": 32000,
+    "min_sep_px": 4.0,
+    "forbidden": "within 2 px of the mapped catalogue",
+    "rule": "greedy highest-surface-first with exclusion disc"
+  },
+  "surface_diagnostics": {
+    "surface_max": 0.8702135682106018,
+    "surface_mean": 0.27025994658470154,
+    "flat_deep_basin_fraction_of_footprint": 0.2257133363509853,
+    "term_weight": {
+      "lineament": 0.34,
+      "geomorph": 0.24,
+      "fluid": 0.14,
+      "alteration": 0.12,
+      "strain": 0.16
+    },
+    "allowed_cells": 4862825,
+    "terms_note": "each term is a percentile rank inside the footprint; geometric mean requires agreement across independent fields"
+  },
+  "catalogue_reference_control": {
+    "n_dots": 32000,
+    "self_credit_M": 399.83894999941526,
+    "catalogue_fp_w": 31600.161050000585,
+    "note": "catalogue-reference control only; the scored truth is private"
+  },
+  "writer_receipt": {
+    "file": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+    "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+    "bytes": 128570,
+    "submission_name": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031",
+    "note": "KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, >=2px off catalogue, 4px spacing, 32k dots",
+    "note_chars": 127,
+    "validator": {
+      "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+      "bytes": 128570,
+      "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.002606041496619582,
+      "emitted_positive_pixels": 32000,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 32000,
+      "footprint_fraction": 0.006192701784833415
+    },
+    "template_report": {
+      "path": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+      "bytes": 128570,
+      "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.002606041496619582,
+      "n_nonzero": 32000,
+      "mass": 32000.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    },
+    "zip_file": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip",
+    "zip_sha256": "a899cc805e571b5843b4d94d592569a4c606f25960d52f1d610c86b5fc76df02",
+    "approved_for_weekly_slot": false,
+    "promoted": false,
+    "submission_slots_used": 0,
+    "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+    "metadata": {
+      "hypothesis": "H-KP1 thermo-tectonic conduit alignment (TTCA)",
+      "min_sep_px": 4.0,
+      "budget": 32000
+    }
+  },
+  "validator": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+    "bytes": 128570,
+    "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002606041496619582,
+    "emitted_positive_pixels": 32000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 32000,
+    "footprint_fraction": 0.006192701784833415
+  }
+}

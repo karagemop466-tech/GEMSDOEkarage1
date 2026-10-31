@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>New geological hypotheses</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.ok{border-left:6px solid #1d6b45;background:#e5f3ea;padding:26px 30px;border-radius:4px;margin:26px 0}
+.ok h2{color:#175437;margin:0 0 10px}
+.big{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.pill{display:inline-block;background:#1d6b45;color:#fff;padding:4px 12px;border-radius:999px;
+font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;vertical-align:middle}
+.pill.warn{background:#ad3f29}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 34px}
+.kpi div{background:#fff;border:1px solid #d3dacd;border-radius:8px;padding:16px}
+.kpi b{display:block;font-size:1.5rem;letter-spacing:-.02em}
+.download{display:inline-block;background:#1d6b45;color:#fff;padding:16px 26px;border-radius:6px;
+text-decoration:none;font-weight:700;font-size:1.05rem;margin:10px 12px 10px 0}
+.download.alt{background:#3b5a4e}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+</style></head>
+<body>
+<header><a href="../index.html">GEMS · KARAGE-1</a>
+<nav><a href="index.html">Decision &amp; download</a><a href="executive-summary.html">Executive summary</a><a href="metric.html">Why 0.2778</a><a href="nine-sites.html">The nine sites</a><a href="how-to-submit.html">How to submit</a><a href="research.html" aria-current="page">New hypotheses</a><a href="sources.html">Sources</a><a href="../index.html">Repository home</a></nav></header>
+<main>
+
+<p class="eyebrow">New geological hypotheses</p>
+<h1>Five ideas, ranked by expected gain per unit of cost</h1>
+<p>Ranked by expected DTI gain against the cost of testing, using the only two local instruments
+that exist. Nothing below is a claim of a gain; the ranking says what to try next, not what will
+work.</p>
+<table>
+<thead><tr><th>#</th><th>Hypothesis</th><th>Layers and physical signature</th>
+<th>Why it can find faults the catalogue misses</th><th>Difference from the repo's prior work</th>
+<th>Mimic</th><th>Cost</th><th>Expected gain</th></tr></thead>
+<tbody>
+<tr><td>1</td>
+<td><strong>Thermo-tectonic conduit alignment (this session's lane)</strong></td>
+<td>TMI upward-continued 150 m gradient, tilt derivative, isostatic gravity gradient, basement step,
+1 m LiDAR scarp metrics, spring and vent density, Th/K and U/K alteration ratios, strain rate and
+second invariant.</td>
+<td>Hydrothermal fluid paths follow permeable fault damage zones; K-metasomtism halos brighten the
+damage zone in radiometrics even where no scarp survives.</td>
+<td>Prior lanes used the catalogue anatomy or a single potential field; this one requires a
+geometric-mean consensus across five independent fields and forbids the catalogue corridor.</td>
+<td>Buried pluton margins and caldera rings (round, not linear; multi-field but no scarp and no
+spring alignment).</td><td>done</td><td>measured: 0.2789 projected</td></tr>
+<tr><td>2</td>
+<td><strong>Along-strike continuation of mapped traces</strong></td>
+<td>Catalogue traces as seeds; curvature, step-over geometry and slip-rate gradient extrapolated
+along strike; Landsat/SRTM drainage offsets as independent confirmation.</td>
+<td>Compilations end where a mapper stopped, not where a fault ends. Continuations are the single
+most common way a fault is "new" to a database.</td>
+<td>B2 and its lineage already did a h33 step-over and scored 0.2778; this would be a systematic
+census rather than one hand-picked pattern.</td>
+<td>Fluvial terrace edges misread as fault scarps; requires an independent drainage-offset test.</td>
+<td>1 experiment</td><td>medium — the lineage suggests real but small gains</td></tr>
+<tr><td>3</td>
+<td><strong>Deep-crustal upward continuation series</strong></td>
+<td>Magnetic and gravity fields continued upward in 100 m steps to 2 km; the depth at which a
+lineament disappears is a proxy for its depth extent; faults that reach the seismogenic layer are
+the ones that matter.</td>
+<td>A shallow-only lineament is usually a landslide or a lithological boundary; a lineament that
+persists to 2 km is a structure.</td>
+<td>No lane has ever used the continuation series as a filter; prior lanes used a single
+upward-continued level.</td>
+<td>Regional metamorphic fabric, which persists to great depth but is broad and parallel.</td>
+<td>2 experiments</td><td>medium–high, and cheap in data terms</td></tr>
+<tr><td>4</td>
+<td><strong>Spring–lineament intersection census</strong></td>
+<td>Every mapped spring and water well as a point source; the lineament that passes within 300 m of
+the largest number of springs is a conduit; intersect with the multi-field edge consensus.</td>
+<td>Springs sit on permeability, and permeability in this terrain is fault-controlled. A structure
+that is wet is a structure.</td>
+<td>Springs were used as a density field before; they have not been used as a per-lineament
+likelihood test.</td>
+<td>Alluvial contact springs along basin margins — the dominant mimic in this basin.</td>
+<td>1 experiment</td><td>low–medium</td></tr>
+<tr><td>5</td>
+<td><strong>Differential LiDAR scarp freshness</strong></td>
+<td>1 m LiDAR hillshade and roughness decomposed into scarp-height and scarp-degradation classes;
+fresh scarps are HQ faults, degraded ones are pre-Quaternary.</td>
+<td>The catalogue is biased toward what is visible on aerial photography; a fresh scarp under
+vegetation may never have been photographed.</td>
+<td>Prior lanes used LiDAR as a flat density term; this uses the degradation class as the label
+proxy.</td><td>Gravity-driven landslides and fluvial cut banks on steep slopes.</td>
+<td>1–2 experiments</td><td>low — the LiDAR product is already in the candidate</td></tr>
+</tbody></table>
+<h2>What the next session should do, in order</h2>
+<ol>
+<li>Get the organizer receipt for the cleared file. Nothing else can calibrate anything.</li>
+<li>If the receipt is within ±0.03 of the projection, hypothesis 3 is the best next spend; if it is
+far below, the covariate model is falsified and the whole geometry-based approach must be dropped
+before another slot is spent.</li>
+<li>Do not re-run the two saturated instruments (literal 3-px uniqueness, catalogue hide-and-recover)
+as promotion gates. Ask the protocol owner for a ruling; they currently reject everything,
+including files the leaderboard scores at 0.2778.</li>
+</ol>
+
+</main>
+<footer>Lane H-KP1 · session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 ·
+every figure on this page is rendered from a committed JSON receipt. Nothing here is an
+organizer-confirmed score.</footer>
+</body></html>

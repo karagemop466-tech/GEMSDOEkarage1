@@ -1,0 +1,109 @@
+{
+ "schema": "kp1-exp3-comparison-v1",
+ "truth": "SGMC faults inside the footprint, >3 px from the catalogue",
+ "truth_px": 62122,
+ "candidate": {
+  "file": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+  "dots": 32000,
+  "dti": 0.07640846770050778,
+  "tp": 4326.476580330782,
+  "fp": 30300.517774020685,
+  "fn": 57795.52341966922,
+  "covered_truth_credit": 4326.476580330782
+ },
+ "matched_uniform": {
+  "dots": 32000,
+  "per_seed": {
+   "0": {
+    "dti": 0.06452738737913283,
+    "tp": 3649.1675935730887,
+    "fp": 30623.977850940406,
+    "fn": 58472.83240642691
+   },
+   "1": {
+    "dti": 0.06415123988465984,
+    "tp": 3628.01720169511,
+    "fp": 30654.60486407256,
+    "fn": 58493.98279830489
+   },
+   "2": {
+    "dti": 0.06342105559904737,
+    "tp": 3586.3340327182063,
+    "fp": 30665.680213597494,
+    "fn": 58535.66596728179
+   }
+  },
+  "mean": {
+   "dti": 0.06403322762094668,
+   "tp": 3621.172942662135,
+   "fp": 30648.087642870156,
+   "fn": 58500.82705733786
+  },
+  "relative_gain_of_candidate": 0.19326278776415906
+ },
+ "uniform_at_champion_budget": {
+  "dots": 37654,
+  "per_seed": {
+   "0": 0.07474121175815429,
+   "1": 0.07317582184500525,
+   "2": 0.07422409537679009
+  },
+  "mean": 0.07404704299331655
+ },
+ "coverage_efficiency": {
+  "candidate_dots": 32000,
+  "candidate_equivalent_uniform_dots": 40171,
+  "interpretation": "the number of random dots needed to match the candidate's off-catalogue fault coverage; a lower ratio means each dot buys more expected truth credit"
+ },
+ "nine_focus_files": {
+  "GEMSDOE24": {
+   "n": 60069,
+   "dti_offcat": 0.09991134894171928
+  },
+  "GEMSDOE25": {
+   "n": 44090,
+   "dti_offcat": 0.09417442916119363
+  },
+  "GEMSDOE27": {
+   "n": 61328,
+   "dti_offcat": 0.10116333958700564
+  },
+  "GEMSDOE28": {
+   "n": 37660,
+   "dti_offcat": 0.09335640287895453
+  },
+  "GEMSDOE30": {
+   "n": 44090,
+   "dti_offcat": 0.09417442916119363
+  },
+  "GEMSDOE31": {
+   "n": 40199,
+   "dti_offcat": 0.09529485537964633
+  },
+  "GEMSDOE32": {
+   "n": 37654,
+   "dti_offcat": 0.09538611460482532
+  },
+  "GEMSDOE33": {
+   "n": 41865,
+   "dti_offcat": 0.09568259594212596
+  },
+  "GEMSDOE36": {
+   "n": 38854,
+   "dti_offcat": 0.09676998666077825
+  }
+ },
+ "block_bootstrap": {
+  "block_px": 200,
+  "draws": 400,
+  "mean_diff": 0.010908546448358092,
+  "p2.5": -0.003366263821131524,
+  "p97.5": 0.026038828265624682,
+  "fraction_of_draws_positive": 0.9225
+ },
+ "caveats": [
+  "This is a HOLDOUT-DTI on an independent expert fault inventory, not the organizer metric and not a leaderboard score.",
+  "The inventory disagrees with the observed leaderboard ordering (rho -0.34, p 0.36 on the nine files), so it cannot be used to predict a score; it is used only to test whether the candidate's surface beats a random field of the same size.",
+  "The nine files score higher on this inventory because they spend more dots over more of the map, which is exactly the behaviour the organizer metric punishes; the instrument therefore ranks *emission strategies* and not submissions."
+ ]
+}

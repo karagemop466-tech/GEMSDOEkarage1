@@ -519,6 +519,44 @@ def session_page(p: str) -> str:
 <p class="cell-sub">Verdict: <strong>{esc(card["verdict"])}</strong>. {esc(card["verdict_reason"])}</p></section>
 <section class="next-strip"><div><p class="eyebrow">BACK</p><h2>Executive summary and nine focus sites.</h2><p>Scores are USER-REPORTED; no organizer receipt exists for this session.</p></div><a class="button button-dark" href="{p}docs/executive-summary.html">Executive summary ↗</a></section>'''
 
+KP1_GATE = ROOT / 'evidence' / 'kp1_release_gate.json'
+
+
+def kp1_banner(prefix: str) -> str:
+    """Top-of-page pointer to the current session's cleared file (fail closed).
+
+    Renders the green call to action only when the release gate for this exact
+    saved file says ``ok_to_submit`` and its SHA-256 matches the bytes on disk.
+    Any inconsistency demotes the block to a red "not cleared" notice, so a stale
+    or hand-edited receipt cannot advertise a file that did not pass.
+    """
+    try:
+        gate = json.loads(KP1_GATE.read_text())
+        tif = ROOT / gate['tif']
+        digest = hashlib.sha256(tif.read_bytes()).hexdigest()
+        ok = bool(gate['decision']['ok_to_submit']) and digest == gate['sha256']
+        name = Path(gate['tif']).name
+        proj = gate['projection']
+    except (OSError, KeyError, ValueError, TypeError):
+        return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
+                '<p><strong>Current session receipt is missing or unreadable.</strong> '
+                'No file is advertised here.</p></section>')
+    if not ok:
+        return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
+                '<p><strong>Current session: no file cleared.</strong> The K-PROXY-DETECT gate did '
+                'not pass for the file on disk.</p></section>')
+    return (
+        '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
+        '<span aria-hidden="true">✅</span><p><strong>NEW · 31 OCT 2026 · '
+        '<a href="' + prefix + 'docs/kp1/index.html">OK TO SUBMIT: K-PROXY-DETECT GeoTIFF</a></strong> '
+        '— the only file on this site cleared for upload. '
+        '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + name +
+        '" download>Download the .tif</a>'
+        '<a href="' + prefix + 'docs/kp1/index.html">Executive summary, projected '
+        + f'{proj["projected_value"]:.4f}'
+        + ' (projection, not a score) · uniqueness and format evidence ↗</a>. '
+        'Every older artifact on this site remains <strong>DO NOT SUBMIT</strong>.</p></section>')
+
 
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
     p = '../' * depth
@@ -536,7 +574,7 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation">{nav}</nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
 <div class="container"><p class="global-hold">{status_line(p)}</p></div></header>
-<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_510af7c7_20261031.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+<main id="main"><div class="container">{kp1_banner(p)}{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_510af7c7_20261031.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
 
 
 def session_evidence():
@@ -608,7 +646,7 @@ def decision(prefix: str):
     chdt = conduit_audit['previous_holdout_claim']
     return session_panel(prefix) + f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> PRIOR CANDIDATE REVIEW · 29 OCT 2026 <span class="status-tag">DO NOT SUBMIT</span></div>
-<h2 id="decision-title">No eligible submission file was found. Both reviewed research rasters fail the literal lattice gate.</h2><p><strong>not cleared for upload.</strong> No approved .tif to download.</p>
+<h2 id="decision-title">No eligible submission file was found. Both reviewed research rasters fail the literal lattice gate.</h2><p><strong>not cleared for upload.</strong> No approved .tif to download from that review — the 31 October K-PROXY-DETECT file in the banner at the top of this page is the cleared one.</p>
 <p>The prior BB-STEP file <code class="wrap">{esc(card['submission_name'])}</code> is unique versus the nine focus sites (worst overlap {nine:.1%}) but has {lat:.2%} lattice overlap; it is a duplicate. Its prior-session <strong>HOLDOUT-DTI {dti['value']:.5f}</strong> [{dti['ci95'][0]:.5f}, {dti['ci95'][1]:.5f}] used evaluator {esc(dti['evaluator_version'])} with {dti['withheld_positives']:,} withheld positives. This is not an organizer score and does not override the duplicate stop.</p>
 <p>The newer Conduitcrest research file has {clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) are within 3 px of the pinned lattice, exceeding the 70% threshold. Its prior run card's incomplete <strong>HOLDOUT-DTI {chdt['reported_value']:.6f}</strong> claim names evaluator {esc(chdt['evaluator_version'])} and {chdt['withheld_positives']:,} withheld positives but provides <strong>no 95% CI</strong>; it is not a release-grade result.</p>
 <p>Original Conduitcrest uniqueness compared only the nine focus-site rasters, not the lattice or complete fleet. Its pre-placement lattice comparison and per-feature canary are absent. Both candidates are research/audit files only; neither is cleared for upload.</p>

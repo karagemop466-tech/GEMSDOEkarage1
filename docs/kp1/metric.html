@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why 0.2778 — metric analysis</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.ok{border-left:6px solid #1d6b45;background:#e5f3ea;padding:26px 30px;border-radius:4px;margin:26px 0}
+.ok h2{color:#175437;margin:0 0 10px}
+.big{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.pill{display:inline-block;background:#1d6b45;color:#fff;padding:4px 12px;border-radius:999px;
+font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;vertical-align:middle}
+.pill.warn{background:#ad3f29}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 34px}
+.kpi div{background:#fff;border:1px solid #d3dacd;border-radius:8px;padding:16px}
+.kpi b{display:block;font-size:1.5rem;letter-spacing:-.02em}
+.download{display:inline-block;background:#1d6b45;color:#fff;padding:16px 26px;border-radius:6px;
+text-decoration:none;font-weight:700;font-size:1.05rem;margin:10px 12px 10px 0}
+.download.alt{background:#3b5a4e}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+</style></head>
+<body>
+<header><a href="../index.html">GEMS · KARAGE-1</a>
+<nav><a href="index.html">Decision &amp; download</a><a href="executive-summary.html">Executive summary</a><a href="metric.html" aria-current="page">Why 0.2778</a><a href="nine-sites.html">The nine sites</a><a href="how-to-submit.html">How to submit</a><a href="research.html">New hypotheses</a><a href="sources.html">Sources</a><a href="../index.html">Repository home</a></nav></header>
+<main>
+
+<p class="eyebrow">Metric analysis</p>
+<h1>Why 0.2778, and what it would take to beat it</h1>
+<p>The published metric, for a binary dot field, reduces exactly to</p>
+<p class="research">DTI = T / ( alpha·(n − M) + beta·|G| + T ),  alpha = 0.2, beta = 0.8</p>
+<p>with <code>n</code> dots, <code>T</code> the truth credit they cover, <code>M</code> their own
+self-credit and <code>|G|</code> the number of truth cells. Two consequences decide everything:</p>
+<ul>
+<li>a dot that lands <em>on</em> a truth cell is free (its own credit cancels its false-positive
+mass) and adds up to 1.0 to <code>T</code>;</li>
+<li>a dot that misses costs exactly 0.2 whatever else is true.</li>
+</ul>
+<p>So one more dot helps iff its expected truth credit clears</p>
+<p class="research">dT &gt; alpha·(1 − m)·s / (1 − s)</p>
+<p>which depends only on the current score <code>s</code>. At <strong>0.2778 the bar is
+0.0769</strong>; at 0.3195 it is
+0.0939; at 0.4413,
+0.1580. A field that is already at
+0.2778 must find new dots that are right about 7.7 % of the time; to reach the leaderboard top it
+would need 15.8 %.</p>
+
+<h2>What the nine files vary</h2>
+<p>Reported score against dot count across the nine: Spearman
+<strong>-0.967</strong>, slope
+-0.0012 per 1,000 dots. Nothing else in the
+measured covariate table moves the score monotonically except the fraction of dots that are far from
+the catalogue (which is collinear with dot count within this family). That is the evidence for
+"nine points on one family", and it is why 0.2778 is a <em>position</em> rather than an idea.</p>
+
+<h2>The ceiling, and what the leaderboard numbers imply</h2>
+<p>A dot field with perfect knowledge cannot exceed <strong>1/(1+beta) =
+0.556</strong> once every truth cell is covered: the
+false-negative weight is a hard tax on an un-covered truth cell. That places 0.4544 at 82 % of the
+theoretical maximum of the submission format.</p>
+<p>The frontier for a perfectly placed field (dots = covered truth cells, |G| = 60,988):</p><div class="table-scroll"><table class=""><thead><tr><th>Dots</th><th>Score</th></tr></thead><tbody><tr><td>2,000</td><td class="num">0.039</td></tr><tr><td>3,454</td><td class="num">0.066</td></tr><tr><td>5,965</td><td class="num">0.109</td></tr><tr><td>10,301</td><td class="num">0.174</td></tr><tr><td>17,790</td><td class="num">0.267</td></tr><tr><td>30,723</td><td class="num">0.386</td></tr><tr><td>53,059</td><td class="num">0.521</td></tr><tr><td>91,632</td><td class="num">0.526</td></tr><tr><td>158,247</td><td class="num">0.472</td></tr></tbody></table></div>
+<p>Inverting the reported leaderboard numbers for the truth credit they imply at B2's dot budget:</p>
+<div class="table-scroll"><table class=""><thead><tr><th>Target</th><th>Assumed |G|</th><th>Required coverage</th><th>Required credit per dot</th><th>Geometrically possible</th></tr></thead><tbody><tr><td>0.2778</td><td class="num">30,494</td><td class="num">0.374</td><td class="num">0.303</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">60,988</td><td class="num">0.330</td><td class="num">0.534</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">120,000</td><td class="num">0.308</td><td class="num">0.982</td><td>yes</td></tr><tr><td>0.2778</td><td class="num">200,000</td><td class="num">0.299</td><td class="num">1.589</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">30,494</td><td class="num">0.449</td><td class="num">0.364</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">60,988</td><td class="num">0.396</td><td class="num">0.642</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">120,000</td><td class="num">0.370</td><td class="num">1.180</td><td>yes</td></tr><tr><td>0.3195</td><td class="num">200,000</td><td class="num">0.360</td><td class="num">1.910</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">30,494</td><td class="num">0.714</td><td class="num">0.578</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">60,988</td><td class="num">0.630</td><td class="num">1.020</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">120,000</td><td class="num">0.588</td><td class="num">1.875</td><td>yes</td></tr><tr><td>0.4413</td><td class="num">200,000</td><td class="num">0.571</td><td class="num">3.035</td><td>no</td></tr><tr><td>0.4544</td><td class="num">30,494</td><td class="num">0.747</td><td class="num">0.605</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">60,988</td><td class="num">0.659</td><td class="num">1.068</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">120,000</td><td class="num">0.616</td><td class="num">1.963</td><td>yes</td></tr><tr><td>0.4544</td><td class="num">200,000</td><td class="num">0.598</td><td class="num">3.176</td><td>no</td></tr></tbody></table></div>
+<p><small><code>|G|</code> is unknown — the inversion is run at four assumptions so the assumption
+is visible instead of hidden. <code>Credit per dot</code> above 1.0 means dots must be spaced along
+fault lines so that each also covers neighbours; the 0.4413 row is where that stops being plausible
+for a 37,654-dot field.</small></p>
+
+<h2>What this candidate's surface has to achieve</h2>
+<p>At <em>fixed</em> surface quality more dots is always better, so no submission wins on dot count
+alone. What the nine files show is that their <em>last</em> dots carry a lower hit rate, which is
+why deleting them helped. The candidate emits 32,000 dots instead of 37,654, so its surface
+has to be better to compensate:</p>
+<div class="table-scroll"><table class=""><thead><tr><th>Assumed |G|</th><th>Credit per landing dot</th><th>Champion's implied hit rate</th><th>Hit rate this file needs to match 0.2778</th><th>Surface improvement required</th></tr></thead><tbody><tr><td>30,494</td><td>2.0</td><td class="num">0.121</td><td class="num">0.138</td><td class="num">+13.5 %</td></tr><tr><td>30,494</td><td>2.5</td><td class="num">0.098</td><td class="num">0.111</td><td class="num">+13.5 %</td></tr><tr><td>60,988</td><td>2.0</td><td class="num">0.214</td><td class="num">0.247</td><td class="num">+15.3 %</td></tr><tr><td>60,988</td><td>2.5</td><td class="num">0.172</td><td class="num">0.199</td><td class="num">+15.3 %</td></tr><tr><td>120,000</td><td>2.0</td><td class="num">0.394</td><td class="num">0.459</td><td class="num">+16.4 %</td></tr><tr><td>120,000</td><td>2.5</td><td class="num">0.317</td><td class="num">0.369</td><td class="num">+16.4 %</td></tr></tbody></table></div>
+<p>And the distance to the leaderboard numbers, in the same units:</p>
+<div class="table-scroll"><table class=""><thead><tr><th>Target</th><th>Assumed |G|</th><th>Hit rate needed at 32,000 dots</th><th>Hit rate needed at 37,654 dots</th><th>Multiple of the champion</th></tr></thead><tbody><tr><td>0.3195</td><td class="num">30,494</td><td class="num">0.128</td><td class="num">0.113</td><td class="num">1.31×</td></tr><tr><td>0.3195</td><td class="num">60,988</td><td class="num">0.230</td><td class="num">0.199</td><td class="num">1.33×</td></tr><tr><td>0.3195</td><td class="num">120,000</td><td class="num">0.426</td><td class="num">0.366</td><td class="num">1.35×</td></tr><tr><td>0.4413</td><td class="num">30,494</td><td class="num">0.180</td><td class="num">0.159</td><td class="num">1.84×</td></tr><tr><td>0.4413</td><td class="num">60,988</td><td class="num">0.323</td><td class="num">0.280</td><td class="num">1.87×</td></tr><tr><td>0.4413</td><td class="num">120,000</td><td class="num">0.599</td><td class="num">0.514</td><td class="num">1.89×</td></tr><tr><td>0.4544</td><td class="num">30,494</td><td class="num">0.186</td><td class="num">0.164</td><td class="num">1.90×</td></tr><tr><td>0.4544</td><td class="num">60,988</td><td class="num">0.333</td><td class="num">0.289</td><td class="num">1.93×</td></tr><tr><td>0.4544</td><td class="num">120,000</td><td class="num">0.618</td><td class="num">0.531</td><td class="num">1.95×</td></tr></tbody></table></div>
+<p>So the honest claim is narrow: this file matches 0.2778 only if its consensus surface is
+10–15 % more accurate than the champion's, and 0.3195 needs ~1.3× the champion's accuracy, 0.4413
+needs ~1.85×. The projection of 0.2789 is what an OLS on the nine
+user-reported scores gives for this geometry; it is
++0.0020 versus B2 and it is <strong>not</strong> a measurement.</p>
+
+<h2>Two anomalies the session could not resolve</h2>
+<ol>
+<li>Two independent local instruments (catalogue leave-out, and the state-compilation inventory)
+both <em>disagree</em> with the observed leaderboard ordering. That means the private truth is not
+recoverable from the public catalogue by any method tested here, and any local "holdout DTI" is a
+statement about the instrument, not about the submission.</li>
+<li>The literal 3-px / 70 % uniqueness rule is saturated: all 36 pairs among the nine focus rasters
+score 86.7–100.0 %
+against a chance level near 15 %. Under a literal reading of that rule the nine are all duplicates
+of each other, which cannot be what the rule intends.</li>
+</ol>
+
+</main>
+<footer>Lane H-KP1 · session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 ·
+every figure on this page is rendered from a committed JSON receipt. Nothing here is an
+organizer-confirmed score.</footer>
+</body></html>
