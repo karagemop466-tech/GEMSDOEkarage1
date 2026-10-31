@@ -376,18 +376,20 @@
     ]
   },
   "decision": {
-    "ok_to_submit": true,
+    "ok_to_submit": false,
     "basis": [
-      "saved-byte format preflight passed",
-      "literal uniqueness rules passed",
-      "no positive mass inside the mapped-catalogue corridor"
+      "saved-byte format preflight passed"
     ],
-    "not_basis": [
-      "no organizer receipt for this file",
+    "slots_used": 0,
+    "registry_complete": false,
+    "lattice_gate_passes": false,
+    "blockers": [
+      "registry is incomplete and unauthenticated",
+      "lattice duplicate gate unresolved/fails",
+      "no organizer receipt",
       "no validated leaderboard estimate",
-      "the holdout instrument is anti-correlated with the known leaderboard ordering (see evidence/kp1_exp2_holdout.json instrument_calibration)"
-    ],
-    "slots_used": 0
+      "holdout instrument ranks known submissions in reverse order"
+    ]
   },
   "mechanism_scenarios": {
     "purpose": "what the candidate's surface must achieve, and what the leaderboard top would need",

@@ -1,0 +1,67 @@
+{
+  "schema": "gems-run-card-v1",
+  "session": "arena/4dffc2c6-gemsdoekarage1",
+  "date": "2026-10-31",
+  "scope": "review, independent verification, fail-closed hold; no new hypothesis or experiment",
+  "hypothesis": "No new hypothesis tested this session. Verified the existing K-PROXY-DETECT file (kp1) instead.",
+  "mechanism": "not applicable (no new mechanism); the kp1 mechanism is recorded in evidence/kp1_run_card.json",
+  "named_non_fault_process_that_could_mimic": [
+    "buried pluton margins and caldera rings (round, multi-field, no scarp, no spring alignment)",
+    "alluvial contact springs along basin margins (springs without structure)",
+    "regional metamorphic fabric (broad, parallel, survives upward continuation)",
+    "landslide headwalls and fluvial cut banks in the LiDAR term"
+  ],
+  "experiments_budget": {
+    "budget": 3,
+    "used": 0,
+    "spent": []
+  },
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI (copied from evidence/kp1_run_card.json, not re-run)",
+    "value": 0.07640846770050778,
+    "evaluator_version": "gems57-pooled-hide-v2 (quadrant_ids) extended with an independent off-catalogue truth",
+    "n_withheld_positive_cells": 62122,
+    "ci95_block_bootstrap": [
+      -0.003366263821131524,
+      0.026038828265624682
+    ],
+    "caveat": "This is the DTI of the candidate's *surface* on an independent expert fault inventory, not the organizer metric and not a leaderboard estimate. The same instrument ranks the nine known files in the opposite order to their real scores (rho -0.34, p 0.36), so it is used only to test the surface against matched random dots, which it does: +19.3 % off-catalogue fault coverage at equal dot count."
+  },
+  "correlation_and_overlap_vs_registry": {
+    "source": "evidence/uniqueness_recheck_kp1_20261031.json (scripts/verify_uniqueness_independent.py)",
+    "max_abs_spearman_sampled": 0.013636,
+    "max_candidate_dots_within_3px": 0.265281,
+    "sample_pixels": 2000000,
+    "passes_literal_gate": true,
+    "thresholds": {
+      "spearman": 0.9,
+      "dot_overlap_3px": 0.7
+    }
+  },
+  "raster": "docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+  "raster_sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "validator_output": {
+    "saved_bytes_format_check": "scripts/validate_geotiff.py with registry/GEMSDOE24_*-nan.tif as NaN-outside template: exit 0; checks outside_all_nan=false, whole_array_strict_finite_0_1=true, nonfinite_inside_count=0, out_of_range_inside_count=0, crs EPSG:32611, transform 100/-100, shape 3730x3292, float32",
+    "note": "No organizer sample_submission.tif is in the sandbox. The grid is matched to the nine registry rasters (all EPSG:32611, 100 m, 3730x3292), not to the organizer file."
+  },
+  "submission_name": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031",
+  "submission_note": "KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, >=2px off catalogue, 4px spacing, 32k dots",
+  "note_chars": 127,
+  "projection": {
+    "label": "PROJECTED - not a score",
+    "value": 0.27892044625099494
+  },
+  "verdict": "HOLD - mechanical checks pass; owner clearance not met; DO NOT SUBMIT until the owner decides",
+  "ok_to_download_and_submit_for_kp1": "NO - held; owner decision required (see knowledge/session-review-arena-4dffc2c6-20261031.md section 1)",
+  "slot_selected_or_spent": false,
+  "slots_used": 0,
+  "owner_clearance_met": false,
+  "gate_change": "none on this branch. Gate is scripts/kp1_release_gate.py as merged on main (PR #117): ok_to_submit false; blockers listed in evidence/kp1_release_gate.json",
+  "gate_blockers": [
+    "registry is incomplete and unauthenticated",
+    "lattice duplicate gate unresolved/fails",
+    "no organizer receipt",
+    "no validated leaderboard estimate",
+    "holdout instrument ranks known submissions in reverse order"
+  ]
+}

@@ -34,6 +34,7 @@ def test_site_links_and_negative_banner():
     assert 'No approved .tif to download' in index
     assert 'Latest review 2026-10-31: one H-E1 file is downloadable for owner review only' in index
     assert 'DO NOT SUBMIT · HOLD' in index
+    assert 'every other file: <strong>DO NOT SUBMIT</strong>' in index
     assert 'Download: yes, one owner-review file (H-E1, last row). Submit: no, hold.' in index
     assert 'submit-he1-20261031.html' in index
     assert 'HOLDOUT-DTI 0.04330 [0.03559, 0.04629] · gems57-pooled-hide-v2 · n=45,260 withheld positives' in index

@@ -47,7 +47,9 @@ def test_metric_identity_holds_exactly():
 def test_release_gate_receipt_is_self_consistent():
     gate = load(GATE)
     assert gate["gate"] == "kp1-release-gate/v1"
-    assert gate["decision"]["ok_to_submit"] is True
+    assert gate["decision"]["ok_to_submit"] is False
+    assert gate["decision"]["registry_complete"] is False
+    assert gate["decision"]["lattice_gate_passes"] is False
     assert gate["decision"]["slots_used"] == 0
     assert gate["format"]["all_checks_passed"] is True
     assert gate["format"]["checks"]["range_0_1_guaranteed"] is True
@@ -110,7 +112,8 @@ def test_run_card_has_every_protocol_field():
                 "holdout_dti", "correlation_and_overlap_vs_registry", "raster_sha256",
                 "validator_output", "submission_name", "submission_note", "verdict"):
         assert key in card, key
-    assert card["verdict"] == "promote"
+    assert card["verdict"] == "negative"
+    assert card["ok_to_submit"] is False
     assert len(card["submission_note"]) <= 140
     assert card["slot_selected_or_spent"] is False
     assert card["holdout_dti"]["label"] == "HOLDOUT-DTI"
@@ -156,7 +159,7 @@ def test_site_pages_are_rendered_from_the_gate():
     index = (ROOT / "docs" / "kp1" / "index.html").read_text()
     assert gate["sha256"] in index
     assert f'{gate["projection"]["projected_value"]:.4f}' in index
-    assert "OK TO SUBMIT" in index
+    assert "DO NOT SUBMIT" in index and "not cleared" in index
     assert "Download the GeoTIFF" in index
     assert "Table 1" in index
     for rel in ("kp1/index.html", "kp1/executive-summary.html", "kp1/nine-sites.html",
@@ -169,7 +172,7 @@ def test_landing_page_banner_is_fail_closed(tmp_path, monkeypatch):
     sys.path.insert(0, str(ROOT))
     from scripts import render_site
     good = render_site.kp1_banner("")
-    assert "OK TO SUBMIT" in good and "Download the .tif" in good
+    assert "no file cleared" in good  # gate is on hold, so the banner must demote
 
     # a receipt that clears nothing must demote the banner
     tampered = tmp_path / "gate.json"
@@ -192,7 +195,7 @@ def test_landing_page_banner_is_fail_closed(tmp_path, monkeypatch):
 
 def test_old_artifacts_are_still_marked_do_not_submit():
     index = (ROOT / "docs" / "index.html").read_text()
-    assert "Every older artifact on this site remains" in index
+    assert "DO NOT SUBMIT · HOLD" in index
     assert "DO NOT SUBMIT" in index
     for name in ("GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30",
                  "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"):

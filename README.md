@@ -1,11 +1,17 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-> **CURRENT CHECKOUT REVIEW — NEGATIVE / DO NOT SUBMIT.** This repository contains conflicting historical clearance notices. The current branch review did not generate or validate a new candidate, and the checked-in KP1 `promote` record does not establish authorization under the present unassigned-lane, incomplete-registry and fail-closed preflight conditions. No file is cleared by this review. See [repository review](knowledge/repo-review-20261031.md) and rerun required validations before any upload. This notice supersedes older session banners below; those are retained as historical records.
+> **CURRENT CHECKOUT REVIEW — NEGATIVE / DO NOT SUBMIT.** Review `arena/0cc984e5-gemsdoekarage1` found a fail-open KP1 gate: it marked a candidate cleared using only nine focus-site comparisons despite incomplete global registry and unresolved lattice status. The release gate and receipts/tests have been changed to fail closed. No new TIF, experiment, score estimate, or slot selection was made; required tests could not run because scientific dependencies and pytest are absent. See [this branch review](knowledge/review-arena-0cc984e5-20261031.md). This notice supersedes older session banners below; those are retained as historical records.
+
+> **Review record (31 Oct 2026, `arena/afe07cea`):** [`knowledge/review-arena-afe07cea-20261031.md`](knowledge/review-arena-afe07cea-20261031.md). Adds: (1) the literal official text puts NaN *outside the bounds*, so NaN *inside* the raster extent (the `-nan` files) is the likeliest cause of the "must be in range [0, 1]" rejection; (2) **clearance still contradicts itself:** the README and executive summary say NOT CLEARED, but `scripts/render_site.py` still emits "OK TO SUBMIT" on the homepage and 31 other generated pages, driven by `evidence/kp1_release_gate.json` `decision.ok_to_submit: true` — owner ruling required; (3) KP1 uniqueness re-measured on 3 of the 9 focus files (23–26 % 3-px overlap, |Spearman| < 0.02), not all nine; (4) the live leaderboard top is 0.4544.
 
 ## CORE VALUES — focal point for every decision
 
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
+
+## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **KP1 ON HOLD: DO NOT SUBMIT until the owner decides**
+
+KP1 (`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`) passes format and nine-file uniqueness checks, but is not cleared: holdout not shown to beat the best, global uniqueness open, projection 0.2789 is PROJECTED. Review: [knowledge/session-review-arena-4dffc2c6-20261031.md](knowledge/session-review-arena-4dffc2c6-20261031.md).
 
 ## CURRENT REPOSITORY REVIEW — 31 Oct 2026 · **NEGATIVE: DO NOT SUBMIT**
 
