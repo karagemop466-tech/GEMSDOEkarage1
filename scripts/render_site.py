@@ -292,6 +292,8 @@ def status_line(p: str) -> str:
         f'Latest review {esc(review["review_date"])}: no file cleared; this repository-safety review produced no candidate or score estimate · no approved download · '
         f'<a href="{esc(p + review["review_path"], quote=True)}">review</a> · '
         f'<a href="{esc(p + review["run_card_path"], quote=True)}">JSON run card</a>'
+        ' · <strong>Session 31 Oct 2026: NOT CLEARED</strong> (new H-V31 file fails the literal lattice gate) · '
+        f'<a href="{esc(p + "docs/submission-20261031.html", quote=True)}">live submission status</a>'
     )
 
 
@@ -343,6 +345,121 @@ def nine_site_summary(p: str) -> str:
     best_row = max(rows, key=lambda r: r['user_reported_score'])
     return f'''<section class="section comparison" id="nine-sites"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> NINE-SITE EXECUTIVE SUMMARY · 29 OCT 2026</p><h2>Best file per site, estimate, and uniqueness.</h2><p>Highest USER-REPORTED file per site. Estimated score is UNAVAILABLE for every row: no organizer receipt exists and no pipeline is reproduced here. "Unique" is measured against the pinned focus-site rasters and the 13GEMSDOE lattice only. Highest listed score: <strong>{esc(best_row['label'])} ({best_row['user_reported_score']:.4f}, USER-REPORTED)</strong>; it is not unique against the other focus-site files, so re-uploading it is not a new candidate.</p></div></div>
 <div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="Nine-site executive summary"><table><thead><tr><th>Site</th><th>Best file to download</th><th>Score</th><th>Estimated score</th><th>Unique vs other focus sites?</th><th>Lattice overlap</th><th>Submit?</th></tr></thead><tbody>{''.join(trs)}</tbody></table></div></div></section>'''
+
+
+SESSION_SUMMARY = ROOT / 'evidence/nine_site_executive_20261031.json'
+SESSION_CARD = ROOT / 'evidence/run_card_h31_20261031.json'
+
+
+def session_20261031():
+    """Load the 31 Oct session cards and fail closed unless every submission flag is False.
+
+    The build raises rather than publish if any card flips ok_to_submit, a slot flag, the
+    verdict, or the candidate bytes away from the recorded SHA-256.
+    """
+    def _reject_constant(value: str):
+        raise ValueError(f'non-standard JSON constant: {value}')
+
+    summary = json.loads(SESSION_SUMMARY.read_text(encoding='utf-8'), parse_constant=_reject_constant)
+    card = json.loads(SESSION_CARD.read_text(encoding='utf-8'), parse_constant=_reject_constant)
+    cand = summary.get('candidate') or {}
+    raster = card.get('raster') or {}
+    if (card.get('schema') != 'karage1-parallel-run-card-v2'
+            or card.get('session') != 'arena/8e91c377-gemsdoekarage1'
+            or card.get('ok_to_submit') is not False
+            or card.get('verdict') != 'negative'
+            or card.get('slot_selected_or_spent') is not False
+            or cand.get('ok_to_download_and_submit') is not False
+            or card.get('ok_to_submit') is not False
+            or any(r.get('ok_to_download_and_submit') is not False for r in summary.get('rows', []))
+            or len(summary.get('rows', [])) != len(SITES)
+            or not isinstance(card.get('note'), str) or len(card['note']) > 140
+            or (cand.get('holdout_dti') or {}).get('label') != 'HOLDOUT-DTI'):
+        raise ValueError('31 Oct session card is incomplete or not fail-closed')
+    for key in ('file', 'zip'):
+        rel = raster.get(key)
+        if not rel or Path(rel).is_absolute() or '..' in Path(rel).parts or not (ROOT / rel).is_file():
+            raise ValueError(f'31 Oct candidate {key} is missing or unsafe')
+    actual = hashlib.sha256((ROOT / raster['file']).read_bytes()).hexdigest()
+    if actual != raster.get('sha256') or actual != cand.get('sha256_tif'):
+        raise ValueError('31 Oct candidate bytes do not match the run card')
+    return summary, card
+
+
+def session_block(p: str) -> str:
+    """Top-of-site executive summary for session arena/8e91c377 (31 Oct 2026). Never grants clearance."""
+    summary, card = session_20261031()
+    cand = summary['candidate']
+    hd = cand['holdout_dti']
+    lat = card['registry_correlation_and_overlap']['lattice_forward_3px_overlap']
+    trs = []
+    for r in summary['rows']:
+        worst = r['worst_pair_3px_overlap_either_direction']
+        if r['unique_vs_other_focus_sites']:
+            uniq = '<span class="pill pill-green">YES</span>'
+        else:
+            uniq = ('<span class="pill pill-red">NO</span>'
+                    f'<span class="cell-sub">pair overlap {worst["fraction"]:.2%} with {esc(worst["sibling"])} (MEASURED)</span>')
+        trs.append(
+            f'<tr><th scope="row">{esc(r["site"])}</th>'
+            f'<td><span class="file-link">{esc(r["file_to_download"])}</span>'
+            f'<span class="cell-sub">SHA-256 {esc(r["file_sha256"][:16])}… · {r["dots"]:,} dots · listed; do not resubmit</span></td>'
+            f'<td><strong>{r["reported_score"]:.4f}</strong><span class="cell-sub">USER-REPORTED · UNVERIFIED</span></td>'
+            '<td>NOT ESTIMABLE<span class="cell-sub">no organizer receipt; holdout is not the leaderboard scale</span></td>'
+            f'<td>{uniq}</td>'
+            '<td><span class="pill pill-red">NO</span></td></tr>'
+        )
+    tif_name = card['raster']['file'].split('/')[-1]
+    trs.append(
+        '<tr><th scope="row">GEMSDOEkarage1 · H-V31 candidate</th>'
+        f'<td><a class="file-link" href="{p}docs/downloads/{esc(tif_name, quote=True)}">{esc(tif_name)}</a>'
+        f'<span class="cell-sub">{card["raster"]["dots"]:,} dots · SHA-256 {esc(card["raster"]["sha256"][:16])}… · research file, NOT CLEARED</span></td>'
+        '<td>n/a<span class="cell-sub">no organizer score</span></td>'
+        f'<td>NOT ESTIMABLE<span class="cell-sub">HOLDOUT-DTI {hd["value"]:.4f} [{hd["ci95"][0]:.4f}, {hd["ci95"][1]:.4f}] vs random {hd["random_control_value"]:.4f}</span></td>'
+        '<td><span class="pill pill-green">YES</span><span class="cell-sub">unique vs nine focus files; max forward 3 px overlap {card["registry_correlation_and_overlap"]["max_forward_3px_overlap_focus"]["value"]:.1%}</span></td>'
+        f'<td><span class="pill pill-red">FAIL</span><span class="cell-sub">lattice forward 3 px overlap {lat:.2%} vs literal 70% limit</span></td>'
+        '<td><span class="pill pill-red">NO</span><span class="cell-sub">Owner decision on the lattice gate first</span></td></tr>'
+    )
+    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>Is anything OK to download and submit? No.</h2><p><strong>DO NOT SUBMIT · NOT CLEARED.</strong> The new H-V31 raster is unique against the nine focus files, and its holdout beats random placement on our catalogue proxy. It still fails the literal lattice gate (forward 3 px overlap {lat:.2%}, limit 70%). That gate is an owner decision. No slot was selected or spent.</p><p><a class="text-link" href="{p}docs/submission-20261031.html">Live submission status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
+<div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="31 October nine-site executive summary"><table><thead><tr><th>Site</th><th>File to download</th><th>Score (label)</th><th>Estimated score</th><th>Unique vs other focus sites?</th><th>OK to submit?</th></tr></thead><tbody>{''.join(trs)}</tbody></table></div></div>
+<p class="cell-sub">Labels: USER-REPORTED = supplied scores, no receipt. HOLDOUT-DTI = catalogue hide-and-recover proxy (evaluator gems57-pooled-hide-v2). MEASURED = geometry on local mirror files. ORGANIZER-PUBLIC leader 0.4544; rank 48 0.3195 (30 Oct snapshot, not re-fetched). Highest USER-REPORTED focus value is GEMSDOE32 B2 at 0.2778; its +0.018 gain over D2.8 is a mechanism, not a measurement (see review §2).</p></section>'''
+
+
+def session_page(p: str) -> str:
+    """Live submission status and how-to-submit for 31 Oct 2026. Fail-closed like the summary block."""
+    summary, card = session_20261031()
+    raster = card['raster']
+    val = card['validator_output']
+    cc = card['registry_correlation_and_overlap']
+    hd = card['holdout']
+    tif_name = raster['file'].split('/')[-1]
+    zip_name = raster['zip'].split('/')[-1]
+    sha_name = tif_name[:-4] + '.sha256'
+    steps = [
+        ('1', 'Verify the file', f'Compare the download with the recorded SHA-256 <code class="wrap">{esc(raster["sha256"])}</code> (<code>shasum -a 256 {esc(tif_name)}</code>).'),
+        ('2', 'Read the run card', 'Open the JSON card. The verdict is <strong>negative</strong> and <code>ok_to_submit</code> is <strong>false</strong>.'),
+        ('3', 'Owner decision on the lattice gate', 'The literal 70% rule fails against the 13GEMS covering lattice for every dotted focus file. Nothing is submitted until the owner resolves it (review §6).'),
+        ('4', 'Only then, a slot', 'If and only if the owner clears the gate in writing, a human selects a slot on the organizer site. This repository never selects or spends a slot.'),
+    ]
+    step_html = ''.join(
+        f'<li><span class="hypothesis-rank">{n}</span> <strong>{esc(t)}</strong><p>{d}</p></li>' for n, t, d in steps)
+    return f'''<div class="page-top"><span>SUBMIT NOW <span class="separator">/</span> 31 OCT 2026</span><span class="page-date">NOT CLEARED</span></div>
+<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> LIVE SUBMISSION STATUS</p><h1>Download, verify, then wait. <em>Not cleared.</em></h1><p><strong>OK to download and submit: NO.</strong> This page is generated from <code>evidence/run_card_h31_20261031.json</code> and the build fails if any submission flag changes.</p></section>
+<section class="section detail-grid"><div><p class="eyebrow">RESEARCH FILE</p><h2>{esc(tif_name)}</h2></div><div class="prose-card">
+<p><a class="file-link" href="{p}docs/downloads/{esc(tif_name, quote=True)}">Download the TIF</a> · <a class="text-link" href="{p}docs/downloads/{esc(zip_name, quote=True)}">zip</a> · <a class="text-link" href="{p}docs/downloads/{esc(sha_name, quote=True)}">sha256 file</a></p>
+<p>SHA-256 <code class="wrap">{esc(raster["sha256"])}</code><br>{raster["dots"]:,} dots · {raster["bytes"]:,} bytes · single band float32 · zeros encoding · EPSG:32611 sample grid</p>
+<p><strong>Name:</strong> <code>{esc(card["name"])}</code><br><strong>Note ({card["note_chars"]} chars):</strong> {esc(card["note"])}</p></div></section>
+<section class="section"><div class="section-heading"><div><p class="eyebrow">GATES</p><h2>What passed and what did not.</h2></div></div><div class="table-shell"><div class="table-scroll" tabindex="0" role="region" aria-label="Gate results"><table><thead><tr><th>Gate</th><th>Result</th><th>Evidence</th></tr></thead><tbody>
+<tr><td>Validator (saved bytes)</td><td><span class="pill pill-green">PASS</span></td><td>{val["dots"]:,} dots · {val["nan_cells"]} NaN · values in [0,1] · {val["dots_outside_footprint"]} outside footprint · {val["dots_on_catalogue"]} on catalogue</td></tr>
+<tr><td>Uniqueness vs nine focus files</td><td><span class="pill pill-green">PASS</span></td><td>max forward 3 px overlap {cc["max_forward_3px_overlap_focus"]["value"]:.1%} ({esc(cc["max_forward_3px_overlap_focus"]["raster"][:24])}…); max |phi| {cc["max_abs_phi_focus"]["value"]:.3f}</td></tr>
+<tr><td>Surface correlation vs all registry rasters</td><td><span class="pill pill-green">PASS</span></td><td>max |Spearman| {cc["max_abs_surface_spearman_all_registry"]["value"]:.4f} (limit 0.90)</td></tr>
+<tr><td>Leakage canary</td><td><span class="pill pill-green">PASS</span></td><td>max single-feature AUC {card["leakage_canary"]["value"]:.4f} (limit 0.90)</td></tr>
+<tr><td>Holdout (HOLDOUT-DTI)</td><td><span class="pill pill-green">PASS_HOLDOUT_ONLY</span></td><td>DTI {hd["dti"]:.4f} [{hd["ci95"][0]:.4f}, {hd["ci95"][1]:.4f}] · random {hd["random_control_dti"]:.4f} · paired gain {hd["paired_delta_vs_random"]:+.4f} [{hd["paired_delta_vs_random_ci95"][0]:+.4f}, {hd["paired_delta_vs_random_ci95"][1]:+.4f}]</td></tr>
+<tr><td>Lattice duplicate gate (literal 70%)</td><td><span class="pill pill-red">FAIL</span></td><td>forward 3 px overlap {cc["lattice_forward_3px_overlap"]:.2%} vs the 13GEMS lattice probe. Every dotted focus file also exceeds 70%.</td></tr>
+</tbody></table></div></div></section>
+<section class="section"><div class="section-heading"><div><p class="eyebrow">HOW TO SUBMIT</p><h2>Four steps. Step 3 is an owner decision.</h2></div></div><ol class="hypothesis-list">{step_html}</ol>
+<p class="cell-sub">Verdict: <strong>{esc(card["verdict"])}</strong>. {esc(card["verdict_reason"])}</p></section>
+<section class="next-strip"><div><p class="eyebrow">BACK</p><h2>Executive summary and nine focus sites.</h2><p>Scores are USER-REPORTED; no organizer receipt exists for this session.</p></div><a class="button button-dark" href="{p}docs/executive-summary.html">Executive summary ↗</a></section>'''
 
 
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
@@ -651,23 +768,33 @@ def site_page(name: str):
 <section class="section detail-grid"><div><p class="eyebrow">HISTORICAL FILE</p><h2>What the evidence says.</h2></div><div class="prose-card"><p><a class="wrap" href="{esc(artifact_url(entry), quote=True)}">{esc(Path(entry['path']).name)} ↗</a><br>SHA-256 <code class="wrap">{entry['sha256']}</code></p><p><strong>{claim['reported_score']:.4f} USER-REPORTED · UNVERIFIED.</strong> No artifact-linked organizer submission receipt is available. A new leaderboard estimate is unavailable.</p><p>The file has {row['positive_pixels']:,} positive pixels; {row['lattice_directed_overlap']:.2%} fall within 3 pixels of the registered lattice. It also overlaps {pair[0]:.2%} with {pair[1]} in the directional nine-file audit. Both exceed the literal 70% threshold. <strong>DO NOT RESUBMIT.</strong></p><p>These are geometric measurements, not proof of equal geologic predictions or a forecast. Scope is historical focus-site rasters plus the lattice; complete current-registry uniqueness was not checked.</p><a class="text-link" href="data/reference-audit.json">Review the measured audit ↗</a></div></section>{secondary_section}<section class="next-strip"><div><p class="eyebrow">BACK TO THE DECISION</p><h2>No new file is cleared.</h2><p>Check the current gates and submission guide before considering any upload.</p></div><a class="button button-dark" href="executive-summary.html">Executive summary ↗</a></section>'''
 
 
+def session_page_steps(p: str) -> str:
+    """Just the how-to-submit section (same fail-closed loader)."""
+    page = session_page(p)
+    start = page.index('<section class="section"><div class="section-heading"><div><p class="eyebrow">HOW TO SUBMIT')
+    end = page.index('<section class="next-strip">')
+    return page[start:end]
+
+
 def main():
     # One builder owns all public decision/guide pages so an old lane-specific
     # generator cannot silently restore a false green badge.
     current_review()
+    session_20261031()
     evidence()
     secondary_evidence()
     local_and_peer_evidence()
     hub = submission_hub.build_facts()
     pages = {
-        ROOT / 'index.html': shell('Submission overview', submission_hub.summary_strip(0) + home(0), 0),
-        DOCS / 'submission-hub.html': shell('Submit now: executive summary and download', submission_hub.body(hub, 1), 1, 'Submit now'),
+        ROOT / 'index.html': shell('Submission overview', session_block('') + submission_hub.summary_strip(0) + home(0), 0),
+        DOCS / 'submission-hub.html': shell('Submit now: executive summary and download', session_block('../') + submission_hub.body(hub, 1), 1, 'Submit now'),
+        DOCS / 'submission-20261031.html': shell('Live submission status · 31 Oct 2026', session_page('../'), 1, 'Submit now'),
         ROOT / 'legacy-overview.html': shell('Submission overview', home(0), 0),
-        ROOT / 'executive-summary.html': shell('Submission guide', nine_site_section('') + guide(0), 0, 'Executive summary'),
-        DOCS / 'index.html': shell('Submission overview', submission_hub.summary_strip(1) + home(1), 1),
-        DOCS / 'executive-summary.html': shell('Executive summary', nine_site_section('../') + guide(1), 1, 'Executive summary'),
+        ROOT / 'executive-summary.html': shell('Submission guide', session_block('') + nine_site_section('') + guide(0), 0, 'Executive summary'),
+        DOCS / 'index.html': shell('Submission overview', session_block('../') + submission_hub.summary_strip(1) + home(1), 1),
+        DOCS / 'executive-summary.html': shell('Executive summary', session_block('../') + nine_site_section('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'legacy-executive-summary.html': shell('Executive summary', guide(1), 1, 'Executive summary'),
-        DOCS / 'how-to-submit.html': shell('Submission guide', guide(1), 1, 'Executive summary'),
+        DOCS / 'how-to-submit.html': shell('Submission guide', session_block('../') + session_page_steps('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'submission-guide.html': shell('Submission guide', guide(1), 1, 'Executive summary'),
         DOCS / 'nine-sites.html': shell('Nine-site comparison', home(1), 1),
         DOCS / 'research.html': shell('Research', research(1), 1, 'Research'),

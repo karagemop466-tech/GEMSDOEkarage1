@@ -1,0 +1,806 @@
+{
+  "schema": "karage1-h31-holdout-v1",
+  "date_utc": "2026-10-31",
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "truth_source": "data/labels.tif (mirror catalogue; NOT organizer hidden labels)",
+  "preregistration": "knowledge/preregistration-h31-visgrad-20261031.md",
+  "folds": [
+    {
+      "fold": 0,
+      "withheld_segments": 651,
+      "withheld_positive_pixels_in_region": 10092,
+      "visible_catalogue_pixels": 50723,
+      "n_per_arm_target": 8939,
+      "arms": {
+        "candidate_H_V31": {
+          "dots": 8939,
+          "dti": 0.137274,
+          "tpw": 1373.818,
+          "fpw": 8297.406,
+          "fnw": 8718.182,
+          "n_truth": 10092
+        },
+        "C1_random": {
+          "dots": 8939,
+          "dti": 0.071123,
+          "tpw": 707.514,
+          "fpw": 8663.123,
+          "fnw": 9384.486,
+          "n_truth": 10092
+        },
+        "C2_tmi_hg_top": {
+          "dots": 8939,
+          "dti": 0.073176,
+          "tpw": 727.466,
+          "fpw": 8611.211,
+          "fnw": 9364.534,
+          "n_truth": 10092
+        },
+        "C3_catalogue_proximity": {
+          "dots": 52,
+          "dti": 0.000329,
+          "tpw": 2.662,
+          "fpw": 50.217,
+          "fnw": 10089.338,
+          "n_truth": 10092
+        }
+      }
+    },
+    {
+      "fold": 1,
+      "withheld_segments": 689,
+      "withheld_positive_pixels_in_region": 12477,
+      "visible_catalogue_pixels": 48494,
+      "n_per_arm_target": 11052,
+      "arms": {
+        "candidate_H_V31": {
+          "dots": 11052,
+          "dti": 0.072781,
+          "tpw": 894.161,
+          "fpw": 10625.771,
+          "fnw": 11582.839,
+          "n_truth": 12477
+        },
+        "C1_random": {
+          "dots": 11052,
+          "dti": 0.073206,
+          "tpw": 900.568,
+          "fpw": 10700.565,
+          "fnw": 11576.432,
+          "n_truth": 12477
+        },
+        "C2_tmi_hg_top": {
+          "dots": 11052,
+          "dti": 0.041323,
+          "tpw": 506.058,
+          "fpw": 10818.318,
+          "fnw": 11970.942,
+          "n_truth": 12477
+        },
+        "C3_catalogue_proximity": {
+          "dots": 22,
+          "dti": 0.000287,
+          "tpw": 2.862,
+          "fpw": 20.471,
+          "fnw": 12474.138,
+          "n_truth": 12477
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "withheld_segments": 1116,
+      "withheld_positive_pixels_in_region": 20312,
+      "visible_catalogue_pixels": 40554,
+      "n_per_arm_target": 11059,
+      "arms": {
+        "candidate_H_V31": {
+          "dots": 11059,
+          "dti": 0.111593,
+          "tpw": 2085.202,
+          "fpw": 10095.528,
+          "fnw": 18226.798,
+          "n_truth": 20312
+        },
+        "C1_random": {
+          "dots": 11059,
+          "dti": 0.077578,
+          "tpw": 1446.168,
+          "fpw": 10513.797,
+          "fnw": 18865.832,
+          "n_truth": 20312
+        },
+        "C2_tmi_hg_top": {
+          "dots": 11059,
+          "dti": 0.078706,
+          "tpw": 1466.126,
+          "fpw": 10424.869,
+          "fnw": 18845.874,
+          "n_truth": 20312
+        },
+        "C3_catalogue_proximity": {
+          "dots": 132,
+          "dti": 0.000788,
+          "tpw": 12.83,
+          "fpw": 126.26,
+          "fnw": 20299.17,
+          "n_truth": 20312
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "withheld_segments": 743,
+      "withheld_positive_pixels_in_region": 17712,
+      "visible_catalogue_pixels": 43193,
+      "n_per_arm_target": 8951,
+      "arms": {
+        "candidate_H_V31": {
+          "dots": 8951,
+          "dti": 0.173709,
+          "tpw": 2827.051,
+          "fpw": 7698.334,
+          "fnw": 14884.949,
+          "n_truth": 17712
+        },
+        "C1_random": {
+          "dots": 8951,
+          "dti": 0.077962,
+          "tpw": 1256.881,
+          "fpw": 8503.921,
+          "fnw": 16455.119,
+          "n_truth": 17712
+        },
+        "C2_tmi_hg_top": {
+          "dots": 8951,
+          "dti": 0.067353,
+          "tpw": 1083.112,
+          "fpw": 8474.035,
+          "fnw": 16628.888,
+          "n_truth": 17712
+        },
+        "C3_catalogue_proximity": {
+          "dots": 44,
+          "dti": 0.001144,
+          "tpw": 16.223,
+          "fpw": 38.745,
+          "fnw": 17695.777,
+          "n_truth": 17712
+        }
+      }
+    }
+  ],
+  "pooled": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate_H_V31": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.12541047398439445,
+        "ci95": [
+          0.1014074337827244,
+          0.1491311139164002
+        ],
+        "withheld_positive_pixels": 60593,
+        "tpw": 7180.233011035018,
+        "fpw": 36717.03872174277,
+        "fnw": 53412.766988965
+      },
+      "C1_random": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.07561677366651874,
+        "ci95": [
+          0.07231157921823028,
+          0.07852031269604297
+        ],
+        "withheld_positive_pixels": 60593,
+        "tpw": 4311.132127504936,
+        "fpw": 38381.40570358991,
+        "fnw": 56281.86787249509
+      },
+      "C2_tmi_hg_top": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.06648480472226344,
+        "ci95": [
+          0.05344155908028591,
+          0.08020519854987795
+        ],
+        "withheld_positive_pixels": 60593,
+        "tpw": 3782.7619442030445,
+        "fpw": 38328.43387815972,
+        "fnw": 56810.23805579697
+      },
+      "C3_catalogue_proximity": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0007125016877293242,
+        "ci95": [
+          0.00014918721306622843,
+          0.0016170726574532314
+        ],
+        "withheld_positive_pixels": 60593,
+        "tpw": 34.576605361312964,
+        "fpw": 235.6932782747035,
+        "fnw": 60558.42339463868
+      }
+    },
+    "best_comparable_control": "C1_random",
+    "paired_differences": {
+      "C1_random": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.04979370031787571,
+        "ci95": [
+          0.025569598934304688,
+          0.07392845213713106
+        ],
+        "withheld_positive_pixels": 60593
+      },
+      "C2_tmi_hg_top": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.05892566926213101,
+        "ci95": [
+          0.03204260433649916,
+          0.08615651996337548
+        ],
+        "withheld_positive_pixels": 60593
+      },
+      "C3_catalogue_proximity": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.12469797229666513,
+        "ci95": [
+          0.10118746853882003,
+          0.14818986311982993
+        ],
+        "withheld_positive_pixels": 60593
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 161,
+      "draws": 1000,
+      "seed": 20261031,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "leakage_canary": {
+    "per_fold": [
+      {
+        "fold": 0,
+        "channels": [
+          {
+            "band": 1,
+            "auc": 0.4988,
+            "symmetric_auc": 0.5012,
+            "n_truth": 10081
+          },
+          {
+            "band": 2,
+            "auc": 0.4978,
+            "symmetric_auc": 0.5022,
+            "n_truth": 10081
+          },
+          {
+            "band": 3,
+            "auc": 0.5335,
+            "symmetric_auc": 0.5335,
+            "n_truth": 10081
+          },
+          {
+            "band": 4,
+            "auc": 0.5663,
+            "symmetric_auc": 0.5663,
+            "n_truth": 10081
+          },
+          {
+            "band": 5,
+            "auc": 0.5352,
+            "symmetric_auc": 0.5352,
+            "n_truth": 10081
+          },
+          {
+            "band": 6,
+            "auc": 0.4532,
+            "symmetric_auc": 0.5468,
+            "n_truth": 10081
+          },
+          {
+            "band": 7,
+            "auc": 0.5735,
+            "symmetric_auc": 0.5735,
+            "n_truth": 10081
+          },
+          {
+            "band": 8,
+            "auc": 0.5484,
+            "symmetric_auc": 0.5484,
+            "n_truth": 10081
+          },
+          {
+            "band": 9,
+            "auc": 0.4812,
+            "symmetric_auc": 0.5188,
+            "n_truth": 10081
+          },
+          {
+            "band": 10,
+            "auc": 0.5417,
+            "symmetric_auc": 0.5417,
+            "n_truth": 10081
+          },
+          {
+            "band": 11,
+            "auc": 0.5333,
+            "symmetric_auc": 0.5333,
+            "n_truth": 10081
+          },
+          {
+            "band": 12,
+            "auc": 0.6062,
+            "symmetric_auc": 0.6062,
+            "n_truth": 10081
+          },
+          {
+            "band": 13,
+            "auc": 0.535,
+            "symmetric_auc": 0.535,
+            "n_truth": 10081
+          },
+          {
+            "band": 14,
+            "auc": 0.4986,
+            "symmetric_auc": 0.5014,
+            "n_truth": 10081
+          },
+          {
+            "band": 15,
+            "auc": 0.4627,
+            "symmetric_auc": 0.5373,
+            "n_truth": 10081
+          },
+          {
+            "band": 16,
+            "auc": 0.5549,
+            "symmetric_auc": 0.5549,
+            "n_truth": 10081
+          },
+          {
+            "band": 17,
+            "auc": 0.554,
+            "symmetric_auc": 0.554,
+            "n_truth": 10081
+          },
+          {
+            "band": 18,
+            "auc": 0.479,
+            "symmetric_auc": 0.521,
+            "n_truth": 10081
+          },
+          {
+            "band": 19,
+            "auc": 0.6371,
+            "symmetric_auc": 0.6371,
+            "n_truth": 10081
+          }
+        ]
+      },
+      {
+        "fold": 1,
+        "channels": [
+          {
+            "band": 1,
+            "auc": 0.4988,
+            "symmetric_auc": 0.5012,
+            "n_truth": 12462
+          },
+          {
+            "band": 2,
+            "auc": 0.4864,
+            "symmetric_auc": 0.5136,
+            "n_truth": 12462
+          },
+          {
+            "band": 3,
+            "auc": 0.4487,
+            "symmetric_auc": 0.5513,
+            "n_truth": 12462
+          },
+          {
+            "band": 4,
+            "auc": 0.5124,
+            "symmetric_auc": 0.5124,
+            "n_truth": 12462
+          },
+          {
+            "band": 5,
+            "auc": 0.6175,
+            "symmetric_auc": 0.6175,
+            "n_truth": 12462
+          },
+          {
+            "band": 6,
+            "auc": 0.3974,
+            "symmetric_auc": 0.6026,
+            "n_truth": 12462
+          },
+          {
+            "band": 7,
+            "auc": 0.462,
+            "symmetric_auc": 0.538,
+            "n_truth": 12462
+          },
+          {
+            "band": 8,
+            "auc": 0.5197,
+            "symmetric_auc": 0.5197,
+            "n_truth": 12462
+          },
+          {
+            "band": 9,
+            "auc": 0.4895,
+            "symmetric_auc": 0.5105,
+            "n_truth": 12462
+          },
+          {
+            "band": 10,
+            "auc": 0.5403,
+            "symmetric_auc": 0.5403,
+            "n_truth": 12462
+          },
+          {
+            "band": 11,
+            "auc": 0.5639,
+            "symmetric_auc": 0.5639,
+            "n_truth": 12462
+          },
+          {
+            "band": 12,
+            "auc": 0.4384,
+            "symmetric_auc": 0.5616,
+            "n_truth": 12462
+          },
+          {
+            "band": 13,
+            "auc": 0.4783,
+            "symmetric_auc": 0.5217,
+            "n_truth": 12462
+          },
+          {
+            "band": 14,
+            "auc": 0.4923,
+            "symmetric_auc": 0.5077,
+            "n_truth": 12462
+          },
+          {
+            "band": 15,
+            "auc": 0.5346,
+            "symmetric_auc": 0.5346,
+            "n_truth": 12462
+          },
+          {
+            "band": 16,
+            "auc": 0.513,
+            "symmetric_auc": 0.513,
+            "n_truth": 12462
+          },
+          {
+            "band": 17,
+            "auc": 0.4634,
+            "symmetric_auc": 0.5366,
+            "n_truth": 12462
+          },
+          {
+            "band": 18,
+            "auc": 0.615,
+            "symmetric_auc": 0.615,
+            "n_truth": 12462
+          },
+          {
+            "band": 19,
+            "auc": 0.5515,
+            "symmetric_auc": 0.5515,
+            "n_truth": 12462
+          }
+        ]
+      },
+      {
+        "fold": 2,
+        "channels": [
+          {
+            "band": 1,
+            "auc": 0.4598,
+            "symmetric_auc": 0.5402,
+            "n_truth": 20272
+          },
+          {
+            "band": 2,
+            "auc": 0.541,
+            "symmetric_auc": 0.541,
+            "n_truth": 20272
+          },
+          {
+            "band": 3,
+            "auc": 0.5704,
+            "symmetric_auc": 0.5704,
+            "n_truth": 20272
+          },
+          {
+            "band": 4,
+            "auc": 0.5191,
+            "symmetric_auc": 0.5191,
+            "n_truth": 20272
+          },
+          {
+            "band": 5,
+            "auc": 0.4958,
+            "symmetric_auc": 0.5042,
+            "n_truth": 20272
+          },
+          {
+            "band": 6,
+            "auc": 0.4073,
+            "symmetric_auc": 0.5927,
+            "n_truth": 20272
+          },
+          {
+            "band": 7,
+            "auc": 0.5564,
+            "symmetric_auc": 0.5564,
+            "n_truth": 20272
+          },
+          {
+            "band": 8,
+            "auc": 0.5093,
+            "symmetric_auc": 0.5093,
+            "n_truth": 20272
+          },
+          {
+            "band": 9,
+            "auc": 0.4895,
+            "symmetric_auc": 0.5105,
+            "n_truth": 20272
+          },
+          {
+            "band": 10,
+            "auc": 0.4913,
+            "symmetric_auc": 0.5087,
+            "n_truth": 20272
+          },
+          {
+            "band": 11,
+            "auc": 0.5222,
+            "symmetric_auc": 0.5222,
+            "n_truth": 20272
+          },
+          {
+            "band": 12,
+            "auc": 0.5504,
+            "symmetric_auc": 0.5504,
+            "n_truth": 20272
+          },
+          {
+            "band": 13,
+            "auc": 0.4853,
+            "symmetric_auc": 0.5147,
+            "n_truth": 20272
+          },
+          {
+            "band": 14,
+            "auc": 0.4759,
+            "symmetric_auc": 0.5241,
+            "n_truth": 20272
+          },
+          {
+            "band": 15,
+            "auc": 0.4833,
+            "symmetric_auc": 0.5167,
+            "n_truth": 20272
+          },
+          {
+            "band": 16,
+            "auc": 0.4975,
+            "symmetric_auc": 0.5025,
+            "n_truth": 20272
+          },
+          {
+            "band": 17,
+            "auc": 0.5006,
+            "symmetric_auc": 0.5006,
+            "n_truth": 20272
+          },
+          {
+            "band": 18,
+            "auc": 0.4737,
+            "symmetric_auc": 0.5263,
+            "n_truth": 20272
+          },
+          {
+            "band": 19,
+            "auc": 0.5703,
+            "symmetric_auc": 0.5703,
+            "n_truth": 20272
+          }
+        ]
+      },
+      {
+        "fold": 3,
+        "channels": [
+          {
+            "band": 1,
+            "auc": 0.5341,
+            "symmetric_auc": 0.5341,
+            "n_truth": 17684
+          },
+          {
+            "band": 2,
+            "auc": 0.5064,
+            "symmetric_auc": 0.5064,
+            "n_truth": 17684
+          },
+          {
+            "band": 3,
+            "auc": 0.5066,
+            "symmetric_auc": 0.5066,
+            "n_truth": 17684
+          },
+          {
+            "band": 4,
+            "auc": 0.573,
+            "symmetric_auc": 0.573,
+            "n_truth": 17684
+          },
+          {
+            "band": 5,
+            "auc": 0.5767,
+            "symmetric_auc": 0.5767,
+            "n_truth": 17684
+          },
+          {
+            "band": 6,
+            "auc": 0.3537,
+            "symmetric_auc": 0.6463,
+            "n_truth": 17684
+          },
+          {
+            "band": 7,
+            "auc": 0.5403,
+            "symmetric_auc": 0.5403,
+            "n_truth": 17684
+          },
+          {
+            "band": 8,
+            "auc": 0.5869,
+            "symmetric_auc": 0.5869,
+            "n_truth": 17684
+          },
+          {
+            "band": 9,
+            "auc": 0.4884,
+            "symmetric_auc": 0.5116,
+            "n_truth": 17684
+          },
+          {
+            "band": 10,
+            "auc": 0.4424,
+            "symmetric_auc": 0.5576,
+            "n_truth": 17684
+          },
+          {
+            "band": 11,
+            "auc": 0.5594,
+            "symmetric_auc": 0.5594,
+            "n_truth": 17684
+          },
+          {
+            "band": 12,
+            "auc": 0.4321,
+            "symmetric_auc": 0.5679,
+            "n_truth": 17684
+          },
+          {
+            "band": 13,
+            "auc": 0.4736,
+            "symmetric_auc": 0.5264,
+            "n_truth": 17684
+          },
+          {
+            "band": 14,
+            "auc": 0.5105,
+            "symmetric_auc": 0.5105,
+            "n_truth": 17684
+          },
+          {
+            "band": 15,
+            "auc": 0.5093,
+            "symmetric_auc": 0.5093,
+            "n_truth": 17684
+          },
+          {
+            "band": 16,
+            "auc": 0.6404,
+            "symmetric_auc": 0.6404,
+            "n_truth": 17684
+          },
+          {
+            "band": 17,
+            "auc": 0.4379,
+            "symmetric_auc": 0.5621,
+            "n_truth": 17684
+          },
+          {
+            "band": 18,
+            "auc": 0.4516,
+            "symmetric_auc": 0.5484,
+            "n_truth": 17684
+          },
+          {
+            "band": 19,
+            "auc": 0.5775,
+            "symmetric_auc": 0.5775,
+            "n_truth": 17684
+          }
+        ]
+      }
+    ],
+    "max_symmetric_auc_per_channel": {
+      "1": 0.5402,
+      "2": 0.541,
+      "3": 0.5704,
+      "4": 0.573,
+      "5": 0.6175,
+      "6": 0.6463,
+      "7": 0.5735,
+      "8": 0.5869,
+      "9": 0.5188,
+      "10": 0.5576,
+      "11": 0.5639,
+      "12": 0.6062,
+      "13": 0.535,
+      "14": 0.5241,
+      "15": 0.5373,
+      "16": 0.6404,
+      "17": 0.5621,
+      "18": 0.615,
+      "19": 0.6371
+    },
+    "limit": 0.9,
+    "channels_over_limit": {}
+  },
+  "verdict_holdout_only": "PASS_HOLDOUT_ONLY",
+  "verdict_note": "Holdout-only result. The uniqueness gate is evaluated in the final mode; the lattice gate is reported there and is not waived.",
+  "config": {
+    "seed": 20261031,
+    "buffer_px": 20,
+    "spacing_px": 3.0,
+    "n_total": 40000,
+    "neg_sample": 200000,
+    "block_side_px": 200,
+    "grid": {
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730
+    }
+  },
+  "sensitivity": {
+    "post_hoc": true,
+    "buffer_px": 20,
+    "note": "Post-hoc sensitivity; does not change the preregistered verdict."
+  }
+}

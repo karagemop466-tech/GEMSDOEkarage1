@@ -1,5 +1,49 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## READ FIRST · session `arena/8e91c377-gemsdoekarage1` (31 Oct 2026) — NOT CLEARED · DO NOT SUBMIT
+
+**Answer: no file in this repository is OK to download and submit.** The new H-V31 raster is unique against the nine focus files and passes every automated format and uniqueness gate, but it **fails the literal 70% lattice duplicate gate** (forward 3 px overlap 99.75% with the 13GEMS covering lattice). Under the parallel-run protocol that is a stop. Clearing it is an **owner decision**; nothing here makes it. No submission slot was selected or spent.
+
+- **Live submission status, download and how-to-submit:** [docs/submission-20261031.html](docs/submission-20261031.html) (site) · [how-to-submit](docs/how-to-submit.html) · [executive summary](docs/executive-summary.html).
+- **Research file (NOT CLEARED):** [`docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif`](docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif) (zip and `.sha256` alongside). SHA-256 `4221236752e703ec035b4d4245d23dbb0cf2b1126f8cb6040e810316be1d738a`, 40,000 dots.
+- **JSON run card:** [evidence/run_card_h31_20261031.json](evidence/run_card_h31_20261031.json) · **review:** [knowledge/session-review-arena-8e91c377-20261031.md](knowledge/session-review-arena-8e91c377-20261031.md).
+
+### Nine focus sites (executive summary; full table in `evidence/nine_site_executive_20261031.json`)
+
+| Site | File to download | Score (label) | Estimated leaderboard score | Unique vs other focus sites? | OK to submit? |
+|---|---|---|---|---|---|
+| GEMSDOE24 | `gems24-h25-1-dotted-…-nan.tif` | 0.2477 (USER-REPORTED) | NOT ESTIMABLE | No: pair overlap 100% with GEMSDOE25 (MEASURED) | No |
+| GEMSDOE25 | `d28.tif` | 0.2600 (USER-REPORTED) | NOT ESTIMABLE | No: exact mask match with GEMSDOE30 | No |
+| GEMSDOE27 | `topo-gap-closure-…-nan.tif` | 0.2449 (USER-REPORTED) | NOT ESTIMABLE | No: pair overlap 100% with GEMSDOE24 | No |
+| GEMSDOE28 | `h36-1-rung30-blind-…-nan.tif` | 0.2710 (USER-REPORTED) | NOT ESTIMABLE | No: pair overlap 100% with GEMSDOE24 | No |
+| GEMSDOE30 | `d28-poisson300m-offcat-…tif` | 0.2600 (USER-REPORTED) | NOT ESTIMABLE | No: exact mask match with GEMSDOE25 | No |
+| GEMSDOE31 | `h27-4-solo-d28-…-nan.tif` | 0.2708 (USER-REPORTED) | NOT ESTIMABLE | No: pair overlap 100% with GEMSDOE24 | No |
+| GEMSDOE32 | `GEMSDOE32_B2` (B2) | **0.2778 (USER-REPORTED, highest focus value)** | NOT ESTIMABLE | No: pair overlap 100% with GEMSDOE24 and GEMSDOE25 | No (already listed) |
+| GEMSDOE33 | `h33d-analog-tip-stepover-…tif` | 0.2632 (USER-REPORTED) | NOT ESTIMABLE | No: pair overlap 99.98% with GEMSDOE32 | No |
+| GEMSDOE36 | `anderson-geothermal-pinn-38854-…-zeros.tif` | 0.2750 (USER-REPORTED) | NOT ESTIMABLE | No: pair overlap 100% with GEMSDOE32 | No |
+| **H-V31 candidate** | `karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif` | HOLDOUT-DTI **0.1143** [0.0918, 0.1364]; random 0.0773 | NOT ESTIMABLE | **Yes** (max forward 3 px overlap 38.0%, |phi| ≤ 0.022) | **No**: lattice gate FAIL (99.75%) |
+
+**Why GEMSDOE32 B2 is highest (MEASURED geometry + vendored metric; not a verified score).** B2 is a strict subset of D2.8 (GEMSDOE25). The 6,436 removed dots all lie within 2 px of the mirrored catalogue, and B2 has no dot within 2 px. Under DTI = TP / (TP + 0.2·FP + 0.8·FN) a dot improves the score only if its marginal credit exceeds 0.2·DTI, about 0.056 here, which needs hidden truth within about 2.8 px. The +0.018 gain over D2.8 is consistent with removing dots that earned little hidden-truth credit. That is a mechanism, not a measurement.
+
+**Can a higher score be achieved?** Possibly, not demonstrated. The only validated gain is H-V31 over random on our catalogue holdout (**HOLDOUT-DTI**, paired +0.037 [+0.015, +0.059]; post-hoc buffer-20 +0.050 [+0.026, +0.074]). Its leaderboard effect is unknown. The target 0.3195 (rank #48, ORGANIZER-PUBLIC 30 Oct) is above every USER-REPORTED focus value, and the leader is 0.4544. Five untried hypotheses, ranked by expected gain and cost, are in [knowledge/hypotheses-20261031.md](knowledge/hypotheses-20261031.md): H-P1 credit-aware dot budget (cheapest, next), H-B1 buried basin-bounding faults, H-A1 catalogue-adjacent truth (highest value, needs a holdout-design decision), H-S1 seismicity, H-D1 DEM drainage (blocked: USGS not reachable).
+
+**Labels.** HOLDOUT-DTI = our catalogue hide-and-recover proxy. ORGANIZER-PUBLIC = leaderboard row (30 Oct snapshot, not re-fetched). ORGANIZER-CONFIRMED = none exists here. USER-REPORTED = supplied, no receipt. MEASURED = geometry on local mirror files.
+
+**Remaining work and limitations** (full list in the review §7): owner decision on the lattice gate; organizer-authenticated data (the mirror is hash-consistent only; the reference notebook names `numeric_features.tif`, the mirror is `training_features.tif`); re-fetch the leaderboard when reachable; the next experiment only after preregistration; restore or retire the two hash-mismatched vendored writers. Limitations: no organizer receipt for any file; random placement is a strong control (0.0773 HOLDOUT-DTI), so holdout values are not leaderboard values; the buffer prevents testing catalogue-adjacent truth; fold 1 candidate loses to random; official DrivenData, NLR, USGS, OpenEI, EPSG and Wikipedia pages could not be fetched from the sandbox (manual-review links in [knowledge/official-sources-20261031.md](knowledge/official-sources-20261031.md)).
+
+### SESSION PROMPT — 31 Oct 2026 (read at the start of every session)
+
+*Normalised from the user's request for this session; not a verbatim transcript.*
+
+- **Task.** DrivenData competition #306 (DOE GEMS), repository GEMSDOEkarage1. (1) Executive summary for focus sites GEMSDOE24, 25, 27, 28, 30, 31, 32, 33, 36: the file to download, an estimated score labelled per protocol, and uniqueness against the other listed sites. (2) A unique downloadable GeoTIF, not a duplicate of prior submissions, with an obvious OK/not-OK answer and validation gates that run without a human. (3) Explain why GEMSDOE32 B2 (0.2778, USER-REPORTED) is highest and whether a higher score is achievable; propose 3–5 untried geological hypotheses ranked by expected DTI gain and cost; validate the top candidate on the spatially blocked holdout before any submission slot is used. (4) Target: beat 0.3195 (#48, 30 Oct snapshot); ideally reach #1 (0.4544).
+- **Standing requirements.** Label every number HOLDOUT-DTI, ORGANIZER-CONFIRMED, ORGANIZER-PUBLIC, USER-REPORTED or MEASURED. No hallucinations; check every claim line by line against official, trusted sources and give manual-review links. Multi-pass work: implement, review for bugs and requirement fit, re-check against the request. Keep a clean GitHub Pages site under `docs/` with the executive summary at the top, a how-to-submit subpage, and for each submission an easy-to-download file, a name and a short note. Any Office deliverable uses modern OOXML. Create a PR, merge to main, and list remaining work and limitations.
+- **Parallel-run protocol.** Stay in lane. Correlation > 0.90, or more than 70% of dots within 3 px of any registry raster, counts as a duplicate: stop. Reuse template tools (`evaluate_holdout.py`, `submission_writer.py`). Leakage canary: a single-feature AUC > 0.90 means leakage. Budget: 3 experiments or 2 hours. **Do not select submission slots.** End with a JSON run card: hypothesis, mechanism, mimicked process, holdout DTI with CI, registry correlation and overlap, raster SHA-256, validator output, name plus a note of ≤140 characters, and verdict (promote or negative).
+- **Focal values.** Maximize P(Win). Own the Outcome.
+
+---
+
+## Previous review (kept for history)
+
 ## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
