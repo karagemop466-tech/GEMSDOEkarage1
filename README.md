@@ -1,6 +1,18 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/46ed1c8c-gemsdoekarage1` (31 Oct 2026)
+
+**Status: DO NOT SUBMIT (HOLD). One owner-review GeoTIFF is downloadable; nothing is cleared for upload and no weekly slot was selected or spent.**
+
+- **Download (owner review only):** [`docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif`](docs/downloads/karage1-he1-euler-contact-si0-37654-20261031-zeros.tif). Single-band float32, EPSG:32611, 100 m, values in [0, 1], all finite. The `-nan.tif` twin is diagnostic only (see the official-format conflict in the review).
+- **Unique name and note (for a future upload):** `karage1-he1-euler-contact-si0-37654-20261031-zeros`; note: "H-E1 Euler SI0 contact, 37654 dots, label-free; holdout above null; lattice gate fails literal rule. HOLD, do not submit." (121 characters).
+- **Why it is held:** the pre-registered rule returns negative. The literal 70 % dot-overlap criterion trips against three covering rasters. For a 37,654-dot set, the lattice floor is 82.34 %, so the literal rule cannot be passed at this size. Owner ruling needed (review §6).
+- **Holdout (HOLDOUT-DTI, not a leaderboard estimate):** pooled DTI 0.05071 vs matched random null 0.04460 and tmi_hg baseline 0.04867; paired CI on the null difference [0.00336, 0.00797]; leakage canary max AUC 0.581.
+- **GEMSDOE32 B2 (USER-REPORTED 0.2778):** B2 is GEMSDOE25's mask minus 6,436 dots that all lie within 2 px of mapped faults. Official rules mask only mapped-fault pixels. The holdout scores B2 at 0.00473 and cannot rank it. No route above 0.2778 is demonstrated.
+- **Pages:** [submit guide](docs/submit-he1-20261031.html) · [executive summary](docs/executive-summary.html) · [review](knowledge/session-review-arena-46ed1c8c.md) · [JSON run card](evidence/session_46ed1c8c_run_card.json) · [experiment evidence](evidence/exp_h_e1_euler_20261031.json) · [pre-registration](knowledge/preregistration-he1-euler-20261031.md).
+- **Standing prompt and core values:** read the "SESSION PROMPT" section below at the start of every session. Core values: **Maximize P(Win)** and **Own the Outcome**.
+
+## Previous review — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
 
