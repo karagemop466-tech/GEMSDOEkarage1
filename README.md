@@ -1,6 +1,16 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
+## LATEST REVIEW (read first) — session `arena/b2a6d9d1-gemsdoekarage1` (31 Oct 2026)
+
+**Status: NOT CLEARED — DO NOT DOWNLOAD OR SUBMIT.** No new TIF, holdout, or slot selection.
+- **Leaderboard corrected, live 31 Oct 2026:** #1 = **0.4544**; #2 = 0.3925; **0.3195 is rank #50** (not the top score); 0.4413 is not in the top 50. [Leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
+- **Official format, fetched today:** float32, EPSG 32611, 100 m, single layer, values in [0, 1], **null or NaN outside bounds**. [Problem description](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
+- **Upload error:** no local TIF has a value outside [0, 1]. 19 of 31 TIFs encode 0 outside the footprint, which the official text does not list; 10 use NaN and pass the literal check. The exact file the user uploaded is unknown.
+- **Why B2 (0.2778, user-reported) is plausible:** B2 is a pure 6,436-cell removal from GEMSDOE25; GEMSDOE25 and GEMSDOE30 have identical masks. The metric's bar for a dot is k > α·DTI ≈ 0.056 at DTI 0.28 (verified in code).
+- **Blocker:** the protocol's method-lane paragraph is missing, and the shared feature stack is not built, so no holdout has been run.
+- Review: [knowledge/review-arena-b2a6d9d1-20261031.md](knowledge/review-arena-b2a6d9d1-20261031.md) · run card: [evidence/run_card_arena_b2a6d9d1_20261031.json](evidence/run_card_arena_b2a6d9d1_20261031.json) · format check: [evidence/official_format_check_20261031.json](evidence/official_format_check_20261031.json) · metric check: [evidence/dti_threshold_check_20261031.json](evidence/dti_threshold_check_20261031.json)
+
+## Previous review — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
 
