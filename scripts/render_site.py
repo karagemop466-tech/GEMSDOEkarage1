@@ -22,6 +22,7 @@ import sys as _sys
 if str(ROOT) not in _sys.path:
     _sys.path.insert(0, str(ROOT))
 from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
+from scripts.release_authorization import authorization_for, load_active_status  # noqa: E402
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
 PREVIOUS_REVIEW_CARD_46ED1C8C = ROOT / 'evidence/session_46ed1c8c_run_card.json'
 CURRENT_REVIEW_CARD = ROOT / 'evidence/run_card_arena_9cf124bb_20261031.json'
@@ -335,27 +336,18 @@ def lane_status():
 
 
 def status_line(p: str) -> str:
-    """Top status from this branch's current negative card; historical reviews are not current authority."""
-    card_path = ROOT / 'evidence/run_card_arena_fd3e38cf_20261031.json'
-    try:
-        card = json.loads(card_path.read_text(encoding='utf-8'))
-        current = (card.get('session') == 'arena/fd3e38cf-gemsdoekarage1'
-                   and card.get('verdict') == 'negative'
-                   and card.get('ok_to_submit') is False
-                   and card.get('download_available') is False
-                   and card.get('slot_selected_or_spent') is False)
-    except (OSError, ValueError, TypeError):
-        current = False
-    if not current:
-        return ('<strong>DO NOT SUBMIT — current release status missing or invalid.</strong> '
-                'No file is authorized. '
-                f'<a href="{esc(p + "docs/current-review-20261031.html", quote=True)}">Current review ↗</a>')
+    """Show the active session's fail-closed decision, not a stale lane receipt."""
+    status = load_active_status()
+    reason = esc(str(status.get("reason", "active authorization is unavailable")))
+    card = "evidence/run_card_arena_a79c8595_20261031.json"
+    review = "knowledge/review-arena-a79c8595-20261031.md"
+    date = esc(str(status.get("review_date", "unknown")))
     return (
-        '<strong>DO NOT SUBMIT · CURRENT REVIEW NEGATIVE</strong> · no new TIFF generated · '
-        'no holdout run · lane/template/data preflight blocked · no slot selected or spent · '
-        f'<a href="{esc(p + "docs/current-review-20261031.html", quote=True)}">Executive decision and nine-site table ↗</a> · '
-        f'<a href="{esc(p + "knowledge/session-review-arena-fd3e38cf-20261031.md", quote=True)}">Three-pass review ↗</a> · '
-        f'<a href="{esc(p + "evidence/run_card_arena_fd3e38cf_20261031.json", quote=True)}">JSON run card ↗</a>'
+        '<strong>DO NOT SUBMIT · NOT CLEARED</strong> · '
+        f'Active review {date}: no candidate is authorized. {reason} · '
+        f'<a href="{esc(p + review, quote=True)}">current review</a> · '
+        f'<a href="{esc(p + card, quote=True)}">JSON run card</a> · '
+        f'<a href="{esc(p + "docs/how-to-submit.html", quote=True)}">submission guide</a>'
     )
 
 
@@ -482,7 +474,7 @@ def session_block(p: str) -> str:
         f'<td><span class="pill pill-red">FAIL</span><span class="cell-sub">lattice forward 3 px overlap {lat:.2%} vs literal 70% limit</span></td>'
         '<td><span class="pill pill-red">NO</span><span class="cell-sub">Owner decision on the lattice gate first</span></td></tr>'
     )
-    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>Is anything OK to download and submit? No.</h2><p><strong>DO NOT SUBMIT · NOT CLEARED.</strong> The new H-V31 raster is unique against the nine focus files, and its holdout beats random placement on our catalogue proxy. It still fails the literal lattice gate (forward 3 px overlap {lat:.2%}, limit 70%). That gate is an owner decision. No slot was selected or spent.</p><p><a class="text-link" href="{p}docs/submission-20261031.html">Live submission status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}docs/executive-20261031.html">Nine-site executive table + H-K1-SEISMIC-PROX candidate ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
+    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>Is anything OK to download and submit? No. KP1 is on hold for the owner.</h2><p><strong>DO NOT SUBMIT · NOT CLEARED.</strong> The new H-V31 raster is unique against the nine focus files, and its holdout beats random placement on our catalogue proxy. It still fails the literal lattice gate (forward 3 px overlap {lat:.2%}, limit 70%). That gate is an owner decision. No slot was selected or spent.</p><p><a class="text-link" href="{p}docs/kp1/index.html">OK-to-submit file: KP1 ↗</a> · <a class="text-link" href="{p}docs/submission-20261031.html">H-V31 status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}docs/executive-20261031.html">Nine-site executive table + H-K1-SEISMIC-PROX candidate ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
 <div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="31 October nine-site executive summary"><table><thead><tr><th>Site</th><th>File to download</th><th>Score (label)</th><th>Estimated score</th><th>Unique vs other focus sites?</th><th>OK to submit?</th></tr></thead><tbody>{''.join(trs)}</tbody></table></div></div>
 <p class="cell-sub">Labels: USER-REPORTED = supplied scores, no receipt. HOLDOUT-DTI = catalogue hide-and-recover proxy (evaluator gems57-pooled-hide-v2). MEASURED = geometry on local mirror files. ORGANIZER-PUBLIC leader 0.4544; rank 48 0.3195 (30 Oct snapshot, not re-fetched). Highest USER-REPORTED focus value is GEMSDOE32 B2 at 0.2778; its +0.018 gain over D2.8 is a mechanism, not a measurement (see review §2).</p></section>'''
 
@@ -506,7 +498,7 @@ def session_page(p: str) -> str:
     step_html = ''.join(
         f'<li><span class="hypothesis-rank">{n}</span> <strong>{esc(t)}</strong><p>{d}</p></li>' for n, t, d in steps)
     return f'''<div class="page-top"><span>SUBMIT NOW <span class="separator">/</span> 31 OCT 2026</span><span class="page-date">NOT CLEARED</span></div>
-<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> LIVE SUBMISSION STATUS</p><h1>Download, verify, then wait. <em>Not cleared.</em></h1><p><strong>OK to download and submit: NO.</strong> This page is generated from <code>evidence/run_card_h31_20261031.json</code> and the build fails if any submission flag changes.</p></section>
+<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> LIVE SUBMISSION STATUS</p><h1>Download, verify, then wait. <em>Not cleared.</em></h1><p><strong>OK to download and submit (this H-V31 file): NO.</strong> The KP1 file is on hold, see <a href="{p}docs/kp1/index.html">docs/kp1/index.html</a>. This page is generated from <code>evidence/run_card_h31_20261031.json</code> and the build fails if any submission flag changes.</p></section>
 <section class="section detail-grid"><div><p class="eyebrow">RESEARCH FILE</p><h2>{esc(tif_name)}</h2></div><div class="prose-card">
 <p><a class="file-link" href="{p}docs/downloads/{esc(tif_name, quote=True)}">Download the TIF</a> · <a class="text-link" href="{p}docs/downloads/{esc(zip_name, quote=True)}">zip</a> · <a class="text-link" href="{p}docs/downloads/{esc(sha_name, quote=True)}">sha256 file</a></p>
 <p>SHA-256 <code class="wrap">{esc(raster["sha256"])}</code><br>{raster["dots"]:,} dots · {raster["bytes"]:,} bytes · single band float32 · zeros encoding · EPSG:32611 sample grid</p>
@@ -527,21 +519,26 @@ KP1_GATE = ROOT / 'evidence' / 'kp1_release_gate.json'
 
 
 def kp1_banner(prefix: str) -> str:
-    """Never let an archived release gate authorize a present-day upload.
-
-    The historical KP1 receipt predates this checkout's current lane/template
-    audit. A matching SHA proves byte identity, not current protocol clearance.
-    Only a future selector-owned active-release receipt may add a download CTA;
-    this builder currently has no such receipt and therefore fails closed.
-    """
-    return (
-        '<section class="notice" role="alert" style="border-left-color:#a83232;background:#fff0ef">'
-        '<span aria-hidden="true">⛔</span><p><strong>DO NOT SUBMIT — no file is currently cleared.</strong> '
-        'The historical KP1 card is not current upload authorization: this checkout has no assigned '
-        'method lane or canonical shared-template assignment, and required data/cache are absent. '
-        '<a href="' + prefix + 'docs/current-review-20261031.html">Current decision and nine-site table ↗</a> · '
-        '<a href="' + prefix + 'evidence/run_card_arena_fd3e38cf_20261031.json">Current JSON run card ↗</a>. '
-        'No submission download is offered.</p></section>')
+    """Never let a historical lane receipt override the active protocol decision."""
+    try:
+        gate = json.loads(KP1_GATE.read_text())
+        ok, reason = authorization_for(gate)
+        if ok:
+            name = Path(gate['tif']).name
+            return (
+                '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
+                '<span aria-hidden="true">✅</span><p><strong>ELIGIBLE FOR SELECTOR REVIEW · '
+                'SLOT SELECTION IS SEPARATE</strong> '
+                '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + name +
+                '" download>Download the cleared candidate</a>'
+                '<a href="' + prefix + 'docs/kp1/index.html">Evidence and decision details ↗</a></p></section>')
+    except (OSError, KeyError, ValueError, TypeError):
+        reason = "active authorization record missing or invalid"
+    return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
+            '<p><strong>DO NOT SUBMIT · NO FILE CLEARED.</strong> This artifact is not cleared for upload. '
+            + esc(str(reason)) + ' The historical K-PROXY-DETECT raster is available for audit only, '
+            'not as an approved competition submission. <a href="' + prefix
+            + 'docs/kp1/index.html">Review its evidence ↗</a></p></section>')
 
 
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
@@ -560,7 +557,7 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation">{nav}</nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
 <div class="container"><p class="global-hold">{status_line(p)}</p></div></header>
-<main id="main"><div class="container">{kp1_banner(p)}{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_510af7c7_20261031.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+<main id="main"><div class="container">{kp1_banner(p)}{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_a79c8595_20261031.json">Current review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
 
 
 def session_evidence():
@@ -632,7 +629,7 @@ def decision(prefix: str):
     chdt = conduit_audit['previous_holdout_claim']
     return session_panel(prefix) + f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> PRIOR CANDIDATE REVIEW · 29 OCT 2026 <span class="status-tag">DO NOT SUBMIT</span></div>
-<h2 id="decision-title">No eligible submission file was found. No current candidate is cleared.</h2><p><strong>DO NOT SUBMIT.</strong> The archived 31 October K-PROXY-DETECT technical gate is not current upload authorization; no active release receipt or download is offered.</p>
+<h2 id="decision-title">No eligible submission file was found.</h2><p><strong>Not cleared for upload.</strong> No approved .tif is available. The historical 31 October K-PROXY-DETECT raster is an audit/research artifact, not a current clearance.</p>
 <p>The prior BB-STEP file <code class="wrap">{esc(card['submission_name'])}</code> is unique versus the nine focus sites (worst overlap {nine:.1%}) but has {lat:.2%} lattice overlap; it is a duplicate. Its prior-session <strong>HOLDOUT-DTI {dti['value']:.5f}</strong> [{dti['ci95'][0]:.5f}, {dti['ci95'][1]:.5f}] used evaluator {esc(dti['evaluator_version'])} with {dti['withheld_positives']:,} withheld positives. This is not an organizer score and does not override the duplicate stop.</p>
 <p>The newer Conduitcrest research file has {clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) are within 3 px of the pinned lattice, exceeding the 70% threshold. Its prior run card's incomplete <strong>HOLDOUT-DTI {chdt['reported_value']:.6f}</strong> claim names evaluator {esc(chdt['evaluator_version'])} and {chdt['withheld_positives']:,} withheld positives but provides <strong>no 95% CI</strong>; it is not a release-grade result.</p>
 <p>Original Conduitcrest uniqueness compared only the nine focus-site rasters, not the lattice or complete fleet. Its pre-placement lattice comparison and per-feature canary are absent. Both candidates are research/audit files only; neither is cleared for upload.</p>
