@@ -122,7 +122,9 @@ def test_receipts_are_copied_byte_identical():
 def test_focus_page_states_status_and_has_no_raster_download():
     text = PAGE.read_text()
     assert "NOT CLEARED" in text and "DO NOT SUBMIT" in text
-    assert "Is it OK to download and submit any file? No." in text
+    assert "Is any file OK to download and submit? No." in text
+    assert "CURRENT REVIEW · 31 OCT 2026" in text
+    assert "No current candidate was generated." in text
     # no raster is linked, and no anchor carries a download attribute
     assert not re.search(r'href="[^"]*\.tif"', text, flags=re.I)
     assert not re.search(r"<a[^>]*\sdownload[\s>=]", text, flags=re.I)

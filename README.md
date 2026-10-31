@@ -1,14 +1,16 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/087d895d-gemsdoekarage1` (31 Oct 2026)
 
-**Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
+**Status: NEGATIVE — DO NOT SUBMIT.** No new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or weekly-slot selection was produced. The assigned method lane, canonical shared-template assignment, required cached inputs, writer/uniqueness provenance, and complete authenticated registry are unresolved. No file in this checkout is cleared for upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available.
 
-- **Three-pass repository review and focus-site executive table:** [review report](knowledge/review-arena-946f7668-20261031.md) · [JSON run card](evidence/run_card_arena_946f7668_20261031.json).
-- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and absent competition sample grid. This is software verification, not model validation.
-- **Preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; missing shared stack/data and writer/uniqueness provenance mismatch. No experiment was run because the lane and authorized shared inputs are unresolved.
-- **Candidate queue:** four research proposals and named geological mimics are in the review report. They are not globally novelty-verified or validated; ranking is qualitative and no score is projected.
-- **Submission action:** none. All historical/raster references are research-only; do not upload any file from this checkout.
+- **Three-pass review and nine-site executive table:** [current review](knowledge/review-arena-087d895d-20261031.md) · [JSON run card](evidence/run_card_arena_087d895d_20261031.json).
+- **Verification:** `.venv/bin/python -m pytest -q -rs` → **446 passed, 0 failed, 2 skipped, 126 warnings**. Skips require absent ignored bridge rasters and the absent competition sample grid. This is software verification, not model validation.
+- **Shared-tools preflight:** `.venv/bin/python scripts/shared_tools.py preflight` → **not ready**; feature cache and four data rasters are absent, and the writer/uniqueness hashes differ from recorded pins. No experiment was run.
+- **Research slate:** four qualitative proposals, layers, mechanisms, non-fault mimics, relative implementation costs, and prior-art caveats are in [hypotheses-20261031.md](knowledge/hypotheses-20261031.md). None is lane-assigned, globally novelty-verified, validated, or a score projection.
+- **Download decision:** none. The submission hub no longer links the stale 29 October research TIFF. Historical TIFFs remain research/audit artifacts; do not upload any file from this checkout.
+
+**Standing prompt:** read the `SESSION PROMPT — READ FIRST` section in this README on every project session. It records the user's goal and protocol; the active lane/tool/data gates above take precedence over any unsafe urge to fabricate a TIFF.
 
 ## Previous upstream review — session `arena/830e1f79` (31 Oct 2026)
 
@@ -74,10 +76,10 @@ Labels: **HOLDOUT-DTI** = our proxy on withheld known-catalogue segments; **ORGA
 
 # SESSION PROMPT — READ FIRST AT THE START OF EVERY SESSION
 
-This is the standing user prompt for this project. Read it at the start of every session to make sure we are building what we are aiming for.
+This is the project's normalized standing brief, not a verbatim transcript. Read it at the start of every session, together with the CURRENT REVIEW at the top of this README. New explicit user instructions and the current review supersede historical score/leaderboard snapshots below; never treat an archived experiment or TIFF as current submission clearance.
 
 ## Primary goal
-Place top of the leaderboard in the DrivenData DOE GEMS Prize Challenge (https://www.drivendata.org/competitions/306/competition-doe-gems/) by producing a single-band float32 GeoTIFF of fault probabilities. Current leaderboard high score: 0.4413 (0.4544 on live public leaderboard per 29 Oct 2026 check).
+Place at the top of the leaderboard in the DrivenData DOE GEMS Prize Challenge (https://www.drivendata.org/competitions/306/competition-doe-gems/) by producing a single-band float32 GeoTIFF of fault probabilities. The user supplied 0.4413; the latest repository-recorded public leaderboard read on 30 Oct 2026 showed 0.4544 (ORGANIZER-PUBLIC snapshot, not a submission-page receipt). This is time-sensitive, was not refreshed in the current review, and is not a leaderboard projection for any focus-site file.
 
 ## Nine focus sites (highest scoring submissions)
 GEMSDOE24, GEMSDOE25, GEMSDOE27, GEMSDOE28, GEMSDOE30, GEMSDOE31, GEMSDOE32, GEMSDOE33, GEMSDOE36.
@@ -528,7 +530,9 @@ No competition slot was selected or spent in this session.
 
 ---
 
-# SESSION PROMPT — FULL TEXT (read at start of every session)
+# SESSION PROMPT — FULL REQUIREMENTS (normalized project brief; read at start of every session)
+
+This section is not a verbatim transcript. Its competition-state bullets are a dated historical snapshot and are superseded by the CURRENT REVIEW at the top of this README. Do not interpret any archived “unique TIF generated” claim as present clearance.
 
 ## Core Mission
 
@@ -558,15 +562,15 @@ Official rules: EPSG:32611, 100 m, same bounds as sample_submission.tif; one flo
 
 10. **Clean GitHub Pages site** under docs/; three passes then PR merged to main, listing remaining work and limitations.
 
-## Current Competition State
+## Historical Competition Snapshot (not current state)
 
-- Public leaderboard #1: 0.4544 (DrivenData, checked 29 Oct 2026)
-- Best nine focus-site reported score: GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED)
-- All nine focus-site rasters are lattice duplicates (>97.6% dots within 3 px of pinned 13GEMSDOE lattice)
-- No file currently cleared for submission (lane = null, labels login-walled, no organizer receipt)
-- Unique TIF generated: `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif` (1,322 dots, format-valid, lattice-unique, 0.0000 worst overlap, NOT cleared for submission)
+- The latest repository-recorded public leaderboard #1 is 0.4544 (ORGANIZER-PUBLIC snapshot, checked 30 Oct 2026; not refreshed in this review and not a submission-page receipt).
+- Best score listed for the nine focus sites is GEMSDOE32 B2 at 0.2778 (USER-REPORTED / UNVERIFIED).
+- A prior local audit found the nine focus-site rasters overlap the pinned 13GEMSDOE lattice; this is not a complete authenticated registry comparison.
+- No file is cleared for submission: lane and canonical assignment are null, competition inputs are unavailable here, and no organizer receipt is linked.
+- A 29 Oct artifact was once described as lattice-unique, but a later audit found out-of-footprint positives and duplicate overlap and retracted it from upload consideration. Its archived name is `gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif`; it is research/audit material only. See `knowledge/session-review-arena-89955dc0.md` and the current review at the top of this README.
 
-## Source Links (Official, Verified)
+## Official Source Links (verification dates recorded separately; not freshly checked in this review)
 
 - Competition problem: https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/
 - Competition about: https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/

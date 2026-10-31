@@ -1,0 +1,87 @@
+{
+  "schema": "karage1-run-card-v1",
+  "session": "arena/087d895d-gemsdoekarage1",
+  "review_date": "2026-10-31",
+  "review_path": "knowledge/review-arena-087d895d-20261031.md",
+  "run_card_path": "evidence/run_card_arena_087d895d_20261031.json",
+  "hypothesis": "No geological hypothesis was tested. H-CMCI is ranked first for possible future preregistration only; no method lane is assigned.",
+  "mechanism": "No candidate surface, feature, point placement, or raster was computed. The four proposals are documented in knowledge/hypotheses-20261031.md.",
+  "named_non_fault_process": "No candidate was tested. The top proposal's named mimics are saline or clay-rich playa, basin-facies contact, intrusive contact, and flight/acquisition seam.",
+  "named_non_fault_mimic": "Not applicable to an untested candidate; see the specific mimics for each proposal in knowledge/hypotheses-20261031.md.",
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "value": null,
+    "evaluator_version": null,
+    "withheld_positives": null,
+    "ci95": null,
+    "status": "not run: method lane is unassigned; canonical shared inputs and authorized evaluator/writer preflight fail"
+  },
+  "correlation_overlap_vs_registry": {
+    "preplacement_surface_rank_correlation": null,
+    "final_dot_overlap": null,
+    "registry_rasters_checked": 0,
+    "status": "not computed: no candidate surface or final dots; the full authenticated registry is unavailable"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "status": "not run: no raster generated"
+  },
+  "submission_name": null,
+  "submission_note": "No candidate generated; no file cleared for upload.",
+  "submission_note_chars": 51,
+  "ok_to_submit": false,
+  "new_candidate_generated": false,
+  "download_available": false,
+  "slot_selected_or_spent": false,
+  "geological_experiments_run": 0,
+  "experiment_budget": {
+    "maximum": 3,
+    "used_this_session": 0,
+    "status": "No experiments were started; the lane and authorized inputs are unresolved."
+  },
+  "software_tests": {
+    "command": ".venv/bin/python -m pytest -q -rs",
+    "passed": 446,
+    "failed": 0,
+    "skipped": 2,
+    "warnings": 126,
+    "skip_reasons": [
+      "Absent ignored bridge rasters required for data-dependent footprint/catalogue test.",
+      "Competition sample grid not restored for data-dependent validator test."
+    ],
+    "meaning": "Software verification only; not a geological experiment, HOLDOUT-DTI, leaderboard estimate, or submission authorization."
+  },
+  "preflight": {
+    "command": ".venv/bin/python scripts/shared_tools.py preflight",
+    "exit_code": 1,
+    "ready_for_shared_tools": false,
+    "method_lane": null,
+    "canonical_template_assignment": null,
+    "missing": [
+      ".cache/gems_work/feature_stack.npy",
+      ".cache/gems_data/existing_faults.tif",
+      ".cache/gems_data/training_features.tif",
+      ".cache/gems_data/sample_submission.tif",
+      ".cache/gems_data/labels.tif"
+    ],
+    "provenance_integrity": false,
+    "provenance_mismatches": [
+      "vendor/gems57/submission_writer.py differs from recorded SHA-256",
+      "vendor/gems57/uniqueness.py differs from recorded SHA-256"
+    ],
+    "execution_authorized": false
+  },
+  "submission_slots_used": 0,
+  "verdict": "negative",
+  "blockers": [
+    "The single assigned method paragraph is missing; registry/template.json method_lane and canonical_template_assignment are null.",
+    "The shared feature cache and four required competition rasters are absent from the shared execution paths.",
+    "Vendored submission_writer.py and uniqueness.py do not match their recorded provenance hashes; do not repin or privately fork.",
+    "The complete authenticated registry is unavailable; registry/registry_roles.json contains a role-based calibration exception that conflicts with the current prompt's literal any-registry duplicate rule.",
+    "The mapped-catalogue holdout is not calibrated to the competition's off-catalogue private labels and cannot produce a leaderboard estimate.",
+    "No organizer receipt, current authenticated leaderboard read, or live weekly-slot selector is available in this session."
+  ]
+}

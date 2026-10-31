@@ -149,7 +149,6 @@ def _dti(s):
 def body(f: dict, depth: int) -> str:
     """HTML for the hub. depth=0 -> root index, depth=1 -> docs/*."""
     doc = "docs/" if depth == 0 else ""
-    dl = f"{doc}downloads/{TIF_NAME}"
     rows = site_rows(f)
     sp = f["spacing"]
     fl = f["file"]
@@ -175,29 +174,25 @@ def body(f: dict, depth: int) -> str:
         f"<li><code>{esc(k)}</code>: {'PASS' if v else 'FAIL'}</li>" for k, v in fl["checks"].items())
     return f"""
 <section class="hub-decision" id="download" aria-labelledby="hub-title">
-  <p class="eyebrow">SUBMISSION DECISION · 29 OCT 2026</p>
+  <p class="eyebrow">HISTORICAL RESEARCH REVIEW · 29 OCT 2026</p>
   <h1 id="hub-title">Is anything OK to download and submit? <span class="tag-no">NO — NOT CLEARED: DO NOT SUBMIT</span></h1>
-  <p><strong>No file on this site is cleared for DrivenData upload.</strong> The new GeoTIFF below is valid in
-  format and passes the rank and dot-overlap checks against the nine focus files. It fails the literal 3-px lattice gate, and its holdout is negative. It must not be submitted.</p>
+  <p><strong>No file on this site is cleared for DrivenData upload.</strong> The latest repository review produced no candidate, no validated score estimate, and no approved download. The historical candidate summarized below is an audit artifact only and is not offered as a submission download.</p>
   <ul class="why">
-    <li><strong>Holdout is negative.</strong> HOLDOUT-DTI {sp['candidate_spaced']['dti']:.4f}
+    <li><strong>Historical holdout was negative.</strong> HOLDOUT-DTI ({esc(f['evaluator'])}; {f['withheld_total']:,} withheld positives) {sp['candidate_spaced']['dti']:.4f}
     [{sp['candidate_spaced']['ci95'][0]:.4f}, {sp['candidate_spaced']['ci95'][1]:.4f}] versus a spacing-matched random
     null at {sp['random_spaced_null']['dti']:.4f} (paired Δ {f['spacing_delta']['delta']:+.4f},
     95% CI [{f['spacing_delta']['ci95'][0]:+.4f}, {f['spacing_delta']['ci95'][1]:+.4f}] — includes zero).</li>
-    <li><strong>Lattice gate fails.</strong> {_pct(f['lattice']['fwd'])} of its dots lie within 3 px of the
-    13GEMSDOE calibration lattice; the literal stop is &gt; {int(LATTICE_GATE*100)}%.</li>
+    <li><strong>Historical lattice gate failed.</strong> {_pct(f['lattice']['fwd'])} of its dots lay within 3 px of the
+    pinned lattice; the literal stop is &gt; {int(LATTICE_GATE*100)}%.</li>
     <li><strong>No organizer receipt.</strong> No submission-page score, organizer acceptance, or live slot
-    allowance was verifiable from this sandbox (DrivenData login-walled).</li>
+    allowance was verified for the historical artifact.</li>
   </ul>
   <article class="audit-card download-card">
-    <p class="eyebrow">NEW FILE · research only · NOT CLEARED: DO NOT SUBMIT</p>
-    <h2><a class="download-link" href="{esc(dl, quote=True)}" download>Download {esc(TIF_NAME)}</a></h2>
-    <p><small>Single-band float32 GeoTIFF · EPSG:32611 · 100 m · 3292×3730 · values 0–1 inside the footprint ·
-    NaN outside the footprint (official text: null or NaN). SHA-256 <code class="wrap">{esc(fl['sha256'])}</code>.
-    Name: <code>{esc(fl['name_text'])}</code> · Note ({fl['note_chars']} chars): <code>{esc(fl['note_text'])}</code></small></p>
-    <p><span class="tag-no">DO NOT SUBMIT</span> Reason: negative holdout and lattice duplicate (see above).
-    If the protocol owner rules the lattice gate out of scope, this file still has to clear the holdout test to be
-    worth a slot — it does not.</p>
+    <p class="eyebrow">HISTORICAL ARTIFACT · RESEARCH ONLY · NOT CLEARED</p>
+    <h2>No approved .tif is available to download</h2>
+    <p>For audit context only: <code class="wrap">{esc(TIF_NAME)}</code> · historical SHA-256 <code class="wrap">{esc(fl['sha256'])}</code>. This file is deliberately not linked from the submission decision page.</p>
+    <p><strong>Do not upload it.</strong> The old experiment failed its holdout comparison and literal duplicate gate; the current review did not generate a replacement. No submission name, note, or weekly slot is selected.</p>
+    <p><a href="../evidence/tiltgrav_final_20261029.json">Historical saved-byte receipt (JSON only) ↗</a></p>
   </article>
 </section>
 
@@ -209,7 +204,7 @@ def body(f: dict, depth: int) -> str:
   &gt; {int(LATTICE_GATE*100)}% of a file's dots within 3 px of another file's dots (the project's literal gate).
   A file is only "unique" if it clears the gate against all focus files <em>and</em> the lattice.</p>
   <div class="table-scroll"><table>
-    <thead><tr><th>Site</th><th>File to download</th><th>Score (user-reported)</th>
+    <thead><tr><th>Site</th><th>Best historical file (learning only)</th><th>Score (user-reported)</th>
     <th>Estimated score</th><th>Unique vs the other GEMSDOE files?</th><th>OK to submit?</th></tr></thead>
     <tbody>{''.join(ex_rows)}</tbody></table></div>
   <p><small>Most focus files duplicate one another under the literal rule (for example, GEMSDOE24, 25, 27 and 30 each
@@ -220,18 +215,14 @@ def body(f: dict, depth: int) -> str:
 <section class="hub-table" aria-labelledby="estimate-title">
   <p class="eyebrow">HOW WE ESTIMATE A SCORE</p>
   <h2 id="estimate-title">Estimates: what we can and cannot say</h2>
-  <p>We have one shared evaluator (<code>gems57-pooled-hide-v2</code>, α=0.2, β=0.8, 300 m kernel) and a
-  hide-and-recover holdout over the mapped faults. On that holdout, a uniform random placement at the same budget
-  scores about 0.05, while the user-reported (unverified) values for the nine files sit at 0.22–0.28.
-  <strong>The holdout is therefore not calibrated to the leaderboard and cannot produce a leaderboard estimate.</strong>
-  Holdout values below are HOLDOUT-DTI only.</p>
+  <p>The historical shared evaluator (<code>gems57-pooled-hide-v2</code>, α=0.2, β=0.8, 300 m triangular kernel) performs a hide-and-recover test on mapped fault segments. Values in the experiment table below are HOLDOUT-DTI; each is tied to its evaluator, withheld-positive count and 95% CI. Focus-site scores are USER-REPORTED / UNVERIFIED. <strong>This catalogue holdout is not calibrated to the leaderboard and cannot produce a leaderboard estimate.</strong></p>
   <p>Why GEMSDOE32 <code>h33-h33-2-b2</code> (user-reported 0.2778) scored highest among the listed sites, and whether a higher score is achievable: <a href="https://github.com/karagemop466-tech/GEMSDOEkarage1/blob/main/knowledge/02_why_gemsdoe32_b2_scored_0.2778.md">explanation in the repository</a> (the link opens on main after the merge).</p>
   <table><thead><tr><th>Arm (same budget 37,654 dots/fold)</th><th>HOLDOUT-DTI [95% CI]</th><th>Notes</th></tr></thead><tbody>
-  <tr><td>NEW candidate, spacing 6 px (file above)</td><td>{_dti(sp['candidate_spaced'])}</td><td>EXP-3, withheld positives {f['withheld_total']:,}</td></tr>
-  <tr><td>Random null, spacing 6 px</td><td>{_dti(sp['random_spaced_null'])}</td><td>best comparable control</td></tr>
-  <tr><td>NEW candidate, no spacing</td><td>{_dti(f['holdout_unspaced']['candidate'])}</td><td>EXP-2</td></tr>
-  <tr><td>Random null, no spacing</td><td>{_dti(f['holdout_unspaced']['random_null'])}</td><td>EXP-2; candidate minus this is significantly negative</td></tr>
-  <tr><td>Proximity shell (3–6 px from visible faults)</td><td>{_dti(f['holdout_unspaced']['proximity_shell'])}</td><td>EXP-2</td></tr>
+  <tr><td>Historical candidate, spacing 6 px (not offered)</td><td>{_dti(sp['candidate_spaced'])}</td><td>EXP-3 · HOLDOUT-DTI · {f['evaluator']} · {f['withheld_total']:,} withheld positives</td></tr>
+  <tr><td>Random null, spacing 6 px</td><td>{_dti(sp['random_spaced_null'])}</td><td>EXP-3 matched control · HOLDOUT-DTI · {f['evaluator']} · {f['withheld_total']:,} withheld positives</td></tr>
+  <tr><td>Historical candidate, no spacing</td><td>{_dti(f['holdout_unspaced']['candidate'])}</td><td>EXP-2 · HOLDOUT-DTI · {f['evaluator']} · {f['withheld_total']:,} withheld positives</td></tr>
+  <tr><td>Random null, no spacing</td><td>{_dti(f['holdout_unspaced']['random_null'])}</td><td>EXP-2 matched control · HOLDOUT-DTI · {f['evaluator']} · {f['withheld_total']:,} withheld positives</td></tr>
+  <tr><td>Proximity shell (3–6 px from visible faults)</td><td>{_dti(f['holdout_unspaced']['proximity_shell'])}</td><td>EXP-2 · HOLDOUT-DTI · {f['evaluator']} · {f['withheld_total']:,} withheld positives</td></tr>
   </tbody></table>
   <p><small>Leakage canary (EXP-1): {f['canary']['n_features']} feature layers tested alone; highest holdout AUC
   {f['canary']['max_auc']:.4f} ({esc(f['canary']['max_feature'])}); alarm threshold 0.90; alarms: {f['canary']['any_alarm']}.</small></p>
@@ -246,15 +237,14 @@ def body(f: dict, depth: int) -> str:
     registry copies; they are third-party copies, not this team's output.</li>
     <li>Check on your machine: one band, float32, EPSG:32611, shape 3730×3292, 100 m, identical transform to
     the sample, values in [0, 1] inside the footprint, NaN outside (public spec: "data outside the bounds is null or nan").</li>
-    <li>Give it a unique name (≤ 140 characters) and a short note (≤ 140 characters) on the form, for example
-    the name and note above.</li>
+    <li>For a future file that has been independently cleared, use its approved unique name and a note of at most 140 characters. No current file, name, or note is approved here.</li>
     <li>Use the official page for the rules: <a href="{PAGE}">submission format</a> and the
     <a href="{RULES}">official rules PDF</a>. Three submissions per week; one final submission is selected before the
     deadline. The data tab is login-walled from this sandbox, and no upload was attempted.</li>
   </ol>
-  <details><summary>Local validator results for the file above (all checks)</summary>
+  <details><summary>Historical local validator diagnostics (not current clearance or organizer acceptance)</summary>
   <ul class="checks">{checks}</ul></details>
-  <p class="shared-check"><strong>Shared template validator: FAILS on this file.</strong> <code>scripts/audit_local_tif.py</code>
+  <p class="shared-check"><strong>Historical shared-template audit: FAILS for this prior file.</strong> <code>scripts/audit_local_tif.py</code>
   (receipt <code>evidence/audit_tiltgrav_ridge_sp6_20261029.json</code>) reports <code>format_report_ok: false</code>:
   {shared_problems}. The shared policy requires zeros outside the footprint; the official spec allows null or NaN.
   This is the unresolved NaN-versus-zeros conflict and is one more reason the file is not cleared.</p>

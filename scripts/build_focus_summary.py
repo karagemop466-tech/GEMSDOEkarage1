@@ -2,7 +2,7 @@
 """Build docs/focus-sites.html: NOT CLEARED / DO NOT SUBMIT executive summary for the nine focus sites.
 
 Every number on the page is read from an evidence file under evidence/ (no hand-typed values).
-Scores are labelled OWNER-REPORTED / UNVERIFIED (from README.md) or HOLDOUT-DTI (our evaluator, 95% CI).
+Focus-site scores are labelled USER-REPORTED / UNVERIFIED; prior experiment metrics are labelled HOLDOUT-DTI.
 The page offers NO download link for any raster. Receipts are copied into docs/data/ so the links resolve.
 """
 from __future__ import annotations
@@ -34,7 +34,6 @@ ZEROS_REL = "candidates/karage1-probcollar-gbm-K37654-collar3-20261029-zeros.tif
 CAND_JSON = "candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.json"
 SITE_ORDER = ["GEMSDOE24", "GEMSDOE25", "GEMSDOE27", "GEMSDOE28", "GEMSDOE30",
               "GEMSDOE31", "GEMSDOE32", "GEMSDOE33", "GEMSDOE36"]
-ALPHA = 0.2
 
 
 def esc(x) -> str:
@@ -88,7 +87,7 @@ def focus_table(focus: dict, uniq: dict) -> str:
         ident = (f" · identical positive set with {', '.join(u['identical'])}" if u["identical"] else "")
         rows.append(
             f"<tr><td><strong>{s}</strong></td>"
-            f"<td><strong>{r['user_reported_score']:.4f}</strong><br><small>OWNER-REPORTED / UNVERIFIED</small></td>"
+            f"<td><strong>{r['user_reported_score']:.4f}</strong><br><small>USER-REPORTED / UNVERIFIED</small></td>"
             f"<td><code class=\"wrap\">{esc(r['file'].split('/')[-1])}</code><br><small>SHA-256 {esc(r['sha256'][:12])}…</small></td>"
             f"<td>{r['positives']:,}</td>"
             f"<td>{pct2(r['lattice_observed_3px_overlap'])} vs chance {pct2(r['lattice_chance_3px_overlap_uniform_random'])}</td>"
@@ -147,35 +146,41 @@ def build() -> str:
     cc = card["candidate"]
     ring_gap = ring_all["delta_ring_model_minus_ring_random"]
     ring_gap_det = ring_det["delta_ring_model_minus_ring_random"]
-    dti_threshold = ALPHA * 0.26  # illustrative; owner-reported DTI-scale value, not a measured score
 
-    hero = f'''<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> FOCUS SITES · EXECUTIVE SUMMARY</p>
+    hero = '''<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> FOCUS SITES · EXECUTIVE SUMMARY</p>
 <h1>NOT CLEARED. <em>DO NOT SUBMIT.</em></h1>
-<p class="lede">Nine focus sites, one research candidate, and a negative verdict. Nothing here is cleared for a weekly slot. No file is offered for download.</p></section>'''
+<p class="lede">Nine historical focus-site records are summarized below. This review generated no candidate, no score estimate, and no download. Nothing here is cleared for a weekly slot.</p></section>'''
+
+    current_status = '''<section class="decision-panel" aria-labelledby="current-review"><div class="decision-main">
+<div class="status-line"><span class="status-dot"></span> CURRENT REVIEW · 31 OCT 2026 <span class="status-tag">NOT CLEARED / DO NOT SUBMIT</span></div>
+<h2 id="current-review">Is any file OK to download and submit? No.</h2>
+<p><strong>No current candidate was generated.</strong> The assigned method lane and canonical template are null; required cached competition inputs are absent; the shared writer/uniqueness provenance pins mismatch; the full authenticated registry is unavailable. No geological experiment or HOLDOUT-DTI was run in this review.</p>
+<p>GEMSDOE32 B2 at 0.2778 remains <strong>USER-REPORTED / UNVERIFIED</strong>, not a receipt-linked organizer result. No leaderboard estimate is available. Read the <a href="../knowledge/review-arena-087d895d-20261031.md">three-pass review</a>, <a href="../evidence/run_card_arena_087d895d_20261031.json">current JSON run card</a>, and <a href="../knowledge/hypotheses-20261031.md">four-proposal research slate</a>.</p></div>
+<div class="decision-side"><div><span>VERDICT</span><strong>Negative · no file cleared</strong></div><div><span>HOLDOUT-DTI</span><strong>Not run this review</strong></div><div><span>LEADERBOARD ESTIMATE</span><strong>Unavailable</strong></div><div><span>SUBMISSION SLOT</span><strong>Not selected or spent</strong></div></div></section>'''
 
     decision = f'''<section class="decision-panel" aria-labelledby="ans"><div class="decision-main">
-<div class="status-line"><span class="status-dot"></span> ANSWER <span class="status-tag">NOT CLEARED / DO NOT SUBMIT</span></div>
-<h2 id="ans">Is it OK to download and submit any file? No.</h2>
-<p>The nine focus-site files are historical registry copies, labelled DO NOT RESUBMIT in the repo. The new raster <code class="wrap">{esc(CAND_REL)}</code> is a research-only artefact. It fails the literal 70% lattice gate and does not beat the holdout best. The verdict is computed in <code>scripts/write_run_card_probcollar.py</code> from the gates, not chosen.</p>
-<p><strong>Verdict: {esc(card['verdict']).upper()}</strong> · <code>ok_to_submit: {str(card['ok_to_submit']).lower()}</code> · <code>slot_selected_or_spent: {str(card['slot_selected_or_spent']).lower()}</code> · experiments used {card['lane']['experiments_used']} of {card['lane']['experiment_budget']}.</p></div>
-<div class="decision-side"><div><span>VERDICT</span><strong>Negative</strong></div><div><span>HOLDOUT BEST</span><strong>ring_random 0.0924 · HOLDOUT-DTI</strong></div><div><span>OWNER-REPORTED TOP</span><strong>0.2778 · GEMSDOE32</strong></div><div><span>ORGANISER LEADER</span><strong>0.4544 · live check</strong></div></div></section>'''
+<div class="status-line"><span class="status-dot"></span> HISTORICAL EXPERIMENT · 29 OCT 2026 <span class="status-tag">NOT CLEARED</span></div>
+<h2 id="ans">Prior session: no TIFF was cleared. The historical candidate lost to its control.</h2>
+<p>This panel and the sections marked historical below summarize an earlier experiment, not the 31 October review. The old raster <code class="wrap">{esc(CAND_REL)}</code> is a research-only artifact. It failed the literal 70% lattice gate and did not beat the historical holdout control. It is not linked for download.</p>
+<p><strong>Historical verdict: {esc(card['verdict']).upper()}</strong> · <code>ok_to_submit: {str(card['ok_to_submit']).lower()}</code> · <code>slot_selected_or_spent: {str(card['slot_selected_or_spent']).lower()}</code> · experiments used {card['lane']['experiments_used']} of {card['lane']['experiment_budget']} in that prior run.</p></div>
+<div class="decision-side"><div><span>HISTORICAL VERDICT</span><strong>Negative</strong></div><div><span>HISTORICAL HOLDOUT-DTI</span><strong>See dated evaluator table below</strong></div><div><span>USER-REPORTED / UNVERIFIED TOP</span><strong>0.2778 · GEMSDOE32</strong></div><div><span>PUBLIC LEADERBOARD</span><strong>Historical snapshot; not refreshed here</strong></div></div></section>'''
 
-    table1 = f'''<section class="section" id="sites"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 1 · NINE FOCUS SITES</p>
-<h2>Highest supplied score per site, the file, and whether it is unique.</h2>
-<p>Scores are OWNER-REPORTED (README.md). None is ORGANISER-CONFIRMED. No HOLDOUT-DTI number is computed for these historical rasters, so none is shown as an estimate. The file is the registry copy SHA-pinned in data/restore_receipt.json.</p></div></div>
+    table1 = f'''<section class="section" id="sites"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> HISTORICAL FOCUS-SITE COMPARISON</p>
+<h2>Highest supplied score per site, its file, and local uniqueness.</h2>
+<p>Scores are USER-REPORTED / UNVERIFIED from repository records; none is ORGANIZER-CONFIRMED by a submission-page receipt. No HOLDOUT-DTI was computed for these historical rasters and no leaderboard estimate is possible. Files are third-party registry copies for study only, not download recommendations.</p></div></div>
 {focus_table(focus, site_u)}
-<p class="body-copy"><strong>Unique versus all listed sites?</strong> No. Every focus site has at least one other listed site with more than 70% of its dots within 3 px. GEMSDOE25 and GEMSDOE30 have identical positive sets. The 3-px overlap and rank correlation in the table are measured on the rasters themselves.</p></section>'''
+<p class="body-copy"><strong>Unique versus all listed sites?</strong> No. Every focus site has at least one other listed site with more than 70% of its dots within 3 px, and each also fails the locally measured lattice comparison. GEMSDOE25 and GEMSDOE30 have identical positive sets. These are pinned-mirror measurements, not a complete authenticated registry certificate.</p></section>'''
 
-    table2 = f'''<section class="section" id="holdout"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 2 · HOLDOUT-DTI (OUR EVALUATOR)</p>
-<h2>Every candidate arm is below the holdout best.</h2>
-<p>Shared evaluator <code>{esc(all_['evaluator_version'])}</code>, α={all_['alpha']}, β={all_['beta']}, 300 m triangular kernel (3 px). Withheld units are catalogue segments, so this measures continuation of visible faults, not hidden new faults. Numbers are not a leaderboard estimate.</p></div></div>
+    table2 = f'''<section class="section" id="holdout"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> HISTORICAL HOLDOUT-DTI · PRIOR SESSION</p>
+<h2>Prior experimental arms, compared with their historical control.</h2>
+<p>Shared evaluator <code>{esc(all_['evaluator_version'])}</code>, α={all_['alpha']}, β={all_['beta']}, 300 m triangular kernel (3 px). Withheld units are catalogue segments, so this measures recovery of mapped faults, not discovery of hidden new faults. These are historical HOLDOUT-DTI results, not a leaderboard estimate; this review ran no holdout.</p></div></div>
 {holdout_table(all_, det, ring_all, ring_det)}
-<p class="body-copy"><strong>H3 (ring tie-break), rejected in both modes.</strong> Model ranking minus random tie-break inside the 1 px ring: {ring_gap['delta']:+.4f} [{ring_gap['ci95'][0]:+.4f}, {ring_gap['ci95'][1]:+.4f}] in all mode; {ring_gap_det['delta']:+.4f} [{ring_gap_det['ci95'][0]:+.4f}, {ring_gap_det['ci95'][1]:+.4f}] in detached mode. Our model ranking is worse than random there. Likely cause (not measured here): high-probability pixels cluster on a few strands, so the extra dots add little new coverage.</p>
+<p class="body-copy"><strong>H3 (ring tie-break), rejected in both modes.</strong> Paired HOLDOUT-DTI difference (model minus random tie-break inside the 1 px ring; evaluator {esc(all_['evaluator_version'])}): {ring_gap['delta']:+.4f} [{ring_gap['ci95'][0]:+.4f}, {ring_gap['ci95'][1]:+.4f}] in all mode; {ring_gap_det['delta']:+.4f} [{ring_gap_det['ci95'][0]:+.4f}, {ring_gap_det['ci95'][1]:+.4f}] in detached mode. The model ranking is worse than random there. Likely cause (not measured): high-probability pixels cluster on a few strands, so extra dots add little new coverage.</p>
 <p class="body-copy">Leakage canary: max single-band AUC {card['leakage_canary']['all']['max_auc']:.3f} (all) and {card['leakage_canary']['detached']['max_auc']:.3f} (detached), threshold {card['leakage_canary']['threshold_auc']:.2f}. Both pass.</p></section>'''
 
-    cand = f'''<section class="section" id="candidate"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 3 · UNIQUE RESEARCH TIF</p>
-<h2>A unique, format-valid file that is NOT cleared.</h2>
-<p>The file is written through the shared <code>vendor/gems57/submission_writer.py</code> and re-read from disk. It is <strong>not offered for download</strong>. The path is shown as text only.</p></div></div>
+    cand = f'''<section class="section" id="candidate"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> HISTORICAL CANDIDATE · 29 OCT 2026</p>
+<h2>A prior research TIFF; not current, not cleared, and not offered for download.</h2>
+<p>This artifact belongs to an earlier experiment and was not regenerated or revalidated in this review. The shared writer's recorded provenance mismatch is a current blocker; historical use is not current authorization. Its path is shown as text only.</p></div></div>
 <div class="prose-card"><ul>
 <li><strong>Path (primary, NaN outside):</strong> <code class="wrap">{esc(CAND_REL)}</code> (not in <code>docs/downloads/</code>)</li>
 <li><strong>Twin (zeros outside, same dots):</strong> <code class="wrap">{esc(ZEROS_REL)}</code></li>
@@ -187,63 +192,59 @@ def build() -> str:
 <li><strong>Receipts:</strong> <a href="{CAND_JSON}">writer receipt JSON</a> · <a href="data/candidate_uniqueness_probcollar-nan_20261029.json">uniqueness audit JSON (NaN twin)</a> · <a href="data/run-card-probcollar-20261029.json">run card JSON</a></li>
 </ul></div></section>'''
 
-    phd = f'''<section class="section" id="why-0.2778"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 4 · GEMSDOE32 AT 0.2778</p>
-<h2>Why this file scored 0.2778, and whether 0.2778 can be beaten.</h2>
-<p>Owner-reported. No organiser receipt ties 0.2778 to this hash. The mechanism below is derived from the official metric and measured on the pinned rasters.</p></div></div>
+    phd = '''<section class="section" id="why-0.2778"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> GEMSDOE32 B2 · EVIDENCE-LIMITED EXPLANATION</p>
+<h2>Why might B2 have ranked highest in the supplied nine-site list?</h2>
+<p>The value 0.2778 is USER-REPORTED / UNVERIFIED. No organizer submission-page receipt here binds it to a TIFF hash. This is a mechanism hypothesis, not a causal finding.</p></div></div>
 <div class="prose-card">
-<h3>What the metric rewards</h3>
-<p>The official DTI (DrivenData problem page) is TP<sub>w</sub> / (TP<sub>w</sub> + αFP<sub>w</sub> + βFN<sub>w</sub> + ε), with α=0.2, β=0.8, and a triangular kernel k(d)=max(1−d/300 m, 0). The worked example on the page (TP 3.00, FP 1.89, FN 2.00) gives ≈0.60, and <code>vendor/gems57/metric.py</code> matches it.</p>
-<h3>What GEMSDOE32 changed relative to GEMSDOE25/30 (measured)</h3>
-<p>The GEMSDOE30 parent has 44,090 dots; GEMSDOE25 has the same positive set. GEMSDOE32 has 37,654 dots, all of which belong to the parent (subset check: true). It removes 6,436 parent dots within 2 px of the catalogue (3,891 of them at 1 px) and adds none. Subset and removal counts are measured on the pinned rasters (<code>subset_checks</code> in <a href="data/focus_site_table_20261029.json">the focus-site table JSON</a>); the reason for the removal is inferred.</p>
-<h3>The marginal rule (exact in the binary-dot model)</h3>
-<p>Let a new binary dot have marginal credit c = max(0, k − M<sub>g</sub>) on its best truth g (where M<sub>g</sub> is the current best kernel hit on g), and miss share m = 1 − max<sub>g</sub> k. Because α + β = 1, the denominator changes by exactly α(m + c), and the numerator by c. The dot improves DTI if and only if <strong>c / (m + c) &gt; α · DTI</strong>. At an owner-reported DTI scale of 0.26, the threshold is ≈{dti_threshold:.3f}. For a fresh withheld pixel at distance d, this means a dot is worth emitting only when d ≲ 3 × (1 − 0.052) ≈ 2.84 px. Dots farther away and dots next to already-hit truth have c≈0 and lower the score. Dots next to visible catalogue earn no credit only if hidden faults are rarely adjacent to visible ones; that assumption is not measured here.</p>
-<h3>What this implies for 0.2778</h3>
-<p>Removing near-catalogue dots lowers FP mass and costs little credit, so the score can rise. This is consistent with the owner's +0.0178 step from 0.2600 to 0.2778, but that step is unverified. The rule also says the gain comes from removing zero-credit dots, not from adding more.</p>
-<h3>Why our own holdout disagrees</h3>
-<p>Our holdout withholds catalogue segments, so pixels next to visible faults earn credit by construction. It therefore rewards proximity, the opposite of the collar. This is a structural limit of the holdout, not evidence about hidden faults. The holdout and the owner's leaderboard step point in different directions, and the evidence here cannot settle which one reflects the organiser's hidden set.</p>
-<h3>Can a higher score be achieved?</h3>
-<p>The organiser's leaderboard shows far higher scores exist (0.4544 at the top, live check). The rule says to add dots only where they have credit above α·DTI, meaning distinct coverage of unhit truth rather than clustered high-probability pixels. This session produced no candidate that shows it. H4 below is the untested test. <strong>Not established:</strong> whether 0.2778 can be beaten on the organiser's set.</p>
+<p>Local pinned-mirror measurements show B2 is a strict subset of the GEMSDOE25/GEMSDOE30 parent: 6,436 dots were removed, none added; the removed dots lie within 2 pixels of the mirrored known-fault raster. These measurements describe third-party mirror bytes, not organizer-authenticated scoring inputs.</p>
+<p>A plausible explanation is a precision–recall tradeoff under the official distance-weighted Tversky metric (α=0.2, β=0.8, 300 m triangular kernel): a prediction can add false-positive mass while earning little marginal recall when nearby truth is already covered. Removing such dots could help if the lost coverage is smaller than the false-positive cost. If those dots cover real withheld faults, removal could hurt. The score difference alone cannot distinguish these explanations, tuning effects, or a file/receipt mismatch.</p>
+<p>Prior-session proxy result: <strong>HOLDOUT-DTI 0.004729</strong> (evaluator <code>gems57-pooled-hide-v2</code>, 45,260 withheld positives, 95% CI [0.004337, 0.005163]). This catalogue-segment hide-and-recover result is not calibrated to hidden off-catalogue faults and is not a leaderboard estimate.</p>
+<p>No higher organizer score is established, and this review did not generate or test a new TIFF. Read the <a href="../knowledge/review-arena-087d895d-20261031.md#why-gemsdoe32-b2-may-have-ranked-highest-in-the-supplied-list">current evidence and limits</a> and the <a href="../knowledge/02_why_gemsdoe32_b2_scored_0.2778.md">detailed B2 analysis</a>. Official metric/source links are listed in those audit records; they were not freshly fetched in this review.</p>
 </div></section>'''
 
-    hyps = '''<section class="section" id="hypotheses"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 5 · RANKED HYPOTHESES (NOT YET TRIED)</p>
-<h2>Generated from the repo context. Only the top one is worth a holdout slot; none has been validated.</h2>
-<p>These are proposals. None has been checked against literature in this session. The holdout budget is exhausted, so nothing here has been validated and no slot is spent.</p></div></div>
+    hyps = '''<section class="section" id="hypotheses"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> CURRENT PROPOSALS · NOT ASSIGNED OR TESTED</p>
+<h2>Four ranked geological research hypotheses; no score prediction.</h2>
+<p>The ranking is qualitative expected research value relative to cost. None is an authorized method lane, none has been implemented, and no holdout or leaderboard score is estimated.</p></div></div>
 <div class="prose-card"><ol>
-<li><strong>H4 · Dispersion-constrained damage-zone splays (top).</strong> Select model-probable pixels in a band around mapped traces (band width to be preregistered), under a minimum spacing of ≈2.8 px, so each dot has distinct coverage. Motivation: the marginal rule, and the H3 result. <em>Validation needed:</em> spatially blocked holdout with random-ring and dispersion-controls, both modes, 95% CI, leakage canary.</li>
-<li><strong>H5 · Along-strike extension beyond mapped endpoints.</strong> Allocate dots per mapped trace in proportion to length beyond its endpoints. Possible overlap with the tip-stepover lane (GEMSDOE33): a novelty check is needed first.</li>
-<li><strong>H6 · Magnetic edge-network severance.</strong> Proposed in an earlier slate (session a1ef4ce0). Untested here.</li>
+<li><strong>H-CMCI · Conductivity–magnetic cross-correlation break</strong> (<code>cond_surf</code>, <code>tmi_hg</code>, <code>rtp</code>; basin-structure context from <code>depth_to_base_surf</code>). Moderate relative opportunity / medium–high cost. Mimics include saline/clay playa, basin-facies or intrusive contact, and flight seam.</li>
+<li><strong>H-MTAC · Magnetic-texture anisotropy change point</strong> (<code>rtp</code>, <code>tmi</code>, <code>det_elev_slope</code>). Low–moderate relative opportunity / medium cost. Mimics include unfaulted lithologic or volcanic-texture boundaries and survey artifacts; related texture proposal exists in prior repo notes.</li>
+<li><strong>H-PFB · Paired fault-block tilt break</strong> (<code>det_elev</code>, <code>det_elev_slope</code>, <code>depth_to_base_surf</code>, <code>iso_grav_anom</code>). Low–moderate relative opportunity / medium–high cost. Mimics include fan dip, compaction, bedding, or pediment; related proposal exists in prior repo notes.</li>
+<li><strong>H-MENS · Independent magnetic-marker edge termination</strong> (<code>rtp</code>, <code>tmi_hg</code>, <code>tmi_vg</code>, <code>iso_grav_anom_hg</code>). Low relative opportunity / high cost. Mimics include survey seam, intrusion, lava margin, and interpolation gap; topology/null-model complexity is high.</li>
+</ol><p>Full physical signatures, off-catalogue rationale, local prior-art caveats, input availability, and the fail-closed validation sequence are in <a href="../knowledge/hypotheses-20261031.md">the current hypothesis slate</a>. Competition rasters are absent and the lane is null, so none can be run yet.</p></div></section>'''
+
+    how = '''<section class="section" id="how-to-submit"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SUBMISSION INSTRUCTIONS · ONLY AFTER CLEARANCE</p>
+<h2>Nothing from this review is submitted. Follow these gates before any future slot.</h2></div></div>
+<div class="prose-card"><ol>
+<li>Resolve the assigned lane, canonical template, authenticated data, integrity pins, and complete registry. Do not invent or privately fork them.</li>
+<li>Run per-feature leakage canaries and the buffered whole-segment spatial holdout with fold-local features, visible-fault pixel-exact masking, pooled DTI, evaluator ID, withheld count, and 95% CI.</li>
+<li>Check rank-correlation on the proposed surface before placement and dot-overlap on final dots. If either duplicate threshold is crossed, record duplicate and stop.</li>
+<li>Only after the holdout gate passes may a separate authenticated weekly-slot selector consider a candidate. No slot is selected in this review.</li>
+<li>For a future cleared file, reopen and validate saved bytes against exact CRS, shape, transform, footprint and value rules. Then use a unique submission name and note of at most 140 characters, and retain the organizer receipt tied to the file hash. No current file, name, or note is approved.</li>
+<li>Use the <a href="how-to-submit.html">submission guide</a> and official source links below for manual reference; this page is not current submission clearance.</li>
 </ol></div></section>'''
 
-    how = '''<section class="section" id="how-to-submit"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 6 · HOW TO SUBMIT</p>
-<h2>Nothing in this session is submitted. Gating steps for any future candidate.</h2></div></div>
-<div class="prose-card"><ol>
-<li>Pass the literal lattice gate, or get an explicit owner decision on it (the gate is at chance; see irregularities).</li>
-<li>Beat the holdout best in both modes with a 95% CI that excludes it, and pass the leakage canary.</li>
-<li>Run a separate selector step. No weekly slot is spent on an idea that has not beaten the holdout best.</li>
-<li>Read <a href="how-to-submit.html">how to submit</a> and <a href="submission-guide.html">submission guide</a> for the official format and rules.</li>
-</ol></div></section>'''
-
-    irr = '''<section class="section" id="irregularities"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 7 · IRREGULARITIES</p><h2>Flagged, not waived.</h2></div></div>
+    irr = '''<section class="section" id="irregularities"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> CURRENT IRREGULARITIES AND ACCESS LIMITS</p><h2>Flagged, not waived.</h2></div></div>
 <div class="prose-card"><ul>
-<li>The 13GEMSDOE lattice covers ≈99.9% of the footprint. Its literal 70% gate is at chance and effectively unsatisfiable for any footprint-spread submission.</li>
-<li>The holdout's withheld units are catalogue segments, so proximity to visible faults is rewarded by construction (see the holdout caveats in evidence).</li>
-<li>The shared validator (<code>gems57.gates</code>) rejects NaN outside the footprint under its local all-finite policy, but the official spec permits it. The NaN-outside primary is written by <code>scripts/build_candidate_submission.py</code>; its refusal reasons are in the candidate receipt JSON. Flagged for the owner, not waived.</li>
-<li>0.2778 and the other scores are owner-reported. They are not tied to audited hashes or organiser receipts.</li>
-<li>An owner-quoted 0.4413 leader does not match the live leaderboard (#1 0.4544).</li>
-<li>GEMSDOE25 and GEMSDOE30 have identical positive sets; GEMSDOE28 (h27-4 r1) and GEMSDOE31 have identical positive sets.</li>
-<li>The pinned run card (<code>evidence/run_card.json</code>, <code>docs/data/run-card.json</code>, <code>docs/data/run_card.json</code>) is the prior BB-STEP card and is guarded by three tests. The new card is at <code>evidence/run_card_probcollar_20261029.json</code>.</li>
+<li>The method lane and canonical template assignment are null in <code>registry/template.json</code>; the referenced method paragraph is absent from the saved brief.</li>
+<li>The shared feature stack and four required competition rasters are absent from the expected cache paths; the active environment has no authorized data restore.</li>
+<li>The vendored submission writer and uniqueness tool fail their recorded provenance hashes. Do not locally repin or privately fork.</li>
+<li>The complete authenticated registry is unavailable. <code>registry/registry_roles.json</code> contains an older role-based calibration-lattice exception that conflicts with the current prompt's literal any-registry duplicate rule. This review follows the current literal rule and flags the conflict.</li>
+<li>The holdout is a mapped-catalogue hide-and-recover proxy; it is not calibrated to private off-catalogue faults and cannot produce a leaderboard estimate.</li>
+<li>No official source page was fetched in this review. Links and dated prior audits are provided for manual review; they are not fresh verification.</li>
+<li>GEMSDOE25 and GEMSDOE30 have identical positive sets in the local pinned-mirror measurement; B2 is a subset of their shared parent. These raster comparisons do not authenticate an organizer score or prove why it changed.</li>
 </ul></div></section>'''
 
-    limits = '''<section class="section" id="limitations"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 8 · REMAINING WORK AND LIMITATIONS</p><h2>What is still open.</h2></div></div>
+    limits = '''<section class="section" id="limitations"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> REMAINING WORK AND LIMITATIONS</p><h2>What must be resolved before research can continue.</h2></div></div>
 <div class="prose-card"><ul>
-<li>H4 has not been run. The spatially blocked holdout needs a new experiment; the holdout budget is spent.</li>
-<li>Measure per-dot marginal credit and redundancy directly (predicted by the rule, not measured).</li>
-<li>Add a distance-stratified truth check, because the current holdout cannot test hidden-fault discovery.</li>
-<li>No organiser-confirmed score exists for any file here. The organiser data portal and the owner's Pages site are not reachable from this sandbox.</li>
-<li>The registry index is partial (15 pinned registry rasters plus 9 committed TIFs), not a complete organiser inventory.</li>
+<li>Get the actual owner-assigned method paragraph and canonical shared-template identity.</li>
+<li>Restore organizer-authorized competition inputs and feature cache; verify their metadata, hashes, masks, and provenance.</li>
+<li>Resolve the duplicate-rule/registry-role conflict and obtain a complete authenticated comparison set.</li>
+<li>Repair shared-tool provenance at its owning upstream template, then rerun leakage canaries and buffered whole-segment holdout.</li>
+<li>Only if a preregistered candidate beats a frozen comparable holdout and passes saved-byte and uniqueness gates may a separate selector consider a live weekly slot.</li>
+<li>No organizer-confirmed score or validated leaderboard estimate exists for any focus-site file in this review. The current external source pages and competition portal were not accessible to this runtime.</li>
 </ul></div></section>'''
 
-    links = '''<section class="section" id="links"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> 9 · MANUAL REVIEW LINKS</p><h2>Check it yourself.</h2></div></div>
+    links = '''<section class="section" id="links"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> OFFICIAL SOURCE LINKS · MANUAL REVIEW</p><h2>Prior source checks are dated; none was freshly fetched in this review.</h2></div></div>
 <div class="prose-card"><ul>
 <li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official problem page (metric and submission format)</a></li>
 <li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official rules (PDF)</a></li>
@@ -253,7 +254,7 @@ def build() -> str:
 <li><a href="data/focus_site_table_20261029.json">Focus-site table JSON</a> · <a href="data/holdout_probcollar_20261029.json">HOLDOUT-DTI all JSON</a> · <a href="data/holdout_probcollar_detached_20261029.json">HOLDOUT-DTI detached JSON</a> · <a href="data/holdout_ring_tiebreak_all_20261029.json">H3 all JSON</a> · <a href="data/holdout_ring_tiebreak_detached_20261029.json">H3 detached JSON</a></li>
 </ul></div></section>'''
 
-    body = hero + decision + table1 + table2 + cand + phd + hyps + how + irr + limits + links
+    body = hero + current_status + decision + table1 + table2 + cand + phd + hyps + how + irr + limits + links
     return shell("Focus sites · NOT CLEARED", body, depth=1, active="Executive summary")
 
 

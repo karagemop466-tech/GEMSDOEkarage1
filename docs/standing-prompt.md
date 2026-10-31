@@ -2,6 +2,10 @@
 
 **Provenance note:** the original prompt was not preserved verbatim in the workspace. What follows is a reconstruction from earlier session memory, not proof that every original clause or exact word was retained. Apply these requirements together with any newer explicit user instructions; do not claim this is an original transcript.
 
+## Current branch status — 31 October 2026 — `arena/087d895d-gemsdoekarage1`
+
+**NEGATIVE / NOT CLEARED / DO NOT SUBMIT.** No new TIFF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or weekly-slot selection was produced. Preflight fails closed: the method lane and canonical shared-template assignment are null; the feature stack and four required rasters are absent; two vendored tool hashes differ from the recorded provenance pins; and the complete authenticated registry is unavailable. GEMSDOE32 B2 at 0.2778 remains USER-REPORTED / UNVERIFIED. Read the [current three-pass review](../knowledge/review-arena-087d895d-20261031.md), [JSON run card](../evidence/run_card_arena_087d895d_20261031.json), and the top CURRENT REVIEW section in the root README before doing project work. The four 31 October hypotheses are proposal-only in `knowledge/hypotheses-20261031.md`.
+
 ## Arena Core Values (keep as focus)
 
 - **Maximize P(Win).** Favor reproducible evidence that can raise the probability of a higher organizer-confirmed score. The prior GEMSDOE32 0.2778 is user-reported, without a verified receipt here; the owner cited multiple leaderboard benchmarks that may be stale.
