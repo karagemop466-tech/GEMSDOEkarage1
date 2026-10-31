@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How to submit · GEMS K-PROXY-DETECT</title><link rel="stylesheet" href="style.css"></head><body><header><a href="../index.html">GEMS · Field Intelligence</a><nav><a href="index.html">Overview</a><a href="executive-summary.html">Executive summary</a><a href="nine-sites.html">Nine sites</a><a href="how-to-submit.html" aria-current="page">How to submit</a><a href="research.html">Research</a><a href="sources.html">Sources</a></nav><a href="../index.html">Full site ↗</a></header><main><h1>How to submit, exactly</h1>
+<section class="green"><p><span class="badge">OK TO SUBMIT</span> &nbsp; <strong>Download and submit this file.</strong></p>
+<p style="margin:.4em 0 .2em"><code class="wrap">karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif</code></p>
+<p style="margin:.2em 0"><a class="dl" href="../downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif" download>Download the GeoTIFF (.tif)</a>
+<a class="dl alt" href="../downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip" download>Download the .zip</a></p>
+<p><small>32,000 dots · single band · float32 · EPSG:32611 · 3730 × 3292 · values in [0, 1] · no NaN ·
+outside-footprint = 0 · SHA-256 <code class="wrap">30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d</code></small></p>
+<p><small><strong>Submission name</strong> <code>karage1-kp1-ttca-springalter-far-conduit-32000-20261031</code><br>
+<strong>Note (≤ 140 chars)</strong> <code>KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, &gt;=2px off catalogue, 4px spacing, 32k dots</code></small></p></section>
+<h2>Steps</h2>
+<ol>
+<li>Download the GeoTIFF (or the ZIP containing exactly one GeoTIFF) using the buttons above.</li>
+<li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the DrivenData submission page</a>.</li>
+<li>Choose <em>File to submit</em> → the downloaded <code>.tif</code> (or <code>.zip</code>).</li>
+<li>Paste the name <code>karage1-kp1-ttca-springalter-far-conduit-32000-20261031</code> and the note
+<code>KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, &gt;=2px off catalogue, 4px spacing, 32k dots</code>
+(the portal truncates notes at 140 characters; this one is 132).</li>
+<li>Submit. The weekly-slot counter on the submission page is the only authority on how many slots remain.</li>
+</ol>
+<h2>Why the portal will accept the format</h2>
+<p>The organizer requires (competition page 967): EPSG:32611, 100 m, the same bounds as the training
+data, <strong>null or NaN outside the bounds</strong>, a single 32-bit float band, and values between 0
+and 1. The saved bytes pass every one of these checks on disk — see the gate receipt
+<a href="../../evidence/kp1_release_gate.json">kp1_release_gate.json</a> and the writer receipt
+<a href="../downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.receipt.json">next to the file</a>.</p>
+<p>Earlier portal rejections in this project returned “Predicted values must be in range [0, 1]”. That
+is why this file is written all-finite with exact zeros outside the footprint (the stricter of the two
+policies the organizer permits) and the range is asserted on the re-read bytes, not on the in-memory
+array.</p>
+<h2>What to do after submitting</h2>
+<p>Record the returned score and the submission ID next to the file's SHA-256. That receipt is the only
+thing that can turn this page's <em>projection</em> into an <em>organizer-confirmed</em> number, and it
+is what the next session should compare against.</p></main><footer>Session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 · lane H-KP1 K-PROXY-DETECT · not affiliated with the organizers. Rendered deterministically from <code>evidence/kp1_*.json</code>.</footer></body></html>

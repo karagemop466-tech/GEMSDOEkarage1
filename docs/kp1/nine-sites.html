@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nine focus sites · GEMS K-PROXY-DETECT</title><link rel="stylesheet" href="style.css"></head><body><header><a href="../index.html">GEMS · Field Intelligence</a><nav><a href="index.html">Overview</a><a href="executive-summary.html">Executive summary</a><a href="nine-sites.html" aria-current="page">Nine sites</a><a href="how-to-submit.html">How to submit</a><a href="research.html">Research</a><a href="sources.html">Sources</a></nav><a href="../index.html">Full site ↗</a></header><main><h1>The nine focus sites, measured</h1>
+<p class="lede">Every file below was read from this repository's pinned registry
+(<code>registry/*.tif</code>, SHA-256 recorded in <code>evidence/kp1_exp1_forensics.json</code>). All nine
+scores are <strong>USER-REPORTED / UNVERIFIED</strong>: none is accompanied by an organizer receipt, and
+none can be re-scored here.</p>
+<div class="wrap"><table><thead><tr><th>Site</th><th>Highest-scoring listed file</th><th>Dots</th>
+<th>Within 2 px of catalogue</th><th>&gt; 15 px from catalogue</th><th>3-px clumping</th>
+<th>Kernel coverage of footprint</th><th>User-reported score</th></tr></thead><tbody><tr><td>GEMSDOE24</td><td><code class="wrap">GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif</code></td><td>60,069</td><td>14.60%</td><td>49.6%</td><td>1.65%</td><td>18.08%</td><td><strong>0.2477</strong></td></tr><tr><td>GEMSDOE25</td><td><code class="wrap">GEMSDOE25_d28.tif</code></td><td>44,090</td><td>14.60%</td><td>49.9%</td><td>0.34%</td><td>17.19%</td><td><strong>0.2600</strong></td></tr><tr><td>GEMSDOE27</td><td><code class="wrap">GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif</code></td><td>61,328</td><td>14.47%</td><td>48.6%</td><td>1.67%</td><td>18.52%</td><td><strong>0.2449</strong></td></tr><tr><td>GEMSDOE28</td><td><code class="wrap">GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif</code></td><td>37,660</td><td>6.25%</td><td>54.9%</td><td>0.19%</td><td>15.75%</td><td><strong>0.2710</strong></td></tr><tr><td>GEMSDOE30</td><td><code class="wrap">GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif</code></td><td>44,090</td><td>14.60%</td><td>49.9%</td><td>0.34%</td><td>17.19%</td><td><strong>0.2600</strong></td></tr><tr><td>GEMSDOE31</td><td><code class="wrap">GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif</code></td><td>40,199</td><td>6.33%</td><td>54.7%</td><td>0.28%</td><td>16.01%</td><td><strong>0.2708</strong></td></tr><tr><td>GEMSDOE32</td><td><code class="wrap">GEMSDOE32_B2.tif</code></td><td>37,654</td><td>0.00%</td><td>58.4%</td><td>0.26%</td><td>15.09%</td><td><strong>0.2778</strong></td></tr><tr><td>GEMSDOE33</td><td><code class="wrap">GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif</code></td><td>41,865</td><td>9.30%</td><td>52.9%</td><td>0.31%</td><td>16.62%</td><td><strong>0.2632</strong></td></tr><tr><td>GEMSDOE36</td><td><code class="wrap">GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif</code></td><td>38,854</td><td>0.00%</td><td>58.1%</td><td>0.29%</td><td>15.46%</td><td><strong>0.2750</strong></td></tr></tbody></table></div>
+<h2>Uniqueness: the literal rule is saturated on this terrain</h2>
+<p>The parallel-run rule says stop if more than 70 % of your dots fall within 3 px of one registry
+raster's dots. Applied to all 36 pairs among the nine focus files, the overlap is
+<strong>86.72%–100.00%</strong>
+(median 95.42%), while the chance level for
+the same dot count placed uniformly at random is only 15–18 %. So the rule fires on all nine — it cannot
+distinguish copying from sharing the same lineament support.</p>
+<div class="wrap"><table><thead><tr><th>Worst six pairs</th><th>Spearman</th><th>3-px overlap</th>
+<th>Chance overlap</th><th>Enrichment</th><th>Literal verdict</th></tr></thead><tbody><tr><td>GEMSDOE24 vs GEMSDOE25</td><td>0.5759</td><td>100.00%</td><td>17.10%</td><td>5.85×</td><td class="bad">duplicate</td></tr><tr><td>GEMSDOE24 vs GEMSDOE27</td><td>0.9896</td><td>100.00%</td><td>18.47%</td><td>5.41×</td><td class="bad">duplicate</td></tr><tr><td>GEMSDOE24 vs GEMSDOE28</td><td>0.5306</td><td>100.00%</td><td>15.80%</td><td>5.92×</td><td class="bad">duplicate</td></tr><tr><td>GEMSDOE24 vs GEMSDOE30</td><td>0.5759</td><td>100.00%</td><td>16.95%</td><td>5.90×</td><td class="bad">duplicate</td></tr><tr><td>GEMSDOE24 vs GEMSDOE31</td><td>0.5464</td><td>100.00%</td><td>15.88%</td><td>5.92×</td><td class="bad">duplicate</td></tr><tr><td>GEMSDOE24 vs GEMSDOE32</td><td>0.5324</td><td>100.00%</td><td>15.11%</td><td>5.86×</td><td class="bad">duplicate</td></tr></tbody></table></div>
+<p>This session's candidate scores <strong>max |ρ| 0.0076</strong>
+and <strong>max 3-px overlap 26.5%</strong> against the same
+nine files — both far inside the limits, and the overlap is within about 1.5× of the chance level rather
+than the nine files' 5–6×. That is a real, measured difference, not a renaming.</p>
+<h2>Per-site verdict</h2>
+<ul>
+<li><strong>GEMSDOE32</strong> — best of the nine by user report (0.2778). Still a duplicate of the family
+under the literal rule; re-uploading it is not a new submission and earns nothing new.</li>
+<li><strong>GEMSDOE36</strong> (0.2750) and <strong>GEMSDOE28</strong> (0.2710) / <strong>GEMSDOE31</strong>
+(0.2708) — same family; the off-catalogue fraction is what separates them, not a different method.</li>
+<li><strong>GEMSDOE24 / 25 / 27 / 30</strong> (0.2449–0.2600) — largest dot counts (44k–61k) and the
+highest catalogue-adjacent fractions (14.5 %); the metric algebra predicts their lower scores.</li>
+<li><strong>None of the nine should be resubmitted.</strong> The only new candidate on this site is the
+K-PROXY-DETECT file.</li>
+</ul></main><footer>Session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 · lane H-KP1 K-PROXY-DETECT · not affiliated with the organizers. Rendered deterministically from <code>evidence/kp1_*.json</code>.</footer></body></html>

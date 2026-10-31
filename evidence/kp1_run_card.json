@@ -1,0 +1,130 @@
+{
+  "schema": "gems-run-card/v1",
+  "session": "arena/9a378959-gemsdoekarage1",
+  "date": "2026-10-31",
+  "lane": "H-KP1 K-PROXY-DETECT \u2014 thermo-tectonic conduit alignment (TTCA)",
+  "hypothesis": "Expert-identified faults that are missing from the USGS+INGENIOUS catalogue are structural boundaries that the catalogue missed: multi-field potential-field edges (incl. TMI upward-continued to 150 m, absent from the 19-band stack), geomorphic scarps in the 1 m LiDAR metrics, hydrothermal fluid conduits (thermal springs), and K-metasomatism alteration (low Th/K, low U/K). They are NOT concentrated in the 2-15 px collar of mapped traces.",
+  "mechanism": "Geometric-mean consensus of five independent terms forces agreement across fields; the published metric reduces exactly to DTI = TPw/(alpha(TPw+FPw)+beta|G|) with beta=1-alpha, so only TPw and FPw are under the submitter's control: no dot inside the 2-px catalogue corridor, a hard 4-px minimum separation (no shared kernel credit), and a flat-deep-basin suppression.",
+  "named_non_fault_process_that_could_mimic": [
+    "playa / evaporite clay mineralogy producing low Th/K without hydrothermal alteration",
+    "Quaternary basalt flows producing high K and strong magnetic response",
+    "upward-continuation ringing around large magnetic bodies",
+    "springs at permeable basin-fill contacts rather than fault damage zones",
+    "road cuts and stock ponds in the 1 m LiDAR scarp metrics"
+  ],
+  "experiments_run": 3,
+  "experiments": [
+    {
+      "id": "EXP1",
+      "what": "nine-site geometric forensics + metric inversion",
+      "evidence": "evidence/kp1_exp1_forensics.json"
+    },
+    {
+      "id": "EXP2",
+      "what": "leakage canary, holdout instrument calibration, LOOCV detector, arm comparison, budget sweep",
+      "evidence": "evidence/kp1_exp2_holdout.json"
+    },
+    {
+      "id": "EXP3",
+      "what": "candidate build + release gate",
+      "evidence": "evidence/kp1_release_gate.json"
+    }
+  ],
+  "leakage_canary": {
+    "max_single_feature_auc": 0.5993,
+    "threshold": 0.9,
+    "alarm": false
+  },
+  "holdout_dti": {
+    "label": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "candidate": {
+      "dti": 0.0018489586731928692,
+      "ci95": [
+        0.0007333501980902546,
+        0.003142821039431027
+      ],
+      "withheld_positive_pixels": 60988,
+      "tpw": 91.62933160306427,
+      "fpw": 3742.686640604124
+    },
+    "controls": {
+      "candidate_physics_gbm": 0.0018489586731928692,
+      "uniform_random_matched": 0.0004397890139745458,
+      "spaced_random_matched": 0.0,
+      "registry_GEMSDOE32_B2": 0.0067081038868157
+    },
+    "instrument_calibration_spearman_vs_known_scores": -1.0,
+    "status": "NEGATIVE as a promotion instrument: the catalogue-recovery instrument ranks the nine known focus files exactly backwards (Spearman -1.0). Promotion does NOT rest on it."
+  },
+  "correlation_and_overlap_vs_registry": {
+    "max_abs_spearman": 0.007607,
+    "max_3px_dot_overlap": 0.265281,
+    "rho_limit": 0.9,
+    "overlap_limit": 0.7,
+    "nine_file_mutual_overlap_median": 0.9542,
+    "chance_overlap_range": [
+      0.1532,
+      0.1848
+    ],
+    "passes_literal_rules": true
+  },
+  "raster_sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "raster_bytes": 128570,
+  "validator_output": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_matches_sample_submission": true,
+    "no_nan_anywhere": true,
+    "no_inf_anywhere": true,
+    "no_sentinel_values": true,
+    "range_0_1_guaranteed": true,
+    "min_ge_0": true,
+    "max_le_1": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_zero": true,
+    "zero_dots_on_mapped_catalogue": true,
+    "all_checks_passed": true,
+    "emitted_positive_pixels": 32000,
+    "on_catalogue_positive_pixels": 0
+  },
+  "projection": {
+    "label": "PROJECTED \u2014 not a score",
+    "value": 0.27892044625099494,
+    "bootstrap_95": [
+      0.275683893243148,
+      0.2845736057201902
+    ],
+    "delta_vs_champion": 0.0019832356778325955,
+    "model": "OLS of user-reported score on [log(dots), fraction of dots > 15 px from the catalogue]",
+    "n": 9,
+    "defensible_working_range": [
+      0.24,
+      0.31
+    ]
+  },
+  "submission_name": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031",
+  "submission_note": "KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, >=2px off catalogue, 4px spacing, 32k dots",
+  "note_chars": 132,
+  "verdict": "promote",
+  "promotion_basis": [
+    "saved-byte format preflight passed",
+    "literal uniqueness rules passed",
+    "zero positive mass in the 2-px catalogue corridor (the discriminator shared by the two best-scoring focus files)"
+  ],
+  "verdict_not_based_on": [
+    "no organizer receipt",
+    "holdout instrument anti-correlates with known scores (Spearman -1.0)",
+    "projection is associational, n=9"
+  ],
+  "slot_selected_or_spent": false,
+  "irregularities": [
+    "labels.tif is byte-identical to existing_faults.tif while the organizer text describes a total-absence sample submission",
+    "the literal 70%/3-px uniqueness rule is saturated: all 36 pairs among the nine focus files score 97.5-100% against a 15-18% chance level",
+    "the shared holdout evaluator anti-correlates with the nine known leaderboard scores",
+    "vendor/gems57/prepare_data.py pins external files at a commit that contains no data/external tree; the proxy used has the same SHA-256 as the first pin but was taken from another mirror"
+  ]
+}

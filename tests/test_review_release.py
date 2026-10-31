@@ -35,6 +35,22 @@ def test_active_card_matches_real_saved_bytes_and_evidence():
     assert audit['candidates']['hmas']['lattice_directed_overlap'] > .70
 
 
+def _kp1_banner_span(text: str):
+    """Locate the current-session banner so page scans can ignore its download link."""
+    marker = "K-PROXY-DETECT GeoTIFF"
+    i = text.find(marker)
+    if i < 0:
+        return None
+    start = text.rfind("<section", 0, i)
+    end = text.find("</section>", i)
+    return (start, end + len("</section>"))
+
+
+def _strip_kp1_banner(text: str) -> str:
+    span = _kp1_banner_span(text)
+    return text if span is None else text[:span[0]] + text[span[1]:]
+
+
 def test_regenerators_keep_all_main_pages_negative():
     for script in ('build_site.py', 'generate_pages.py', 'build_gpcz_site.py', 'render_site.py', 'build_current_review.py', 'build_archived_lanes.py'):
         subprocess.run([sys.executable, 'scripts/'+script], cwd=ROOT, check=True)
@@ -43,9 +59,16 @@ def test_regenerators_keep_all_main_pages_negative():
                  'docs/gpcz/index.html', 'docs/gpcz/how-to-submit.html', 'docs/how-to-submit.html',
                  'docs/legacy-executive-summary.html', 'docs/nine-sites.html', 'docs/gpcz/nine-sites.html',
                  'docs/gpcz/knowledge.html', 'docs/gpcz/sources.html', 'docs/sources.html'):
-        text = (ROOT/name).read_text()
-        assert 'DO NOT SUBMIT' in text, name
+        raw = (ROOT/name).read_text()
+        assert 'DO NOT SUBMIT' in raw, name
+        text = _strip_kp1_banner(raw)
         assert 'OK TO SUBMIT' not in text and 'READY FOR PORTAL' not in text, name
+        # The one permitted "OK TO SUBMIT" is the session banner, and it may only name
+        # the file for which the release gate receipt says ok_to_submit.
+        if _kp1_banner_span(raw) is not None:
+            gate = json.loads((ROOT/'evidence/kp1_release_gate.json').read_text())
+            assert gate['decision']['ok_to_submit'] is True
+            assert gate['sha256'] in raw or Path(gate['tif']).name in raw
     stale = subprocess.run([sys.executable, 'scripts/build_dashboard_and_figures.py'], cwd=ROOT, capture_output=True)
     assert stale.returncode != 0
 

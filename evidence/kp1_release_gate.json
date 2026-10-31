@@ -1,0 +1,392 @@
+{
+  "gate": "kp1-release-gate/v1",
+  "tif": "docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+  "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+  "bytes": 128570,
+  "pins": {
+    "training_features.tif": {
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "bytes": 418912844
+    },
+    "existing_faults.tif": {
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830
+    },
+    "labels.tif": {
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830
+    },
+    "sample_submission.tif": {
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "bytes": 1599597
+    },
+    "derived_sgmc_faults_100m_u8.tif": {
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+      "bytes": 198602
+    },
+    "lidar_scarp_features_u8.tif": {
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "bytes": 36943606
+    },
+    "geodawn_rad_u8.tif": {
+      "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+      "bytes": 26612970
+    },
+    "gdr_qfaults_traces.csv": {
+      "sha256": "9702f2e5c382a4f472ae834d22b94990983b059677a37adfafd51c50f75e643c",
+      "bytes": 126177
+    }
+  },
+  "format": {
+    "file": "/home/user/GEMSDOEkarage1/docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif",
+    "bytes": 128570,
+    "sha256": "30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002606041496619582,
+    "emitted_positive_pixels": 32000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 32000,
+    "footprint_fraction": 0.006192701784833415
+  },
+  "candidate_covariates": {
+    "dots": 32000,
+    "d_cat_le_2px_frac": 0.0,
+    "d_cat_2_to_15px_frac": 0.445,
+    "d_cat_gt_15px_frac": 0.555,
+    "median_d_cat_px": 17.46424919657298,
+    "clump_ge3_nbr_within_3px_frac": 0.0011499972310809535,
+    "mean_nbr_within_3px": 0.072960853999785,
+    "footprint_kernel_coverage": 0.14271623124554778
+  },
+  "registry_covariates": {
+    "GEMSDOE24": {
+      "dots": 60069,
+      "d_cat_le_2px_frac": 0.14598212056135446,
+      "d_cat_2_to_15px_frac": 0.35848773910003495,
+      "d_cat_gt_15px_frac": 0.4955301403386106,
+      "median_d_cat_px": 14.866068747318506,
+      "clump_ge3_nbr_within_3px_frac": 0.016486876952495122,
+      "mean_nbr_within_3px": 0.1369151472902055,
+      "footprint_kernel_coverage": 0.18079283225731915
+    },
+    "GEMSDOE25": {
+      "dots": 44090,
+      "d_cat_le_2px_frac": 0.1459741437967793,
+      "d_cat_2_to_15px_frac": 0.3552959854842368,
+      "d_cat_gt_15px_frac": 0.4987298707189839,
+      "median_d_cat_px": 15.0,
+      "clump_ge3_nbr_within_3px_frac": 0.0033682271425732706,
+      "mean_nbr_within_3px": 0.10048456083315145,
+      "footprint_kernel_coverage": 0.17191094972242182
+    },
+    "GEMSDOE27": {
+      "dots": 61328,
+      "d_cat_le_2px_frac": 0.14471367075397862,
+      "d_cat_2_to_15px_frac": 0.36945603965562224,
+      "d_cat_gt_15px_frac": 0.48583028959039914,
+      "median_d_cat_px": 14.142135623730951,
+      "clump_ge3_nbr_within_3px_frac": 0.016654070799631247,
+      "mean_nbr_within_3px": 0.13978602770873577,
+      "footprint_kernel_coverage": 0.1852153889413441
+    },
+    "GEMSDOE28": {
+      "dots": 37660,
+      "d_cat_le_2px_frac": 0.06248008497079129,
+      "d_cat_2_to_15px_frac": 0.3890069038767924,
+      "d_cat_gt_15px_frac": 0.5485130111524164,
+      "median_d_cat_px": 17.72004514666935,
+      "clump_ge3_nbr_within_3px_frac": 0.0018743953169435043,
+      "mean_nbr_within_3px": 0.08582924239117334,
+      "footprint_kernel_coverage": 0.157525109954323
+    },
+    "GEMSDOE30": {
+      "dots": 44090,
+      "d_cat_le_2px_frac": 0.1459741437967793,
+      "d_cat_2_to_15px_frac": 0.3552959854842368,
+      "d_cat_gt_15px_frac": 0.4987298707189839,
+      "median_d_cat_px": 15.0,
+      "clump_ge3_nbr_within_3px_frac": 0.0033682271425732706,
+      "mean_nbr_within_3px": 0.10048456083315145,
+      "footprint_kernel_coverage": 0.17191094972242182
+    },
+    "GEMSDOE31": {
+      "dots": 40199,
+      "d_cat_le_2px_frac": 0.06331003258787532,
+      "d_cat_2_to_15px_frac": 0.3896863106047414,
+      "d_cat_gt_15px_frac": 0.5470036568073833,
+      "median_d_cat_px": 17.69180601295413,
+      "clump_ge3_nbr_within_3px_frac": 0.0028320341130826537,
+      "mean_nbr_within_3px": 0.09161848204600315,
+      "footprint_kernel_coverage": 0.1600641176861047
+    },
+    "GEMSDOE32": {
+      "dots": 37654,
+      "d_cat_le_2px_frac": 0.0,
+      "d_cat_2_to_15px_frac": 0.4160248579168216,
+      "d_cat_gt_15px_frac": 0.5839751420831785,
+      "median_d_cat_px": 19.6468827043885,
+      "clump_ge3_nbr_within_3px_frac": 0.002605634261627017,
+      "mean_nbr_within_3px": 0.08581661937787276,
+      "footprint_kernel_coverage": 0.15085344139081888
+    },
+    "GEMSDOE33": {
+      "dots": 41865,
+      "d_cat_le_2px_frac": 0.09301325689716948,
+      "d_cat_2_to_15px_frac": 0.3778812850830049,
+      "d_cat_gt_15px_frac": 0.5291054580198257,
+      "median_d_cat_px": 16.64331697709324,
+      "clump_ge3_nbr_within_3px_frac": 0.0031355565038650854,
+      "mean_nbr_within_3px": 0.09541092387427152,
+      "footprint_kernel_coverage": 0.16618560340041255
+    },
+    "GEMSDOE36": {
+      "dots": 38854,
+      "d_cat_le_2px_frac": 0.0,
+      "d_cat_2_to_15px_frac": 0.419133165182478,
+      "d_cat_gt_15px_frac": 0.580866834817522,
+      "median_d_cat_px": 19.235384061671343,
+      "clump_ge3_nbr_within_3px_frac": 0.0028992211193599564,
+      "mean_nbr_within_3px": 0.08855296290625743,
+      "footprint_kernel_coverage": 0.15459015635217352
+    }
+  },
+  "uniqueness": {
+    "rho_limit": 0.9,
+    "overlap_limit": 0.7,
+    "pairs": [
+      {
+        "registry": "GEMSDOE24",
+        "spearman_full_footprint": 0.004695,
+        "my_dots_within_3px_of_theirs": 0.258625,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.1813,
+        "enrichment_vs_chance": 1.427
+      },
+      {
+        "registry": "GEMSDOE25",
+        "spearman_full_footprint": 0.005309,
+        "my_dots_within_3px_of_theirs": 0.245844,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.1723,
+        "enrichment_vs_chance": 1.427
+      },
+      {
+        "registry": "GEMSDOE27",
+        "spearman_full_footprint": 0.004788,
+        "my_dots_within_3px_of_theirs": 0.265281,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.1848,
+        "enrichment_vs_chance": 1.436
+      },
+      {
+        "registry": "GEMSDOE28",
+        "spearman_full_footprint": 0.006026,
+        "my_dots_within_3px_of_theirs": 0.236344,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.1584,
+        "enrichment_vs_chance": 1.492
+      },
+      {
+        "registry": "GEMSDOE30",
+        "spearman_full_footprint": 0.005309,
+        "my_dots_within_3px_of_theirs": 0.245844,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.173,
+        "enrichment_vs_chance": 1.421
+      },
+      {
+        "registry": "GEMSDOE31",
+        "spearman_full_footprint": 0.006235,
+        "my_dots_within_3px_of_theirs": 0.23925,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.1597,
+        "enrichment_vs_chance": 1.498
+      },
+      {
+        "registry": "GEMSDOE32",
+        "spearman_full_footprint": 0.006898,
+        "my_dots_within_3px_of_theirs": 0.232063,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.1532,
+        "enrichment_vs_chance": 1.515
+      },
+      {
+        "registry": "GEMSDOE33",
+        "spearman_full_footprint": 0.006019,
+        "my_dots_within_3px_of_theirs": 0.243062,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.1641,
+        "enrichment_vs_chance": 1.481
+      },
+      {
+        "registry": "GEMSDOE36",
+        "spearman_full_footprint": 0.007607,
+        "my_dots_within_3px_of_theirs": 0.243219,
+        "duplicate_by_rho": false,
+        "duplicate_by_overlap": false,
+        "chance_overlap": 0.1544,
+        "enrichment_vs_chance": 1.575
+      }
+    ],
+    "max_abs_spearman": 0.007607,
+    "max_dot_overlap": 0.265281,
+    "passes_rho_rule": true,
+    "passes_overlap_rule": true,
+    "chance_overlap_by_registry": {
+      "GEMSDOE24": {
+        "mean": 0.1813,
+        "max": 0.1818
+      },
+      "GEMSDOE25": {
+        "mean": 0.1723,
+        "max": 0.1733
+      },
+      "GEMSDOE27": {
+        "mean": 0.1848,
+        "max": 0.1878
+      },
+      "GEMSDOE28": {
+        "mean": 0.1584,
+        "max": 0.1593
+      },
+      "GEMSDOE30": {
+        "mean": 0.173,
+        "max": 0.174
+      },
+      "GEMSDOE31": {
+        "mean": 0.1597,
+        "max": 0.1606
+      },
+      "GEMSDOE32": {
+        "mean": 0.1532,
+        "max": 0.1544
+      },
+      "GEMSDOE33": {
+        "mean": 0.1641,
+        "max": 0.1656
+      },
+      "GEMSDOE36": {
+        "mean": 0.1544,
+        "max": 0.1571
+      }
+    },
+    "nine_file_mutual_overlap": {
+      "n_pairs": 36,
+      "min": 0.8672,
+      "max": 1.0,
+      "median": 0.9542,
+      "note": "All 36 pairs among the nine focus rasters already exceed the literal 70 % 3-px rule. On this terrain, 3-px overlap is not a discriminator of copying: the candidate's value is therefore also reported against its chance level."
+    },
+    "evidence_class": "REGISTRY-MEASUREMENT"
+  },
+  "projection": {
+    "bootstrap_95_interval": [
+      0.275683893243148,
+      0.2845736057201902
+    ],
+    "bootstrap_method": "resample the nine (raster, score) pairs, refit OLS, 2000 draws",
+    "champion_GEMSDOE32_B2_model_fit": 0.27693721057316234,
+    "delta_vs_champion": 0.0019832356778325955,
+    "evidence_class": "PROJECTED \u2014 not a score, not a measurement",
+    "model": "OLS of user-reported score on [log(dots), fraction of dots > 15 px from the catalogue]",
+    "coefficients": {
+      "intercept": 0.2633777777777777,
+      "log_dots": -0.03690566921123878,
+      "far_fraction": 0.13878924282001184
+    },
+    "n_observations": 9,
+    "loo_rmse": 0.0013716098488147836,
+    "loo_interval": [
+      0.27623209094731793,
+      0.28160880155467194
+    ],
+    "projected_value": 0.27892044625099494,
+    "candidate_position": {
+      "log_dots": 10.373491181781864,
+      "far_fraction": 0.555
+    },
+    "observed_range": {
+      "dots": [
+        37654,
+        61328
+      ],
+      "far_fraction": [
+        0.48583028959039914,
+        0.5839751420831785
+      ]
+    },
+    "caveats": [
+      "the bootstrap interval covers parameter uncertainty only; model-form uncertainty (does geometry determine score at all?) is not represented and is larger \u2014 treat 0.24-0.31 as the defensible working range",
+      "n = 9, associational, and the candidate lies outside the observed range of both predictors (lower dots, similar far-fraction) \u2014 it is an extrapolation",
+      "the model cannot see surface quality, only geometry; a surface that targets the wrong terrain would score lower than the projection",
+      "the two predictors are strongly collinear across the nine files, so the individual coefficients are not interpretable"
+    ]
+  },
+  "decision": {
+    "ok_to_submit": true,
+    "basis": [
+      "saved-byte format preflight passed",
+      "literal uniqueness rules passed",
+      "no positive mass inside the mapped-catalogue corridor"
+    ],
+    "not_basis": [
+      "no organizer receipt for this file",
+      "no validated leaderboard estimate",
+      "the holdout instrument is anti-correlated with the known leaderboard ordering (see evidence/kp1_exp2_holdout.json instrument_calibration)"
+    ],
+    "slots_used": 0
+  }
+}

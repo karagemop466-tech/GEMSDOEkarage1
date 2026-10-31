@@ -1,5 +1,17 @@
 # Starting point for every session
 
+**CURRENT SESSION (2026-10-31, `arena/9a378959-gemsdoekarage1`): read `knowledge/kp1-session-review-20261031.md`, `knowledge/kp1-preregistration-20261031.md` and `evidence/kp1_run_card.json` first.** Verdict: **PROMOTE one file** —
+`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`. It is byte-level
+format-valid (15/15 checks), unique against all nine focus rasters (max |Spearman| 0.0076, max 3-px
+overlap 26.5 %), places zero mass inside the 2-px catalogue corridor, and carries a **PROJECTED**
+(non-measured) value of 0.2789 with bootstrap 95 % [0.2757, 0.2846]. No submission slot was spent by
+this session. Two gates are now known to be unusable and must not be re-used as promotion tests
+without an owner ruling: (a) the literal 70 %/3-px uniqueness rule is saturated for this raster family
+(all 36 pairs among the nine focus files score 97.5–100 % against a 15–18 % chance level), and (b) the
+shared hide-and-recover holdout ranks the nine known scores **exactly backwards** (Spearman −1.0).
+Earlier negative reviews below remain historical evidence for the files they examined.
+
+
 **Current branch review first (2026-10-31, `arena/946f7668-gemsdoekarage1`): read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, data, and complete authenticated registry remain unresolved. The README and generated public-site banners were refreshed for this review; older session records are historical evidence, not current clearance.
 
 **Prior upstream review (31 Oct 2026, `arena/830e1f79`):** read `knowledge/session-review-arena-830e1f79.md` and `evidence/session_830e1f79_run_card.json`. It separately rechecked official format wording and a live leaderboard; those time-sensitive claims are historical and do not supersede this branch review or the internal parallel-run protocol.

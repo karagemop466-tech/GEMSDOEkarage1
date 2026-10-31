@@ -1,0 +1,535 @@
+{
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator": "gems57-pooled-hide-v2",
+  "lane": "H-KP1 (K-PROXY-DETECT)",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "kernel_radius_m": 300,
+  "folds": "leave-one-quadrant-out, 4 fixed quadrants, catalogue segments of the held quadrant withheld from training; no buffer erosion inside the scored quadrant",
+  "features": [
+    "tmi_hg",
+    "tmi_vg",
+    "tc",
+    "iso_grav_anom_hg",
+    "iso_grav_anom_slope",
+    "det_elev_slope",
+    "geod_2ndinv",
+    "geod_shearrate",
+    "ieq",
+    "deq",
+    "cond_surf",
+    "depth_to_base_surf",
+    "curv2",
+    "base_edge",
+    "elev_ridge3",
+    "lidar_step",
+    "lidar_lapneg",
+    "lidar_coh",
+    "lidar_ex",
+    "lidar_relief",
+    "up150_grad",
+    "ThK",
+    "UK",
+    "UTh",
+    "spring_kde",
+    "spring_hot",
+    "vent_kde"
+  ],
+  "feature_provenance": "physics-only; no plane is derived from the fault catalogue",
+  "leakage_canary": {
+    "tmi_hg": {
+      "auc_mean": 0.5107,
+      "auc_by_fold": [
+        0.532,
+        0.465,
+        0.5452,
+        0.5005
+      ],
+      "leakage_alarm": false
+    },
+    "tmi_vg": {
+      "auc_mean": 0.4858,
+      "auc_by_fold": [
+        0.4785,
+        0.4904,
+        0.4906,
+        0.4836
+      ],
+      "leakage_alarm": false
+    },
+    "tc": {
+      "auc_mean": 0.4205,
+      "auc_by_fold": [
+        0.4521,
+        0.4076,
+        0.4432,
+        0.3792
+      ],
+      "leakage_alarm": false
+    },
+    "iso_grav_anom_hg": {
+      "auc_mean": 0.5043,
+      "auc_by_fold": [
+        0.484,
+        0.5898,
+        0.489,
+        0.4543
+      ],
+      "leakage_alarm": false
+    },
+    "iso_grav_anom_slope": {
+      "auc_mean": 0.5463,
+      "auc_by_fold": [
+        0.5266,
+        0.6018,
+        0.4897,
+        0.5671
+      ],
+      "leakage_alarm": false
+    },
+    "det_elev_slope": {
+      "auc_mean": 0.5703,
+      "auc_by_fold": [
+        0.6147,
+        0.5499,
+        0.5494,
+        0.5671
+      ],
+      "leakage_alarm": false
+    },
+    "geod_2ndinv": {
+      "auc_mean": 0.5331,
+      "auc_by_fold": [
+        0.5587,
+        0.5088,
+        0.519,
+        0.546
+      ],
+      "leakage_alarm": false
+    },
+    "geod_shearrate": {
+      "auc_mean": 0.5284,
+      "auc_by_fold": [
+        0.5648,
+        0.4764,
+        0.5452,
+        0.5271
+      ],
+      "leakage_alarm": false
+    },
+    "ieq": {
+      "auc_mean": 0.5377,
+      "auc_by_fold": [
+        0.5436,
+        0.5118,
+        0.5058,
+        0.5896
+      ],
+      "leakage_alarm": false
+    },
+    "deq": {
+      "auc_mean": 0.5053,
+      "auc_by_fold": [
+        0.5308,
+        0.5319,
+        0.4967,
+        0.4616
+      ],
+      "leakage_alarm": false
+    },
+    "cond_surf": {
+      "auc_mean": 0.492,
+      "auc_by_fold": [
+        0.5443,
+        0.4718,
+        0.4897,
+        0.4623
+      ],
+      "leakage_alarm": false
+    },
+    "depth_to_base_surf": {
+      "auc_mean": 0.5019,
+      "auc_by_fold": [
+        0.4781,
+        0.5296,
+        0.4949,
+        0.5049
+      ],
+      "leakage_alarm": false
+    },
+    "curv2": {
+      "auc_mean": 0.5464,
+      "auc_by_fold": [
+        0.5931,
+        0.5144,
+        0.5476,
+        0.5304
+      ],
+      "leakage_alarm": false
+    },
+    "base_edge": {
+      "auc_mean": 0.5335,
+      "auc_by_fold": [
+        0.5231,
+        0.5755,
+        0.481,
+        0.5546
+      ],
+      "leakage_alarm": false
+    },
+    "elev_ridge3": {
+      "auc_mean": 0.5993,
+      "auc_by_fold": [
+        0.6762,
+        0.5991,
+        0.5435,
+        0.5785
+      ],
+      "leakage_alarm": false
+    },
+    "lidar_step": {
+      "auc_mean": 0.5542,
+      "auc_by_fold": [
+        0.5793,
+        0.5299,
+        0.536,
+        0.5715
+      ],
+      "leakage_alarm": false
+    },
+    "lidar_lapneg": {
+      "auc_mean": 0.5579,
+      "auc_by_fold": [
+        0.5876,
+        0.5336,
+        0.5331,
+        0.5772
+      ],
+      "leakage_alarm": false
+    },
+    "lidar_coh": {
+      "auc_mean": 0.4984,
+      "auc_by_fold": [
+        0.5173,
+        0.4996,
+        0.5009,
+        0.476
+      ],
+      "leakage_alarm": false
+    },
+    "lidar_ex": {
+      "auc_mean": 0.5519,
+      "auc_by_fold": [
+        0.5717,
+        0.5289,
+        0.5264,
+        0.5805
+      ],
+      "leakage_alarm": false
+    },
+    "lidar_relief": {
+      "auc_mean": 0.5601,
+      "auc_by_fold": [
+        0.6075,
+        0.5265,
+        0.5431,
+        0.5632
+      ],
+      "leakage_alarm": false
+    },
+    "up150_grad": {
+      "auc_mean": 0.5104,
+      "auc_by_fold": [
+        0.5287,
+        0.473,
+        0.5367,
+        0.5033
+      ],
+      "leakage_alarm": false
+    },
+    "ThK": {
+      "auc_mean": 0.4873,
+      "auc_by_fold": [
+        0.5358,
+        0.4731,
+        0.5021,
+        0.4381
+      ],
+      "leakage_alarm": false
+    },
+    "UK": {
+      "auc_mean": 0.5683,
+      "auc_by_fold": [
+        0.5468,
+        0.5955,
+        0.5493,
+        0.5816
+      ],
+      "leakage_alarm": false
+    },
+    "UTh": {
+      "auc_mean": 0.5591,
+      "auc_by_fold": [
+        0.5143,
+        0.586,
+        0.5267,
+        0.6094
+      ],
+      "leakage_alarm": false
+    },
+    "spring_kde": {
+      "auc_mean": 0.5208,
+      "auc_by_fold": [
+        0.5342,
+        0.5401,
+        0.4955,
+        0.5136
+      ],
+      "leakage_alarm": false
+    },
+    "spring_hot": {
+      "auc_mean": 0.5073,
+      "auc_by_fold": [
+        0.5155,
+        0.5135,
+        0.4928,
+        0.5074
+      ],
+      "leakage_alarm": false
+    },
+    "vent_kde": {
+      "auc_mean": 0.4984,
+      "auc_by_fold": [
+        0.5,
+        0.4984,
+        0.498,
+        0.4971
+      ],
+      "leakage_alarm": false
+    }
+  },
+  "instrument_calibration": {
+    "evaluator": "gems57-pooled-hide-v2",
+    "holdout_dti": {
+      "GEMSDOE24": 0.171825,
+      "GEMSDOE25": 0.16163,
+      "GEMSDOE27": 0.172636,
+      "GEMSDOE28": 0.04618,
+      "GEMSDOE30": 0.16163,
+      "GEMSDOE31": 0.049061,
+      "GEMSDOE32": 0.006708,
+      "GEMSDOE33": 0.086408,
+      "GEMSDOE36": 0.006929
+    },
+    "known_user_reported_scores": {
+      "GEMSDOE24": 0.2477,
+      "GEMSDOE25": 0.26,
+      "GEMSDOE27": 0.2449,
+      "GEMSDOE28": 0.271,
+      "GEMSDOE30": 0.26,
+      "GEMSDOE31": 0.2708,
+      "GEMSDOE32": 0.2778,
+      "GEMSDOE33": 0.2632,
+      "GEMSDOE36": 0.275
+    },
+    "spearman_instrument_vs_known": -1.0,
+    "n": 9,
+    "interpretation": "A near-zero or negative rank correlation means this instrument does not measure the population the leaderboard scores (expert-identified faults absent from the catalogue); it measures recovery of already-mapped traces."
+  },
+  "model": {
+    "fold0": {
+      "train_positives": 50823,
+      "train_negatives": 250000,
+      "quad_cells": 1154738
+    },
+    "fold1": {
+      "train_positives": 48477,
+      "train_negatives": 250000,
+      "quad_cells": 1427727
+    },
+    "fold2": {
+      "train_positives": 40454,
+      "train_negatives": 250000,
+      "quad_cells": 1428627
+    },
+    "fold3": {
+      "train_positives": 43210,
+      "train_negatives": 250000,
+      "quad_cells": 1156281
+    }
+  },
+  "emission": {
+    "rule": "vendor gems57.emit.allocate_by_marginal_bar (exact two-sided DTI test)",
+    "k_truth": 60988,
+    "dot_cap": 37654,
+    "n_dots": 3856,
+    "min_sep_search_px": 4.0,
+    "forbidden": "within 2 px of the mapped catalogue"
+  },
+  "arms": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate_physics_gbm": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0018489586731928692,
+        "ci95": [
+          0.0007333501980902546,
+          0.003142821039431027
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 91.62933160306427,
+        "fpw": 3742.686640604124,
+        "fnw": 60896.37066839694
+      },
+      "uniform_random_matched": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0004397890139745458,
+        "ci95": [
+          0.00032247947971354756,
+          0.0005562984557513867
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 21.79713682967085,
+        "fpw": 3839.769562819957,
+        "fnw": 60966.20286317032
+      },
+      "spaced_random_matched": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 0.0,
+        "fpw": 0.0,
+        "fnw": 60988.0
+      },
+      "registry_GEMSDOE32_B2": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0067081038868157,
+        "ci95": [
+          0.006001037195147331,
+          0.0074979158746909845
+        ],
+        "withheld_positive_pixels": 60988,
+        "tpw": 377.942705812646,
+        "fpw": 37376.11923776084,
+        "fnw": 60610.05729418737
+      }
+    },
+    "best_comparable_control": "registry_GEMSDOE32_B2",
+    "paired_differences": {
+      "uniform_random_matched": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.0014091696592183234,
+        "ci95": [
+          0.0002558865766116323,
+          0.002721807475886561
+        ],
+        "withheld_positive_pixels": 60988
+      },
+      "spaced_random_matched": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.0018489586731928692,
+        "ci95": [
+          0.0007333501980902546,
+          0.003142821039431027
+        ],
+        "withheld_positive_pixels": 60988
+      },
+      "registry_GEMSDOE32_B2": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.004859145213622831,
+        "ci95": [
+          -0.0062886207531660885,
+          -0.003338800643735348
+        ],
+        "withheld_positive_pixels": 60988
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 160,
+      "draws": 400,
+      "seed": 520810,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "budget_sweep": {
+    "10000": {
+      "n_dots": 3856,
+      "dti": 0.001849
+    },
+    "20000": {
+      "n_dots": 3856,
+      "dti": 0.001849
+    },
+    "30000": {
+      "n_dots": 3856,
+      "dti": 0.001849
+    },
+    "50000": {
+      "n_dots": 3856,
+      "dti": 0.001849
+    },
+    "70000": {
+      "n_dots": 3856,
+      "dti": 0.001849
+    }
+  },
+  "pins": {
+    "training_features.tif": {
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "bytes": 418912844
+    },
+    "existing_faults.tif": {
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830
+    },
+    "labels.tif": {
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830
+    },
+    "sample_submission.tif": {
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "bytes": 1599597
+    },
+    "derived_sgmc_faults_100m_u8.tif": {
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+      "bytes": 198602
+    },
+    "lidar_scarp_features_u8.tif": {
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "bytes": 36943606
+    },
+    "geodawn_rad_u8.tif": {
+      "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+      "bytes": 26612970
+    },
+    "gdr_qfaults_traces.csv": {
+      "sha256": "9702f2e5c382a4f472ae834d22b94990983b059677a37adfafd51c50f75e643c",
+      "bytes": 126177
+    }
+  },
+  "caveat": "HOLDOUT-DTI measures recovery of withheld *mapped* traces. It is not the organizer metric and, per instrument_calibration, it is not even positively rank-correlated with the known leaderboard ordering of the nine focus files."
+}

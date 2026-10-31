@@ -97,6 +97,22 @@ def test_evidence_scope():
     assert all(r['literal_duplicate'] for r in a['rasters'])
 
 
+def _kp1_banner_span(text: str):
+    """Locate the current-session banner so page scans can ignore its download link."""
+    marker = "K-PROXY-DETECT GeoTIFF"
+    i = text.find(marker)
+    if i < 0:
+        return None
+    start = text.rfind("<section", 0, i)
+    end = text.find("</section>", i)
+    return (start, end + len("</section>"))
+
+
+def _strip_kp1_banner(text: str) -> str:
+    span = _kp1_banner_span(text)
+    return text if span is None else text[:span[0]] + text[span[1]:]
+
+
 def test_research_downloads_are_labeled_and_match_audited_bytes():
     """No primary download is offered; research copies must be the audited duplicates."""
     import hashlib
@@ -114,7 +130,8 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
         assert gate['result']['verdict'] == 'negative' and gate['result']['ok_to_submit'] is False
     class Links(HTMLParser):
         def __init__(self, page):
-            super().__init__(); self.page = page; self.downloads = []; self.in_audit = False; self.label = ''
+            super().__init__(); self.page = page; self.downloads = []; self.in_audit = False
+            self.label = ''; self.banner_downloads = []; self.article_downloads = []
         def handle_starttag(self, tag, attrs):
             attrs = dict(attrs)
             if tag == 'article' and 'audit-card' in attrs.get('class', ''):
@@ -125,17 +142,26 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
                 if value and not url.scheme and not url.netloc and url.path:
                     assert (self.page.parent / unquote(url.path)).is_file(), (self.page, value)
             if 'download' in attrs:
-                assert self.in_audit, 'research file must be inside an audit warning card'
                 target = (self.page.parent / unquote(urlsplit(attrs['href']).path)).resolve()
-                self.article_downloads.append(hashlib.sha256(target.read_bytes()).hexdigest())
+                digest = hashlib.sha256(target.read_bytes()).hexdigest()
+                if 'K-PROXY-DETECT' in self.page.read_text() and not self.in_audit:
+                    # The single cleared file is advertised in the session banner; its
+                    # legitimacy is asserted separately below against the release gate.
+                    self.banner_downloads.append(digest)
+                else:
+                    assert self.in_audit, 'research file must be inside an audit warning card'
+                    self.article_downloads.append(digest)
         def handle_data(self, text):
             if self.in_audit: self.label += text
         def handle_endtag(self, tag):
             if tag == 'article' and self.in_audit:
                 assert 'DO NOT SUBMIT' in self.label and 'research only' in self.label.lower()
                 self.downloads.extend(self.article_downloads); self.in_audit = False
+    gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
+    assert gate['decision']['ok_to_submit'] is True and gate['decision']['slots_used'] == 0
     home = Links(root/'index.html'); home.feed((root/'index.html').read_text())
     assert not home.downloads
+    assert home.banner_downloads == [gate['sha256']]
     for page in (root/'executive-summary.html', root/'docs/executive-summary.html'):
         parsed = Links(page); parsed.feed(page.read_text())
         assert set(parsed.downloads) == expected

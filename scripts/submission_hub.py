@@ -325,7 +325,7 @@ def summary_strip(depth: int) -> str:
     if not isinstance(max_focus, (int, float)):
         raise ValueError("latest mainline focus-site overlap evidence is missing")
     return (f'<section class="hub-strip" aria-label="Submission decision"><p class="eyebrow">DECISION · {esc(card["date_utc"])}</p>'
-            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file in this repository is cleared for upload.</strong></p>'
+            f'<p><strong>NOT CLEARED: DO NOT SUBMIT — no file from the 29-30 October work below is cleared for upload; the 31 October K-PROXY-DETECT file in the banner above is the only cleared file.</strong></p>'
             f'<p>Newest research-only raster <code>{esc(new_name)}</code>: maximum 3-px overlap versus the nine focus-site rasters {100*max_focus:.1f}%; '
             f'{estimate}; {paired}. The literal 3-px gate also trips on two dense registry rasters. No leaderboard estimate; DO NOT SUBMIT. '
             f'<a href="{doc}session-a8e4de2e.html">executive summary and download verdict ↗</a> · '
@@ -337,7 +337,8 @@ def write_data(f: dict) -> None:
     rows = site_rows(f)
     payload = dict(
         schema="karage1-submission-hub-v1", date="2026-10-29",
-        decision="NOT CLEARED: DO NOT SUBMIT - no file is cleared",
+        decision="NOT CLEARED: DO NOT SUBMIT - no file from the 29-30 October work is cleared; the 31 October K-PROXY-DETECT file is cleared"
+,
         new_file=dict(name=TIF_NAME, sha256=f["file"]["sha256"], dots=f["file"]["dots"],
                       validator_all_checks_passed=f["file"]["all_checks_passed"],
                       holdout_spaced=f["spacing"]["candidate_spaced"],

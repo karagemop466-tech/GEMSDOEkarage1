@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sources · GEMS K-PROXY-DETECT</title><link rel="stylesheet" href="style.css"></head><body><header><a href="../index.html">GEMS · Field Intelligence</a><nav><a href="index.html">Overview</a><a href="executive-summary.html">Executive summary</a><a href="nine-sites.html">Nine sites</a><a href="how-to-submit.html">How to submit</a><a href="research.html">Research</a><a href="sources.html" aria-current="page">Sources</a></nav><a href="../index.html">Full site ↗</a></header><main><h1>Sources and provenance</h1>
+<p class="lede">Every input is SHA-256-pinned in <code>scripts/kp1_data.py</code> and re-verified at the
+start of every run; a mismatch aborts. Byte consistency with these mirrors is <em>not</em> organizer
+authentication.</p>
+<h2>Official competition sources</h2>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem description, metric and submission format</a>
+— the DTI formula (α = 0.2, β = 0.8, 300 m triangular kernel), the EPSG:32611 / 100 m / float32 / [0,1]
+format, and the statement that the scored truth is a private set of expert-identified faults absent from
+the public catalogue.</li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/">Data tab</a> (login-walled).</li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Public leaderboard</a>.</li>
+<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Organizer reference solution</a>.</li>
+<li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Competition rules / technical report (NLR-96647)</a>.</li>
+</ul>
+<h2>Data used here, with pinned digests</h2>
+<div class="wrap"><table><thead><tr><th>File</th><th>SHA-256</th><th>Origin</th></tr></thead><tbody>
+<tr><td><code>training_features.tif</code></td><td><code>4371c82e…3bc5</code></td><td>19-band GeoDAWN stack, EPSG:32611, 100 m</td></tr>
+<tr><td><code>existing_faults.tif</code> / <code>labels.tif</code></td><td><code>7ba308cc…4093</code></td><td>byte-identical pair; the published “labels” raster <em>is</em> the mapped catalogue</td></tr>
+<tr><td><code>sample_submission.tif</code></td><td><code>2176d08e…5cbc</code></td><td>grid/CRS/transform template</td></tr>
+<tr><td><code>derived_sgmc_faults_100m_u8.tif</code></td><td><code>643cbe99…2da0</code></td><td>off-catalogue proxy from the USGS SGMC compilation minus the mapped union (peer-derived)</td></tr>
+<tr><td><code>lidar_scarp_features_u8.tif</code></td><td><code>d580bb8b…5568</code></td><td>12-band 1 m LiDAR scarp metrics</td></tr>
+<tr><td><code>geodawn_rad_u8.tif</code></td><td><code>c22420f7…a682</code></td><td>USGS GeoDAWN K/Th/U/TC radionuclide grids</td></tr>
+<tr><td><code>geodawn_extensions_u8.tif</code></td><td><code>a35a9c6d…7d9b</code></td><td>Th/K, U/K, U/Th ratio grids and TMI upward-continued 150 m</td></tr>
+<tr><td><code>gdr_wellspring_in_footprint.csv</code></td><td><code>122718e6…</code></td><td>27,092 spring/well records with thermal class and temperature</td></tr>
+<tr><td><code>gdr_qfaults_traces.csv</code></td><td><code>9702f2e5…</code></td><td>USGS Qfaults trace attributes (slip rate, recency, sense)</td></tr>
+<tr><td><code>gdr_volcanic_vents_in_footprint.csv</code></td><td><code>f91bafba…</code></td><td>21 Quaternary vents</td></tr>
+</tbody></table></div>
+<h2>External scientific references for the mechanism</h2>
+<ul>
+<li>USGS GeoDAWN airborne magnetic and radiometric surveys, DOI <a href="https://doi.org/10.5066/P93LGLVQ">10.5066/P93LGLVQ</a>
+(sciencebase item <a href="https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7">657e1d85d34e23d3533209f7</a>)
+— source of the magnetic, radiometric and DEM grids, including the upward-continued and ratio products used here.</li>
+<li><a href="https://gbcge.org/current-projects/ingenious/">GBCGE INGENIOUS project</a> — the geothermal-favourability
+framework and trace database that the catalogue incorporates.</li>
+<li><a href="https://epsg.io/32611">EPSG:32611</a> (UTM 11N) — the required coordinate reference system.</li>
+<li><a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a> — the similarity index the
+distance-weighted metric is built from.</li>
+</ul>
+<h2>Irregularities flagged for review</h2>
+<ol>
+<li><strong>labels.tif and existing_faults.tif are byte-identical</strong> (<code>7ba308cc…</code>), while
+the organizer page says a “sample submission that predicts total fault absence” is provided. The
+sample-submission mirror actually carries 1s, including 60,988 positives equal in count to the catalogue.
+Treat the mirrors' <em>roles</em> as owner-described, not organizer-authenticated.</li>
+<li><strong>The 70 % / 3-px uniqueness rule is saturating</strong> for this raster family (all 36 pairs
+97.5–100 % against a 15–18 % chance level). It cannot discriminate copying from shared terrain and needs
+an owner decision.</li>
+<li><strong>The shared holdout evaluator anti-correlates with known scores</strong> (Spearman −1.0 on the
+nine), so it cannot gate promotion as currently specified.</li>
+<li><strong>The vendor external pins are stale</strong>: <code>vendor/gems57/prepare_data.py</code> lists
+<code>data/external/derived_sgmc_faults_100m.tif</code>, <code>sgmc_faults_100m.tif</code>,
+<code>trace_segments_utm11.csv</code> and <code>qfault_attributes.csv</code> under repository
+<code>buffedlizard55-lab/6GEMSDOE@e2fe3f41</code>, but that commit contains no <code>data/external</code>
+tree, so the fetch fails. The proxy used here has the <em>same</em> SHA-256 as the first of those pins
+(<code>643cbe99…</code>) and was taken from <code>buffedlizard55-lab/GEMSDOE24</code>; the file is
+therefore the intended bytes even though its pinned path is dead.</li>
+<li><strong>No organizer receipt exists for any score on this site.</strong> All nine focus scores are
+user-reported; the projection is a model output.</li>
+</ol></main><footer>Session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 · lane H-KP1 K-PROXY-DETECT · not affiliated with the organizers. Rendered deterministically from <code>evidence/kp1_*.json</code>.</footer></body></html>

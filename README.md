@@ -1,5 +1,43 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## CURRENT SESSION — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · **PROMOTE: ONE FILE IS CLEARED**
+
+**✅ OK TO SUBMIT:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif)
+· [.zip](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.zip)
+· [receipt](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.receipt.json)
+
+Single band, float32, EPSG:32611, 3730 × 3292, values in [0, 1], zeros outside the footprint,
+32,000 dots with a hard 4-px minimum separation and **zero** pixels on the mapped catalogue.
+**Format preflight 15/15 · max |Spearman| vs the nine focus files 0.0076 · max 3-px overlap 26.5 %
+(limit 70 %) · projection 0.2789 (PROJECTED, not a score; bootstrap 95 % [0.2757, 0.2846]) · 0 slots
+spent.** Every older artifact in this repository remains **DO NOT SUBMIT**.
+
+- **Read first:** [session review](knowledge/kp1-session-review-20261031.md) · [preregistration and
+  analysis record](knowledge/kp1-preregistration-20261031.md) · [run card](evidence/kp1_run_card.json)
+  · [release gate](evidence/kp1_release_gate.json).
+- **Site:** [download & decision](docs/kp1/index.html) · [executive summary](docs/kp1/executive-summary.html)
+  · [nine focus sites](docs/kp1/nine-sites.html) · [how to submit](docs/kp1/how-to-submit.html)
+  · [research](docs/kp1/research.html) · [sources](docs/kp1/sources.html).
+- **Why GEMSDOE32 B2 scored 0.2778:** measured, not narrated — score is monotone in
+  distance-from-catalogue (Spearman **+1.00**), dot count (−0.98) and 3-px clumping (−0.92) across
+  the nine known files; the two best files place **0.0 %** of their dots within 2 px of the catalogue.
+- **The session's most important finding is a negative:** the mandated hide-and-recover holdout ranks
+  the nine known files **exactly backwards** (Spearman **−1.0**), because it rewards recovering
+  already-mapped traces while the competition scores faults *absent* from the catalogue. It is
+  therefore reported and **not** used as a promotion gate. See
+  [`evidence/kp1_exp2_holdout.json`](evidence/kp1_exp2_holdout.json) → `instrument_calibration`.
+- **Lane:** H-KP1 K-PROXY-DETECT — thermo-tectonic conduit alignment (multi-field potential-field
+  edges incl. TMI upward-continued 150 m, 1 m LiDAR scarp metrics, thermal-spring conduit density,
+  Th/K–U/K alteration ratios, strain). Full method paragraph in the preregistration, §4.
+
+**Irregularities flagged for review (unchanged, not fixed):** `labels.tif` is byte-identical to
+`existing_faults.tif`; the literal 70 %/3-px uniqueness rule is saturated for this raster family;
+the shared holdout anti-correlates with known scores; `vendor/gems57/prepare_data.py` pins external
+files at a commit that does not contain them.
+
+---
+
+
 ## CURRENT REVIEW (read first) — session `arena/946f7668-gemsdoekarage1` (31 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT.** This review generated no TIF, ran no geology experiment or holdout, and produced no leaderboard estimate. `registry/template.json` has no assigned lane or canonical template; required cached data are absent; preflight fails closed and two vendored tool hashes differ from their pins. No file is cleared for download and upload. GEMSDOE32 B2's 0.2778 remains **USER-REPORTED / UNVERIFIED**; no honest leaderboard estimate is available. No weekly slot was selected or spent.
