@@ -486,6 +486,79 @@ NINE_LINEAGE = ROOT / 'evidence/site_lineage_verification_20261029.json'
 LOCAL_AUDIT_20261029 = ROOT / 'evidence/local_downloads_audit_20261029.json'
 
 
+SESSION_31_EXPERIMENTS = [
+    ('H-E1', 'TMI (training band 14)', 'evidence/exp_h_e1_euler_20261031.json', 'evidence/run_card_h_e1_20261031.json'),
+    ('H-E2', 'Isostatic gravity (band 13)', 'evidence/exp_h_e2_euler_gravity_20261031.json', 'evidence/run_card_h_e2_20261031.json'),
+]
+
+
+def session_31_panel(prefix: str) -> str:
+    """Top-of-page panel for the 31 Oct 2026 label-blind Euler experiments.
+
+    Every number is read from the committed experiment JSON. The holdout is
+    catalogue-based (withheld visible segments), so these are HOLDOUT-DTI values,
+    not organizer-confirmed scores. No file is cleared for upload.
+    """
+    import re as _re
+    focus = _re.compile(r'GEMSDOE(24|25|27|28|30|31|32|33|36)')
+    rows = []
+    for hid, field, exp_path, card_path in SESSION_31_EXPERIMENTS:
+        exp = json.loads((ROOT / exp_path).read_text(encoding='utf-8'))
+        card = json.loads((ROOT / card_path).read_text(encoding='utf-8'))
+        h = card['holdout']
+        ci = h['ci95_cell_bootstrap_of_mean_cell_dti']
+        paired = exp['paired_vs_null']
+        focus_rows = [r for r in exp['uniqueness']['rows_dots']
+                      if focus.search(r['file'] + r.get('submission', ''))]
+        focus_max = max(r['my_dots_within_3px_of_theirs'] for r in focus_rows)
+        rows.append(dict(
+            hid=hid, field=field, dti=h['pooled_dti'], ci=ci, withheld=h['withheld_positives'],
+            evaluator=h['evaluator'], null=exp['controls']['random_null_matched_count']['pooled_mean'],
+            delta=paired['mean_delta'], delta_ci=paired['ci95'], focus_max=focus_max,
+            verdict=card['verdict'], ok=card['ok_to_submit'], sha=card['raster']['sha256'],
+            name=card['raster']['name'], criteria=card['criteria'], note=card['raster']['note'],
+        ))
+    body_rows = []
+    for r in rows:
+        failed = [k for k, v in r['criteria'].items() if not v]
+        body_rows.append(
+            f"<tr><th scope=\"row\">{r['hid']}<span class=\"cell-sub\">{r['field']}</span></th>"
+            f"<td><strong>{r['dti']:.4f}</strong><span class=\"cell-sub\">HOLDOUT-DTI · {r['evaluator']} · "
+            f"withheld positives {r['withheld']:,} · 95% CI [{r['ci'][0]:.4f}, {r['ci'][1]:.4f}]</span></td>"
+            f"<td>{r['null']:.4f}<span class=\"cell-sub\">matched random dots, 3 seeds</span></td>"
+            f"<td>{r['delta']:+.4f}<span class=\"cell-sub\">paired CI [{r['delta_ci'][0]:+.4f}, {r['delta_ci'][1]:+.4f}]</span></td>"
+            f"<td>{r['focus_max']:.1%}<span class=\"cell-sub\">max dots within 3 px of a focus site</span></td>"
+            f"<td><span class=\"pill pill-red\">{r['verdict'].upper()}</span>"
+            f"<span class=\"cell-sub\">not cleared · failed: {esc(', '.join(failed))}</span></td></tr>"
+        )
+    table = ('<div class="table-shell"><div class="table-scroll" tabindex="0" role="region" '
+             'aria-label="Session 31 Oct Euler experiments"><table><thead><tr><th scope="col">Hypothesis</th>'
+             '<th scope="col">Holdout result (not a leaderboard estimate)</th><th scope="col">Random null</th>'
+             '<th scope="col">Paired difference vs null</th><th scope="col">Focus-site overlap</th>'
+             '<th scope="col">Verdict</th></tr></thead><tbody>' + ''.join(body_rows) +
+             '</tbody></table></div></div>')
+    return (
+        '<section class="section" id="session-31-euler"><div class="section-heading"><div>'
+        '<p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · arena/ce19eeed · LABEL-BLIND EULER</p>'
+        '<h2>Two pre-registered Euler experiments: no file cleared.</h2>'
+        '<p><strong>Download answer:</strong> no file is cleared. Both candidate rasters are archived under '
+        '<code>archive/research-he1-20261031/</code> and <code>archive/research-he2-20261031/</code> and were '
+        'not copied to <code>docs/downloads/</code>. No submission slot was used.</p></div></div>'
+        + table +
+        '<p class="body-copy">The holdout is catalogue-based: it scores recovery of withheld visible fault segments. '
+        'It does not measure new faults, so a holdout value is not a forecast of the organizer score. '
+        'The H-E2 holdout beats random dots (paired CI above zero) but fails the two other gates: the literal '
+        '70% registry-overlap gate, which the dense halo and 13GEMS lattice rasters trip for any dot set, and the '
+        'leakage-prone league bar, where the 0.27 leader is catalogue-trained. Under the pre-registered rule the '
+        'verdict is negative. Owner review of the gate is needed before any promotion step.</p>'
+        f'<p class="body-copy">Hypotheses tested this session: 2 of the 3-experiment budget. Full evidence: '
+        '<a href="' + prefix + 'evidence/exp_h_e1_euler_20261031.json">E1 JSON</a> · '
+        '<a href="' + prefix + 'evidence/exp_h_e2_euler_gravity_20261031.json">E2 JSON</a> · '
+        '<a href="' + prefix + 'knowledge/hypotheses-20261031.md">hypothesis ranking</a>.</p>'
+        '</section>'
+    )
+
+
 def nine_site_section(prefix: str) -> str:
     """Top-of-site decision table for the nine focus sites.
 
@@ -663,9 +736,9 @@ def main():
         ROOT / 'index.html': shell('Submission overview', submission_hub.summary_strip(0) + home(0), 0),
         DOCS / 'submission-hub.html': shell('Submit now: executive summary and download', submission_hub.body(hub, 1), 1, 'Submit now'),
         ROOT / 'legacy-overview.html': shell('Submission overview', home(0), 0),
-        ROOT / 'executive-summary.html': shell('Submission guide', nine_site_section('') + guide(0), 0, 'Executive summary'),
+        ROOT / 'executive-summary.html': shell('Submission guide', session_31_panel('') + nine_site_section('') + guide(0), 0, 'Executive summary'),
         DOCS / 'index.html': shell('Submission overview', submission_hub.summary_strip(1) + home(1), 1),
-        DOCS / 'executive-summary.html': shell('Executive summary', nine_site_section('../') + guide(1), 1, 'Executive summary'),
+        DOCS / 'executive-summary.html': shell('Executive summary', session_31_panel('../') + nine_site_section('../') + guide(1), 1, 'Executive summary'),
         DOCS / 'legacy-executive-summary.html': shell('Executive summary', guide(1), 1, 'Executive summary'),
         DOCS / 'how-to-submit.html': shell('Submission guide', guide(1), 1, 'Executive summary'),
         DOCS / 'submission-guide.html': shell('Submission guide', guide(1), 1, 'Executive summary'),

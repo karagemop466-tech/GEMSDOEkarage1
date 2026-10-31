@@ -1,0 +1,458 @@
+{
+  "cells": 16,
+  "evaluator": "gems57-pooled-hide-v2",
+  "note": "Binary emission = positive pixels. Rasters built from the full mapped catalogue (e.g. the nine focus submissions) are NOT label-blind and their holdout values are leakage-prone; they are listed for transparency.",
+  "rows": [
+    {
+      "emitted": 227507,
+      "file": "data/scored/8GEMSDOE_Hedge-v2_submission.tif",
+      "on_visible_catalogue": 60988,
+      "pooled_dti": 0.27077249416269966,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 69281,
+      "file": "data/scored/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+      "on_visible_catalogue": 4045,
+      "pooled_dti": 0.1999745357214056,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 174232,
+      "file": "data/scored/gems10-h25-ctx-ridge-20260927T232947704150Z-6452ae1d00.tif",
+      "on_visible_catalogue": 12866,
+      "pooled_dti": 0.15424241649407727,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 44090,
+      "file": "registry/GEMSDOE25_d28.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.10226689004897589,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 44090,
+      "file": "registry/GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.10226689004897589,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 44090,
+      "file": "data/scored/gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.10226689004897589,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 44090,
+      "file": "data/scored/gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.10226689004897589,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 60069,
+      "file": "registry/GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.09750418428986357,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 60069,
+      "file": "data/scored/gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.09750418428986357,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 61328,
+      "file": "registry/GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.09719107195151397,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 61328,
+      "file": "data/scored/gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.09719107195151397,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 172974,
+      "file": "data/scored/gemsdoe-ens12-adopted-7f00890a.tif",
+      "on_visible_catalogue": 6455,
+      "pooled_dti": 0.08797391148119645,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 206895,
+      "file": "data/scored/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+      "on_visible_catalogue": 2391,
+      "pooled_dti": 0.08620278487534416,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 121131,
+      "file": "data/scored/gems19-h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.07196505305700909,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 123779,
+      "file": "data/scored/gems19-h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.07190558445111107,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 123939,
+      "file": "data/scored/gems16-h16-1-topo-geophys-baseline-ridges-20260930-df20f65e-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.07148675963437298,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 41865,
+      "file": "registry/GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.05534030951426988,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-nan.tif",
+      "on_visible_catalogue": 430,
+      "pooled_dti": 0.043296403603769344,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "archive/research-hr1-20261030/karage1-hr1-kth-magedge-37654-20261030-zeros.tif",
+      "on_visible_catalogue": 430,
+      "pooled_dti": 0.043296403603769344,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "docs/downloads/karage1-hgridge-strain-K37654-20261029T181321Z-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.036676349516083145,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-nan.tif",
+      "on_visible_catalogue": 377,
+      "pooled_dti": 0.03662881457014665,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+      "on_visible_catalogue": 377,
+      "pooled_dti": 0.03662881457014665,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "archive/cda1-demonstrator/docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-nan.tif",
+      "on_visible_catalogue": 377,
+      "pooled_dti": 0.03662881457014665,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "archive/cda1-demonstrator/docs/downloads/gemsdoe-karage1-cda1-channel-deflection-knickpoint-37654-20261027-7a3f9c2d1e8b-zeros.tif",
+      "on_visible_catalogue": 377,
+      "pooled_dti": 0.03662881457014665,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 13426,
+      "file": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-dots.tif",
+      "on_visible_catalogue": 277,
+      "pooled_dti": 0.033972220021988186,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 40199,
+      "file": "registry/GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.03273307810048334,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 40199,
+      "file": "data/scored/gems28-h27-4-r1-solo-d2-8-20261003-8acb75e1f2cc-allfinite.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.03273307810048334,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37660,
+      "file": "registry/GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.03153527520816375,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 25741,
+      "file": "archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-nan.tif",
+      "on_visible_catalogue": 264,
+      "pooled_dti": 0.028366256961406766,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 25741,
+      "file": "archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-zeros.tif",
+      "on_visible_catalogue": 264,
+      "pooled_dti": 0.028366256961406766,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 147684,
+      "file": "data/scored/gemsdoe9-PLACEHOLDER-2314b599.tif",
+      "on_visible_catalogue": 2074,
+      "pooled_dti": 0.01883559929681341,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 17415,
+      "file": "docs/downloads/gems-karage1-novelterr-potentialfield-conduitcrest-20261028T000000Z-a1b2c3d4-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.017414784596711322,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 3943064,
+      "file": "archive/prototype/docs/downloads/gemsdoe-unique-hunq1-20261027T210333Z-d880eae3246b-zeros.tif",
+      "on_visible_catalogue": 47104,
+      "pooled_dti": 0.014080683917000016,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 36000,
+      "file": "docs/downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.012853904559430026,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 36000,
+      "file": "docs/downloads/gemsk1-gpcz-polarity-damagezone-36000dots-20261027T213002Z-636ed4c9-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.012853904559430026,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 5935,
+      "file": "docs/downloads/karage1-convect-cell-upflow-20261029-zeros.tif",
+      "on_visible_catalogue": 65,
+      "pooled_dti": 0.008291323021071445,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 5106385,
+      "file": "docs/downloads/karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.007778053567958452,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 38854,
+      "file": "registry/GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.004871196530481981,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "registry/GEMSDOE32_B2.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.004729038412082699,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "data/scored/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.004729038412082699,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 17766,
+      "file": "docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.00365356856095027,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 17766,
+      "file": "docs/downloads/karage1-bbstep-buried-basement-20261028T180000Z-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.00365356856095027,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "docs/downloads/karage1-dipdual-dualregime-dipshift-20261028T225112Z-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.002777768015042837,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "docs/downloads/karage1-tiltgrav-ridge-sp6-37654-20261029.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.002758064228400499,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37311,
+      "file": "archive/research-s1-20261029/karage1-s1-tmihg-ridge-offcat-20261029-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.0022505223434409983,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 1387,
+      "file": "docs/downloads/karage1-unique-alteration-dots-20261028-zeros.tif",
+      "on_visible_catalogue": 10,
+      "pooled_dti": 0.0018356998606061466,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 38200,
+      "file": "docs/downloads/karage1-hmas-sinter-dualcover-sep29-20261027T220000Z-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.001186177134753563,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "archive/quarantined-20261029/unique-hyp-kth-therm-mask-20261028-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.0006096928417201419,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 1322,
+      "file": "docs/downloads/gems-karage1-unique-novelterritory-20261029T120000Z-5a6b7c8d-zeros.tif",
+      "on_visible_catalogue": 46,
+      "pooled_dti": 0.0,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 24000,
+      "file": "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.0,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 24000,
+      "file": "docs/downloads/karage1-gse-geothermal-surface-24000dots-20261029T181229Z-798b0455-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.0,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.0,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 37654,
+      "file": "docs/candidates/karage1-probcollar-gbm-K37654-collar3-20261029-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.0,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 5734,
+      "file": "archive/quarantined-20261029/DO-NOT-SUBMIT_gemsdoekarage1-thd-ridge-collar-20261029-b_pct98-5734dots-zeros.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.0,
+      "withheld_positives": 45260
+    }
+  ],
+  "schema": "holdout-league-v1",
+  "top": [
+    {
+      "emitted": 227507,
+      "file": "data/scored/8GEMSDOE_Hedge-v2_submission.tif",
+      "on_visible_catalogue": 60988,
+      "pooled_dti": 0.27077249416269966,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 69281,
+      "file": "data/scored/gems10-h28-dotted-ridge-20260928T020256236880Z-6452ae1d00.tif",
+      "on_visible_catalogue": 4045,
+      "pooled_dti": 0.1999745357214056,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 174232,
+      "file": "data/scored/gems10-h25-ctx-ridge-20260927T232947704150Z-6452ae1d00.tif",
+      "on_visible_catalogue": 12866,
+      "pooled_dti": 0.15424241649407727,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 44090,
+      "file": "registry/GEMSDOE25_d28.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.10226689004897589,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 44090,
+      "file": "registry/GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.10226689004897589,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 44090,
+      "file": "data/scored/gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.10226689004897589,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 44090,
+      "file": "data/scored/gems25-dotted-h19-5-d2-8-20261002-e56ea318af89-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.10226689004897589,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 60069,
+      "file": "registry/GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.09750418428986357,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 60069,
+      "file": "data/scored/gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.09750418428986357,
+      "withheld_positives": 45260
+    },
+    {
+      "emitted": 61328,
+      "file": "registry/GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+      "on_visible_catalogue": 0,
+      "pooled_dti": 0.09719107195151397,
+      "withheld_positives": 45260
+    }
+  ]
+}

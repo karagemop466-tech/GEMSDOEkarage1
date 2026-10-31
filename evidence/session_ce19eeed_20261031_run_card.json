@@ -1,0 +1,146 @@
+{
+  "schema": "karage1-session-run-card-v1",
+  "session": "arena/ce19eeed-gemsdoekarage1",
+  "date_utc": "2026-10-31",
+  "verdict_for_download_and_submit": "NEGATIVE / NOT CLEARED: no file is cleared; no slot selected or spent",
+  "budget": {
+    "hypotheses_tested": 2,
+    "max_experiments": 3,
+    "runner_executions_including_fixes": 5,
+    "note": "H-E1 ran 4 times (crash at uniqueness; crash at write on stale archive files; clean run; byte-identical reproduction after refactor). H-E2 ran once."
+  },
+  "bugs_fixed": [
+    "euler.solution_density: uniform_filter round-off gave -6.5e-14 values; replaced by exact integer box sum with np.maximum(count,0). Regression test added.",
+    "H-E1 first run placed 11,913 dots on round-off noise (zero-density cells); the clean run places only on real density peaks (dots on zero-density cells = 0). The first run is superseded."
+  ],
+  "label_convention": "Every holdout number is HOLDOUT-DTI (evaluator gems57-pooled-hide-v2, withheld positives, 95% CI). No ORGANIZER-CONFIRMED number exists in this session.",
+  "hypotheses": [
+    {
+      "id": "H-E1",
+      "field": "tmi",
+      "hypothesis": "Magnetic contacts whose Euler (N=0) depth solutions agree on a 300-3000 m band mark buried fault-bounded magnetic juxtapositions with no mapped trace.",
+      "mechanism": "Euler homogeneity identity x.Tx + y.Ty + N.T = x0.Tx + y0.Ty + z0.Tz + N.B solved in 2.1 km windows; solutions counted per cell (depth-cluster density).",
+      "named_non_fault_mimic": "Lithologic and intrusive contacts, basin-margin magnetic steps, and flight-line levelling seams produce the same Euler contact geometry.",
+      "holdout": {
+        "label": "HOLDOUT-DTI",
+        "evaluator": "gems57-pooled-hide-v2",
+        "withheld_positives": 45260,
+        "pooled_dti": 0.028366,
+        "ci95_cell_bootstrap_of_mean_cell_dti": [
+          0.024476,
+          0.031277
+        ],
+        "random_null_pooled_mean": 0.034626,
+        "paired_delta_mean": -0.006544,
+        "paired_delta_ci95": [
+          -0.009903,
+          -0.003088
+        ]
+      },
+      "leakage_canary_max_direction_invariant_auc": {
+        "euler_depth_cluster_density": 0.5228,
+        "tmi (label-blind raw field)": 0.5387,
+        "|Tz| vertical derivative": 0.5647
+      },
+      "registry_overlap": {
+        "surface_max_spearman": 0.003645,
+        "focus_site_max_dot_overlap_3px": 0.133017,
+        "focus_site_max_jaccard": 0.002475,
+        "literal_gate_trips": [
+          "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+          "13gems_20261001_r13-lattice-s5_v2_nan-outside.tif"
+        ]
+      },
+      "raster": {
+        "path": "archive/research-he1-20261031/karage1-he1-euler-contacts-37654-20261031-zeros.tif",
+        "sha256": "4019f4f4da5f76608f82b57e98ad6fede2e9036db43d1395833bbb3e17c4d32f",
+        "submission_name": "karage1-he1-euler-contacts-37654-20261031-zeros",
+        "note": "H-E1 Euler contacts (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored; do not submit unless gates pass",
+        "note_chars": 125
+      },
+      "validator_all_passed": true,
+      "criteria": {
+        "beats_every_local_candidate_on_same_cells": false,
+        "canary_all_below_0_90": true,
+        "candidate_beats_null_pooled": false,
+        "paired_ci_lower_bound_gt_zero": false,
+        "registry_dot_overlap_le_0_70": false,
+        "registry_surface_rho_le_0_90": true,
+        "validator_passed": true
+      },
+      "verdict": "negative",
+      "ok_to_submit": false
+    },
+    {
+      "id": "H-E2",
+      "field": "iso_grav_anom",
+      "hypothesis": "Density-contrast contacts in the isostatic gravity anomaly, whose Euler (N=0) depth solutions agree on a 300-3000 m band, mark fault-bounded density juxtapositions with no mapped trace.",
+      "mechanism": "Euler homogeneity identity solved on iso_grav_anom in 2.1 km windows; solutions counted per cell (depth-cluster density). Gravity anomalies are potential fields, so the same Tz filter applies.",
+      "named_non_fault_mimic": "Basin-margin and sediment-basement density steps, intrusive density contacts, and topographic-correction residuals at high-relief edges produce the same Euler contact geometry.",
+      "holdout": {
+        "label": "HOLDOUT-DTI",
+        "evaluator": "gems57-pooled-hide-v2",
+        "withheld_positives": 45260,
+        "pooled_dti": 0.047916,
+        "ci95_cell_bootstrap_of_mean_cell_dti": [
+          0.042959,
+          0.050469
+        ],
+        "random_null_pooled_mean": 0.044595,
+        "paired_delta_mean": 0.002768,
+        "paired_delta_ci95": [
+          0.000526,
+          0.005062
+        ]
+      },
+      "leakage_canary_max_direction_invariant_auc": {
+        "euler_depth_cluster_density": 0.5255,
+        "iso_grav_anom (label-blind raw field)": 0.586,
+        "|Tz| vertical derivative": 0.5449
+      },
+      "registry_overlap": {
+        "surface_max_spearman": 0.032997,
+        "focus_site_max_dot_overlap_3px": 0.195915,
+        "focus_site_max_jaccard": 0.005108,
+        "literal_gate_trips": [
+          "karage1-halo-damagezone-d2p0-20261029T181947Z-zeros.tif",
+          "13gems_20261001_r13-lattice-s5_v2_nan-outside.tif"
+        ]
+      },
+      "raster": {
+        "path": "archive/research-he2-20261031/karage1-he2-euler-gravity-37654-20261031-zeros.tif",
+        "sha256": "830c6ddfb225253bcc87f774bd0497dee00497cbb8b141a73a7c1b914910cdcd",
+        "submission_name": "karage1-he2-euler-gravity-37654-20261031-zeros",
+        "note": "H-E2 Euler on isostatic gravity (N=0, 2.1 km win, 300-3000 m) label-blind; RESEARCH ONLY; holdout-scored",
+        "note_chars": 104
+      },
+      "validator_all_passed": true,
+      "criteria": {
+        "beats_every_local_candidate_on_same_cells": false,
+        "canary_all_below_0_90": true,
+        "candidate_beats_null_pooled": true,
+        "paired_ci_lower_bound_gt_zero": true,
+        "registry_dot_overlap_le_0_70": false,
+        "registry_surface_rho_le_0_90": true,
+        "validator_passed": true
+      },
+      "verdict": "negative",
+      "ok_to_submit": false
+    }
+  ],
+  "review_items_for_owner": [
+    "Literal 70% registry-overlap gate trips for any dot set because the local registry contains dense rasters (halo damage zone: 5.1 million positive cells; 13GEMS lattice: 99.996% overlap). The runner records this as \"fail by construction\".",
+    "League bar compares against every local TIF, including catalogue-trained rasters (8GEMSDOE_Hedge-v2 at 0.2708 on the same cells). A label-blind candidate cannot pass this bar by construction.",
+    "The random null is uniform over the footprint. A structure-aware candidate may beat it for generic reasons (dots placed where the magnetic/gravity signal is active). A stronger null matched to that density is needed.",
+    "The holdout scores recovery of withheld visible catalogue segments. It does not measure new faults.",
+    "GEMSDOE32_B2 scores 0.0047 on the same 16 cells (below random). The holdout cannot judge B2 fairly because B2 removes dots near mapped catalogue traces, which is the holdout signal."
+  ],
+  "files": {
+    "runner": "scripts/run_h_e1_euler_contacts.py",
+    "wrapper": "scripts/run_h_e2_euler_gravity.py",
+    "library": "src/gemskarage1/euler.py",
+    "tests": "tests/test_h_e1_euler.py",
+    "hypothesis_record": "knowledge/hypotheses-20261031.md",
+    "page_panel": "scripts/render_site.py (session_31_panel)"
+  }
+}

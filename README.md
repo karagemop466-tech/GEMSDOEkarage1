@@ -1,5 +1,25 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+## CURRENT REVIEW (read first) — session `arena/ce19eeed-gemsdoekarage1` (31 Oct 2026)
+
+**Can I download and submit a file? NO. No file is cleared. No submission slot was selected or spent.**
+
+- **Standing prompt:** read at the start of every session; see the section further down (`# SESSION PROMPT — READ FIRST`).
+- **What was done:** two pre-registered, label-blind Euler depth-contact experiments (budget: 3; used: 2 hypotheses). Both use the shared hide-and-recover holdout (`gems57-pooled-hide-v2`, 16 cells, 45,260 withheld positives). Each number is **HOLDOUT-DTI**, never an organizer score.
+- **Fixed:** round-off in `euler.solution_density` broke the [0,1] check (the portal range error class). It is now an exact integer box sum, with a regression test. A zero-density integrity assertion was added: the superseded first H-E1 run placed 11,913 dots on noise.
+
+| Hypothesis | Field | HOLDOUT-DTI (95% CI) | Random null | Paired vs null (CI) | Verdict |
+|---|---|---|---|---|---|
+| H-E1 | TMI (band 14) | 0.0284 [0.0245, 0.0313] | 0.0346 | −0.0065 [−0.0099, −0.0031] | **NEGATIVE**: below random |
+| H-E2 | Isostatic gravity (band 13) | 0.0479 [0.0430, 0.0505] | 0.0446 | +0.0028 [+0.0005, +0.0051] | **NEGATIVE** under the pre-registered rule: beats random, but gate-blocked (see below) |
+
+- **Uniqueness.** H-E2's surface is unique (max Spearman 0.033). Its dots are unique against the nine focus sites (max overlap 19.6% within 3 px; Jaccard ≤ 0.005). Its archived file is `archive/research-he2-20261031/karage1-he2-euler-gravity-37654-20261031-zeros.tif` (sha256 `830c6ddf…`). Validator: all checks passed. Submission name `karage1-he2-euler-gravity-37654-20261031-zeros`, note 104 characters. **Not in `docs/downloads/`; not cleared.**
+- **Why H-E2 is negative:** two criteria failed. (1) The literal 70% registry-overlap gate trips on dense local rasters (the halo damage zone and the 13GEMS lattice), which any dot set overlaps. (2) The league bar compares against the catalogue-trained 0.2708 leader, which a label-blind candidate cannot beat. Both are owner review items, not changes made here.
+- **Leakage.** The holdout is catalogue-based. It measures recovery of withheld visible segments, not new faults. The canary is clean (max AUC 0.586 < 0.90). GEMSDOE32_B2 scores 0.0047 on the same cells, below random.
+- **Open items:** a density-matched random null (the uniform null may flatter structure-aware candidates); owner decision on the registry gate and the league bar; H-E3 (joint TMI–gravity) only after an overlap check.
+- **Pages:** the executive summary (`docs/executive-summary.html`) now opens with a generated panel for these two experiments. It is rendered from the evidence JSON by `scripts/render_site.py`.
+- **Details:** [knowledge/hypotheses-20261031.md](knowledge/hypotheses-20261031.md) (ranking and review items) · [evidence/session_ce19eeed_20261031_run_card.json](evidence/session_ce19eeed_20261031_run_card.json) (run card) · [evidence/exp_h_e1_euler_20261031.json](evidence/exp_h_e1_euler_20261031.json) · [evidence/exp_h_e2_euler_gravity_20261031.json](evidence/exp_h_e2_euler_gravity_20261031.json).
+
 ## CURRENT REVIEW (read first) — session `arena/cfabff7e-gemsdoekarage1` (30 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT. No file is cleared, and no new TIF or score estimate was produced in this review.** This is deliberate: `registry/template.json` has no assigned lane or canonical shared template; the shared feature cache/data are absent; and the vendor provenance audit reports writer/uniqueness hash mismatches. Generating an arbitrary raster now would violate the lane, shared-tool, holdout, and uniqueness rules rather than maximize the probability of winning.
