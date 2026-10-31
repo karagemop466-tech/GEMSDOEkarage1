@@ -5,15 +5,15 @@ Standing brief: [README → READ FIRST](../README.md). Core values: Maximize P(W
 
 ## 1. Answer first
 
-**Can I download a file and submit it?** Technically yes for one file, with the limits below.
+**Can I download and submit a file?** **No.** Downloading the kp1 file for audit is possible. Submitting it is not authorized under the active protocol (`evidence/active_submission_status.json`, `ok_to_submit: false`, arena/a79c8595 on main). This session did not change that status.
 
 | Question | Answer |
 |---|---|
-| Which file? | [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](../docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) (SHA-256 `30a5fc28…0ff0d`) |
+| Which file? (audit download only) | [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](../docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) (SHA-256 `30a5fc28…0ff0d`) |
 | Does it pass the format and uniqueness gate? | **Yes.** I recomputed both from the bytes (§4). The project validator passes 15/15 against the restored mirror grid, footprint and catalogue. **One open format risk:** the official mirror sample writes NaN outside the footprint and this file writes zeros there (§5, item 11). |
 | Is it a unique submission? | **Yes** under the literal 70 % / 3-px rule. Its dots lie within 3 px of the nine focus files' dots at most **26.5 %** (limit 70 %). |
 | Is it a validated score improvement over 0.2778? | **No.** Nothing in this repo measures its score. The "0.2789" figure is a projection (§5). |
-| Is it OK to submit? | **Eligible, not endorsed.** Uploading uses one of three weekly slots and is an owner decision. The site now says **ELIGIBLE TO UPLOAD · NOT VALIDATED** instead of "OK TO SUBMIT". |
+| Is it OK to submit? | **No — DO NOT SUBMIT.** Format and literal uniqueness pass, but the other gates do not: organizer-authenticated inputs, leakage canary, spatial holdout beating the frozen best, and the final registry check. The fail-closed release authorization (`scripts/release_authorization.py`) denies it. |
 | Best reported score so far | GEMSDOE32 B2 **0.2778** (USER-REPORTED, unverified). The live organizer board's #1 is **0.4544** (ORGANIZER-PUBLIC). |
 
 ### Executive table — nine focus sites plus the candidate
@@ -31,7 +31,7 @@ Scores are **USER-REPORTED / UNVERIFIED** unless marked. Several sites have more
 | **GEMSDOE32** | `GEMSDOE32_B2.tif` | 37,654 | **0.2778** (best reported) | 1.000 (GEMSDOE24) | **No** — exact subset of GEMSDOE25 | No — already scored, duplicate |
 | GEMSDOE33 | `GEMSDOE33_…-cb490425926e.tif` | 41,865 | 0.2632 | 0.997 (GEMSDOE27) | **No** | No — duplicate |
 | GEMSDOE36 | `GEMSDOE36_gemsdoe36-anderson-…-zeros.tif` | 38,854 | 0.2750 | 0.976 (GEMSDOE27) | **No** | No — duplicate |
-| **Candidate (new)** | `karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif` | 32,000 | **Not estimated.** Projection 0.2789 is PROJECTED, not a score. | 0.265 (GEMSDOE27) | **Yes** (literal 70 % rule) | **Eligible, not validated.** Owner decision. |
+| **Candidate (new)** | `karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif` | 32,000 | **Not estimated.** Projection 0.2789 is PROJECTED, not a score. | 0.265 (GEMSDOE27) | **Yes** (literal 70 % rule) | **DO NOT SUBMIT** (not authorized). |
 
 Live organizer board (fetched 31 Oct 2026, ORGANIZER-PUBLIC): #1 **0.4544** (xiaofanhu), #2 **0.3934** (cfld__), #47 **0.3261**. The user's "0.4413" does not appear in ranks 1–47. The repo's snapshot puts #50 at 0.3195; I did not re-read rank 50 this session.
 
@@ -69,7 +69,7 @@ Live organizer board (fetched 31 Oct 2026, ORGANIZER-PUBLIC): #1 **0.4544** (xia
 
 ## 5. Irregularities found (flagged for owner review)
 
-1. **Contradictory status on the same page (fixed in the banner, README still open).** The public page said "DO NOT SUBMIT · NOT CLEARED" and, a few lines later, "OK TO SUBMIT … the only file cleared for upload". The banner now reads **ELIGIBLE TO UPLOAD · NOT VALIDATED**. The README top block still says "PROMOTE: ONE FILE IS CLEARED". That needs the owner's ruling.
+1. **Contradictory status on the same page (fixed in the banner, README still open).** The public page said "DO NOT SUBMIT · NOT CLEARED" and, a few lines later, "OK TO SUBMIT … the only file cleared for upload". My branch briefly used the wording "ELIGIBLE TO UPLOAD · NOT VALIDATED". That wording overstated the gate and was withdrawn on merge with main, which fails closed ("DO NOT SUBMIT · NO FILE CLEARED"). The README's old "PROMOTE" block is superseded by the current negative block.
 2. **The gate does not test score.** `scripts/kp1_release_gate.py` sets `ok_to_submit` from format, uniqueness and catalogue mass. Its own `not_basis` field says "no validated leaderboard estimate". "OK TO SUBMIT" therefore meant "passes the gate", not "expected to beat 0.2778".
 3. **The projection cannot separate kp1 from B2.** It is a 3-parameter OLS fitted to nine user-reported scores, extrapolated to kp1. The kp1 − B2 gap is +0.0020, smaller than the fit's own ±0.0027 leave-one-out half-width. The bootstrap interval for the projection, [0.2757, 0.2846], spans the champion's 0.2778.
 4. **The only measured off-catalogue number is unfavourable.** HOLDOUT-DTI for kp1 is **0.0764** (evaluator `gems57-pooled-hide-v2` plus off-catalogue SGMC truth, leave-one-quadrant-out, 62,122 withheld positive cells). The nine focus files score **0.0934–0.1012** on the same instrument. The 95 % CI for kp1's gain over matched random dots is **[−0.0034, +0.0260]**, which includes zero. The run card reports "+19.3 %" without saying the CI spans zero.
@@ -90,7 +90,7 @@ Live organizer board (fetched 31 Oct 2026, ORGANIZER-PUBLIC): #1 **0.4544** (xia
 |---|---|---|
 | `scripts/kp1_metric_analysis.py` | identity, ceiling, bars, narrative fixed; `score()` now calls `gems57.metric.dti_from_components` | wrong algebra; removes a private identity (protocol: fix shared tools once) |
 | `evidence/kp1_metric_analysis.json` | regenerated | follows from the above |
-| `scripts/build_kp1_site.py`, `scripts/render_site.py` | banner → "ELIGIBLE TO UPLOAD · NOT VALIDATED"; ceiling and bar text corrected | the banner overstated what the gate checks |
+| `scripts/build_kp1_site.py`, `scripts/render_site.py` | ceiling and bar text corrected; the "ELIGIBLE" wording was withdrawn on merge with main (fail-closed banner kept) | the banner overstated what the gate checks |
 | `tests/test_kp1_lane.py` | assertions updated to the new banner | follows from the above |
 | `tests/test_metric_identity_20261031.py` | **new**: 6 tests against the brute-force oracle |
 | `scripts/verify_registry_overlap_20261031.py` | **new**: reproduces the overlap matrix, correlation and format checks from local files | so the review's numbers can be rerun | regression guard for the identity and the bar |
@@ -114,7 +114,7 @@ Live organizer board (fetched 31 Oct 2026, ORGANIZER-PUBLIC): #1 **0.4544** (xia
 
 ## 8. Next steps (ordered; none spends a slot)
 
-1. **Owner ruling on status** — decide whether kp1 is uploaded as a labelled experiment, and update the README's top block to match.
+1. **Owner ruling on status** — any change to the authorization requires an explicit active decision record bound to the SHA-256 (`scripts/release_authorization.py`). This review does not create one.
 2. **Organizer authenticity** — the mirror is restored and hash-consistent, but organizer files (DrivenData data page, login required) have not been checked. Confirm the mirror against the organizer copy when an account is available.
 3. **Fix the holdout before trusting any holdout number** — the catalogue instrument is anti-correlated with the leaderboard (ρ = −1.0). Either find an instrument that ranks the nine correctly (a necessary test) or stop using holdout DTI as a selector.
 4. **Decide the template coupling** — approve a receipt-backed change to `vendor/gems57/metric.py` and `emit.py` so the T coefficient is (1−β) throughout, or record the α + β = 1 assumption in the template.

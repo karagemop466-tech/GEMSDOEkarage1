@@ -22,6 +22,7 @@ import sys as _sys
 if str(ROOT) not in _sys.path:
     _sys.path.insert(0, str(ROOT))
 from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
+from scripts.release_authorization import authorization_for, load_active_status  # noqa: E402
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
 PREVIOUS_REVIEW_CARD_46ED1C8C = ROOT / 'evidence/session_46ed1c8c_run_card.json'
 CURRENT_REVIEW_CARD = ROOT / 'evidence/run_card_arena_9cf124bb_20261031.json'
@@ -335,23 +336,18 @@ def lane_status():
 
 
 def status_line(p: str) -> str:
-    """Shared status line. Carries the 8e91c377/46ed1c8c H-E1 sentence and this session's H-O2 sentence."""
-    review = current_review()
-    if review.get('new_candidate_generated'):
-        candidate = ('this session H-O2 file is a research-only download labelled DO NOT SUBMIT; holdout negative · ')
-    else:
-        candidate = 'no candidate generated · '
+    """Show the active session's fail-closed decision, not a stale lane receipt."""
+    status = load_active_status()
+    reason = esc(str(status.get("reason", "active authorization is unavailable")))
+    card = "evidence/run_card_arena_a79c8595_20261031.json"
+    review = "knowledge/review-arena-a79c8595-20261031.md"
+    date = esc(str(status.get("review_date", "unknown")))
     return (
-        '<strong>DO NOT SUBMIT · HOLD</strong> · NOT CLEARED FOR UPLOAD · '
-        f'Latest review {esc(review["review_date"])}: one H-E1 file is downloadable for owner review only; '
-        'the pre-registered lattice gate is failed, so no submission is authorised; '
-        + candidate
-        + 'no file cleared · '
-        f'<a href="{esc(p + "docs/submit-he1-20261031.html", quote=True)}">submit guide</a> · '
-        f'<a href="{esc(p + review["review_path"], quote=True)}">review</a> · '
-        f'<a href="{esc(p + review["run_card_path"], quote=True)}">JSON run card</a>'
-        ' · <strong>Session 31 Oct 2026: NOT CLEARED</strong> · '
-        f'<a href="{esc(p + "docs/submission-20261031.html", quote=True)}">live submission status</a>'
+        '<strong>DO NOT SUBMIT · NOT CLEARED</strong> · '
+        f'Active review {date}: no candidate is authorized. {reason} · '
+        f'<a href="{esc(p + review, quote=True)}">current review</a> · '
+        f'<a href="{esc(p + card, quote=True)}">JSON run card</a> · '
+        f'<a href="{esc(p + "docs/how-to-submit.html", quote=True)}">submission guide</a>'
     )
 
 
@@ -478,7 +474,7 @@ def session_block(p: str) -> str:
         f'<td><span class="pill pill-red">FAIL</span><span class="cell-sub">lattice forward 3 px overlap {lat:.2%} vs literal 70% limit</span></td>'
         '<td><span class="pill pill-red">NO</span><span class="cell-sub">Owner decision on the lattice gate first</span></td></tr>'
     )
-    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>Is anything OK to download and submit? No.</h2><p><strong>DO NOT SUBMIT · NOT CLEARED.</strong> The new H-V31 raster is unique against the nine focus files, and its holdout beats random placement on our catalogue proxy. It still fails the literal lattice gate (forward 3 px overlap {lat:.2%}, limit 70%). That gate is an owner decision. No slot was selected or spent.</p><p><a class="text-link" href="{p}docs/submission-20261031.html">Live submission status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}docs/executive-20261031.html">Nine-site executive table + H-K1-SEISMIC-PROX candidate ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
+    return f'''<section class="section session-20261031" id="session-20261031"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> SESSION 31 OCT 2026 · EXECUTIVE SUMMARY</p><h2>Is anything OK to download and submit? No. KP1 is on hold for the owner.</h2><p><strong>DO NOT SUBMIT · NOT CLEARED.</strong> The new H-V31 raster is unique against the nine focus files, and its holdout beats random placement on our catalogue proxy. It still fails the literal lattice gate (forward 3 px overlap {lat:.2%}, limit 70%). That gate is an owner decision. No slot was selected or spent.</p><p><a class="text-link" href="{p}docs/kp1/index.html">OK-to-submit file: KP1 ↗</a> · <a class="text-link" href="{p}docs/submission-20261031.html">H-V31 status, download and how-to-submit ↗</a> · <a class="text-link" href="{p}docs/executive-20261031.html">Nine-site executive table + H-K1-SEISMIC-PROX candidate ↗</a> · <a class="text-link" href="{p}evidence/run_card_h31_20261031.json">JSON run card ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-8e91c377-20261031.md">Review ↗</a></p></div></div>
 <div class="table-shell"><div class="table-scroll-hint">Scroll to see the full table →</div><div class="table-scroll" tabindex="0" role="region" aria-label="31 October nine-site executive summary"><table><thead><tr><th>Site</th><th>File to download</th><th>Score (label)</th><th>Estimated score</th><th>Unique vs other focus sites?</th><th>OK to submit?</th></tr></thead><tbody>{''.join(trs)}</tbody></table></div></div>
 <p class="cell-sub">Labels: USER-REPORTED = supplied scores, no receipt. HOLDOUT-DTI = catalogue hide-and-recover proxy (evaluator gems57-pooled-hide-v2). MEASURED = geometry on local mirror files. ORGANIZER-PUBLIC leader 0.4544; rank 48 0.3195 (30 Oct snapshot, not re-fetched). Highest USER-REPORTED focus value is GEMSDOE32 B2 at 0.2778; its +0.018 gain over D2.8 is a mechanism, not a measurement (see review §2).</p></section>'''
 
@@ -502,7 +498,7 @@ def session_page(p: str) -> str:
     step_html = ''.join(
         f'<li><span class="hypothesis-rank">{n}</span> <strong>{esc(t)}</strong><p>{d}</p></li>' for n, t, d in steps)
     return f'''<div class="page-top"><span>SUBMIT NOW <span class="separator">/</span> 31 OCT 2026</span><span class="page-date">NOT CLEARED</span></div>
-<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> LIVE SUBMISSION STATUS</p><h1>Download, verify, then wait. <em>Not cleared.</em></h1><p><strong>OK to download and submit: NO.</strong> This page is generated from <code>evidence/run_card_h31_20261031.json</code> and the build fails if any submission flag changes.</p></section>
+<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> LIVE SUBMISSION STATUS</p><h1>Download, verify, then wait. <em>Not cleared.</em></h1><p><strong>OK to download and submit (this H-V31 file): NO.</strong> The KP1 file is on hold, see <a href="{p}docs/kp1/index.html">docs/kp1/index.html</a>. This page is generated from <code>evidence/run_card_h31_20261031.json</code> and the build fails if any submission flag changes.</p></section>
 <section class="section detail-grid"><div><p class="eyebrow">RESEARCH FILE</p><h2>{esc(tif_name)}</h2></div><div class="prose-card">
 <p><a class="file-link" href="{p}docs/downloads/{esc(tif_name, quote=True)}">Download the TIF</a> · <a class="text-link" href="{p}docs/downloads/{esc(zip_name, quote=True)}">zip</a> · <a class="text-link" href="{p}docs/downloads/{esc(sha_name, quote=True)}">sha256 file</a></p>
 <p>SHA-256 <code class="wrap">{esc(raster["sha256"])}</code><br>{raster["dots"]:,} dots · {raster["bytes"]:,} bytes · single band float32 · zeros encoding · EPSG:32611 sample grid</p>
@@ -523,40 +519,26 @@ KP1_GATE = ROOT / 'evidence' / 'kp1_release_gate.json'
 
 
 def kp1_banner(prefix: str) -> str:
-    """Top-of-page pointer to the current session's cleared file (fail closed).
-
-    Renders the green call to action only when the release gate for this exact
-    saved file says ``ok_to_submit`` and its SHA-256 matches the bytes on disk.
-    Any inconsistency demotes the block to a red "not cleared" notice, so a stale
-    or hand-edited receipt cannot advertise a file that did not pass.
-    """
+    """Never let a historical lane receipt override the active protocol decision."""
     try:
         gate = json.loads(KP1_GATE.read_text())
-        tif = ROOT / gate['tif']
-        digest = hashlib.sha256(tif.read_bytes()).hexdigest()
-        ok = bool(gate['decision']['ok_to_submit']) and digest == gate['sha256']
-        name = Path(gate['tif']).name
-        proj = gate['projection']
+        ok, reason = authorization_for(gate)
+        if ok:
+            name = Path(gate['tif']).name
+            return (
+                '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
+                '<span aria-hidden="true">✅</span><p><strong>ELIGIBLE FOR SELECTOR REVIEW · '
+                'SLOT SELECTION IS SEPARATE</strong> '
+                '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + name +
+                '" download>Download the cleared candidate</a>'
+                '<a href="' + prefix + 'docs/kp1/index.html">Evidence and decision details ↗</a></p></section>')
     except (OSError, KeyError, ValueError, TypeError):
-        return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
-                '<p><strong>Current session receipt is missing or unreadable.</strong> '
-                'No file is advertised here.</p></section>')
-    if not ok:
-        return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
-                '<p><strong>Current session: no file cleared.</strong> The K-PROXY-DETECT gate did '
-                'not pass for the file on disk.</p></section>')
-    return (
-        '<section class="notice" role="status" style="border-left-color:#1f6b4c;background:#e8f2ea">'
-        '<span aria-hidden="true">✅</span><p><strong>NEW · 31 OCT 2026 · '
-        '<a href="' + prefix + 'docs/kp1/index.html">ELIGIBLE TO UPLOAD · NOT VALIDATED: K-PROXY-DETECT GeoTIFF</a></strong> '
-        '— passes the format and literal-uniqueness gate only. It is not a measured or validated score improvement; '
-        'the 0.2789 figure is a projection, not a score. '
-        '<a class="button" style="margin:6px 10px 0 0" href="' + prefix + 'docs/downloads/' + name +
-        '" download>Download the .tif</a>'
-        '<a href="' + prefix + 'docs/kp1/index.html">Executive summary, projected '
-        + f'{proj["projected_value"]:.4f}'
-        + ' (projection, not a score) · uniqueness and format evidence ↗</a>. '
-        'Every older artifact on this site remains <strong>DO NOT SUBMIT</strong>.</p></section>')
+        reason = "active authorization record missing or invalid"
+    return ('<section class="notice" role="status"><span aria-hidden="true">ⓘ</span>'
+            '<p><strong>DO NOT SUBMIT · NO FILE CLEARED.</strong> This artifact is not cleared for upload. '
+            + esc(str(reason)) + ' The historical K-PROXY-DETECT raster is available for audit only, '
+            'not as an approved competition submission. <a href="' + prefix
+            + 'docs/kp1/index.html">Review its evidence ↗</a></p></section>')
 
 
 def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
@@ -575,7 +557,7 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation">{nav}</nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
 <div class="container"><p class="global-hold">{status_line(p)}</p></div></header>
-<main id="main"><div class="container">{kp1_banner(p)}{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_510af7c7_20261031.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+<main id="main"><div class="container">{kp1_banner(p)}{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_a79c8595_20261031.json">Current review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
 
 
 def session_evidence():
@@ -647,7 +629,7 @@ def decision(prefix: str):
     chdt = conduit_audit['previous_holdout_claim']
     return session_panel(prefix) + f'''<section class="decision-panel" aria-labelledby="decision-title"><div class="decision-main">
 <div class="status-line"><span class="status-dot"></span> PRIOR CANDIDATE REVIEW · 29 OCT 2026 <span class="status-tag">DO NOT SUBMIT</span></div>
-<h2 id="decision-title">No eligible submission file was found. Both reviewed research rasters fail the literal lattice gate.</h2><p><strong>not cleared for upload.</strong> No approved .tif to download from that review — the 31 October K-PROXY-DETECT file in the banner at the top of this page is the cleared one.</p>
+<h2 id="decision-title">No eligible submission file was found.</h2><p><strong>Not cleared for upload.</strong> No approved .tif is available. The historical 31 October K-PROXY-DETECT raster is an audit/research artifact, not a current clearance.</p>
 <p>The prior BB-STEP file <code class="wrap">{esc(card['submission_name'])}</code> is unique versus the nine focus sites (worst overlap {nine:.1%}) but has {lat:.2%} lattice overlap; it is a duplicate. Its prior-session <strong>HOLDOUT-DTI {dti['value']:.5f}</strong> [{dti['ci95'][0]:.5f}, {dti['ci95'][1]:.5f}] used evaluator {esc(dti['evaluator_version'])} with {dti['withheld_positives']:,} withheld positives. This is not an organizer score and does not override the duplicate stop.</p>
 <p>The newer Conduitcrest research file has {clat['candidate_dots']:,} dots; {clat['candidate_dots_within_closed_3px_disk']:,} ({clat['directed_overlap']:.4%}) are within 3 px of the pinned lattice, exceeding the 70% threshold. Its prior run card's incomplete <strong>HOLDOUT-DTI {chdt['reported_value']:.6f}</strong> claim names evaluator {esc(chdt['evaluator_version'])} and {chdt['withheld_positives']:,} withheld positives but provides <strong>no 95% CI</strong>; it is not a release-grade result.</p>
 <p>Original Conduitcrest uniqueness compared only the nine focus-site rasters, not the lattice or complete fleet. Its pre-placement lattice comparison and per-feature canary are absent. Both candidates are research/audit files only; neither is cleared for upload.</p>
@@ -778,18 +760,18 @@ def session_d454_panel(prefix: str) -> str:
         f'<span class="cell-sub"><a href="{prefix}docs/kp1/index.html">Candidate page ↗</a></span></td>'
         '<td><strong>Not estimated.</strong><span class="cell-sub">Projection 0.2789 is PROJECTED from a 3-parameter fit to nine unverified scores; it is not a score. HOLDOUT-DTI off-catalogue 0.0764 (95% CI [-0.0034, +0.0260] vs matched random).</span></td>'
         f'<td><span class="pill pill-neutral">YES</span><span class="cell-sub">{ov["kp1_max_share_into_focus"]:.1%} max within 3 px of any focus file; limit 70 %</span></td>'
-        '<td><span class="pill">ELIGIBLE TO UPLOAD · NOT VALIDATED</span><span class="cell-sub">Format and uniqueness pass. Using a weekly slot is an owner decision.</span></td>'
+        '<td><span class="pill pill-red">DO NOT SUBMIT</span><span class="cell-sub">Not authorized under the active protocol (evidence/active_submission_status.json: ok_to_submit false). Format and uniqueness pass; the other gates do not.</span></td>'
         '</tr>')
     return (
         '<section class="section nine-site-answer" id="answer-d454d34a" aria-labelledby="answer-d454-title">'
         '<div class="section-heading"><div>'
         '<p class="eyebrow"><span class="eyebrow-line"></span> CURRENT REVIEW · 31 OCT 2026 · arena/d454d34a</p>'
-        '<h2 id="answer-d454-title">Can I download and submit? One file is eligible, not validated.</h2>'
-        '<p><strong>Eligible, not endorsed.</strong> The kp1 GeoTIFF passes the format and literal-uniqueness gate. '
+        '<h2 id="answer-d454-title">Can I download and submit? No. Not authorized; audit download only.</h2>'
+        '<p><strong>DO NOT SUBMIT.</strong> The kp1 GeoTIFF passes the format and literal-uniqueness checks, and the project validator passes 15/15 against the restored mirror. It is not authorized: the active status record requires organizer-authenticated inputs, a leakage canary, and a holdout beating the frozen best. '
         'Nothing here measures its score, so it is not a validated improvement over 0.2778. '
         'GEMSDOE32 B2 (0.2778, USER-REPORTED) is the best reported focus file; it is an exact subset of GEMSDOE25 and cannot be re-submitted for a new result. '
         'The live organizer #1 is 0.4544 (ORGANIZER-PUBLIC, 31 Oct 2026); 0.4413 does not appear in ranks 1–47.</p>'
-        f'<p><a class="button button-dark" href="{prefix}docs/downloads/{kp1_name}" download>Download the kp1 .tif ↓</a> '
+        f'<p><a class="button button-dark" href="{prefix}docs/downloads/{kp1_name}" download>Download the kp1 .tif (audit only) ↓</a> '
         f'<a class="text-link" href="{prefix}docs/kp1/index.html">Candidate page ↗</a> '
         f'<a class="text-link" href="{prefix}knowledge/review-arena-d454d34a-20261031.md">Full review ↗</a> '
         f'<a class="text-link" href="{prefix}evidence/run_card_arena_d454d34a_20261031.json">Run card (JSON) ↗</a></p>'

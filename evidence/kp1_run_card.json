@@ -86,7 +86,7 @@
   "portal_acceptance": "not tested - no organizer receipt exists for this file"
  },
  "submission_name": "karage1-kp1-ttca-springalter-far-conduit-32000-20261031",
- "submission_note": "KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, >=2px off catalogue, 4px spacing, 32k dots",
+ "submission_note": "Research-only KP1 candidate; registry/lattice release gates unresolved. DO NOT SUBMIT.",
  "leakage_canary": {
   "max_auc": 0.5077229678594031,
   "alarm_threshold": 0.9,
@@ -107,49 +107,62 @@
   "working_range": "0.24-0.31"
  },
  "metric_analysis": {
-  "marginal_bar_at_0.2778": 0.0769,
-  "ceiling": 0.5555555555555556,
-  "surface_improvement_required_to_match": [
-   0.135,
-   0.135,
-   0.1531,
-   0.1531,
-   0.1638,
-   0.1638
-  ],
-  "multiple_of_champion_for_0.3195": [
-   1.313,
-   1.334,
-   1.346
-  ],
-  "multiple_of_champion_for_0.4413": [
-   1.843,
-   1.872,
-   1.89
-  ]
+  "status": "CORRECTED on arena/d454d34a (31 Oct 2026); the values below replace the earlier algebra-error values",
+  "ceiling": 1.0,
+  "ceiling_was": 0.5555555555555556,
+  "marginal_bar_at_0.2778": 0.0588,
+  "marginal_bar_at_0.2778_was": 0.0769,
+  "marginal_bar_at_0.3195": 0.0683,
+  "marginal_bar_at_0.4413": 0.0968,
+  "marginal_bar_at_0.4413_was": 0.158,
+  "source": "evidence/kp1_metric_analysis.json (regenerated; shared template gems57.metric.dti_from_components)",
+  "superseded_fields_not_recomputed": {
+   "surface_improvement_required_to_match": [
+    0.135,
+    0.135,
+    0.1531,
+    0.1531,
+    0.1638,
+    0.1638
+   ],
+   "multiple_of_champion_for_0.3195": [
+    1.313,
+    1.334,
+    1.346
+   ],
+   "multiple_of_champion_for_0.4413": [
+    1.843,
+    1.872,
+    1.89
+   ],
+   "note": "computed on the old algebra; do not cite. Use what_beats_2778 in evidence/kp1_metric_analysis.json."
+  }
  },
- "verdict": "promote",
+ "verdict": "negative",
  "slot_selected_or_spent": false,
  "slots_used": 0,
  "what_would_change_the_verdict": [
-  "an organizer receipt for this file (replaces the projection with a measurement)",
-  "a cand validation showing the surface is <10 % better than the champion's - then the file should be withdrawn"
+  "authenticated complete registry and a passing literal 3px uniqueness gate",
+  "valid comparable holdout evidence and separate selector decision",
+  "organizer receipt after an authorized submission"
  ],
- "historical_verdict_20261031": "promote",
+ "ok_to_submit": false,
  "owner_review_status": {
-  "status": "ELIGIBLE TO UPLOAD · NOT VALIDATED",
-  "set_by": "arena/d454d34a-gemsdoekarage1 review, 2026-10-31",
+  "status": "NOT AUTHORIZED · DO NOT SUBMIT",
+  "basis": "evidence/active_submission_status.json (arena/a79c8595, ok_to_submit false); fail-closed scripts/release_authorization.py",
+  "set_by": "arena/d454d34a-gemsdoekarage1 review, 2026-10-31 (no authorization changed)",
   "superseded_fields": {
-   "metric_analysis.ceiling": "0.556 is an algebra error; correct value 1.0",
+   "metric_analysis.ceiling": "0.556 (1/(1+beta)) is an algebra error; correct value 1.0 (evidence/kp1_metric_analysis.json, regenerated on arena/d454d34a)",
    "metric_analysis.marginal_bar_at_0_2778": "0.0769 is an algebra error; correct value 0.0588",
    "metric_analysis.marginal_bar_at_0_4413": "0.158 is an algebra error; correct value 0.0968",
-   "correlation_and_overlap_vs_registry.max_abs_spearman": "0.007607 does not reproduce; recomputed 0.011540 (evidence/registry_overlap_matrix_20261031.json)",
-   "banner_text": "'OK TO SUBMIT' overstated the gate, which checks format, literal uniqueness and catalogue mass only; now 'ELIGIBLE TO UPLOAD · NOT VALIDATED'"
+   "correlation_and_overlap_vs_registry.max_abs_spearman": "0.007607 does not reproduce; recomputed 0.011540 (evidence/registry_overlap_matrix_20261031.json)"
   },
   "not_established": [
    "score improvement over 0.2778",
-   "any organizer-confirmed score",
-   "validator match to official sample_submission (data/ absent)"
+   "organizer-confirmed score",
+   "organizer-authenticated inputs (data/ is a hash-consistent public mirror only)",
+   "holdout beating frozen best (not run)",
+   "outside-footprint encoding: sample NaN, kp1 zeros (owner decision)"
   ],
   "review": "knowledge/review-arena-d454d34a-20261031.md",
   "run_card": "evidence/run_card_arena_d454d34a_20261031.json"

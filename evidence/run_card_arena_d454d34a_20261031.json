@@ -5,7 +5,7 @@
  "lane": "REVIEW + VERIFICATION (no new experiment; no new raster generated; no slot selected or spent)",
  "hypothesis": "Review: is the kp1 file (docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) supported as a score improvement over the 0.2778 reference, and is the repo's metric arithmetic correct?",
  "verdict": "negative",
- "verdict_meaning": "kp1 is NOT promoted as a score improvement. It remains ELIGIBLE TO UPLOAD under the format + literal-uniqueness gate only. Expected score unknown.",
+ "verdict_meaning": "kp1 is NOT authorized. DO NOT SUBMIT. The file passes format and literal uniqueness and the project validator (15/15 against the restored mirror), but the active status record evidence/active_submission_status.json (arena/a79c8595, ok_to_submit false) and the fail-closed release_authorization gates remain in force. No score is established; 0.2789 is PROJECTED.",
  "experiments_budget": {
   "budget": 3,
   "used": 0,
@@ -28,7 +28,7 @@
  },
  "corrections_made": [
   "scripts/kp1_metric_analysis.py: DTI identity used +T (coefficient 1) instead of (1-beta)*T; ceiling 0.556 -> 1.0; marginal bar at 0.2778 0.0769 -> 0.0588; bar at 0.4413 0.158 -> 0.0968; score() now calls gems57.metric.dti_from_components (no private identity)",
-  "scripts/build_kp1_site.py + scripts/render_site.py: banner 'OK TO SUBMIT' -> 'ELIGIBLE TO UPLOAD · NOT VALIDATED'; wrong ceiling and bar text removed; pages regenerated",
+  "scripts/build_kp1_site.py + scripts/render_site.py: pages carry the fail-closed banner from main; this session's 'ELIGIBLE TO UPLOAD' wording was withdrawn during the merge with main (PR #120 era)",
   "vendor/gems57/metric.py: examined, NOT changed (hash-pinned by evidence/template_integrity_20261028.json). Its marginal_accept writes alpha for the T term; decisions are unaffected (T terms cancel), so this is an owner item, not a bug in outcomes"
  ],
  "holdout_dti_kp1": {
@@ -199,5 +199,11 @@
   "Organizer files not checked (DrivenData login); mirror is hash-consistent only.",
   "Holdout runs not performed in this session (no new experiment).",
   "Overlap computed on the restored mirror catalogue; the B2-to-catalogue adjacency is not computed here."
- ]
+ ],
+ "authorization": {
+  "active_status_file": "evidence/active_submission_status.json",
+  "ok_to_submit": false,
+  "set_by": "arena/a79c8595 (main)",
+  "this_session_changes_authorization": false
+ }
 }

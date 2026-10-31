@@ -21,7 +21,7 @@ def test_executive_pages_carry_current_block_and_sha():
     for rel in ("executive-summary.html", "docs/executive-summary.html"):
         sec = _section((ROOT / rel).read_text(encoding="utf-8"))
         assert CARD["raster"]["sha256"] in sec, rel
-        assert "ELIGIBLE TO UPLOAD · NOT VALIDATED" in sec, rel
+        assert "DO NOT SUBMIT" in sec and "Not authorized" in sec, rel
         assert "not a score" in sec, rel
         assert "0.2789" in sec and "PROJECTED" in sec, rel
 
