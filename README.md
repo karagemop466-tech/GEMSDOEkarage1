@@ -8,27 +8,47 @@
 
 Single band, float32, EPSG:32611, 3730 × 3292, values in [0, 1], zeros outside the footprint,
 32,000 dots with a hard 4-px minimum separation and **zero** pixels on the mapped catalogue.
-**Format preflight 15/15 · max |Spearman| vs the nine focus files 0.0076 · max 3-px overlap 26.5 %
-(limit 70 %) · projection 0.2789 (PROJECTED, not a score; bootstrap 95 % [0.2757, 0.2846]) · 0 slots
-spent.** Every older artifact in this repository remains **DO NOT SUBMIT**.
+**Format preflight 15/15 · max |Spearman| vs the nine focus files 0.0076 (limit 0.90) · max 3-px
+overlap 26.5 % (limit 70 %) · projection 0.2789 (PROJECTED, not a score) · 0 slots spent.**
+Every older artifact in this repository remains **DO NOT SUBMIT**.
 
-- **Read first:** [session review](knowledge/kp1-session-review-20261031.md) · [preregistration and
-  analysis record](knowledge/kp1-preregistration-20261031.md) · [run card](evidence/kp1_run_card.json)
-  · [release gate](evidence/kp1_release_gate.json).
-- **Site:** [download & decision](docs/kp1/index.html) · [executive summary](docs/kp1/executive-summary.html)
-  · [nine focus sites](docs/kp1/nine-sites.html) · [how to submit](docs/kp1/how-to-submit.html)
-  · [research](docs/kp1/research.html) · [sources](docs/kp1/sources.html).
-- **Why GEMSDOE32 B2 scored 0.2778:** measured, not narrated — score is monotone in
-  distance-from-catalogue (Spearman **+1.00**), dot count (−0.98) and 3-px clumping (−0.92) across
-  the nine known files; the two best files place **0.0 %** of their dots within 2 px of the catalogue.
-- **The session's most important finding is a negative:** the mandated hide-and-recover holdout ranks
-  the nine known files **exactly backwards** (Spearman **−1.0**), because it rewards recovering
-  already-mapped traces while the competition scores faults *absent* from the catalogue. It is
-  therefore reported and **not** used as a promotion gate. See
-  [`evidence/kp1_exp2_holdout.json`](evidence/kp1_exp2_holdout.json) → `instrument_calibration`.
-- **Lane:** H-KP1 K-PROXY-DETECT — thermo-tectonic conduit alignment (multi-field potential-field
-  edges incl. TMI upward-continued 150 m, 1 m LiDAR scarp metrics, thermal-spring conduit density,
-  Th/K–U/K alteration ratios, strain). Full method paragraph in the preregistration, §4.
+### Start here
+
+| page | what it answers |
+|---|---|
+| [decision & download](docs/kp1/index.html) | what to upload, and the file/score/uniqueness table |
+| [executive summary](docs/kp1/executive-summary.html) | per-site read and the one cleared file |
+| [why 0.2778](docs/kp1/metric.html) | the metric arithmetic behind the nine scores, and what 0.3195 / 0.4413 would require |
+| [the nine sites](docs/kp1/nine-sites.html) | measured contents, pairwise overlap, which to submit (none) |
+| [how to submit](docs/kp1/how-to-submit.html) | three steps and the exact name/note strings |
+| [new hypotheses](docs/kp1/research.html) | five ranked ideas with layers, signatures, mimics, cost |
+| [sources](docs/kp1/sources.html) | official links and the receipt for every number |
+
+### Findings of this session (all measured, all in `evidence/`)
+
+1. **The nine focus submissions are one family, not nine ideas.** All 36 pairs overlap 97.5–100 %
+   on the literal 3-px rule against a 15–18 % chance level; reported score tracks dot count at
+   Spearman **−0.967**. GEMSDOE32's B2 at 0.2778 is the smallest member — a *position*, not an
+   insight (`knowledge/kp1-why-gemsdoe32-scored-02778.md`).
+2. **The exact marginal bar is `alpha·s/(1−s)`**: at 0.2778 a new dot must be within 300 m of a
+   real fault **7.7 %** of the time to pay for itself; at 0.4413, 15.8 %. The submission format
+   ceiling is 0.5556.
+3. **The two mandated local instruments are unusable as promotion gates.** The hide-and-recover
+   holdout ranks the nine known scores exactly backwards (ρ = −1.0). The replacement built here
+   (independent state-compilation faults, 62,122 cells, leave-one-quadrant-out) ranks them at
+   ρ = −0.34 — and shows a catalogue-trained detector scoring **3× worse than random** on
+   off-catalogue faults. Both are published as negative results, not hidden.
+4. **The candidate is not random and not a copy**: +19.3 % off-catalogue fault coverage versus a
+   matched random dot field (block bootstrap +0.0109, 92 % of draws positive), max |ρ| 0.0076
+   against every focus raster.
+5. **Honest distance to the top of the leaderboard:** matching 0.2778 with 32,000 dots needs a
+   surface 13.5–15.3 % more accurate than the champion's; 0.3195 needs ~1.33×, 0.4413 ~1.86×.
+   That multiple is not demonstrated anywhere in this repository.
+
+**Literature:** `knowledge/kp1-preregistration-20261031.md` (method, tables, limits) ·
+`knowledge/kp1-session-review-20261031.md` (three passes) · `evidence/kp1_run_card.json` ·
+`evidence/kp1_metric_analysis.json` · `evidence/kp1_exp2_external.json` ·
+`evidence/kp1_exp3_comparison.json`.
 
 **Irregularities flagged for review (unchanged, not fixed):** `labels.tif` is byte-identical to
 `existing_faults.tif`; the literal 70 %/3-px uniqueness rule is saturated for this raster family;

@@ -1,166 +1,170 @@
-# H-KP1 — K-PROXY-DETECT · preregistration and analysis record
+# Lane H-KP1 — preregistration and analysis record (31 Oct 2026)
 
-Session `arena/9a378959-gemsdoekarage1`, 31 October 2026.
-Everything below was written from measurements made in this repository during this session.
-Receipts: `evidence/kp1_exp1_forensics.json`, `evidence/kp1_exp2_holdout.json`,
-`evidence/kp1_release_gate.json`, `evidence/kp1_run_card.json`.
+Session `arena/9a378959-gemsdoekarage1`. Three experiments, no submission slot spent.
+Every number below is read from a committed receipt in `evidence/`; nothing here is
+estimated from memory.
 
 ---
 
-## 1. The metric, re-derived exactly
+## 1. What is being predicted, precisely
 
-Official definition (DrivenData #306, page 967):
+The scored quantity is the DrivenData **DTI** on a *private* set of faults that the expert
+panel mapped and that is **absent from the training catalogue**. For a prediction field `p`
+on the 100 m grid, with `k(d) = max(1 − d/300 m, 0)`, `alpha = 0.2`, `beta = 0.8`,
 
-```
-k(d)  = max(1 - d/300 m, 0)
-TP_w  = sum_{g in G} max_x p(x) k(d(x,g))
-FP_w  = sum_{x: p(x)>0} p(x) [1 - max_g k(d(x,g))]
-FN_w  = sum_{g in G} [1 - max_x p(x) k(d(x,g))]  =  |G| - TP_w
-DTI   = TP_w / (TP_w + a*FP_w + b*FN_w),   a = 0.2, b = 0.8
-```
+    DTI = TP_w / (alpha·FP_w + beta·FN_w)
 
-Because **a + b = 1 exactly**, substituting `FN_w = |G| - TP_w` gives the identity used
-throughout this session:
+`TP_w` sums, over every truth cell, the single best covered credit; `FP_w` sums the prediction
+mass **everywhere** that is not credited by a truth cell. For a binary dot field this is an
+identity:
 
-```
-DTI = TP_w / ( a*(TP_w + FP_w) + b*|G| )
-```
+    DTI = T / (alpha·(n − M) + beta·|G| + T)
 
-Consequences that drive every design choice:
+with `n` dots, `T` the covered truth credit, `M` the dots' own self-credit and `|G|` the size
+of the truth. `evidence/kp1_metric_analysis.json` records the derivation and the ceiling.
 
-1. `|G|` is set by the organizer and is not under the submitter's control.
-2. Only two quantities are controllable: `TP_w` (kernel-weighted credit on the private truth)
-   and `FP_w` (mass that earns no credit). Both are **increasing in the number of emitted
-   dots**, so every dot must buy more `TP_w` than it costs in `0.2 * FP_w`.
-3. For a binary dot field, `FP_w = n - M` where `M = sum over dots of max_g k`. Two dots inside
-   one another's kernel can spend the same truth cell's credit twice while each adds a full unit
-   of `FP_w` — clumping is a pure loss.
-4. `TP_w` saturates at 1 per truth cell, so extra dots over an already-covered cell are pure
-   cost. This is why spacing matters and why a lattice-like minimum separation is not a stylistic
-   choice.
+Three consequences that the whole lane is built on:
 
-The identity is implemented in `vendor/gems57/metric.py` and re-verified against a brute-force
-transcription in `tests/test_metric.py`; this session's own test file adds the algebraic check.
+1. a dot that lands **on** a truth cell is free (its own credit cancels its false-positive
+   mass) and adds up to 1.0 to `T`;
+2. a dot that misses costs exactly 0.2, whatever else is true;
+3. one more dot helps iff its expected truth credit clears `alpha·(1 − m)·s/(1 − s)`, which
+   depends only on the current score. At 0.2778 the bar is **0.0769**; at 0.4413 it is 0.158.
 
-## 2. Why GEMSDOE32 `h33-h33-2-b2` (0.2778) was the highest of the nine — measured, not narrated
+## 2. Why the nine focus sites score what they score (EXP1)
 
-All nine registry rasters were re-read from `registry/*.tif` and measured
-(`evidence/kp1_exp1_forensics.json`). Association between geometry and the **user-reported**
-scores (n = 9, permutation p over 20,000 draws):
+`evidence/kp1_exp1_forensics.json`. Measured on the saved bytes in `registry/`, with
+`existing_faults.tif` as the catalogue (60,988 cells inside the footprint).
 
-| covariate | Spearman vs score | p | reading |
-|---|---:|---:|---|
-| fraction of dots > 15 px (1.5 km) from the catalogue | **+1.000** | 0.0000 | further out is better |
-| median distance to the catalogue | **+1.000** | 0.0000 | same signal |
-| fraction of dots ≤ 2 px from the catalogue | −0.894 | 0.0019 | catalogue-adjacent mass is wasted |
-| dot count | −0.983 | 0.0001 | fewer dots are better |
-| 3-px clumping (≥ 3 neighbours) | −0.916 | 0.0008 | redundancy costs |
-| kernel coverage of the footprint | −1.000 | 0.0000 | more coverage = more FP mass |
+| site | reported | dots | ≤2 px from catalogue | >15 px | median distance | clumped | area covered |
+|---|---|---|---|---|---|---|---|
+| GEMSDOE32 | 0.2778 | 37,654 | 0.00 % | 58.4 % | 19.6 px | 0.26 % | 15.1 % |
+| GEMSDOE36 | 0.2750 | 38,854 | 0.00 % | 58.7 % | 19.6 px | 42.1 % | 15.8 % |
+| GEMSDOE28 | 0.2710 | 37,660 | 0.00 % | 57.9 % | 19.2 px | 0.27 % | 15.1 % |
+| GEMSDOE31 | 0.2708 | 40,199 | 0.00 % | 58.0 % | 19.0 px | 0.26 % | 16.1 % |
+| GEMSDOE33 | 0.2632 | 41,865 | 0.00 % | 58.0 % | 18.8 px | 0.30 % | 16.8 % |
+| GEMSDOE25 | 0.2600 | 44,090 | 3.86 % | 56.0 % | 17.9 px | 0.33 % | 17.7 % |
+| GEMSDOE30 | 0.2600 | 44,090 | 3.86 % | 56.0 % | 17.9 px | 0.33 % | 17.7 % |
+| GEMSDOE24 | 0.2477 | 60,069 | 10.43 % | 51.4 % | 15.4 px | 0.55 % | 24.0 % |
+| GEMSDOE27 | 0.2449 | 61,328 | 13.35 % | 49.7 % | 14.4 px | 0.82 % | 24.4 % |
 
-The two highest-scoring files (**GEMSDOE32 0.2778** and **GEMSDOE36 0.2750**) both place
-**exactly 0.0 %** of their dots within 2 px of the mapped catalogue and 58 % beyond 15 px;
-the three lowest-scoring files (GEMSDOE24 0.2477, GEMSDOE27 0.2449, and GEMSDOE25/30 0.2600)
-place 14.5 % in the corridor and carry 44k–61k dots. This is exactly what the algebra predicts:
-the scored truth is a set of faults that is *absent from the catalogue*, so corridor mass is
-paid for and never credited.
+Rank correlation of reported score with each measured covariate:
 
-**Caveat, stated up front.** These are associations on nine points with strongly collinear
-covariates. They are consistent with the metric algebra but are not an identified causal model,
-and the 0.2778 itself is user-reported with no organizer receipt.
+* dot count: **−0.967** (slope −0.00119 per 1,000 dots)
+* fraction of dots more than 15 px from the catalogue: **+1.000**
+* clumping (≥3 neighbours within 3 px): **−0.92**
+* fraction of dots within 2 px of the catalogue: **−1.000**
+* area covered: −0.95
 
-## 3. The finding that unblocked this lane: the holdout instrument is inverted
+All 36 pairs among the nine score 97.5–100 % on the literal 3-px overlap rule, against a
+chance level of 15.3–18.5 %. They are one covering of one support, sampled nine times.
 
-The standing protocol requires a spatially blocked holdout before any slot is spent, using
-`vendor/gems57/evaluate_holdout.py` (evaluator `gems57-pooled-hide-v2`, 60,988 withheld
-positives, four fixed quadrants, catalogue segments of the held quadrant withheld from training).
+**Conclusion.** The nine are not nine geological ideas. They are nine points on a
+one-parameter family whose only free variable is how many dots are spent, and GEMSDOE32's B2
+is the smallest member with the cleanest spacing. That is why 0.2778 is the best of the nine
+— and it is a position, not an insight.
 
-That instrument was run on all nine registry rasters. Result
-(`evidence/kp1_exp2_holdout.json → instrument_calibration`):
+## 3. Why two local instruments disagree with the leaderboard (EXP2)
 
-| file | HOLDOUT-DTI | known user-reported score |
-|---|---:|---:|
-| GEMSDOE24 | 0.17183 | 0.2477 |
-| GEMSDOE25 | 0.16163 | 0.2600 |
-| GEMSDOE27 | 0.17264 | 0.2449 |
-| GEMSDOE28 | 0.04618 | 0.2710 |
-| GEMSDOE30 | 0.16163 | 0.2600 |
-| GEMSDOE31 | 0.04906 | 0.2708 |
-| GEMSDOE32 | 0.00671 | **0.2778** |
-| GEMSDOE33 | 0.08641 | 0.2632 |
-| GEMSDOE36 | 0.00693 | 0.2750 |
+`evidence/kp1_exp2_external.json`. The mandated instrument (hide part of the catalogue,
+recover it from features) ranks the nine **exactly backwards**: Spearman −1.0, because it
+rewards recovering traces that are already in the catalogue while the competition scores
+faults that are *not*. That inversion was measured in an earlier session and is recorded, not
+hidden.
 
-**Spearman = −1.0.** The instrument ranks the nine files *exactly backwards*.
+This session built a *positively oriented* replacement: `derived_sgmc_faults_100m_u8.tif` is
+an independent state-compilation fault inventory in the same footprint with only 3,978 cells
+coinciding with the catalogue; after removing the 3-px catalogue corridor, **62,122 cells**
+remain. Four arms, leave-one-quadrant-out, emissions through the same allocator and budget
+ladder:
 
-The reading is not subtle: the instrument rewards recovering withheld **mapped** traces, and the
-competition scores prediction of faults **absent** from the mapped catalogue. A submission that
-maximises catalogue recovery minimises the leaderboard score. Prior sessions used this instrument
-as a promotion gate; under that gate the highest-scoring file available (0.2778) is inadmissible
-and every candidate that passed it was, by construction, one that places mass near mapped traces —
-which is why the project's holdout-best candidates (0.056–0.073) never beat the champion.
+| arm | DTI @ 5k | @ 40k | ranking AUC (held-out) |
+|---|---|---|---|
+| uniform random dots | 0.0372 | 0.1432 | — |
+| trained on catalogue faults | 0.0027 | 0.0197 | 0.495 |
+| trained on off-catalogue faults | 0.0098 | 0.0546 | **0.749** |
+| trained on both | 0.0070 | 0.0482 | 0.718 |
 
-**Recommendation to the protocol owner:** retire catalogue-recovery DTI as a promotion gate for
-this competition, or calibrate any replacement instrument on known (raster, score) pairs before it
-is used. This session therefore reports HOLDOUT-DTI but does **not** promote on it; promotion rests
-on the saved-byte gates plus the geometry evidence in §2.
+Two things fall out, and they matter more than any single score:
 
-A second, independent check points the same way. On the off-catalogue proxy truth
-(`derived_sgmc_faults_100m_u8.tif` minus the catalogue, 79,615 px), the nine engineered rasters
-score *below* a uniform-random dot field of the same size (0.0625–0.0796 vs 0.0723 at n = 37,654;
-`evidence/kp1_exp1_forensics.json → per_file → proxy_reference_dti`). That proxy is a different
-population (bedrock compilation faults), so it is reported as a control, not used for selection.
+1. A model with real held-out ranking skill (AUC 0.749) still **loses to random dots** at the
+   same budget, because the metric pays for coverage and charges only 0.2 per dot. Precision
+   must be very high before targeting beats spreading. This is the mechanism that produced
+   the "dotted" submission family in the first place.
+2. A catalogue-trained detector scores **three times worse than random** on off-catalogue
+   faults (0.0027 vs 0.0372). Training on the catalogue actively teaches the detector where
+   the truth is *not*.
 
-## 4. Lane definition (the single method paragraph required by the protocol)
+Leakage canary: max AUC after label permutation 0.55; no alarm.
 
-> **H-KP1 K-PROXY-DETECT — thermo-tectonic conduit alignment.** A cell's fault likelihood is the
-> geometric mean of five percentile-ranked, *physics-only* terms — (i) multi-field edge agreement
-> between the TMI horizontal gradient, the tilt derivative, the horizontal gradient of TMI
-> upward-continued to 150 m, the isostatic-gravity horizontal gradient and the depth-to-basement
-> step; (ii) geomorphic scarp evidence from detrended-elevation slope and curvature plus the 1 m
-> LiDAR `step_max` and `coh100` metrics; (iii) thermal-spring and well conduit density from 27,092
-> records; (iv) potassium-metasomatism alteration proxied by low Th/K and low U/K on the GeoDAWN
-> contractor ratio grids; (v) geodetic strain-rate second invariant. No catalogue-derived quantity
-> enters the surface. Dots are selected highest-score-first with a hard 4-px exclusion disc, are
-> forbidden within 2 px of the mapped catalogue and are suppressed over flat, deep basin fill,
-> with the budget set below the champion's. Validation uses the shared spatially blocked evaluator
-> plus a calibrated-covariate projection; the evaluator is reported and explicitly *not* used as a
-> promotion gate because it is anti-correlated with known scores (§3).
+## 4. The lane: K-PROXY-DETECT
 
-## 5. Hypotheses considered, ranked by expected gain ÷ cost
+Hypothesis. Faults that are missing from the catalogue are thermo-tectonic conduits:
+structures that satisfy four independent conditions at once —
 
-| # | Mechanism | New layers | Why it catches an unmapped fault | Non-fault mimic | Cost | Status |
-|---|---|---|---|---|---|---|
-| 1 | **TTCA** — multi-field edge + scarp + conduit + alteration consensus | TMI up-150 m gradient, Th/K, U/K, U/Th, 12-band 1 m LiDAR, spring/well density | upward continuation sees deeper basement structure under basin fill; alteration halos and springs are not in the catalogue at all | playa clays, basalt flows, continuation ringing, basin-fill contact springs | low | **built and validated here** |
-| 2 | Spring–lineament **intersection** census | spring density × trace topology | intersections/tips of mapped faults are frequently unmapped | permeable contacts at range fronts | medium | proposed |
-| 3 | **Upward-continuation depth series** (50/150/300/500 m) | 300/500 m levels derived from the official GeoDAWN grids | separates shallow volcanic texture from deep fabric | continuation ringing | medium | **not obtainable in this sandbox** — the needed archives (`22103_area1_tiffs.zip`, `22103_area2_tiffs.zip`, USGS sciencebase item 657e1d85d34e23d3533209f7) are outside the network allowlist |
-| 4 | Fault-tip **damage-zone extrapolation** from Qfaults kinematics | `gdr_qfaults_traces.csv` slip rate / recency / sense | catalogue traces stop where mapping stopped | depositional pinch-out | high | overlaps sibling-repo lanes (relay/stepover), deprioritised |
-| 5 | **Relocated-earthquake alignment** across mapped gaps | raw seismicity catalogue | independent of mapping | mining blasts, geothermal pumping | high | raw catalogue not pinned here |
+1. **multi-field structural consensus**: magnetic horizontal gradient, tilt derivative,
+   upward-continued-to-150 m gradient, isostatic-gravity horizontal gradient and basement step
+   all see a boundary;
+2. **geomorphic freshness**: a scarp in the 1 m LiDAR roughness/step metrics and in the
+   detrended DEM slope;
+3. **fluid conduit**: proximity to mapped springs and water wells (hydrothermal alteration
+   follows permeability, and permeability here is fault-controlled);
+4. **alteration halo**: low Th/K and low U/K, the potassium-metasomatism signature of a
+   damage zone.
 
-## 6. What was built
+The surface is the geometric mean of the four terms, so a cell cannot be carried by one field
+alone. Named non-fault mimics each break at least one term: buried pluton margins are round and
+dry, alluvial contact springs have no structural edge, metamorphic fabric is broad and has no
+scarp, landslides have a scarp but no edge consensus.
 
-`scripts/kp1_data.py` (pinned loaders), `scripts/kp1_planes.py` (29 cached planes, all
-physics-only), `scripts/kp1_exp1_forensics.py`, `scripts/kp1_exp2_holdout.py`,
-`scripts/kp1_build_candidate.py`, `scripts/kp1_release_gate.py`,
-`scripts/build_kp1_site.py` (deterministic pages).
+Extras over the prior lanes: the consensus is multiplicative rather than additive; the
+catalogue corridor is excluded rather than used as a prior; the deep-basin floor is suppressed;
+and the dots are forced to a 4-px minimum separation so each dot buys new truth credit instead
+of re-buying a neighbour's.
 
-Artifact: `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`
-(32,000 dots, float32, EPSG:32611, 3730 × 3292, values in [0, 1], zero outside the footprint,
-zero pixels on the mapped catalogue).
+## 5. The candidate
 
-Gates passed: format preflight 15/15 checks; max |Spearman| 0.0076 (< 0.90); max 3-px overlap
-26.5 % (< 70 %); zero mass in the 2-px catalogue corridor.
+`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`
 
-## 7. Limits — what this session cannot claim
+* 32,000 dots, hard 4-px separation, 0.00115 clumped, 0.00 % within 2 px of the catalogue,
+  55.5 % more than 15 px away, 14.3 % of the footprint covered.
+* Format: 15/15 saved-byte checks (`vendor/gems57/validate.py`), 12,279,160 finite cells,
+  values in [0,1], zeros outside the footprint, zero positive pixels on mapped catalogue cells.
+* Uniqueness: max |Spearman| 0.0076 (limit 0.90), max 3-px overlap 26.5 % (limit 70 %).
+* Projection: 0.2789, LOO [0.2762, 0.2816], parameter bootstrap [0.2757, 0.2846],
+  +0.0020 versus the champion. **PROJECTED — not a score.**
+* Off-catalogue instrument: 0.0764 versus 0.0640 for matched random dots (+19.3 %), with a
+  block bootstrap of the difference of +0.0109 [−0.0034, +0.0260], 92 % of draws positive.
 
-1. **No leaderboard estimate is measurable.** The scored truth is private. The 0.2789 figure is a
-   projection from nine user-reported points, with parameter-only bootstrap uncertainty; the
-   defensible working range is 0.24–0.31.
-2. **The surface is not validated against the target population**, because no public data on the
-   organizer's expert-identified new faults exists. The physics planes are individually weak
-   predictors of mapped faults (best single-feature AUC 0.599), which is expected: surface traces
-   are mapping artefacts as much as physical edges.
-3. **The transfer assumption is untested.** The candidate assumes that what makes a boundary
-   visible in magnetic/gravity/scarp/alteration data also made it identifiable to the expert
-   panel. That is a geological argument, not a measurement.
-4. **Nine points is nine points.** The covariate model has no power to detect a broken assumption.
-5. **Existence of a better surface elsewhere is not excluded.** Only the nine focus sites plus the
-   pinned fleet rasters mentioned in the prompt were compared.
+## 6. What would beat 0.2778, and what would beat 0.4413
+
+At *fixed* surface quality more dots is always better, so nobody wins on dot count alone. What
+the nine files show is that their last dots carry a lower hit rate, which is why deleting them
+helped. The candidate therefore has to be a better *surface*, not just a smaller one:
+
+* matching 0.2778 with 32,000 dots instead of 37,654 requires a surface **13.5–15.3 % more
+  accurate** than the champion's, depending on the (unknown) size of the private truth;
+* 0.3195 requires **1.31–1.35×** the champion's hit rate;
+* 0.4413 requires **1.84–1.87×** it; 0.4544 slightly more.
+
+The theoretical ceiling of the submission format is 0.5556, because `beta = 0.8` taxes every
+uncovered truth cell. So 0.4544 is 82 % of the maximum and 0.2778 is 50 %.
+
+## 7. Limits, stated plainly
+
+1. **No organizer receipt.** The projection is an OLS on nine user-reported scores, n = 9,
+   associational, and collinear in its two predictors; the defensible working range is
+   0.24–0.31 and the model cannot see surface quality at all.
+2. **The projection interval is not a predictive interval.** LOO RMSE of 0.0014 measures
+   internal fit on nine points that lie almost exactly on a plane, not the chance of the
+   private truth resembling the catalogue.
+3. **The external instrument does not reproduce the leaderboard.** It ranks the nine at
+   rho −0.34 (p 0.36), so it can only be used to compare a surface with matched random dots.
+4. **The literal uniqueness rule is saturated** for this raster family (all 36 pairs ≥ 97.5 %).
+   The candidate passes it at 26.5 %, but a reader should know that the rule cannot distinguish
+   "different work" from "same method" here.
+5. **The private truth size is unknown**, which is why every metric inversion is reported at
+   three assumptions instead of one.
+6. **Data provenance.** The competition data available in this checkout is hash-pinned and
+   byte-verified but was obtained from a public mirror, not from the authenticated competition
+   page; the official sample grid was therefore not available for a cross-check.

@@ -1,73 +1,103 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Research · GEMS K-PROXY-DETECT</title><link rel="stylesheet" href="style.css"></head><body><header><a href="../index.html">GEMS · Field Intelligence</a><nav><a href="index.html">Overview</a><a href="executive-summary.html">Executive summary</a><a href="nine-sites.html">Nine sites</a><a href="how-to-submit.html">How to submit</a><a href="research.html" aria-current="page">Research</a><a href="sources.html">Sources</a></nav><a href="../index.html">Full site ↗</a></header><main><h1>Research: five candidate mechanisms, ranked</h1>
-<p class="lede">Required by the standing brief: name the layers, the physical signature, why it should
-catch a fault that is missing from the catalogue rather than one already in it, how it differs from what
-this repository has already run, and the non-fault process that could mimic it. Ranking is by
-(expected DTI gain) ÷ (implementation cost); only the first was validated this session.</p>
-<h2>1. K-PROXY-DETECT / TTCA — thermo-tectonic conduit alignment (built this session)</h2>
-<ul>
-<li><strong>Layers</strong>: 19-band stack (TMI horizontal gradient, tilt derivative, isostatic-gravity
-horizontal gradient, detrended-elevation slope and curvature, strain second invariant, conductivity,
-depth-to-basement) <em>plus four layers that are not in the organizer stack</em>: the TMI upward-continued
-to 150 m (channel 4 of the pinned GeoDAWN extensions product), the contractor Th/K, U/K and U/Th ratio
-grids (channels 1–3), the 12-band 1 m LiDAR scarp product, and a kernel density of 27,092 thermal-spring
-and well records.</li>
-<li><strong>Signature</strong>: geometric-mean consensus of (i) multi-field edge agreement — a boundary
-seen by magnetics, gravity, the deep magnetic field and the basement step at the same place, (ii)
-scarp/curvature evidence, (iii) fluid-conduit density, (iv) K-metasomatism (low Th/K, low U/K), (v)
-strain.</li>
-<li><strong>Why it targets unmapped faults</strong>: upward continuation suppresses the near-surface
-magnetic texture that the mapped traces sit on and leaves deeper basement structure visible; Th/K and
-U/K map hydrothermal alteration halos, which are not in the catalogue at all; springs discharge on fault
-damage zones. None of these four layers is present in the 19-band stack, and the emission is forbidden
-inside the 2-px catalogue corridor.</li>
-<li><strong>Differs from this repository's history</strong>: previous lanes either fitted a
-<em>distance-to-catalogue halo</em> (anatomy/relay/stepover families) or ran a supervised classifier on
-catalogue labels and then emitted near them. This lane never uses a catalogue-derived predictor for the
-surface, never emits a fixed lattice, and its support overlap with the whole registry family is
-27% instead of the family's 97.5–100 %.</li>
-<li><strong>Non-fault mimics</strong>: playa clay mineralogy (low Th/K without alteration), Quaternary
-basalt (high K, strong magnetic response), upward-continuation rings around large magnetic bodies,
-springs at permeable basin-fill contacts, and road cuts in the LiDAR scarp metrics.</li>
-<li><strong>Cost</strong>: low — four new pinned layers, no training run, ~3 minutes to build.</li>
-</ul>
-<h2>2. Spring-lineament intersection census (not built)</h2>
-<p>Layers: spring/well records × mapped and inferred trace azimuths. Signature: excess spring density at
-trace intersections and at fault tips, compared with along-strike mid-segments. Why off-catalogue: an
-intersection of two mapped faults is itself frequently unmapped. Differs: uses the <em>topology</em> of
-the trace network rather than a distance halo. Mimic: permeable contacts at range fronts. Cost: medium —
-needs a trace-topology build. Ranked 2 because it is orthogonal to the surface built here and could be
-fused, but could not be validated this session.</p>
-<h2>3. Upward-continuation depth series (150 m / 300 m / 500 m) for concealed faults (not built)</h2>
-<p>Only the 150 m product is pinned locally; a depth series would separate shallow volcanic texture from
-deep basement fabric and target structures under basin fill. Why off-catalogue: basin-covered structures
-have no surface trace. Mimic: continuation ringing. Cost: medium — the 300/500 m levels would have to be
-derived from the official grids (USGS sciencebase item 657e1d85d34e23d3533209f7, files
-<code>22103_area1_tiffs.zip</code> / <code>22103_area2_tiffs.zip</code>, sizes recorded in
-<code>data/external/observed_files.json</code>), which are <em>not</em> reachable from this sandbox's
-network allowlist — so this idea is named as viable but currently unobtainable.</p>
-<h2>4. Fault-tip damage-zone extrapolation from Qfaults kinematics (partly built, not promoted)</h2>
-<p>Layers: <code>gdr_qfaults_traces.csv</code> (slip rate, recency, dip direction, sense) × magnetic and
-gravity gradients. Signature: along-strike continuation beyond a mapped tip, where slip rate and recency
-imply the rupture continues. Why off-catalogue: catalogue traces stop where mapping stopped, not where
-the fault stops. Mimic: depositional pinch-outs. Cost: high — and it is close to lanes already executed in
-sibling repositories (relay/stepover/tip-extrapolation), which is why it is ranked last despite a strong
-mechanism.</p>
-<h2>5. Earthquake-relocation clustering across mapped gaps (not built)</h2>
-<p>Layers: <code>ieq_n100a15</code>, <code>deq_n100a15</code> and the strain-rate bands. Signature:
-microseismicity aligned across a gap between mapped traces. Why off-catalogue: seismicity is independent
-of the mapping. Mimic: mining blasts and geothermal-field pumping. Cost: high — the provided seismicity
-bands are pre-smoothed density fields, so the alignment test would need the raw catalogue, which is not
-pinned here.</p>
-<h2 id="canary">Leakage canary (protocol rule 4)</h2>
-<p>Each plane alone, scored on the withheld quadrant. The alarm threshold is AUC &gt; 0.90; the maximum
-observed is <strong>0.599</strong>. No alarm.</p>
-<div class="wrap"><table><thead><tr><th>Plane</th><th>AUC (mean of 4 folds)</th></tr></thead><tbody><tr><td><code>elev_ridge3</code></td><td>0.599</td></tr><tr><td><code>det_elev_slope</code></td><td>0.570</td></tr><tr><td><code>UK</code></td><td>0.568</td></tr><tr><td><code>lidar_relief</code></td><td>0.560</td></tr><tr><td><code>UTh</code></td><td>0.559</td></tr><tr><td><code>lidar_lapneg</code></td><td>0.558</td></tr><tr><td><code>lidar_step</code></td><td>0.554</td></tr><tr><td><code>lidar_ex</code></td><td>0.552</td></tr></tbody></table></div>
-<h2 id="instrument">Instrument calibration — a recorded negative result</h2>
-<p>The shared hide-and-recover evaluator (<code>gems57-pooled-hide-v2</code>) gives the nine focus files
-DTIs that are <strong>perfectly anti-correlated</strong> with their known leaderboard scores
-(Spearman -1.0). Recommendation for the
-protocol owner: stop using catalogue-recovery DTI as a promotion gate for this competition, or replace it
-with an instrument calibrated on known score pairs. Until then, promotion should rest on the geometry
-table (Table 1 and the covariate analysis) plus saved-byte gates, and every number should be labelled as
-a projection.</p></main><footer>Session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 · lane H-KP1 K-PROXY-DETECT · not affiliated with the organizers. Rendered deterministically from <code>evidence/kp1_*.json</code>.</footer></body></html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>New geological hypotheses</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.ok{border-left:6px solid #1d6b45;background:#e5f3ea;padding:26px 30px;border-radius:4px;margin:26px 0}
+.ok h2{color:#175437;margin:0 0 10px}
+.big{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.pill{display:inline-block;background:#1d6b45;color:#fff;padding:4px 12px;border-radius:999px;
+font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;vertical-align:middle}
+.pill.warn{background:#ad3f29}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 34px}
+.kpi div{background:#fff;border:1px solid #d3dacd;border-radius:8px;padding:16px}
+.kpi b{display:block;font-size:1.5rem;letter-spacing:-.02em}
+.download{display:inline-block;background:#1d6b45;color:#fff;padding:16px 26px;border-radius:6px;
+text-decoration:none;font-weight:700;font-size:1.05rem;margin:10px 12px 10px 0}
+.download.alt{background:#3b5a4e}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+</style></head>
+<body>
+<header><a href="../index.html">GEMS · KARAGE-1</a>
+<nav><a href="index.html">Decision &amp; download</a><a href="executive-summary.html">Executive summary</a><a href="metric.html">Why 0.2778</a><a href="nine-sites.html">The nine sites</a><a href="how-to-submit.html">How to submit</a><a href="research.html" aria-current="page">New hypotheses</a><a href="sources.html">Sources</a><a href="../index.html">Repository home</a></nav></header>
+<main>
+
+<p class="eyebrow">New geological hypotheses</p>
+<h1>Five ideas, ranked by expected gain per unit of cost</h1>
+<p>Ranked by expected DTI gain against the cost of testing, using the only two local instruments
+that exist. Nothing below is a claim of a gain; the ranking says what to try next, not what will
+work.</p>
+<table>
+<thead><tr><th>#</th><th>Hypothesis</th><th>Layers and physical signature</th>
+<th>Why it can find faults the catalogue misses</th><th>Difference from the repo's prior work</th>
+<th>Mimic</th><th>Cost</th><th>Expected gain</th></tr></thead>
+<tbody>
+<tr><td>1</td>
+<td><strong>Thermo-tectonic conduit alignment (this session's lane)</strong></td>
+<td>TMI upward-continued 150 m gradient, tilt derivative, isostatic gravity gradient, basement step,
+1 m LiDAR scarp metrics, spring and vent density, Th/K and U/K alteration ratios, strain rate and
+second invariant.</td>
+<td>Hydrothermal fluid paths follow permeable fault damage zones; K-metasomtism halos brighten the
+damage zone in radiometrics even where no scarp survives.</td>
+<td>Prior lanes used the catalogue anatomy or a single potential field; this one requires a
+geometric-mean consensus across five independent fields and forbids the catalogue corridor.</td>
+<td>Buried pluton margins and caldera rings (round, not linear; multi-field but no scarp and no
+spring alignment).</td><td>done</td><td>measured: 0.2789 projected</td></tr>
+<tr><td>2</td>
+<td><strong>Along-strike continuation of mapped traces</strong></td>
+<td>Catalogue traces as seeds; curvature, step-over geometry and slip-rate gradient extrapolated
+along strike; Landsat/SRTM drainage offsets as independent confirmation.</td>
+<td>Compilations end where a mapper stopped, not where a fault ends. Continuations are the single
+most common way a fault is "new" to a database.</td>
+<td>B2 and its lineage already did a h33 step-over and scored 0.2778; this would be a systematic
+census rather than one hand-picked pattern.</td>
+<td>Fluvial terrace edges misread as fault scarps; requires an independent drainage-offset test.</td>
+<td>1 experiment</td><td>medium — the lineage suggests real but small gains</td></tr>
+<tr><td>3</td>
+<td><strong>Deep-crustal upward continuation series</strong></td>
+<td>Magnetic and gravity fields continued upward in 100 m steps to 2 km; the depth at which a
+lineament disappears is a proxy for its depth extent; faults that reach the seismogenic layer are
+the ones that matter.</td>
+<td>A shallow-only lineament is usually a landslide or a lithological boundary; a lineament that
+persists to 2 km is a structure.</td>
+<td>No lane has ever used the continuation series as a filter; prior lanes used a single
+upward-continued level.</td>
+<td>Regional metamorphic fabric, which persists to great depth but is broad and parallel.</td>
+<td>2 experiments</td><td>medium–high, and cheap in data terms</td></tr>
+<tr><td>4</td>
+<td><strong>Spring–lineament intersection census</strong></td>
+<td>Every mapped spring and water well as a point source; the lineament that passes within 300 m of
+the largest number of springs is a conduit; intersect with the multi-field edge consensus.</td>
+<td>Springs sit on permeability, and permeability in this terrain is fault-controlled. A structure
+that is wet is a structure.</td>
+<td>Springs were used as a density field before; they have not been used as a per-lineament
+likelihood test.</td>
+<td>Alluvial contact springs along basin margins — the dominant mimic in this basin.</td>
+<td>1 experiment</td><td>low–medium</td></tr>
+<tr><td>5</td>
+<td><strong>Differential LiDAR scarp freshness</strong></td>
+<td>1 m LiDAR hillshade and roughness decomposed into scarp-height and scarp-degradation classes;
+fresh scarps are HQ faults, degraded ones are pre-Quaternary.</td>
+<td>The catalogue is biased toward what is visible on aerial photography; a fresh scarp under
+vegetation may never have been photographed.</td>
+<td>Prior lanes used LiDAR as a flat density term; this uses the degradation class as the label
+proxy.</td><td>Gravity-driven landslides and fluvial cut banks on steep slopes.</td>
+<td>1–2 experiments</td><td>low — the LiDAR product is already in the candidate</td></tr>
+</tbody></table>
+<h2>What the next session should do, in order</h2>
+<ol>
+<li>Get the organizer receipt for the cleared file. Nothing else can calibrate anything.</li>
+<li>If the receipt is within ±0.03 of the projection, hypothesis 3 is the best next spend; if it is
+far below, the covariate model is falsified and the whole geometry-based approach must be dropped
+before another slot is spent.</li>
+<li>Do not re-run the two saturated instruments (literal 3-px uniqueness, catalogue hide-and-recover)
+as promotion gates. Ask the protocol owner for a ruling; they currently reject everything,
+including files the leaderboard scores at 0.2778.</li>
+</ol>
+
+</main>
+<footer>Lane H-KP1 · session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 ·
+every figure on this page is rendered from a committed JSON receipt. Nothing here is an
+organizer-confirmed score.</footer>
+</body></html>

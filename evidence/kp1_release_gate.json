@@ -388,5 +388,118 @@
       "the holdout instrument is anti-correlated with the known leaderboard ordering (see evidence/kp1_exp2_holdout.json instrument_calibration)"
     ],
     "slots_used": 0
+  },
+  "mechanism_scenarios": {
+    "purpose": "what the candidate's surface must achieve, and what the leaderboard top would need",
+    "rows": [
+      {
+        "assumed_truth_px": 30494,
+        "credit_per_landing_dot": 2.0,
+        "implied_champion_hit_rate": 0.1215,
+        "hit_rate_needed_to_match_at_candidate_dots": 0.1379,
+        "relative_surface_improvement_required": 0.135
+      },
+      {
+        "assumed_truth_px": 30494,
+        "credit_per_landing_dot": 2.5,
+        "implied_champion_hit_rate": 0.0977,
+        "hit_rate_needed_to_match_at_candidate_dots": 0.1109,
+        "relative_surface_improvement_required": 0.135
+      },
+      {
+        "assumed_truth_px": 60988,
+        "credit_per_landing_dot": 2.0,
+        "implied_champion_hit_rate": 0.2143,
+        "hit_rate_needed_to_match_at_candidate_dots": 0.2471,
+        "relative_surface_improvement_required": 0.1531
+      },
+      {
+        "assumed_truth_px": 60988,
+        "credit_per_landing_dot": 2.5,
+        "implied_champion_hit_rate": 0.1723,
+        "hit_rate_needed_to_match_at_candidate_dots": 0.1987,
+        "relative_surface_improvement_required": 0.1531
+      },
+      {
+        "assumed_truth_px": 120000,
+        "credit_per_landing_dot": 2.0,
+        "implied_champion_hit_rate": 0.3939,
+        "hit_rate_needed_to_match_at_candidate_dots": 0.4585,
+        "relative_surface_improvement_required": 0.1638
+      },
+      {
+        "assumed_truth_px": 120000,
+        "credit_per_landing_dot": 2.5,
+        "implied_champion_hit_rate": 0.3168,
+        "hit_rate_needed_to_match_at_candidate_dots": 0.3687,
+        "relative_surface_improvement_required": 0.1638
+      }
+    ],
+    "hit_rate_needed": [
+      {
+        "target": 0.3195,
+        "assumed_truth_px": 30494,
+        "hit_rate_needed_at_32000": 0.1282,
+        "hit_rate_needed_at_37654": 0.113,
+        "multiple_of_champion_hit_rate": 1.313
+      },
+      {
+        "target": 0.3195,
+        "assumed_truth_px": 60988,
+        "hit_rate_needed_at_32000": 0.2298,
+        "hit_rate_needed_at_37654": 0.1993,
+        "multiple_of_champion_hit_rate": 1.334
+      },
+      {
+        "target": 0.3195,
+        "assumed_truth_px": 120000,
+        "hit_rate_needed_at_32000": 0.4264,
+        "hit_rate_needed_at_37654": 0.3664,
+        "multiple_of_champion_hit_rate": 1.346
+      },
+      {
+        "target": 0.4413,
+        "assumed_truth_px": 30494,
+        "hit_rate_needed_at_32000": 0.18,
+        "hit_rate_needed_at_37654": 0.1586,
+        "multiple_of_champion_hit_rate": 1.843
+      },
+      {
+        "target": 0.4413,
+        "assumed_truth_px": 60988,
+        "hit_rate_needed_at_32000": 0.3227,
+        "hit_rate_needed_at_37654": 0.2798,
+        "multiple_of_champion_hit_rate": 1.872
+      },
+      {
+        "target": 0.4413,
+        "assumed_truth_px": 120000,
+        "hit_rate_needed_at_32000": 0.5987,
+        "hit_rate_needed_at_37654": 0.5144,
+        "multiple_of_champion_hit_rate": 1.89
+      },
+      {
+        "target": 0.4544,
+        "assumed_truth_px": 30494,
+        "hit_rate_needed_at_32000": 0.1857,
+        "hit_rate_needed_at_37654": 0.1636,
+        "multiple_of_champion_hit_rate": 1.901
+      },
+      {
+        "target": 0.4544,
+        "assumed_truth_px": 60988,
+        "hit_rate_needed_at_32000": 0.3328,
+        "hit_rate_needed_at_37654": 0.2887,
+        "multiple_of_champion_hit_rate": 1.931
+      },
+      {
+        "target": 0.4544,
+        "assumed_truth_px": 120000,
+        "hit_rate_needed_at_32000": 0.6176,
+        "hit_rate_needed_at_37654": 0.5306,
+        "multiple_of_champion_hit_rate": 1.949
+      }
+    ],
+    "note": "At fixed surface quality more dots is always better, so no submission wins on dot count alone. The candidate needs a surface roughly 10-15 % more accurate than the champion's at the same task in order to match 0.2778 with 32,000 dots, and the leaderboard top would need roughly 1.4-2.5x the champion's hit rate depending on the (unknown) size of the private truth. That multiple is the honest distance between this repository and 0.4413."
   }
 }

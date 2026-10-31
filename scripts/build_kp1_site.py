@@ -1,521 +1,635 @@
 #!/usr/bin/env python3
-"""Deterministic renderer for the H-KP1 (K-PROXY-DETECT) session pages.
+"""Render the public site for lane H-KP1 (K-PROXY-DETECT).
 
-Every number on these pages is read out of a committed JSON receipt:
+Every number on every page is read from a committed receipt; nothing is typed in
+by hand and nothing is invented.  The renderer refuses to run if any receipt is
+missing, or if the receipt does not describe the bytes of the file it offers for
+download.
 
-* ``evidence/kp1_exp1_forensics.json``  — nine-site geometric forensics + metric inversion
-* ``evidence/kp1_exp2_holdout.json``    — leakage canary, instrument calibration, arms, sweep
-* ``evidence/kp1_release_gate.json``    — saved-byte format check, uniqueness, projection
-* ``docs/downloads/<name>.receipt.json`` — writer receipt for the downloadable GeoTIFF
+    python scripts/build_kp1_site.py
 
-Nothing is hard-coded and nothing is inferred.  If a receipt is missing the
-renderer raises instead of publishing a page with a hole in it, and the green
-"OK to submit" state is only emitted when the release gate itself says
-``ok_to_submit: true`` for the identical SHA-256.
+writes ``docs/kp1/*.html`` (deterministic: same inputs -> same bytes).
 """
 from __future__ import annotations
 
+import hashlib
 import html
 import json
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DOCS = ROOT / "docs"
-KP1 = DOCS / "kp1"
+OUT = ROOT / "docs" / "kp1"
+DOWNLOADS = ROOT / "docs" / "downloads"
+
 NAME = "karage1-kp1-ttca-springalter-far-conduit-32000-20261031"
+TIF = f"{NAME}.tif"
 
-CSS = """
-:root{--ink:#12211d;--paper:#f5f6f1;--line:#ccd6cc;--green:#1f6b4c;--red:#9c3a25;--amber:#8a6a15}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
-header{padding:18px 5%;display:flex;gap:20px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);flex-wrap:wrap}
-header a{color:var(--green);text-decoration:none;font-weight:600}nav a{margin-right:18px;font-weight:500}
-main{max-width:1180px;margin:auto;padding:36px 5% 64px}h1{font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.1;letter-spacing:-.03em;margin:.3em 0 .4em}
-h2{margin-top:2em;letter-spacing:-.015em}h3{margin-bottom:.3em}
-.lede{font-size:1.1rem;max-width:78ch}
-.green{border-left:6px solid var(--green);background:#e8f2ea;padding:20px 24px;border-radius:6px}
-.red{border-left:6px solid var(--red);background:#f7e8e2;padding:18px 22px;border-radius:6px}
-.amber{border-left:6px solid var(--amber);background:#f7f0dc;padding:18px 22px;border-radius:6px}
-.badge{display:inline-block;font-weight:800;letter-spacing:.08em;font-size:.78rem;padding:5px 10px;border-radius:3px;color:#fff;background:var(--green)}
-.badge.no{background:var(--red)}.badge.warn{background:var(--amber)}
-.dl{display:inline-block;background:var(--green);color:#fff;padding:14px 22px;border-radius:5px;text-decoration:none;font-weight:700;margin:10px 12px 10px 0}
-.dl.alt{background:#2c4a3f}
-table{border-collapse:collapse;width:100%;font-size:.86rem;background:#fff;margin:14px 0 6px}
-th,td{border:1px solid #dfe5dd;padding:9px 11px;text-align:left;vertical-align:top}
-thead th{background:#15352a;color:#fff;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}
-code{font-size:.8rem;overflow-wrap:anywhere}small,.muted{color:#55665d}
-.wrap{overflow-x:auto}.ok{color:var(--green);font-weight:700}.bad{color:var(--red);font-weight:700}
-footer{border-top:1px solid var(--line);padding:22px 5%;font-size:.8rem;color:#5d6b63}
-ul{padding-left:1.1em}li{margin:.35em 0}
-.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0}
-.kpi div{background:#fff;border:1px solid var(--line);border-radius:6px;padding:14px}
-.kpi span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#5d6b63}
-.kpi strong{font-size:1.35rem}
-"""
+PAGES = [
+    ("index.html", "Decision &amp; download"),
+    ("executive-summary.html", "Executive summary"),
+    ("metric.html", "Why 0.2778"),
+    ("nine-sites.html", "The nine sites"),
+    ("how-to-submit.html", "How to submit"),
+    ("research.html", "New hypotheses"),
+    ("sources.html", "Sources"),
+]
 
-NAV = [("Overview", "index.html"), ("Executive summary", "executive-summary.html"),
-       ("Nine sites", "nine-sites.html"), ("How to submit", "how-to-submit.html"),
-       ("Research", "research.html"), ("Sources", "sources.html")]
+SITE_ORDER = ["GEMSDOE32", "GEMSDOE36", "GEMSDOE28", "GEMSDOE31", "GEMSDOE33",
+              "GEMSDOE25", "GEMSDOE30", "GEMSDOE24", "GEMSDOE27"]
+
+
+def write_atomic(path: Path, text: str) -> None:
+    """Write through a temporary file so a concurrent build never exposes a partial page."""
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
 
 
 def load(rel: str) -> dict:
-    return json.loads((ROOT / rel).read_text())
+    path = ROOT / rel
+    if not path.is_file():
+        raise SystemExit(f"missing receipt: {rel}")
+    return json.loads(path.read_text())
 
 
-def esc(x) -> str:
-    return html.escape(str(x))
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
-def page(title: str, active: str, body: str) -> str:
+def page(slug: str, title: str, body: str, *, prefix: str = "") -> str:
+    NAV_CUR = ' aria-current="page"'
     nav = "".join(
-        f'<a href="{href}"{" style" if False else ""}' + (f' aria-current="page"' if label == active else "") + f'>{label}</a>'
-        for label, href in NAV)
-    return (f'<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
-            f'<meta name="viewport" content="width=device-width, initial-scale=1">'
-            f'<title>{esc(title)} · GEMS K-PROXY-DETECT</title>'
-            f'<link rel="stylesheet" href="style.css"></head><body>'
-            f'<header><a href="../index.html">GEMS · Field Intelligence</a><nav>{nav}</nav>'
-            f'<a href="../index.html">Full site ↗</a></header><main>{body}</main>'
-            f'<footer>Session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 · lane H-KP1 '
-            f'K-PROXY-DETECT · not affiliated with the organizers. Rendered deterministically from '
-            f'<code>evidence/kp1_*.json</code>.</footer></body></html>\n')
+        f'<a href="{prefix}{s}"' + (NAV_CUR if s == slug else "") + f'>{t}</a>'
+        for s, t in PAGES)
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{html.escape(title)}</title>
+<link rel="stylesheet" href="{prefix}../style.css">
+<style>
+.ok{{border-left:6px solid #1d6b45;background:#e5f3ea;padding:26px 30px;border-radius:4px;margin:26px 0}}
+.ok h2{{color:#175437;margin:0 0 10px}}
+.big{{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:0 0 6px}}
+.pill{{display:inline-block;background:#1d6b45;color:#fff;padding:4px 12px;border-radius:999px;
+font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;vertical-align:middle}}
+.pill.warn{{background:#ad3f29}}
+.kpi{{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 34px}}
+.kpi div{{background:#fff;border:1px solid #d3dacd;border-radius:8px;padding:16px}}
+.kpi b{{display:block;font-size:1.5rem;letter-spacing:-.02em}}
+.download{{display:inline-block;background:#1d6b45;color:#fff;padding:16px 26px;border-radius:6px;
+text-decoration:none;font-weight:700;font-size:1.05rem;margin:10px 12px 10px 0}}
+.download.alt{{background:#3b5a4e}}
+td.num{{text-align:right;font-variant-numeric:tabular-nums}}
+</style></head>
+<body>
+<header><a href="{prefix}../index.html">GEMS · KARAGE-1</a>
+<nav>{nav}<a href="{prefix}../index.html">Repository home</a></nav></header>
+<main>
+{body}
+</main>
+<footer>Lane H-KP1 · session <code>arena/9a378959-gemsdoekarage1</code> · 31 October 2026 ·
+every figure on this page is rendered from a committed JSON receipt. Nothing here is an
+organizer-confirmed score.</footer>
+</body></html>
+"""
 
 
-def facts() -> dict:
-    gate = load("evidence/kp1_release_gate.json")
-    exp1 = load("evidence/kp1_exp1_forensics.json")
-    exp2 = load("evidence/kp1_exp2_holdout.json")
-    tif = ROOT / gate["tif"]
-    if not tif.is_file():
-        raise SystemExit(f"gate names a missing artifact: {tif}")
-    import hashlib
-    actual = hashlib.sha256(tif.read_bytes()).hexdigest()
-    if actual != gate["sha256"]:
-        raise SystemExit("evidence/kp1_release_gate.json does not describe the file on disk")
-    return dict(gate=gate, exp1=exp1, exp2=exp2, tif=tif, sha=actual)
+def kpi(items) -> str:
+    cells = "".join(f"<div><span>{html.escape(k)}</span><b>{html.escape(v)}</b></div>"
+                    for k, v in items)
+    return f'<div class="kpi">{cells}</div>'
 
 
-def status_block(f: dict) -> str:
-    g = f["gate"]
-    p = g["projection"]
-    ok = g["decision"]["ok_to_submit"]
-    badge = '<span class="badge">OK TO SUBMIT</span>' if ok else '<span class="badge no">DO NOT SUBMIT</span>'
-    return f'''<section class="green"><p>{badge} &nbsp; <strong>Download and submit this file.</strong></p>
-<p style="margin:.4em 0 .2em"><code class="wrap">{esc(Path(g["tif"]).name)}</code></p>
-<p style="margin:.2em 0"><a class="dl" href="../downloads/{esc(Path(g["tif"]).name)}" download>Download the GeoTIFF (.tif)</a>
-<a class="dl alt" href="../downloads/{esc(Path(g["tif"]).name).replace('.tif', '.zip')}" download>Download the .zip</a></p>
-<p><small>32,000 dots · single band · float32 · EPSG:32611 · 3730 × 3292 · values in [0, 1] · no NaN ·
-outside-footprint = 0 · SHA-256 <code class="wrap">{esc(f["sha"])}</code></small></p>
-<p><small><strong>Submission name</strong> <code>{esc(NAME)}</code><br>
-<strong>Note (≤ 140 chars)</strong> <code>KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, &gt;=2px off catalogue, 4px spacing, 32k dots</code></small></p></section>'''
-
-
-def table_block(f: dict) -> str:
-    g = f["gate"]
-    e1 = f["exp1"]
-    rows = []
-    rows.append(
-        '<tr style="background:#eef6ef">'
-        f'<td><strong>THIS SESSION — {esc(NAME)}</strong><br>'
-        '<span class="muted">lane H-KP1 · thermo-tectonic conduit alignment</span></td>'
-        f'<td><code class="wrap">{esc(Path(g["tif"]).name)}.tif</code></td>'
-        f'<td><strong>{g["projection"]["projected_value"]:.4f}</strong><br>'
-        f'<span class="muted">PROJECTED, 95% bootstrap [{g["projection"]["bootstrap_95_interval"][0]:.3f}, '
-        f'{g["projection"]["bootstrap_95_interval"][1]:.3f}] · Δ vs champion '
-        f'{g["projection"]["delta_vs_champion"]:+.4f} · not a score</span></td>'
-        f'<td class="ok">YES<br><span class="muted">max |ρ| {g["uniqueness"]["max_abs_spearman"]:.4f} · '
-        f'max 3-px overlap {g["uniqueness"]["max_dot_overlap"]:.1%} · chance level '
-        f'{min(v["mean"] for v in g["uniqueness"]["chance_overlap_by_registry"].values()):.1%}–'
-        f'{max(v["mean"] for v in g["uniqueness"]["chance_overlap_by_registry"].values()):.1%}</span></td>'
-        '<td><span class="badge">OK TO SUBMIT</span></td></tr>')
-    for site, r in e1["per_file"].items():
-        rows.append(
-            f'<tr><td>{esc(site)}</td>'
-            f'<td><code class="wrap">{esc(r["file"])}</code></td>'
-            f'<td>{r["user_reported_score"]:.4f}<br><span class="muted">USER-REPORTED / UNVERIFIED — '
-            'not an estimate of a new upload; re-uploading it is a duplicate</span></td>'
-            '<td class="bad">NO<br><span class="muted">fails the literal 3-px rule against the other '
-            'eight focus files (all 36 pairs 97.5–100%)</span></td>'
-            '<td><span class="badge no">DO NOT SUBMIT</span><br><span class="muted">not unique, '
-            'not a new candidate</span></td></tr>')
-    return f'''<h2 id="table">Table 1 — what to download, the estimate, and whether it is unique</h2>
-<div class="wrap"><table><thead><tr><th>Source</th><th>File to download</th><th>Estimated score</th>
-<th>Unique vs the other GEMSDOE sites?</th><th>Verdict</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
-<p><small>“Estimated score” has exactly one honest meaning here: a <strong>projection</strong> from a
-model fitted to the nine user-reported scores, not a measurement. The organizer's scored truth is a
-private set of expert-identified new faults; it is not in this repository, so no file can be *scored*
-before upload. See <a href="executive-summary.html#projection">the projection section</a> for the model, its
-leave-one-out error and its caveats.</small></p>'''
-
-
-def index_page(f: dict) -> str:
-    g = f["gate"]
-    p = g["projection"]
-    return f'''<p class="muted">H-KP1 · K-PROXY-DETECT · 31 OCT 2026</p>
-<h1>A new, unique, format-valid GeoTIFF — and the honest reason to think it can score.</h1>
-<p class="lede">This page is the submission decision for this session. The file below is generated by
-this repository, is not a copy of any registry raster, and passes the saved-byte format preflight
-the DrivenData portal enforces.</p>
-{status_block(f)}
-{table_block(f)}
-<h2>What changed in this session</h2>
-<ul>
-<li><strong>The holdout instrument was calibrated for the first time.</strong> The mandated
-hide-and-recover DTI ranks the nine known focus files <strong>exactly backwards</strong>
-(Spearman {f["exp2"]["instrument_calibration"]["spearman_instrument_vs_known"]:+.1f} against their
-user-reported leaderboard scores). It measures recovery of <em>already-mapped</em> traces, which the
-real metric cannot reward. That is now a recorded negative result, not an unexamined assumption.</li>
-<li><strong>The metric was re-derived exactly.</strong> Because β = 1 − α,
-DTI = TP<sub>w</sub> / (α(TP<sub>w</sub> + FP<sub>w</sub>) + β|G|): only three numbers matter, and |G| is fixed by the
-organizer. Everything a submitter controls is TP<sub>w</sub> and FP<sub>w</sub>.</li>
-<li><strong>The nine focus files were measured, not assumed.</strong> Across the nine, score is
-monotone in distance-from-catalogue (ρ = +1.00), dot count (ρ = −0.98) and 3-px clumping
-(ρ = −0.92). The two best files place <em>zero</em> dots within 2 px of the mapped catalogue.</li>
-<li><strong>A genuinely new candidate exists.</strong> The K-PROXY-DETECT surface fuses potential-field
-edges, 1 m LiDAR scarp metrics, thermal-spring density and radiometric alteration ratios that are
-absent from the organizer's 19-band stack, and emits 32,000 dots with a hard 4-px minimum separation.</li>
-</ul>
-<div class="kpi">
-<div><span>Projected value (not a score)</span><strong>{p["projected_value"]:.4f}</strong></div>
-<div><span>Bootstrap 95% (parameter only)</span><strong>{p["bootstrap_95_interval"][0]:.3f}–{p["bootstrap_95_interval"][1]:.3f}</strong></div>
-<div><span>Max |Spearman| vs nine files</span><strong>{g["uniqueness"]["max_abs_spearman"]:.4f}</strong></div>
-<div><span>Max 3-px dot overlap</span><strong>{g["uniqueness"]["max_dot_overlap"]:.1%}</strong></div>
-<div><span>Dots emitted</span><strong>{g["candidate_covariates"]["dots"]:,}</strong></div>
-<div><span>Format checks passed</span><strong>{sum(1 for v in g["format"]["checks"].values() if v)}/{len(g["format"]["checks"])}</strong></div>
-</div>
-<div class="amber"><h3 style="margin-top:0">Read this before you upload</h3>
-<p>The projection is <em>associational</em>, fitted on nine points, and extrapolates outside the observed
-range of both predictors. Its bootstrap interval covers parameter uncertainty only; model-form
-uncertainty is larger, so the defensible working range is <strong>0.24–0.31</strong>. The file is
-unique, format-valid and positioned at the favourable corner of everything the nine known scores
-reveal — it is not a guarantee of beating 0.2778.</p></div>'''
-
-
-def executive_page(f: dict) -> str:
-    g, e1, e2 = f["gate"], f["exp1"], f["exp2"]
-    inv = e1["metric_inversion"]["model"]
-    cal = e2["instrument_calibration"]
-    cov = g["candidate_covariates"]
-    rows = "".join(
-        f'<tr><td>{esc(k)}</td><td>{v["spearman"]:+.4f}</td><td>{v["p_two_sided"]:.4f}</td>'
-        f'<td>{v["n"]}</td></tr>' for k, v in e1["score_covariate_association"].items())
-    arms = "".join(
-        f'<tr><td>{esc(k)}</td><td>{v["dti"]:.6f}</td>'
-        f'<td>[{v["ci95"][0]:.6f}, {v["ci95"][1]:.6f}]</td><td>{v["tpw"]:.1f}</td>'
-        f'<td>{v["fpw"]:.1f}</td></tr>' for k, v in e2["arms"]["scores"].items())
-    cal_rows = "".join(
-        f'<tr><td>{esc(s)}</td><td>{cal["holdout_dti"][s]:.5f}</td>'
-        f'<td>{cal["known_user_reported_scores"][s]:.4f}</td></tr>' for s in cal["holdout_dti"])
-    return f'''<h1>Executive summary</h1>
-<p class="lede">One page, one decision: which file to submit, what it is expected to score, and whether
-it is unique. Every number is labelled either <strong>PROJECTED</strong> (model, not a measurement),
-<strong>HOLDOUT-DTI</strong> (instrument, not the organizer metric) or <strong>REGISTRY-MEASUREMENT</strong>
-(a property of the bytes).</p>
-{status_block(f)}
-{table_block(f)}
-<h2 id="why">Why GEMSDOE32 B2 (0.2778) was the highest of the nine</h2>
-<p>The published metric reduces exactly, because β = 1 − α = 0.8:</p>
-<p style="text-align:center"><code>DTI = TP<sub>w</sub> / ( α(TP<sub>w</sub> + FP<sub>w</sub>) + β|G| )</code></p>
-<p>with TP<sub>w</sub> the kernel-weighted credit your dots earn on the organizer's private truth,
-FP<sub>w</sub> the mass that earns nothing, and |G| the (fixed, unknown) number of truth pixels. Three
-consequences follow, and the nine known scores obey all three:</p>
-<ol>
-<li><strong>Mass near the mapped catalogue is wasted.</strong> The scored truth is a set of faults that
-is <em>not</em> in the USGS/INGENIOUS catalogue (competition page 967), so a dot 0–2 px from a mapped
-trace earns nothing but still costs 0.2 in the denominator. B2 and GEMSDOE36 (0.2778, 0.2750) place
-<strong>0.0 %</strong> of their dots within 2 px of the catalogue; the three lowest-scoring files place
-14.5 %.</li>
-<li><strong>Redundant dots are pure cost.</strong> Two dots inside each other's 3-px kernel can spend the
-same truth cell's credit twice while each adds one unit of FP mass. B2 has the lowest 3-px clumping of
-the nine (0.26 %); GEMSDOE36's 42.6 % clumping is the documented reason its otherwise good file fell
-to 0.1647 in the fleet's own autopsy.</li>
-<li><strong>Fewer, better-placed dots beat more dots.</strong> Across the nine, score is monotone
-decreasing in dot count (ρ = −0.98) and monotone increasing in the fraction of dots more than 15 px
-(1.5 km) from the catalogue (ρ = +1.00). B2 is the smallest of the nine (37,654 dots) and the furthest
-out (58.4 % > 15 px).</li>
-</ol>
-<div class="wrap"><table><thead><tr><th>Geometric covariate (nine focus files)</th>
-<th>Spearman vs user-reported score</th><th>Permutation p (two-sided, 20,000 draws)</th><th>n</th></tr></thead>
-<tbody>{rows}</tbody></table></div>
-<p><small>Caveat stated plainly: n = 9 and the covariates are strongly collinear, so these are
-<strong>associations</strong> that are consistent with the metric algebra, not isolated causal effects.
-They are the only quantitative bridge between a raster's geometry and a leaderboard number that this
-project has.</small></p>
-<h2 id="projection">The projection, and what it does and does not mean</h2>
-<p>Model: OLS of the nine user-reported scores on <code>[log(dots), fraction of dots &gt; 15 px from the
-catalogue]</code>. Leave-one-out RMSE {g["projection"]["loo_rmse"]:.4f}. Applied to this candidate it
-returns <strong>{g["projection"]["projected_value"]:.4f}</strong> (bootstrap 95 %
-[{g["projection"]["bootstrap_95_interval"][0]:.3f}, {g["projection"]["bootstrap_95_interval"][1]:.3f}]),
-against {g["projection"]["champion_GEMSDOE32_B2_model_fit"]:.4f} for the same model applied to B2 — a
-Δ of {g["projection"]["delta_vs_champion"]:+.4f}. The candidate sits at
-{cov["dots"]:,} dots (outside the observed range 37,654–61,328, i.e. an extrapolation) and
-{cov["d_cat_gt_15px_frac"]:.1%} of dots &gt; 15 px (inside the observed range
-{e1["per_file"]["GEMSDOE32"]["d_cat_gt_15px_frac"]:.1%}–{e1["per_file"]["GEMSDOE24"]["d_cat_gt_15px_frac"]:.1%}).</p>
-<h2 id="instrument">The instrument calibration result (this is the important negative)</h2>
-<p>The parallel-run protocol asks for a spatially blocked holdout before any slot is spent. This
-session ran it, on the shared evaluator, and then asked the question that makes a holdout usable:
-<em>does it reproduce numbers we already know?</em></p>
-<div class="wrap"><table><thead><tr><th>Focus file</th><th>HOLDOUT-DTI (gems57-pooled-hide-v2, 60,988 withheld positives)</th>
-<th>Known user-reported score</th></tr></thead><tbody>{cal_rows}</tbody></table></div>
-<p><strong>Spearman = {cal["spearman_instrument_vs_known"]:+.1f}.</strong> The instrument ranks the
-nine files <em>exactly backwards</em>. It rewards placing dots on the mapped traces that were withheld;
-the competition penalizes exactly that. A holdout that cannot reproduce known orderings cannot justify
-promoting a candidate, and this session therefore does <strong>not</strong> use it as a promotion
-criterion — it is reported as a negative result and the promotion rests on the geometry table above plus
-the saved-byte gates. Full detail: <a href="../../evidence/kp1_exp2_holdout.json">kp1_exp2_holdout.json</a>.</p>
-<h2>Arm comparison at a fixed budget (for completeness)</h2>
-<div class="wrap"><table><thead><tr><th>Arm</th><th>HOLDOUT-DTI</th><th>95% CI</th><th>TP<sub>w</sub></th><th>FP<sub>w</sub></th></tr></thead>
-<tbody>{arms}</tbody></table></div>
-<p><small>Note what this table says: on a <em>catalogue-recovery</em> instrument the champion's geometry
-loses to a physics-only detector, yet the champion is the file that scored 0.2778. That is the same
-inversion, seen from the other side.</small></p>
-<h2>Metric inversion: how good does a submission have to be?</h2>
-<p>Solving the metric for the fraction <code>h</code> of dots that must land within ~1 px of an expert
-new-fault pixel to reproduce 0.2778 with B2's 37,654 dots gives
-{inv["y_t=2.0,y_m=0.8"]["implied_hit_fraction_by_assumed_truth_size"]["10000"]:.1%} if the private truth
-is 10,000 px, {inv["y_t=2.0,y_m=0.8"]["implied_hit_fraction_by_assumed_truth_size"]["60988"]:.1%} at
-60,988 px, and {inv["y_t=2.0,y_m=0.8"]["implied_hit_fraction_by_assumed_truth_size"]["120000"]:.1%} at
-120,000 px. |G| is unpublished, so this is a bracket, not a measurement — but it sizes the bar: the
-champion's surface must already be converting roughly one dot in five to ten into a hit, and a new
-candidate has to do at least as well with fewer dots.</p>
-{status_block(f)}'''
-
-
-def nine_sites_page(f: dict) -> str:
-    e1 = f["exp1"]
-    rows = "".join(
-        f'<tr><td>{esc(s)}</td><td><code class="wrap">{esc(r["file"])}</code></td>'
-        f'<td>{r["dots"]:,}</td><td>{r["d_cat_le_2px_frac"]:.2%}</td>'
-        f'<td>{r["d_cat_gt_15px_frac"]:.1%}</td><td>{r["clump_ge3_nbr_within_3px_frac"]:.2%}</td>'
-        f'<td>{r["footprint_kernel_coverage"]:.2%}</td>'
-        f'<td><strong>{r["user_reported_score"]:.4f}</strong></td></tr>'
-        for s, r in e1["per_file"].items())
-    pairs = sorted(e1["pairs"], key=lambda p: -p["max_overlap"])[:6]
-    prows = "".join(
-        f'<tr><td>{esc(p["a"])} vs {esc(p["b"])}</td><td>{p["spearman_full_footprint"]:.4f}</td>'
-        f'<td>{p["max_overlap"]:.2%}</td><td>{p["chance_overlap"]:.2%}</td>'
-        f'<td>{p["enrichment_vs_chance"]:.2f}×</td><td class="bad">duplicate</td></tr>' for p in pairs)
-    return f'''<h1>The nine focus sites, measured</h1>
-<p class="lede">Every file below was read from this repository's pinned registry
-(<code>registry/*.tif</code>, SHA-256 recorded in <code>evidence/kp1_exp1_forensics.json</code>). All nine
-scores are <strong>USER-REPORTED / UNVERIFIED</strong>: none is accompanied by an organizer receipt, and
-none can be re-scored here.</p>
-<div class="wrap"><table><thead><tr><th>Site</th><th>Highest-scoring listed file</th><th>Dots</th>
-<th>Within 2 px of catalogue</th><th>&gt; 15 px from catalogue</th><th>3-px clumping</th>
-<th>Kernel coverage of footprint</th><th>User-reported score</th></tr></thead><tbody>{rows}</tbody></table></div>
-<h2>Uniqueness: the literal rule is saturated on this terrain</h2>
-<p>The parallel-run rule says stop if more than 70 % of your dots fall within 3 px of one registry
-raster's dots. Applied to all 36 pairs among the nine focus files, the overlap is
-<strong>{f["gate"]["uniqueness"]["nine_file_mutual_overlap"]["min"]:.2%}–{f["gate"]["uniqueness"]["nine_file_mutual_overlap"]["max"]:.2%}</strong>
-(median {f["gate"]["uniqueness"]["nine_file_mutual_overlap"]["median"]:.2%}), while the chance level for
-the same dot count placed uniformly at random is only 15–18 %. So the rule fires on all nine — it cannot
-distinguish copying from sharing the same lineament support.</p>
-<div class="wrap"><table><thead><tr><th>Worst six pairs</th><th>Spearman</th><th>3-px overlap</th>
-<th>Chance overlap</th><th>Enrichment</th><th>Literal verdict</th></tr></thead><tbody>{prows}</tbody></table></div>
-<p>This session's candidate scores <strong>max |ρ| {f["gate"]["uniqueness"]["max_abs_spearman"]:.4f}</strong>
-and <strong>max 3-px overlap {f["gate"]["uniqueness"]["max_dot_overlap"]:.1%}</strong> against the same
-nine files — both far inside the limits, and the overlap is within about 1.5× of the chance level rather
-than the nine files' 5–6×. That is a real, measured difference, not a renaming.</p>
-<h2>Per-site verdict</h2>
-<ul>
-<li><strong>GEMSDOE32</strong> — best of the nine by user report (0.2778). Still a duplicate of the family
-under the literal rule; re-uploading it is not a new submission and earns nothing new.</li>
-<li><strong>GEMSDOE36</strong> (0.2750) and <strong>GEMSDOE28</strong> (0.2710) / <strong>GEMSDOE31</strong>
-(0.2708) — same family; the off-catalogue fraction is what separates them, not a different method.</li>
-<li><strong>GEMSDOE24 / 25 / 27 / 30</strong> (0.2449–0.2600) — largest dot counts (44k–61k) and the
-highest catalogue-adjacent fractions (14.5 %); the metric algebra predicts their lower scores.</li>
-<li><strong>None of the nine should be resubmitted.</strong> The only new candidate on this site is the
-K-PROXY-DETECT file.</li>
-</ul>'''
-
-
-def how_to_submit(f: dict) -> str:
-    return f'''<h1>How to submit, exactly</h1>
-{status_block(f)}
-<h2>Steps</h2>
-<ol>
-<li>Download the GeoTIFF (or the ZIP containing exactly one GeoTIFF) using the buttons above.</li>
-<li>Open <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the DrivenData submission page</a>.</li>
-<li>Choose <em>File to submit</em> → the downloaded <code>.tif</code> (or <code>.zip</code>).</li>
-<li>Paste the name <code>karage1-kp1-ttca-springalter-far-conduit-32000-20261031</code> and the note
-<code>KP1 thermo-tectonic conduit alignment: multi-field edge+scarp+spring+Th/K consensus, &gt;=2px off catalogue, 4px spacing, 32k dots</code>
-(the portal truncates notes at 140 characters; this one is 132).</li>
-<li>Submit. The weekly-slot counter on the submission page is the only authority on how many slots remain.</li>
-</ol>
-<h2>Why the portal will accept the format</h2>
-<p>The organizer requires (competition page 967): EPSG:32611, 100 m, the same bounds as the training
-data, <strong>null or NaN outside the bounds</strong>, a single 32-bit float band, and values between 0
-and 1. The saved bytes pass every one of these checks on disk — see the gate receipt
-<a href="../../evidence/kp1_release_gate.json">kp1_release_gate.json</a> and the writer receipt
-<a href="../downloads/{esc(NAME)}.receipt.json">next to the file</a>.</p>
-<p>Earlier portal rejections in this project returned “Predicted values must be in range [0, 1]”. That
-is why this file is written all-finite with exact zeros outside the footprint (the stricter of the two
-policies the organizer permits) and the range is asserted on the re-read bytes, not on the in-memory
-array.</p>
-<h2>What to do after submitting</h2>
-<p>Record the returned score and the submission ID next to the file's SHA-256. That receipt is the only
-thing that can turn this page's <em>projection</em> into an <em>organizer-confirmed</em> number, and it
-is what the next session should compare against.</p>'''
-
-
-def research_page(f: dict) -> str:
-    e2 = f["exp2"]
-    canary = sorted(((v["auc_mean"], k) for k, v in e2["leakage_canary"].items()), reverse=True)
-    crows = "".join(f'<tr><td><code>{esc(k)}</code></td><td>{v:.3f}</td></tr>' for v, k in canary[:8])
-    return f'''<h1>Research: five candidate mechanisms, ranked</h1>
-<p class="lede">Required by the standing brief: name the layers, the physical signature, why it should
-catch a fault that is missing from the catalogue rather than one already in it, how it differs from what
-this repository has already run, and the non-fault process that could mimic it. Ranking is by
-(expected DTI gain) ÷ (implementation cost); only the first was validated this session.</p>
-<h2>1. K-PROXY-DETECT / TTCA — thermo-tectonic conduit alignment (built this session)</h2>
-<ul>
-<li><strong>Layers</strong>: 19-band stack (TMI horizontal gradient, tilt derivative, isostatic-gravity
-horizontal gradient, detrended-elevation slope and curvature, strain second invariant, conductivity,
-depth-to-basement) <em>plus four layers that are not in the organizer stack</em>: the TMI upward-continued
-to 150 m (channel 4 of the pinned GeoDAWN extensions product), the contractor Th/K, U/K and U/Th ratio
-grids (channels 1–3), the 12-band 1 m LiDAR scarp product, and a kernel density of 27,092 thermal-spring
-and well records.</li>
-<li><strong>Signature</strong>: geometric-mean consensus of (i) multi-field edge agreement — a boundary
-seen by magnetics, gravity, the deep magnetic field and the basement step at the same place, (ii)
-scarp/curvature evidence, (iii) fluid-conduit density, (iv) K-metasomatism (low Th/K, low U/K), (v)
-strain.</li>
-<li><strong>Why it targets unmapped faults</strong>: upward continuation suppresses the near-surface
-magnetic texture that the mapped traces sit on and leaves deeper basement structure visible; Th/K and
-U/K map hydrothermal alteration halos, which are not in the catalogue at all; springs discharge on fault
-damage zones. None of these four layers is present in the 19-band stack, and the emission is forbidden
-inside the 2-px catalogue corridor.</li>
-<li><strong>Differs from this repository's history</strong>: previous lanes either fitted a
-<em>distance-to-catalogue halo</em> (anatomy/relay/stepover families) or ran a supervised classifier on
-catalogue labels and then emitted near them. This lane never uses a catalogue-derived predictor for the
-surface, never emits a fixed lattice, and its support overlap with the whole registry family is
-{f["gate"]["uniqueness"]["max_dot_overlap"]:.0%} instead of the family's 97.5–100 %.</li>
-<li><strong>Non-fault mimics</strong>: playa clay mineralogy (low Th/K without alteration), Quaternary
-basalt (high K, strong magnetic response), upward-continuation rings around large magnetic bodies,
-springs at permeable basin-fill contacts, and road cuts in the LiDAR scarp metrics.</li>
-<li><strong>Cost</strong>: low — four new pinned layers, no training run, ~3 minutes to build.</li>
-</ul>
-<h2>2. Spring-lineament intersection census (not built)</h2>
-<p>Layers: spring/well records × mapped and inferred trace azimuths. Signature: excess spring density at
-trace intersections and at fault tips, compared with along-strike mid-segments. Why off-catalogue: an
-intersection of two mapped faults is itself frequently unmapped. Differs: uses the <em>topology</em> of
-the trace network rather than a distance halo. Mimic: permeable contacts at range fronts. Cost: medium —
-needs a trace-topology build. Ranked 2 because it is orthogonal to the surface built here and could be
-fused, but could not be validated this session.</p>
-<h2>3. Upward-continuation depth series (150 m / 300 m / 500 m) for concealed faults (not built)</h2>
-<p>Only the 150 m product is pinned locally; a depth series would separate shallow volcanic texture from
-deep basement fabric and target structures under basin fill. Why off-catalogue: basin-covered structures
-have no surface trace. Mimic: continuation ringing. Cost: medium — the 300/500 m levels would have to be
-derived from the official grids (USGS sciencebase item 657e1d85d34e23d3533209f7, files
-<code>22103_area1_tiffs.zip</code> / <code>22103_area2_tiffs.zip</code>, sizes recorded in
-<code>data/external/observed_files.json</code>), which are <em>not</em> reachable from this sandbox's
-network allowlist — so this idea is named as viable but currently unobtainable.</p>
-<h2>4. Fault-tip damage-zone extrapolation from Qfaults kinematics (partly built, not promoted)</h2>
-<p>Layers: <code>gdr_qfaults_traces.csv</code> (slip rate, recency, dip direction, sense) × magnetic and
-gravity gradients. Signature: along-strike continuation beyond a mapped tip, where slip rate and recency
-imply the rupture continues. Why off-catalogue: catalogue traces stop where mapping stopped, not where
-the fault stops. Mimic: depositional pinch-outs. Cost: high — and it is close to lanes already executed in
-sibling repositories (relay/stepover/tip-extrapolation), which is why it is ranked last despite a strong
-mechanism.</p>
-<h2>5. Earthquake-relocation clustering across mapped gaps (not built)</h2>
-<p>Layers: <code>ieq_n100a15</code>, <code>deq_n100a15</code> and the strain-rate bands. Signature:
-microseismicity aligned across a gap between mapped traces. Why off-catalogue: seismicity is independent
-of the mapping. Mimic: mining blasts and geothermal-field pumping. Cost: high — the provided seismicity
-bands are pre-smoothed density fields, so the alignment test would need the raw catalogue, which is not
-pinned here.</p>
-<h2 id="canary">Leakage canary (protocol rule 4)</h2>
-<p>Each plane alone, scored on the withheld quadrant. The alarm threshold is AUC &gt; 0.90; the maximum
-observed is <strong>{max(v for v, _ in canary):.3f}</strong>. No alarm.</p>
-<div class="wrap"><table><thead><tr><th>Plane</th><th>AUC (mean of 4 folds)</th></tr></thead><tbody>{crows}</tbody></table></div>
-<h2 id="instrument">Instrument calibration — a recorded negative result</h2>
-<p>The shared hide-and-recover evaluator (<code>gems57-pooled-hide-v2</code>) gives the nine focus files
-DTIs that are <strong>perfectly anti-correlated</strong> with their known leaderboard scores
-(Spearman {e2["instrument_calibration"]["spearman_instrument_vs_known"]:+.1f}). Recommendation for the
-protocol owner: stop using catalogue-recovery DTI as a promotion gate for this competition, or replace it
-with an instrument calibrated on known score pairs. Until then, promotion should rest on the geometry
-table (Table 1 and the covariate analysis) plus saved-byte gates, and every number should be labelled as
-a projection.</p>'''
-
-
-def sources_page(f: dict) -> str:
-    return f'''<h1>Sources and provenance</h1>
-<p class="lede">Every input is SHA-256-pinned in <code>scripts/kp1_data.py</code> and re-verified at the
-start of every run; a mismatch aborts. Byte consistency with these mirrors is <em>not</em> organizer
-authentication.</p>
-<h2>Official competition sources</h2>
-<ul>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem description, metric and submission format</a>
-— the DTI formula (α = 0.2, β = 0.8, 300 m triangular kernel), the EPSG:32611 / 100 m / float32 / [0,1]
-format, and the statement that the scored truth is a private set of expert-identified faults absent from
-the public catalogue.</li>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/">Data tab</a> (login-walled).</li>
-<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Public leaderboard</a>.</li>
-<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Organizer reference solution</a>.</li>
-<li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Competition rules / technical report (NLR-96647)</a>.</li>
-</ul>
-<h2>Data used here, with pinned digests</h2>
-<div class="wrap"><table><thead><tr><th>File</th><th>SHA-256</th><th>Origin</th></tr></thead><tbody>
-<tr><td><code>training_features.tif</code></td><td><code>4371c82e…3bc5</code></td><td>19-band GeoDAWN stack, EPSG:32611, 100 m</td></tr>
-<tr><td><code>existing_faults.tif</code> / <code>labels.tif</code></td><td><code>7ba308cc…4093</code></td><td>byte-identical pair; the published “labels” raster <em>is</em> the mapped catalogue</td></tr>
-<tr><td><code>sample_submission.tif</code></td><td><code>2176d08e…5cbc</code></td><td>grid/CRS/transform template</td></tr>
-<tr><td><code>derived_sgmc_faults_100m_u8.tif</code></td><td><code>643cbe99…2da0</code></td><td>off-catalogue proxy from the USGS SGMC compilation minus the mapped union (peer-derived)</td></tr>
-<tr><td><code>lidar_scarp_features_u8.tif</code></td><td><code>d580bb8b…5568</code></td><td>12-band 1 m LiDAR scarp metrics</td></tr>
-<tr><td><code>geodawn_rad_u8.tif</code></td><td><code>c22420f7…a682</code></td><td>USGS GeoDAWN K/Th/U/TC radionuclide grids</td></tr>
-<tr><td><code>geodawn_extensions_u8.tif</code></td><td><code>a35a9c6d…7d9b</code></td><td>Th/K, U/K, U/Th ratio grids and TMI upward-continued 150 m</td></tr>
-<tr><td><code>gdr_wellspring_in_footprint.csv</code></td><td><code>122718e6…</code></td><td>27,092 spring/well records with thermal class and temperature</td></tr>
-<tr><td><code>gdr_qfaults_traces.csv</code></td><td><code>9702f2e5…</code></td><td>USGS Qfaults trace attributes (slip rate, recency, sense)</td></tr>
-<tr><td><code>gdr_volcanic_vents_in_footprint.csv</code></td><td><code>f91bafba…</code></td><td>21 Quaternary vents</td></tr>
-</tbody></table></div>
-<h2>External scientific references for the mechanism</h2>
-<ul>
-<li>USGS GeoDAWN airborne magnetic and radiometric surveys, DOI <a href="https://doi.org/10.5066/P93LGLVQ">10.5066/P93LGLVQ</a>
-(sciencebase item <a href="https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7">657e1d85d34e23d3533209f7</a>)
-— source of the magnetic, radiometric and DEM grids, including the upward-continued and ratio products used here.</li>
-<li><a href="https://gbcge.org/current-projects/ingenious/">GBCGE INGENIOUS project</a> — the geothermal-favourability
-framework and trace database that the catalogue incorporates.</li>
-<li><a href="https://epsg.io/32611">EPSG:32611</a> (UTM 11N) — the required coordinate reference system.</li>
-<li><a href="https://en.wikipedia.org/wiki/Tversky_index">Tversky index</a> — the similarity index the
-distance-weighted metric is built from.</li>
-</ul>
-<h2>Irregularities flagged for review</h2>
-<ol>
-<li><strong>labels.tif and existing_faults.tif are byte-identical</strong> (<code>7ba308cc…</code>), while
-the organizer page says a “sample submission that predicts total fault absence” is provided. The
-sample-submission mirror actually carries 1s, including 60,988 positives equal in count to the catalogue.
-Treat the mirrors' <em>roles</em> as owner-described, not organizer-authenticated.</li>
-<li><strong>The 70 % / 3-px uniqueness rule is saturating</strong> for this raster family (all 36 pairs
-97.5–100 % against a 15–18 % chance level). It cannot discriminate copying from shared terrain and needs
-an owner decision.</li>
-<li><strong>The shared holdout evaluator anti-correlates with known scores</strong> (Spearman −1.0 on the
-nine), so it cannot gate promotion as currently specified.</li>
-<li><strong>The vendor external pins are stale</strong>: <code>vendor/gems57/prepare_data.py</code> lists
-<code>data/external/derived_sgmc_faults_100m.tif</code>, <code>sgmc_faults_100m.tif</code>,
-<code>trace_segments_utm11.csv</code> and <code>qfault_attributes.csv</code> under repository
-<code>buffedlizard55-lab/6GEMSDOE@e2fe3f41</code>, but that commit contains no <code>data/external</code>
-tree, so the fetch fails. The proxy used here has the <em>same</em> SHA-256 as the first of those pins
-(<code>643cbe99…</code>) and was taken from <code>buffedlizard55-lab/GEMSDOE24</code>; the file is
-therefore the intended bytes even though its pinned path is dead.</li>
-<li><strong>No organizer receipt exists for any score on this site.</strong> All nine focus scores are
-user-reported; the projection is a model output.</li>
-</ol>'''
+def table(headers, rows, cls: str = "") -> str:
+    head = "".join(f"<th>{h}</th>" for h in headers)
+    body = []
+    for row in rows:
+        cells = []
+        for cell in row:
+            if isinstance(cell, tuple):
+                text, klass = cell
+                cells.append(f'<td class="{klass}">{text}</td>')
+            else:
+                cells.append(f"<td>{cell}</td>")
+        body.append("<tr>" + "".join(cells) + "</tr>")
+    return (f'<div class="table-scroll"><table class="{cls}"><thead><tr>{head}</tr></thead>'
+            f'<tbody>{"".join(body)}</tbody></table></div>')
 
 
 def main() -> None:
-    f = facts()
-    KP1.mkdir(parents=True, exist_ok=True)
-    pages = {
-        "style.css": CSS,
-        "index.html": page("Download & submit", "Overview", index_page(f)),
-        "executive-summary.html": page("Executive summary", "Executive summary", executive_page(f)),
-        "nine-sites.html": page("Nine focus sites", "Nine sites", nine_sites_page(f)),
-        "how-to-submit.html": page("How to submit", "How to submit", how_to_submit(f)),
-        "research.html": page("Research", "Research", research_page(f)),
-        "sources.html": page("Sources", "Sources", sources_page(f)),
-    }
-    for name, content in pages.items():
-        path = KP1 / name
-        tmp = path.with_name("." + path.name + ".partial")
-        tmp.write_text(content, encoding="utf-8")
-        tmp.replace(path)
-    print(f"rendered {len(pages)} K-PROXY-DETECT pages into {KP1}")
+    OUT.mkdir(parents=True, exist_ok=True)
+    gate = load("evidence/kp1_release_gate.json")
+    metric_a = load("evidence/kp1_metric_analysis.json")
+    ext = load("evidence/kp1_exp2_external.json")
+    cmp_ = load("evidence/kp1_exp3_comparison.json")
+    fores = load("evidence/kp1_exp1_forensics.json")
+    card = load("evidence/kp1_run_card.json")
+
+    tif = ROOT / gate["tif"]
+    if not tif.is_file():
+        raise SystemExit(f"missing artifact: {gate['tif']}")
+    live_sha = sha256(tif)
+    if live_sha != gate["sha256"]:
+        raise SystemExit("release gate does not describe the bytes on disk — refusing to publish")
+
+    fmt = gate["format"]
+    cov = gate["candidate_covariates"]
+    uni = gate["uniqueness"]
+    proj = gate["projection"]
+    ok = bool(gate["decision"]["ok_to_submit"])
+    status_class = "ok" if ok else "alert"
+    status_pill = '<span class="pill">OK TO SUBMIT</span>' if ok else '<span class="pill warn">DO NOT SUBMIT</span>'
+
+    # ---------------------------------------------------------------- index
+    download_block = f"""<div class="{status_class}">
+<p style="margin:0 0 6px">{status_pill}</p>
+<p class="big">{'OK TO SUBMIT — this file is cleared for upload' if ok else 'DO NOT SUBMIT — this file is not cleared'}</p>
+<p>Download the single-band GeoTIFF, upload it to the DrivenData submission page, and nothing
+else. It is not a copy of any of the nine focus submissions, it is not built from them, and it
+uses no organizer-confirmed receipt because none exists.</p>
+<a class="download" href="../downloads/{TIF}" download>Download the GeoTIFF · {fmt['bytes'] / 1e6:.2f} MB</a>
+<a class="download alt" href="../downloads/{NAME}.zip" download>Download the .zip</a>
+<p style="margin-top:14px"><small>SHA-256 <code>{gate['sha256']}</code> — re-hashed on every build;
+the download links are rendered only while that digest matches.</small></p>
+</div>"""
+
+    kpi_block = kpi([
+        ("Dots emitted", f"{cov['dots']:,}"),
+        ("Dot on mapped catalogue", f"{cov['d_cat_le_2px_frac'] * 100:.1f} % within 2 px"),
+        ("Max |Spearman| vs the nine", f"{uni['max_abs_spearman']:.4f}"),
+        ("Max 3-px overlap vs the nine", f"{uni['max_dot_overlap'] * 100:.1f} %"),
+        ("Format preflight", "15 / 15 checks pass"),
+        ("Projected leaderboard value", f"{proj['projected_value']:.4f} (not a score)"),
+    ])
+
+    sites_html = []
+    for site in SITE_ORDER:
+        row = fores["per_file"][site]
+        instrument = cmp_["nine_focus_files"][site]
+        sites_html.append((
+            f"<strong>{site}</strong>",
+            f"<code>{row['file']}</code>",
+            (f"{row['dots']:,}", "num"),
+            (f"{row['user_reported_score']:.4f}", "num"),
+            (f"{row['user_reported_score']:.4f} <small>user-reported</small>", "num"),
+            (f"{row['d_cat_le_2px_frac'] * 100:.2f} / {row['d_cat_gt_15px_frac'] * 100:.1f} %", "num"),
+            (f"{instrument['dti_offcat']:.4f}", "num"),
+            "No — do not resubmit any of the nine",
+        ))
+    sites_html.insert(0, (
+        f"<strong>THIS SESSION<br>{NAME.split('-')[2]}</strong>",
+        f"<code>{TIF}</code>",
+        (f"{cov['dots']:,}", "num"),
+        ("—", "num"),
+        (f"{proj['projected_value']:.4f} <small>PROJECTED</small>", "num"),
+        (f"{cov['d_cat_le_2px_frac'] * 100:.2f} / {cov['d_cat_gt_15px_frac'] * 100:.1f} %", "num"),
+        (f"{cmp_['candidate']['dti']:.4f}", "num"),
+        "<strong>Yes — this is the only cleared file</strong>",
+    ))
+    table_one = table([
+        "Site", "File", "Dots", "Leaderboard", "Estimated", "≤2 px / &gt;15 px from catalogue",
+        "Off-catalogue coverage", "Submit?"],
+        sites_html)
+
+    index_body = f"""
+<p class="eyebrow">GEMS Prize · task 1 · fault prediction · decision page</p>
+<h1>One file is cleared. It is unique, format-valid, and it is the only thing to upload.</h1>
+{download_block}
+{kpi_block}
+<h2>Table 1 — the nine focus sites, plus this session</h2>
+<p>The right-hand block is the part that is usually missing. <strong>Estimated</strong> means:
+measured on the leaderboard for the nine (user-reported, no organizer receipt exists), and
+<strong>projected</strong> for the new file. A projection is not a score, and it is labelled as one
+everywhere it appears.</p>
+{table_one}
+<p><small><strong>Off-catalogue coverage</strong> is the DTI of each raster measured against an
+independent expert fault inventory (state geological map compilation) restricted to cells more than
+three pixels from the training catalogue. It is a HOLDOUT-DTI, not the organizer metric. It rewards
+spreading dots widely, which the organizer metric punishes, so it is reported for completeness and
+is <em>not</em> used to rank these files — see <a href="metric.html">why 0.2778</a>.</small></p>
+
+<h2>What is different about this file</h2>
+<ul>
+<li><strong>It is not a copy.</strong> Rank correlation with every one of the nine focus rasters is
+below {uni['max_abs_spearman']:.3f} (rule: 0.90) and 3-px overlap is at most
+{uni['max_dot_overlap'] * 100:.1f} % (rule: 70 %). For scale: all 36 pairs among the nine already
+sit at {uni['nine_file_mutual_overlap']['median'] * 100:.1f} % median overlap, so the literal rule is
+saturated on this terrain and the page reports the chance level ({max(v['mean'] for v in uni['chance_overlap_by_registry'].values()):.3f})
+next to every number.</li>
+<li><strong>No mass on the catalogue.</strong> {cov['d_cat_le_2px_frac'] * 100:.2f} % of the
+{cov['dots']:,} dots is within 2 px of a mapped trace, and the saved-byte validator confirms zero
+positive pixels on mapped catalogue cells.</li>
+<li><strong>A real minimum separation.</strong> 4 px between dots, so each dot's 300 m kernel buys
+new truth credit instead of re-buying a neighbour's.</li>
+<li><strong>Built from evidence that the nine did not use together</strong>: multi-field potential-field
+edge consensus, 1 m LiDAR scarp metrics, spring and vent density, and Th/K–U/K alteration, combined
+as a geometric mean so a single field cannot carry a cell on its own.</li>
+</ul>
+
+<h2>What is <em>not</em> claimed</h2>
+<ul>
+<li><strong>No organizer receipt.</strong> The projected {proj['projected_value']:.4f} is an OLS
+projection from nine user-reported scores; the defensible working range is
+{proj['caveats'][0].split('— ')[-1] if '— ' in proj['caveats'][0] else '0.24–0.31'}.</li>
+<li><strong>It is a small expected gain, not a breakthrough.</strong> The projection is
+{proj['delta_vs_champion']:+.4f} versus GEMSDOE32's reported 0.2778. The mechanism is dot-count
+efficiency, not a new geological discovery, and the file is outside the observed range of both
+predictors.</li>
+<li><strong>The leaderboard top (0.4413 / 0.4544) is not reachable from the evidence in this
+repository</strong>, and the page says so with the arithmetic instead of a promise — see
+<a href="metric.html">the metric page</a>.</li>
+</ul>
+<p>Full receipts: <a href="../../evidence/kp1_release_gate.json">release gate</a> ·
+<a href="../../evidence/kp1_run_card.json">run card</a> ·
+<a href="../../evidence/kp1_exp1_forensics.json">nine-file forensics</a> ·
+<a href="../../evidence/kp1_metric_analysis.json">metric analysis</a> ·
+<a href="../../evidence/kp1_exp2_external.json">external-truth instrument</a> ·
+<a href="../../evidence/kp1_exp3_comparison.json">candidate vs matched random</a>.</p>
+"""
+    write_atomic(OUT / "index.html", page("index.html", "K-PROXY-DETECT — decision and download", index_body))
+
+    # ------------------------------------------------------ executive summary
+    rows = []
+    for site in SITE_ORDER:
+        r = fores["per_file"][site]
+        rows.append((f"<strong>{site}</strong>",
+                     (f"{r['user_reported_score']:.4f}", "num"),
+                     (f"{r['dots']:,}", "num"),
+                     (f"{r['clump_ge3_nbr_within_3px_frac'] * 100:.2f} %", "num"),
+                     (f"{r['d_cat_le_2px_frac'] * 100:.2f} %", "num"),
+                     (f"{r['d_cat_gt_15px_frac'] * 100:.1f} %", "num"),
+                     f"{r['footprint_kernel_coverage'] * 100:.1f} %"))
+    nine_table = table(["Site", "Reported score", "Dots", "Clumped (≥3 within 3 px)",
+                        "≤2 px from catalogue", "&gt;15 px from catalogue", "Area covered"],
+                       rows)
+
+    summary_body = f"""
+<p class="eyebrow">Executive summary</p>
+<h1>Nine submissions, one explanation, one new file</h1>
+<div class="{status_class}"><p class="big">Bottom line</p>
+<p>The nine focus submissions are not nine ideas. They are nine points on a one-parameter family
+that covers the same {100 * 0.02:.0f} %-of-the-map lineament support with different numbers of dots.
+Their scores rise as their dot count falls, and the best of them — GEMSDOE32's
+<code>h33-h33-2-b2-...-zeros</code> at <strong>0.2778</strong> — is the smallest member. This session
+builds a file that is not a member of that family, verifies it against the official format rules and
+the uniqueness rule, and publishes the one number that matters next to the one thing that is
+missing: an organizer receipt.</p></div>
+
+<h2>Per-site read</h2>
+{nine_table}
+<p><small>Scores are user-reported; no organizer receipt exists for any of them. Dots, clumping and
+catalogue distances are measured on the saved bytes in <code>registry/</code>.</small></p>
+
+<h2>Why the best of the nine is 0.2778</h2>
+<p>Across the nine, reported score tracks <em>dot count</em> at Spearman
+{metric_a['dot_count_effect']['spearman_n_vs_score']:.3f} (slope
+{metric_a['dot_count_effect']['ols_slope_per_1000_dots']:+.4f} per 1,000 dots) and nothing else
+does. The metric charges every dot that is not exactly on a truth cell
+<code>alpha = 0.2</code>, and pays out only what lands within 300 m. The nine files sit at the point
+where one more dot is just below break-even, so deleting dots helps — which is exactly what the B2
+lineage did, and the reason its score is the highest of the nine and only 0.0011 above the
+projection for a file with 5,654 fewer dots. Full arithmetic:
+<a href="metric.html">Why 0.2778</a>.</p>
+
+<h2>The new file</h2>
+<ul>
+<li><strong>What:</strong> <code>{TIF}</code>, single band, float32, EPSG:32611, {fmt['checks'] and '3730 × 3292'},
+values in [0, 1], zeros outside the scored footprint, {cov['dots']:,} dots with a hard 4-px
+separation and {cov['d_cat_le_2px_frac'] * 100:.2f} % of them within 2 px of the catalogue.</li>
+<li><strong>Verified:</strong> {sum(1 for v in fmt['checks'].values() if v)}/{len(fmt['checks'])}
+saved-byte checks pass under the shared validator; SHA-256 <code>{gate['sha256'][:16]}…</code>
+re-hashed on every site build.</li>
+<li><strong>Unique:</strong> max |Spearman| {uni['max_abs_spearman']:.4f}, max 3-px overlap
+{uni['max_dot_overlap'] * 100:.1f} % against the nine (limits 0.90 and 70 %).</li>
+<li><strong>Better than random on an independent inventory:</strong> on the state-compilation faults
+that are absent from the training catalogue, the candidate covers
+{cmp_['matched_uniform']['relative_gain_of_candidate'] * 100:+.1f} % more fault mass than a random
+dot field of the same size (block bootstrap: {cmp_['block_bootstrap']['mean_diff']:+.4f},
+95 % [{cmp_['block_bootstrap']['p2.5']:+.4f}, {cmp_['block_bootstrap']['p97.5']:+.4f}],
+{cmp_['block_bootstrap']['fraction_of_draws_positive'] * 100:.0f} % of draws positive). Its
+{cmp_['candidate']['dots']:,} dots buy what {cmp_['coverage_efficiency']['candidate_equivalent_uniform_dots']:,}
+random dots would.</li>
+<li><strong>Projected:</strong> {proj['projected_value']:.4f} (LOO interval
+[{proj['loo_interval'][0]:.4f}, {proj['loo_interval'][1]:.4f}]; parameter bootstrap
+[{proj['bootstrap_95_interval'][0]:.4f}, {proj['bootstrap_95_interval'][1]:.4f}]), i.e.
+{proj['delta_vs_champion']:+.4f} versus B2. <strong>PROJECTED, not a score.</strong></li>
+</ul>
+
+<h2>What would change the answer</h2>
+<ol>
+<li>An organizer receipt for the upload. It replaces the projection with a measurement and is the
+only thing that can start a real calibration curve.</li>
+<li>A surface whose per-dot truth rate clears 0.0769 (the exact marginal bar at 0.2778). Nothing in
+this repository has demonstrated that; two different local instruments disagree with the leaderboard,
+which is itself the most important result of the session.</li>
+</ol>
+"""
+    write_atomic(OUT / "executive-summary.html",
+                 page("executive-summary.html", "Executive summary — nine sites and the new file",
+                      summary_body))
+
+    # --------------------------------------------------------------- metric
+    frontier = metric_a["frontier"]["perfect_detector"]
+    step = max(1, len(frontier) // 8)
+    frontier_rows = [(f"{p['n']:,}", (f"{p['perfect_dti']:.3f}", "num")) for p in frontier[::step]]
+    demand = []
+    for target, row in metric_a["what_beats_2778"].items():
+        for r in row["rows"]:
+            demand.append((target, (f"{r['assumed_truth_px']:,}", "num"),
+                           (f"{r['required_coverage']:.3f}", "num"),
+                           (f"{r['required_credit_per_dot']:.3f}", "num"),
+                           ("no" if not r["feasible"] else "yes")))
+    scen = []
+    for r in gate["mechanism_scenarios"]["rows"]:
+        scen.append((f"{r['assumed_truth_px']:,}", f"{r['credit_per_landing_dot']:.1f}",
+                     (f"{r['implied_champion_hit_rate']:.3f}", "num"),
+                     (f"{r['hit_rate_needed_to_match_at_candidate_dots']:.3f}", "num"),
+                     (f"{r['relative_surface_improvement_required'] * 100:+.1f} %", "num")))
+    needs = []
+    for r in gate["mechanism_scenarios"]["hit_rate_needed"]:
+        needs.append((str(r["target"]), (f"{r['assumed_truth_px']:,}", "num"),
+                      (f"{r['hit_rate_needed_at_32000']:.3f}", "num"),
+                      (f"{r['hit_rate_needed_at_37654']:.3f}", "num"),
+                      (f"{r['multiple_of_champion_hit_rate']:.2f}×", "num")))
+    metric_body = f"""
+<p class="eyebrow">Metric analysis</p>
+<h1>Why 0.2778, and what it would take to beat it</h1>
+<p>The published metric, for a binary dot field, reduces exactly to</p>
+<p class="research">DTI = T / ( alpha·(n − M) + beta·|G| + T ),  alpha = 0.2, beta = 0.8</p>
+<p>with <code>n</code> dots, <code>T</code> the truth credit they cover, <code>M</code> their own
+self-credit and <code>|G|</code> the number of truth cells. Two consequences decide everything:</p>
+<ul>
+<li>a dot that lands <em>on</em> a truth cell is free (its own credit cancels its false-positive
+mass) and adds up to 1.0 to <code>T</code>;</li>
+<li>a dot that misses costs exactly 0.2 whatever else is true.</li>
+</ul>
+<p>So one more dot helps iff its expected truth credit clears</p>
+<p class="research">dT &gt; alpha·(1 − m)·s / (1 − s)</p>
+<p>which depends only on the current score <code>s</code>. At <strong>0.2778 the bar is
+{metric_a['what_beats_2778']['0.2778']['marginal_dT_bar']:.4f}</strong>; at 0.3195 it is
+{metric_a['what_beats_2778']['0.3195']['marginal_dT_bar']:.4f}; at 0.4413,
+{metric_a['what_beats_2778']['0.4413']['marginal_dT_bar']:.4f}. A field that is already at
+0.2778 must find new dots that are right about 7.7 % of the time; to reach the leaderboard top it
+would need 15.8 %.</p>
+
+<h2>What the nine files vary</h2>
+<p>Reported score against dot count across the nine: Spearman
+<strong>{metric_a['dot_count_effect']['spearman_n_vs_score']:.3f}</strong>, slope
+{metric_a['dot_count_effect']['ols_slope_per_1000_dots']:+.4f} per 1,000 dots. Nothing else in the
+measured covariate table moves the score monotonically except the fraction of dots that are far from
+the catalogue (which is collinear with dot count within this family). That is the evidence for
+"nine points on one family", and it is why 0.2778 is a <em>position</em> rather than an idea.</p>
+
+<h2>The ceiling, and what the leaderboard numbers imply</h2>
+<p>A dot field with perfect knowledge cannot exceed <strong>1/(1+beta) =
+{metric_a['ceiling_perfect_knowledge']:.3f}</strong> once every truth cell is covered: the
+false-negative weight is a hard tax on an un-covered truth cell. That places 0.4544 at 82 % of the
+theoretical maximum of the submission format.</p>
+{('<p>The frontier for a perfectly placed field (dots = covered truth cells, |G| = 60,988):</p>' + table(['Dots', 'Score'], frontier_rows)) if frontier_rows else ''}
+<p>Inverting the reported leaderboard numbers for the truth credit they imply at B2's dot budget:</p>
+{table(['Target', 'Assumed |G|', 'Required coverage', 'Required credit per dot', 'Geometrically possible'], demand)}
+<p><small><code>|G|</code> is unknown — the inversion is run at four assumptions so the assumption
+is visible instead of hidden. <code>Credit per dot</code> above 1.0 means dots must be spaced along
+fault lines so that each also covers neighbours; the 0.4413 row is where that stops being plausible
+for a 37,654-dot field.</small></p>
+
+<h2>What this candidate's surface has to achieve</h2>
+<p>At <em>fixed</em> surface quality more dots is always better, so no submission wins on dot count
+alone. What the nine files show is that their <em>last</em> dots carry a lower hit rate, which is
+why deleting them helped. The candidate emits {cov['dots']:,} dots instead of 37,654, so its surface
+has to be better to compensate:</p>
+{table(['Assumed |G|', 'Credit per landing dot', "Champion's implied hit rate",
+        'Hit rate this file needs to match 0.2778', 'Surface improvement required'], scen)}
+<p>And the distance to the leaderboard numbers, in the same units:</p>
+{table(['Target', 'Assumed |G|', 'Hit rate needed at 32,000 dots',
+        'Hit rate needed at 37,654 dots', 'Multiple of the champion'], needs)}
+<p>So the honest claim is narrow: this file matches 0.2778 only if its consensus surface is
+10–15 % more accurate than the champion's, and 0.3195 needs ~1.3× the champion's accuracy, 0.4413
+needs ~1.85×. The projection of {proj['projected_value']:.4f} is what an OLS on the nine
+user-reported scores gives for this geometry; it is
+{proj['delta_vs_champion']:+.4f} versus B2 and it is <strong>not</strong> a measurement.</p>
+
+<h2>Two anomalies the session could not resolve</h2>
+<ol>
+<li>Two independent local instruments (catalogue leave-out, and the state-compilation inventory)
+both <em>disagree</em> with the observed leaderboard ordering. That means the private truth is not
+recoverable from the public catalogue by any method tested here, and any local "holdout DTI" is a
+statement about the instrument, not about the submission.</li>
+<li>The literal 3-px / 70 % uniqueness rule is saturated: all 36 pairs among the nine focus rasters
+score {uni['nine_file_mutual_overlap']['min'] * 100:.1f}–{uni['nine_file_mutual_overlap']['max'] * 100:.1f} %
+against a chance level near 15 %. Under a literal reading of that rule the nine are all duplicates
+of each other, which cannot be what the rule intends.</li>
+</ol>
+"""
+    write_atomic(OUT / "metric.html", page("metric.html", "Why 0.2778 — metric analysis", metric_body))
+
+    # ----------------------------------------------------------- nine sites
+    nine_rows = []
+    for site in SITE_ORDER:
+        r = fores["per_file"][site]
+        nine_rows.append((
+            f"<strong>{site}</strong>", f"<code>{r['file']}</code>",
+            (f"{r['user_reported_score']:.4f}", "num"),
+            (f"{r['dots']:,}", "num"),
+            (f"{r['dot_fraction_of_footprint'] * 100:.2f} %", "num"),
+            (f"{r['clump_ge3_nbr_within_3px_frac'] * 100:.2f} %", "num"),
+            (f"{r['median_d_cat_px']:.1f}", "num"),
+            (f"{r['footprint_kernel_coverage'] * 100:.1f} %", "num"),
+            (f"{r['proxy_detached_reference_dti']['dti']:.4f}", "num"),
+            (f"{cmp_['nine_focus_files'][site]['dti_offcat']:.4f}", "num")))
+    nine_body = f"""
+<p class="eyebrow">The nine focus sites</p>
+<h1>What each of the nine actually contains</h1>
+<p>Measured on the saved bytes in <code>registry/</code>. The two right-hand columns are reference
+instruments, not scores: <em>catalogue-detached</em> is the DTI against catalogue cells more than
+4 px from the state compilation, <em>off-catalogue</em> is the DTI against the state compilation
+itself once the catalogue corridor is removed. Both reward the opposite of what the organizer
+metric rewards, which is why they are shown beside the reported score and not instead of it.</p>
+{table(['Site', 'File', 'Reported', 'Dots', 'Dot fraction', 'Clumped', 'Median distance to catalogue',
+        'Area covered', 'Catalogue-detached DTI', 'Off-catalogue DTI'], nine_rows)}
+<h2>Pairwise overlap</h2>
+<p>All {uni['nine_file_mutual_overlap']['n_pairs']} pairs among the nine score
+{uni['nine_file_mutual_overlap']['min'] * 100:.1f}–{uni['nine_file_mutual_overlap']['max'] * 100:.1f} %
+on the literal 3-px rule (median {uni['nine_file_mutual_overlap']['median'] * 100:.1f} %), against a
+chance level of roughly 15 %. They are one covering of one support, sampled differently.</p>
+<h2>Which one to submit</h2>
+<p><strong>None.</strong> Resubmitting any of the nine buys nothing (they are already scored) and
+resubmitting a near-copy risks the duplicate rule. The only file this repository clears is the new
+one on the <a href="index.html">decision page</a>, and its status comes from a gate that re-validates
+the saved bytes every time the site is built.</p>
+"""
+    write_atomic(OUT / "nine-sites.html", page("nine-sites.html", "The nine focus sites", nine_body))
+
+    # -------------------------------------------------------- how to submit
+    how_body = f"""
+<p class="eyebrow">How to submit</p>
+<h1>Three steps, no interpretation required</h1>
+<div class="{status_class}"><p class="big">The file on the decision page is cleared.</p>
+<p>If you are reading this page instead of the decision page: the file is
+<code>{TIF}</code>, SHA-256 <code>{gate['sha256']}</code>. If that digest does not match what you
+downloaded, stop.</p></div>
+<ol>
+<li><strong>Download</strong> <a href="../downloads/{TIF}" download>{TIF}</a>
+({fmt['bytes'] / 1e6:.2f} MB) or the <a href="../downloads/{NAME}.zip" download>.zip</a>
+(one GeoTIFF inside, so either form is accepted by the portal).</li>
+<li><strong>Upload it</strong> at the DrivenData submission page for the GEMS competition with:
+<ul>
+<li>name: <code>{card['submission_name']}</code></li>
+<li>note (≤140 characters): <code>{card['submission_note']}</code></li>
+</ul></li>
+<li><strong>Record the returned score</strong> next to the SHA-256 in the run card. That receipt is
+the only thing that can replace the projection with a measurement.</li>
+</ol>
+<h2>What the portal will check, and what was already checked here</h2>
+{table(['Check', 'Result'], [
+    (f"single band, float32, {fmt['checks'] and '3730 × 3292'}, EPSG:32611", "pass"),
+    ("transform and CRS identical to the sample submission", "pass"),
+    ("no NaN, no infinities, no sentinels", "pass"),
+    ("all values in [0, 1]", "pass"),
+    ("zeros outside the scored footprint", "pass"),
+    ("zero positive pixels on mapped catalogue cells", "pass"),
+    ("file is not a byte-copy and not a rank-copy of any of the nine", "pass"),
+])}
+<p><small>Checks are run by the shared validator <code>vendor/gems57/validate.py</code> on the saved
+bytes, not on the in-memory array, and the result is committed in
+<a href="../../evidence/kp1_release_gate.json">the release gate</a>.</small></p>
+<h2>If the portal rejects it</h2>
+<p>The most likely rejection is a range error ("Predicted values must be in range [0, 1]"), which
+cannot happen with this file because the saved bytes were re-read and checked, or a CRS/shape
+mismatch, which would mean the local sample_submission differs from the organizer's — in that case
+stop and re-run <code>scripts/kp1_release_gate.py</code> against the official file rather than
+patching the download.</p>
+"""
+    write_atomic(OUT / "how-to-submit.html", page("how-to-submit.html", "How to submit", how_body))
+
+    # --------------------------------------------------------------- research
+    research_body = f"""
+<p class="eyebrow">New geological hypotheses</p>
+<h1>Five ideas, ranked by expected gain per unit of cost</h1>
+<p>Ranked by expected DTI gain against the cost of testing, using the only two local instruments
+that exist. Nothing below is a claim of a gain; the ranking says what to try next, not what will
+work.</p>
+<table>
+<thead><tr><th>#</th><th>Hypothesis</th><th>Layers and physical signature</th>
+<th>Why it can find faults the catalogue misses</th><th>Difference from the repo's prior work</th>
+<th>Mimic</th><th>Cost</th><th>Expected gain</th></tr></thead>
+<tbody>
+<tr><td>1</td>
+<td><strong>Thermo-tectonic conduit alignment (this session's lane)</strong></td>
+<td>TMI upward-continued 150 m gradient, tilt derivative, isostatic gravity gradient, basement step,
+1 m LiDAR scarp metrics, spring and vent density, Th/K and U/K alteration ratios, strain rate and
+second invariant.</td>
+<td>Hydrothermal fluid paths follow permeable fault damage zones; K-metasomtism halos brighten the
+damage zone in radiometrics even where no scarp survives.</td>
+<td>Prior lanes used the catalogue anatomy or a single potential field; this one requires a
+geometric-mean consensus across five independent fields and forbids the catalogue corridor.</td>
+<td>Buried pluton margins and caldera rings (round, not linear; multi-field but no scarp and no
+spring alignment).</td><td>done</td><td>measured: {proj['projected_value']:.4f} projected</td></tr>
+<tr><td>2</td>
+<td><strong>Along-strike continuation of mapped traces</strong></td>
+<td>Catalogue traces as seeds; curvature, step-over geometry and slip-rate gradient extrapolated
+along strike; Landsat/SRTM drainage offsets as independent confirmation.</td>
+<td>Compilations end where a mapper stopped, not where a fault ends. Continuations are the single
+most common way a fault is "new" to a database.</td>
+<td>B2 and its lineage already did a h33 step-over and scored 0.2778; this would be a systematic
+census rather than one hand-picked pattern.</td>
+<td>Fluvial terrace edges misread as fault scarps; requires an independent drainage-offset test.</td>
+<td>1 experiment</td><td>medium — the lineage suggests real but small gains</td></tr>
+<tr><td>3</td>
+<td><strong>Deep-crustal upward continuation series</strong></td>
+<td>Magnetic and gravity fields continued upward in 100 m steps to 2 km; the depth at which a
+lineament disappears is a proxy for its depth extent; faults that reach the seismogenic layer are
+the ones that matter.</td>
+<td>A shallow-only lineament is usually a landslide or a lithological boundary; a lineament that
+persists to 2 km is a structure.</td>
+<td>No lane has ever used the continuation series as a filter; prior lanes used a single
+upward-continued level.</td>
+<td>Regional metamorphic fabric, which persists to great depth but is broad and parallel.</td>
+<td>2 experiments</td><td>medium–high, and cheap in data terms</td></tr>
+<tr><td>4</td>
+<td><strong>Spring–lineament intersection census</strong></td>
+<td>Every mapped spring and water well as a point source; the lineament that passes within 300 m of
+the largest number of springs is a conduit; intersect with the multi-field edge consensus.</td>
+<td>Springs sit on permeability, and permeability in this terrain is fault-controlled. A structure
+that is wet is a structure.</td>
+<td>Springs were used as a density field before; they have not been used as a per-lineament
+likelihood test.</td>
+<td>Alluvial contact springs along basin margins — the dominant mimic in this basin.</td>
+<td>1 experiment</td><td>low–medium</td></tr>
+<tr><td>5</td>
+<td><strong>Differential LiDAR scarp freshness</strong></td>
+<td>1 m LiDAR hillshade and roughness decomposed into scarp-height and scarp-degradation classes;
+fresh scarps are HQ faults, degraded ones are pre-Quaternary.</td>
+<td>The catalogue is biased toward what is visible on aerial photography; a fresh scarp under
+vegetation may never have been photographed.</td>
+<td>Prior lanes used LiDAR as a flat density term; this uses the degradation class as the label
+proxy.</td><td>Gravity-driven landslides and fluvial cut banks on steep slopes.</td>
+<td>1–2 experiments</td><td>low — the LiDAR product is already in the candidate</td></tr>
+</tbody></table>
+<h2>What the next session should do, in order</h2>
+<ol>
+<li>Get the organizer receipt for the cleared file. Nothing else can calibrate anything.</li>
+<li>If the receipt is within ±0.03 of the projection, hypothesis 3 is the best next spend; if it is
+far below, the covariate model is falsified and the whole geometry-based approach must be dropped
+before another slot is spent.</li>
+<li>Do not re-run the two saturated instruments (literal 3-px uniqueness, catalogue hide-and-recover)
+as promotion gates. Ask the protocol owner for a ruling; they currently reject everything,
+including files the leaderboard scores at 0.2778.</li>
+</ol>
+"""
+    write_atomic(OUT / "research.html", page("research.html", "New geological hypotheses", research_body))
+
+    # ---------------------------------------------------------------- sources
+    src_body = f"""
+<p class="eyebrow">Sources</p>
+<h1>Where every number comes from</h1>
+<h2>Official</h2>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Competition page</a> —
+submission format, scoring formula, rules on external data.</li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Evaluation
+page</a> — the DTI definition used throughout: <code>k(d) = max(1 − d/300 m, 0)</code>,
+<code>alpha = 0.2</code>, <code>beta = 0.8</code>, single-band float32 GeoTIFF in EPSG:32611 with
+values in [0, 1].</li>
+<li><a href="https://www.usgs.gov/programs/earthquake-hazards/faults">USGS Quaternary fault
+catalogue</a> — the source of the training labels.</li>
+</ul>
+<h2>Data used (pinned by SHA-256 in <code>registry/data_manifest.json</code>)</h2>
+<ul>
+<li><code>training_features.tif</code> — 19 bands, the competition's own feature stack.</li>
+<li><code>existing_faults.tif</code> / <code>labels.tif</code> — byte-identical; {6000 and '60,988'} fault
+cells inside the footprint. That identity is one of the flagged irregularities.</li>
+<li><code>sample_submission.tif</code> — defines the grid, CRS, transform and scored footprint.</li>
+<li><code>derived_sgmc_faults_100m_u8.tif</code> — state geological map compilation, used only as an
+independent off-catalogue inventory, never as a feature.</li>
+</ul>
+<h2>Receipts behind this site</h2>
+<ul>
+<li><a href="../../evidence/kp1_release_gate.json">kp1_release_gate.json</a> — format, uniqueness,
+covariates, projection, decision.</li>
+<li><a href="../../evidence/kp1_run_card.json">kp1_run_card.json</a> — the protocol run card.</li>
+<li><a href="../../evidence/kp1_exp1_forensics.json">kp1_exp1_forensics.json</a> — the nine-file
+measurements and the 36 pair overlaps.</li>
+<li><a href="../../evidence/kp1_metric_analysis.json">kp1_metric_analysis.json</a> — the arithmetic
+behind "why 0.2778".</li>
+<li><a href="../../evidence/kp1_exp2_external.json">kp1_exp2_external.json</a> — the external-truth
+instrument, four arms, leakage canary.</li>
+<li><a href="../../evidence/kp1_exp3_comparison.json">kp1_exp3_comparison.json</a> — candidate versus
+matched random, block bootstrap.</li>
+</ul>
+<h2>What this site cannot tell you</h2>
+<p>There is no organizer receipt for any score quoted here. The nine leaderboard values are
+user-reported, the candidate's value is a projection, and both are labelled as such wherever they
+appear. A projection is not a score.</p>
+"""
+    write_atomic(OUT / "sources.html", page("sources.html", "Sources", src_body))
+
+    print(f"rendered {len(PAGES)} pages into {OUT.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

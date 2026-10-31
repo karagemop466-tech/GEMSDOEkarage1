@@ -1,15 +1,15 @@
 # Starting point for every session
 
-**CURRENT SESSION (2026-10-31, `arena/9a378959-gemsdoekarage1`): read `knowledge/kp1-session-review-20261031.md`, `knowledge/kp1-preregistration-20261031.md` and `evidence/kp1_run_card.json` first.** Verdict: **PROMOTE one file** —
-`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`. It is byte-level
-format-valid (15/15 checks), unique against all nine focus rasters (max |Spearman| 0.0076, max 3-px
-overlap 26.5 %), places zero mass inside the 2-px catalogue corridor, and carries a **PROJECTED**
-(non-measured) value of 0.2789 with bootstrap 95 % [0.2757, 0.2846]. No submission slot was spent by
-this session. Two gates are now known to be unusable and must not be re-used as promotion tests
-without an owner ruling: (a) the literal 70 %/3-px uniqueness rule is saturated for this raster family
-(all 36 pairs among the nine focus files score 97.5–100 % against a 15–18 % chance level), and (b) the
-shared hide-and-recover holdout ranks the nine known scores **exactly backwards** (Spearman −1.0).
+**CURRENT SESSION (2026-10-31, `arena/9a378959-gemsdoekarage1`): read `knowledge/kp1-why-gemsdoe32-scored-02778.md`, `knowledge/kp1-preregistration-20261031.md` and `evidence/kp1_run_card.json` first.** Verdict: **PROMOTE one file** — `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`. Format-valid on the saved bytes (15/15), unique against all nine focus rasters (max |Spearman| 0.0076, max 3-px overlap 26.5 %), zero mass inside the 2-px catalogue corridor, **PROJECTED** 0.2789 (not a score). No slot was spent.
+
+Three things a new session must not re-litigate, because they are measured:
+
+1. The nine focus submissions are one near-uniform family over one lineament support (all 36 pairs overlap 97.5–100 %; score tracks dot count at ρ = −0.967). Their differences are dot-count, not geology. More passes of the same lattice have ≈0.03 of headroom in total.
+2. The exact marginal bar on one more dot is `alpha·s/(1−s)` — 0.0769 at 0.2778, 0.158 at 0.4413 — and the format ceiling is 0.5556. Reaching the leaderboard top needs ~1.86× the champion's per-dot accuracy, or independent expert fault traces that are not in the catalogue. Nothing in this repo has demonstrated either.
+3. Both mandated local instruments disagree with the observed ordering (hide-and-recover ρ = −1.0; independent state-compilation inventory ρ = −0.34) and must not be used as promotion gates without an owner ruling. A catalogue-trained detector scores three times worse than random on off-catalogue faults (`evidence/kp1_exp2_external.json`).
+
 Earlier negative reviews below remain historical evidence for the files they examined.
+
 
 
 **Current branch review first (2026-10-31, `arena/946f7668-gemsdoekarage1`): read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no new TIF, geological experiment, HOLDOUT-DTI, leaderboard estimate, or slot selection. The assigned lane, canonical shared tools, data, and complete authenticated registry remain unresolved. The README and generated public-site banners were refreshed for this review; older session records are historical evidence, not current clearance.

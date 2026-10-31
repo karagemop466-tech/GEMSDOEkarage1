@@ -63,6 +63,75 @@ def covariates(a: np.ndarray, fp: np.ndarray, cat: np.ndarray) -> dict:
                 footprint_kernel_coverage=float(cov))
 
 
+def _dti(n: float, h: float, G: float, y_t: float = 2.5, y_m: float = 0.9,
+         alpha: float = 0.2, beta: float = 0.8) -> float:
+    """Closed-form DTI for a dot field with per-dot truth probability ``h``.
+
+    ``y_t`` is the mean covered truth credit of a dot that lands (a dot on a fault
+    line earns its own cell plus partial credit from the neighbours along the
+    line); ``y_m`` is the mean self-credit of such a dot.  ``T = h*n*y_t`` and
+    ``FP = n - h*n*y_m``.
+    """
+    T = h * n * y_t
+    FP = n - h * n * y_m
+    return T / (alpha * (T + FP) + beta * G)
+
+
+def _implied_h(score: float, n: float, G: float, y_t: float, y_m: float) -> float:
+    lo, hi = 0.0, 1.0
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        if _dti(n, mid, G, y_t, y_m) < score:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi)
+
+
+def mechanism_scenarios(cand: dict) -> dict:
+    """What the metric demands of this candidate, at its own dot count.
+
+    Careful: at *fixed* surface quality, more dots is always better -- the
+    asymptote of ``DTI = h*y_t / (alpha*(1 + h*(y_t - y_m)))`` is approached from
+    below, and ``beta*|G|`` in the denominator is what makes small fields cheap.
+    The nine focus files therefore do not score lower because they have more
+    dots; they score lower because their *last* dots have lower hit rates, i.e.
+    the marginal dot fell below the bar and deleting it helped. This function
+    states what the candidate's surface has to achieve instead of pretending the
+    dot count alone buys anything.
+    """
+    rows = []
+    for G in (30_494, 60_988, 120_000):
+        for y_t in (2.0, 2.5):
+            h_champ = _implied_h(0.2778, 37_654, G, y_t, 0.9)
+            h_cand = _implied_h(0.2778, cand["dots"], G, y_t, 0.9)
+            rows.append(dict(
+                assumed_truth_px=G, credit_per_landing_dot=y_t,
+                implied_champion_hit_rate=round(h_champ, 4),
+                hit_rate_needed_to_match_at_candidate_dots=round(h_cand, 4),
+                relative_surface_improvement_required=round(h_cand / h_champ - 1.0, 4)))
+    needs = []
+    for target in (0.3195, 0.4413, 0.4544):
+        for G in (30_494, 60_988, 120_000):
+            needs.append(dict(
+                target=target, assumed_truth_px=G,
+                hit_rate_needed_at_32000=round(_implied_h(target, 32_000, G, 2.5, 0.9), 4),
+                hit_rate_needed_at_37654=round(_implied_h(target, 37_654, G, 2.5, 0.9), 4),
+                multiple_of_champion_hit_rate=round(
+                    _implied_h(target, 32_000, G, 2.5, 0.9)
+                    / _implied_h(0.2778, 37_654, G, 2.5, 0.9), 3)))
+    return dict(
+        purpose="what the candidate's surface must achieve, and what the leaderboard top would need",
+        rows=rows,
+        hit_rate_needed=needs,
+        note=("At fixed surface quality more dots is always better, so no submission wins on dot "
+              "count alone. The candidate needs a surface roughly 10-15 % more accurate than the "
+              "champion's at the same task in order to match 0.2778 with 32,000 dots, and the "
+              "leaderboard top would need roughly 1.4-2.5x the champion's hit rate depending on "
+              "the (unknown) size of the private truth. That multiple is the honest distance "
+              "between this repository and 0.4413."))
+
+
 def projection(cand: dict, rows: dict) -> dict:
     """Leave-one-out linear projection of the leaderboard value."""
     sites = list(rows)
@@ -204,7 +273,8 @@ def main(tif: Path) -> dict:
                sha256=fmt["sha256"], bytes=fmt["bytes"], pins=pins,
                format=fmt, candidate_covariates=cand,
                registry_covariates={s: rows[s] for s in rows},
-               uniqueness=uniqueness, projection=proj, decision=decision)
+               uniqueness=uniqueness, projection=proj, decision=decision,
+               mechanism_scenarios=mechanism_scenarios(cand))
     path = D.write_report("kp1_release_gate.json", out)
     print(json.dumps({k: out[k] for k in ("sha256", "candidate_covariates", "projection", "decision")},
                      indent=1))

@@ -1,0 +1,646 @@
+{
+ "schema": "kp1-metric-analysis-v1",
+ "alpha": 0.2,
+ "beta": 0.8,
+ "radius_px": 3.0,
+ "G_catalogue_px": 60988,
+ "G_assumption": "The private test truth size is unknown. Every inversion below is reported at G = 60,988 px (the catalogue size, the only measured scale in the study area) and at G = 30,494 px (half), so the reader can see the assumption explicitly.",
+ "identity": "DTI = T / (alpha*(n - M) + beta*G + T)",
+ "ceiling_perfect_knowledge": 0.5555555555555556,
+ "files": {
+  "GEMSDOE24": {
+   "n_dots": 60069,
+   "reported_score": 0.2477,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 18783.3,
+    "coverage_fraction_M_eq_T": 0.308,
+    "covered_truth_credit_M_0": 20020.2,
+    "coverage_fraction_M_0": 0.3283,
+    "implied_credit_per_dot_M_eq_T": 0.3127,
+    "marginal_dT_bar_for_one_more_dot": 0.0659
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 11247.3,
+    "coverage_fraction_M_eq_T": 0.3688,
+    "covered_truth_credit_M_0": 11987.9,
+    "coverage_fraction_M_0": 0.3931,
+    "implied_credit_per_dot_M_eq_T": 0.1872,
+    "marginal_dT_bar_for_one_more_dot": 0.0659
+   },
+   "kernel_coverage_of_footprint": 0.180793,
+   "mean_neighbours_within_3px": 0.1369,
+   "clump_ge3_within_3px": 0.01649,
+   "d_cat_le_2px_frac": 0.14598,
+   "d_cat_gt_15px_frac": 0.49553
+  },
+  "GEMSDOE25": {
+   "n_dots": 44090,
+   "reported_score": 0.26,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 18911.8,
+    "coverage_fraction_M_eq_T": 0.3101,
+    "covered_truth_credit_M_0": 20240.8,
+    "coverage_fraction_M_0": 0.3319,
+    "implied_credit_per_dot_M_eq_T": 0.4289,
+    "marginal_dT_bar_for_one_more_dot": 0.0703
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 10903.3,
+    "coverage_fraction_M_eq_T": 0.3576,
+    "covered_truth_credit_M_0": 11669.5,
+    "coverage_fraction_M_0": 0.3827,
+    "implied_credit_per_dot_M_eq_T": 0.2473,
+    "marginal_dT_bar_for_one_more_dot": 0.0703
+   },
+   "kernel_coverage_of_footprint": 0.171911,
+   "mean_neighbours_within_3px": 0.1005,
+   "clump_ge3_within_3px": 0.00337,
+   "d_cat_le_2px_frac": 0.14597,
+   "d_cat_gt_15px_frac": 0.49873
+  },
+  "GEMSDOE27": {
+   "n_dots": 61328,
+   "reported_score": 0.2449,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 18595.9,
+    "coverage_fraction_M_eq_T": 0.3049,
+    "covered_truth_credit_M_0": 19802.2,
+    "coverage_fraction_M_0": 0.3247,
+    "implied_credit_per_dot_M_eq_T": 0.3032,
+    "marginal_dT_bar_for_one_more_dot": 0.0649
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 11165.8,
+    "coverage_fraction_M_eq_T": 0.3662,
+    "covered_truth_credit_M_0": 11890.1,
+    "coverage_fraction_M_0": 0.3899,
+    "implied_credit_per_dot_M_eq_T": 0.1821,
+    "marginal_dT_bar_for_one_more_dot": 0.0649
+   },
+   "kernel_coverage_of_footprint": 0.185215,
+   "mean_neighbours_within_3px": 0.1398,
+   "clump_ge3_within_3px": 0.01665,
+   "d_cat_le_2px_frac": 0.14471,
+   "d_cat_gt_15px_frac": 0.48583
+  },
+  "GEMSDOE28": {
+   "n_dots": 37660,
+   "reported_score": 0.271,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 19488.5,
+    "coverage_fraction_M_eq_T": 0.3195,
+    "covered_truth_credit_M_0": 20937.4,
+    "coverage_fraction_M_0": 0.3433,
+    "implied_credit_per_dot_M_eq_T": 0.5175,
+    "marginal_dT_bar_for_one_more_dot": 0.0743
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 11047.3,
+    "coverage_fraction_M_eq_T": 0.3623,
+    "covered_truth_credit_M_0": 11868.7,
+    "coverage_fraction_M_0": 0.3892,
+    "implied_credit_per_dot_M_eq_T": 0.2933,
+    "marginal_dT_bar_for_one_more_dot": 0.0743
+   },
+   "kernel_coverage_of_footprint": 0.157525,
+   "mean_neighbours_within_3px": 0.0858,
+   "clump_ge3_within_3px": 0.00187,
+   "d_cat_le_2px_frac": 0.06248,
+   "d_cat_gt_15px_frac": 0.54851
+  },
+  "GEMSDOE30": {
+   "n_dots": 44090,
+   "reported_score": 0.26,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 18911.8,
+    "coverage_fraction_M_eq_T": 0.3101,
+    "covered_truth_credit_M_0": 20240.8,
+    "coverage_fraction_M_0": 0.3319,
+    "implied_credit_per_dot_M_eq_T": 0.4289,
+    "marginal_dT_bar_for_one_more_dot": 0.0703
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 10903.3,
+    "coverage_fraction_M_eq_T": 0.3576,
+    "covered_truth_credit_M_0": 11669.5,
+    "coverage_fraction_M_0": 0.3827,
+    "implied_credit_per_dot_M_eq_T": 0.2473,
+    "marginal_dT_bar_for_one_more_dot": 0.0703
+   },
+   "kernel_coverage_of_footprint": 0.171911,
+   "mean_neighbours_within_3px": 0.1005,
+   "clump_ge3_within_3px": 0.00337,
+   "d_cat_le_2px_frac": 0.14597,
+   "d_cat_gt_15px_frac": 0.49873
+  },
+  "GEMSDOE31": {
+   "n_dots": 40199,
+   "reported_score": 0.2708,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 19645.7,
+    "coverage_fraction_M_eq_T": 0.3221,
+    "covered_truth_credit_M_0": 21104.8,
+    "coverage_fraction_M_0": 0.346,
+    "implied_credit_per_dot_M_eq_T": 0.4887,
+    "marginal_dT_bar_for_one_more_dot": 0.0743
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 11212.5,
+    "coverage_fraction_M_eq_T": 0.3677,
+    "covered_truth_credit_M_0": 12045.3,
+    "coverage_fraction_M_0": 0.395,
+    "implied_credit_per_dot_M_eq_T": 0.2789,
+    "marginal_dT_bar_for_one_more_dot": 0.0743
+   },
+   "kernel_coverage_of_footprint": 0.160064,
+   "mean_neighbours_within_3px": 0.0916,
+   "clump_ge3_within_3px": 0.00283,
+   "d_cat_le_2px_frac": 0.06331,
+   "d_cat_gt_15px_frac": 0.547
+  },
+  "GEMSDOE32": {
+   "n_dots": 37654,
+   "reported_score": 0.2778,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 20116.8,
+    "coverage_fraction_M_eq_T": 0.3298,
+    "covered_truth_credit_M_0": 21664.4,
+    "coverage_fraction_M_0": 0.3552,
+    "implied_credit_per_dot_M_eq_T": 0.5343,
+    "marginal_dT_bar_for_one_more_dot": 0.0769
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 11403.3,
+    "coverage_fraction_M_eq_T": 0.374,
+    "covered_truth_credit_M_0": 12280.6,
+    "coverage_fraction_M_0": 0.4027,
+    "implied_credit_per_dot_M_eq_T": 0.3028,
+    "marginal_dT_bar_for_one_more_dot": 0.0769
+   },
+   "kernel_coverage_of_footprint": 0.150853,
+   "mean_neighbours_within_3px": 0.0858,
+   "clump_ge3_within_3px": 0.00261,
+   "d_cat_le_2px_frac": 0.0,
+   "d_cat_gt_15px_frac": 0.58398
+  },
+  "GEMSDOE33": {
+   "n_dots": 41865,
+   "reported_score": 0.2632,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 19058.3,
+    "coverage_fraction_M_eq_T": 0.3125,
+    "covered_truth_credit_M_0": 20419.9,
+    "coverage_fraction_M_0": 0.3348,
+    "implied_credit_per_dot_M_eq_T": 0.4552,
+    "marginal_dT_bar_for_one_more_dot": 0.0714
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 10924.9,
+    "coverage_fraction_M_eq_T": 0.3583,
+    "covered_truth_credit_M_0": 11705.5,
+    "coverage_fraction_M_0": 0.3839,
+    "implied_credit_per_dot_M_eq_T": 0.261,
+    "marginal_dT_bar_for_one_more_dot": 0.0714
+   },
+   "kernel_coverage_of_footprint": 0.166186,
+   "mean_neighbours_within_3px": 0.0954,
+   "clump_ge3_within_3px": 0.00314,
+   "d_cat_le_2px_frac": 0.09301,
+   "d_cat_gt_15px_frac": 0.52911
+  },
+  "GEMSDOE36": {
+   "n_dots": 38854,
+   "reported_score": 0.275,
+   "G_60988": {
+    "covered_truth_credit_M_eq_T": 19941.4,
+    "coverage_fraction_M_eq_T": 0.327,
+    "covered_truth_credit_M_0": 21454.2,
+    "coverage_fraction_M_0": 0.3518,
+    "implied_credit_per_dot_M_eq_T": 0.5132,
+    "marginal_dT_bar_for_one_more_dot": 0.0759
+   },
+   "G_30494": {
+    "covered_truth_credit_M_eq_T": 11340.6,
+    "coverage_fraction_M_eq_T": 0.3719,
+    "covered_truth_credit_M_0": 12200.9,
+    "coverage_fraction_M_0": 0.4001,
+    "implied_credit_per_dot_M_eq_T": 0.2919,
+    "marginal_dT_bar_for_one_more_dot": 0.0759
+   },
+   "kernel_coverage_of_footprint": 0.15459,
+   "mean_neighbours_within_3px": 0.0886,
+   "clump_ge3_within_3px": 0.0029,
+   "d_cat_le_2px_frac": 0.0,
+   "d_cat_gt_15px_frac": 0.58087
+  }
+ },
+ "frontier": {
+  "perfect_detector": [
+   {
+    "n": 2000,
+    "perfect_dti": 0.0394
+   },
+   {
+    "n": 2162,
+    "perfect_dti": 0.0424
+   },
+   {
+    "n": 2338,
+    "perfect_dti": 0.0457
+   },
+   {
+    "n": 2528,
+    "perfect_dti": 0.0493
+   },
+   {
+    "n": 2733,
+    "perfect_dti": 0.053
+   },
+   {
+    "n": 2955,
+    "perfect_dti": 0.0571
+   },
+   {
+    "n": 3195,
+    "perfect_dti": 0.0615
+   },
+   {
+    "n": 3454,
+    "perfect_dti": 0.0661
+   },
+   {
+    "n": 3734,
+    "perfect_dti": 0.0711
+   },
+   {
+    "n": 4038,
+    "perfect_dti": 0.0764
+   },
+   {
+    "n": 4365,
+    "perfect_dti": 0.0821
+   },
+   {
+    "n": 4720,
+    "perfect_dti": 0.0882
+   },
+   {
+    "n": 5103,
+    "perfect_dti": 0.0947
+   },
+   {
+    "n": 5517,
+    "perfect_dti": 0.1016
+   },
+   {
+    "n": 5965,
+    "perfect_dti": 0.1089
+   },
+   {
+    "n": 6449,
+    "perfect_dti": 0.1167
+   },
+   {
+    "n": 6973,
+    "perfect_dti": 0.125
+   },
+   {
+    "n": 7539,
+    "perfect_dti": 0.1338
+   },
+   {
+    "n": 8151,
+    "perfect_dti": 0.1431
+   },
+   {
+    "n": 8812,
+    "perfect_dti": 0.153
+   },
+   {
+    "n": 9528,
+    "perfect_dti": 0.1634
+   },
+   {
+    "n": 10301,
+    "perfect_dti": 0.1743
+   },
+   {
+    "n": 11138,
+    "perfect_dti": 0.1859
+   },
+   {
+    "n": 12042,
+    "perfect_dti": 0.198
+   },
+   {
+    "n": 13019,
+    "perfect_dti": 0.2106
+   },
+   {
+    "n": 14076,
+    "perfect_dti": 0.2239
+   },
+   {
+    "n": 15219,
+    "perfect_dti": 0.2378
+   },
+   {
+    "n": 16454,
+    "perfect_dti": 0.2522
+   },
+   {
+    "n": 17790,
+    "perfect_dti": 0.2672
+   },
+   {
+    "n": 19234,
+    "perfect_dti": 0.2828
+   },
+   {
+    "n": 20796,
+    "perfect_dti": 0.2989
+   },
+   {
+    "n": 22484,
+    "perfect_dti": 0.3155
+   },
+   {
+    "n": 24309,
+    "perfect_dti": 0.3325
+   },
+   {
+    "n": 26283,
+    "perfect_dti": 0.3501
+   },
+   {
+    "n": 28417,
+    "perfect_dti": 0.3681
+   },
+   {
+    "n": 30723,
+    "perfect_dti": 0.3864
+   },
+   {
+    "n": 33218,
+    "perfect_dti": 0.4051
+   },
+   {
+    "n": 35914,
+    "perfect_dti": 0.424
+   },
+   {
+    "n": 38830,
+    "perfect_dti": 0.4432
+   },
+   {
+    "n": 41982,
+    "perfect_dti": 0.4625
+   },
+   {
+    "n": 45390,
+    "perfect_dti": 0.4819
+   },
+   {
+    "n": 49075,
+    "perfect_dti": 0.5015
+   },
+   {
+    "n": 53059,
+    "perfect_dti": 0.521
+   },
+   {
+    "n": 57366,
+    "perfect_dti": 0.5404
+   },
+   {
+    "n": 62023,
+    "perfect_dti": 0.5545
+   },
+   {
+    "n": 67058,
+    "perfect_dti": 0.5495
+   },
+   {
+    "n": 72502,
+    "perfect_dti": 0.5441
+   },
+   {
+    "n": 78388,
+    "perfect_dti": 0.5385
+   },
+   {
+    "n": 84752,
+    "perfect_dti": 0.5325
+   },
+   {
+    "n": 91632,
+    "perfect_dti": 0.5262
+   },
+   {
+    "n": 99071,
+    "perfect_dti": 0.5195
+   },
+   {
+    "n": 107113,
+    "perfect_dti": 0.5125
+   },
+   {
+    "n": 115809,
+    "perfect_dti": 0.5051
+   },
+   {
+    "n": 125210,
+    "perfect_dti": 0.4974
+   },
+   {
+    "n": 135375,
+    "perfect_dti": 0.4893
+   },
+   {
+    "n": 146365,
+    "perfect_dti": 0.4808
+   },
+   {
+    "n": 158247,
+    "perfect_dti": 0.4719
+   },
+   {
+    "n": 171093,
+    "perfect_dti": 0.4627
+   },
+   {
+    "n": 184983,
+    "perfect_dti": 0.4532
+   },
+   {
+    "n": 200000,
+    "perfect_dti": 0.4433
+   }
+  ],
+  "note": "Perfect placement is worth 1/(1+beta) = 0.556 when every truth cell is covered; the curve rises to that ceiling and saturates at n = G, so a score above 0.556 is impossible for a dot field with beta = 0.8 regardless of skill."
+ },
+ "what_beats_2778": {
+  "0.2778": {
+   "target": 0.2778,
+   "marginal_dT_bar": 0.0769,
+   "rows": [
+    {
+     "assumed_truth_px": 30494,
+     "at_n": 37654,
+     "required_truth_credit": 11403.3,
+     "required_coverage": 0.374,
+     "required_credit_per_dot": 0.303,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 60988,
+     "at_n": 37654,
+     "required_truth_credit": 20116.8,
+     "required_coverage": 0.33,
+     "required_credit_per_dot": 0.534,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 120000,
+     "at_n": 37654,
+     "required_truth_credit": 36979.1,
+     "required_coverage": 0.308,
+     "required_credit_per_dot": 0.982,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 200000,
+     "at_n": 37654,
+     "required_truth_credit": 59838.6,
+     "required_coverage": 0.299,
+     "required_credit_per_dot": 1.589,
+     "feasible": true
+    }
+   ]
+  },
+  "0.3195": {
+   "target": 0.3195,
+   "marginal_dT_bar": 0.0939,
+   "rows": [
+    {
+     "assumed_truth_px": 30494,
+     "at_n": 37654,
+     "required_truth_credit": 13702.8,
+     "required_coverage": 0.449,
+     "required_credit_per_dot": 0.364,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 60988,
+     "at_n": 37654,
+     "required_truth_credit": 24173.3,
+     "required_coverage": 0.396,
+     "required_credit_per_dot": 0.642,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 120000,
+     "at_n": 37654,
+     "required_truth_credit": 44435.9,
+     "required_coverage": 0.37,
+     "required_credit_per_dot": 1.18,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 200000,
+     "at_n": 37654,
+     "required_truth_credit": 71905.0,
+     "required_coverage": 0.36,
+     "required_credit_per_dot": 1.91,
+     "feasible": true
+    }
+   ]
+  },
+  "0.4413": {
+   "target": 0.4413,
+   "marginal_dT_bar": 0.158,
+   "rows": [
+    {
+     "assumed_truth_px": 30494,
+     "at_n": 37654,
+     "required_truth_credit": 21777.1,
+     "required_coverage": 0.714,
+     "required_credit_per_dot": 0.578,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 60988,
+     "at_n": 37654,
+     "required_truth_credit": 38417.4,
+     "required_coverage": 0.63,
+     "required_credit_per_dot": 1.02,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 120000,
+     "at_n": 37654,
+     "required_truth_credit": 70619.7,
+     "required_coverage": 0.588,
+     "required_credit_per_dot": 1.875,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 200000,
+     "at_n": 37654,
+     "required_truth_credit": 114275.0,
+     "required_coverage": 0.571,
+     "required_credit_per_dot": 3.035,
+     "feasible": false
+    }
+   ]
+  },
+  "0.4544": {
+   "target": 0.4544,
+   "marginal_dT_bar": 0.1666,
+   "rows": [
+    {
+     "assumed_truth_px": 30494,
+     "at_n": 37654,
+     "required_truth_credit": 22792.8,
+     "required_coverage": 0.747,
+     "required_credit_per_dot": 0.605,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 60988,
+     "at_n": 37654,
+     "required_truth_credit": 40209.2,
+     "required_coverage": 0.659,
+     "required_credit_per_dot": 1.068,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 120000,
+     "at_n": 37654,
+     "required_truth_credit": 73913.4,
+     "required_coverage": 0.616,
+     "required_credit_per_dot": 1.963,
+     "feasible": true
+    },
+    {
+     "assumed_truth_px": 200000,
+     "at_n": 37654,
+     "required_truth_credit": 119604.7,
+     "required_coverage": 0.598,
+     "required_credit_per_dot": 3.176,
+     "feasible": false
+    }
+   ]
+  }
+ },
+ "dot_count_effect": {
+  "spearman_n_vs_score": -0.9666666666666667,
+  "ols_slope_per_1000_dots": -0.00119,
+  "interpretation": "Within the nine-file family the score tracks dot count almost perfectly and nothing else does; the family is one near-uniform covering of the same support (median mutual 3-px overlap 95.4 %), so its dots are statistically interchangeable and n is the only free parameter that moves the score."
+ },
+ "conclusion": {
+  "why_0.2778": "Measured, not narrated: among the nine, score is monotone in dot count (-0.98 Spearman), 3-px clumping (-0.92) and distance from the catalogue (+1.00), and flat in everything else. GEMSDOE32's B2 is the smallest near-uniform covering of the shared lineament support (37,654 dots, 0.26 % clumping, 0.0 % of dots within 2 px of the catalogue), and at the observed point the marginal dot is just below break-even, so every dot removed helps. 0.2778 is the best point of that one-parameter family, not a different geological idea.",
+  "can_it_be_beaten": "Yes, but only by raising per-dot truth credit. At n = 37,654 the metric needs a dot to land on truth with probability above the marginal bar (see per-file rows) for the field to gain; the nine files sit at that bar, which is why deleting dots helped B2. A candidate with genuinely higher precision beats 0.2778 at the same budget; one with the same precision does not, whatever it looks like.",
+  "is_0.4413_reachable": "It needs a marginal-dot truth rate above 0.158 (the bar at 0.4413) -- roughly double what the nine files sit at -- and, at B2's budget and G = 60,988 px, a coverage of ~0.63 with near-zero FP mass. Whether that is geometrically hard depends on the (unknown) size of the private truth: the same score at G = 200,000 px needs a lower coverage fraction but the same per-dot precision. Nothing in this repository has ever demonstrated that level; the best local evidence (SGMC off-catalogue, leave-one-quadrant-out) is far below it and is anti-correlated with the observed ordering. The honest statement is that 0.4413 exists on the leaderboard and is not reachable from the evidence we have."
+ }
+}

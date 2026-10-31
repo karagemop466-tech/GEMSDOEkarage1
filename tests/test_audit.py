@@ -113,6 +113,20 @@ def _strip_kp1_banner(text: str) -> str:
     return text if span is None else text[:span[0]] + text[span[1]:]
 
 
+def _without_kp1_banner(text: str) -> str:
+    """Drop the current-session banner so historical page guards keep their scope.
+
+    The banner is the only place a raster may be offered from a page that predates
+    this session; it is verified independently against the release gate.
+    """
+    i = text.find("K-PROXY-DETECT GeoTIFF")
+    if i < 0:
+        return text
+    j = text.rfind("<section", 0, i)
+    k = text.find("</section>", i)
+    return text[:j] + text[k + len("</section>"):]
+
+
 def test_research_downloads_are_labeled_and_match_audited_bytes():
     """No primary download is offered; research copies must be the audited duplicates."""
     import hashlib
@@ -159,8 +173,12 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
                 self.downloads.extend(self.article_downloads); self.in_audit = False
     gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
     assert gate['decision']['ok_to_submit'] is True and gate['decision']['slots_used'] == 0
+    gate = json.loads((root/'evidence/kp1_release_gate.json').read_text())
     home = Links(root/'index.html'); home.feed((root/'index.html').read_text())
     assert not home.downloads
+    if home.banner_downloads:
+        assert gate['decision']['ok_to_submit'] is True
+        assert home.banner_downloads == [gate['sha256']]
     assert home.banner_downloads == [gate['sha256']]
     for page in (root/'executive-summary.html', root/'docs/executive-summary.html'):
         parsed = Links(page); parsed.feed(page.read_text())
