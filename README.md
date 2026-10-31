@@ -18,6 +18,35 @@
 - **Historical note:** the K-PROXY-DETECT artifact below was promoted by a prior lane receipt based on checks against the nine focus rasters. Under the active full-registry/pre-placement protocol, it is a research artifact pending re-audit—not cleared. Its old projection 0.2789 remains PROJECTED, not a score.
 - Start every session by reading [docs/standing-prompt.md](docs/standing-prompt.md) and this section. The original prompt text was not preserved verbatim; the file explicitly identifies itself as a reconstruction.
 
+## REVIEW — `arena/d454d34a-gemsdoekarage1` (31 Oct 2026) · NOT AUTHORIZED · DO NOT SUBMIT
+
+This block agrees with the active fail-closed record `evidence/active_submission_status.json` (`ok_to_submit: false`). It adds the verified numbers and two corrections; it does not authorize anything.
+
+- **Download and submit? No.** The kp1 file can be downloaded for audit: [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) (SHA-256 `30a5fc28ff060ad38681d9b721024aea5aec3b070f407537dd28354efbe0ff0d`, float32, EPSG:32611, 32,000 dots, values in [0, 1], no NaN).
+- **What passes:** format; literal uniqueness (max 26.5 % of dots within 3 px of any focus file; limit 70 %); correlation with the nine (max |ρ| 0.0115; the run card's 0.0076 does not reproduce; limit 0.90); project validator 15/15 against the restored public mirror (grid, footprint, catalogue: 0 dots on it).
+- **What does not:** organizer-authenticated inputs; leakage canary and holdout beating the frozen best (not run); final registry check. Nothing here measures the score. The 0.2789 figure is PROJECTED from a 3-parameter fit to nine unverified scores.
+- **Open format risk:** the mirror sample writes NaN outside the footprint (7,111,787 cells); kp1 writes zeros there. Both stay in [0, 1]. The portal's handling is undocumented; the owner decides the encoding.
+- **Corrections:** the kp1 metric identity was wrong in our analysis (ceiling 1.0, not 0.556; marginal bar 0.0588 at 0.2778, not 0.0769; 0.0968 at 0.4413, not 0.158; coverage ratio about 1.6×, not 1.86×). Fixed in `scripts/kp1_metric_analysis.py` and the generated pages.
+
+**Executive table (labels: USER-REPORTED / PROJECTED / HOLDOUT-DTI / ORGANIZER-PUBLIC):**
+
+| Site | File | Estimate (label) | Unique vs other listed sites? | Verdict |
+|---|---|---|---|---|
+| GEMSDOE32 | `GEMSDOE32_B2.tif` (best reported focus file) | 0.2778 (USER-REPORTED) | No: 100 % within 3 px of GEMSDOE24; exact subset of GEMSDOE25 | DO NOT SUBMIT (duplicate) |
+| GEMSDOE36 | `GEMSDOE36_…-zeros.tif` | 0.2750 (USER-REPORTED) | No: 97.6 % within 3 px of GEMSDOE27 | DO NOT SUBMIT |
+| GEMSDOE28 | `GEMSDOE28_…-nan.tif` | 0.2710 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE31 | `GEMSDOE31_…-nan.tif` | 0.2708 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE33 | `GEMSDOE33_…-cb490425926e.tif` | 0.2632 (USER-REPORTED) | No: 99.7 % | DO NOT SUBMIT |
+| GEMSDOE25 | `GEMSDOE25_d28.tif` | 0.2600 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE30 | `GEMSDOE30_…tif` | 0.2600 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE24 | `GEMSDOE24_…-nan.tif` | 0.2477 (USER-REPORTED) | No: 100 % | DO NOT SUBMIT |
+| GEMSDOE27 | `GEMSDOE27_…-nan.tif` | 0.2449 (USER-REPORTED) | No: 98.0 % | DO NOT SUBMIT |
+| **New: kp1** | `karage1-kp1-…-20261031.tif` | Not estimated (projection 0.2789 is PROJECTED, not a score; off-catalogue HOLDOUT-DTI 0.0764, CI spans zero) | Yes: 26.5 % max | **DO NOT SUBMIT (not authorized)** |
+
+**Leaderboard (ORGANIZER-PUBLIC, fetched 31 Oct 2026):** live #1 is **0.4544**. The brief's 0.4413 is not in ranks 1–47. The brief's "0.3195 is highest" conflicts with #1; the repo snapshot puts rank 50 at 0.3195 (not re-read this session).
+
+**Read next:** [review](knowledge/review-arena-d454d34a-20261031.md) · [run card](evidence/run_card_arena_d454d34a_20261031.json) · [overlap matrix](evidence/registry_overlap_matrix_20261031.json) · [executive summary](docs/executive-summary.html) · official: [metric page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/), [rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf).
+
 ## HISTORICAL K-PROXY-DETECT REVIEW — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · NOT ACTIVE CLEARANCE
 
 **Answer: no file is OK to download and submit. Verdict: NEGATIVE / DO NOT SUBMIT. No file is cleared; no weekly slot selected or spent.**

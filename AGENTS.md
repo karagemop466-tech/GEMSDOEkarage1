@@ -4,6 +4,8 @@
 
 # Starting point for every session
 
+**REVIEW (2026-10-31, `arena/d454d34a-gemsdoekarage1`): NOT AUTHORIZED, DO NOT SUBMIT.** The kp1 file passes format and literal uniqueness; the active record `evidence/active_submission_status.json` (ok_to_submit false) still governs. Metric correction: the kp1 identity was wrong (ceiling 1.0 not 0.556; bars 0.0588 and 0.0968). Mirror-restored `data/` is hash-consistent, not organizer-authenticated. Open: outside-footprint encoding (sample NaN, kp1 zeros). See `knowledge/review-arena-d454d34a-20261031.md`.
+
 **CURRENT SESSION (2026-10-31, `arena/a79c8595-gemsdoekarage1`): read `docs/standing-prompt.md`, `knowledge/review-arena-a79c8595-20261031.md`, and `evidence/run_card_arena_a79c8595_20261031.json` first.** Verdict: **NEGATIVE / DO NOT SUBMIT**. No candidate was generated, no holdout was run, and no slot was selected or spent. The earlier K-PROXY-DETECT `promote` card is a historical lane decision, not current authorization: it lacks an active complete-registry/pre-placement clearance and its old renderer conflicts with the later fail-closed review. The website/builders are being corrected to prevent that stale green status.
 
 The original prompt reconstruction is in `docs/standing-prompt.md`; the user's current full prompt is also represented in the README session-prompt section. The original text was not preserved verbatim in this checkout.
