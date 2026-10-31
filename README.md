@@ -5,6 +5,14 @@
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.
 - **Own the Outcome:** own results end to end; report negatives, blocked gates, and irregularities plainly.
 
+## LATEST REVIEW — `arena/4dffc2c6-gemsdoekarage1` (31 Oct 2026) · **YES: one file (KP1). All others DO NOT SUBMIT.**
+
+- **Answer:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif) is the file to download and upload. Download page: [docs/kp1/index.html](docs/kp1/index.html). Projected 0.2789 is a **PROJECTION, not a score**; no organizer receipt exists. You choose the slot.
+- **Verified this session (independent recheck):** max |Spearman| 0.0136 and max 3-px overlap 26.5 % vs the nine focus rasters; saved bytes SHA-256 `30a5fc28…`, values in [0, 1], no NaN. Receipt: [`evidence/uniqueness_recheck_kp1_20261031.json`](evidence/uniqueness_recheck_kp1_20261031.json). Script: `scripts/verify_uniqueness_independent.py`.
+- **Fixed:** the home page and executive summary showed both "OK TO SUBMIT" and "DO NOT SUBMIT · HOLD". The shared status bar and the 31 Oct headings now say the same thing: one file cleared, everything else not.
+- **Review, flags and remaining work:** [`knowledge/session-review-arena-4dffc2c6-20261031.md`](knowledge/session-review-arena-4dffc2c6-20261031.md) · run card [`evidence/run_card_arena_4dffc2c6_20261031.json`](evidence/run_card_arena_4dffc2c6_20261031.json). Experiments used: 0 of 3.
+- **Standing prompt:** the SESSION PROMPT section (further down) is the starting point for every session. Core values: Maximize P(Win), Own the Outcome.
+
 ## CURRENT SESSION — `arena/9a378959-gemsdoekarage1` (31 Oct 2026) · **PROMOTE: ONE FILE IS CLEARED**
 
 **✅ OK TO SUBMIT:** [`docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`](docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif)
