@@ -1,5 +1,7 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
+> **LATEST REVIEW (31 Oct 2026, `arena/afe07cea-gemsdoekarage1`) — read first:** [`knowledge/review-arena-afe07cea-20261031.md`](knowledge/review-arena-afe07cea-20261031.md). **No file cleared; no new TIF; no slot spent.** Findings: (1) the literal official text puts NaN *outside the bounds*, so NaN *inside* the raster extent (the `-nan` files) is the likeliest cause of the "must be in range [0, 1]" rejection; (2) the homepage says "OK TO SUBMIT" for the KP1 file while the executive summary says "NOT CLEARED" — owner must resolve; (3) KP1 uniqueness is independently verified (3-px overlap 23–26 %, |Spearman| < 0.02 vs GEMSDOE24/25/32-B2); (4) the live leaderboard top is 0.4544, not 0.4413. Receipts: `evidence/review_afe07cea_20261031.json`, `scripts/verify_review_20261031.py`.
+
 ## CORE VALUES — focal point for every decision
 
 - **Maximize P(Win):** choose the path with the highest probability of a real, unique, validated win.

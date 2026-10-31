@@ -1,3 +1,5 @@
+**LATEST (31 Oct 2026, `arena/afe07cea-gemsdoekarage1`): read `knowledge/review-arena-afe07cea-20261031.md` first.** No file cleared, no TIF, no slot spent. The homepage 'OK TO SUBMIT' banner for KP1 contradicts the rest of the site; the owner must resolve it. The '`-nan` is permitted' reading is not supported by the literal official text.
+
 # Starting point for every session
 
 **CURRENT SESSION (2026-10-31, `arena/9a378959-gemsdoekarage1`): read `knowledge/kp1-why-gemsdoe32-scored-02778.md`, `knowledge/kp1-preregistration-20261031.md` and `evidence/kp1_run_card.json` first.** Verdict: **PROMOTE one file** — `docs/downloads/karage1-kp1-ttca-springalter-far-conduit-32000-20261031.tif`. Format-valid on the saved bytes (15/15), unique against all nine focus rasters (max |Spearman| 0.0076, max 3-px overlap 26.5 %), zero mass inside the 2-px catalogue corridor, **PROJECTED** 0.2789 (not a score). No slot was spent.
