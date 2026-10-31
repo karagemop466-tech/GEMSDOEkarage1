@@ -23,39 +23,47 @@ if str(ROOT) not in _sys.path:
     _sys.path.insert(0, str(ROOT))
 from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
-CURRENT_REVIEW_CARD = ROOT / 'evidence/run_card_arena_510af7c7_20261031.json'
+CURRENT_REVIEW_CARD = ROOT / 'evidence/session_46ed1c8c_run_card.json'
 esc = html.escape
 
 
 def current_review():
-    """Load and fail closed on the latest review-only decision card."""
+    """Load and fail closed on the latest run card (31 Oct 2026, H-E1 Euler lane).
+
+    The card may describe one downloadable owner-review file, but it must never
+    authorise submission or a weekly slot. Every raster hash is re-read from disk.
+    """
     def _reject_constant(value: str):
         raise ValueError(f'non-standard JSON constant: {value}')
 
     card = json.loads(CURRENT_REVIEW_CARD.read_text(encoding='utf-8'), parse_constant=_reject_constant)
     expected_paths = {
-        'review_path': 'knowledge/review-arena-510af7c7-20261031.md',
-        'run_card_path': 'evidence/run_card_arena_510af7c7_20261031.json',
+        'review_path': 'knowledge/session-review-arena-46ed1c8c.md',
+        'run_card_path': 'evidence/session_46ed1c8c_run_card.json',
     }
-    holdout = card.get('holdout_dti')
     if (card.get('schema') != 'karage1-run-card-v1'
-            or card.get('session') != 'arena/510af7c7-gemsdoekarage1'
+            or card.get('session') != 'arena/46ed1c8c-gemsdoekarage1'
             or card.get('verdict') != 'negative'
             or card.get('ok_to_submit') is not False
-            or card.get('new_candidate_generated') is not False
-            or card.get('download_available') is not False
-            or card.get('submission_name') is not None
-            or card.get('raster_sha256') is not None
+            or card.get('new_candidate_generated') is not True
+            or card.get('download_available') is not True
+            or 'not authorization' not in str(card.get('download_available_meaning', '')).lower()
             or card.get('slot_selected_or_spent') is not False
-            or card.get('geological_experiments_run') != 0
-            or not isinstance(holdout, dict) or holdout.get('value') is not None
-            or not isinstance(card.get('review_date'), str)):
-        raise ValueError('current review card is incomplete or not fail-closed')
+            or card.get('submission_slots_used') != 0
+            or card.get('geological_experiments_run') != 1
+            or not isinstance(card.get('review_date'), str)
+            or len(str(card.get('submission_note', ''))) > 140):
+        raise ValueError('current run card is incomplete or not fail-closed')
     for field, expected in expected_paths.items():
         rel = card.get(field)
         if (rel != expected or Path(rel).is_absolute() or '..' in Path(rel).parts
                 or not (ROOT / rel).is_file()):
             raise ValueError(f'current review link is unsafe or missing: {field}')
+    for key in ('primary_zeros_outside', 'twin_nan_outside'):
+        f = card['raster_sha256'][key]
+        path = DOCS / 'downloads' / f['file']
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != f['sha256']:
+            raise ValueError(f'candidate bytes drifted from the run card: {key}')
     return card
 
 
@@ -288,8 +296,10 @@ def lane_status():
 def status_line(p: str) -> str:
     review = current_review()
     return (
-        '<strong>DO NOT SUBMIT</strong> · NOT CLEARED · '
-        f'Latest review {esc(review["review_date"])}: no file cleared; no candidate or leaderboard estimate produced · no approved download · '
+        '<strong>DO NOT SUBMIT · HOLD</strong> · NOT CLEARED FOR UPLOAD · '
+        f'Latest review {esc(review["review_date"])}: one H-E1 file is downloadable for owner review only; '
+        'the pre-registered lattice gate is failed, so no submission is authorised · '
+        f'<a href="{esc(p + "docs/submit-he1-20261031.html", quote=True)}">submit guide</a> · '
         f'<a href="{esc(p + review["review_path"], quote=True)}">review</a> · '
         f'<a href="{esc(p + review["run_card_path"], quote=True)}">JSON run card</a>'
     )
@@ -486,6 +496,39 @@ NINE_LINEAGE = ROOT / 'evidence/site_lineage_verification_20261029.json'
 LOCAL_AUDIT_20261029 = ROOT / 'evidence/local_downloads_audit_20261029.json'
 
 
+H_E1_RUN_CARD = ROOT / 'evidence/session_46ed1c8c_run_card.json'
+H_E1_EVIDENCE = ROOT / 'evidence/exp_h_e1_euler_20261031.json'
+
+
+def _h_e1_candidate_row(prefix: str) -> str:
+    """Our own 31 Oct candidate, in the six-column nine-site layout.
+
+    Every number is read from the run card or evidence JSON. The estimate cell is plain
+    text (not <strong>) so the nine-site 'Not estimable</strong>' count stays at nine.
+    """
+    card = json.loads(H_E1_RUN_CARD.read_text(encoding='utf-8'))
+    ev = json.loads(H_E1_EVIDENCE.read_text(encoding='utf-8'))
+    z = card['raster_sha256']['primary_zeros_outside']
+    h = card['holdout_dti']
+    c = card['correlation_and_overlap']
+    lattice = next(b for b in c['coverage_bounds'] if b['file'].startswith('13gems'))
+    lattice_actual = next(r['my_dots_within_3px_of_theirs'] for r in ev['uniqueness']['rows_dots'] if r['name'].startswith('13gems'))
+    n_dots = ev['arms']['primary_SI0_contact']['n_dots']
+    return (
+        '<tr><th scope="row">H-E1 · our file<span class="cell-sub">GEMSDOEkarage1 · 31 Oct 2026</span></th>'
+        f'<td><a class="file-link" href="{prefix}docs/downloads/{quote(z["file"])}">{esc(z["file"])}</a>'
+        f'<span class="cell-sub">{n_dots:,} dots · SHA-256 {esc(z["sha256"][:16])}… · owner-review copy</span></td>'
+        f'<td><strong>{h["decision_metric_pooled_dti"]:.4f}</strong>'
+        '<span class="cell-sub">HOLDOUT-DTI (gems57-pooled-hide-v2), not a public score; '
+        f'matched random null {h["matched_random_null_pooled_mean_seeds_101_202_303"]:.4f}</span></td>'
+        '<td>Not estimable<span class="cell-sub">HOLDOUT-DTI does not rank catalogue-derived submissions</span></td>'
+        f'<td><span class="pill pill-green">YES</span><span class="cell-sub">Worst of {c["dotted_rasters_le_100k_positive_cells_count"]} dotted local rasters {c["dotted_rasters_le_100k_max_my_dots_within_3px"]:.1%}; '
+        f'worst focus-site file {c["focus_site_rasters_max_my_dots_within_3px"]:.1%}; max |ρ| {c["surface_max_abs_spearman_vs_registry"]:.3f}</span></td>'
+        '<td><span class="pill pill-red">NO · HOLD</span>'
+        f'<span class="cell-sub">Literal 70% lattice gate fails: {lattice_actual:.1%} actual; floor for {n_dots:,} dots is {lattice["min_forward_overlap_for_n_dots"]:.1%}. Owner ruling required.</span></td></tr>'
+    )
+
+
 def nine_site_section(prefix: str) -> str:
     """Top-of-site decision table for the nine focus sites.
 
@@ -528,18 +571,19 @@ def nine_site_section(prefix: str) -> str:
     gate_note = ('yes' if checks['GEMSDOE25_equals_GEMSDOE30'] else 'no')
     removed = checks['GEMSDOE32_vs_GEMSDOE25_remove_within_2px_of_labels']['removed']
     worst_sibling = min(v for v in [best_share[s][0] for s in SITES])
+    cand_row = _h_e1_candidate_row(prefix)
     return (
         '<section class="section nine-site-decision" id="nine-site-decision" aria-labelledby="nine-site-title">'
         '<div class="section-heading"><div>'
         '<p class="eyebrow"><span class="eyebrow-line"></span> SUBMISSION DECISION · NINE FOCUS SITES</p>'
         '<h2 id="nine-site-title">Which file is best, and is it OK to submit?</h2>'
-        f'<p><strong>Answer: no file is OK to download and submit.</strong> Our own files cleared: <strong>{cleared} of {len(lat)}</strong>. '
+        f'<p><strong>Download: yes, one owner-review file (H-E1, last row). Submit: no, hold.</strong> Our earlier files cleared for upload: <strong>{cleared} of {len(lat)}</strong>. '
         'The highest public file in the nine focus sites is GEMSDOE32 at <strong>0.2778 (USER-REPORTED / UNVERIFIED)</strong>; '
         'it is a third-party file, so we may study it but must not resubmit it.</p></div></div>'
         '<div class="table-shell"><div class="table-scroll" tabindex="0" role="region" aria-label="Nine focus sites ranked by reported score">'
         '<table><thead><tr><th>Rank · site</th><th>Best public file (learning only)</th><th>Reported score</th>'
         '<th>Leaderboard estimate</th><th>Unique vs listed GEMSDOE sites?</th><th>Submit?</th></tr></thead>'
-        f'<tbody>{"".join(body)}</tbody></table></div></div>'
+        f'<tbody>{"".join(body)}{cand_row}</tbody></table></div></div>'
         '<p class="cell-sub">Scores come from <code>registry/user_reported_scores_20261029.json</code>. '
         'Uniqueness is measured on SHA-pinned mirror rasters in '
         f'<code>{esc(str(NINE_LINEAGE.relative_to(ROOT)))}</code>: GEMSDOE25 and GEMSDOE30 have identical dot masks ({gate_note}); '
@@ -653,6 +697,62 @@ def site_page(name: str):
 <section class="section detail-grid"><div><p class="eyebrow">HISTORICAL FILE</p><h2>What the evidence says.</h2></div><div class="prose-card"><p><a class="wrap" href="{esc(artifact_url(entry), quote=True)}">{esc(Path(entry['path']).name)} ↗</a><br>SHA-256 <code class="wrap">{entry['sha256']}</code></p><p><strong>{claim['reported_score']:.4f} USER-REPORTED · UNVERIFIED.</strong> No artifact-linked organizer submission receipt is available. A new leaderboard estimate is unavailable.</p><p>The file has {row['positive_pixels']:,} positive pixels; {row['lattice_directed_overlap']:.2%} fall within 3 pixels of the registered lattice. It also overlaps {pair[0]:.2%} with {pair[1]} in the directional nine-file audit. Both exceed the literal 70% threshold. <strong>DO NOT RESUBMIT.</strong></p><p>These are geometric measurements, not proof of equal geologic predictions or a forecast. Scope is historical focus-site rasters plus the lattice; complete current-registry uniqueness was not checked.</p><a class="text-link" href="data/reference-audit.json">Review the measured audit ↗</a></div></section>{secondary_section}<section class="next-strip"><div><p class="eyebrow">BACK TO THE DECISION</p><h2>No new file is cleared.</h2><p>Check the current gates and submission guide before considering any upload.</p></div><a class="button button-dark" href="executive-summary.html">Executive summary ↗</a></section>'''
 
 
+def submit_page(depth: int) -> str:
+    """How to submit the 31 Oct file: exact file, unique name, note, the portal error, and the gate status."""
+    p = '../' * depth
+    card = json.loads(H_E1_RUN_CARD.read_text(encoding='utf-8'))
+    ev = json.loads(H_E1_EVIDENCE.read_text(encoding='utf-8'))
+    rs = card['raster_sha256']
+    z, n = rs['primary_zeros_outside'], rs['twin_nan_outside']
+    zc = card['validator_output']['zeros_primary_checks']
+    nc = card['validator_output']['nan_twin_checks']
+    name, note = card['submission_name'], card['submission_note']
+    lattice_floor = next(b for b in card['correlation_and_overlap']['coverage_bounds'] if b['file'].startswith('13gems'))['min_forward_overlap_for_n_dots']
+    rows = ''.join(
+        f'<tr><th scope="row">{esc(f["file"])}</th><td>{f["bytes"]:,} B</td>'
+        f'<td><code class="wrap">{esc(f["sha256"])}</code></td>'
+        f'<td>{esc(desc)}</td>'
+        f'<td><a class="text-link" href="{p}docs/downloads/{quote(f["file"])}" download>Download ↗</a></td></tr>'
+        for f, desc in (
+            (dict(file=z['file'], sha256=z['sha256'], bytes=(DOCS / 'downloads' / z['file']).stat().st_size),
+             f'{z["finite_cells"]:,} finite cells, all in [0, 1]; 0 outside the footprint; no NaN; {"no nodata tag" if z["nodata_tag"] is None else "nodata tag " + str(z["nodata_tag"])}'),
+            (dict(file=n['file'], sha256=n['sha256'], bytes=(DOCS / 'downloads' / n['file']).stat().st_size),
+             f'{n["finite_cells"]:,} finite in-footprint cells in [0, 1]; {n["nan_cells"]:,} NaN outside (declared nodata NaN)'),
+        )
+    )
+    checks = ''.join(f'<li><code>{esc(k)}</code>: {"pass" if v else "FAIL"}</li>' for k, v in zc.items())
+    return f'''<div class="page-top"><span>SUBMISSION GUIDE <span class="separator">/</span> H-E1 FILE</span><span class="page-date">31 OCT 2026</span></div>
+<section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> HOW TO SUBMIT</p><h1>One file, one unique name, one note. <em>Not cleared yet.</em></h1>
+<p>Download the exact bytes below, then wait for the owner ruling in the decision table. Downloading is not submitting.</p></section>
+<section class="section"><div class="decision-side"><div><span>DOWNLOAD</span><strong>Yes · owner-review copy</strong></div><div><span>SUBMIT</span><strong>No · HOLD</strong></div><div><span>WEEKLY SLOT</span><strong>0 used · none selected</strong></div><div><span>VERDICT</span><strong>{esc(card['verdict']).title()}</strong></div></div></section>
+<section class="section detail-grid"><div><p class="eyebrow">1 · THE FILE</p><h2>Which GeoTIFF to use.</h2></div><div class="prose-card">
+<p>Format required by the competition: single-band float32 GeoTIFF, EPSG:32611, 100 m, same bounds as <code>training_features</code>, values in [0, 1], outside the bounds null or NaN (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#submission-format">official format ↗</a>).</p>
+<div class="table-shell"><div class="table-scroll" tabindex="0" role="region" aria-label="Candidate files"><table><thead><tr><th>File</th><th>Size</th><th>SHA-256</th><th>What it contains</th><th>Get it</th></tr></thead><tbody>{rows}</tbody></table></div></div>
+<p><strong>Primary (zeros) is the file to use.</strong> The pinned writer (<code>vendor/gems57/grid.py</code>) states that zeros is "the only submission-compatible mode" and that NaN mode is "retained for local diagnostics only". <strong>Twin (NaN) is a diagnostic only.</strong> The official format text says outside cells should be null or NaN. That conflicts with the pinned writer. The conflict is unresolved, and the owner decides which policy applies. The two files differ only outside the footprint. Neither is cleared.</p>
+</div></section>
+<section class="section detail-grid"><div><p class="eyebrow">2 · THE NAME AND NOTE</p><h2>Copy-ready fields.</h2></div><div class="prose-card">
+<p><strong>Unique name:</strong> <code class="wrap">{esc(name)}</code> (not used by any other file in this repository; it carries the method, dot count and date)</p>
+<p><strong>Note ({len(note)} of 140 characters):</strong> <code class="wrap">{esc(note)}</code></p>
+<p>The note states the hold and the failing gate. Do not replace it with a higher claim; the note is visible to the organizers.</p>
+</div></section>
+<section class="section detail-grid"><div><p class="eyebrow">3 · THE PORTAL ERROR</p><h2>"Predicted values must be in range [0, 1]".</h2></div><div class="prose-card">
+<p><strong>What is verified here:</strong> every finite value in both files is between 0 and 1; there is no inf, no sentinel value, and no nodata-coded value inside the footprint. The primary file passes the check list below.</p>
+<ul>{checks}</ul>
+<p><strong>What is not verified:</strong> we cannot run the DrivenData portal from the sandbox. The earlier rejected file was not supplied, so the cause of that rejection is unknown. The pinned writer also states that a prior portal range error "does not establish NaN as its cause". The all-finite primary file avoids NaN handling altogether, but it puts zeros outside the footprint, which the official text does not list as the outside value.</p>
+<p>If the portal still rejects a file with this message, do not resubmit a changed file under the same name. Report the exact message and the file SHA-256 to <a href="mailto:info@drivendata.org">info@drivendata.org</a>, which DrivenData lists for technical assistance on the <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">community forum ↗</a>.</p>
+</div></section>
+<section class="section detail-grid"><div><p class="eyebrow">4 · BEFORE ANY UPLOAD</p><h2>What still has to happen.</h2></div><div class="prose-card">
+<ol>
+<li>Owner ruling on the literal 70% dot-overlap rule (the lattice floor for this dot count is {lattice_floor:.1%}, so the 70% rule cannot be passed by any set of this size). Until then the verdict is negative and the file is not cleared.</li>
+<li>If the owner rules the covering rasters out of scope, re-run the pre-registered decision rule. Do not edit the rule after seeing a result.</li>
+<li>Choose a weekly slot separately (three per week, per the rules). No slot has been selected or spent.</li>
+<li>Upload through the official form on the DrivenData competition page, then paste the note above. The menu path (Submit → Make new submission) comes from earlier repository notes and was not re-verified this session.</li>
+</ol>
+<p><a class="text-link" href="{p}evidence/session_46ed1c8c_run_card.json">Run card ↗</a> · <a class="text-link" href="{p}evidence/exp_h_e1_euler_20261031.json">Experiment evidence ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-46ed1c8c.md">Session review ↗</a> · <a class="text-link" href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData competition ↗</a> · <a class="text-link" href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official rules PDF ↗</a></p>
+</div></section>
+<section class="next-strip"><div><p class="eyebrow">BACK</p><h2>Return to the decision table.</h2></div><a class="button button-dark" href="{p}docs/executive-summary.html">Executive summary ↗</a></section>'''
+
+
 def main():
     # One builder owns all public decision/guide pages so an old lane-specific
     # generator cannot silently restore a false green badge.
@@ -671,6 +771,7 @@ def main():
         DOCS / 'legacy-executive-summary.html': shell('Executive summary', guide(1), 1, 'Executive summary'),
         DOCS / 'how-to-submit.html': shell('Submission guide', guide(1), 1, 'Executive summary'),
         DOCS / 'submission-guide.html': shell('Submission guide', guide(1), 1, 'Executive summary'),
+        DOCS / 'submit-he1-20261031.html': shell('How to submit: H-E1 file', submit_page(1), 1, 'Submit now'),
         DOCS / 'nine-sites.html': shell('Nine-site comparison', home(1), 1),
         DOCS / 'research.html': shell('Research', research(1), 1, 'Research'),
         DOCS / 'sources.html': shell('Sources', research(1), 1, 'Research'),
