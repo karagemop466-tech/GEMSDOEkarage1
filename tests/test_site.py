@@ -39,11 +39,11 @@ def test_site_links_and_negative_banner():
     assert 'HISTORICAL EXPERIMENT · SESSION arena/fb1e3550 · 29 OCT 2026' in index
     assert 'PRIOR CANDIDATE REVIEW · 29 OCT 2026' in index
     assert 'Historical experiment run card' in index
-    assert 'ORGANIZER-PUBLIC; live re-read 30 Oct 2026' in index
-    assert '0.3195 is rank #48' in index
+    assert 'ORGANIZER-PUBLIC; live re-read 31 Oct 2026' in index
+    assert '0.3195 is rank #50' in index
     hub = (ROOT/'docs/submission-hub.html').read_text()
     assert 'independent 30 Oct live re-read' in hub
-    assert '0.3195 at rank #48' in hub
+    assert '0.3195 at rank #50' in hub
     assert 'Neither 0.4413 nor 0.3195 was confirmed' not in hub
     focus = (ROOT/'docs/focus-sites.html').read_text()
     assert 'Latest review 2026-10-30: no file cleared; this repository-safety review produced no candidate or score estimate' in focus
