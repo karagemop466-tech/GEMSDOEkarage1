@@ -23,7 +23,7 @@ if str(ROOT) not in _sys.path:
     _sys.path.insert(0, str(ROOT))
 from scripts import submission_hub  # noqa: E402  (submission decision + download hub, 2026-10-29)
 SITES = tuple(f'GEMSDOE{n}' for n in (24, 25, 27, 28, 30, 31, 32, 33, 36))
-CURRENT_REVIEW_CARD = ROOT / 'evidence/session_cd6c8044_run_card.json'
+CURRENT_REVIEW_CARD = ROOT / 'evidence/run_card_arena_b8fc7593_20261031.json'
 esc = html.escape
 
 
@@ -34,12 +34,12 @@ def current_review():
 
     card = json.loads(CURRENT_REVIEW_CARD.read_text(encoding='utf-8'), parse_constant=_reject_constant)
     expected_paths = {
-        'review_path': 'knowledge/session-review-arena-cd6c8044.md',
-        'run_card_path': 'evidence/session_cd6c8044_run_card.json',
+        'review_path': 'knowledge/review-arena-b8fc7593-20261031.md',
+        'run_card_path': 'evidence/run_card_arena_b8fc7593_20261031.json',
     }
     holdout = card.get('holdout_dti')
     if (card.get('schema') != 'karage1-run-card-v1'
-            or card.get('session') != 'arena/cd6c8044-gemsdoekarage1'
+            or card.get('session') != 'arena/b8fc7593-gemsdoekarage1'
             or card.get('verdict') != 'negative'
             or card.get('ok_to_submit') is not False
             or card.get('new_candidate_generated') is not False
@@ -361,7 +361,7 @@ def shell(title: str, body: str, depth: int = 0, active: str = 'Overview'):
 <a class="brand" href="{p}index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 25 13.3 8h8.5L31 25h-7.3L17.5 13 11.8 25Z"/><path d="M12 25h13"/></svg></span><span><strong>GEMS</strong><small>FIELD INTELLIGENCE</small></span></a>
 <nav class="main-nav" aria-label="Main navigation">{nav}</nav><a class="header-link" href="https://github.com/karagemop466-tech/GEMSDOEkarage1">View repository ↗</a></div>
 <div class="container"><p class="global-hold">{status_line(p)}</p></div></header>
-<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/session_cd6c8044_run_card.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
+<main id="main"><div class="container">{body}</div></main><footer class="site-footer"><div class="container footer-inner"><div><strong>GEMS</strong><span>FIELD INTELLIGENCE</span><p>Evidence before a leaderboard slot.</p></div><div class="footer-links"><a href="{p}evidence/run_card_arena_b8fc7593_20261031.json">Latest review card</a><a href="{doc}research.html">Research</a><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Official competition ↗</a></div><div class="footer-end">MAXIMIZE P(WIN) / OWN THE OUTCOME<br><span>Not affiliated with the organizers.</span></div></div></footer></body></html>'''
 
 
 def session_evidence():
@@ -518,6 +518,7 @@ def nine_site_section(prefix: str) -> str:
             f'<td><code class="wrap">{esc(top["file_name"])}</code>'
             f'<span class="cell-sub">Third-party file · learning only · do not resubmit · <a href="{esc(top["url"])}">source ↗</a></span></td>'
             f'<td><strong>{score:.4f}</strong><span class="cell-sub">USER-REPORTED / UNVERIFIED · {n} listed file(s)</span></td>'
+            '<td><strong>Not estimable</strong><span class="cell-sub">No calibrated leaderboard projection</span></td>'
             f'<td><span class="pill pill-red">NO</span><span class="cell-sub">{share:.1%} of its dots lie within 3 px of {sibling}</span></td>'
             '<td><span class="pill pill-red">DO NOT SUBMIT</span></td></tr>')
     lat = local['local_downloads']
@@ -536,15 +537,15 @@ def nine_site_section(prefix: str) -> str:
         'The highest public file in the nine focus sites is GEMSDOE32 at <strong>0.2778 (USER-REPORTED / UNVERIFIED)</strong>; '
         'it is a third-party file, so we may study it but must not resubmit it.</p></div></div>'
         '<div class="table-shell"><div class="table-scroll" tabindex="0" role="region" aria-label="Nine focus sites ranked by reported score">'
-        '<table><thead><tr><th>Rank · site</th><th>Best public file (learning only)</th><th>Score label</th>'
-        '<th>Unique vs listed GEMSDOE sites?</th><th>Submit?</th></tr></thead>'
+        '<table><thead><tr><th>Rank · site</th><th>Best public file (learning only)</th><th>Reported score</th>'
+        '<th>Leaderboard estimate</th><th>Unique vs listed GEMSDOE sites?</th><th>Submit?</th></tr></thead>'
         f'<tbody>{"".join(body)}</tbody></table></div></div>'
         '<p class="cell-sub">Scores come from <code>registry/user_reported_scores_20261029.json</code>. '
         'Uniqueness is measured on SHA-pinned mirror rasters in '
         f'<code>{esc(str(NINE_LINEAGE.relative_to(ROOT)))}</code>: GEMSDOE25 and GEMSDOE30 have identical dot masks ({gate_note}); '
         f'GEMSDOE32 is GEMSDOE25 minus {removed:,} dots. Every focus site has at least {worst_sibling:.1%} of its dots within 3 px of one sibling. '
         f'Our own worst lattice overlap is {worst_lat:.2%} (literal duplicate; threshold 70%). '
-        'No estimate for any of our files is possible without a holdout run and an organizer receipt.</p>'
+        'Leaderboard estimate is explicitly “Not estimable” for every historical file: no calibrated mapping from catalogue holdout to private leaderboard outcomes exists. Reported scores are user-supplied, not estimates or organizer receipts.</p>'
         '<p class="cell-sub">Public leaderboard (ORGANIZER-PUBLIC; live re-read 31 Oct 2026): #1 is 0.4544; 0.3195 is rank #50 (#48 is now 0.3231); '
         '0.4413 is not in the top 50 (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData ↗</a>; '
         f'<a href="{prefix}knowledge/session-review-arena-89955dc0.md">independent repository review ↗</a>). '
@@ -605,7 +606,7 @@ def research(depth=1):
     p = '../' * depth
     return f'''<div class="page-top"><span>OVERVIEW <span class="separator">/</span> RESEARCH</span><span class="page-date">LATEST REVIEW · 31 OCT 2026</span></div><section class="subpage-hero"><p class="eyebrow"><span class="eyebrow-line"></span> SCIENCE BEFORE SCORING</p><h1>Understand the ground.<br><em>Respect the unknown.</em></h1><p>The target is previously unmapped geological faults, not direct proof of a geothermal vent.</p></section>
 <section class="notice"><span aria-hidden="true">ⓘ</span><p><strong>Historical research record:</strong> A prior parallel session ran three BB-STEP experiments and another generated Conduitcrest. Both fail the literal lattice gate. The 9ca08e2e audit session ran no geological experiment. Novelty across the whole fleet remains unverified; HOLDOUT-DTI is not an organizer score. See the current 31 Oct queue below.</p></section>
-<section class="section" id="current-hypotheses"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> CURRENT RESEARCH QUEUE · 31 OCT 2026</p><h2>Five testable hypotheses; none validated or cleared.</h2><p>The latest review preregisters a ranked slate using official competition inputs. H-EULER is the first conditional candidate; it was carried forward from an untested prior proposal and is not described as a fresh invention. No experiment ran because the lane, canonical shared template/cache, and organizer inputs are absent.</p><a class="text-link" href="{p}knowledge/hypotheses-20261031.md">Read the full hypothesis slate, mechanisms, confounders and validation gates ↗</a> · <a class="text-link" href="{p}knowledge/session-review-arena-cd6c8044.md">Read the current three-pass review ↗</a></div></div></section>
+<section class="section" id="current-hypotheses"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> CURRENT RESEARCH QUEUE · 31 OCT 2026</p><h2>Five testable hypotheses; none validated or cleared.</h2><p>The latest review preregisters a ranked slate using official competition inputs. H-EULER is the first conditional candidate; it was carried forward from an untested prior proposal and is not described as a fresh invention. No experiment ran because the lane, canonical shared template/cache, and organizer inputs are absent.</p><a class="text-link" href="{p}knowledge/hypotheses-20261031.md">Read the full hypothesis slate, mechanisms, confounders and validation gates ↗</a> · <a class="text-link" href="{p}knowledge/review-arena-b8fc7593-20261031.md">Read the current three-pass review ↗</a></div></div></section>
 <section class="section detail-grid" id="b2"><div><p class="eyebrow"><span class="eyebrow-line"></span> WHAT THE BYTES SHOW</p><h2>Why B2 may have worked.</h2></div><div class="prose-card"><p>Cross-site binary-mask algebra establishes a collar-ablation ladder on the identical GEMSDOE25/GEMSDOE30 parent mask (44,090 dots): removing 3,891 dots within 1 pixel of the mirrored catalogue yields GEMSDOE31 and GEMSDOE28 h27-4-r1 (40,199 dots, 0.2708 user-reported); removing 6,436 dots within 2 pixels yields GEMSDOE32 B2 (37,654 dots, 0.2778 user-reported). GEMSDOE36 (38,854 dots, 0.2750 user-reported) is an exact superset that adds 1,200 off-catalogue dots.</p><p>For the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">organizer metric</a>, deleting near-catalogue digitization halos helps only if saved false-positive penalty outweighs lost distance-weighted recall. Firsthand inspection of restored <code>training_features.tif</code> found 3,073 raw float32 nodata pixels inside the submission footprint and strictly positive Band 6 <code>tc</code> curvature values, both requiring explicit inference masking.</p><p>The reported 0.2778 is an unverified user report. No experiment in the active session establishes a higher leaderboard result. <a class="text-link" href="{p}knowledge/session-review-arena-9ca08e2e.md">Read the complete forensic &amp; 9-site audit ↗</a></p></div></section>
 <section class="section" id="hypotheses"><div class="section-heading"><div><p class="eyebrow"><span class="eyebrow-line"></span> RANKED HYPOTHESES</p><h2>One executed. Four still qualitative.</h2><p>Latest session <code>1668dda0</code> preregistration slate: Cross-Potential Dip-Polarity Co-Gradient Step (<code>CP-DPCS</code>), Biharmonic Elastic Relay-Bridge Stress-Transfer Corridor (<code>BERB-STC</code>), Wavelet-Destriped Potassium-Residual Magnetics Trough (<code>WD-KRMT</code>), and Cross-Fan Drainage-Incision Knickzone Alignment (<code>CF-DIKA</code>). <a href="{p}knowledge/session-review-arena-1668dda0.md#4-pre-implementation-generation--qualitative-ranking-of-four-untried-geological-hypotheses">Exact layers, off-catalogue rationale, non-fault mimics and sibling differences ↗</a></p><p>Additional session a1ef4ce0 preregistration slate: magnetic texture change points, paired block-tilt breaks and magnetic edge-network severance. All are untested proposals, not assigned lanes. <a href="{p}knowledge/session-review-arena-a1ef4ce0.md#2-preregistered-research-slate--proposals-only-not-assigned-lanes">Layers, confounders, relative cost and validation blockers ↗</a></p><p>Ordering reflects qualitative promise relative to cost, not a predicted DTI improvement. BB-STEP used only competition gravity, depth-to-basement, slope and RTP bands restored from hash-pinned mirrors.</p></div></div><div class="hypothesis-grid">
 <article class="hypothesis-card"><span class="hypothesis-rank">00 <span>EXECUTED · NEGATIVE</span></span><h3>Buried basement-step (BB-STEP)</h3><p>Isostatic-gravity and depth-to-basement NMS ridges, sign-invariant alignment, low topographic-slope veto. Targets intra-basin faults the scarp catalogue misses. Max leakage-canary AUC 0.53. Unique vs nine focus sites (12.6%); lattice 98.5%.</p><div><b>Confounders:</b> lithologic contacts, volcanic-flow density edges, basin-fill compaction.</div><small>Opposite of H19-5 / GPC-Z (slope is a veto). Fold-local HOLDOUT-DTI 0.0318 [0.0271, 0.0363], evaluator gemsk-hide-recover-v1, n=60,988. Not an organizer score.</small></article>

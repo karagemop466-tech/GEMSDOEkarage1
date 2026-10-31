@@ -1,6 +1,8 @@
+**Current branch review first (2026-10-31, `arena/b8fc7593-gemsdoekarage1`): read `knowledge/review-arena-b8fc7593-20261031.md` and `evidence/run_card_arena_b8fc7593_20261031.json`, then the top CURRENT REVIEW block in `README.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no TIF, experiment, holdout, score estimate, or slot selection. Lane/template assignment and required data are unresolved. Focus-site leaderboard estimates are explicitly unavailable.
+
 # Starting point for every session
 
-**Current branch review first (2026-10-31, `arena/cd6c8044-gemsdoekarage1`): read `knowledge/session-review-arena-cd6c8044.md`, `evidence/session_cd6c8044_run_card.json`, and `knowledge/hypotheses-20261031.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no TIF, experiment, holdout, score estimate, or slot selection. Lane/canonical template, authenticated inputs, and complete registry remain unresolved. Suite: 451 passed, 2 data-dependent skips. Live board snapshot: #1 0.4544, #50 0.3195 (31 Oct, organizer-public only).
+**Prior mainline review (2026-10-31, `arena/cd6c8044-gemsdoekarage1`): read `knowledge/session-review-arena-cd6c8044.md`, `evidence/session_cd6c8044_run_card.json`, and `knowledge/hypotheses-20261031.md`.** Verdict NEGATIVE / DO NOT SUBMIT; no TIF, experiment, holdout, score estimate, or slot selection. Lane/canonical template, authenticated inputs, and complete registry remain unresolved. Suite: 451 passed, 2 data-dependent skips. Live board snapshot: #1 0.4544, #50 0.3195 (31 Oct, organizer-public only).
 
 **Previous branch review (31 Oct 2026, `arena/946f7668`):** read `knowledge/review-arena-946f7668-20261031.md` and `evidence/run_card_arena_946f7668_20261031.json`. It also ended negative and is historical; current review is above.
 

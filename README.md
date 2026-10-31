@@ -1,6 +1,14 @@
 # GEMSDOEkarage1 — Fault Discovery, Evidence First
 
-## CURRENT REVIEW (read first) — session `arena/cd6c8044-gemsdoekarage1` (31 Oct 2026)
+## CURRENT REVIEW (read first) — session `arena/b8fc7593-gemsdoekarage1` (31 Oct 2026)
+
+**Status: NEGATIVE — DO NOT SUBMIT.** No TIF, geological experiment, or holdout ran; no leaderboard estimate is supported and no slot was selected. Lane/template assignment and required cached data remain absent; preflight fails closed and writer/uniqueness pins mismatch.
+- **Review/run card:** [three-pass review](knowledge/review-arena-b8fc7593-20261031.md) · [JSON card](evidence/run_card_arena_b8fc7593_20261031.json).
+- **Verification:** `.venv/bin/python -m pytest -q -rs` → 451 passed, 3 data-dependent skips, 126 Rasterio warnings after integrating current main. Software checks are not scientific validation.
+- **Executive table:** the nine-site table now has an explicit “Leaderboard estimate” column, all entries “Not estimable”; historical scores remain USER-REPORTED / UNVERIFIED.
+- **Submission:** no file is approved for download/upload. No experiment or weekly slot was spent.
+
+## Previous mainline review — session `arena/cd6c8044-gemsdoekarage1` (31 Oct 2026)
 
 **Status: NEGATIVE — DO NOT SUBMIT.** No new TIF was generated or cleared, no leaderboard score estimate is supportable, and no weekly slot was selected or spent. The assigned method lane and canonical shared template are unset; required cached data and organizer inputs are absent; and shared-tool preflight reports writer/uniqueness provenance mismatches. Producing an arbitrary raster would violate the lane, shared-tool, holdout, and uniqueness protocol.
 
