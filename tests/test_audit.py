@@ -109,6 +109,11 @@ def test_research_downloads_are_labeled_and_match_audited_bytes():
     expected.add(card['raster_sha256'])
     expected.add(json.loads((root/'evidence/conduitcrest_lattice_reaudit_20261028.json').read_text())['candidate']['sha256'])
     assert len(expected) == 4
+    # 2026-10-31 E1 candidate (zeros and NaN variants): each has a saved-byte receipt written by
+    # scripts/write_o2_audit_receipts_20261031.py; the audited bytes are the only allowed downloads.
+    for receipt in ('evidence/audit_o2_candidate_zeros_20261031.json', 'evidence/audit_o2_candidate_nan_20261031.json'):
+        expected.add(json.loads((root/receipt).read_text())['sha256'])
+    assert len(expected) == 6
     for gate_name in ('release_gate_hmas_sinter.json', 'release_gate_gpcz.json'):
         gate = json.loads((root/'evidence'/gate_name).read_text())
         assert gate['result']['verdict'] == 'negative' and gate['result']['ok_to_submit'] is False

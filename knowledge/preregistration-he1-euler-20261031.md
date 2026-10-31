@@ -1,0 +1,12 @@
+# Pre-registration — H-E1 window Euler deconvolution (session `arena/he1-euler-gemsdoe-20261031`, 31 Oct 2026)
+
+Written **before** the experiment was executed (file mtime 00:45:09 UTC precedes the first log line; the file is first committed with this PR). The decision rule is the `DECISION_RULE` constant in `scripts/run_he1_euler_deconvolution.py` and is not edited after a result is seen.
+
+- **Hypothesis.** Window Euler deconvolution of the official TMI field, using the official `tmi_vg` band as the vertical derivative, produces depth-consistent contact solutions whose density concentrates on magnetic contacts. Some of those contacts may be unmapped faults.
+- **Why it should find a fault missing from the catalogue.** A buried, displaced contact under cover can carry a magnetic depth signature with no trace on the mapped catalogue. The catalogue is not an input to the surface.
+- **Non-fault mimics.** Lithologic and intrusive contacts, dyke margins, basalt-flow edges, and magnetisation changes. Each will produce the same Euler signature.
+- **Novelty.** `knowledge/hypotheses-20261030.md` row H-E1 records that `grep -ril euler scripts src vendor` returned zero hits on 30 Oct 2026. The method was proposed in notes (`knowledge/session-review-arena-23ef16f9.md`, H2) but never implemented. The 31 Oct script is the first implementation.
+- **Structural index.** Primary N = 0 (contact of infinite depth extent). Thompson (1982) and Reid et al. (1990) introduced the zero-index contact case. Reid et al. (2013), Table 1, lists magnetic SI = 0 for a contact of infinite depth extent and SI = 1 for a thin sheet, sill, or dyke. Secondary arm N = 1 is disclosed and cannot promote alone.
+- **Budget.** One experiment with three stages: E1 leakage canary, E2 holdout versus controls, E3 build and gates. Each stage is logged in the evidence JSON.
+- **Sources (verified 31 Oct 2026).** Reid, Ebbing, Lee et al., "The use and abuse of Euler deconvolution applied to potential field data" (2013): https://www.reid-geophys.co.uk/wp-content/uploads/2017/11/Reid-et-al-2013.pdf . Zhang et al. (2000), Geophysics 65(2):512-520, which cites Thompson (1982) for the zero-index contact: https://www.reid-geophys.co.uk/wp-content/uploads/2017/11/Zhang-et-al-2000.pdf .
+- **Known unknowns (flagged, not resolved).** The unit of `tmi_vg` is not stated in its band description. The depth band 50-2000 m therefore depends on an unverified assumption that the band is nT/m. The result is reported with that caveat.

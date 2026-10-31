@@ -123,7 +123,7 @@ def main() -> None:
             "B6: two evaluator lineages (gems57-pooled-hide-v2 and gemsk-hide-recover-v1); numbers not directly comparable.",
             "B7: official feature list includes a top-of-crustal magnetic source depth band not among the 19 mirrored bands.",
             "NaN-vs-zeros vendor conflict: vendor writer zeros outside; official says null/NaN outside. Adapter used; vendor not edited (integrity pin).",
-            "0.3195 (live rank #48) and 0.4413 (user-cited) not verified on the live leaderboard pages read this session.",
+            "0.3195 (live rank #50 on 31 Oct; #48 on 30 Oct) and 0.4413 (user-cited) not verified on the live leaderboard pages read this session.",
         ],
         "sources": [
             "https://www.drivendata.org/competitions/306/competition-doe-gems/",

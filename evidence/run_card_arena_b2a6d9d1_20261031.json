@@ -1,0 +1,37 @@
+{
+  "session": "arena/b2a6d9d1-gemsdoekarage1",
+  "date": "2026-10-31",
+  "verdict": "negative",
+  "hypothesis": "none tested. The user's method lane paragraph is absent (registry/template.json method_lane = null), so no candidate was run.",
+  "mechanism": "metric arithmetic only: DTI bar for a non-redundant dot is k > alpha*DTI (verified in code); B2 is a 6,436-cell pure removal from GEMSDOE25.",
+  "named_non_fault_mimic": "not assessed: no candidate raster was generated",
+  "holdout_dti": null,
+  "holdout_note": "NOT RUN. No HOLDOUT-DTI value is reported in this session.",
+  "correlation_overlap_vs_registry": "not computed for a new candidate; registry duplicate facts: G25 and G30 positive masks identical; B2 subset of G25",
+  "raster_sha256": null,
+  "validator_output": {
+    "tool": "scripts/check_official_format.py",
+    "evidence": "evidence/official_format_check_20261031.json",
+    "files_checked": 31,
+    "official_literal_pass": 10,
+    "out_of_range_values": 0,
+    "outside_footprint_encoding": {"nan": 10, "zero": 19, "mixed": 2}
+  },
+  "scores": {
+    "leaderboard_1st": {"value": 0.4544, "classification": "ORGANIZER-PUBLIC (live 2026-10-31)"},
+    "leaderboard_0_3195": {"rank": 50, "classification": "ORGANIZER-PUBLIC (live 2026-10-31)"},
+    "leaderboard_0_4413": {"rank": null, "classification": "not in top 50 on the live page"},
+    "GEMSDOE32_B2": {"value": 0.2778, "classification": "USER-REPORTED / UNVERIFIED"}
+  },
+  "software_checks": {
+    "tests": "447 passed, 1 skipped",
+    "dti_oracle": "evidence/dti_threshold_check_20261031.json (pass)",
+    "b2_subset": "evidence/b2_subset_check_20261031.json"
+  },
+  "submission_note": null,
+  "slot_selected": false,
+  "slots_spent": 0,
+  "experiments_used": 0,
+  "budget": "0 of 3 experiments; scope was verification and review",
+  "download_cleared": false
+}

@@ -1,0 +1,361 @@
+{
+  "schema": "karage1-nine-site-executive-20261031-v1",
+  "date_utc": "2026-10-31",
+  "leaderboard_context": {
+    "label": "ORGANIZER-PUBLIC (public leaderboard row; not a submission receipt for any file here)",
+    "captured_utc_date": "2026-10-30",
+    "top_score": 0.4544,
+    "rank_48_score": 0.3195,
+    "note": "Snapshot from 30 Oct 2026; not re-fetched this session (drivendata.org not reachable from the sandbox)."
+  },
+  "rows": [
+    {
+      "site": "GEMSDOE24",
+      "file_to_download": "GEMSDOE24_gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan.tif",
+      "file_sha256": "68d0e2e4fcc594f9a23f56c44b885fee733d026d39be55e18ad2a07289525310",
+      "dots": 60069,
+      "reported_score": 0.2477,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "exact_mask_duplicates_of": [],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE25",
+        "fraction": 1.0,
+        "phi": 0.575854
+      },
+      "lattice_forward3px_overlap": 0.999218,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    },
+    {
+      "site": "GEMSDOE25",
+      "file_to_download": "GEMSDOE25_d28.tif",
+      "file_sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "dots": 44090,
+      "reported_score": 0.26,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE24",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "exact_mask_duplicates_of": [
+        "GEMSDOE30"
+      ],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE24",
+        "fraction": 1.0,
+        "phi": 0.575854
+      },
+      "lattice_forward3px_overlap": 0.999161,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    },
+    {
+      "site": "GEMSDOE27",
+      "file_to_download": "GEMSDOE27_gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan.tif",
+      "file_sha256": "33003374335d84bf885f2d8f5e9dd4c57044c8ec58fa6a0d7fa581e8bc41c11d",
+      "dots": 61328,
+      "reported_score": 0.2449,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "exact_mask_duplicates_of": [],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE24",
+        "fraction": 1.0,
+        "phi": 0.98956
+      },
+      "lattice_forward3px_overlap": 0.999234,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    },
+    {
+      "site": "GEMSDOE28",
+      "file_to_download": "GEMSDOE28_gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-nan.tif",
+      "file_sha256": "5556aa1438fd67376b60d5ffc99228ec09dcc11a8408298a743ccb88d6163641",
+      "dots": 37660,
+      "reported_score": 0.271,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "exact_mask_duplicates_of": [],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE24",
+        "fraction": 1.0,
+        "phi": 0.530583
+      },
+      "lattice_forward3px_overlap": 0.999097,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    },
+    {
+      "site": "GEMSDOE30",
+      "file_to_download": "GEMSDOE30_gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca.tif",
+      "file_sha256": "8cf893ead5667df21d3288a9968c35fd5385c425b029d82ee71d311715b129fd",
+      "dots": 44090,
+      "reported_score": 0.26,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "exact_mask_duplicates_of": [
+        "GEMSDOE25"
+      ],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE24",
+        "fraction": 1.0,
+        "phi": 0.575854
+      },
+      "lattice_forward3px_overlap": 0.999161,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    },
+    {
+      "site": "GEMSDOE31",
+      "file_to_download": "GEMSDOE31_gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-nan.tif",
+      "file_sha256": "07b6db440535404bb41ec8ddc797713e200d308e3da35937393efde5eb84bc40",
+      "dots": 40199,
+      "reported_score": 0.2708,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "exact_mask_duplicates_of": [],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE24",
+        "fraction": 1.0,
+        "phi": 0.546447
+      },
+      "lattice_forward3px_overlap": 0.999179,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    },
+    {
+      "site": "GEMSDOE32",
+      "file_to_download": "GEMSDOE32_B2.tif",
+      "file_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "dots": 37654,
+      "reported_score": 0.2778,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE33",
+        "GEMSDOE36"
+      ],
+      "exact_mask_duplicates_of": [],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE24",
+        "fraction": 1.0,
+        "phi": 0.532368
+      },
+      "lattice_forward3px_overlap": 0.99915,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    },
+    {
+      "site": "GEMSDOE33",
+      "file_to_download": "GEMSDOE33_GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e.tif",
+      "file_sha256": "87f857d505e23247e991ccfab2cbe9f49a04df4f9c8028dce7ea261554690757",
+      "dots": 41865,
+      "reported_score": 0.2632,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE36"
+      ],
+      "exact_mask_duplicates_of": [],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE32",
+        "fraction": 0.999841,
+        "phi": 0.794679
+      },
+      "lattice_forward3px_overlap": 0.99914,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    },
+    {
+      "site": "GEMSDOE36",
+      "file_to_download": "GEMSDOE36_gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-zeros.tif",
+      "file_sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+      "dots": 38854,
+      "reported_score": 0.275,
+      "score_label": "USER-REPORTED / UNVERIFIED (score_ledger.csv; no organizer receipt)",
+      "estimated_leaderboard_score": "NOT ESTIMABLE",
+      "estimate_reason": "No organizer receipt and no calibrated mapping from our catalogue holdout to the hidden labels. Holdout random-placement control is 0.0773 HOLDOUT-DTI.",
+      "unique_vs_other_focus_sites": false,
+      "duplicate_flags_vs": [
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33"
+      ],
+      "exact_mask_duplicates_of": [],
+      "worst_pair_3px_overlap_either_direction": {
+        "sibling": "GEMSDOE32",
+        "fraction": 1.0,
+        "phi": 0.984321
+      },
+      "lattice_forward3px_overlap": 0.999176,
+      "lattice_gate_passes": false,
+      "ok_to_download_and_submit": false,
+      "action": "DO NOT RESUBMIT (already listed; a re-upload is not a new candidate)"
+    }
+  ],
+  "candidate": {
+    "file_to_download": "docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.tif",
+    "zip_to_download": "docs/downloads/karage1-h31-visgrad-nms3px-40k-20261031-zeros.zip",
+    "sha256_tif": "4221236752e703ec035b4d4245d23dbb0cf2b1126f8cb6040e810316be1d738a",
+    "dots": 40000,
+    "name": "karage1-h31-visgrad-nms3px-40k-20261031-zeros",
+    "holdout_dti": {
+      "label": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "value": 0.114328,
+      "ci95": [
+        0.091795,
+        0.136442
+      ],
+      "withheld_positive_pixels": 60593,
+      "paired_vs_random": {
+        "delta": 0.037052,
+        "ci95": [
+          0.015444,
+          0.058994
+        ]
+      },
+      "buffer20_posthoc_value": 0.12541,
+      "buffer20_posthoc_ci95": [
+        0.101407,
+        0.149131
+      ],
+      "buffer20_posthoc_paired_vs_random_delta": 0.049794,
+      "buffer20_posthoc_paired_vs_random_ci95": [
+        0.02557,
+        0.073928
+      ],
+      "random_control_value": 0.077275,
+      "canary_max_symmetric_auc": 0.6266
+    },
+    "estimated_leaderboard_score": "NOT ESTIMABLE",
+    "unique_vs_nine_focus": true,
+    "lattice_gate_passes": false,
+    "surface_gate_passes": true,
+    "validator_pass": true,
+    "independent_saved_byte_audit": {
+      "receipt": "evidence/audit_h31_candidate_saved_bytes_20261031.json",
+      "method": "re-read saved bytes; overlap by 3 px disk dilation (independent of the runner)",
+      "all_format_and_focus_checks_pass": true,
+      "lattice_gate_passes": false
+    },
+    "gate_status": "NOT CLEARED",
+    "ok_to_download_and_submit": false,
+    "submission_status": "DO NOT SUBMIT: NOT CLEARED. Fails the lattice gate (by construction for any dotted raster); owner must resolve the gate before any selector step. No leaderboard estimate exists."
+  },
+  "b2_mechanism": {
+    "b2_dots": 37654,
+    "d28_dots": 44090,
+    "b2_subset_of_d28": true,
+    "removed_dots": 6436,
+    "removed_on_catalogue_px_distance0": 0,
+    "removed_distance_1px_or_less_excluding0": 3891,
+    "removed_distance_1_to_2px": 2545,
+    "removed_distance_gt2px": 0,
+    "removed_max_distance_px": 2.0,
+    "removed_median_distance_px": 1.0,
+    "d28_dots_within_2px_of_catalogue_incl_on": 6436,
+    "claim_checked": "B2 described as 'd2.8 minus dots at or within 2 px of the mirrored catalogue' (knowledge/session-review-arena-cfabff7e.md)"
+  },
+  "decision": "NO FILE IS OK TO DOWNLOAD AND SUBMIT. The candidate is unique and format-valid, but fails the registry lattice gate (forward overlap 99.75%, inherent to any dotted raster on this grid). Owner decision required before any selector step."
+}
